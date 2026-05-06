@@ -248,12 +248,14 @@ const no: Dictionary = {
   },
   summer: {
     badge: 'Sommer på Bjorli',
-    title: 'Bjorli sommerdestinasjon',
-    subtitle: 'Fjellro, frisk luft og naturopplevelser – porten mellom Østlandet og Nordvestlandet',
+    eyebrow: 'Sommer på Bjorli',
+    title: 'Basecamp mellom fjell og fjord',
+    subtitle: 'Bruk Bjorli som utgangspunkt for turer, sykling, Raumabanen, Romsdalen, Dovrefjell og rolige sommerdager i fjellet.',
     intro: 'Bruk Bjorli som base for fotturer, sykling, familieferie, togreise og ekte norske naturopplevelser.',
-    ctaExplore: 'Utforsk sommer på Bjorli',
+    ctaExplore: 'Se aktiviteter',
     ctaActivities: 'Se aktiviteter',
     ctaStay: 'Finn overnatting',
+    ctaPlan: 'Planlegg reisen hit',
     activitiesTitle: 'Sommeropplevelser',
     activitiesSubtitle: 'Finn din favorittaktivitet i fjellet.',
     activities: [
@@ -276,7 +278,30 @@ const no: Dictionary = {
     ],
     winterTeaserTitle: 'Bjorli om vinteren',
     winterTeaserBody: 'Snøsikre fjelldager med alpint, langrenn og hytteliv – fra november til mai.',
-    winterTeaserCta: 'Se vinter på Bjorli'
+    winterTeaserCta: 'Se vinter på Bjorli',
+    basecamp: {
+      eyebrow: 'Mellom fjell og fjord',
+      title: 'Midt mellom fjellet og fjorden',
+      body: 'Fra Bjorli har du kort vei til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordopplevelsene på Nordvestlandet. Her bor du rolig i fjellet, men har noen av Norges sterkeste naturopplevelser innen rekkevidde.',
+      items: [
+        { title: 'Raumabanen', desc: 'En av Norges vakreste togreiser, med Bjorli som naturlig stoppested i fjellet.' },
+        { title: 'Romsdalen og Trollveggen', desc: 'Dramatiske fjell, turmuligheter og sterke naturopplevelser innen kort reisevei.' },
+        { title: 'Dovrefjell', desc: 'Nasjonalpark, moskus, fjellturer og store landskap for både korte og lengre utflukter.' },
+        { title: 'Ålesund og fjordene', desc: 'Kombiner rolige dager på Bjorli med fjord, kyst og byopplevelser på Nordvestlandet.' },
+      ],
+      ctaActivities: 'Se aktiviteter',
+      ctaPlan: 'Planlegg reisen hit',
+    },
+  },
+  whyBjorli: {
+    eyebrow: 'Derfor velger folk Bjorli',
+    title: 'Hvorfor Bjorli?',
+    items: [
+      { title: 'Snøsikkert og familievennlig', desc: 'Ekte vinter, trygge rammer og gode opplevelser for både barn og voksne.', icon: 'snowflake' },
+      { title: 'Kort vei til ski, hytter og natur', desc: 'Mindre logistikk, kortere avstander og mer tid ute.', icon: 'mountain' },
+      { title: 'Tog til fjellet med Raumabanen', desc: 'Reis til Bjorli med en av Norges vakreste togstrekninger.', icon: 'train' },
+      { title: 'Basecamp mellom fjell og fjord', desc: 'Opplev fjellet, Romsdalen, Dovrefjell og Nordvestlandet fra samme utgangspunkt.', icon: 'treePine' },
+    ],
   },
 };
 
