@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Ticket, Home as HomeIcon } from 'lucide-react';
+import { Ticket, Home as HomeIcon, Clock } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
@@ -34,7 +34,7 @@ const Index = () => {
             transition={{ duration: 0.6 }}
             className="inline-block text-secondary text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-6"
           >
-            {home.intro}
+            {d.hero.eyebrow ?? home.intro}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -58,20 +58,23 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
           >
-            <Link to={lp('/bjorli-skisenter')}>
-              <Button size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
-                {d.hero.ctaSkiCenter}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            {/* Primary — Kjøp heiskort */}
             <a href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862" target="_blank" rel="noopener noreferrer">
-              <Button variant="secondary" size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
+              <Button size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
                 <Ticket className="mr-2 h-5 w-5" />
                 {d.hero.ctaLiftPass}
               </Button>
             </a>
+            {/* Secondary — Åpningstider og føre */}
+            <Link to={lp('/apningstider')}>
+              <Button variant="secondary" size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
+                <Clock className="mr-2 h-5 w-5" />
+                {d.hero.ctaOpening ?? d.status.openToday}
+              </Button>
+            </Link>
+            {/* Tertiary — Finn overnatting */}
             <Link to={lp('/overnatting')}>
               <Button variant="outline" size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground">
                 <HomeIcon className="mr-2 h-5 w-5" />
