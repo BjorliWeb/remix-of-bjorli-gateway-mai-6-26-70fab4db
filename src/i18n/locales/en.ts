@@ -238,12 +238,14 @@ const en: Dictionary = {
   },
   summer: {
     badge: 'Summer at Bjorli',
-    title: 'Bjorli summer destination',
-    subtitle: 'Mountain calm, fresh air and nature experiences – the gateway between eastern and north-western Norway',
+    eyebrow: 'Summer at Bjorli',
+    title: 'A basecamp between mountain and fjord',
+    subtitle: 'Use Bjorli as your starting point for hiking, biking, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
     intro: 'Use Bjorli as a base for hiking, biking, family holidays, train travel and genuine Norwegian nature experiences.',
-    ctaExplore: 'Explore summer at Bjorli',
+    ctaExplore: 'See activities',
     ctaActivities: 'See activities',
     ctaStay: 'Find accommodation',
+    ctaPlan: 'Plan your trip here',
     activitiesTitle: 'Summer experiences',
     activitiesSubtitle: 'Find your favourite activity in the mountains.',
     activities: [
@@ -266,7 +268,30 @@ const en: Dictionary = {
     ],
     winterTeaserTitle: 'Bjorli in winter',
     winterTeaserBody: 'Snow-sure mountain days with alpine, cross-country and cabin life – from November to May.',
-    winterTeaserCta: 'See winter at Bjorli'
+    winterTeaserCta: 'See winter at Bjorli',
+    basecamp: {
+      eyebrow: 'Between mountain and fjord',
+      title: 'Right between the mountains and the fjords',
+      body: 'From Bjorli you have a short journey to the Rauma Line, Romsdalen, Trollveggen, Dovrefjell and the fjord landscapes of north-western Norway. Stay quietly in the mountains while some of Norway’s most powerful nature experiences are within easy reach.',
+      items: [
+        { title: 'The Rauma Line', desc: 'One of Norway’s most beautiful train rides, with Bjorli as a natural mountain stop.' },
+        { title: 'Romsdalen and Trollveggen', desc: 'Dramatic peaks, hiking and powerful nature within a short drive.' },
+        { title: 'Dovrefjell', desc: 'A national park with musk ox, mountain hikes and vast landscapes for short or long trips.' },
+        { title: 'Ålesund and the fjords', desc: 'Combine calm days in Bjorli with fjord, coast and city experiences in north-western Norway.' },
+      ],
+      ctaActivities: 'See activities',
+      ctaPlan: 'Plan your trip here',
+    },
+  },
+  whyBjorli: {
+    eyebrow: 'Why people choose Bjorli',
+    title: 'Why Bjorli?',
+    items: [
+      { title: 'Snow-sure and family-friendly', desc: 'Real winter, safe surroundings and good experiences for kids and adults alike.', icon: 'snowflake' },
+      { title: 'Short distances to skiing, cabins and nature', desc: 'Less logistics, shorter distances and more time outdoors.', icon: 'mountain' },
+      { title: 'Train to the mountain via the Rauma Line', desc: 'Reach Bjorli on one of Norway’s most scenic railway journeys.', icon: 'train' },
+      { title: 'A basecamp between mountain and fjord', desc: 'Experience the mountains, Romsdalen, Dovrefjell and north-western Norway from one base.', icon: 'treePine' },
+    ],
   },
 };
 
