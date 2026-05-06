@@ -25,11 +25,13 @@ const en: Dictionary = {
     language: 'Language',
   },
   hero: {
-    title: 'Bjorli winter destination',
-    subtitle: 'Snow-sure mountain days – the gateway between eastern and north-western Norway',
-    intro: 'Alpine skiing, cross-country trails, cabins, fresh mountain air and authentic Norwegian winter experiences – with Bjorli Ski Resort at the heart of the season.',
+    eyebrow: 'Destination Bjorli – winter',
+    title: 'Real winter. Easier mountain days.',
+    subtitle: 'Snow-sure Bjorli offers alpine and cross-country skiing, cabin life and calm family days between eastern Norway and the western fjords.',
+    intro: 'Destination Bjorli – winter',
     ctaSkiCenter: 'Visit Bjorli Ski Resort',
     ctaLiftPass: 'Buy lift pass',
+    ctaOpening: 'Opening hours and conditions',
     ctaStay: 'Find a stay',
   },
   status: {
@@ -40,6 +42,8 @@ const en: Dictionary = {
     openToday: 'Opening hours',
     livecams: 'Livecams',
     seeMore: 'See more',
+    heading: 'Live status on the mountain',
+    caption: 'Updated today. Check opening hours, conditions, lifts and webcams before you head out.',
   },
   alert: {
     label: 'Service notice',
@@ -74,8 +78,14 @@ const en: Dictionary = {
   accommodation: {
     eyebrow: 'Where to stay',
     title: 'Stay close to the mountain',
-    body: 'Make your winter trip easier with accommodation near the slopes and the resort. Choose between cabins, apartments and other options for families, couples and groups.',
-    cta: 'Browse stays',
+    body: 'Choose between cabins, apartments and hotels in Bjorli – within easy reach of activities, dining, the train, the slopes and the surrounding nature.',
+    cta: 'Find accommodation',
+    ctaSecondary: 'See all options',
+    subcards: [
+      { title: 'Cabins and apartments', desc: 'Classic Norwegian cabin life, close to trails and lifts.' },
+      { title: 'Hotels', desc: 'Comfortable stays with dining and full service.' },
+      { title: 'Families and groups', desc: 'Spacious options for larger travelling groups.' },
+    ],
   },
   tips: {
     eyebrow: 'Inspiration',
@@ -102,14 +112,16 @@ const en: Dictionary = {
     ],
   },
   beyondAlpine: {
-    eyebrow: 'Beyond alpine',
-    title: 'Winter is more than the slopes',
-    body: 'Bjorli is a complete winter destination. Cross-country trails, sledging hills, snow caves and quiet cabin evenings – there is plenty to discover beyond the lifts.',
+    eyebrow: 'More than alpine',
+    title: 'Winter in Bjorli is more than lifts and pistes',
+    body: 'Mountain days here are also about cross-country, sledging, snow play, cabin evenings, short distances and time together. Bjorli suits families and friends who want real winter without everything having to be big, expensive and busy.',
     items: [
-      { title: 'Cross-country', desc: 'Groomed trails through stunning landscapes' },
-      { title: 'Sledging', desc: 'Safe slopes for the whole family' },
-      { title: 'Cabin life', desc: 'Long evenings and good times indoors' },
-      { title: 'Winter hikes', desc: 'Snowshoes and ski tours for explorers' },
+      { title: 'Cross-country', desc: 'Groomed trails through beautiful mountain landscapes.' },
+      { title: 'Sledging and snow play', desc: 'Safe hills for the whole family.' },
+      { title: 'Cabin evenings', desc: 'Long evenings, fireplaces and time indoors.' },
+      { title: 'Calm winter walks', desc: 'Snowshoes and easy tours for those who want to get out.' },
+      { title: 'Train to the mountain', desc: 'The Rauma Line stops right at Bjorli station.' },
+      { title: 'Family-friendly days', desc: 'Short distances and a relaxed pace for all ages.' },
     ],
   },
   gettingHere: {
