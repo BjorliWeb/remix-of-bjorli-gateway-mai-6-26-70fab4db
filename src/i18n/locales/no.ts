@@ -25,11 +25,13 @@ const no: Dictionary = {
     language: 'Språk',
   },
   hero: {
-    title: 'Bjorli vinterdestinasjon',
-    subtitle: 'Snøsikre fjelldager – porten mellom Østlandet og Nordvestlandet',
-    intro: 'Opplev alpint, langrenn, hytter, frisk fjelluft og ekte norske vinteropplevelser, med Bjorli Skisenter som hjertet av vintersesongen.',
+    eyebrow: 'Destinasjon Bjorli – vinter',
+    title: 'Ekte vinter. Enklere fjelldager.',
+    subtitle: 'Snøsikre Bjorli gir deg alpint, langrenn, hytteglede og rolige familiedager mellom Østlandet og fjordene på Vestlandet.',
+    intro: 'Destinasjon Bjorli – vinter',
     ctaSkiCenter: 'Se Bjorli Skisenter',
     ctaLiftPass: 'Kjøp heiskort',
+    ctaOpening: 'Se åpningstider og føre',
     ctaStay: 'Finn overnatting',
   },
   status: {
@@ -40,6 +42,8 @@ const no: Dictionary = {
     openToday: 'Åpningstider',
     livecams: 'Livecams',
     seeMore: 'Se mer',
+    heading: 'Status på fjellet akkurat nå',
+    caption: 'Oppdatert i dag. Se åpningstider, føre, heiser og webkamera før du drar.',
   },
   alert: {
     label: 'Driftsmelding',
@@ -73,9 +77,15 @@ const no: Dictionary = {
   },
   accommodation: {
     eyebrow: 'Overnatting',
-    title: 'Bo godt på Bjorli',
-    body: 'Gjør vinteropplevelsen enklere med overnatting nær fjellet, skiløypene og skisenteret. Velg mellom hytter, leiligheter og andre overnattingsmuligheter for familie, par og vennegjenger.',
-    cta: 'Se overnatting',
+    title: 'Bo tett på fjellet',
+    body: 'Velg mellom hytter, leiligheter og hotell på Bjorli. Her bor du med kort vei til aktiviteter, servering, tog, ski og naturopplevelser.',
+    cta: 'Finn overnatting',
+    ctaSecondary: 'Se alle alternativer',
+    subcards: [
+      { title: 'Hytter og leiligheter', desc: 'Klassisk hytteferie med kort vei til løyper og heis.' },
+      { title: 'Hotell', desc: 'Komfortabel overnatting med servering og service.' },
+      { title: 'Familie og grupper', desc: 'Romslige alternativer for større reisefølger.' },
+    ],
   },
   tips: {
     eyebrow: 'Tips fra Bjorli',
@@ -103,13 +113,15 @@ const no: Dictionary = {
   },
   beyondAlpine: {
     eyebrow: 'Mer enn alpint',
-    title: 'Vinter handler om mer enn nedfartene',
-    body: 'Bjorli er en hel vinterdestinasjon. Her finner du langrenn, kjelkebakker, snøhule-bygging og rolige stunder ved peisen.',
+    title: 'Vinteren på Bjorli er mer enn heis og løyper',
+    body: 'Her handler fjelldagene også om langrenn, aking, snølek, hyttekvelder, korte avstander og tid sammen. Bjorli passer for familier og vennegjenger som vil ha ekte vinter uten at alt må være stort, dyrt og travelt.',
     items: [
-      { title: 'Langrenn', desc: 'Preparerte spor i vakkert fjellandskap' },
-      { title: 'Aking', desc: 'Trygge bakker for hele familien' },
-      { title: 'Hytteliv', desc: 'Lange kvelder og god stemning innendørs' },
-      { title: 'Vinterturer', desc: 'Truger og toppturer for de som vil utforske' },
+      { title: 'Langrenn', desc: 'Preparerte spor i vakkert fjellandskap.' },
+      { title: 'Aking og snølek', desc: 'Trygge bakker for hele familien.' },
+      { title: 'Hyttekvelder', desc: 'Lange kvelder, peis og god stemning innendørs.' },
+      { title: 'Rolige vinterturer', desc: 'Truger og enkle toppturer for de som vil ut.' },
+      { title: 'Tog til fjells', desc: 'Raumabanen tar deg helt opp på Bjorli stasjon.' },
+      { title: 'Familievennlige dager', desc: 'Korte avstander og rolig tempo passer for små og store.' },
     ],
   },
   gettingHere: {
