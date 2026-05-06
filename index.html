@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!--
+      PRODUCTION NOTE (handoff):
+      This file ships no Lovable preview scripts or badges of its own. The
+      Lovable editor injects a preview badge at runtime — that badge is
+      stripped automatically on Lovable's published deployments (Pro plan)
+      and is never present in the future Next.js production build.
+      Before production launch: confirm no Lovable preview scripts/badges
+      are present in the built bundle. See docs/PRODUCTION_HANDOFF.md §13.
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bjorli – Vinter- og sommerdestinasjon mellom Dombås og Åndalsnes</title>
+    <meta name="description" content="Destinasjon Bjorli – snøsikre vinterdager med Bjorli Skisenter, og en rolig fjellbase for fotturer, sykling og familieferie om sommeren." />
+    <meta name="author" content="Destinasjon Bjorli" />
+    <meta name="theme-color" content="#001d28" />
+
+    <meta property="og:title" content="Bjorli – Vinter- og sommerdestinasjon mellom Dombås og Åndalsnes" />
+    <meta property="og:description" content="Snøsikre Bjorli om vinteren og en rolig fjellbase om sommeren – mellom Dombås og Åndalsnes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bjorli" />
+    <meta property="og:locale" content="no_NO" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bjorli – Vinter- og sommerdestinasjon" />
+    <meta name="twitter:description" content="Destinasjon Bjorli – snøsikker om vinteren, rolig fjellbase om sommeren." />
+    <meta name="twitter:site" content="@bjorli" />
+
+    <!--
+      Google Search Console verification placeholder.
+      TODO (production): replace the content value with the verification
+      token from Search Console, OR set VITE_GOOGLE_SITE_VERIFICATION at
+      build time and inject via SEOHead. Do NOT add a fake token.
+    -->
+    <!-- <meta name="google-site-verification" content="REPLACE_WITH_TOKEN" /> -->
+
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

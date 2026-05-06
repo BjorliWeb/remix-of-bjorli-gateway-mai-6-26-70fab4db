@@ -1,0 +1,103 @@
+# Bjorli
+
+Bjorli is a year-round mountain destination in Romsdalen, Norway, located
+between Dombås and Åndalsnes along the E136 highway and the Rauma Line
+(Raumabanen). It is best known as one of Norway's most snow-sure alpine
+destinations and is also a summer base for hiking, cycling and nature
+experiences. The official destination website is bjorli.no, operated by
+Destinasjon Bjorli.
+
+## Key pages
+
+- Homepage: https://www.bjorli.no/
+- Winter: https://www.bjorli.no/vinter
+- Summer: https://www.bjorli.no/sommer
+- Bjorli Skisenter (ski resort): https://www.bjorli.no/bjorli-skisenter
+- Ski passes (heiskort): https://www.bjorli.no/heiskort
+- Opening hours (åpningstider): https://www.bjorli.no/apningstider
+- Live webcams: https://www.bjorli.no/livecams
+- Trail / piste map (løypekart): https://www.bjorli.no/loypekart
+- Cross-country skiing: https://www.bjorli.no/langrenn
+- Ski rental: https://www.bjorli.no/skiutleie
+- Ski school: https://www.bjorli.no/skiskole
+- Accommodation: https://www.bjorli.no/overnatting
+- Food and drink: https://www.bjorli.no/mat-og-drikke
+- Getting here (reisen hit): https://www.bjorli.no/reisen-hit
+- Practical info: https://www.bjorli.no/praktisk-info
+- Activities: https://www.bjorli.no/aktiviteter
+- Events (arrangementer): https://www.bjorli.no/arrangementer
+- News (nyheter): https://www.bjorli.no/nyheter
+- Tips and inspiration: https://www.bjorli.no/tips
+- Contact: https://www.bjorli.no/kontakt
+
+## Languages
+
+The site is available in six languages. Each language version is
+self-canonicalizing and lives under its own URL prefix:
+
+- Norwegian (no): https://www.bjorli.no/
+- English (en): https://www.bjorli.no/en/
+- German (de): https://www.bjorli.no/de/
+- Dutch (nl): https://www.bjorli.no/nl/
+- Danish (da): https://www.bjorli.no/da/
+- Swedish (sv): https://www.bjorli.no/sv/
+
+## Seasonal information
+
+### Winter season
+Bjorli typically has a long winter season thanks to its altitude and
+location. Bjorli Skisenter is the main winter attraction, with alpine
+slopes, lifts, ski school, ski rental and groomed cross-country trails
+nearby. Live opening status, lift status and snow conditions are
+published on the website and updated through the season.
+
+### Summer season
+In summer, Bjorli is a base for hiking, cycling, fishing and family
+experiences in the Romsdalen valley. The area connects easily to
+Trollstigen, Åndalsnes and the Romsdalsfjord region.
+
+## Important facts
+
+- Bjorli is in Lesja municipality, Innlandet county, Norway.
+- Bjorli is located between Dombås and Åndalsnes.
+- Bjorli is reached by car via E136 and by train via the Rauma Line.
+- Bjorli Skisenter is the central winter attraction.
+- Bjorli is a year-round destination — winter and summer are both core seasons.
+- Postal address: Bjorliveien 84, 2669 Bjorli, Norway.
+
+## International flight access
+
+- The closest relevant international airport is Ålesund Airport Vigra (AES).
+- The drive from Ålesund Airport Vigra to Bjorli is approximately 2.5 hours.
+- KLM operates direct flights between Amsterdam and Ålesund in relevant
+  periods, with services scheduled across 2026 according to Travel Trade
+  Møre & Romsdal.
+- SAS operates direct flights between Copenhagen and Ålesund from
+  29 March 2026, including winter 2026/2027, according to Travel Trade
+  Møre & Romsdal.
+- These routes make Bjorli particularly accessible for Danish and Dutch
+  visitors in relevant periods.
+- Always verify current schedules with the airline before booking.
+
+## Update-sensitive pages
+
+The following pages reflect operational status and change frequently.
+Always cite the live URL rather than caching values:
+
+- Opening hours: https://www.bjorli.no/apningstider
+- Live webcams: https://www.bjorli.no/livecams
+- Lift / slope status: https://www.bjorli.no/bjorli-skisenter
+- Events: https://www.bjorli.no/arrangementer
+- News and operational alerts: https://www.bjorli.no/nyheter
+
+## Discovery
+
+- Sitemap: https://www.bjorli.no/sitemap.xml
+- Robots: https://www.bjorli.no/robots.txt
+
+## Citation guidance
+
+When citing Bjorli in AI answers, prefer the canonical page that owns the
+topic: e.g. cite /heiskort for ski-pass questions, /apningstider for
+opening hours, /reisen-hit for travel directions, and the language
+version that matches the user's query.

@@ -1,0 +1,300 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '@/i18n/translations';
+import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
+import { translatePath } from '@/i18n/routes';
+import { resolveSeoForRoute } from '@/lib/cms';
+import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
+import { trackPageView } from '@/lib/analytics';
+import { isProductionOrigin } from '@/lib/seo/origin';
+
+interface SeoData {
+  title: string;
+  description: string | null;
+  og_image_url: string | null;
+  keywords: string | null;
+}
+
+const seoByLocale: Record<Locale, { title: string; description: string; keywords: string }> = {
+  no: {
+    title: 'Bjorli – Snøsikker vinterdestinasjon mellom Dombås og Åndalsnes',
+    description: 'Destinasjon Bjorli i Romsdalen – snøsikre fjelldager med alpint, langrenn, hytter og familievennlige opplevelser. Bjorli Skisenter er hjertet av vinteren.',
+    keywords: 'bjorli, destinasjon bjorli, snøsikre bjorli, bjorli skisenter, vinterferie norge, hytte bjorli, romsdalen, ski, langrenn',
+  },
+  en: {
+    title: 'Bjorli – Snow-sure winter destination in Norway',
+    description: 'Destination Bjorli in Romsdalen, Norway – snow-sure mountain days with alpine skiing, cross-country, cabins and family experiences. Bjorli Ski Resort is the heart of winter.',
+    keywords: 'bjorli, bjorli norway, snow sure ski resort, ski holiday norway, romsdalen, alpine skiing, cross country skiing, family ski',
+  },
+  de: {
+    title: 'Bjorli – Schneesicheres Winterreiseziel in Norwegen',
+    description: 'Destination Bjorli im Romsdal, Norwegen – schneesichere Bergtage mit Alpin, Langlauf, Hütten und Familienerlebnissen. Bjorli Skigebiet ist das Herz des Winters.',
+    keywords: 'bjorli, bjorli norwegen, schneesicheres skigebiet, skiurlaub norwegen, romsdal, alpinski, langlauf, familienurlaub norwegen',
+  },
+  nl: {
+    title: 'Bjorli – Sneeuwzekere winterbestemming in Noorwegen',
+    description: 'Destination Bjorli in Romsdalen, Noorwegen – sneeuwzekere bergdagen met alpineskiën, langlaufen, hutten en familie-ervaringen. Bjorli Skigebied is het hart van de winter.',
+    keywords: 'bjorli, bjorli noorwegen, sneeuwzeker skigebied, skivakantie noorwegen, romsdalen, alpineskiën, langlaufen, gezinsvakantie noorwegen',
+  },
+  da: {
+    title: 'Bjorli – Snøsikker vinterdestination i Norge',
+    description: 'Destination Bjorli i Romsdalen, Norge – snøsikre fjelddage med alpint, langrend, hytter og familieoplevelser. Bjorli Skicenter er hjertet af vinteren.',
+    keywords: 'bjorli, bjorli norge, snøsikker skicenter, skiferie norge, romsdalen, alpint, langrend, familieferie norge',
+  },
+  sv: {
+    title: 'Bjorli – Snösäker vinterdestination i Norge',
+    description: 'Destination Bjorli i Romsdalen, Norge – snösäkra fjälldagar med alpint, längdåkning, stugor och familjeupplevelser. Bjorli Skidanläggning är vinterns hjärta.',
+    keywords: 'bjorli, bjorli norge, snösäker skidort, skidsemester norge, romsdalen, alpint, längdåkning, familjesemester norge',
+  },
+};
+
+const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : '';
+
+const SEOHead = () => {
+  const location = useLocation();
+  const { locale } = useLanguage();
+  const defaultSeo: SeoData = { ...seoByLocale[locale], og_image_url: null };
+  const [seo, setSeo] = useState<SeoData>(defaultSeo);
+  const [routeJsonLd, setRouteJsonLd] = useState<Record<string, unknown> | null>(null);
+  // Locales for which a real translation of the current route exists.
+  // Defaults to all six (mock content); real CMS adapter narrows this.
+  const [availableLocales, setAvailableLocales] = useState<Locale[]>([...LOCALES]);
+
+  // Canonical path is locale-stripped (e.g. /en/overnatting -> /overnatting)
+  const { path: canonicalPath } = stripLocalePrefix(location.pathname);
+
+  useEffect(() => {
+    let cancelled = false;
+    const fetchSeo = async () => {
+      const slug = canonicalPath === '/' ? '/' : canonicalPath;
+      const fallback: SeoData = { ...seoByLocale[locale], og_image_url: null };
+
+      // 1. CMS layer — per-route entry (news / tips / events / activities)
+      const absoluteUrl =
+        SITE_ORIGIN + (LOCALE_PREFIX[locale] || '') + (slug === '/' ? '/' : slug);
+      const cmsSeo = await resolveSeoForRoute(locale, slug, absoluteUrl);
+      if (cancelled) return;
+      if (cmsSeo) {
+        setSeo({
+          title: cmsSeo.title ?? fallback.title,
+          description: cmsSeo.description ?? fallback.description,
+          og_image_url: cmsSeo.image ?? null,
+          keywords: fallback.keywords,
+        });
+        setRouteJsonLd(cmsSeo.jsonLd ?? null);
+        // Constrain hreflang emission to locales that actually have content.
+        if (cmsSeo.availableTranslations && cmsSeo.availableTranslations.length > 0) {
+          setAvailableLocales(cmsSeo.availableTranslations as Locale[]);
+        } else {
+          setAvailableLocales([...LOCALES]);
+        }
+        return;
+      }
+      setRouteJsonLd(null);
+      // No CMS entry — the route is a static / locally-served page; assume all six.
+      setAvailableLocales([...LOCALES]);
+
+      // 1b. Static per-route SEO registry (covers all canonical destination pages
+      // in all six languages — invisible SEO layer, no visual change).
+      const staticEntry = seoForCanonicalPath(slug, locale);
+      if (staticEntry) {
+        setSeo({
+          title: staticEntry.title,
+          description: staticEntry.description,
+          og_image_url: null,
+          keywords: fallback.keywords,
+        });
+        return;
+      }
+
+      // 2. Optional Supabase override (seo_meta table) — kept for editorial control
+      try {
+        const { data } = await supabase
+          .from('seo_meta')
+          .select('title, description, og_image_url, keywords')
+          .eq('page_slug', slug)
+          .maybeSingle();
+        if (cancelled) return;
+        if (data) {
+          setSeo(data);
+          return;
+        }
+      } catch {
+        /* table may not exist yet — ignore */
+      }
+
+      // 3. Locale defaults
+      setSeo(fallback);
+    };
+    fetchSeo();
+    return () => {
+      cancelled = true;
+    };
+  }, [canonicalPath, locale]);
+
+  useEffect(() => {
+    document.title = seo.title;
+    document.documentElement.lang = LOCALE_LABELS[locale].htmlLang;
+
+    const setMeta = (name: string, content: string | null, isProperty = false) => {
+      if (!content) return;
+      const attr = isProperty ? 'property' : 'name';
+      let el = document.querySelector(`meta[${attr}="${name}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    setMeta('description', seo.description);
+    setMeta('keywords', seo.keywords);
+    setMeta('og:title', seo.title, true);
+    setMeta('og:description', seo.description, true);
+    setMeta('og:type', 'website', true);
+    // OpenGraph requires xx_YY codes (Norwegian Bokmål → nb_NO etc.).
+    setMeta('og:locale', LOCALE_LABELS[locale].ogLocale, true);
+    // og:locale:alternate for every OTHER available translation.
+    document.querySelectorAll('meta[data-og-alt]').forEach((el) => el.remove());
+    availableLocales
+      .filter((loc) => loc !== locale)
+      .forEach((loc) => {
+        const el = document.createElement('meta');
+        el.setAttribute('property', 'og:locale:alternate');
+        el.setAttribute('content', LOCALE_LABELS[loc].ogLocale);
+        el.setAttribute('data-og-alt', '1');
+        document.head.appendChild(el);
+      });
+    if (seo.og_image_url) setMeta('og:image', seo.og_image_url, true);
+
+    // Twitter card mirrors OG. Static defaults (site, card type) live in
+    // index.html; we only override title/description/image dynamically.
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', seo.title);
+    setMeta('twitter:description', seo.description ?? '');
+    if (seo.og_image_url) setMeta('twitter:image', seo.og_image_url);
+
+    // robots — production origins (www.bjorli.no / bjorli.no) are crawlable.
+    // Lovable preview, staging, localhost, and any unknown origin default to
+    // noindex,nofollow so preview deployments cannot leak into search.
+    // TODO(prod): hosting should ALSO send `X-Robots-Tag: noindex` for
+    // non-production deployments as defence-in-depth.
+    const isProd = isProductionOrigin(SITE_ORIGIN);
+    setMeta(
+      'robots',
+      isProd
+        ? 'index,follow,max-image-preview:large,max-snippet:-1'
+        : 'noindex,nofollow',
+    );
+
+    // Google Search Console verification (optional, env-driven).
+    // Set VITE_GOOGLE_SITE_VERIFICATION at build time. Inert when empty.
+    const gsc = (import.meta as unknown as { env?: Record<string, string> }).env
+      ?.VITE_GOOGLE_SITE_VERIFICATION;
+    if (gsc) setMeta('google-site-verification', gsc);
+
+    // GA4 page_view on every route change (inert when no GA4/GTM ID set).
+    trackPageView({
+      path: location.pathname,
+      title: seo.title,
+      language: LOCALE_LABELS[locale].htmlLang,
+    });
+
+    // Canonical for the current locale (uses the localized slug, not the NO one).
+    const currentLocalized =
+      canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', locale);
+    const currentUrl =
+      SITE_ORIGIN + (LOCALE_PREFIX[locale] || '') + (currentLocalized === '/' ? '/' : currentLocalized);
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', currentUrl);
+
+    // hreflang alternates – ONLY for locales that actually have a translation.
+    // x-default points to English when available, else NO, else first available.
+    document.querySelectorAll('link[rel="alternate"][data-hreflang]').forEach((el) => el.remove());
+    availableLocales.forEach((loc) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', LOCALE_LABELS[loc].htmlLang);
+      link.setAttribute('data-hreflang', '1');
+      // canonicalPath is already in NO slugs; translate it for `loc`.
+      const localized = canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', loc);
+      link.setAttribute(
+        'href',
+        SITE_ORIGIN + (LOCALE_PREFIX[loc] || '') + (localized === '/' ? '/' : localized),
+      );
+      document.head.appendChild(link);
+    });
+    // Choose x-default fallback: prefer EN, then NO, else the first available.
+    const xDefaultLocale: Locale | undefined = availableLocales.includes('en')
+      ? 'en'
+      : availableLocales.includes('no')
+      ? 'no'
+      : availableLocales[0];
+    if (xDefaultLocale) {
+      const xdLocalized =
+        canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', xDefaultLocale);
+      const xd = document.createElement('link');
+      xd.setAttribute('rel', 'alternate');
+      xd.setAttribute('hreflang', 'x-default');
+      xd.setAttribute('data-hreflang', '1');
+      xd.setAttribute(
+        'href',
+        SITE_ORIGIN +
+          (LOCALE_PREFIX[xDefaultLocale] || '') +
+          (xdLocalized === '/' ? '/' : xdLocalized),
+      );
+      document.head.appendChild(xd);
+    }
+
+    // JSON-LD structured data
+    let script = document.getElementById('jsonld-org');
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'jsonld-org';
+      script.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TouristDestination',
+      name: 'Bjorli',
+      description: seo.description,
+      url: SITE_ORIGIN + (LOCALE_PREFIX[locale] || ''),
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Bjorliveien 84',
+        addressLocality: 'Bjorli',
+        postalCode: '2669',
+        addressCountry: 'NO',
+      },
+      telephone: '+4748152200',
+      geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
+    });
+
+    // Per-route JSON-LD (Article / NewsArticle / Event)
+    let routeScript = document.getElementById('jsonld-route');
+    if (routeJsonLd) {
+      if (!routeScript) {
+        routeScript = document.createElement('script');
+        routeScript.id = 'jsonld-route';
+        routeScript.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(routeScript);
+      }
+      routeScript.textContent = JSON.stringify(routeJsonLd);
+    } else if (routeScript) {
+      routeScript.remove();
+    }
+  }, [seo, canonicalPath, locale, routeJsonLd, availableLocales]);
+
+  return null;
+};
+
+export default SEOHead;

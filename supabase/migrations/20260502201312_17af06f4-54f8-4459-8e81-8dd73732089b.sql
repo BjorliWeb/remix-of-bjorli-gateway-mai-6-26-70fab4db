@@ -1,0 +1,1 @@
+UPDATE public.operational_status SET label = 'Nedfarter åpne' WHERE language = 'no' AND metric_key = 'slopes';

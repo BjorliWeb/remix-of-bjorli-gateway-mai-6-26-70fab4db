@@ -1,0 +1,15 @@
+/* humans.txt — credits for the people behind bjorli.no */
+
+/* TEAM */
+Operator: Destinasjon Bjorli
+Location: Bjorli, Lesja, Innlandet, Norway
+Site: https://www.bjorli.no
+
+/* TECHNOLOGY */
+Frontend: React + TailwindCSS (prototype on Lovable), planned migration to Next.js App Router
+CMS: WordPress (planned)
+Hosting: Vercel / Netlify (planned)
+
+/* THANKS */
+To everyone keeping Bjorli running — slopes, lifts, restaurants, cabins
+and the local community.

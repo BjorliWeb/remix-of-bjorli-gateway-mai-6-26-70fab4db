@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&family=Mulish:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*
+   * Bjorli design tokens.
+   *
+   * The site has TWO seasonal themes that share the same brand:
+   *  - Winter (default, dark Nordic / icy blue) — applied to <html> by default.
+   *  - Summer (warmer, turquoise + green + peach) — applied via
+   *    <html data-season="summer">. Layout.tsx flips this based on route.
+   *
+   * Every colour token is defined in HSL so Tailwind's `hsl(var(--token))`
+   * pattern keeps working. Hex values from the official Bjorli profile
+   * manual are shown next to each declaration for traceability.
+   */
+  :root {
+    /* ─── Winter palette (default) ────────────────────────────────────
+     * #001d28  deep winter dark        197 100% 8%
+     * #003b4b  dark blue-green         191 100% 15%
+     * #065b7c  winter blue             197  90% 25%
+     * #3595ba  medium winter blue      197  53% 47%
+     * #64cdf2  bright ice blue         195  86% 67%
+     * #c8eaf5  pale ice blue           198  70% 87%
+     * Brand accent CTA: bright ice blue on dark backgrounds.
+     */
+    --background: 198 70% 97%;       /* near-white with a hint of ice */
+    --foreground: 197 100% 8%;       /* deep winter dark */
+
+    --card: 0 0% 100%;
+    --card-foreground: 197 100% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 197 100% 8%;
+
+    --primary: 197 90% 25%;          /* winter blue #065b7c */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 86% 67%;        /* bright ice blue #64cdf2 — main CTA */
+    --secondary-foreground: 197 100% 8%;
+
+    --muted: 198 70% 92%;            /* pale ice blue tint */
+    --muted-foreground: 197 40% 30%;
+
+    --accent: 198 70% 87%;           /* pale ice blue #c8eaf5 */
+    --accent-foreground: 197 90% 25%;
+
+    --destructive: 0 70% 45%;        /* restrained accessible red */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 198 50% 85%;
+    --input: 198 50% 85%;
+    --ring: 197 90% 25%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 197 100% 8%;
+    --sidebar-foreground: 198 70% 87%;
+    --sidebar-primary: 195 86% 67%;
+    --sidebar-primary-foreground: 197 100% 8%;
+    --sidebar-accent: 191 100% 15%;
+    --sidebar-accent-foreground: 198 70% 87%;
+    --sidebar-border: 191 100% 20%;
+    --sidebar-ring: 195 86% 67%;
+
+    /* ─── Bjorli brand tokens ──────────────────────────────────────── */
+    /* Navigation surface (always dark winter on every page so the brand
+       feels consistent — even on summer pages). */
+    --nav-bg: 197 100% 8%;
+    --nav-foreground: 0 0% 100%;
+    --hero-overlay: 197 100% 8%;
+    --glass-bg: 0 0% 100%;
+    --glass-border: 0 0% 100%;
+
+    /* Winter palette aliases (always available, used for explicitly
+       winter-themed components like Status cards, Skisenter, livecams). */
+    --winter-deep: 197 100% 8%;
+    --winter-dark: 191 100% 15%;
+    --winter-blue: 197 90% 25%;
+    --winter-mid: 197 53% 47%;
+    --winter-ice: 195 86% 67%;
+    --winter-pale: 198 70% 87%;
+
+    /* Summer palette aliases (always available, used for explicitly
+       summer-themed components like hiking, cycling, family). */
+    --summer-soft: 179 30% 66%;
+    --summer-turquoise: 179 41% 48%;
+    --summer-deep: 184 69% 34%;
+    --summer-green: 158 81% 31%;
+    --summer-peach: 25 89% 73%;
+    --summer-neutral: 53 30% 87%;
+
+    /* Seasonal accent — flips between winter ice blue and summer
+       turquoise based on data-season. Use this for season-aware CTAs,
+       borders, hovers, etc. */
+    --season-accent: var(--winter-ice);
+    --season-accent-foreground: 197 100% 8%;
+    --season-surface: var(--winter-pale);
+    --season-deep: var(--winter-blue);
+
+    /* Legacy aliases kept so existing components keep compiling. */
+    --snow: 198 70% 87%;
+    --gold: 195 86% 67%;
+    --gold-light: 198 70% 87%;
+    --deep-navy: 197 100% 8%;
+    --ice-blue: 195 86% 67%;
+
+    font-family: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* ─── Summer theme override ─────────────────────────────────────────
+   * Triggered by <html data-season="summer"> (set in Layout.tsx for
+   * /sommer and other summer pages). Same tokens, summer values. */
+  [data-season='summer'] {
+    --background: 53 30% 97%;        /* warm neutral, very light */
+    --foreground: 197 100% 8%;       /* keep deep brand dark for text */
+
+    --primary: 184 69% 34%;          /* deep turquoise #1b8e94 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 89% 73%;         /* warm peach #f7b57b — CTA */
+    --secondary-foreground: 197 100% 8%;
+
+    --muted: 53 30% 92%;
+    --muted-foreground: 184 40% 25%;
+
+    --accent: 179 30% 86%;           /* soft turquoise tint */
+    --accent-foreground: 184 69% 25%;
+
+    --border: 179 25% 82%;
+    --input: 179 25% 82%;
+    --ring: 184 69% 34%;
+
+    --season-accent: var(--summer-turquoise);
+    --season-accent-foreground: 0 0% 100%;
+    --season-surface: var(--summer-neutral);
+    --season-deep: var(--summer-deep);
+  }
+
+  .dark {
+    --background: 197 100% 5%;
+    --foreground: 198 70% 90%;
+    --card: 197 100% 8%;
+    --card-foreground: 198 70% 90%;
+    --popover: 197 100% 8%;
+    --popover-foreground: 198 70% 90%;
+    --primary: 195 86% 67%;
+    --primary-foreground: 197 100% 8%;
+    --secondary: 197 90% 25%;
+    --secondary-foreground: 198 70% 90%;
+    --muted: 191 100% 15%;
+    --muted-foreground: 198 40% 55%;
+    --accent: 191 100% 18%;
+    --accent-foreground: 198 70% 90%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 191 100% 18%;
+    --input: 191 100% 18%;
+    --ring: 195 86% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    /* Headlines follow the Bjorli profile manual (Futura family).
+       Jost is a near-identical geometric web fallback. */
+    font-family: 'Jost', 'Futura', 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-glass/80 backdrop-blur-xl border border-glass-border/20;
+  }
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent;
+  }
+  .hero-gradient {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--hero-overlay) / 0.7) 0%,
+      hsl(var(--hero-overlay) / 0.3) 50%,
+      hsl(var(--hero-overlay) / 0.8) 100%
+    );
+  }
+}
