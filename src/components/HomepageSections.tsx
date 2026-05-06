@@ -155,6 +155,9 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-16 px-4 bg-muted/40">
                 <div className="container mx-auto">
                   <div className="text-center mb-12 max-w-2xl mx-auto">
+                    {section.eyebrow && (
+                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>
+                    )}
                     <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-3">{section.title}</h2>
                     {section.subtitle && <p className="text-muted-foreground text-lg">{section.subtitle}</p>}
                   </div>
@@ -198,6 +201,16 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       )}
                       <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-5">{section.title}</h2>
                       <p className="text-muted-foreground text-lg leading-relaxed mb-8">{section.body}</p>
+                      {section.subcards && section.subcards.length > 0 && (
+                        <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                          {section.subcards.map((c) => (
+                            <div key={c.title} className="rounded-xl border border-border bg-card/60 p-4">
+                              <div className="font-display font-semibold text-foreground mb-1">{c.title}</div>
+                              {c.desc && <div className="text-sm text-muted-foreground leading-snug">{c.desc}</div>}
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       <div className="flex flex-wrap gap-3">
                         {section.ctas.map((cta) => (
                           <ButtonLink key={cta.label} {...cta} lp={lp}>
