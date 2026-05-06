@@ -219,6 +219,8 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'status',
         type: 'status',
+        heading: d.status.heading,
+        caption: d.status.caption,
         cards: [
           { icon: 'lifts', value: '4/6', label: d.status.liftsOpen },
           { icon: 'slopes', value: '7/11', label: d.status.slopes },
@@ -279,7 +281,13 @@ export const mockAdapter: CmsAdapter = {
         body: d.accommodation.body,
         image: { url: accommodationImg, alt: d.accommodation.title },
         imageSide: 'right',
-        ctas: [{ label: d.accommodation.cta, href: '/overnatting', variant: 'primary' }],
+        ctas: [
+          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' },
+          ...(d.accommodation.ctaSecondary
+            ? [{ label: d.accommodation.ctaSecondary, href: '/overnatting', variant: 'outline' as const }]
+            : []),
+        ],
+        subcards: d.accommodation.subcards,
       },
       {
         id: 'tips',
@@ -314,9 +322,18 @@ export const mockAdapter: CmsAdapter = {
         items: d.beyondAlpine.items.map((it, i) => ({
           title: it.title,
           desc: it.desc,
-          icon: ['activity', 'mountain', 'home', 'graduationCap'][i],
+          icon: ['activity', 'snowflake', 'home', 'mountain', 'train', 'users'][i],
         })),
       },
+      ...(d.whyBjorli
+        ? [{
+            id: 'whyBjorli',
+            type: 'cardGrid' as const,
+            eyebrow: d.whyBjorli.eyebrow,
+            title: d.whyBjorli.title,
+            items: d.whyBjorli.items,
+          }]
+        : []),
       {
         id: 'gettingHere',
         type: 'gettingHere',
