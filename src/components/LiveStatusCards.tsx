@@ -161,6 +161,11 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
   return (
     <section className="relative -mt-20 z-20 px-4">
       <div className="container mx-auto">
+        {section.heading && (
+          <h2 className="text-center font-display text-xl md:text-2xl font-bold text-primary-foreground/95 drop-shadow-sm mb-4 max-w-3xl mx-auto">
+            {section.heading}
+          </h2>
+        )}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
@@ -195,6 +200,11 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
             );
           })}
         </div>
+        {section.caption && (
+          <p className="text-center text-sm md:text-base text-muted-foreground mt-4 max-w-3xl mx-auto">
+            {section.caption}
+          </p>
+        )}
         {/* Compact "today / last updated" line — sourced from Fnugg, NOT
             from the Opening Hours page. The Opening Hours page is the
             source of truth for general seasonal hours. */}

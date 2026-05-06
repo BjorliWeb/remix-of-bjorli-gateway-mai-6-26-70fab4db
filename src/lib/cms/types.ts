@@ -292,6 +292,10 @@ interface CmsSectionBase {
 
 export interface CmsStatusSection extends CmsSectionBase {
   type: 'status';
+  /** Optional section heading above the live status cards. */
+  heading?: string;
+  /** Optional caption rendered between the cards and the link row. */
+  caption?: string;
   cards: { icon: 'lifts' | 'slopes' | 'snow' | 'temperature'; value: string; label: string }[];
   links: { icon: 'clock' | 'camera'; label: string; href: string }[];
 }
@@ -312,6 +316,8 @@ export interface CmsIntroSection extends CmsSectionBase {
 
 export interface CmsCardGridSection extends CmsSectionBase {
   type: 'cardGrid';
+  /** Optional uppercase eyebrow. */
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   items: { title: string; desc: string; icon?: string }[];
@@ -326,6 +332,8 @@ export interface CmsFeatureSection extends CmsSectionBase {
   /** Visual order: image left or right. */
   imageSide?: 'left' | 'right';
   ctas: { label: string; href: string; variant?: 'primary' | 'secondary' | 'outline'; external?: boolean; icon?: string }[];
+  /** Optional small sub-cards rendered below the feature copy. */
+  subcards?: { title: string; desc?: string }[];
 }
 
 export interface CmsImageCardsSection extends CmsSectionBase {

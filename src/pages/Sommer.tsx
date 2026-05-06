@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, MapPin, Home as HomeIcon } from 'lucide-react';
+import { ArrowRight, MapPin, Home as HomeIcon, Car } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ const Sommer = () => {
             transition={{ duration: 0.6 }}
             className="inline-block text-secondary text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-6"
           >
-            {d.summer.badge}
+            {d.summer.eyebrow ?? d.summer.badge}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -57,30 +57,32 @@ const Sommer = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
           >
-            {/* Primary CTA — anchors to the in-page summer content for now;
-                will become a dedicated /sommer landing module post WP wiring. */}
-            <a href="#opplev-sommer">
+            {/* Primary — Se aktiviteter */}
+            <Link to={lp('/aktiviteter')}>
               <Button size="lg" className="font-semibold w-full sm:w-auto">
-                {d.summer.ctaExplore}
+                <MapPin className="mr-2 h-5 w-5" />
+                {d.summer.ctaActivities}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </a>
+            </Link>
+            {/* Secondary — Finn overnatting */}
             <Link to={lp('/overnatting')}>
               <Button variant="secondary" size="lg" className="font-semibold w-full sm:w-auto">
                 <HomeIcon className="mr-2 h-5 w-5" />
                 {d.summer.ctaStay}
               </Button>
             </Link>
-            <Link to={lp('/aktiviteter')}>
+            {/* Tertiary — Planlegg reisen hit */}
+            <Link to={lp('/reisen-hit')}>
               <Button
                 variant="outline"
                 size="lg"
                 className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto"
               >
-                <MapPin className="mr-2 h-5 w-5" />
-                {d.summer.ctaActivities}
+                <Car className="mr-2 h-5 w-5" />
+                {d.summer.ctaPlan ?? 'Planlegg reisen hit'}
               </Button>
             </Link>
           </motion.div>

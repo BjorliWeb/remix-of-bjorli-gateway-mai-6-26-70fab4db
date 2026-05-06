@@ -219,6 +219,8 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'status',
         type: 'status',
+        heading: d.status.heading,
+        caption: d.status.caption,
         cards: [
           { icon: 'lifts', value: '4/6', label: d.status.liftsOpen },
           { icon: 'slopes', value: '7/11', label: d.status.slopes },
@@ -279,7 +281,13 @@ export const mockAdapter: CmsAdapter = {
         body: d.accommodation.body,
         image: { url: accommodationImg, alt: d.accommodation.title },
         imageSide: 'right',
-        ctas: [{ label: d.accommodation.cta, href: '/overnatting', variant: 'primary' }],
+        ctas: [
+          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' },
+          ...(d.accommodation.ctaSecondary
+            ? [{ label: d.accommodation.ctaSecondary, href: '/overnatting', variant: 'outline' as const }]
+            : []),
+        ],
+        subcards: d.accommodation.subcards,
       },
       {
         id: 'tips',
@@ -314,9 +322,18 @@ export const mockAdapter: CmsAdapter = {
         items: d.beyondAlpine.items.map((it, i) => ({
           title: it.title,
           desc: it.desc,
-          icon: ['activity', 'mountain', 'home', 'graduationCap'][i],
+          icon: ['activity', 'snowflake', 'home', 'mountain', 'train', 'users'][i],
         })),
       },
+      ...(d.whyBjorli
+        ? [{
+            id: 'whyBjorli',
+            type: 'cardGrid' as const,
+            eyebrow: d.whyBjorli.eyebrow,
+            title: d.whyBjorli.title,
+            items: d.whyBjorli.items,
+          }]
+        : []),
       {
         id: 'gettingHere',
         type: 'gettingHere',
@@ -389,29 +406,49 @@ export const mockAdapter: CmsAdapter = {
           { title: d.summer.activities[1]?.title ?? '', desc: d.summer.activities[1]?.desc, image: { url: bikingImg, alt: 'Sykling' } },
         ],
       },
-      {
-        id: 'accommodationSummer',
-        type: 'feature',
-        eyebrow: 'Overnatting',
-        title: 'Bo på Bjorli',
-        body: 'Velg mellom hytter, leiligheter og hoteller midt i fjellet. Korte avstander til turstier, sykkelruter og naturopplevelser i Romsdalen — perfekt som base for hele familien.',
-        image: { url: accommodationImg, alt: 'Overnatting på Bjorli' },
-        imageSide: 'left',
-        ctas: [{ label: 'Se overnatting', href: '/overnatting', variant: 'primary' }],
-      },
+      // Basecamp moves directly after summer activities — it is the
+      // strategic message of the summer page.
       {
         id: 'basecamp',
         type: 'feature',
-        eyebrow: 'Mellom fjell og fjord',
-        title: 'Bjorli som basecamp mellom fjell og fjord',
-        body: 'Bjorli ligger mellom Dombås og Åndalsnes, like ved Reinheimen, Dovrefjell og Romsdalsalpene. Bruk Bjorli som rolig fjellbase for dagsturer til nasjonalparker, Trollstigen, Romsdalen og Atlanterhavsveien.',
-        image: { url: summerImg, alt: 'Bjorli som basecamp mellom fjell og fjord' },
+        eyebrow: d.summer.basecamp?.eyebrow ?? 'Mellom fjell og fjord',
+        title: d.summer.basecamp?.title ?? 'Midt mellom fjellet og fjorden',
+        body:
+          d.summer.basecamp?.body ??
+          'Fra Bjorli har du kort vei til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordopplevelsene på Nordvestlandet.',
+        image: { url: summerImg, alt: d.summer.basecamp?.title ?? 'Bjorli som basecamp mellom fjell og fjord' },
         imageSide: 'right',
         ctas: [
-          { label: 'Se aktiviteter', href: '/aktiviteter', variant: 'primary' },
-          { label: 'Reisen hit', href: '/reisen-hit', variant: 'outline' },
+          { label: d.summer.basecamp?.ctaActivities ?? d.summer.ctaActivities, href: '/aktiviteter', variant: 'primary' },
+          { label: d.summer.basecamp?.ctaPlan ?? 'Reisen hit', href: '/reisen-hit', variant: 'outline' },
         ],
+        subcards: d.summer.basecamp?.items?.map((it) => ({ title: it.title, desc: it.desc })),
       },
+      {
+        id: 'accommodationSummer',
+        type: 'feature',
+        eyebrow: d.accommodation.eyebrow,
+        title: d.accommodation.title,
+        body: d.accommodation.body,
+        image: { url: accommodationImg, alt: d.accommodation.title },
+        imageSide: 'left',
+        ctas: [
+          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' },
+          ...(d.accommodation.ctaSecondary
+            ? [{ label: d.accommodation.ctaSecondary, href: '/overnatting', variant: 'outline' as const }]
+            : []),
+        ],
+        subcards: d.accommodation.subcards,
+      },
+      ...(d.whyBjorli
+        ? [{
+            id: 'whyBjorliSummer',
+            type: 'cardGrid' as const,
+            eyebrow: d.whyBjorli.eyebrow,
+            title: d.whyBjorli.title,
+            items: d.whyBjorli.items,
+          }]
+        : []),
       {
         id: 'tips',
         type: 'tips',

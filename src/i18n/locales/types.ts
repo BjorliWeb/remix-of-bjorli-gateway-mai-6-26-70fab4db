@@ -62,6 +62,10 @@ export interface Dictionary {
     ctaSkiCenter: string;
     ctaLiftPass: string;
     ctaStay: string;
+    /** Optional uppercase eyebrow above the hero headline. */
+    eyebrow?: string;
+    /** Optional secondary CTA label, e.g. "Se åpningstider og føre". */
+    ctaOpening?: string;
   };
   status: {
     liftsOpen: string;
@@ -71,6 +75,10 @@ export interface Dictionary {
     openToday: string;
     livecams: string;
     seeMore: string;
+    /** Optional section heading shown above the live status cards. */
+    heading?: string;
+    /** Optional helper line shown below the live status cards. */
+    caption?: string;
   };
   alert: {
     label: string;
@@ -98,6 +106,10 @@ export interface Dictionary {
     title: string;
     body: string;
     cta: string;
+    /** Optional secondary CTA label. */
+    ctaSecondary?: string;
+    /** Optional small sub-cards rendered under the accommodation feature. */
+    subcards?: { title: string; desc?: string }[];
   };
   tips: {
     eyebrow: string;
@@ -221,11 +233,30 @@ export interface Dictionary {
     ctaExplore: string;
     ctaActivities: string;
     ctaStay: string;
+    /** Optional secondary plan-trip CTA. */
+    ctaPlan?: string;
+    /** Optional uppercase eyebrow for the summer hero. */
+    eyebrow?: string;
     activitiesTitle: string;
     activitiesSubtitle: string;
     activities: { title: string; desc: string }[];
     winterTeaserTitle: string;
     winterTeaserBody: string;
     winterTeaserCta: string;
+    /** Optional "Bjorli as basecamp" content block (summer page). */
+    basecamp?: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      items: { title: string; desc: string }[];
+      ctaActivities: string;
+      ctaPlan: string;
+    };
+  };
+  /** Optional "Why Bjorli?" benefit section, used on both winter and summer. */
+  whyBjorli?: {
+    eyebrow: string;
+    title: string;
+    items: { title: string; desc: string; icon?: string }[];
   };
 }
