@@ -25,11 +25,13 @@ const sv: Dictionary = {
     language: 'Språk',
   },
   hero: {
-    title: 'Bjorli vinterdestination',
-    subtitle: 'Snösäkra fjälldagar – porten mellan östra och nordvästra Norge',
-    intro: 'Utförsåkning, längdåkning, stugor, frisk fjälluft och äkta norska vinterupplevelser – med Bjorli Skidanläggning som hjärtat av säsongen.',
+    eyebrow: 'Destination Bjorli – vinter',
+    title: 'Riktig vinter. Lugnare fjälldagar.',
+    subtitle: 'Snösäkra Bjorli ger dig utförsåkning, längdåkning, stugliv och lugna familjedagar mellan östra Norge och fjordarna i väster.',
+    intro: 'Destination Bjorli – vinter',
     ctaSkiCenter: 'Se Bjorli Skidanläggning',
     ctaLiftPass: 'Köp liftkort',
+    ctaOpening: 'Öppettider och förhållanden',
     ctaStay: 'Hitta boende',
   },
   status: {
@@ -40,6 +42,8 @@ const sv: Dictionary = {
     openToday: 'Öppettider',
     livecams: 'Livecams',
     seeMore: 'Se mer',
+    heading: 'Aktuell status på fjället',
+    caption: 'Uppdaterat idag. Kolla öppettider, förhållanden, liftar och webbkameror innan du åker.',
   },
   alert: {
     label: 'Driftmeddelande',
@@ -48,7 +52,7 @@ const sv: Dictionary = {
   },
   intro: {
     title: 'Upplev vintern på Bjorli',
-    body: 'Bjorli är en snösäker vinterdestination för familjer, stuggäster och alla som vill ha äkta fjälldagar utan stress. Här finns utförsåkning, längdåkning, skiduthyrning, skidskola, mat och dryck, boende och enkel resa med bil och tåg.',
+    body: 'Bjorli är en snösäker vinterdestination för familjer, stuggäster och alla som vill ha riktiga fjälldagar utan stress. Här finns utförsåkning, längdåkning, skiduthyrning, skidskola, mat och dryck, boende och enkel resa med bil och tåg.',
   },
   planning: {
     title: 'Allt du behöver för en dag på fjället',
@@ -74,8 +78,14 @@ const sv: Dictionary = {
   accommodation: {
     eyebrow: 'Boende',
     title: 'Bo nära fjället',
-    body: 'Gör vinterresan enklare med boende nära fjället, spåren och anläggningen. Välj mellan stugor, lägenheter och andra alternativ för familj, par och vänner.',
-    cta: 'Se boenden',
+    body: 'Välj mellan stugor, lägenheter och hotell på Bjorli – på gångavstånd från aktiviteter, matställen, tåget, nedfarterna och naturen runt omkring.',
+    cta: 'Hitta boende',
+    ctaSecondary: 'Se alla alternativ',
+    subcards: [
+      { title: 'Stugor och lägenheter', desc: 'Klassisk stugsemester nära spår och liftar.' },
+      { title: 'Hotell', desc: 'Bekvämt boende med servering och service.' },
+      { title: 'Familjer och grupper', desc: 'Större alternativ för större ressällskap.' },
+    ],
   },
   tips: {
     eyebrow: 'Inspiration',
@@ -103,13 +113,15 @@ const sv: Dictionary = {
   },
   beyondAlpine: {
     eyebrow: 'Mer än utförsåkning',
-    title: 'Vintern är mer än nedfarterna',
-    body: 'Bjorli är en hel vinterdestination. Längdspår, pulkabackar, snögrottebygge och lugna kvällar i stugan – det finns mycket att upptäcka utanför liftarna.',
+    title: 'Vinter på Bjorli är mer än liftar och nedfarter',
+    body: 'Fjälldagarna handlar här också om längdåkning, pulka, snölek, stugkvällar, korta avstånd och tid tillsammans. Bjorli passar familjer och vänner som vill ha riktig vinter utan att allt ska vara stort, dyrt och stressigt.',
     items: [
-      { title: 'Längdåkning', desc: 'Preparerade spår i vackert fjällandskap' },
-      { title: 'Pulka', desc: 'Trygga backar för hela familjen' },
-      { title: 'Stugliv', desc: 'Långa kvällar och mysig stämning inomhus' },
-      { title: 'Vinterturer', desc: 'Snöskor och toppturer för upptäckare' },
+      { title: 'Längdåkning', desc: 'Preparerade spår i vackert fjällandskap.' },
+      { title: 'Pulka och snölek', desc: 'Trygga backar för hela familjen.' },
+      { title: 'Stugkvällar', desc: 'Långa kvällar, brasa och tid inomhus.' },
+      { title: 'Lugna vinterturer', desc: 'Snöskor och lätta turer för den som vill ut.' },
+      { title: 'Tåg till fjället', desc: 'Raumabanan stannar direkt vid Bjorli station.' },
+      { title: 'Familjevänliga dagar', desc: 'Korta avstånd och lugnt tempo för små och stora.' },
     ],
   },
   gettingHere: {
@@ -215,39 +227,78 @@ const sv: Dictionary = {
     pageActivitiesTitle: 'Aktiviteter på Bjorli',
     pageActivitiesIntro: 'Alpint, längdåkning, vandring och fjällupplevelser – välj din nästa aktivitet.',
     pageGettingHereTitle: 'Resan till Bjorli',
-    pageGettingHereIntro: 'Bjorli är porten mellan östra och nordvästra Norge – lätt att nå med både bil och tåg, med Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell på kort avstånd.'
+    pageGettingHereIntro: 'Bjorli är porten mellan östra och nordvästra Norge – lätt att nå med både bil och tåg, med Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell på kort avstånd.',
+    filterAll: 'Alla',
+    filterCategory: 'Kategori',
+    filterSeason: 'Säsong',
+    filterDate: 'Datum',
+    filterReset: 'Rensa',
+    seasonWinter: 'Vinter',
+    seasonSummer: 'Sommar',
+    seasonAllYear: 'Året runt',
+    viewCalendar: 'Kalender',
+    viewList: 'Lista',
+    loadMore: 'Visa fler',
+    featured: 'Utvalt',
+    seoPlaceholderTitle: 'Mer om Bjorli',
+    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen och porten mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en unik utgångspunkt för både vinter- och sommarsemester.',
+    sectionWinter: 'Vinteraktiviteter',
+    sectionSummer: 'Sommaraktiviteter',
+    sectionFamily: 'Familjeaktiviteter',
   },
   summer: {
     badge: 'Sommar på Bjorli',
-    title: 'Bjorli sommardestination',
-    subtitle: 'Fjällro, frisk luft och naturupplevelser – porten mellan östra och nordvästra Norge',
+    eyebrow: 'Sommar på Bjorli',
+    title: 'Basläger mellan fjäll och fjord',
+    subtitle: 'Använd Bjorli som utgångspunkt för vandring, cykling, Raumabanan, Romsdalen, Dovrefjell och lugna sommardagar i fjällen.',
     intro: 'Använd Bjorli som bas för vandring, cykling, familjesemester, tågresa och äkta norska naturupplevelser.',
-    ctaExplore: 'Utforska sommar på Bjorli',
+    ctaExplore: 'Se aktiviteter',
     ctaActivities: 'Se aktiviteter',
     ctaStay: 'Hitta boende',
+    ctaPlan: 'Planera resan hit',
+    introTitle: 'Sommar på Bjorli',
     activitiesTitle: 'Sommarupplevelser',
     activitiesSubtitle: 'Hitta din favoritaktivitet i fjällen.',
     activities: [
-      {
-        title: 'Vandring',
-        desc: 'Korta familjeturer och längre toppturer i vackert fjällandskap.'
-      },
-      {
-        title: 'Cykling',
-        desc: 'Stigar och grusvägar för mountainbike och lugna turer.'
-      },
-      {
-        title: 'Familj',
-        desc: 'Säkra stigar, lekplatser och naturupplevelser för barn.'
-      },
-      {
-        title: 'Natur',
-        desc: 'Tre nationalparker nära – Reinheimen, Dovrefjell och Romsdalsalpene.'
-      }
+      { title: 'Vandring', desc: 'Korta familjeturer och längre toppturer i vackert fjällandskap.' },
+      { title: 'Cykling', desc: 'Stigar och grusvägar för mountainbike och lugna turer.' },
+      { title: 'Familj', desc: 'Säkra stigar, lekplatser och naturupplevelser för barn.' },
+      { title: 'Natur', desc: 'Tre nationalparker nära – Reinheimen, Dovrefjell och Romsdalsalpene.' },
     ],
     winterTeaserTitle: 'Bjorli på vintern',
     winterTeaserBody: 'Snösäkra fjälldagar med alpint, längdåkning och stugliv – från november till maj.',
-    winterTeaserCta: 'Se vinter på Bjorli'
+    winterTeaserCta: 'Se vinter på Bjorli',
+    winterTeaserEyebrow: 'Året runt',
+    foodDrink: {
+      eyebrow: 'Mat och dryck',
+      title: 'Smaker från fjället',
+      body: 'Efter en dag ute smakar maten extra bra. På Bjorli finns matställen, lokal mat och lugna stunder vid bordet – från en kaffe på turen till en riktig måltid efter en lång dag i fjällen.',
+      cta: 'Se mat och dryck',
+      imageAlt: 'Mat och dryck på Bjorli',
+    },
+    basecamp: {
+      eyebrow: 'Mellan fjäll och fjord',
+      title: 'Mitt mellan fjället och fjorden',
+      body: 'Från Bjorli har du nära till Raumabanan, Romsdalen, Trollveggen, Dovrefjell och fjordlandskapet i nordvästra Norge. Du bor lugnt i fjällen, med några av Norges starkaste naturupplevelser inom räckhåll.',
+      items: [
+        { title: 'Raumabanan', desc: 'En av Norges vackraste tågresor, med Bjorli som naturligt stopp i fjällen.' },
+        { title: 'Romsdalen och Trollveggen', desc: 'Branta toppar, vandringar och stark natur inom kort körsträcka.' },
+        { title: 'Dovrefjell', desc: 'Nationalpark med myskoxar, fjällvandringar och vidsträckta landskap för korta och längre turer.' },
+        { title: 'Ålesund och fjordarna', desc: 'Kombinera lugna dagar på Bjorli med fjord, kust och stad i nordvästra Norge.' },
+      ],
+      ctaActivities: 'Se aktiviteter',
+      ctaPlan: 'Planera resan hit',
+    },
+  },
+  whyBjorli: {
+    eyebrow: 'Därför väljer gäster Bjorli',
+    title: 'Varför Bjorli?',
+    items: [
+      { title: 'Snösäkert och familjevänligt', desc: 'Riktig vinter, trygga ramar och bra upplevelser för både barn och vuxna.', icon: 'snowflake' },
+      { title: 'Nära till skidor, stugor och natur', desc: 'Mindre logistik, kortare avstånd och mer tid ute.', icon: 'mountain' },
+      { title: 'Tåg till fjället med Raumabanan', desc: 'Res till Bjorli längs en av Norges vackraste tågsträckor.', icon: 'train' },
+      { title: 'Basläger mellan fjäll och fjord', desc: 'Upplev fjället, Romsdalen, Dovrefjell och nordvästra Norge från en utgångspunkt.', icon: 'treePine' },
+    ],
   },
 };
 
