@@ -82,7 +82,7 @@ const Sommer = () => {
                 className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto"
               >
                 <Car className="mr-2 h-5 w-5" />
-                {d.summer.ctaPlan ?? 'Planlegg reisen hit'}
+                {d.summer.ctaPlan ?? d.gettingHere.cta}
               </Button>
             </Link>
           </motion.div>
