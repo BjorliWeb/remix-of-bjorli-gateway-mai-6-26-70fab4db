@@ -388,7 +388,7 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'intro',
         type: 'intro',
-        title: 'Opplev sommeren på Bjorli',
+        title: d.summer.introTitle ?? d.summer.title,
         body: d.summer.intro,
       },
       {
@@ -411,16 +411,14 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'basecamp',
         type: 'feature',
-        eyebrow: d.summer.basecamp?.eyebrow ?? 'Mellom fjell og fjord',
-        title: d.summer.basecamp?.title ?? 'Midt mellom fjellet og fjorden',
-        body:
-          d.summer.basecamp?.body ??
-          'Fra Bjorli har du kort vei til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordopplevelsene på Nordvestlandet.',
-        image: { url: summerImg, alt: d.summer.basecamp?.title ?? 'Bjorli som basecamp mellom fjell og fjord' },
+        eyebrow: d.summer.basecamp?.eyebrow ?? d.summer.eyebrow ?? d.summer.badge,
+        title: d.summer.basecamp?.title ?? d.summer.title,
+        body: d.summer.basecamp?.body ?? d.summer.intro,
+        image: { url: summerImg, alt: d.summer.basecamp?.title ?? d.summer.title },
         imageSide: 'right',
         ctas: [
           { label: d.summer.basecamp?.ctaActivities ?? d.summer.ctaActivities, href: '/aktiviteter', variant: 'primary' },
-          { label: d.summer.basecamp?.ctaPlan ?? 'Reisen hit', href: '/reisen-hit', variant: 'outline' },
+          { label: d.summer.basecamp?.ctaPlan ?? d.summer.ctaPlan ?? d.gettingHere.cta, href: '/reisen-hit', variant: 'outline' },
         ],
         subcards: d.summer.basecamp?.items?.map((it) => ({ title: it.title, desc: it.desc })),
       },
@@ -472,12 +470,12 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'foodDrinkSummer',
         type: 'feature',
-        eyebrow: 'Mat og drikke',
-        title: 'Smaker fra fjellet',
-        body: 'Etter en dag i naturen smaker maten ekstra godt. På Bjorli finner du serveringssteder, lokal mat og hyggelige stunder rundt bordet — fra enkel kaffe på turen til et ordentlig måltid etter en lang dag ute.',
-        image: { url: foodDrinkImg, alt: 'Mat og drikke på Bjorli' },
+        eyebrow: d.summer.foodDrink?.eyebrow ?? d.footer.planLinks.find((l) => l.href === '/mat-og-drikke')?.label ?? d.nav.practicalInfo,
+        title: d.summer.foodDrink?.title ?? d.summer.foodDrink?.eyebrow ?? d.nav.practicalInfo,
+        body: d.summer.foodDrink?.body ?? d.intro.body,
+        image: { url: foodDrinkImg, alt: d.summer.foodDrink?.imageAlt ?? d.summer.foodDrink?.title ?? 'Bjorli' },
         imageSide: 'left',
-        ctas: [{ label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' }],
+        ctas: [{ label: d.summer.foodDrink?.cta ?? d.footer.planLinks.find((l) => l.href === '/mat-og-drikke')?.label ?? d.common.seeAll, href: '/mat-og-drikke', variant: 'primary' }],
       },
       {
         id: 'gettingHere',
@@ -495,7 +493,7 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'winterTeaser',
         type: 'teaser',
-        eyebrow: 'Året rundt',
+        eyebrow: d.summer.winterTeaserEyebrow ?? d.summerTeaser.eyebrow,
         title: d.summer.winterTeaserTitle,
         body: d.summer.winterTeaserBody,
         ctaLabel: d.summer.winterTeaserCta,
