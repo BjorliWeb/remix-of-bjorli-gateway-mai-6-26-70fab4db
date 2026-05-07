@@ -246,6 +246,7 @@ const en: Dictionary = {
     ctaActivities: 'See activities',
     ctaStay: 'Find accommodation',
     ctaPlan: 'Plan your trip here',
+    introTitle: 'Summer in Bjorli',
     activitiesTitle: 'Summer experiences',
     activitiesSubtitle: 'Find your favourite activity in the mountains.',
     activities: [
@@ -269,6 +270,14 @@ const en: Dictionary = {
     winterTeaserTitle: 'Bjorli in winter',
     winterTeaserBody: 'Snow-sure mountain days with alpine, cross-country and cabin life – from November to May.',
     winterTeaserCta: 'See winter at Bjorli',
+    winterTeaserEyebrow: 'Year-round',
+    foodDrink: {
+      eyebrow: 'Food and drink',
+      title: 'Mountain flavours',
+      body: 'After a day outdoors, food tastes that bit better. In Bjorli you’ll find places to eat, local produce and easy moments around the table – from a coffee on the trail to a proper meal after a long day in the mountains.',
+      cta: 'See food and drink',
+      imageAlt: 'Food and drink in Bjorli',
+    },
     basecamp: {
       eyebrow: 'Between mountain and fjord',
       title: 'Right between the mountains and the fjords',

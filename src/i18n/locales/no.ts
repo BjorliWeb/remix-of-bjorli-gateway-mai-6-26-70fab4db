@@ -256,6 +256,7 @@ const no: Dictionary = {
     ctaActivities: 'Se aktiviteter',
     ctaStay: 'Finn overnatting',
     ctaPlan: 'Planlegg reisen hit',
+    introTitle: 'Opplev sommeren på Bjorli',
     activitiesTitle: 'Sommeropplevelser',
     activitiesSubtitle: 'Finn din favorittaktivitet i fjellet.',
     activities: [
@@ -279,6 +280,14 @@ const no: Dictionary = {
     winterTeaserTitle: 'Bjorli om vinteren',
     winterTeaserBody: 'Snøsikre fjelldager med alpint, langrenn og hytteliv – fra november til mai.',
     winterTeaserCta: 'Se vinter på Bjorli',
+    winterTeaserEyebrow: 'Året rundt',
+    foodDrink: {
+      eyebrow: 'Mat og drikke',
+      title: 'Smaker fra fjellet',
+      body: 'Etter en dag ute smaker maten ekstra godt. På Bjorli finner du serveringssteder, lokal mat og rolige stunder rundt bordet – fra kaffepausen på turen til et ordentlig måltid etter en lang dag i fjellet.',
+      cta: 'Se mat og drikke',
+      imageAlt: 'Mat og drikke på Bjorli',
+    },
     basecamp: {
       eyebrow: 'Mellom fjell og fjord',
       title: 'Midt mellom fjellet og fjorden',

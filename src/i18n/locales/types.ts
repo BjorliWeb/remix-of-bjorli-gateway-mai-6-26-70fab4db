@@ -237,12 +237,24 @@ export interface Dictionary {
     ctaPlan?: string;
     /** Optional uppercase eyebrow for the summer hero. */
     eyebrow?: string;
+    /** Optional title for the "Opplev sommeren" intro section on the summer homepage. */
+    introTitle?: string;
     activitiesTitle: string;
     activitiesSubtitle: string;
     activities: { title: string; desc: string }[];
     winterTeaserTitle: string;
     winterTeaserBody: string;
     winterTeaserCta: string;
+    /** Optional eyebrow above the winter teaser on the summer homepage. */
+    winterTeaserEyebrow?: string;
+    /** Optional food & drink feature block on the summer homepage. */
+    foodDrink?: {
+      eyebrow: string;
+      title: string;
+      body: string;
+      cta: string;
+      imageAlt?: string;
+    };
     /** Optional "Bjorli as basecamp" content block (summer page). */
     basecamp?: {
       eyebrow: string;
