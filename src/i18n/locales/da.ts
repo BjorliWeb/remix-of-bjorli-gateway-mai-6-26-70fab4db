@@ -4,7 +4,7 @@ const da: Dictionary = {
   meta: {
     siteName: 'Bjorli',
     tagline: 'Destination Bjorli – året rundt',
-    winterTagline: 'Snøsikre Bjorli',
+    winterTagline: 'Snesikre Bjorli',
   },
   nav: {
     winter: 'Vinter',
@@ -25,11 +25,13 @@ const da: Dictionary = {
     language: 'Sprog',
   },
   hero: {
-    title: 'Bjorli vinterdestination',
-    subtitle: 'Snøsikre fjelddage – porten mellem Østlandet og Nordvestlandet',
-    intro: 'Alpinski, langrend, hytter, frisk fjeldluft og ægte norske vinteroplevelser – med Bjorli Skicenter som hjertet af sæsonen.',
+    eyebrow: 'Destination Bjorli – vinter',
+    title: 'Ægte vinter. Roligere fjelddage.',
+    subtitle: 'Snesikre Bjorli giver dig alpinski, langrend, hytteliv og rolige familiedage mellem Østlandet og fjordene mod vest.',
+    intro: 'Destination Bjorli – vinter',
     ctaSkiCenter: 'Se Bjorli Skicenter',
     ctaLiftPass: 'Køb liftkort',
+    ctaOpening: 'Åbningstider og forhold',
     ctaStay: 'Find overnatning',
   },
   status: {
@@ -40,6 +42,8 @@ const da: Dictionary = {
     openToday: 'Åbningstider',
     livecams: 'Livecams',
     seeMore: 'Se mere',
+    heading: 'Aktuel status på fjeldet',
+    caption: 'Opdateret i dag. Tjek åbningstider, forhold, lifte og webcams, før du tager afsted.',
   },
   alert: {
     label: 'Driftsmeddelelse',
@@ -48,13 +52,13 @@ const da: Dictionary = {
   },
   intro: {
     title: 'Oplev vinteren på Bjorli',
-    body: 'Bjorli er en snøsikker vinterdestination for familier, hyttegæster og alle, der ønsker ægte fjelddage uden stress. Her finder du alpinski, langrend, skiudlejning, skiskole, mad og drikke, overnatning og let adgang med bil og tog.',
+    body: 'Bjorli er en snesikker vinterdestination for familier, hyttegæster og alle, der ønsker ægte fjelddage uden stress. Her finder du alpinski, langrend, skiudlejning, skiskole, mad og drikke, overnatning og let adgang med bil og tog.',
   },
   planning: {
     title: 'Alt du behøver til en dag på fjeldet',
     subtitle: 'Planlæg dagen med opdateret information, liftkort og praktiske services.',
     items: [
-      { title: 'Bjorli Skicenter', desc: 'Familievenlige pister og snøsikre forhold' },
+      { title: 'Bjorli Skicenter', desc: 'Familievenlige pister og snesikre forhold' },
       { title: 'Liftkort', desc: 'Køb dags- eller sæsonkort online' },
       { title: 'Åbningstider', desc: 'Dagens tider i skicentret' },
       { title: 'Livecams', desc: 'Se forholdene på fjeldet i realtid' },
@@ -67,15 +71,21 @@ const da: Dictionary = {
   skiCenter: {
     eyebrow: 'Vinterens hjerte',
     title: 'Bjorli Skicenter',
-    body: 'I vinterens måneder er Bjorli Skicenter destinationens naturlige samlingspunkt. Familievenlige pister, liftkort, skiudlejning, skiskole, mad og drikke, livecams og opdateret information om forholdene – alt på ét sted.',
+    body: 'I vinterens måneder er Bjorli Skicenter destinationens naturlige samlingspunkt. Familievenlige pister, liftkort, skiudlejning, skiskole, mad og drikke, livecams og opdateret information – alt på ét sted.',
     ctaPrimary: 'Se Bjorli Skicenter',
     ctaSecondary: 'Køb liftkort',
   },
   accommodation: {
     eyebrow: 'Overnatning',
-    title: 'Bo godt på Bjorli',
-    body: 'Gør vinterturen lettere med overnatning tæt på fjeldet, pisterne og skicentret. Vælg mellem hytter, lejligheder og andre muligheder for familier, par og venner.',
-    cta: 'Se overnatning',
+    title: 'Bo tæt på fjeldet',
+    body: 'Vælg mellem hytter, lejligheder og hoteller på Bjorli – i gåafstand af aktiviteter, spisesteder, toget, pisterne og naturen rundt om.',
+    cta: 'Find overnatning',
+    ctaSecondary: 'Se alle muligheder',
+    subcards: [
+      { title: 'Hytter og lejligheder', desc: 'Klassisk hytteferie tæt på spor og lifte.' },
+      { title: 'Hoteller', desc: 'Komfortabelt ophold med servering og service.' },
+      { title: 'Familier og grupper', desc: 'Større muligheder for større rejsefølger.' },
+    ],
   },
   tips: {
     eyebrow: 'Inspiration',
@@ -85,7 +95,7 @@ const da: Dictionary = {
     items: [
       { category: 'Planlægning', title: 'Sådan planlægger du en vinterweekend på Bjorli', intro: 'Fra liftkort til hytteleje – alt du bør tænke på før turen.' },
       { category: 'Rejse', title: '5 grunde til at tage toget til Bjorli', intro: 'Raumabanen gør fjeldet let at nå uden bil.' },
-      { category: 'Familie', title: 'Familieferie på Bjorli', intro: 'Snøsikker, korte afstande og rolige pister – perfekt for børnefamilier.' },
+      { category: 'Familie', title: 'Familieferie på Bjorli', intro: 'Snesikker, korte afstande og rolige pister – perfekt for børnefamilier.' },
       { category: 'Sommer', title: 'Bjorli om sommeren', intro: 'Når sneen smelter, bliver destinationen en rolig fjeldbase.' },
     ],
   },
@@ -103,13 +113,15 @@ const da: Dictionary = {
   },
   beyondAlpine: {
     eyebrow: 'Mere end alpinski',
-    title: 'Vinter handler om mere end pisterne',
-    body: 'Bjorli er en hel vinterdestination. Langrendsspor, kælkebakker, snehulebygning og rolige hytteaftener – der er meget at opleve ud over lifterne.',
+    title: 'Vinter på Bjorli er mere end lifte og pister',
+    body: 'Fjelddagene her handler også om langrend, kælk, sneleg, hytteaftener, korte afstande og tid sammen. Bjorli passer til familier og venner, der vil have ægte vinter uden at alt skal være stort, dyrt og travlt.',
     items: [
-      { title: 'Langrend', desc: 'Præparerede spor i smukt fjeldlandskab' },
-      { title: 'Kælk', desc: 'Sikre bakker for hele familien' },
-      { title: 'Hytteliv', desc: 'Lange aftener og hyggelig stemning indenfor' },
-      { title: 'Vinterture', desc: 'Snesko og topture for opdagelseslystne' },
+      { title: 'Langrend', desc: 'Præparerede spor i smukt fjeldlandskab.' },
+      { title: 'Kælk og sneleg', desc: 'Sikre bakker for hele familien.' },
+      { title: 'Hytteaftener', desc: 'Lange aftener, pejs og ro indenfor.' },
+      { title: 'Rolige vintervandringer', desc: 'Snesko og lette ture for dem, der vil ud.' },
+      { title: 'Tog til fjeldet', desc: 'Raumabanen kører helt op til Bjorli station.' },
+      { title: 'Familievenlige dage', desc: 'Korte afstande og roligt tempo for små og store.' },
     ],
   },
   gettingHere: {
@@ -132,13 +144,13 @@ const da: Dictionary = {
       eyebrow: 'Internationale fly',
       title: 'Direkte fly fra København til Ålesund Lufthavn Vigra',
       body: 'For danske skigæster er Bjorli lettere at komme til, end mange tror. Med direkte fly mellem København og Ålesund Lufthavn Vigra kan rejsen kombineres med en flot køretur gennem Nordvestlandet. Fra Ålesund Lufthavn Vigra til Bjorli tager køreturen cirka 2,5 timer.',
-      note: 'SAS opererer ifølge Travel Trade Møre & Romsdal direkte fly mellem København og Ålesund i relevante perioder, herunder vinter 2026/2027. Tjek altid aktuelle flytider hos flyselskabet før du bestiller.',
+      note: 'SAS opererer ifølge Travel Trade Møre & Romsdal direkte fly mellem København og Ålesund i relevante perioder, herunder vinter 2026/2027. Tjek altid aktuelle flytider hos flyselskabet, før du booker.',
     },
   },
   summerTeaser: {
     eyebrow: 'Året rundt',
     title: 'Bjorli om sommeren',
-    body: 'Når sneen smelter, bliver Bjorli en rolig fjeldbase for vandreture, cykling, familieferie og naturoplevelser mellem Dombås og Åndalsnes.',
+    body: 'Når sneen smelter, bliver Bjorli en rolig fjeldbase for vandreture, cykling, familieferie og naturoplevelser – med Rauma-elven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell lige om hjørnet.',
     cta: 'Udforsk sommer på Bjorli',
   },
   news: {
@@ -149,7 +161,7 @@ const da: Dictionary = {
     items: [
       { category: 'Liftkort', date: 'Sep', title: 'Sæsonkortsalget er åbnet', intro: 'Sikr dig sæsonkortet til reduceret pris før vinteren.' },
       { category: 'Drift', date: 'Okt', title: 'Nye åbningstider', intro: 'Forlængede åbningstider i weekenderne hele sæsonen.' },
-      { category: 'Sne', date: 'Nov', title: 'Sneproduktion i gang', intro: 'Snekanonerne kører – vi gør klar til en snøsikker sæson.' },
+      { category: 'Sne', date: 'Nov', title: 'Sneproduktion i gang', intro: 'Snekanonerne kører – vi gør klar til en snesikker sæson.' },
       { category: 'Sommer', date: 'Maj', title: 'Sommerprogram lanceret', intro: 'Se hvad du kan opleve på Bjorli i sommermånederne.' },
     ],
   },
@@ -162,13 +174,13 @@ const da: Dictionary = {
       { q: 'Hvordan kommer jeg til Bjorli med tog?', a: 'Bjorli ligger på Raumabanen mellem Dombås og Åndalsnes. Bjorli station ligger kort vej fra skicentret og overnatningsstederne. Tjek www.entur.no for køreplaner og billetbestilling til tog og bus.' },
       { q: 'Findes der skiudlejning og skiskole?', a: 'Ja, du kan leje ski, snowboard og andet udstyr ved skicentret og melde dig til kurser i Bjorli Skiskole.' },
       { q: 'Hvor kan jeg bo på Bjorli?', a: 'Du kan vælge mellem hytter, lejligheder og hoteller. Mange overnatningssteder ligger i gåafstand fra fjeldet og pisterne.' },
-      { q: 'Hvad kan jeg lave på Bjorli om sommeren?', a: 'Sommer på Bjorli betyder vandreture, cykling, familieaktiviteter og naturoplevelser i Romsdalen, mellem Dombås og Åndalsnes.' },
-      { q: 'Kan man flyve fra København til Bjorli?', a: 'Ja, i relevante perioder kan man flyve direkte fra København til Ålesund Lufthavn Vigra. Fra Vigra tager køreturen til Bjorli cirka 2,5 timer. Tjek altid aktuelle flytider hos flyselskabet.' },
+      { q: 'Hvad kan jeg lave på Bjorli om sommeren?', a: 'Sommer på Bjorli betyder vandreture, cykling, familieaktiviteter og naturoplevelser i Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell inden for kort rækkevidde.' },
+      { q: 'Kan man flyve fra København til Bjorli?', a: 'I relevante perioder kan man flyve direkte fra København til Ålesund Lufthavn Vigra. Fra Vigra tager køreturen til Bjorli cirka 2,5 timer. Tjek altid aktuelle flytider hos flyselskabet.' },
     ],
   },
   footer: {
     aboutTitle: 'Om Bjorli',
-    aboutBody: 'Destination Bjorli – en snøsikker vinterdestination og en rolig fjeldbase året rundt, mellem Dombås og Åndalsnes.',
+    aboutBody: 'Destination Bjorli – en snesikker vinterdestination og en rolig fjeldbase året rundt, porten mellem Østlandet og Nordvestlandet.',
     winterTitle: 'Vinter',
     summerTitle: 'Sommer',
     planTitle: 'Planlæg rejsen',
@@ -222,39 +234,78 @@ const da: Dictionary = {
     pageActivitiesTitle: 'Aktiviteter på Bjorli',
     pageActivitiesIntro: 'Alpint, langrend, vandring og fjeldoplevelser – vælg din næste aktivitet.',
     pageGettingHereTitle: 'Rejsen til Bjorli',
-    pageGettingHereIntro: 'Bjorli ligger mellem Dombås og Åndalsnes – let at nå med både bil og tog.'
+    pageGettingHereIntro: 'Bjorli ligger mellem Dombås og Åndalsnes – let at nå med både bil og tog.',
+    filterAll: 'Alle',
+    filterCategory: 'Kategori',
+    filterSeason: 'Sæson',
+    filterDate: 'Dato',
+    filterReset: 'Nulstil',
+    seasonWinter: 'Vinter',
+    seasonSummer: 'Sommer',
+    seasonAllYear: 'Hele året',
+    viewCalendar: 'Kalender',
+    viewList: 'Liste',
+    loadMore: 'Vis flere',
+    featured: 'Udvalgt',
+    seoPlaceholderTitle: 'Mere om Bjorli',
+    seoPlaceholderBody: 'Bjorli er en helårs fjelddestination i Romsdalen og porten mellem Østlandet og Nordvestlandet. Med tre nationalparker, Raumabanen, snesikre forhold og kort vej til Rauma-elven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell er Bjorli et særligt udgangspunkt for både vinter- og sommerferie.',
+    sectionWinter: 'Vinteraktiviteter',
+    sectionSummer: 'Sommeraktiviteter',
+    sectionFamily: 'Familieaktiviteter',
   },
   summer: {
     badge: 'Sommer på Bjorli',
-    title: 'Bjorli sommerdestination',
-    subtitle: 'Fjeldro, frisk luft og naturoplevelser mellem Dombås og Åndalsnes',
+    eyebrow: 'Sommer på Bjorli',
+    title: 'Basislejr mellem fjeld og fjord',
+    subtitle: 'Brug Bjorli som udgangspunkt for vandring, cykling, Raumabanen, Romsdalen, Dovrefjell og rolige sommerdage på fjeldet.',
     intro: 'Brug Bjorli som base for vandring, cykling, familieferie, togrejse og ægte norske naturoplevelser.',
-    ctaExplore: 'Udforsk sommer på Bjorli',
+    ctaExplore: 'Se aktiviteter',
     ctaActivities: 'Se aktiviteter',
     ctaStay: 'Find overnatning',
+    ctaPlan: 'Planlæg rejsen hertil',
+    introTitle: 'Sommer på Bjorli',
     activitiesTitle: 'Sommeroplevelser',
-    activitiesSubtitle: 'Find din favoritaktivitet i fjeldet.',
+    activitiesSubtitle: 'Find din favoritaktivitet på fjeldet.',
     activities: [
-      {
-        title: 'Vandring',
-        desc: 'Korte familieture og længere toppture i smukt fjeldlandskab.'
-      },
-      {
-        title: 'Cykling',
-        desc: 'Stier og grusveje til mountainbike og rolige ture.'
-      },
-      {
-        title: 'Familie',
-        desc: 'Sikre stier, legepladser og naturoplevelser for børn.'
-      },
-      {
-        title: 'Natur',
-        desc: 'Tre nationalparker tæt på – Reinheimen, Dovrefjell og Romsdalsalpene.'
-      }
+      { title: 'Vandring', desc: 'Korte familieture og længere toppture i smukt fjeldlandskab.' },
+      { title: 'Cykling', desc: 'Stier og grusveje til mountainbike og rolige ture.' },
+      { title: 'Familie', desc: 'Sikre stier, legepladser og naturoplevelser for børn.' },
+      { title: 'Natur', desc: 'Tre nationalparker tæt på – Reinheimen, Dovrefjell og Romsdalsalpene.' },
     ],
     winterTeaserTitle: 'Bjorli om vinteren',
-    winterTeaserBody: 'Snøsikre fjelddage med alpint, langrend og hytteliv – fra november til maj.',
-    winterTeaserCta: 'Se vinter på Bjorli'
+    winterTeaserBody: 'Snesikre fjelddage med alpint, langrend og hytteliv – fra november til maj.',
+    winterTeaserCta: 'Se vinter på Bjorli',
+    winterTeaserEyebrow: 'Året rundt',
+    foodDrink: {
+      eyebrow: 'Mad og drikke',
+      title: 'Smage fra fjeldet',
+      body: 'Efter en dag ude smager maden ekstra godt. På Bjorli finder du spisesteder, lokal mad og rolige stunder ved bordet – fra en kop kaffe på turen til et ordentligt måltid efter en lang dag på fjeldet.',
+      cta: 'Se mad og drikke',
+      imageAlt: 'Mad og drikke på Bjorli',
+    },
+    basecamp: {
+      eyebrow: 'Mellem fjeld og fjord',
+      title: 'Midt mellem fjeldet og fjorden',
+      body: 'Fra Bjorli har du kort vej til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordoplevelserne i Nordvestlandet. Du bor roligt på fjeldet, men har nogle af Norges stærkeste naturoplevelser inden for rækkevidde.',
+      items: [
+        { title: 'Raumabanen', desc: 'En af Norges smukkeste togrejser, med Bjorli som naturligt stop på fjeldet.' },
+        { title: 'Romsdalen og Trollveggen', desc: 'Stejle fjelde, vandreture og stærk natur inden for kort køreafstand.' },
+        { title: 'Dovrefjell', desc: 'Nationalpark, moskusokser, fjeldvandringer og store landskaber til både korte og længere ture.' },
+        { title: 'Ålesund og fjordene', desc: 'Kombiner rolige dage på Bjorli med fjord, kyst og by i Nordvestlandet.' },
+      ],
+      ctaActivities: 'Se aktiviteter',
+      ctaPlan: 'Planlæg rejsen hertil',
+    },
+  },
+  whyBjorli: {
+    eyebrow: 'Derfor vælger gæster Bjorli',
+    title: 'Hvorfor Bjorli?',
+    items: [
+      { title: 'Snesikker og familievenlig', desc: 'Ægte vinter, trygge rammer og gode oplevelser for både børn og voksne.', icon: 'snowflake' },
+      { title: 'Kort vej til ski, hytter og natur', desc: 'Mindre logistik, kortere afstande og mere tid ude.', icon: 'mountain' },
+      { title: 'Tog til fjeldet med Raumabanen', desc: 'Rejs til Bjorli ad en af Norges smukkeste togstrækninger.', icon: 'train' },
+      { title: 'Basislejr mellem fjeld og fjord', desc: 'Oplev fjeldet, Romsdalen, Dovrefjell og Nordvestlandet fra ét udgangspunkt.', icon: 'treePine' },
+    ],
   },
 };
 
