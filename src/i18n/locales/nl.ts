@@ -256,7 +256,7 @@ const nl: Dictionary = {
   summer: {
     badge: 'Zomer in Bjorli',
     eyebrow: 'Zomer in Bjorli',
-    title: 'Een uitvalsbasis tussen berg en fjord',
+    title: 'Een uitvalsbasis tussen bergen en fjorden',
     subtitle: 'Gebruik Bjorli als startpunt voor wandelen, fietsen, de Raumalijn, Romsdalen, Dovrefjell en rustige zomerdagen in de bergen.',
     intro: 'Gebruik Bjorli als basis voor wandelen, fietsen, gezinsvakanties, treinreizen en echte Noorse natuur.',
     ctaExplore: 'Activiteiten bekijken',
@@ -285,7 +285,7 @@ const nl: Dictionary = {
     },
     basecamp: {
       eyebrow: 'Tussen berg en fjord',
-      title: 'Midden tussen de bergen en de fjorden',
+      title: 'Een uitvalsbasis tussen bergen en fjorden',
       body: 'Vanuit Bjorli ben je snel bij de Raumalijn, Romsdalen, Trollveggen, Dovrefjell en het fjordlandschap van Noordwest-Noorwegen. Je verblijft rustig in de bergen, met enkele van de mooiste natuurgebieden van Noorwegen binnen handbereik.',
       items: [
         { title: 'De Raumalijn', desc: 'Een van de mooiste treinreizen van Noorwegen, met Bjorli als natuurlijke halte in de bergen.' },
@@ -304,7 +304,7 @@ const nl: Dictionary = {
       { title: 'Sneeuwzeker en gezinsvriendelijk', desc: 'Echte winter, een veilige omgeving en goede ervaringen voor kinderen en volwassenen.', icon: 'snowflake' },
       { title: 'Korte afstanden tot ski, hutten en natuur', desc: 'Minder logistiek, kortere afstanden en meer tijd buiten.', icon: 'mountain' },
       { title: 'Met de trein de bergen in via de Raumalijn', desc: 'Bereik Bjorli via een van de mooiste spoorlijnen van Noorwegen.', icon: 'train' },
-      { title: 'Een uitvalsbasis tussen berg en fjord', desc: 'Beleef de bergen, Romsdalen, Dovrefjell en Noordwest-Noorwegen vanuit één basis.', icon: 'treePine' },
+      { title: 'Een uitvalsbasis tussen bergen en fjorden', desc: 'Beleef de bergen, Romsdalen, Dovrefjell en Noordwest-Noorwegen vanuit één basis.', icon: 'treePine' },
     ],
   },
 };
