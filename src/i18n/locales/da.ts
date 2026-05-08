@@ -256,7 +256,7 @@ const da: Dictionary = {
   summer: {
     badge: 'Sommer på Bjorli',
     eyebrow: 'Sommer på Bjorli',
-    title: 'Basislejr mellem fjeld og fjord',
+    title: 'Midt mellem bjerge og fjorde',
     subtitle: 'Brug Bjorli som udgangspunkt for vandring, cykling, Raumabanen, Romsdalen, Dovrefjell og rolige sommerdage på fjeldet.',
     intro: 'Brug Bjorli som base for vandring, cykling, familieferie, togrejse og ægte norske naturoplevelser.',
     ctaExplore: 'Se aktiviteter',
@@ -285,7 +285,7 @@ const da: Dictionary = {
     },
     basecamp: {
       eyebrow: 'Mellem fjeld og fjord',
-      title: 'Midt mellem fjeldet og fjorden',
+      title: 'Midt mellem bjerge og fjorde',
       body: 'Fra Bjorli har du kort vej til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordoplevelserne i Nordvestlandet. Du bor roligt på fjeldet, men har nogle af Norges stærkeste naturoplevelser inden for rækkevidde.',
       items: [
         { title: 'Raumabanen', desc: 'En af Norges smukkeste togrejser, med Bjorli som naturligt stop på fjeldet.' },
@@ -304,7 +304,7 @@ const da: Dictionary = {
       { title: 'Snesikker og familievenlig', desc: 'Ægte vinter, trygge rammer og gode oplevelser for både børn og voksne.', icon: 'snowflake' },
       { title: 'Kort vej til ski, hytter og natur', desc: 'Mindre logistik, kortere afstande og mere tid ude.', icon: 'mountain' },
       { title: 'Tog til fjeldet med Raumabanen', desc: 'Rejs til Bjorli ad en af Norges smukkeste togstrækninger.', icon: 'train' },
-      { title: 'Basislejr mellem fjeld og fjord', desc: 'Oplev fjeldet, Romsdalen, Dovrefjell og Nordvestlandet fra ét udgangspunkt.', icon: 'treePine' },
+      { title: 'Midt mellem bjerge og fjorde', desc: 'Oplev fjeldet, Romsdalen, Dovrefjell og Nordvestlandet fra ét udgangspunkt.', icon: 'treePine' },
     ],
   },
 };

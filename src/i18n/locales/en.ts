@@ -239,7 +239,7 @@ const en: Dictionary = {
   summer: {
     badge: 'Summer at Bjorli',
     eyebrow: 'Summer at Bjorli',
-    title: 'A basecamp between mountain and fjord',
+    title: 'Your base between the mountains and the fjord',
     subtitle: 'Use Bjorli as your starting point for hiking, biking, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
     intro: 'Use Bjorli as a base for hiking, biking, family holidays, train travel and genuine Norwegian nature experiences.',
     ctaExplore: 'See activities',
@@ -280,7 +280,7 @@ const en: Dictionary = {
     },
     basecamp: {
       eyebrow: 'Between mountain and fjord',
-      title: 'Right between the mountains and the fjords',
+      title: 'Your base between the mountains and the fjord',
       body: 'From Bjorli you have a short journey to the Rauma Line, Romsdalen, Trollveggen, Dovrefjell and the fjord landscapes of north-western Norway. Stay quietly in the mountains while some of Norway’s most powerful nature experiences are within easy reach.',
       items: [
         { title: 'The Rauma Line', desc: 'One of Norway’s most beautiful train rides, with Bjorli as a natural mountain stop.' },
@@ -299,7 +299,7 @@ const en: Dictionary = {
       { title: 'Snow-sure and family-friendly', desc: 'Real winter, safe surroundings and good experiences for kids and adults alike.', icon: 'snowflake' },
       { title: 'Short distances to skiing, cabins and nature', desc: 'Less logistics, shorter distances and more time outdoors.', icon: 'mountain' },
       { title: 'Train to the mountain via the Rauma Line', desc: 'Reach Bjorli on one of Norway’s most scenic railway journeys.', icon: 'train' },
-      { title: 'A basecamp between mountain and fjord', desc: 'Experience the mountains, Romsdalen, Dovrefjell and north-western Norway from one base.', icon: 'treePine' },
+      { title: 'Your base between the mountains and the fjord', desc: 'Experience the mountains, Romsdalen, Dovrefjell and north-western Norway from one base.', icon: 'treePine' },
     ],
   },
 };

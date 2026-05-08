@@ -255,7 +255,7 @@ const de: Dictionary = {
   summer: {
     badge: 'Sommer in Bjorli',
     eyebrow: 'Sommer in Bjorli',
-    title: 'Basislager zwischen Berg und Fjord',
+    title: 'Mitten zwischen Bergen und Fjorden',
     subtitle: 'Nutzen Sie Bjorli als Ausgangspunkt für Wandern, Radfahren, die Rauma-Bahn, Romsdalen, Dovrefjell und ruhige Sommertage in den Bergen.',
     intro: 'Nutzen Sie Bjorli als Basis für Wandern, Radfahren, Familienurlaub, Bahnreisen und echte norwegische Naturerlebnisse.',
     ctaExplore: 'Aktivitäten ansehen',
@@ -303,7 +303,7 @@ const de: Dictionary = {
       { title: 'Schneesicher und familienfreundlich', desc: 'Echter Winter, sichere Umgebung und gute Erlebnisse für Kinder und Erwachsene.', icon: 'snowflake' },
       { title: 'Kurze Wege zu Ski, Hütten und Natur', desc: 'Weniger Logistik, kürzere Strecken und mehr Zeit draußen.', icon: 'mountain' },
       { title: 'Mit dem Zug in die Berge über die Rauma-Bahn', desc: 'Reisen Sie auf einer der schönsten Bahnstrecken Norwegens nach Bjorli.', icon: 'train' },
-      { title: 'Basislager zwischen Berg und Fjord', desc: 'Erleben Sie Berge, Romsdalen, Dovrefjell und Nordwestnorwegen von einem Standort aus.', icon: 'treePine' },
+      { title: 'Mitten zwischen Bergen und Fjorden', desc: 'Erleben Sie Berge, Romsdalen, Dovrefjell und Nordwestnorwegen von einem Standort aus.', icon: 'treePine' },
     ],
   },
 };
