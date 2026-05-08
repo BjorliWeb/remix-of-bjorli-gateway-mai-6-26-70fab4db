@@ -49,7 +49,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const value = useMemo(() => {
-    const legacyLocale = (['no', 'en', 'da', 'nl'] as Locale[]).includes(locale) ? locale : 'no';
+    const legacyLocale = (['no', 'en', 'de', 'nl', 'da', 'sv'] as Locale[]).includes(locale) ? locale : 'no';
     const t = (translations as unknown as Record<string, typeof translations['no']>)[legacyLocale];
     const d = dictionaries[locale];
     return { locale, setLocale, t, d };
