@@ -159,14 +159,14 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
   // and ordering when Fnugg has no value for that icon.
 
   return (
-    <section className="relative -mt-20 z-20 px-4">
+    <section className="relative -mt-24 z-20 px-4">
       <div className="container mx-auto">
         {section.heading && (
-          <h2 className="text-center font-display text-xl md:text-2xl font-bold text-primary-foreground/95 drop-shadow-sm mb-4 max-w-3xl mx-auto">
+          <h2 className="text-center font-display text-base md:text-lg font-medium tracking-[0.18em] uppercase text-primary-foreground/85 mb-6 max-w-3xl mx-auto">
             {section.heading}
           </h2>
         )}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
             const live = liveValueFor(card.icon, fnugg, locale);
@@ -180,13 +180,13 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="glass rounded-xl p-4 md:p-5 text-center shadow-lg"
+                className="glass rounded-2xl p-5 md:p-6 text-center"
                 role="group"
                 aria-label={live.ariaLabel ?? card.label}
               >
-                <Icon className="h-5 w-5 md:h-6 md:w-6 mx-auto mb-2 text-secondary" />
+                <Icon className="h-5 w-5 md:h-6 md:w-6 mx-auto mb-3 text-secondary" />
                 <div
-                  className="text-xl md:text-2xl font-bold text-foreground"
+                  className="font-display text-2xl md:text-3xl font-bold text-foreground tracking-tight"
                   aria-live="polite"
                 >
                   {isLoadingFirst ? (
@@ -195,7 +195,7 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                     displayValue
                   )}
                 </div>
-                <div className="text-xs md:text-sm text-muted-foreground">{card.label}</div>
+                <div className="text-[11px] md:text-xs text-muted-foreground mt-1 tracking-wide">{card.label}</div>
               </motion.div>
             );
           })}
