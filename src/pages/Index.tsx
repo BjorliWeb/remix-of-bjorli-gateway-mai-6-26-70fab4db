@@ -32,7 +32,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-block text-secondary text-sm md:text-base font-medium tracking-[0.2em] uppercase mb-6"
+            className="inline-block text-primary-foreground/75 text-xs md:text-sm font-medium tracking-[0.22em] uppercase mb-8"
           >
             {d.hero.eyebrow ?? home.intro}
           </motion.span>
@@ -40,7 +40,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-tight"
+            className="font-display text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-8 leading-[0.95] tracking-tight"
           >
             {home.heroTitle}
           </motion.h1>
@@ -49,7 +49,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-primary-foreground/85 text-xl md:text-2xl mb-10 font-light max-w-3xl mx-auto"
+              className="text-primary-foreground/80 text-lg md:text-2xl mb-12 font-light max-w-2xl mx-auto leading-relaxed"
             >
               {home.heroSubtitle}
             </motion.p>
