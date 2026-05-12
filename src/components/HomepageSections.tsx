@@ -140,10 +140,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'intro':
             return (
-              <section key={section.id} className="py-20 md:py-28 px-4">
+              <section key={section.id} className="py-28 md:py-40 px-4">
                 <div className="container mx-auto max-w-3xl text-center">
                   {section.title && (
-                    <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">{section.title}</h2>
+                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">{section.title}</h2>
                   )}
                   <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">{section.body}</p>
                 </div>
@@ -152,16 +152,16 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'cardGrid':
             return (
-              <section key={section.id} className="py-16 px-4 bg-muted/40">
+              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
                 <div className="container mx-auto">
-                  <div className="text-center mb-12 max-w-2xl mx-auto">
+                  <div className="text-center mb-16 max-w-2xl mx-auto">
                     {section.eyebrow && (
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
                     )}
-                    <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-3">{section.title}</h2>
+                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
                     {section.subtitle && <p className="text-muted-foreground text-lg">{section.subtitle}</p>}
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
                     {section.items.map((item, i) => {
                       const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                       return (
@@ -172,11 +172,11 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           whileInView="visible"
                           viewport={{ once: true }}
                           variants={fadeUp}
-                          className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-md hover:border-secondary/40 transition-all"
+                          className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors"
                         >
-                          <Icon className="h-6 w-6 text-secondary mb-3" />
-                          <div className="font-display font-semibold text-foreground mb-1">{item.title}</div>
-                          <div className="text-sm text-muted-foreground leading-snug">{item.desc}</div>
+                          <Icon className="h-6 w-6 text-secondary mb-4" />
+                          <div className="font-display font-semibold text-foreground mb-1.5">{item.title}</div>
+                          <div className="text-sm text-muted-foreground leading-relaxed">{item.desc}</div>
                         </motion.div>
                       );
                     })}
@@ -187,26 +187,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'feature': {
             const imageLeft = section.imageSide !== 'right';
-            const bg = !imageLeft ? 'bg-muted/40' : '';
+            const bg = !imageLeft ? 'bg-muted/30' : '';
             return (
-              <section key={section.id} className={`py-20 md:py-24 px-4 ${bg}`}>
+              <section key={section.id} className={`py-24 md:py-36 px-4 ${bg}`}>
                 <div className="container mx-auto max-w-6xl">
-                  <div className="grid lg:grid-cols-2 gap-10 items-center">
-                    <div className={`relative rounded-2xl overflow-hidden h-80 lg:h-[480px] ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
+                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div className={`relative rounded-2xl overflow-hidden h-96 lg:h-[560px] ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
                       <img src={section.image.url} alt={section.image.alt || section.title} className="w-full h-full object-cover" loading="lazy" />
                     </div>
                     <div className={imageLeft ? '' : 'order-2 lg:order-1'}>
                       {section.eyebrow && (
-                        <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>
+                        <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-5">{section.title}</h2>
-                      <p className="text-muted-foreground text-lg leading-relaxed mb-8">{section.body}</p>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10 max-w-xl">{section.body}</p>
                       {section.subcards && section.subcards.length > 0 && (
-                        <div className="grid sm:grid-cols-2 gap-3 mb-8">
+                        <div className="grid sm:grid-cols-2 gap-4 mb-10">
                           {section.subcards.map((c) => (
-                            <div key={c.title} className="rounded-xl border border-border bg-card/60 p-4">
-                              <div className="font-display font-semibold text-foreground mb-1">{c.title}</div>
-                              {c.desc && <div className="text-sm text-muted-foreground leading-snug">{c.desc}</div>}
+                            <div key={c.title} className="rounded-xl border border-border/70 bg-card/50 p-5">
+                              <div className="font-display font-semibold text-foreground mb-1.5">{c.title}</div>
+                              {c.desc && <div className="text-sm text-muted-foreground leading-relaxed">{c.desc}</div>}
                             </div>
                           ))}
                         </div>
@@ -227,25 +227,25 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'imageCards':
             return (
-              <section key={section.id} className="py-20 px-4">
+              <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto">
-                  <div className="text-center mb-12">
+                  <div className="text-center mb-16">
                     {section.eyebrow && (
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
                     )}
                     {section.title && (
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">{section.title}</h2>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
                     {section.cards.map((card, i) => (
                       <Link key={card.title} to={lp(card.href)}>
-                        <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden shadow-lg h-80 cursor-pointer">
-                          <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/95 via-deep-navy/40 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-6">
-                            {card.eyebrow && <div className="text-secondary text-xs font-semibold uppercase tracking-wider mb-1">{card.eyebrow}</div>}
-                            <h3 className="font-display text-xl font-bold text-primary-foreground">{card.title}</h3>
+                        <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden h-[420px] cursor-pointer">
+                          <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/80 via-deep-navy/15 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-7">
+                            {card.eyebrow && <div className="text-secondary text-[11px] font-medium tracking-[0.18em] uppercase mb-2">{card.eyebrow}</div>}
+                            <h3 className="font-display text-2xl font-bold text-primary-foreground leading-tight">{card.title}</h3>
                           </div>
                         </motion.div>
                       </Link>
@@ -257,12 +257,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'tips':
             return (
-              <section key={section.id} className="py-20 px-4 bg-muted/40">
+              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
                 <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-4 items-end justify-between mb-10">
-                    <div>
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">{section.eyebrow}</div>
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-2">{section.title}</h2>
+                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
+                    <div className="max-w-xl">
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
                     <Link to={lp(section.ctaHref)}>
@@ -271,19 +271,19 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       </Button>
                     </Link>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {section.items.map((tip, i) => (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {section.items.slice(0, 3).map((tip, i) => (
                       <Link key={tip.id} to={lp(`/tips/${tip.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow h-full">
+                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors h-full">
                           {tip.heroImage && (
-                            <div className="aspect-[4/3] overflow-hidden">
+                            <div className="aspect-[5/4] overflow-hidden">
                               <img src={tip.heroImage.url} alt={tip.heroImage.alt || tip.title} className="w-full h-full object-cover" loading="lazy" />
                             </div>
                           )}
-                          <div className="p-5">
-                            {tip.category && <div className="text-xs font-semibold text-secondary uppercase tracking-wider mb-2">{tip.category}</div>}
-                            <h3 className="font-display font-bold text-foreground mb-2 leading-tight">{tip.title}</h3>
-                            <p className="text-sm text-muted-foreground leading-snug">{tip.intro}</p>
+                          <div className="p-7">
+                            {tip.category && <div className="text-[11px] font-medium text-secondary uppercase tracking-[0.18em] mb-3">{tip.category}</div>}
+                            <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight">{tip.title}</h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{tip.intro}</p>
                           </div>
                         </motion.article>
                       </Link>
@@ -295,12 +295,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'events':
             return (
-              <section key={section.id} className="py-20 px-4">
+              <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-4 items-end justify-between mb-10">
-                    <div>
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">{section.eyebrow}</div>
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-2">{section.title}</h2>
+                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
+                    <div className="max-w-xl">
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
                     <Link to={lp(section.ctaHref)}>
@@ -309,23 +309,23 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       </Button>
                     </Link>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {section.items.map((ev, i) => (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {section.items.slice(0, 3).map((ev, i) => (
                       <Link key={ev.id} to={lp(`/arrangementer/${ev.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden shadow-sm h-72">
+                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden h-96">
                           {ev.heroImage && (
-                            <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+                            <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy" />
                           )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/95 via-deep-navy/30 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/15 to-transparent" />
                           {ev.date && (
-                            <div className="absolute top-4 left-4 bg-secondary text-secondary-foreground rounded-lg px-3 py-1.5 text-xs font-bold uppercase tracking-wider">
+                            <div className="absolute top-5 left-5 bg-background/90 backdrop-blur text-foreground rounded-md px-3 py-1.5 text-[11px] font-semibold tracking-[0.12em] uppercase">
                               {ev.date}
                             </div>
                           )}
-                          <div className="absolute bottom-0 left-0 right-0 p-5">
-                            {ev.category && <div className="text-primary-foreground/70 text-xs font-semibold uppercase tracking-wider mb-1">{ev.category}</div>}
-                            <h3 className="font-display font-bold text-primary-foreground text-lg leading-tight mb-1">{ev.title}</h3>
-                            <p className="text-primary-foreground/80 text-sm">{ev.intro}</p>
+                          <div className="absolute bottom-0 left-0 right-0 p-7">
+                            {ev.category && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.18em] uppercase mb-2">{ev.category}</div>}
+                            <h3 className="font-display font-bold text-primary-foreground text-2xl leading-tight mb-2">{ev.title}</h3>
+                            <p className="text-primary-foreground/85 text-sm leading-relaxed line-clamp-2">{ev.intro}</p>
                           </div>
                         </motion.article>
                       </Link>
@@ -337,28 +337,28 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'beyond':
             return (
-              <section key={section.id} className="py-20 px-4 bg-deep-navy text-primary-foreground">
+              <section key={section.id} className="py-24 md:py-36 px-4 bg-deep-navy text-primary-foreground">
                 <div className="container mx-auto max-w-6xl">
-                  <div className="grid lg:grid-cols-2 gap-10 items-center mb-12">
+                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
                     <div>
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>
-                      <h2 className="font-display text-3xl md:text-5xl font-bold mb-5">{section.title}</h2>
-                      <p className="text-primary-foreground/80 text-lg leading-relaxed">{section.body}</p>
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed">{section.body}</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {section.images.map((img, i) => (
-                        <img key={i} src={img.url} alt={img.alt || ''} className={`rounded-xl aspect-square object-cover ${i % 2 ? 'mt-8' : ''}`} loading="lazy" />
+                        <img key={i} src={img.url} alt={img.alt || ''} className={`rounded-2xl aspect-square object-cover ${i % 2 ? 'mt-10' : ''}`} loading="lazy" />
                       ))}
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                     {section.items.map((item, i) => {
                       const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                       return (
-                        <motion.div key={item.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="rounded-xl p-5 bg-primary-foreground/5 border border-primary-foreground/10">
-                          <Icon className="h-6 w-6 text-secondary mb-3" />
-                          <div className="font-display font-semibold mb-1">{item.title}</div>
-                          <div className="text-sm text-primary-foreground/70">{item.desc}</div>
+                        <motion.div key={item.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="rounded-2xl p-6 bg-primary-foreground/[0.04] border border-primary-foreground/10">
+                          <Icon className="h-6 w-6 text-secondary mb-4" />
+                          <div className="font-display font-semibold mb-1.5">{item.title}</div>
+                          <div className="text-sm text-primary-foreground/70 leading-relaxed">{item.desc}</div>
                         </motion.div>
                       );
                     })}
@@ -369,16 +369,16 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'gettingHere':
             return (
-              <section key={section.id} className="py-20 px-4">
+              <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto max-w-5xl">
-                  <div className="text-center mb-12 max-w-2xl mx-auto">
-                    <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">{section.eyebrow}</div>
-                    <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">{section.title}</h2>
+                  <div className="text-center mb-14 max-w-2xl mx-auto">
+                    <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.05] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-lg">{section.body}</p>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-10">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-12">
                     {section.cities.map((c, i) => (
-                      <motion.div key={c.city} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-xl p-4 text-center shadow-sm border border-border">
+                      <motion.div key={c.city} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-xl p-4 text-center border border-border/70">
                         <div className="text-lg font-bold text-secondary">{c.km}</div>
                         <div className="text-xs text-muted-foreground mt-1">{c.city}</div>
                       </motion.div>
@@ -397,13 +397,13 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'teaser':
             return (
-              <section key={section.id} className="relative py-24 px-4 overflow-hidden">
+              <section key={section.id} className="relative py-32 md:py-40 px-4 overflow-hidden">
                 <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-r from-deep-navy/85 via-deep-navy/60 to-deep-navy/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-deep-navy/80 via-deep-navy/55 to-deep-navy/20" />
                 <div className="relative z-10 container mx-auto max-w-3xl">
-                  {section.eyebrow && <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-3">{section.eyebrow}</div>}
-                  <h2 className="font-display text-3xl md:text-5xl font-bold text-primary-foreground mb-5">{section.title}</h2>
-                  <p className="text-primary-foreground/85 text-lg leading-relaxed mb-8 max-w-2xl">{section.body}</p>
+                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>}
+                  <h2 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
+                  <p className="text-primary-foreground/85 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">{section.body}</p>
                   <Link to={lp(section.ctaHref)}>
                     <Button size="lg" variant="secondary" className="font-semibold">
                       {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
@@ -415,12 +415,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'news':
             return (
-              <section key={section.id} className="py-20 px-4 bg-muted/40">
+              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
                 <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-4 items-end justify-between mb-10">
-                    <div>
-                      <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">{section.eyebrow}</div>
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-2">{section.title}</h2>
+                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
+                    <div className="max-w-xl">
+                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
                     <Link to={lp(section.ctaHref)}>
@@ -429,23 +429,23 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       </Button>
                     </Link>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {section.items.map((n, i) => (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {section.items.slice(0, 3).map((n, i) => (
                       <Link key={n.id} to={lp(`/nyheter/${n.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow h-full">
+                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors h-full">
                           {n.heroImage && (
-                            <div className="aspect-[4/3] overflow-hidden">
+                            <div className="aspect-[5/4] overflow-hidden">
                               <img src={n.heroImage.url} alt={n.heroImage.alt || n.title} className="w-full h-full object-cover" loading="lazy" />
                             </div>
                           )}
-                          <div className="p-5">
-                            <div className="flex items-center gap-2 mb-2">
-                              {n.category && <span className="text-xs font-semibold text-secondary uppercase tracking-wider">{n.category}</span>}
+                          <div className="p-7">
+                            <div className="flex items-center gap-2 mb-3">
+                              {n.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.18em]">{n.category}</span>}
                               {n.date && <span className="text-xs text-muted-foreground">·</span>}
                               {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
                             </div>
-                            <h3 className="font-display font-bold text-foreground mb-2 leading-tight">{n.title}</h3>
-                            <p className="text-sm text-muted-foreground leading-snug">{n.intro}</p>
+                            <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight">{n.title}</h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{n.intro}</p>
                           </div>
                         </motion.article>
                       </Link>
@@ -457,11 +457,11 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'faq':
             return (
-              <section key={section.id} className="py-20 px-4">
+              <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto max-w-3xl">
-                  <div className="text-center mb-10">
-                    <div className="text-secondary text-sm font-semibold uppercase tracking-wider mb-2">{section.eyebrow}</div>
-                    <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">{section.title}</h2>
+                  <div className="text-center mb-14">
+                    <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     {section.items.map((item, i) => (
@@ -478,20 +478,20 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           case 'activities':
             return (
               <div key={section.id}>
-                <section className="py-16 px-4 bg-muted/40">
+                <section className="py-24 md:py-32 px-4 bg-muted/30">
                   <div className="container mx-auto">
-                    <div className="text-center mb-12 max-w-2xl mx-auto">
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-3">{section.title}</h2>
+                    <div className="text-center mb-16 max-w-2xl mx-auto">
+                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
                       {section.items.map((a, i) => {
                         const Icon = (a.icon && ICONS[a.icon]) || Mountain;
                         return (
-                          <motion.div key={a.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-md hover:border-secondary/40 transition-all">
-                            <Icon className="h-6 w-6 text-secondary mb-3" />
-                            <div className="font-display font-semibold text-foreground mb-1">{a.title}</div>
-                            <div className="text-sm text-muted-foreground leading-snug">{a.desc}</div>
+                          <motion.div key={a.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors">
+                            <Icon className="h-6 w-6 text-secondary mb-4" />
+                            <div className="font-display font-semibold text-foreground mb-1.5">{a.title}</div>
+                            <div className="text-sm text-muted-foreground leading-relaxed">{a.desc}</div>
                           </motion.div>
                         );
                       })}
@@ -499,15 +499,15 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   </div>
                 </section>
                 {section.imageCards && section.imageCards.length > 0 && (
-                  <section className="py-20 px-4">
-                    <div className="container mx-auto grid md:grid-cols-2 gap-6 max-w-6xl">
+                  <section className="py-24 md:py-32 px-4">
+                    <div className="container mx-auto grid md:grid-cols-2 gap-8 max-w-6xl">
                       {section.imageCards.map((c, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative rounded-2xl overflow-hidden h-80">
+                        <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative rounded-2xl overflow-hidden h-[460px]">
                           <img src={c.image.url} alt={c.image.alt || c.title} className="w-full h-full object-cover" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/95 via-deep-navy/30 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-6">
-                            <h3 className="font-display text-2xl font-bold text-primary-foreground">{c.title}</h3>
-                            {c.desc && <p className="text-primary-foreground/85 text-sm mt-1">{c.desc}</p>}
+                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/15 to-transparent" />
+                          <div className="absolute bottom-0 left-0 right-0 p-8">
+                            <h3 className="font-display text-3xl font-bold text-primary-foreground leading-tight">{c.title}</h3>
+                            {c.desc && <p className="text-primary-foreground/85 text-base mt-2 leading-relaxed">{c.desc}</p>}
                           </div>
                         </motion.div>
                       ))}

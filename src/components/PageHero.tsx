@@ -8,7 +8,7 @@ interface PageHeroProps {
 
 const PageHero = ({ title, subtitle, image }: PageHeroProps) => {
   return (
-    <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[60vh] min-h-[480px] flex items-center justify-center overflow-hidden">
       <img
         src={image}
         alt={title}
@@ -21,7 +21,7 @@ const PageHero = ({ title, subtitle, image }: PageHeroProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-4"
+          className="font-display text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-[0.95] tracking-tight"
         >
           {title}
         </motion.h1>
@@ -29,7 +29,7 @@ const PageHero = ({ title, subtitle, image }: PageHeroProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto"
+          className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light"
         >
           {subtitle}
         </motion.p>
