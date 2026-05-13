@@ -212,7 +212,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
       return parts.join(' · ');
     })();
     return (
-      <section className="px-4 mt-6" aria-label="Latest operational update">
+      <section className="px-4 mt-5" aria-label="Latest operational update">
         <div className="container mx-auto max-w-5xl">
           <div className="flex items-center gap-3 text-sm text-foreground/80 border-y border-border/60 py-3">
             <Icon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
