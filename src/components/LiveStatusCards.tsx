@@ -161,11 +161,6 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
   return (
     <section className="relative -mt-10 md:-mt-16 z-20 px-4">
       <div className="container mx-auto">
-        {section.heading && (
-          <div className="text-center text-muted-foreground text-[11px] md:text-xs font-medium tracking-[0.24em] uppercase mb-5 max-w-3xl mx-auto">
-            {section.heading}
-          </div>
-        )}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 max-w-4xl mx-auto">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
