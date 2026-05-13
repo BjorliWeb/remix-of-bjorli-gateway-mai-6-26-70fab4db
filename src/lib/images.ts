@@ -294,7 +294,7 @@ export const images = {
   pisteMap: { src: p_pisteMap, alt: 'Bjorli Ski Resort piste map.', wpField: 'piste_map_image', placeholder: false },
   flyFishing: { src: s_flyFishing, alt: 'Fly fishing in a river near Bjorli.', wpField: 'fly_fishing_image', placeholder: false },
   riverFishing: { src: s_fishingRiver, alt: 'Fishing in a mountain river near Bjorli.', wpField: 'river_fishing_image', placeholder: false },
-  eventFlying: { src: e_flying, alt: 'Skiers on the chairlift at Bjorli on a clear winter day.', wpField: 'event_flying_image', placeholder: false },
+  eventFlying: { src: e_summerTrail, alt: 'Mountain biking on a singletrack near Bjorli in late summer.', wpField: 'event_flying_image', placeholder: false },
   eventEaster: { src: e_event2, alt: 'Cosy cabin interior at Bjorli with warm wood and soft daylight.', wpField: 'event_easter_image', placeholder: false },
   moodScenic: { src: e_mood3, alt: 'Scenic Bjorli destination atmosphere.', wpField: 'mood_scenic_image', placeholder: false },
 } satisfies Record<string, BjorliImage>;
