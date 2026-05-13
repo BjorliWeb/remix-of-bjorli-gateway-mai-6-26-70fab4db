@@ -169,7 +169,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
                       )}
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-2 border-t border-border/60">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-2 border-t border-border">
                       {section.items.map((item, i) => {
                         const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                         return (
@@ -180,12 +180,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeUp}
-                            className="border-b border-border/60 py-5 flex gap-4 items-start"
+                            className="group border-b border-border py-6 flex gap-4 items-start cursor-default focus-within:bg-background/60 hover:bg-background/60 -mx-3 px-3 rounded-sm transition-colors"
                           >
-                            <Icon className="h-5 w-5 text-secondary mt-1 shrink-0" />
+                            <Icon className="h-5 w-5 text-foreground mt-1 shrink-0 group-hover:text-secondary transition-colors" />
                             <div className="flex-1 min-w-0">
                               <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
-                              <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
+                              <div className="text-sm text-foreground/70 leading-relaxed mt-1">{item.desc}</div>
                             </div>
                           </motion.li>
                         );
@@ -493,7 +493,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.body}</p>
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 border-t border-border/60 pt-10 mb-12">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-12 border-t border-border pt-12 mb-12">
                     {section.cities.map((c, i) => (
                       <motion.div
                         key={c.city}
@@ -503,8 +503,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         viewport={{ once: true }}
                         variants={fadeUp}
                       >
-                        <div className="font-display text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-none">{c.km}</div>
-                        <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-[0.18em] mt-3">{c.city}</div>
+                        <div className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight leading-none">{c.km}</div>
+                        <div className="text-sm md:text-base text-foreground/75 uppercase tracking-[0.18em] mt-3 font-medium">{c.city}</div>
                       </motion.div>
                     ))}
                   </div>

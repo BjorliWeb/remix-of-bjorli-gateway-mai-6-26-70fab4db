@@ -316,8 +316,8 @@ export const mockAdapter: CmsAdapter = {
         title: d.beyondAlpine.title,
         body: d.beyondAlpine.body,
         images: [
-          { url: crossCountry, alt: 'Langrenn' },
-          { url: cabinEvening, alt: 'Hytteliv' },
+          { url: cabinEvening, alt: 'Hytte i vinterkveld på Bjorli' },
+          { url: crossCountry, alt: 'Vinterlandskap rundt Bjorli' },
         ],
         items: d.beyondAlpine.items.map((it, i) => ({
           title: it.title,
