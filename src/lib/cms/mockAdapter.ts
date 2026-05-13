@@ -257,6 +257,8 @@ export const mockAdapter: CmsAdapter = {
           title: it.title,
           desc: it.desc,
           icon: ['mountain', 'ticket', 'clock', 'camera', 'map', 'home', 'activity', 'coffee'][i],
+          href: ['/bjorli-skisenter', 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862', '/apningstider', '/livecams', '/loypekart', '/overnatting', '/skiutleie', '/mat-og-drikke'][i],
+          external: i === 1,
         })),
       },
       {

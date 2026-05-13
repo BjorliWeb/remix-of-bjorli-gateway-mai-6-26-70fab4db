@@ -320,7 +320,7 @@ export interface CmsCardGridSection extends CmsSectionBase {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  items: { title: string; desc: string; icon?: string }[];
+  items: { title: string; desc: string; icon?: string; href?: string; external?: boolean }[];
 }
 
 export interface CmsFeatureSection extends CmsSectionBase {
