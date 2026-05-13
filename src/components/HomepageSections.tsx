@@ -139,6 +139,43 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'intro':
+            if (section.statement) {
+              return (
+                <section key={section.id} className="pt-20 md:pt-28 pb-24 md:pb-32 px-4">
+                  <div className="container mx-auto max-w-6xl">
+                    <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                      <div className="lg:col-span-3">
+                        <div className="text-secondary text-xs font-semibold tracking-[0.24em] uppercase">
+                          {section.eyebrow ?? section.title}
+                        </div>
+                      </div>
+                      <div className="lg:col-span-9">
+                        <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-foreground leading-[1.08] tracking-tight">
+                          {section.statement}
+                        </h2>
+                        {section.supportingText && (
+                          <p className="mt-8 text-foreground/75 text-base md:text-lg leading-relaxed max-w-2xl">
+                            {section.supportingText}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {section.proofPoints && section.proofPoints.length > 0 && (
+                      <ul className="mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10 border-t border-border/70 pt-10">
+                        {section.proofPoints.map((p) => (
+                          <li key={p} className="flex items-start gap-3">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                            <span className="font-display text-base md:text-lg font-semibold text-foreground/90 tracking-tight leading-snug">
+                              {p}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </section>
+              );
+            }
             return (
               <section key={section.id} className="py-28 md:py-40 px-4">
                 <div className="container mx-auto max-w-3xl text-center">
