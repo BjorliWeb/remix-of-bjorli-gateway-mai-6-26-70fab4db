@@ -247,7 +247,7 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.alert.sampleCta,
         ctaHref: '/apningstider',
       },
-      { id: 'intro', type: 'intro', title: d.intro.title, body: d.intro.body },
+      { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
       {
         id: 'planning',
         type: 'cardGrid',
