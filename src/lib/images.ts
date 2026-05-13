@@ -78,8 +78,8 @@ import p_pisteMap from '@/assets/photos/05_practical_facilities/bjorli-praktisk-
 // been removed. Replaced with real destination photography below.
 import e_event1 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-img-9860-scaled.jpg';
 import e_event2 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-2022-1020-bjorli-5-hdr-1-scaled.jpg';
-import e_flying from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-lift-chair-look-ahead-scaled.jpg';
 import e_liftChair from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-lift-chair-look-ahead-scaled.jpg';
+import e_summerTrail from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-dsc-8636-2-min-7debf59814-scaled.jpg';
 import e_goldenTrainWide from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-large-goldentrain3-6dd14cfc26.jpg';
 import e_gladEmma from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-glad-emma-img-4203-scaled.jpg';
 import e_mood1 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-031.jpg';
