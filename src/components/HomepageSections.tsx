@@ -151,35 +151,45 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'cardGrid':
+            // Editorial trust block: headline left, items as a quiet typographic
+            // list on the right. No boxes, no equal-weight grid.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
-                <div className="container mx-auto">
-                  <div className="text-center mb-16 max-w-2xl mx-auto">
-                    {section.eyebrow && (
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
-                    )}
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
-                    {section.subtitle && <p className="text-muted-foreground text-lg">{section.subtitle}</p>}
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
-                    {section.items.map((item, i) => {
-                      const Icon = (item.icon && ICONS[item.icon]) || Mountain;
-                      return (
-                        <motion.div
-                          key={item.title}
-                          custom={i}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                          variants={fadeUp}
-                          className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors"
-                        >
-                          <Icon className="h-6 w-6 text-secondary mb-4" />
-                          <div className="font-display font-semibold text-foreground mb-1.5">{item.title}</div>
-                          <div className="text-sm text-muted-foreground leading-relaxed">{item.desc}</div>
-                        </motion.div>
-                      );
-                    })}
+              <section key={section.id} className="py-28 md:py-40 px-4">
+                <div className="container mx-auto max-w-6xl">
+                  <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+                    <div className="lg:col-span-5">
+                      {section.eyebrow && (
+                        <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                      )}
+                      <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      {section.subtitle && (
+                        <p className="text-muted-foreground text-lg leading-relaxed max-w-md">{section.subtitle}</p>
+                      )}
+                    </div>
+                    <div className="lg:col-span-7">
+                      <ul className="divide-y divide-border/60">
+                        {section.items.map((item, i) => {
+                          const Icon = (item.icon && ICONS[item.icon]) || Mountain;
+                          return (
+                            <motion.li
+                              key={item.title}
+                              custom={i}
+                              initial="hidden"
+                              whileInView="visible"
+                              viewport={{ once: true }}
+                              variants={fadeUp}
+                              className="py-7 first:pt-0 flex gap-6 items-start"
+                            >
+                              <Icon className="h-5 w-5 text-secondary mt-1.5 shrink-0" />
+                              <div className="flex-1">
+                                <div className="font-display text-xl font-semibold text-foreground mb-1.5 tracking-tight">{item.title}</div>
+                                <div className="text-base text-muted-foreground leading-relaxed">{item.desc}</div>
+                              </div>
+                            </motion.li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </section>
