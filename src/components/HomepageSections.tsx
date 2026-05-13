@@ -150,7 +150,51 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               </section>
             );
 
-          case 'cardGrid':
+          case 'cardGrid': {
+            // The "planning" block ("Alt du trenger for vinterdagen") is
+            // operational — six-to-eight practical destinations the user
+            // should be able to scan and click. Render it as a calm,
+            // 2/3-column practical link grid instead of the editorial split
+            // we use for trust/why-Bjorli style blocks.
+            if (section.id === 'planning') {
+              return (
+                <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
+                  <div className="container mx-auto max-w-6xl">
+                    <div className="max-w-2xl mb-12 md:mb-14">
+                      {section.eyebrow && (
+                        <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                      )}
+                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
+                      {section.subtitle && (
+                        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
+                      )}
+                    </div>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-2 border-t border-border/60">
+                      {section.items.map((item, i) => {
+                        const Icon = (item.icon && ICONS[item.icon]) || Mountain;
+                        return (
+                          <motion.li
+                            key={item.title}
+                            custom={i}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={fadeUp}
+                            className="border-b border-border/60 py-5 flex gap-4 items-start"
+                          >
+                            <Icon className="h-5 w-5 text-secondary mt-1 shrink-0" />
+                            <div className="flex-1 min-w-0">
+                              <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
+                              <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
+                            </div>
+                          </motion.li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </section>
+              );
+            }
             // Editorial trust block: headline left, items as a quiet typographic
             // list on the right. No boxes, no equal-weight grid.
             return (
@@ -194,6 +238,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 </div>
               </section>
             );
+          }
 
           case 'feature': {
             const imageLeft = section.imageSide !== 'right';
@@ -386,46 +431,69 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'beyond':
+            // Dark editorial winter section. Let copy carry the section —
+            // a single quieter atmospheric image instead of a poster-style
+            // image grid, and item cards become a calm typographic list.
             return (
               <section key={section.id} className="py-24 md:py-36 px-4 bg-deep-navy text-primary-foreground">
                 <div className="container mx-auto max-w-6xl">
-                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
-                    <div>
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
-                      <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed">{section.body}</p>
+                  <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-16 lg:mb-20">
+                    <div className="lg:col-span-7">
+                      <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-xl">{section.body}</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      {section.images.map((img, i) => (
-                        <img key={i} src={img.url} alt={img.alt || ''} className={`rounded-2xl aspect-square object-cover ${i % 2 ? 'mt-10' : ''}`} loading="lazy" />
-                      ))}
-                    </div>
+                    {section.images?.[0] && (
+                      <div className="lg:col-span-5 relative h-72 md:h-96 lg:h-[420px] overflow-hidden rounded-sm">
+                        <img
+                          src={section.images[0].url}
+                          alt={section.images[0].alt || ''}
+                          className="absolute inset-0 w-full h-full object-cover opacity-90"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/60 via-transparent to-transparent" />
+                      </div>
+                    )}
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-1 border-t border-primary-foreground/15">
                     {section.items.map((item, i) => {
                       const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                       return (
-                        <motion.div key={item.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="rounded-2xl p-6 bg-primary-foreground/[0.04] border border-primary-foreground/10">
-                          <Icon className="h-6 w-6 text-secondary mb-4" />
-                          <div className="font-display font-semibold mb-1.5">{item.title}</div>
-                          <div className="text-sm text-primary-foreground/70 leading-relaxed">{item.desc}</div>
-                        </motion.div>
+                        <motion.li
+                          key={item.title}
+                          custom={i}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          variants={fadeUp}
+                          className="border-b border-primary-foreground/15 py-6 flex gap-4 items-start"
+                        >
+                          <Icon className="h-5 w-5 text-secondary mt-1 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-display font-semibold tracking-tight leading-snug">{item.title}</div>
+                            <div className="text-sm text-primary-foreground/70 leading-relaxed mt-1">{item.desc}</div>
+                          </div>
+                        </motion.li>
                       );
                     })}
-                  </div>
+                  </ul>
                 </div>
               </section>
             );
 
           case 'gettingHere':
-            // Editorial typographic distance line — no card grid.
+            // Premium travel-facts layout: each city is a small editorial
+            // unit (km big, city label below, divider line) arranged in a
+            // proper responsive grid so distances are easy to scan.
             return (
-              <section key={section.id} className="py-28 md:py-36 px-4">
-                <div className="container mx-auto max-w-5xl text-center">
-                  <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
-                  <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
-                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed mb-14">{section.body}</p>
-                  <div className="flex flex-wrap justify-center items-baseline gap-x-8 gap-y-6 mb-14 max-w-4xl mx-auto">
+              <section key={section.id} className="py-24 md:py-32 px-4">
+                <div className="container mx-auto max-w-6xl">
+                  <div className="max-w-2xl mb-14 md:mb-16">
+                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.body}</p>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 border-t border-border/60 pt-10 mb-12">
                     {section.cities.map((c, i) => (
                       <motion.div
                         key={c.city}
@@ -434,14 +502,13 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeUp}
-                        className="flex items-baseline gap-2"
                       >
-                        <span className="font-display text-2xl md:text-3xl font-semibold text-foreground tracking-tight">{c.km}</span>
-                        <span className="text-sm text-muted-foreground tracking-wide">{c.city}</span>
+                        <div className="font-display text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-none">{c.km}</div>
+                        <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-[0.18em] mt-3">{c.city}</div>
                       </motion.div>
                     ))}
                   </div>
-                  <div className="flex flex-wrap justify-center gap-3">
+                  <div className="flex flex-wrap gap-3">
                     {section.ctas.map((cta) => (
                       <ButtonLink key={cta.label} {...cta} variant="outline" lp={lp}>
                         {cta.label}
@@ -453,19 +520,29 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'teaser':
-            // Cinematic full-bleed transition: tall image, minimal UI,
-            // headline anchored low-left like an editorial cover.
+            // Cinematic full-bleed transition. Headline scaled down a step
+            // so it sits cleanly within the column on every breakpoint, with
+            // a stronger bottom gradient for guaranteed text contrast.
             return (
-              <section key={section.id} className="relative h-[80vh] min-h-[600px] flex items-end overflow-hidden">
-                <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/30 to-deep-navy/10" />
-                <div className="relative z-10 container mx-auto px-4 pb-20 md:pb-28 max-w-5xl">
+              <section key={section.id} className="relative h-[80vh] min-h-[560px] flex items-end overflow-hidden">
+                <img
+                  src={section.image.url}
+                  alt={section.image.alt || section.title}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-navy via-deep-navy/55 to-deep-navy/5" />
+                <div className="relative z-10 container mx-auto px-4 pb-16 md:pb-24 max-w-6xl">
                   {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.28em] uppercase mb-5">{section.eyebrow}</div>}
-                  <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[0.98] tracking-tight max-w-3xl">{section.title}</h2>
-                  <p className="text-primary-foreground/85 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl">{section.body}</p>
+                  <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-[1.0] tracking-tight max-w-4xl">
+                    {section.title}
+                  </h2>
+                  <p className="text-primary-foreground/90 text-base md:text-lg lg:text-xl font-light leading-relaxed mb-8 max-w-2xl">
+                    {section.body}
+                  </p>
                   <Link
                     to={lp(section.ctaHref)}
-                    className="inline-flex items-center gap-3 text-primary-foreground text-base md:text-lg font-medium border-b border-primary-foreground/40 pb-1.5 hover:border-primary-foreground hover:gap-4 transition-all"
+                    className="inline-flex items-center gap-3 text-primary-foreground text-base md:text-lg font-medium border-b border-primary-foreground/50 pb-1.5 hover:border-primary-foreground hover:gap-4 transition-all"
                   >
                     {section.ctaLabel}
                     <ArrowRight className="h-5 w-5" />
