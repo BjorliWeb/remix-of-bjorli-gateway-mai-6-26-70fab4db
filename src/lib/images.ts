@@ -34,7 +34,10 @@ import w_skiArea from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisen
 import w_resortEntrance from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-049.jpg';
 import w_slopeView from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-055.jpg';
 import w_powder from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-084.jpg';
-import w_landscape from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-232.jpg';
+// NOTE: previous `bjorli-vinter-skisenter-232.jpg` was a campaign poster
+// ("SESONGKORT TIL NEDSNØDDE PRISER" with Bjorli.no logo) — removed.
+// `crossCountry` and `gettingHere` now point to a real sunny snow
+// panorama from the same pack (slope view 055).
 import w_bjorliski from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorliski2.jpg';
 import w_bjorlitoppen from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorlitoppen1.jpg';
 import w_powderLift from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-budderstolheis.jpg';
@@ -143,7 +146,7 @@ export const images = {
     placeholder: false,
   },
   crossCountry: {
-    src: w_landscape,
+    src: w_slopeView,
     alt: 'Snowy mountain landscape around Bjorli — ideal for cross-country skiing.',
     wpField: 'cross_country_image',
     placeholder: false,
@@ -231,7 +234,7 @@ export const images = {
 
   // ── GETTING HERE / PRACTICAL ──────────────────────────────────────────
   gettingHere: {
-    src: w_landscape,
+    src: w_slopeView,
     alt: 'Bjorli valley and surrounding mountains — the destination experience.',
     wpField: 'getting_here_image',
     placeholder: false,
