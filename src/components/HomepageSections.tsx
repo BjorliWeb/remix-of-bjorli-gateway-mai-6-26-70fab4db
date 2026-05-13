@@ -236,30 +236,37 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'imageCards':
+            // Editorial split: headline aligned left, staggered card heights to
+            // break the equal-grid feeling.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4">
-                <div className="container mx-auto">
-                  <div className="text-center mb-16">
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="max-w-2xl mb-16">
                     {section.eyebrow && (
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
+                      <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
                     )}
                     {section.title && (
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.02] tracking-tight">{section.title}</h2>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-                    {section.cards.map((card, i) => (
-                      <Link key={card.title} to={lp(card.href)}>
-                        <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden h-[420px] cursor-pointer">
-                          <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/80 via-deep-navy/15 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-7">
-                            {card.eyebrow && <div className="text-secondary text-[11px] font-medium tracking-[0.18em] uppercase mb-2">{card.eyebrow}</div>}
-                            <h3 className="font-display text-2xl font-bold text-primary-foreground leading-tight">{card.title}</h3>
-                          </div>
-                        </motion.div>
-                      </Link>
-                    ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {section.cards.map((card, i) => {
+                      // Stagger heights and vertical offset to reduce grid feel.
+                      const heights = ['h-[480px]', 'h-[400px]', 'h-[520px]'];
+                      const offsets = ['', 'lg:mt-16', 'lg:-mt-4'];
+                      return (
+                        <Link key={card.title} to={lp(card.href)} className={offsets[i % 3]}>
+                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`group relative overflow-hidden cursor-pointer ${heights[i % 3]}`}>
+                            <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-8">
+                              {card.eyebrow && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{card.eyebrow}</div>}
+                              <h3 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground leading-[1.05] tracking-tight">{card.title}</h3>
+                            </div>
+                          </motion.div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </section>
