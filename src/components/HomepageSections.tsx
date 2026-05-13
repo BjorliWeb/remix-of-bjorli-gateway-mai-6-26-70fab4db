@@ -474,47 +474,57 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               </section>
             );
 
-          case 'news':
+          case 'news': {
+            const [featured, ...rest] = section.items.slice(0, 3);
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
-                <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
-                    <div className="max-w-xl">
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
-                      <p className="text-muted-foreground text-lg">{section.subtitle}</p>
-                    </div>
-                    <Link to={lp(section.ctaHref)}>
-                      <Button variant="outline">
-                        {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="mb-16 max-w-2xl">
+                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {section.items.slice(0, 3).map((n, i) => (
-                      <Link key={n.id} to={lp(`/nyheter/${n.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors h-full">
-                          {n.heroImage && (
-                            <div className="aspect-[5/4] overflow-hidden">
-                              <img src={n.heroImage.url} alt={n.heroImage.alt || n.title} className="w-full h-full object-cover" loading="lazy" />
+                  <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    {featured && (
+                      <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
+                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                          {featured.heroImage && (
+                            <div className="aspect-[16/10] overflow-hidden mb-6">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
                             </div>
                           )}
-                          <div className="p-7">
-                            <div className="flex items-center gap-2 mb-3">
-                              {n.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.18em]">{n.category}</span>}
-                              {n.date && <span className="text-xs text-muted-foreground">·</span>}
-                              {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
-                            </div>
-                            <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight">{n.title}</h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">{n.intro}</p>
+                          <div className="flex items-center gap-3 mb-3">
+                            {featured.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.22em]">{featured.category}</span>}
+                            {featured.date && <span className="text-xs text-muted-foreground">{featured.date}</span>}
                           </div>
+                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
+                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
                         </motion.article>
                       </Link>
-                    ))}
+                    )}
+                    <div className="lg:col-span-5 flex flex-col divide-y divide-border/60">
+                      {rest.map((n, i) => (
+                        <Link key={n.id} to={lp(`/nyheter/${n.slug}`)} className="group block py-7 first:pt-0">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                            <div className="flex items-center gap-3 mb-2">
+                              {n.category && <span className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em]">{n.category}</span>}
+                              {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
+                            </div>
+                            <h3 className="font-display text-lg md:text-xl font-semibold text-foreground leading-tight tracking-tight group-hover:text-secondary transition-colors">{n.title}</h3>
+                          </motion.article>
+                        </Link>
+                      ))}
+                      <div className="pt-7">
+                        <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
+                          {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
             );
+          }
 
           case 'faq':
             return (
