@@ -68,10 +68,8 @@ Legend
 | `…/bjorli-vinter-skisenter-055.jpg` | …-055.jpg | `images.crossCountry`, `images.gettingHere` | Cross-country teasers, getting-here page | winter | Y | N | N | Cross-country and travel sections. |
 | `…/bjorli-vinter-skisenter-084.jpg` | …-084.jpg | `images.powder` (defined, unused) | — | ski / winter | Y | N | N | "Powder days" / snow-report editorial card. |
 | `…/bjorli-vinter-skisenter-bjorliski2.jpg` | bjorliski2.jpg | imported but not exposed via `images` | — | ski / winter | M | N | N | Ski center secondary gallery. |
-| `…/bjorli-vinter-skisenter-bjorlitoppen1.jpg` | bjorlitoppen1.jpg | `images.mountainTop` (defined, unused) | — | winter / panorama | Y | N | N | Mountain summit / panorama card. |
 | `…/bjorli-vinter-skisenter-budderstolheis.jpg` | budderstolheis.jpg | imported, not exposed | — | ski / winter | M | N | N | Lift detail in ski-center page. |
 | `…/bjorli-vinter-skisenter-fjellheis.jpg` | fjellheis.jpg | imported, not exposed | — | ski / winter | M | N | N | Lift gallery on ski-center page. |
-| `…/bjorli-vinter-skisenter-ski-lift-4323750-1280.jpg` | ski-lift-4323750-1280.jpg | not referenced | — | ski / winter | M (looks stock) | N | N (likely stock — verify before homepage) | Replace with native asset; otherwise interior page only. |
 | `…/bjorli-vinter-skisenter-skipass-7759d89a01-1.jpg` | skipass-7759d89a01-1.jpg | `images.skiRental` (defined, unused) | — | ski | M | N | N | Ski-rental / lift-pass page. |
 | `…/bjorli-vinter-skisenter-snokanon-scaled.jpg` | snokanon-scaled.jpg | `images.snowConditions` (defined, unused) | — | winter / snow | Y | N | N | "Snow safety / snowmaking" editorial. |
 | `…/bjorli-vinter-skisenter-snowboard.jpg` | snowboard.jpg | `images.snowboard` (defined, unused) | — | ski | Y | N | N | Snowboard section / freestyle card. |
@@ -84,7 +82,6 @@ Legend
 
 | Path | Filename | Used in | Section / component | Category | Editorial-grade? | Text in image? | Avoid on homepage? | Suggested best-use location |
 |---|---|---|---|---|---|---|---|---|
-| `…/bjorli-sommer-destinasjon-blue-red-and-white-illustrated-mou.jpg` | blue-red-and-white-illustrated-mou.jpg | not referenced | — | poster / illustration | N | likely Y | **Y** | Do not use editorially. Candidate for removal. |
 | `…/bjorli-sommer-destinasjon-fiskeilesja-d91ae3c817.jpg` | fiskeilesja-…jpg | `images.familySummer` | Summer activities | summer / family | Y | N | N (winter homepage); use on summer homepage | Family-summer card, Sommer page. |
 | `…/bjorli-sommer-destinasjon-fiskelv-9210bd8a45.jpg` | fiskelv-…jpg | `images.riverFishing` (defined, unused) | — | summer | Y | N | N | Fishing subpage. |
 | `…/bjorli-sommer-destinasjon-fluefiske-aebb0e82ea.jpg` | fluefiske-…jpg | `images.hiking`, `images.flyFishing` | Summer activities | summer | Y | N | N | Fly-fishing / summer activities. |
@@ -95,8 +92,6 @@ Legend
 
 | Path | Filename | Used in | Section / component | Category | Editorial-grade? | Text in image? | Avoid on homepage? | Suggested best-use location |
 |---|---|---|---|---|---|---|---|---|
-| `…/bjorli-overnatting-hytte-hl-bjo-orionsbelte3-low-2c6c1cecac.jpg` | orionsbelte3-low (variant 1) | not referenced | — | accommodation | M (low-res "low" variant) | N | N | Cabin gallery on accommodation page. |
-| `…/bjorli-overnatting-hytte-hl-bjo-orionsbelte3-low-b5af5e6002.jpg` | orionsbelte3-low (variant 2) | not referenced | — | accommodation | M | N | N | Same as above; near-duplicate — pick one. |
 | `…/bjorli-overnatting-hytte-vetlegrenda-fra-vg-10-og-mot-skisen.jpg` | vetlegrenda-…jpg | `images.accommodation` | Accommodation page hero card | accommodation | Y | N | N | Keep as accommodation hero. |
 
 ### `photos/04_food_restaurant/` — 1 file
@@ -139,21 +134,13 @@ These have filenames or patterns that strongly suggest baked-in text (campaigns,
 
 | Filename | Why flagged | Text in image? | Avoid on homepage? | Best use |
 |---|---|---|---|---|
-| `bjorli-destinasjon-stemning-apningstider-i-jula.jpg` | "Christmas opening hours" poster | Y | Y | Operational alert only, time-limited |
 | `bjorli-destinasjon-stemning-bjorlikampamje251.jpg` | "kampanje" = campaign poster | Y | Y | Promo banner only |
-| `bjorli-destinasjon-stemning-bjorlinytt2526.jpg` | Season-news poster (25/26) | Y | Y | News post hero (time-limited) |
-| `bjorli-destinasjon-stemning-bjorliprisliste2526.jpg` | Price list 25/26 | Y | Y | Price-list page only |
-| `bjorli-destinasjon-stemning-bjorliprislistebarneomr2526.jpg` | Children's-area price list | Y | Y | Price-list page only |
 | `bjorli-destinasjon-stemning-bjorlimap.jpg`, `…-bjorlimap2.jpg`, `…-bjorlip1p2.jpg`, `…-bjorli-masterplan-…jpg` | Map / masterplan graphics | Y | Y | Map / planning page |
 | `bjorli-destinasjon-stemning-bjorli-overview-mars7-scaled.jpg` | Overview map/poster | Y | Y | Map page |
 | `bjorli-destinasjon-stemning-illustrasjon-b-jorlihaugen-…jpg`, `…-illustrasjon-f-jellandsbyen-…jpg` | Architectural illustrations | Y (labels) | Y | Project / development pages |
-| `bjorli-destinasjon-stemning-tegnebrett-4.jpg` | "tegnebrett" = artboard export | Y | Y | Avoid; design source file |
 | `bjorli-destinasjon-stemning-cropped-main-logo-…jpg`, `…-main-logo-1-…jpg`, `…-novasol-logo-primary-scaled.jpg`, `…-novasol-n31358-bjorli.jpg` | Logos / partner logos | Y | Y | Partner logo strip only |
-| `bjorli-destinasjon-stemning-uke-10-pa-bjorli-2026-3.jpg`, `…-uke-11-pa-bjorli-2026-2.jpg`, `…-uke-11-pa-bjorli-2026.jpg` | Weekly program posters | Y | Y | Events page only |
 | `bjorli-destinasjon-stemning-earlybirdracer.jpg` | Race / event poster | Y | Y | Event page only |
-| `bjorli-destinasjon-stemning-kan-du-sla-verdens-mester-sebast.jpg` | Campaign headline poster | Y | Y | Promo only |
 | `bjorli-destinasjon-stemning-6-februar-e1772556153886.jpg` | Date-stamped poster | Y | Y | Event page only |
-| `bjorli-destinasjon-stemning-screenshot-2024-08-29-191814.jpg` and 5 other `screenshot-*.jpg` | Browser screenshots | likely Y | Y | Internal reference only |
 | `bjorli-destinasjon-stemning-skjermbilde-2022-05-09-…jpg` and 7 other `skjermbilde-*` | "Skjermbilde" = screenshot | likely Y | Y | Internal reference only |
 | `bjorli-destinasjon-stemning-242708811-…jpg`, `…-309377084-…jpg`, `…-326968486-…jpg`, `…-448704798-…jpg`, `…-448732803-…jpg`, `…-473116316-…jpg`, `…-473749706-…jpg`, `…-568376878-…jpg`, `…-588499493-…jpg`, `…-653707979-…jpg`, `…-656130621-…jpg`, `…-656216415-…jpg`, `…-658083403-…jpg` | Instagram numeric IDs — likely social posts (often with overlay text) | likely Y | Y | Social grid only after manual review |
 | `bjorli-destinasjon-stemning-att-9inoxekvnsa9kjc3mt5vlgkambxk.jpg`, `…-att-kejk9drtww0bje5z5uwwqcezltr1.jpg`, `…-att-vknn0r9giatew5jnjrv86nalyxru.jpg` | Email-attachment exports | unknown | Y until reviewed | Manual review required |
@@ -186,4 +173,3 @@ These look like genuine destination photography (lodges, mood, snow, summer, por
 2. **Quarantine candidates**: every file under "Likely poster / social-graphic / screenshot" should be moved out of the editorial bank (e.g. into `photos/_posters/`) so it cannot be picked accidentally.
 3. **Folder hygiene**: `photos/06_events_atmosphere/` is mis-named — it actually contains lodging, portraits, maps, posters, and atmosphere mixed together. A future cleanup should split this into `accommodation/`, `people/`, `posters/`, `social/`, `mood/`.
 4. **Near-duplicates**: the two `orionsbelte3-low-*.jpg` files appear to be near-duplicates; pick one.
-5. **Possible stock**: `bjorli-vinter-skisenter-ski-lift-4323750-1280.jpg` filename pattern (numeric ID + 1280 width) suggests Pixabay/stock origin — verify licensing before any editorial use.
