@@ -27,6 +27,13 @@ const Index = () => {
           <img src={home.heroImage.url} alt={home.heroImage.alt || home.heroTitle} className="absolute inset-0 w-full h-full object-cover" />
         )}
         <div className="absolute inset-0 hero-gradient" />
+        {/* Soft hero-to-content transition: a calm, editorial fade from
+            the cinematic image into the light page background. Sits above
+            the image but below the content. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-b from-transparent to-background"
+        />
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <motion.span
             initial={{ opacity: 0, y: 20 }}

@@ -30,6 +30,61 @@ import { supabase } from '@/integrations/supabase/client';
 import { images, type BjorliImage } from '@/lib/images';
 import type { CmsImage } from './types';
 
+/**
+ * Editorial winter intro copy (split layout, Stayli-inspired pacing).
+ * Falls back to the dictionary `intro.title/body` for any locale we
+ * have not yet hand-translated.
+ */
+function buildWinterIntro(lang: Language, d: Dictionary) {
+  type Intro = { eyebrow: string; statement: string; supportingText: string; proofPoints: string[]; title: string; body: string };
+  const fallback = { title: d.intro.title, body: d.intro.body };
+  const map: Partial<Record<Language, Intro>> = {
+    no: {
+      eyebrow: 'Destinasjon Bjorli',
+      statement: 'Ekte vinter, korte avstander og rolige fjelldager mellom Østlandet og fjordene på Nordvestlandet.',
+      supportingText: 'Bjorli samler alpint, langrenn, hytter, servering og natur tett på hverandre. Her er det enkelt å planlegge en vinterhelg, en familieferie eller noen rolige dager på fjellet.',
+      proofPoints: ['Snøsikkert og familievennlig', 'Tog til fjellet med Raumabanen', 'Ski, hytter og natur tett på hverandre'],
+      ...fallback,
+    },
+    en: {
+      eyebrow: 'Destination Bjorli',
+      statement: 'Real winter, short distances and calm mountain days between eastern Norway and the western fjords.',
+      supportingText: 'Bjorli brings alpine skiing, cross-country, cabins, dining and nature close together. It is an easy place to plan a winter weekend, a family holiday or a few calm days on the mountain.',
+      proofPoints: ['Snow-sure and family-friendly', 'Train to the mountain via the Rauma Line', 'Ski, cabins and nature close together'],
+      ...fallback,
+    },
+    de: {
+      eyebrow: 'Destination Bjorli',
+      statement: 'Echter Winter, kurze Wege und ruhige Bergtage zwischen Ostnorwegen und den Westfjorden.',
+      supportingText: 'Bjorli vereint Alpinski, Langlauf, Hütten, Gastronomie und Natur dicht beieinander – ideal für ein Winterwochenende, einen Familienurlaub oder ein paar ruhige Bergtage.',
+      proofPoints: ['Schneesicher und familienfreundlich', 'Mit der Rauma-Bahn ins Gebirge', 'Ski, Hütten und Natur eng beisammen'],
+      ...fallback,
+    },
+    nl: {
+      eyebrow: 'Bestemming Bjorli',
+      statement: 'Echte winter, korte afstanden en rustige bergdagen tussen Oost-Noorwegen en de westelijke fjorden.',
+      supportingText: 'Op Bjorli liggen alpineskiën, langlauf, hutten, restaurants en natuur dicht bij elkaar. Ideaal voor een winterweekend, een gezinsvakantie of een paar rustige bergdagen.',
+      proofPoints: ['Sneeuwzeker en gezinsvriendelijk', 'Met de trein de bergen in via de Raumabanen', 'Ski, hutten en natuur dicht bij elkaar'],
+      ...fallback,
+    },
+    da: {
+      eyebrow: 'Destination Bjorli',
+      statement: 'Ægte vinter, korte afstande og rolige bjergdage mellem Østnorge og fjordene mod vest.',
+      supportingText: 'På Bjorli ligger alpinski, langrend, hytter, servering og natur tæt sammen. Det er nemt at planlægge en vinterweekend, en familieferie eller nogle rolige dage i fjeldet.',
+      proofPoints: ['Snesikkert og familievenligt', 'Tog til fjeldet med Raumabanen', 'Ski, hytter og natur tæt på'],
+      ...fallback,
+    },
+    sv: {
+      eyebrow: 'Destination Bjorli',
+      statement: 'Äkta vinter, korta avstånd och lugna fjälldagar mellan östra Norge och fjordarna i väst.',
+      supportingText: 'På Bjorli ligger alpint, längdåkning, stugor, servering och natur tätt ihop. Här är det enkelt att planera en vinterhelg, en familjesemester eller några lugna dagar i fjället.',
+      proofPoints: ['Snösäkert och familjevänligt', 'Tåg till fjället med Raumabanen', 'Skidor, stugor och natur tätt ihop'],
+      ...fallback,
+    },
+  };
+  return map[lang] ?? fallback;
+}
+
 /** Build a CmsImage from a registry entry, preserving alt/wpField/etc. */
 const img = (key: keyof typeof images, altOverride?: string): CmsImage => {
   const i: BjorliImage = images[key];
@@ -247,7 +302,7 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.alert.sampleCta,
         ctaHref: '/apningstider',
       },
-      { id: 'intro', type: 'intro', title: d.intro.title, body: d.intro.body },
+      { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
       {
         id: 'planning',
         type: 'cardGrid',
