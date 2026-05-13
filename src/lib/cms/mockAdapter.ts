@@ -71,7 +71,12 @@ const dict = (lang: Language): Dictionary => dictionaries[lang] ?? dictionaries.
 
 const TIP_IMAGES = [tipPlanning, tipTrain, tipFamily, summerImg];
 const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
-const EVENT_IMAGES = [concertImg, tipFamily, foodDrinkImg, summerImg];
+// Index map mirrors event order in dictionaries (no.ts/en.ts/...):
+//   0 Åpningshelg → concertImg (golden village)
+//   1 Vinterferie → tipFamily (kid on the snow)
+//   2 Påske       → crossCountry (sunny snow-covered mountains)
+//   3 Sommer      → summerImg
+const EVENT_IMAGES = [concertImg, tipFamily, crossCountry, summerImg];
 const ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, hikingImg, bikingImg, heroWinter];
 
 const nowIso = () => new Date().toISOString();
