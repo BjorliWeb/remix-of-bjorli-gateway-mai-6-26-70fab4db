@@ -180,7 +180,7 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="glass rounded-xl px-3 py-4 md:px-4 md:py-5 text-center border border-white/10"
+                className="glass rounded-xl px-3 py-4 md:px-4 md:py-5 text-center border border-border/40"
                 role="group"
                 aria-label={live.ariaLabel ?? card.label}
               >
