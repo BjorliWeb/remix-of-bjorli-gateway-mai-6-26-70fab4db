@@ -418,19 +418,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'gettingHere':
+            // Editorial typographic distance line — no card grid.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4">
-                <div className="container mx-auto max-w-5xl">
-                  <div className="text-center mb-14 max-w-2xl mx-auto">
-                    <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.05] tracking-tight">{section.title}</h2>
-                    <p className="text-muted-foreground text-lg">{section.body}</p>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-12">
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-5xl text-center">
+                  <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                  <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
+                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed mb-14">{section.body}</p>
+                  <div className="flex flex-wrap justify-center items-baseline gap-x-8 gap-y-6 mb-14 max-w-4xl mx-auto">
                     {section.cities.map((c, i) => (
-                      <motion.div key={c.city} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-xl p-4 text-center border border-border/70">
-                        <div className="text-lg font-bold text-secondary">{c.km}</div>
-                        <div className="text-xs text-muted-foreground mt-1">{c.city}</div>
+                      <motion.div
+                        key={c.city}
+                        custom={i}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeUp}
+                        className="flex items-baseline gap-2"
+                      >
+                        <span className="font-display text-2xl md:text-3xl font-semibold text-foreground tracking-tight">{c.km}</span>
+                        <span className="text-sm text-muted-foreground tracking-wide">{c.city}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -446,18 +453,22 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'teaser':
+            // Cinematic full-bleed transition: tall image, minimal UI,
+            // headline anchored low-left like an editorial cover.
             return (
-              <section key={section.id} className="relative py-32 md:py-40 px-4 overflow-hidden">
+              <section key={section.id} className="relative h-[80vh] min-h-[600px] flex items-end overflow-hidden">
                 <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-r from-deep-navy/80 via-deep-navy/55 to-deep-navy/20" />
-                <div className="relative z-10 container mx-auto max-w-3xl">
-                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>}
-                  <h2 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
-                  <p className="text-primary-foreground/85 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">{section.body}</p>
-                  <Link to={lp(section.ctaHref)}>
-                    <Button size="lg" variant="secondary" className="font-semibold">
-                      {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/30 to-deep-navy/10" />
+                <div className="relative z-10 container mx-auto px-4 pb-20 md:pb-28 max-w-5xl">
+                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.28em] uppercase mb-5">{section.eyebrow}</div>}
+                  <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[0.98] tracking-tight max-w-3xl">{section.title}</h2>
+                  <p className="text-primary-foreground/85 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl">{section.body}</p>
+                  <Link
+                    to={lp(section.ctaHref)}
+                    className="inline-flex items-center gap-3 text-primary-foreground text-base md:text-lg font-medium border-b border-primary-foreground/40 pb-1.5 hover:border-primary-foreground hover:gap-4 transition-all"
+                  >
+                    {section.ctaLabel}
+                    <ArrowRight className="h-5 w-5" />
                   </Link>
                 </div>
               </section>
