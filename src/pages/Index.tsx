@@ -58,41 +58,34 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
+            className="flex flex-col sm:flex-row gap-2 justify-center flex-wrap items-center"
           >
             {/* Primary — Kjøp heiskort */}
             <a href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
-                <Ticket className="mr-2 h-5 w-5" />
+              <Button size="default" className="font-medium w-full sm:w-auto">
+                <Ticket className="mr-2 h-4 w-4" />
                 {d.hero.ctaLiftPass}
               </Button>
             </a>
-            {/* Secondary — Åpningstider og føre */}
-            <Link to={lp('/apningstider')}>
-              <Button variant="secondary" size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto">
-                <Clock className="mr-2 h-5 w-5" />
-                {d.hero.ctaOpening ?? d.status.openToday}
-              </Button>
+            {/* Secondary — quieter inline link with separator */}
+            <Link
+              to={lp('/apningstider')}
+              className="inline-flex items-center gap-2 text-primary-foreground/85 hover:text-primary-foreground text-sm font-medium tracking-wide px-4 py-2 transition-colors"
+            >
+              <Clock className="h-4 w-4" />
+              {d.hero.ctaOpening ?? d.status.openToday}
             </Link>
-            {/* Tertiary — Finn overnatting */}
-            <Link to={lp('/overnatting')}>
-              <Button variant="outline" size="lg" className="text-base px-7 py-6 font-semibold w-full sm:w-auto bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                <HomeIcon className="mr-2 h-5 w-5" />
-                {d.hero.ctaStay}
-              </Button>
+            <span className="hidden sm:inline text-primary-foreground/30">·</span>
+            <Link
+              to={lp('/overnatting')}
+              className="inline-flex items-center gap-2 text-primary-foreground/85 hover:text-primary-foreground text-sm font-medium tracking-wide px-4 py-2 transition-colors"
+            >
+              <HomeIcon className="h-4 w-4" />
+              {d.hero.ctaStay}
             </Link>
           </motion.div>
         </div>
 
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-primary-foreground/40 flex items-start justify-center p-1.5">
-            <div className="w-1.5 h-3 rounded-full bg-primary-foreground/60" />
-          </div>
-        </motion.div>
       </section>
 
       {home.sections && <HomepageSections sections={home.sections} />}
