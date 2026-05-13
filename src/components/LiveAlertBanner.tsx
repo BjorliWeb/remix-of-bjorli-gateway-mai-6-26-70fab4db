@@ -174,6 +174,12 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
   const styles = LEVEL_STYLES[level];
   const Icon = styles.Icon;
 
+  // Compact mode: collapse normal info-level updates (Fnugg daily posts,
+  // safe fallback, non-critical CMS info) into a single calm line so the
+  // hero → status → guest message → intro flow stays continuous. Warnings
+  // and critical alerts keep the full expanded card.
+  const compact = level === 'info';
+
   const ctaContent = ctaLabel && ctaHref && (
     ctaExternal ? (
       <a
@@ -194,8 +200,37 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     )
   );
 
+  if (compact) {
+    // Build a tight, single-line guest message. Prefer date as the primary
+    // anchor (matches Fnugg ops cadence), then a short snippet of the body.
+    const oneLiner = (() => {
+      const parts: string[] = [];
+      if (dateLine) parts.push(dateLine);
+      if (title) parts.push(title);
+      const body = message.replace(/\s+/g, ' ').trim();
+      if (body) parts.push(body.length > 140 ? `${body.slice(0, 140).trimEnd()}…` : body);
+      return parts.join(' · ');
+    })();
+    return (
+      <section className="px-4 mt-6" aria-label="Latest operational update">
+        <div className="container mx-auto max-w-5xl">
+          <div className="flex items-center gap-3 text-sm text-foreground/80 border-y border-border/60 py-3">
+            <Icon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
+            {label && (
+              <span className={`text-[11px] font-semibold uppercase tracking-[0.18em] shrink-0 ${styles.icon}`}>
+                {label}
+              </span>
+            )}
+            <span className="flex-1 truncate">{oneLiner}</span>
+            {ctaContent}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="px-4 mt-12" aria-label="Latest operational update">
+    <section className="px-4 mt-8" aria-label="Latest operational update">
       <div className="container mx-auto max-w-5xl">
         <div className={`rounded-xl border p-4 md:p-5 flex items-start gap-3 ${styles.wrap}`}>
           <Icon className={`h-5 w-5 mt-0.5 shrink-0 ${styles.icon}`} />
