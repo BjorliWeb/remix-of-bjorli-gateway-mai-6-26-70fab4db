@@ -312,6 +312,14 @@ export interface CmsIntroSection extends CmsSectionBase {
   type: 'intro';
   title: string;
   body: string;
+  /** Optional uppercase eyebrow label (editorial split layout). */
+  eyebrow?: string;
+  /** Optional large editorial statement, rendered as headline. */
+  statement?: string;
+  /** Optional supporting paragraph rendered below the statement. */
+  supportingText?: string;
+  /** Optional proof-points rendered as a quiet horizontal row. */
+  proofPoints?: string[];
 }
 
 export interface CmsCardGridSection extends CmsSectionBase {
