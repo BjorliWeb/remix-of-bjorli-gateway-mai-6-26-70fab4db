@@ -39,7 +39,9 @@ import w_bjorliski from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skis
 import w_bjorlitoppen from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorlitoppen1.jpg';
 import w_powderLift from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-budderstolheis.jpg';
 import w_fjellheis from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-fjellheis.jpg';
-import w_kidsSchool from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-vinterferie-25-4.jpg';
+// w_kidsSchool removed — sourced poster graphics. The `skiSchool`
+// registry entry now points to a real chairlift-with-children photo
+// from the events/atmosphere pack.
 import w_skiPass from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-skipass-7759d89a01-1.jpg';
 import w_snowCannon from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-snokanon-scaled.jpg';
 import w_snowboard from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-snowboard.jpg';
