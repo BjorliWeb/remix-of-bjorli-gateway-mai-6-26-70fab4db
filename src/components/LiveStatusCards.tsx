@@ -159,14 +159,14 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
   // and ordering when Fnugg has no value for that icon.
 
   return (
-    <section className="relative -mt-24 z-20 px-4">
+    <section className="relative -mt-28 md:-mt-32 z-20 px-4">
       <div className="container mx-auto">
         {section.heading && (
-          <h2 className="text-center font-display text-base md:text-lg font-medium tracking-[0.18em] uppercase text-primary-foreground/85 mb-6 max-w-3xl mx-auto">
+          <div className="text-center text-primary-foreground/70 text-[11px] md:text-xs font-medium tracking-[0.24em] uppercase mb-5 max-w-3xl mx-auto">
             {section.heading}
-          </h2>
+          </div>
         )}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 max-w-4xl mx-auto">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
             const live = liveValueFor(card.icon, fnugg, locale);
@@ -180,13 +180,13 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="glass rounded-2xl p-5 md:p-6 text-center"
+                className="glass rounded-xl px-3 py-4 md:px-4 md:py-5 text-center border border-white/10"
                 role="group"
                 aria-label={live.ariaLabel ?? card.label}
               >
-                <Icon className="h-5 w-5 md:h-6 md:w-6 mx-auto mb-3 text-secondary" />
+                <Icon className="h-4 w-4 md:h-5 md:w-5 mx-auto mb-2 text-secondary" />
                 <div
-                  className="font-display text-2xl md:text-3xl font-bold text-foreground tracking-tight"
+                  className="font-display text-xl md:text-2xl font-bold text-foreground tracking-tight leading-none"
                   aria-live="polite"
                 >
                   {isLoadingFirst ? (
@@ -195,21 +195,17 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                     displayValue
                   )}
                 </div>
-                <div className="text-[11px] md:text-xs text-muted-foreground mt-1 tracking-wide">{card.label}</div>
+                <div className="text-[10px] md:text-[11px] text-muted-foreground mt-1.5 tracking-[0.08em] uppercase">{card.label}</div>
               </motion.div>
             );
           })}
         </div>
-        {section.caption && (
-          <p className="text-center text-sm md:text-base text-muted-foreground mt-4 max-w-3xl mx-auto">
-            {section.caption}
-          </p>
-        )}
         {/* Compact "today / last updated" line — sourced from Fnugg, NOT
             from the Opening Hours page. The Opening Hours page is the
             source of truth for general seasonal hours. */}
-        <LiveFnuggStatus variant="compact" locale={locale} />
-        <div className="text-center mt-4 flex flex-wrap justify-center gap-3 text-sm">
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <LiveFnuggStatus variant="compact" locale={locale} />
+          <div className="flex flex-wrap justify-center gap-2 text-sm">
           {section.links.map((link, i) => {
             const Icon = ICONS[link.icon] || Clock;
             // Rename the "Åpningstider i dag" link — homepage live status now
@@ -237,18 +233,19 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
                 outbound: false,
               });
             return (
-              <span key={link.href} className="inline-flex items-center gap-3">
-                {i > 0 && <span className="text-muted-foreground">·</span>}
+              <span key={link.href} className="inline-flex items-center gap-2">
+                {i > 0 && <span className="text-muted-foreground/60">·</span>}
                 <Link
                   to={lp(link.href)}
-                  className="text-secondary hover:underline inline-flex items-center gap-1"
+                  className="text-secondary hover:underline inline-flex items-center gap-1 text-[13px] font-medium"
                   onClick={onClick}
                 >
-                  <Icon className="h-4 w-4" /> {label}
+                  <Icon className="h-3.5 w-3.5" /> {label}
                 </Link>
               </span>
             );
           })}
+          </div>
         </div>
       </div>
     </section>
