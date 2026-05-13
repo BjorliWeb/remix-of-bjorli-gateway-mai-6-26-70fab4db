@@ -39,7 +39,7 @@ import w_bjorliski from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skis
 import w_bjorlitoppen from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorlitoppen1.jpg';
 import w_powderLift from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-budderstolheis.jpg';
 import w_fjellheis from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-fjellheis.jpg';
-import w_kidsSchool from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-vinterferie-25-3.jpg';
+import w_kidsSchool from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-vinterferie-25-4.jpg';
 import w_skiPass from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-skipass-7759d89a01-1.jpg';
 import w_snowCannon from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-snokanon-scaled.jpg';
 import w_snowboard from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-snowboard.jpg';
@@ -71,9 +71,13 @@ import p_signAlt from '@/assets/photos/05_practical_facilities/bjorli-praktisk-i
 import p_pisteMap from '@/assets/photos/05_practical_facilities/bjorli-praktisk-info-loypekart-40895db20c-1.jpg';
 
 // 06 — Events / atmosphere (selected highlights)
-import e_event1 from '@/assets/photos/06_events_atmosphere/bjorli-arrangement-atmosfaere-010.jpg';
-import e_event2 from '@/assets/photos/06_events_atmosphere/bjorli-arrangement-atmosfaere-bare-paske-2026-6.jpg';
-import e_flying from '@/assets/photos/06_events_atmosphere/bjorli-arrangement-atmosfaere-603823537-122163529808625272-6.jpg';
+// NOTE: previous `bjorli-arrangement-atmosfaere-*` files were poster
+// graphics (Påska 2025, Påske 2026, Christmas opening hours) and have
+// been removed. Replaced with real destination photography below.
+import e_event1 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-img-9860-scaled.jpg';
+import e_event2 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-2022-1020-bjorli-5-hdr-1-scaled.jpg';
+import e_flying from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-lift-chair-look-ahead-scaled.jpg';
+import e_liftChair from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-lift-chair-look-ahead-scaled.jpg';
 import e_goldenTrainWide from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-large-goldentrain3-6dd14cfc26.jpg';
 import e_gladEmma from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-glad-emma-img-4203-scaled.jpg';
 import e_mood1 from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-031.jpg';
@@ -121,8 +125,8 @@ export const images = {
     placeholder: false,
   },
   skiSchool: {
-    src: w_kidsSchool,
-    alt: 'Family winter holiday on the slopes at Bjorli Ski Resort.',
+    src: e_liftChair,
+    alt: 'Children on a chairlift at Bjorli — quiet ski day with mountains behind.',
     wpField: 'ski_school_image',
     placeholder: false,
   },
@@ -164,7 +168,7 @@ export const images = {
   // ── EDITORIAL / NEWS / EVENTS / TIPS ──────────────────────────────────
   event: {
     src: e_event1,
-    alt: 'Atmosphere from an event at Bjorli with guests gathered together.',
+    alt: 'Calm winter morning at Bjorli — snow groomer, igloo and golden light over the village.',
     wpField: 'event_image',
     placeholder: false,
   },
@@ -288,8 +292,8 @@ export const images = {
   pisteMap: { src: p_pisteMap, alt: 'Bjorli Ski Resort piste map.', wpField: 'piste_map_image', placeholder: false },
   flyFishing: { src: s_flyFishing, alt: 'Fly fishing in a river near Bjorli.', wpField: 'fly_fishing_image', placeholder: false },
   riverFishing: { src: s_fishingRiver, alt: 'Fishing in a mountain river near Bjorli.', wpField: 'river_fishing_image', placeholder: false },
-  eventFlying: { src: e_flying, alt: 'High-energy event moment at Bjorli.', wpField: 'event_flying_image', placeholder: false },
-  eventEaster: { src: e_event2, alt: 'Easter event atmosphere at Bjorli.', wpField: 'event_easter_image', placeholder: false },
+  eventFlying: { src: e_flying, alt: 'Skiers on the chairlift at Bjorli on a clear winter day.', wpField: 'event_flying_image', placeholder: false },
+  eventEaster: { src: e_event2, alt: 'Cosy cabin interior at Bjorli with warm wood and soft daylight.', wpField: 'event_easter_image', placeholder: false },
   moodScenic: { src: e_mood3, alt: 'Scenic Bjorli destination atmosphere.', wpField: 'mood_scenic_image', placeholder: false },
 } satisfies Record<string, BjorliImage>;
 
