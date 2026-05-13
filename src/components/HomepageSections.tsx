@@ -151,35 +151,45 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'cardGrid':
+            // Editorial trust block: headline left, items as a quiet typographic
+            // list on the right. No boxes, no equal-weight grid.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
-                <div className="container mx-auto">
-                  <div className="text-center mb-16 max-w-2xl mx-auto">
-                    {section.eyebrow && (
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
-                    )}
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
-                    {section.subtitle && <p className="text-muted-foreground text-lg">{section.subtitle}</p>}
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
-                    {section.items.map((item, i) => {
-                      const Icon = (item.icon && ICONS[item.icon]) || Mountain;
-                      return (
-                        <motion.div
-                          key={item.title}
-                          custom={i}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                          variants={fadeUp}
-                          className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors"
-                        >
-                          <Icon className="h-6 w-6 text-secondary mb-4" />
-                          <div className="font-display font-semibold text-foreground mb-1.5">{item.title}</div>
-                          <div className="text-sm text-muted-foreground leading-relaxed">{item.desc}</div>
-                        </motion.div>
-                      );
-                    })}
+              <section key={section.id} className="py-28 md:py-40 px-4">
+                <div className="container mx-auto max-w-6xl">
+                  <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+                    <div className="lg:col-span-5">
+                      {section.eyebrow && (
+                        <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                      )}
+                      <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      {section.subtitle && (
+                        <p className="text-muted-foreground text-lg leading-relaxed max-w-md">{section.subtitle}</p>
+                      )}
+                    </div>
+                    <div className="lg:col-span-7">
+                      <ul className="divide-y divide-border/60">
+                        {section.items.map((item, i) => {
+                          const Icon = (item.icon && ICONS[item.icon]) || Mountain;
+                          return (
+                            <motion.li
+                              key={item.title}
+                              custom={i}
+                              initial="hidden"
+                              whileInView="visible"
+                              viewport={{ once: true }}
+                              variants={fadeUp}
+                              className="py-7 first:pt-0 flex gap-6 items-start"
+                            >
+                              <Icon className="h-5 w-5 text-secondary mt-1.5 shrink-0" />
+                              <div className="flex-1">
+                                <div className="font-display text-xl font-semibold text-foreground mb-1.5 tracking-tight">{item.title}</div>
+                                <div className="text-base text-muted-foreground leading-relaxed">{item.desc}</div>
+                              </div>
+                            </motion.li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -226,114 +236,154 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'imageCards':
+            // Editorial split: headline aligned left, staggered card heights to
+            // break the equal-grid feeling.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4">
-                <div className="container mx-auto">
-                  <div className="text-center mb-16">
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="max-w-2xl mb-16">
                     {section.eyebrow && (
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
+                      <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
                     )}
                     {section.title && (
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.02] tracking-tight">{section.title}</h2>
                     )}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-                    {section.cards.map((card, i) => (
-                      <Link key={card.title} to={lp(card.href)}>
-                        <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden h-[420px] cursor-pointer">
-                          <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/80 via-deep-navy/15 to-transparent" />
-                          <div className="absolute bottom-0 left-0 right-0 p-7">
-                            {card.eyebrow && <div className="text-secondary text-[11px] font-medium tracking-[0.18em] uppercase mb-2">{card.eyebrow}</div>}
-                            <h3 className="font-display text-2xl font-bold text-primary-foreground leading-tight">{card.title}</h3>
-                          </div>
-                        </motion.div>
-                      </Link>
-                    ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {section.cards.map((card, i) => {
+                      // Stagger heights and vertical offset to reduce grid feel.
+                      const heights = ['h-[480px]', 'h-[400px]', 'h-[520px]'];
+                      const offsets = ['', 'lg:mt-16', 'lg:-mt-4'];
+                      return (
+                        <Link key={card.title} to={lp(card.href)} className={offsets[i % 3]}>
+                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`group relative overflow-hidden cursor-pointer ${heights[i % 3]}`}>
+                            <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 p-8">
+                              {card.eyebrow && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{card.eyebrow}</div>}
+                              <h3 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground leading-[1.05] tracking-tight">{card.title}</h3>
+                            </div>
+                          </motion.div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </section>
             );
 
-          case 'tips':
+          case 'tips': {
+            const [featured, ...rest] = section.items.slice(0, 3);
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
-                <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
-                    <div className="max-w-xl">
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
-                      <p className="text-muted-foreground text-lg">{section.subtitle}</p>
-                    </div>
-                    <Link to={lp(section.ctaHref)}>
-                      <Button variant="outline">
-                        {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
+              <section key={section.id} className="py-28 md:py-36 px-4 bg-muted/30">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="mb-16 max-w-2xl">
+                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {section.items.slice(0, 3).map((tip, i) => (
-                      <Link key={tip.id} to={lp(`/tips/${tip.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors h-full">
-                          {tip.heroImage && (
-                            <div className="aspect-[5/4] overflow-hidden">
-                              <img src={tip.heroImage.url} alt={tip.heroImage.alt || tip.title} className="w-full h-full object-cover" loading="lazy" />
+                  <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    {featured && (
+                      <Link to={lp(`/tips/${featured.slug}`)} className="lg:col-span-7 group block">
+                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                          {featured.heroImage && (
+                            <div className="aspect-[16/10] overflow-hidden mb-6">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
                             </div>
                           )}
-                          <div className="p-7">
-                            {tip.category && <div className="text-[11px] font-medium text-secondary uppercase tracking-[0.18em] mb-3">{tip.category}</div>}
-                            <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight">{tip.title}</h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">{tip.intro}</p>
-                          </div>
+                          {featured.category && <div className="text-[11px] font-medium text-secondary uppercase tracking-[0.22em] mb-3">{featured.category}</div>}
+                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
+                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
                         </motion.article>
                       </Link>
-                    ))}
+                    )}
+                    <div className="lg:col-span-5 flex flex-col divide-y divide-border/60">
+                      {rest.map((tip, i) => (
+                        <Link key={tip.id} to={lp(`/tips/${tip.slug}`)} className="group block py-7 first:pt-0">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="flex gap-5 items-start">
+                            {tip.heroImage && (
+                              <div className="w-28 h-28 shrink-0 overflow-hidden">
+                                <img src={tip.heroImage.url} alt={tip.heroImage.alt || tip.title} className="w-full h-full object-cover" loading="lazy" />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              {tip.category && <div className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em] mb-1.5">{tip.category}</div>}
+                              <h3 className="font-display text-lg font-semibold text-foreground leading-tight tracking-tight group-hover:text-secondary transition-colors">{tip.title}</h3>
+                            </div>
+                          </motion.article>
+                        </Link>
+                      ))}
+                      <div className="pt-7">
+                        <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
+                          {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
             );
+          }
 
-          case 'events':
+          case 'events': {
+            const [featured, ...rest] = section.items.slice(0, 3);
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4">
-                <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
-                    <div className="max-w-xl">
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
-                      <p className="text-muted-foreground text-lg">{section.subtitle}</p>
-                    </div>
-                    <Link to={lp(section.ctaHref)}>
-                      <Button variant="outline">
-                        {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="mb-16 max-w-2xl">
+                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {section.items.slice(0, 3).map((ev, i) => (
-                      <Link key={ev.id} to={lp(`/arrangementer/${ev.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative rounded-2xl overflow-hidden h-96">
-                          {ev.heroImage && (
-                            <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy" />
+                  <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    {featured && (
+                      <Link to={lp(`/arrangementer/${featured.slug}`)} className="lg:col-span-8 group block">
+                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="relative overflow-hidden h-[520px]">
+                          {featured.heroImage && (
+                            <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
                           )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/15 to-transparent" />
-                          {ev.date && (
-                            <div className="absolute top-5 left-5 bg-background/90 backdrop-blur text-foreground rounded-md px-3 py-1.5 text-[11px] font-semibold tracking-[0.12em] uppercase">
-                              {ev.date}
+                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
+                          {featured.date && (
+                            <div className="absolute top-6 left-6 bg-background/90 backdrop-blur text-foreground px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                              {featured.date}
                             </div>
                           )}
-                          <div className="absolute bottom-0 left-0 right-0 p-7">
-                            {ev.category && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.18em] uppercase mb-2">{ev.category}</div>}
-                            <h3 className="font-display font-bold text-primary-foreground text-2xl leading-tight mb-2">{ev.title}</h3>
-                            <p className="text-primary-foreground/85 text-sm leading-relaxed line-clamp-2">{ev.intro}</p>
+                          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                            {featured.category && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{featured.category}</div>}
+                            <h3 className="font-display font-bold text-primary-foreground text-3xl md:text-5xl leading-[1.05] tracking-tight mb-4 max-w-2xl">{featured.title}</h3>
+                            <p className="text-primary-foreground/85 text-base leading-relaxed max-w-xl line-clamp-2">{featured.intro}</p>
                           </div>
                         </motion.article>
                       </Link>
-                    ))}
+                    )}
+                    <div className="lg:col-span-4 flex flex-col gap-6">
+                      {rest.map((ev, i) => (
+                        <Link key={ev.id} to={lp(`/arrangementer/${ev.slug}`)} className="group block">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="relative overflow-hidden h-[248px]">
+                            {ev.heroImage && (
+                              <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                            )}
+                            <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
+                            {ev.date && (
+                              <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
+                                {ev.date}
+                              </div>
+                            )}
+                            <div className="absolute bottom-0 left-0 right-0 p-5">
+                              <h3 className="font-display font-bold text-primary-foreground text-lg leading-tight tracking-tight">{ev.title}</h3>
+                            </div>
+                          </motion.article>
+                        </Link>
+                      ))}
+                      <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
+                        {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </section>
             );
+          }
 
           case 'beyond':
             return (
@@ -368,19 +418,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'gettingHere':
+            // Editorial typographic distance line — no card grid.
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4">
-                <div className="container mx-auto max-w-5xl">
-                  <div className="text-center mb-14 max-w-2xl mx-auto">
-                    <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.05] tracking-tight">{section.title}</h2>
-                    <p className="text-muted-foreground text-lg">{section.body}</p>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-12">
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-5xl text-center">
+                  <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                  <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
+                  <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed mb-14">{section.body}</p>
+                  <div className="flex flex-wrap justify-center items-baseline gap-x-8 gap-y-6 mb-14 max-w-4xl mx-auto">
                     {section.cities.map((c, i) => (
-                      <motion.div key={c.city} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-xl p-4 text-center border border-border/70">
-                        <div className="text-lg font-bold text-secondary">{c.km}</div>
-                        <div className="text-xs text-muted-foreground mt-1">{c.city}</div>
+                      <motion.div
+                        key={c.city}
+                        custom={i}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeUp}
+                        className="flex items-baseline gap-2"
+                      >
+                        <span className="font-display text-2xl md:text-3xl font-semibold text-foreground tracking-tight">{c.km}</span>
+                        <span className="text-sm text-muted-foreground tracking-wide">{c.city}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -396,64 +453,78 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             );
 
           case 'teaser':
+            // Cinematic full-bleed transition: tall image, minimal UI,
+            // headline anchored low-left like an editorial cover.
             return (
-              <section key={section.id} className="relative py-32 md:py-40 px-4 overflow-hidden">
+              <section key={section.id} className="relative h-[80vh] min-h-[600px] flex items-end overflow-hidden">
                 <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-r from-deep-navy/80 via-deep-navy/55 to-deep-navy/20" />
-                <div className="relative z-10 container mx-auto max-w-3xl">
-                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>}
-                  <h2 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
-                  <p className="text-primary-foreground/85 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl">{section.body}</p>
-                  <Link to={lp(section.ctaHref)}>
-                    <Button size="lg" variant="secondary" className="font-semibold">
-                      {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/30 to-deep-navy/10" />
+                <div className="relative z-10 container mx-auto px-4 pb-20 md:pb-28 max-w-5xl">
+                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.28em] uppercase mb-5">{section.eyebrow}</div>}
+                  <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 leading-[0.98] tracking-tight max-w-3xl">{section.title}</h2>
+                  <p className="text-primary-foreground/85 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl">{section.body}</p>
+                  <Link
+                    to={lp(section.ctaHref)}
+                    className="inline-flex items-center gap-3 text-primary-foreground text-base md:text-lg font-medium border-b border-primary-foreground/40 pb-1.5 hover:border-primary-foreground hover:gap-4 transition-all"
+                  >
+                    {section.ctaLabel}
+                    <ArrowRight className="h-5 w-5" />
                   </Link>
                 </div>
               </section>
             );
 
-          case 'news':
+          case 'news': {
+            const [featured, ...rest] = section.items.slice(0, 3);
             return (
-              <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
-                <div className="container mx-auto">
-                  <div className="flex flex-wrap gap-6 items-end justify-between mb-14">
-                    <div className="max-w-xl">
-                      <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3 leading-[1.05] tracking-tight">{section.title}</h2>
-                      <p className="text-muted-foreground text-lg">{section.subtitle}</p>
-                    </div>
-                    <Link to={lp(section.ctaHref)}>
-                      <Button variant="outline">
-                        {section.ctaLabel} <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
+              <section key={section.id} className="py-28 md:py-36 px-4">
+                <div className="container mx-auto max-w-7xl">
+                  <div className="mb-16 max-w-2xl">
+                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {section.items.slice(0, 3).map((n, i) => (
-                      <Link key={n.id} to={lp(`/nyheter/${n.slug}`)}>
-                        <motion.article custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors h-full">
-                          {n.heroImage && (
-                            <div className="aspect-[5/4] overflow-hidden">
-                              <img src={n.heroImage.url} alt={n.heroImage.alt || n.title} className="w-full h-full object-cover" loading="lazy" />
+                  <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    {featured && (
+                      <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
+                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                          {featured.heroImage && (
+                            <div className="aspect-[16/10] overflow-hidden mb-6">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
                             </div>
                           )}
-                          <div className="p-7">
-                            <div className="flex items-center gap-2 mb-3">
-                              {n.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.18em]">{n.category}</span>}
-                              {n.date && <span className="text-xs text-muted-foreground">·</span>}
-                              {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
-                            </div>
-                            <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight">{n.title}</h3>
-                            <p className="text-sm text-muted-foreground leading-relaxed">{n.intro}</p>
+                          <div className="flex items-center gap-3 mb-3">
+                            {featured.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.22em]">{featured.category}</span>}
+                            {featured.date && <span className="text-xs text-muted-foreground">{featured.date}</span>}
                           </div>
+                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
+                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
                         </motion.article>
                       </Link>
-                    ))}
+                    )}
+                    <div className="lg:col-span-5 flex flex-col divide-y divide-border/60">
+                      {rest.map((n, i) => (
+                        <Link key={n.id} to={lp(`/nyheter/${n.slug}`)} className="group block py-7 first:pt-0">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                            <div className="flex items-center gap-3 mb-2">
+                              {n.category && <span className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em]">{n.category}</span>}
+                              {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
+                            </div>
+                            <h3 className="font-display text-lg md:text-xl font-semibold text-foreground leading-tight tracking-tight group-hover:text-secondary transition-colors">{n.title}</h3>
+                          </motion.article>
+                        </Link>
+                      ))}
+                      <div className="pt-7">
+                        <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
+                          {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
             );
+          }
 
           case 'faq':
             return (
