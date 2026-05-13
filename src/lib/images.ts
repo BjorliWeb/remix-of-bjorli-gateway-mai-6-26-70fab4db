@@ -65,7 +65,11 @@ import a_brendjordsbyen from '@/assets/photos/06_events_atmosphere/bjorli-destin
 
 // 04 — Food & restaurant
 import f_dish from '@/assets/photos/04_food_restaurant/bjorli-restaurant-mat-mattisolavbjokne-2-20410b6b4a.jpg';
-import f_interior from '@/assets/photos/04_food_restaurant/bjorli-restaurant-mat-your-apent-hver-dag-frem-19-april-stol.jpg';
+// NOTE: previous `bjorli-restaurant-mat-your-apent-hver-dag-frem-19-april-stol.jpg`
+// was an opening-hours poster graphic ("Velkommen til Slush Sesong på Bjorli!"
+// with weekday hours baked in) — removed. The food/restaurant section now
+// reuses real warm cabin/lodge interior photography from pack 06 until
+// dedicated restaurant interiors are sourced.
 
 // 05 — Practical facilities
 import p_sign from '@/assets/photos/05_practical_facilities/bjorli-praktisk-info-bjorliskilt.jpg';
@@ -161,8 +165,8 @@ export const images = {
 
   // ── FOOD & DRINK ──────────────────────────────────────────────────────
   foodDrink: {
-    src: f_interior,
-    alt: 'Restaurant at Bjorli with warm interior and mountain lodge atmosphere.',
+    src: e_event2,
+    alt: 'Warm wood-panelled cabin interior at Bjorli — soft daylight and Nordic textiles.',
     wpField: 'food_drink_image',
     placeholder: false,
   },
@@ -283,8 +287,8 @@ export const images = {
     placeholder: false,
   },
   restaurantEvening: {
-    src: f_interior,
-    alt: 'Bjorli restaurant interior with warm lighting and a cozy atmosphere.',
+    src: e_event2,
+    alt: 'Cosy lodge interior at Bjorli with warm wood, calm light and Nordic textiles.',
     wpField: 'restaurant_evening_image',
     placeholder: false,
   },
