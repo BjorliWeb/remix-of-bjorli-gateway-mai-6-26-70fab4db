@@ -33,6 +33,7 @@ import Live from "./pages/Live";
 import Loypekart from "./pages/Loypekart";
 import WeatherWebcams from "./pages/WeatherWebcams";
 import SkiHolidayNorway from "./pages/SkiHolidayNorway";
+import ImageInventory from "./pages/ImageInventory";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
 
@@ -103,6 +104,8 @@ const AppRoutes = () => (
     <Route path="/loypekart" element={<Loypekart />} />
     {/* English-only international SEO landing page. No NO/DE/NL/DA/SV alias. */}
     <Route path="/ski-holiday-norway" element={<SkiHolidayNorway />} />
+    {/* Internal review-only page. Not linked from navigation, not in sitemap. */}
+    <Route path="/image-inventory" element={<ImageInventory />} />
     {/* Localized aliases — same components, translated slugs. */}
     {aliasRoute('sommer', <Sommer />)}
     {aliasRoute('skisenter', <SkiCenter />)}
