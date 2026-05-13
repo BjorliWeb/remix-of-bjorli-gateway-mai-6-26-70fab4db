@@ -39,7 +39,6 @@ import w_powder from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisent
 // `crossCountry` and `gettingHere` now point to a real sunny snow
 // panorama from the same pack (slope view 055).
 import w_bjorliski from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorliski2.jpg';
-import w_bjorlitoppen from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-bjorlitoppen1.jpg';
 import w_powderLift from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-budderstolheis.jpg';
 import w_fjellheis from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-fjellheis.jpg';
 // w_kidsSchool removed — sourced poster graphics. The `skiSchool`
@@ -248,7 +247,7 @@ export const images = {
     placeholder: false,
   },
   mountainTop: {
-    src: w_bjorlitoppen,
+    src: w_topStation,
     alt: 'View from the top of Bjorli Ski Resort across the winter landscape.',
     wpField: 'mountain_top_image',
     placeholder: false,
