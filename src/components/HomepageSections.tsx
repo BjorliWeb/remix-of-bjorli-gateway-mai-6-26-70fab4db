@@ -169,7 +169,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
                       )}
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-2 border-t border-border/60">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-2 border-t border-border">
                       {section.items.map((item, i) => {
                         const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                         return (
@@ -180,12 +180,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeUp}
-                            className="border-b border-border/60 py-5 flex gap-4 items-start"
+                            className="group border-b border-border py-6 flex gap-4 items-start cursor-default focus-within:bg-background/60 hover:bg-background/60 -mx-3 px-3 rounded-sm transition-colors"
                           >
-                            <Icon className="h-5 w-5 text-secondary mt-1 shrink-0" />
+                            <Icon className="h-5 w-5 text-foreground mt-1 shrink-0 group-hover:text-secondary transition-colors" />
                             <div className="flex-1 min-w-0">
                               <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
-                              <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
+                              <div className="text-sm text-foreground/70 leading-relaxed mt-1">{item.desc}</div>
                             </div>
                           </motion.li>
                         );
