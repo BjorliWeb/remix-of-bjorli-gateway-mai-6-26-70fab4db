@@ -34,6 +34,7 @@ import Loypekart from "./pages/Loypekart";
 import WeatherWebcams from "./pages/WeatherWebcams";
 import SkiHolidayNorway from "./pages/SkiHolidayNorway";
 import ImageInventory from "./pages/ImageInventory";
+import HeroCompare from "./pages/HeroCompare";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
 
@@ -106,6 +107,8 @@ const AppRoutes = () => (
     <Route path="/ski-holiday-norway" element={<SkiHolidayNorway />} />
     {/* Internal review-only page. Not linked from navigation, not in sitemap. */}
     <Route path="/image-inventory" element={<ImageInventory />} />
+    {/* Internal hero image comparison. Not linked, not in sitemap, not in SEO. */}
+    <Route path="/hero-compare" element={<HeroCompare />} />
     {/* Localized aliases — same components, translated slugs. */}
     {aliasRoute('sommer', <Sommer />)}
     {aliasRoute('skisenter', <SkiCenter />)}
