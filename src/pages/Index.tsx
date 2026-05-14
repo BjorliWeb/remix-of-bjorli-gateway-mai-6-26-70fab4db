@@ -47,7 +47,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-8 leading-[0.95] tracking-tight"
+            className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-8 leading-[0.95] tracking-tight"
           >
             {home.heroTitle}
           </motion.h1>
@@ -65,11 +65,16 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-2 justify-center flex-wrap items-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-2 justify-center flex-wrap items-center w-full max-w-sm sm:max-w-none mx-auto"
           >
             {/* Primary — Kjøp heiskort */}
-            <a href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862" target="_blank" rel="noopener noreferrer">
-              <Button size="default" className="font-medium w-full sm:w-auto">
+            <a
+              href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+            >
+              <Button size="lg" className="font-medium w-full sm:w-auto sm:h-10 sm:px-4 sm:text-sm">
                 <Ticket className="mr-2 h-4 w-4" />
                 {d.hero.ctaLiftPass}
               </Button>
@@ -77,7 +82,7 @@ const Index = () => {
             {/* Secondary — quieter inline link with separator */}
             <Link
               to={lp('/apningstider')}
-              className="inline-flex items-center gap-2 text-primary-foreground/85 hover:text-primary-foreground text-sm font-medium tracking-wide px-4 py-2 transition-colors"
+              className="inline-flex items-center justify-center gap-2 text-primary-foreground/90 hover:text-primary-foreground text-base sm:text-sm font-medium tracking-wide w-full sm:w-auto px-5 py-3 sm:px-4 sm:py-2 rounded-md border border-primary-foreground/20 sm:border-0 transition-colors"
             >
               <Clock className="h-4 w-4" />
               {d.hero.ctaOpening ?? d.status.openToday}
@@ -85,7 +90,7 @@ const Index = () => {
             <span className="hidden sm:inline text-primary-foreground/30">·</span>
             <Link
               to={lp('/overnatting')}
-              className="inline-flex items-center gap-2 text-primary-foreground/85 hover:text-primary-foreground text-sm font-medium tracking-wide px-4 py-2 transition-colors"
+              className="inline-flex items-center justify-center gap-2 text-primary-foreground/90 hover:text-primary-foreground text-base sm:text-sm font-medium tracking-wide w-full sm:w-auto px-5 py-3 sm:px-4 sm:py-2 rounded-md border border-primary-foreground/20 sm:border-0 transition-colors"
             >
               <HomeIcon className="h-4 w-4" />
               {d.hero.ctaStay}
