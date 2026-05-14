@@ -298,6 +298,10 @@ const ImageInventory = () => {
   const [onlyWarnings, setOnlyWarnings] = useState(false);
   const [onlyUsed, setOnlyUsed] = useState(false);
   const [query, setQuery] = useState('');
+  const [bankQuery, setBankQuery] = useState('');
+  const [bankSlug, setBankSlug] = useState<'all' | BankSlug>('all');
+  const [bankHeroOnly, setBankHeroOnly] = useState(false);
+  const [bankHideLogo, setBankHideLogo] = useState(false);
 
   const rows = useMemo(() => {
     return allRows.filter((r) => {
@@ -330,6 +334,166 @@ const ImageInventory = () => {
             {counts.total} assets · {counts.used} currently used · {counts.warned} flagged
           </p>
         </header>
+
+        {/* ──────────────────────────────────────────────────────────────── */}
+        {/* Bjorli image bank — logical content structure for editors.      */}
+        {/* ──────────────────────────────────────────────────────────────── */}
+        <section className="mb-16">
+          <div className="mb-4">
+            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-1">
+              Bjorli image bank
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Logical content structure (not a public route). {bankAssets.length} renamed assets across {BANK_CATEGORIES.length} categories.
+              Pick from the relevant category instead of reusing the same hero everywhere.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 mb-6 p-3 rounded-lg border border-border bg-card">
+            <input
+              type="search"
+              value={bankQuery}
+              onChange={(e) => setBankQuery(e.target.value)}
+              placeholder="Search bank filename…"
+              className="px-3 py-2 rounded-md border border-border bg-background text-sm w-64"
+            />
+            <select
+              value={bankSlug}
+              onChange={(e) => setBankSlug(e.target.value as 'all' | BankSlug)}
+              className="px-3 py-2 rounded-md border border-border bg-background text-sm"
+            >
+              <option value="all">All categories</option>
+              {BANK_CATEGORIES.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  /{c.slug} — {c.label} ({bankBySlug[c.slug].length})
+                </option>
+              ))}
+            </select>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={bankHeroOnly} onChange={(e) => setBankHeroOnly(e.target.checked)} />
+              Hero-suitable only
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={bankHideLogo} onChange={(e) => setBankHideLogo(e.target.checked)} />
+              Hide LOGO images
+            </label>
+          </div>
+
+          {BANK_CATEGORIES
+            .filter((c) => bankSlug === 'all' || c.slug === bankSlug)
+            .map((cat) => {
+              const items = bankBySlug[cat.slug].filter((a) => {
+                if (bankHeroOnly && a.heroSuitability === 'No') return false;
+                if (bankHideLogo && a.hasLogo) return false;
+                if (bankQuery && !a.filename.toLowerCase().includes(bankQuery.toLowerCase())) return false;
+                return true;
+              });
+              return (
+                <div key={cat.slug} className="mb-10">
+                  <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-border">
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        <span className="font-mono text-sm text-muted-foreground mr-2">/{cat.slug}</span>
+                        {cat.label}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {cat.description} · Suggested pages: {cat.pageSuggestions.join(', ')}
+                      </p>
+                    </div>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap">
+                      {items.length} / {bankBySlug[cat.slug].length}
+                    </span>
+                  </div>
+
+                  {bankBySlug[cat.slug].length === 0 ? (
+                    <p className="text-sm text-muted-foreground italic py-4">
+                      No images yet — upload assets into{' '}
+                      <code className="font-mono">src/assets/photos/bank/{cat.slug}/</code>
+                    </p>
+                  ) : items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground italic py-4">No matches with current filters.</p>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                      {items.map((a) => (
+                        <article key={a.path} className="rounded-xl border border-border bg-card overflow-hidden flex flex-col">
+                          <div className="relative aspect-[4/3] bg-muted">
+                            <img
+                              src={a.url}
+                              alt={a.filename}
+                              loading="lazy"
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                              <span className="text-[10px] uppercase tracking-wider bg-background/90 text-foreground px-2 py-0.5 rounded">
+                                /{a.slug}
+                              </span>
+                              {a.inUseAs.length > 0 && (
+                                <span className="text-[10px] uppercase tracking-wider bg-primary text-primary-foreground px-2 py-0.5 rounded">
+                                  in use
+                                </span>
+                              )}
+                            </div>
+                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
+                              <span
+                                className={
+                                  'text-[10px] uppercase tracking-wider px-2 py-0.5 rounded ' +
+                                  (a.heroSuitability === 'Strong'
+                                    ? 'bg-primary text-primary-foreground'
+                                    : a.heroSuitability === 'Candidate'
+                                    ? 'bg-secondary text-secondary-foreground'
+                                    : a.heroSuitability === 'Possible'
+                                    ? 'bg-muted text-foreground'
+                                    : 'bg-background/80 text-muted-foreground border border-border')
+                                }
+                              >
+                                hero: {a.heroSuitability.toLowerCase()}
+                              </span>
+                              {a.hasLogo && (
+                                <span className="text-[10px] uppercase tracking-wider bg-destructive text-destructive-foreground px-2 py-0.5 rounded">
+                                  ⚠ LOGO — crop required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="p-4 flex flex-col gap-2 text-sm">
+                            <div className="font-mono text-xs break-all text-foreground">{a.filename}</div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Recommended: </span>
+                              <span>{a.recommendedUse}</span>
+                            </div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Suggested pages: </span>
+                              <span>{a.pageSuggestions.join(', ')}</span>
+                            </div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Used as: </span>
+                              {a.inUseAs.length > 0
+                                ? <span className="text-foreground">{a.inUseAs.join(', ')}</span>
+                                : <span className="text-muted-foreground italic">unused</span>}
+                            </div>
+                            {a.notes.length > 0 && (
+                              <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-0.5">
+                                {a.notes.map((n) => <li key={n}>{n}</li>)}
+                              </ul>
+                            )}
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </section>
+
+        <div className="mb-4">
+          <h2 className="font-display text-2xl md:text-3xl font-semibold mb-1">
+            Full asset inventory
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Every image under <code className="font-mono">src/assets/</code>, including legacy and non-bank assets.
+          </p>
+        </div>
 
         <div className="flex flex-wrap items-center gap-3 mb-6 sticky top-2 z-10 bg-background/90 backdrop-blur p-3 rounded-lg border border-border">
           <input
