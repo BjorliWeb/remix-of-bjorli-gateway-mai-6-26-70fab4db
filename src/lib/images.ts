@@ -27,7 +27,7 @@ export interface BjorliImage {
 }
 
 // Hero — explicitly preserved per brief.
-import heroWinter from '@/assets/hero-winter.jpg';
+import heroWinter from '@/assets/photos/bjorli-stolheis-fjellutsikt-vinter.jpg';
 
 // 01 — Winter / Ski resort
 import w_skiArea from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-036.jpg';
