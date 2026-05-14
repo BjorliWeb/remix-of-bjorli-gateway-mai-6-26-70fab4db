@@ -599,6 +599,27 @@ const ImageInventory = () => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); } catch { /* quota / SSR */ }
   }, [reviews]);
 
+  // Internal-only page: set <title> and inject a noindex robots meta so search
+  // engines never index this asset-management view.
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = 'Image inventory (internal) — Bjorli';
+    let meta = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
+    const created = !meta;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'robots';
+      document.head.appendChild(meta);
+    }
+    const prevContent = meta.content;
+    meta.content = 'noindex, nofollow, noarchive';
+    return () => {
+      document.title = prevTitle;
+      if (created) meta!.remove();
+      else meta!.content = prevContent;
+    };
+  }, []);
+
   const getReview = (path: string): ReviewState => reviews[path] ?? EMPTY_REVIEW;
 
   const updateReview = (path: string, patch: Partial<ReviewState>) => {
