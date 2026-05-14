@@ -23,6 +23,10 @@ const HeroCompare = () => {
 
   if (!home) return null;
 
+  const statusSection = home.sections?.find((s) => s.kind === 'status') as
+    | Parameters<typeof LiveStatusCards>[0]['section']
+    | undefined;
+
   const variants: { id: string; label: string; path: string; src: string }[] = [
     {
       id: 'A',
@@ -104,7 +108,7 @@ const HeroCompare = () => {
             </div>
           </section>
 
-          <LiveStatusCards />
+          {statusSection && <LiveStatusCards section={statusSection} />}
         </div>
       ))}
     </div>
