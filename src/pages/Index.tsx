@@ -6,7 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
-import desktopHero from '@/assets/photos/bank/01-hero/bjorli-vinterpanorama-skiomrade-hero-wide.jpg';
+import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
  * Winter homepage. All editorial content is sourced from the CMS layer
@@ -32,15 +32,16 @@ const Index = () => {
             className="md:hidden absolute inset-0 w-full h-full object-cover"
           />
         )}
-        {/* Desktop hero — wide winter panorama of the Bjorli ski area
-            (no baked-in logo). Strong landscape orientation, calm sky
-            band at the top for the headline, mountains and ski terrain
-            visible across the lower third. Object-position keeps the
-            valley centred under the headline. */}
+        {/* Desktop hero — Variant D: wide Bjorli destination view
+            with valley, ski area, people, lifts and mountains. Slight
+            scale + top-left origin pushes the baked-in Bjorli watermark
+            (bottom-right) and heaviest lift-station mass off-frame,
+            while object-position keeps the panorama centred under the
+            headline. */}
         <img
           src={desktopHero}
-          alt={home.heroImage?.alt || 'Vidt vinterpanorama over skiområdet på Bjorli.'}
-          className="hidden md:block absolute inset-0 w-full h-full object-cover object-[50%_60%]"
+          alt={home.heroImage?.alt || 'Vidt vinterpanorama over skiområdet på Bjorli med dal, heiser og fjell.'}
+          className="hidden md:block absolute inset-0 w-full h-full object-cover object-[48%_50%] scale-[1.12] origin-top-left"
         />
         <div className="absolute inset-0 hero-gradient" />
         {/* Soft hero-to-content transition: a calm, editorial fade from
