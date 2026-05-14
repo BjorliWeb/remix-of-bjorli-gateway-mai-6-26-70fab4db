@@ -139,22 +139,176 @@ function inferAutoWarnings(path: string, category: LegacyCategory | 'bank'): str
   return w;
 }
 
-// Detect images that contain a baked-in Bjorli logo. Bank assets follow the
-// "LOGO" / "logo-before-use" / "crop-logo" naming convention; legacy assets
-// don't, so we don't auto-flag every "logo" filename here.
+// ---------------------------------------------------------------------------
+// Content classifier — visible content first, filename second.
+// We can only read filenames, so we use word-level signals and let strong
+// signals (snow + lift) override weaker ones (folder, "summer" in name).
+// ---------------------------------------------------------------------------
+
+interface ContentSignals {
+  snow: boolean;          // snow / ski / winter activity
+  summerOnly: boolean;    // unambiguously summer (biking, fishing, bassen, …)
+  people: boolean;        // any people present
+  closeUpPeople: boolean; // tight portraits / closeups (premium-only as hero)
+  family: boolean;        // children / family / ski school
+  liftInfra: boolean;     // lifts, base/top stations, gates, signs
+  food: boolean;          // restaurant, terrace, après-ski
+  mountain: boolean;      // mountain views / panoramas / landscape
+  wide: boolean;          // wide / panorama / overview crop
+  action: boolean;        // ski action / carving
+  crowded: boolean;       // crowded base area
+  reference: boolean;     // screenshot, map, poster, social graphic
+  hasLogo: boolean;       // baked-in Bjorli logo per filename convention
+}
+
 function detectLogoPresent(filename: string): boolean {
+  // Only true when the filename actually carries the LOGO marker. Bank files
+  // use uppercase "LOGO"; legacy files use "logo-before-use" / "crop-logo".
   const lower = filename.toLowerCase();
   return filename.includes('LOGO') || lower.includes('logo-before-use') || lower.includes('crop-logo');
 }
 
-function inferHeroSuitability(path: string, bankSlug: BankSlug | null, hasLogo: boolean): 'Strong' | 'Candidate' | 'Possible' | 'No' {
-  const lower = path.toLowerCase();
-  let h: 'Strong' | 'Candidate' | 'Possible' | 'No' = 'No';
-  if (bankSlug === '01-hero') h = lower.includes('candidate') ? 'Candidate' : 'Strong';
-  else if (lower.includes('hero-wide') || lower.includes('panorama') || lower.includes('hero')) h = lower.includes('candidate') ? 'Candidate' : 'Possible';
-  else if (lower.includes('wide') || lower.includes('overview') || lower.includes('open-landscape')) h = 'Possible';
-  if (hasLogo && h !== 'No') h = 'Candidate';
-  return h;
+function detectSignals(path: string, legacy: LegacyCategory): ContentSignals {
+  const f = path.toLowerCase();
+  const filename = path.split('/').pop() ?? path;
+
+  const snow = /(snow|sno-|sno_|sno\b|vinter|winter|ski(?!lt)|alpinbakke|nedfart|loype|carving|skikj|preparert|riller|stolheis|skiheis|fjellheis|toppstasjon|bunnstasjon|toppskilt|snowpark|skibrille|skiomr|heiskort|afterski)/.test(f);
+  const summerOnly = /(sommer|summer-(?!ski)|sykkel|bike|pumptrack|fiske|fishing|bassen|barmark|gronn|hike|hiking|fottur)/.test(f);
+
+  const family = /(barn|familie|skiskole|barneomrade)/.test(f);
+  const closeUpPeople = /(naerbilde|closeup|portrett|skibrille|skibriller|naer-action)/.test(f);
+  const peopleHint = /(folk|gjester|gruppe|vennegjeng|skiere|skikj|skikjorer)/.test(f);
+  const people = family || closeUpPeople || peopleHint;
+
+  const liftInfra = /(stolheis|skiheis|fjellheis|toppstasjon|bunnstasjon|heisomr|heiskort|loypekart|toppskilt|skiltet|destination-sign|gates?|ticket)/.test(f);
+  const food = /(restaur|servering|terrasse|afterski|after-ski|heiskro|kroa|sol(seng|stol)|uteservering|drikke)/.test(f);
+  const mountain = /(panorama|fjell|utsikt|hoyfjell|mountain-view|landskap|scenic|nordloypa|open-landscape)/.test(f);
+  const wide = /(panorama|hero-wide|-wide|overview|open-landscape)/.test(f);
+  const action = /(carving|action|skikj)/.test(f);
+  const crowded = /(bunnstasjon|heiskort-bunnstasjon|skiutstyr-heis|kø|queue)/.test(f);
+
+  const reference =
+    legacy === 'screenshot' || legacy === 'poster' || legacy === 'social' ||
+    legacy === 'map' || legacy === 'illustration' ||
+    /(screenshot|reference|skjermbilde)/.test(f);
+
+  return {
+    snow, summerOnly, people, closeUpPeople, family,
+    liftInfra, food, mountain, wide, action, crowded,
+    reference,
+    hasLogo: detectLogoPresent(filename),
+  };
+}
+
+/** Reroute folder-based bank slug when visible-content signals contradict it. */
+function effectiveBankFor(folderSlug: BankSlug | null, s: ContentSignals): BankSlug | null {
+  if (!folderSlug) return null;
+  // Snow-dominant image landed in a summer folder → bank to winter / heis / ski.
+  if (folderSlug === '09-sommer' && s.snow && !s.summerOnly) {
+    if (s.liftInfra) return '05-heis';
+    if (s.action)    return '02-ski';
+    return '08-vinter';
+  }
+  // Lift / base-station image landed in /01-hero → demote to /05-heis for grouping.
+  if (folderSlug === '01-hero' && s.liftInfra && !s.wide && !s.mountain) return '05-heis';
+  // Tight close-up landed in /01-hero → /02-ski or /03-family.
+  if (folderSlug === '01-hero' && s.closeUpPeople && !s.wide) {
+    return s.family ? '03-family' : '02-ski';
+  }
+  return folderSlug;
+}
+
+/** Plain-language summary editors can scan in <1s. */
+function visibleContentSummary(s: ContentSignals): string {
+  if (s.reference) return 'Reference graphic / screenshot — internal only.';
+  const parts: string[] = [];
+  if (s.wide && s.mountain && s.snow) parts.push('Wide winter mountain panorama');
+  else if (s.wide && s.mountain)      parts.push('Wide mountain panorama');
+  else if (s.mountain && s.snow)      parts.push('Snowy mountain view');
+  else if (s.mountain)                parts.push('Mountain view');
+  else if (s.snow && s.action)        parts.push('Ski action on snow');
+  else if (s.snow && s.liftInfra)     parts.push('Winter lift / base-station scene');
+  else if (s.snow && s.family)        parts.push('Family on the slopes');
+  else if (s.snow)                    parts.push('Winter / ski-resort scene');
+  else if (s.summerOnly)              parts.push('Summer scene');
+  else                                parts.push('General destination image');
+
+  if (s.food)          parts.push('with restaurant / après-ski elements');
+  else if (s.crowded)  parts.push('with crowded base area');
+  else if (s.closeUpPeople) parts.push('close-up of people');
+  else if (s.people && !s.family) parts.push('with skiers / guests');
+
+  if (s.hasLogo) parts.push('— baked-in Bjorli logo visible');
+  return parts.join(' ') + '.';
+}
+
+type HeroVerdict = 'YES' | 'MAYBE' | 'NO';
+
+/** Strict hero rules: only wide, calm, destination-grade images get YES. */
+function heroDecision(folderSlug: BankSlug | null, s: ContentSignals): { verdict: HeroVerdict; reason: string } {
+  if (s.reference) return { verdict: 'NO', reason: 'Reference graphic — never publish as hero.' };
+  if (s.hasLogo)   return { verdict: 'NO', reason: 'Baked-in logo — must be cropped before any hero use.' };
+  if (s.liftInfra && !s.wide && !s.mountain)
+                   return { verdict: 'NO', reason: 'Lift / infrastructure image — belongs on subpages, not hero.' };
+  if (s.crowded && !s.wide)
+                   return { verdict: 'NO', reason: 'Crowded base area — too busy for a hero.' };
+  if (s.closeUpPeople && !s.mountain && !s.wide)
+                   return { verdict: 'NO', reason: 'Tight close-up — too specific for hero use.' };
+
+  if (folderSlug === '01-hero' && s.wide && (s.mountain || s.action || s.snow))
+                   return { verdict: 'YES', reason: 'Wide hero asset — strong destination crop.' };
+  if (s.wide && s.mountain && s.snow)
+                   return { verdict: 'YES', reason: 'Wide snowy mountain panorama — strong hero candidate.' };
+
+  if (folderSlug === '01-hero')
+                   return { verdict: 'MAYBE', reason: 'In hero folder but lacks a clear wide / panoramic crop.' };
+  if (s.wide && s.mountain)
+                   return { verdict: 'MAYBE', reason: 'Wide mountain view — verify framing and calm sky band.' };
+  if (s.action && !s.closeUpPeople)
+                   return { verdict: 'MAYBE', reason: 'Strong ski action — only if it works as a wide crop.' };
+
+  return { verdict: 'NO', reason: 'Better as subpage / support image, not hero.' };
+}
+
+type EditorialStatus =
+  | 'Hero candidate'
+  | 'Strong subpage image'
+  | 'Support image'
+  | 'Practical / infrastructure image'
+  | 'Crop before use'
+  | 'Do not use as hero'
+  | 'Duplicate candidate'
+  | 'Low priority';
+
+function deriveEditorialStatus(
+  folderSlug: BankSlug | null,
+  s: ContentSignals,
+  hero: { verdict: HeroVerdict },
+  isDuplicateCandidate: boolean,
+): EditorialStatus[] {
+  const out: EditorialStatus[] = [];
+  if (hero.verdict === 'YES' || hero.verdict === 'MAYBE') out.push('Hero candidate');
+  if (hero.verdict === 'NO') out.push('Do not use as hero');
+  if (s.hasLogo) out.push('Crop before use');
+  if (s.liftInfra) out.push('Practical / infrastructure image');
+  if (folderSlug === '07-underside' || (hero.verdict !== 'YES' && (s.mountain || s.action || (s.people && !s.closeUpPeople)))) {
+    out.push('Strong subpage image');
+  }
+  if (!s.snow && !s.summerOnly && !s.mountain && !s.action && !s.food && !s.people) out.push('Support image');
+  if (s.reference) out.push('Low priority');
+  if (isDuplicateCandidate) out.push('Duplicate candidate');
+  // Dedupe while preserving order
+  return [...new Set(out)];
+}
+
+/** Reduce a filename to a stem we can use to spot near-duplicates. */
+function duplicateStem(filename: string): string {
+  return filename
+    .toLowerCase()
+    .replace(/\.[a-z0-9]+$/, '')
+    .replace(/-(scaled|hero|hero-wide|wide|candidate|closeup|naerbilde|portrett|forside|underside|crop-logo-before-use|logo-before-use)$/g, '')
+    .replace(/-(v\d+|copy|kopi|\d{3,4}x\d{3,4}|\d+)$/g, '')
+    .replace(/[-_\s]+/g, '-');
 }
 
 // ---------------------------------------------------------------------------
@@ -166,23 +320,42 @@ interface AssetRow {
   url: string;
   filename: string;
   folder: string;
-  bankSlug: BankSlug | null;
+  bankSlug: BankSlug | null;          // raw folder-derived slug
+  effectiveSlug: BankSlug | null;     // after content-signal override
   legacyCategory: LegacyCategory;
   inferredAlt: string;          // alt text from registry, if known
   registryKeys: string[];       // keys in src/lib/images.ts pointing here
   hasLogo: boolean;
-  heroSuitability: 'Strong' | 'Candidate' | 'Possible' | 'No';
+  signals: ContentSignals;
+  contentSummary: string;
+  heroVerdict: HeroVerdict;
+  heroReason: string;
+  editorialStatus: EditorialStatus[];
   recommendedUse: string;
   pageSuggestions: string[];
   autoWarnings: string[];
+  duplicateStem: string;
+  isDuplicateCandidate: boolean;
 }
 
-function recommendedUseFor(bankSlug: BankSlug | null, legacy: LegacyCategory, hasLogo: boolean): string {
-  if (bankSlug === '01-hero') return hasLogo
-    ? 'Hero candidate — must be cropped to remove logo first.'
-    : 'Hero — homepage, season landing, or major destination page.';
-  if (bankSlug === '07-underside') return 'Subpage support image — cards, content blocks, guides.';
-  if (bankSlug) return `${BANK_LABEL[bankSlug]} — use on related subpages and cards.`;
+function recommendedUseFor(slug: BankSlug | null, legacy: LegacyCategory, s: ContentSignals, hero: HeroVerdict): string {
+  if (s.hasLogo) return 'Crop the visible Bjorli logo out of the frame before any public use.';
+  if (slug === '01-hero' && hero === 'YES') return 'Use as hero on homepage, season landing or a major destination page.';
+  if (slug === '01-hero')                   return 'Hero candidate — verify framing and calm sky band first.';
+  if (slug === '07-underside')              return 'Use as a support image inside subpages, cards, guides or article blocks.';
+  if (slug === '05-heis')                   return 'Use on Ski Center, Heiskort or Practical info — not as a hero.';
+  if (slug === '04-servering')              return 'Use on Food & Drink and après-ski sections.';
+  if (slug === '03-family')                 return 'Use on Familie, Ski School and family-focused content.';
+  if (slug === '02-ski')                    return hero === 'NO'
+    ? 'Use on Ski Center / Vinter cards. Not strong enough as a hero.'
+    : 'Use on Ski Center or Vinter — possible hero if framing works as a wide crop.';
+  if (slug === '06-utsikt')                 return 'Editorial mountain view — strong for cards and atmospheric blocks.';
+  if (slug === '08-vinter')                 return 'Use for general winter atmosphere and snow-condition cards.';
+  if (slug === '09-sommer')                 return 'Use for summer landing and warm-season activities.';
+  if (slug === '10-sykkel')                 return 'Use on Sykling and summer activity pages.';
+  if (slug === '11-tur')                    return 'Use on Fotturer and hiking pages.';
+  if (slug === '12-fiske')                  return 'Use on fishing / water activity pages.';
+  if (slug === '13-natur')                  return 'Use as nature / atmosphere imagery.';
   switch (legacy) {
     case 'hero':         return 'Homepage hero / large editorial covers.';
     case 'winter':       return 'Ski-center, lifts, snow-condition cards.';
@@ -202,8 +375,8 @@ function recommendedUseFor(bankSlug: BankSlug | null, legacy: LegacyCategory, ha
   }
 }
 
-function pageSuggestionsFor(bankSlug: BankSlug | null, legacy: LegacyCategory): string[] {
-  if (bankSlug) return BANK_PAGES[bankSlug];
+function pageSuggestionsFor(slug: BankSlug | null, legacy: LegacyCategory): string[] {
+  if (slug) return BANK_PAGES[slug];
   const m: Partial<Record<LegacyCategory, string[]>> = {
     hero: ['Homepage', 'Season landing'],
     winter: ['Vinter', 'Ski Center'],
@@ -223,33 +396,55 @@ function pageSuggestionsFor(bankSlug: BankSlug | null, legacy: LegacyCategory): 
   return m[legacy] ?? [];
 }
 
-const allRows: AssetRow[] = Object.entries(assetModules)
-  .map(([rawPath, url]): AssetRow => {
+const allRows: AssetRow[] = (() => {
+  // First pass: build draft rows so we can compute duplicate-stem groups.
+  const drafts = Object.entries(assetModules).map(([rawPath, url]) => {
     const path = rawPath.replace(/^\//, '');
     const filename = path.split('/').pop() ?? path;
     const folder = path.replace('src/assets/', '').split('/').slice(0, -1).join('/') || '(root)';
     const bankMatch = path.match(/\/bank\/([0-9]{2}-[a-z]+)\//);
     const bankSlug = (bankMatch ? bankMatch[1] : null) as BankSlug | null;
     const legacy = inferLegacyCategory(rawPath);
-    const hasLogo = detectLogoPresent(filename);
-    const reg = registryByUrl[url];
+    const signals = detectSignals(path, legacy);
+    const effectiveSlug = effectiveBankFor(bankSlug, signals);
+    const hero = heroDecision(effectiveSlug, signals);
+    const stem = duplicateStem(filename);
+    return { path, url, filename, folder, bankSlug, effectiveSlug, legacy, signals, hero, stem };
+  });
+
+  const stemCounts = drafts.reduce<Record<string, number>>((acc, d) => {
+    acc[d.stem] = (acc[d.stem] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  return drafts.map((d): AssetRow => {
+    const reg = registryByUrl[d.url];
+    const isDup = stemCounts[d.stem] > 1;
+    const editorialStatus = deriveEditorialStatus(d.effectiveSlug, d.signals, d.hero, isDup);
     return {
-      path,
-      url,
-      filename,
-      folder,
-      bankSlug,
-      legacyCategory: legacy,
+      path: d.path,
+      url: d.url,
+      filename: d.filename,
+      folder: d.folder,
+      bankSlug: d.bankSlug,
+      effectiveSlug: d.effectiveSlug,
+      legacyCategory: d.legacy,
       inferredAlt: reg?.alts?.[0] ?? '',
       registryKeys: reg?.keys ?? [],
-      hasLogo,
-      heroSuitability: inferHeroSuitability(path, bankSlug, hasLogo),
-      recommendedUse: recommendedUseFor(bankSlug, legacy, hasLogo),
-      pageSuggestions: pageSuggestionsFor(bankSlug, legacy),
-      autoWarnings: inferAutoWarnings(path, bankSlug ? 'bank' : legacy),
+      hasLogo: d.signals.hasLogo,
+      signals: d.signals,
+      contentSummary: visibleContentSummary(d.signals),
+      heroVerdict: d.hero.verdict,
+      heroReason: d.hero.reason,
+      editorialStatus,
+      recommendedUse: recommendedUseFor(d.effectiveSlug, d.legacy, d.signals, d.hero.verdict),
+      pageSuggestions: pageSuggestionsFor(d.effectiveSlug, d.legacy),
+      autoWarnings: inferAutoWarnings(d.path, d.effectiveSlug ? 'bank' : d.legacy),
+      duplicateStem: d.stem,
+      isDuplicateCandidate: isDup,
     };
-  })
-  .sort((a, b) => a.path.localeCompare(b.path));
+  }).sort((a, b) => a.path.localeCompare(b.path));
+})();
 
 // ---------------------------------------------------------------------------
 // Editor review state — persisted in localStorage
@@ -290,7 +485,12 @@ function loadReviews(): ReviewMap {
 // Filter / sort options
 // ---------------------------------------------------------------------------
 
-type FlagFilter = 'all' | 'selected' | 'delete' | 'duplicate' | 'doNotUse' | 'heroCandidate' | 'subpageOnly' | 'logoCrop' | 'missingAlt' | 'unused' | 'used' | 'warnings';
+type FlagFilter =
+  | 'all' | 'selected' | 'delete' | 'duplicate' | 'doNotUse'
+  | 'heroCandidate' | 'subpageOnly' | 'logoCrop' | 'missingAlt'
+  | 'unused' | 'used' | 'warnings'
+  | 'practicalInfra' | 'peopleFamily' | 'skiAction' | 'mountainView'
+  | 'restaurant' | 'duplicateCandidate' | 'doNotUseHero';
 type SortKey = 'filename' | 'category' | 'usedFirst' | 'unusedFirst' | 'flaggedFirst' | 'heroFirst';
 type CategoryFilter = 'all' | BankSlug | LegacyCategory;
 
@@ -320,6 +520,10 @@ const CATEGORY_OPTIONS: { value: CategoryFilter; label: string }[] = [
 
 function effectiveCategory(row: AssetRow, review: ReviewState): string {
   if (review.categoryOverride) return `/${review.categoryOverride} — ${BANK_LABEL[review.categoryOverride]} (override)`;
+  if (row.effectiveSlug) {
+    const tag = row.bankSlug && row.effectiveSlug !== row.bankSlug ? ' (auto-rerouted)' : '';
+    return `/${row.effectiveSlug} — ${BANK_LABEL[row.effectiveSlug]}${tag}`;
+  }
   if (row.bankSlug) return `/${row.bankSlug} — ${BANK_LABEL[row.bankSlug]}`;
   return `legacy: ${row.legacyCategory}`;
 }
@@ -339,13 +543,20 @@ function rowMatchesFlag(row: AssetRow, review: ReviewState, selected: boolean, f
     case 'delete':        return review.flags.delete;
     case 'duplicate':     return review.flags.duplicate;
     case 'doNotUse':      return review.flags.doNotUse;
-    case 'heroCandidate': return review.flags.heroCandidate || row.heroSuitability === 'Strong' || row.heroSuitability === 'Candidate';
+    case 'heroCandidate': return review.flags.heroCandidate || row.heroVerdict === 'YES' || row.heroVerdict === 'MAYBE';
     case 'subpageOnly':   return review.flags.subpageOnly;
     case 'logoCrop':      return review.flags.logoCrop || row.hasLogo;
     case 'missingAlt':    return effectiveAlt(row, review).trim().length === 0;
     case 'unused':        return row.registryKeys.length === 0;
     case 'used':          return row.registryKeys.length > 0;
     case 'warnings':      return row.autoWarnings.length > 0;
+    case 'practicalInfra': return row.signals.liftInfra;
+    case 'peopleFamily':   return row.signals.family || (row.signals.people && !row.signals.closeUpPeople);
+    case 'skiAction':      return row.signals.action;
+    case 'mountainView':   return row.signals.mountain;
+    case 'restaurant':     return row.signals.food;
+    case 'duplicateCandidate': return row.isDuplicateCandidate;
+    case 'doNotUseHero':   return row.heroVerdict === 'NO';
   }
 }
 
@@ -388,6 +599,27 @@ const ImageInventory = () => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); } catch { /* quota / SSR */ }
   }, [reviews]);
 
+  // Internal-only page: set <title> and inject a noindex robots meta so search
+  // engines never index this asset-management view.
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = 'Image inventory (internal) — Bjorli';
+    let meta = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
+    const created = !meta;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'robots';
+      document.head.appendChild(meta);
+    }
+    const prevContent = meta.content;
+    meta.content = 'noindex, nofollow, noarchive';
+    return () => {
+      document.title = prevTitle;
+      if (created) meta!.remove();
+      else meta!.content = prevContent;
+    };
+  }, []);
+
   const getReview = (path: string): ReviewState => reviews[path] ?? EMPTY_REVIEW;
 
   const updateReview = (path: string, patch: Partial<ReviewState>) => {
@@ -429,9 +661,9 @@ const ImageInventory = () => {
       if (categoryFilter !== 'all') {
         const isBank = BANK_CATEGORIES.some((c) => c.slug === categoryFilter);
         if (isBank) {
-          const eff = review.categoryOverride || row.bankSlug;
+          const eff = review.categoryOverride || row.effectiveSlug;
           if (eff !== categoryFilter) return false;
-        } else if (row.bankSlug || row.legacyCategory !== categoryFilter) return false;
+        } else if (row.effectiveSlug || row.legacyCategory !== categoryFilter) return false;
       }
       if (!rowMatchesFlag(row, review, selected.has(row.path), flagFilter)) return false;
       return true;
@@ -448,8 +680,8 @@ const ImageInventory = () => {
         return bf - af || a.filename.localeCompare(b.filename);
       },
       heroFirst:   (a, b) => {
-        const order = { Strong: 0, Candidate: 1, Possible: 2, No: 3 } as const;
-        return order[a.heroSuitability] - order[b.heroSuitability] || a.filename.localeCompare(b.filename);
+        const order = { YES: 0, MAYBE: 1, NO: 2 } as const;
+        return order[a.heroVerdict] - order[b.heroVerdict] || a.filename.localeCompare(b.filename);
       },
     };
     return [...list].sort(sortFn[sort]);
@@ -460,8 +692,8 @@ const ImageInventory = () => {
     if (!groupByCategory) return [{ key: 'All matches', rows: filtered }];
     const map = new Map<string, AssetRow[]>();
     for (const row of filtered) {
-      const key = row.bankSlug
-        ? `/${row.bankSlug} — ${BANK_LABEL[row.bankSlug]}`
+      const key = row.effectiveSlug
+        ? `/${row.effectiveSlug} — ${BANK_LABEL[row.effectiveSlug]}`
         : `legacy: ${row.legacyCategory}`;
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(row);
@@ -531,17 +763,21 @@ const ImageInventory = () => {
     const rows = buildFlaggedExport().map(({ row, review }) => ({
       filename: row.filename,
       path: row.path,
-      category: review.categoryOverride || row.bankSlug || row.legacyCategory,
+      category: review.categoryOverride || row.effectiveSlug || row.legacyCategory,
       used: row.registryKeys.length > 0,
       registryKeys: row.registryKeys,
       pageSuggestions: row.pageSuggestions,
       hasLogoBakedIn: row.hasLogo,
-      heroSuitability: row.heroSuitability,
+      heroVerdict: row.heroVerdict,
+      heroReason: row.heroReason,
+      visibleContent: row.contentSummary,
+      editorialStatus: row.editorialStatus,
       altText: effectiveAlt(row, review),
       notes: review.notes,
       replacement: review.replacement,
       flags: review.flags,
       autoWarnings: row.autoWarnings,
+      isDuplicateCandidate: row.isDuplicateCandidate,
     }));
     downloadBlob('bjorli-image-deletion-list.json', JSON.stringify(rows, null, 2), 'application/json');
   };
@@ -554,7 +790,7 @@ const ImageInventory = () => {
       return [
         row.filename,
         row.path,
-        review.categoryOverride || row.bankSlug || row.legacyCategory,
+        review.categoryOverride || row.effectiveSlug || row.legacyCategory,
         row.registryKeys.length > 0,
         row.registryKeys.join('|'),
         row.pageSuggestions.join('|'),
@@ -567,7 +803,7 @@ const ImageInventory = () => {
   };
 
   const exportFullCsv = () => {
-    const headers = ['filename','path','folder','bank_category','legacy_category','used','registry_keys','page_suggestions','hero_suitability','has_logo','recommended_use','alt_text','notes','replacement','flags','auto_warnings'];
+    const headers = ['filename','path','folder','bank_category','legacy_category','used','registry_keys','page_suggestions','hero_verdict','hero_reason','visible_content','editorial_status','has_logo','recommended_use','alt_text','notes','replacement','flags','auto_warnings','duplicate_candidate'];
     const data = allRows.map((row) => {
       const review = reviews[row.path] ?? EMPTY_REVIEW;
       const flagList = (Object.entries(review.flags) as [keyof ReviewFlags, boolean][])
@@ -576,12 +812,15 @@ const ImageInventory = () => {
         row.filename,
         row.path,
         row.folder,
-        review.categoryOverride || row.bankSlug || '',
+        review.categoryOverride || row.effectiveSlug || '',
         row.legacyCategory,
         row.registryKeys.length > 0,
         row.registryKeys.join('|'),
         row.pageSuggestions.join('|'),
-        row.heroSuitability,
+        row.heroVerdict,
+        row.heroReason,
+        row.contentSummary,
+        row.editorialStatus.join('|'),
         row.hasLogo,
         effectiveRecommended(row, review),
         effectiveAlt(row, review),
@@ -589,6 +828,7 @@ const ImageInventory = () => {
         review.replacement,
         flagList,
         row.autoWarnings.join('|'),
+        row.isDuplicateCandidate,
       ];
     });
     downloadBlob('bjorli-image-inventory.csv', toCsv(headers, data), 'text/csv');
@@ -715,6 +955,13 @@ const ImageInventory = () => {
             <option value="unused">Unused images</option>
             <option value="used">Used images</option>
             <option value="warnings">Auto-warnings</option>
+            <option value="practicalInfra">Practical / infrastructure</option>
+            <option value="peopleFamily">People / family</option>
+            <option value="skiAction">Ski action</option>
+            <option value="mountainView">Mountain view</option>
+            <option value="restaurant">Restaurant / servering</option>
+            <option value="duplicateCandidate">Duplicate candidates</option>
+            <option value="doNotUseHero">Do not use as hero</option>
           </select>
           <select
             value={sort}
@@ -839,8 +1086,12 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
   const [open, setOpen] = useState(false);
   const isUsed = row.registryKeys.length > 0;
   const altMissing = !effectiveAlt(row, review).trim();
-  const showLogoCrop = review.flags.logoCrop || row.hasLogo;
-  const isHero = review.flags.heroCandidate || row.heroSuitability === 'Strong' || row.heroSuitability === 'Candidate';
+  // Rule 7: only show LOGO CROP when filename actually carries the marker
+  // OR an editor manually flagged it (visible logo in image).
+  const showLogoCrop = row.hasLogo || review.flags.logoCrop;
+  const heroVerdict = review.flags.heroCandidate ? 'YES' : row.heroVerdict;
+  const isHero = heroVerdict === 'YES' || heroVerdict === 'MAYBE';
+  const heroTone = heroVerdict === 'YES' ? 'primary' : heroVerdict === 'MAYBE' ? 'warn' : 'muted';
 
   return (
     <article
@@ -855,15 +1106,16 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
           <input type="checkbox" checked={selected} onChange={onToggleSelect} aria-label="Select image" />
         </label>
         <div className="absolute top-2 right-2 flex flex-col items-end gap-1 max-w-[70%]">
-          {isHero && <Badge tone="primary">HERO</Badge>}
+          <Badge tone={heroTone}>HERO: {heroVerdict}</Badge>
           {isUsed ? <Badge tone="primary">USED</Badge> : <Badge tone="muted">UNUSED</Badge>}
           {review.flags.delete && <Badge tone="danger">DELETE?</Badge>}
           {review.flags.duplicate && <Badge tone="warn">DUPLICATE</Badge>}
+          {row.isDuplicateCandidate && !review.flags.duplicate && <Badge tone="warn">DUP?</Badge>}
           {review.flags.doNotUse && <Badge tone="danger">DO NOT USE</Badge>}
           {review.flags.subpageOnly && <Badge tone="warn">SUBPAGE ONLY</Badge>}
           {showLogoCrop && <Badge tone="warn">LOGO CROP</Badge>}
           {altMissing && <Badge tone="warn">NEEDS ALT TEXT</Badge>}
-          {!row.bankSlug && !review.categoryOverride && <Badge tone="neutral">NEEDS CATEGORY</Badge>}
+          {!row.effectiveSlug && !review.categoryOverride && <Badge tone="neutral">NEEDS CATEGORY</Badge>}
         </div>
       </div>
 
@@ -875,6 +1127,24 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
           <span className="text-muted-foreground">Category: </span>
           <span>{effectiveCategory(row, review)}</span>
         </div>
+        <div className="text-xs">
+          <span className="text-muted-foreground">Visible content: </span>
+          <span>{row.contentSummary}</span>
+        </div>
+        <div className="text-xs">
+          <span className="text-muted-foreground">Hero suitability: </span>
+          <span className="font-medium">{heroVerdict}</span>
+          <span className="text-muted-foreground"> — {row.heroReason}</span>
+        </div>
+        {row.editorialStatus.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {row.editorialStatus.map((s) => (
+              <span key={s} className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">
+                {s}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="text-xs">
           <span className="text-muted-foreground">Recommended: </span>
           <span>{effectiveRecommended(row, review)}</span>
