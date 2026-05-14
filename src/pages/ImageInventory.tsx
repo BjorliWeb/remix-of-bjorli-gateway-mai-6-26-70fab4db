@@ -934,6 +934,13 @@ const ImageInventory = () => {
             <option value="unused">Unused images</option>
             <option value="used">Used images</option>
             <option value="warnings">Auto-warnings</option>
+            <option value="practicalInfra">Practical / infrastructure</option>
+            <option value="peopleFamily">People / family</option>
+            <option value="skiAction">Ski action</option>
+            <option value="mountainView">Mountain view</option>
+            <option value="restaurant">Restaurant / servering</option>
+            <option value="duplicateCandidate">Duplicate candidates</option>
+            <option value="doNotUseHero">Do not use as hero</option>
           </select>
           <select
             value={sort}
