@@ -7,6 +7,7 @@ import { useCms, getHomepage } from '@/lib/cms';
 import LiveStatusCards from '@/components/LiveStatusCards';
 import variantB from '@/assets/photos/bjorli-stolheis-fjellutsikt-vinter.jpg';
 import variantC from '@/assets/photos/bjorli-toppen-vinterlandskap.jpg';
+import variantD from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
  * Internal hero image comparison page. Not linked from navigation,
@@ -27,7 +28,14 @@ const HeroCompare = () => {
     | Parameters<typeof LiveStatusCards>[0]['section']
     | undefined;
 
-  const variants: { id: string; label: string; path: string; src: string }[] = [
+  const variants: {
+    id: string;
+    label: string;
+    path: string;
+    src: string;
+    /** Tailwind classes controlling object-position per breakpoint. */
+    positionClass?: string;
+  }[] = [
     {
       id: 'A',
       label: 'Variant A — Current winter hero',
@@ -45,6 +53,17 @@ const HeroCompare = () => {
       label: 'Variant C — Bjorlitoppen vinterlandskap',
       path: 'src/assets/photos/bjorli-toppen-vinterlandskap.jpg',
       src: variantC,
+    },
+    {
+      id: 'D',
+      label: 'Variant D — Toppstasjon oversikt mars',
+      path: 'src/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg',
+      src: variantD,
+      // Mobile: bias toward upper-left to keep skiers + mountains and avoid
+      // the baked-in Bjorli logo at bottom-right. Desktop: near-center but
+      // slightly above midline to keep sky/mountain calm behind headline
+      // while preserving the wide valley panorama.
+      positionClass: 'object-[35%_40%] md:object-[50%_48%]',
     },
   ];
 
@@ -64,7 +83,11 @@ const HeroCompare = () => {
           </div>
 
           <section className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden">
-            <img src={v.src} alt={home.heroTitle} className="absolute inset-0 w-full h-full object-cover" />
+            <img
+              src={v.src}
+              alt={home.heroTitle}
+              className={`absolute inset-0 w-full h-full object-cover ${v.positionClass ?? ''}`}
+            />
             <div className="absolute inset-0 hero-gradient" />
             <div
               aria-hidden
