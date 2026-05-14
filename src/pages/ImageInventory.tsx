@@ -159,6 +159,14 @@ interface ContentSignals {
   crowded: boolean;       // crowded base area
   reference: boolean;     // screenshot, map, poster, social graphic
   hasLogo: boolean;       // baked-in Bjorli logo per filename convention
+  // Summer sub-signals — used to bank summer-only images into the right
+  // sub-folder (sykkel / tur / fiske / natur) and to keep snow/ski/lift
+  // imagery from polluting the summer page.
+  bike: boolean;
+  hike: boolean;
+  fish: boolean;
+  water: boolean;
+  nature: boolean;
 }
 
 function detectLogoPresent(filename: string): boolean {
@@ -173,7 +181,14 @@ function detectSignals(path: string, legacy: LegacyCategory): ContentSignals {
   const filename = path.split('/').pop() ?? path;
 
   const snow = /(snow|sno-|sno_|sno\b|vinter|winter|ski(?!lt)|alpinbakke|nedfart|loype|carving|skikj|preparert|riller|stolheis|skiheis|fjellheis|toppstasjon|bunnstasjon|toppskilt|snowpark|skibrille|skiomr|heiskort|afterski)/.test(f);
-  const summerOnly = /(sommer|summer-(?!ski)|sykkel|bike|pumptrack|fiske|fishing|bassen|barmark|gronn|hike|hiking|fottur)/.test(f);
+  const bike = /(sykkel|sykling|bike|biking|pumptrack|trail-bike|sti-?sykling)/.test(f);
+  const hike = /(hike|hiking|fottur|fjelltur|tursti|trail(?!-bike)|vandr)/.test(f);
+  const fish = /(fiske|fishing|fluefiske|laks|stvmlaks|fiskelv|fiskeilesja)/.test(f);
+  const water = /(bassen|vann|elv|sjo|river|lake|pool|water)/.test(f);
+  const nature = /(gronn|green|forest|skog|barmark|blomst|flower|grass|meadow|seter)/.test(f);
+  const summerOnly =
+    /(sommer|summer-(?!ski))/.test(f) || bike || hike || fish ||
+    (water && !snow) || (nature && !snow);
 
   const family = /(barn|familie|skiskole|barneomrade)/.test(f);
   const closeUpPeople = /(naerbilde|closeup|portrett|skibrille|skibriller|naer-action)/.test(f);
@@ -197,6 +212,7 @@ function detectSignals(path: string, legacy: LegacyCategory): ContentSignals {
     liftInfra, food, mountain, wide, action, crowded,
     reference,
     hasLogo: detectLogoPresent(filename),
+    bike, hike, fish, water, nature,
   };
 }
 
@@ -208,6 +224,23 @@ function effectiveBankFor(folderSlug: BankSlug | null, s: ContentSignals): BankS
     if (s.liftInfra) return '05-heis';
     if (s.action)    return '02-ski';
     return '08-vinter';
+  }
+  // Summer-only image stranded in a winter / hero / lift folder → bank to
+  // the right summer sub-category so it surfaces on the summer page.
+  const winterFolders: BankSlug[] = ['01-hero','02-ski','03-family','04-servering','05-heis','06-utsikt','07-underside','08-vinter'];
+  if (winterFolders.includes(folderSlug) && s.summerOnly && !s.snow) {
+    if (s.bike)   return '10-sykkel';
+    if (s.hike)   return '11-tur';
+    if (s.fish)   return '12-fiske';
+    if (s.nature) return '13-natur';
+    return '09-sommer';
+  }
+  // Inside the summer folder, route to the most specific sub-category.
+  if (folderSlug === '09-sommer' && !s.snow) {
+    if (s.bike)              return '10-sykkel';
+    if (s.hike)              return '11-tur';
+    if (s.fish || s.water)   return '12-fiske';
+    if (s.nature)            return '13-natur';
   }
   // Lift / base-station image landed in /01-hero → demote to /05-heis for grouping.
   if (folderSlug === '01-hero' && s.liftInfra && !s.wide && !s.mountain) return '05-heis';
@@ -254,6 +287,14 @@ function heroDecision(folderSlug: BankSlug | null, s: ContentSignals): { verdict
                    return { verdict: 'NO', reason: 'Crowded base area — too busy for a hero.' };
   if (s.closeUpPeople && !s.mountain && !s.wide)
                    return { verdict: 'NO', reason: 'Tight close-up — too specific for hero use.' };
+  // Summer pages must never use snowy / ski-lift imagery as hero.
+  const isSummerSlug = folderSlug === '09-sommer' || folderSlug === '10-sykkel' ||
+                       folderSlug === '11-tur' || folderSlug === '12-fiske' ||
+                       folderSlug === '13-natur';
+  if (isSummerSlug && (s.snow || s.liftInfra))
+                    return { verdict: 'NO', reason: 'Snow / ski-lift image — never use as a summer hero.' };
+  if (isSummerSlug && s.wide && (s.mountain || s.nature || s.water))
+                    return { verdict: 'YES', reason: 'Wide warm-season landscape — strong summer hero candidate.' };
 
   if (folderSlug === '01-hero' && s.wide && (s.mountain || s.action || s.snow))
                    return { verdict: 'YES', reason: 'Wide hero asset — strong destination crop.' };
@@ -340,6 +381,12 @@ interface AssetRow {
 
 function recommendedUseFor(slug: BankSlug | null, legacy: LegacyCategory, s: ContentSignals, hero: HeroVerdict): string {
   if (s.hasLogo) return 'Crop the visible Bjorli logo out of the frame before any public use.';
+  // Hard guard: snow / ski-lift content must never appear on summer pages.
+  if ((s.snow || s.liftInfra) &&
+      (slug === '09-sommer' || slug === '10-sykkel' || slug === '11-tur' ||
+       slug === '12-fiske' || slug === '13-natur')) {
+    return 'Winter / ski-lift content — use on Vinter / Ski pages only, not on Sommer.';
+  }
   if (slug === '01-hero' && hero === 'YES') return 'Use as hero on homepage, season landing or a major destination page.';
   if (slug === '01-hero')                   return 'Hero candidate — verify framing and calm sky band first.';
   if (slug === '07-underside')              return 'Use as a support image inside subpages, cards, guides or article blocks.';
