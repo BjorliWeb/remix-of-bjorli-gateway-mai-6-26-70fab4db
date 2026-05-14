@@ -381,6 +381,12 @@ interface AssetRow {
 
 function recommendedUseFor(slug: BankSlug | null, legacy: LegacyCategory, s: ContentSignals, hero: HeroVerdict): string {
   if (s.hasLogo) return 'Crop the visible Bjorli logo out of the frame before any public use.';
+  // Hard guard: snow / ski-lift content must never appear on summer pages.
+  if ((s.snow || s.liftInfra) &&
+      (slug === '09-sommer' || slug === '10-sykkel' || slug === '11-tur' ||
+       slug === '12-fiske' || slug === '13-natur')) {
+    return 'Winter / ski-lift content — use on Vinter / Ski pages only, not on Sommer.';
+  }
   if (slug === '01-hero' && hero === 'YES') return 'Use as hero on homepage, season landing or a major destination page.';
   if (slug === '01-hero')                   return 'Hero candidate — verify framing and calm sky band first.';
   if (slug === '07-underside')              return 'Use as a support image inside subpages, cards, guides or article blocks.';
