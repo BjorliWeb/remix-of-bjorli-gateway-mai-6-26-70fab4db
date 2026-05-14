@@ -1058,8 +1058,12 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
   const [open, setOpen] = useState(false);
   const isUsed = row.registryKeys.length > 0;
   const altMissing = !effectiveAlt(row, review).trim();
-  const showLogoCrop = review.flags.logoCrop || row.hasLogo;
-  const isHero = review.flags.heroCandidate || row.heroSuitability === 'Strong' || row.heroSuitability === 'Candidate';
+  // Rule 7: only show LOGO CROP when filename actually carries the marker
+  // OR an editor manually flagged it (visible logo in image).
+  const showLogoCrop = row.hasLogo || review.flags.logoCrop;
+  const heroVerdict = review.flags.heroCandidate ? 'YES' : row.heroVerdict;
+  const isHero = heroVerdict === 'YES' || heroVerdict === 'MAYBE';
+  const heroTone = heroVerdict === 'YES' ? 'primary' : heroVerdict === 'MAYBE' ? 'warn' : 'muted';
 
   return (
     <article
@@ -1074,15 +1078,16 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
           <input type="checkbox" checked={selected} onChange={onToggleSelect} aria-label="Select image" />
         </label>
         <div className="absolute top-2 right-2 flex flex-col items-end gap-1 max-w-[70%]">
-          {isHero && <Badge tone="primary">HERO</Badge>}
+          <Badge tone={heroTone}>HERO: {heroVerdict}</Badge>
           {isUsed ? <Badge tone="primary">USED</Badge> : <Badge tone="muted">UNUSED</Badge>}
           {review.flags.delete && <Badge tone="danger">DELETE?</Badge>}
           {review.flags.duplicate && <Badge tone="warn">DUPLICATE</Badge>}
+          {row.isDuplicateCandidate && !review.flags.duplicate && <Badge tone="warn">DUP?</Badge>}
           {review.flags.doNotUse && <Badge tone="danger">DO NOT USE</Badge>}
           {review.flags.subpageOnly && <Badge tone="warn">SUBPAGE ONLY</Badge>}
           {showLogoCrop && <Badge tone="warn">LOGO CROP</Badge>}
           {altMissing && <Badge tone="warn">NEEDS ALT TEXT</Badge>}
-          {!row.bankSlug && !review.categoryOverride && <Badge tone="neutral">NEEDS CATEGORY</Badge>}
+          {!row.effectiveSlug && !review.categoryOverride && <Badge tone="neutral">NEEDS CATEGORY</Badge>}
         </div>
       </div>
 
@@ -1094,6 +1099,24 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
           <span className="text-muted-foreground">Category: </span>
           <span>{effectiveCategory(row, review)}</span>
         </div>
+        <div className="text-xs">
+          <span className="text-muted-foreground">Visible content: </span>
+          <span>{row.contentSummary}</span>
+        </div>
+        <div className="text-xs">
+          <span className="text-muted-foreground">Hero suitability: </span>
+          <span className="font-medium">{heroVerdict}</span>
+          <span className="text-muted-foreground"> — {row.heroReason}</span>
+        </div>
+        {row.editorialStatus.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {row.editorialStatus.map((s) => (
+              <span key={s} className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">
+                {s}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="text-xs">
           <span className="text-muted-foreground">Recommended: </span>
           <span>{effectiveRecommended(row, review)}</span>
