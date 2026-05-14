@@ -485,7 +485,12 @@ function loadReviews(): ReviewMap {
 // Filter / sort options
 // ---------------------------------------------------------------------------
 
-type FlagFilter = 'all' | 'selected' | 'delete' | 'duplicate' | 'doNotUse' | 'heroCandidate' | 'subpageOnly' | 'logoCrop' | 'missingAlt' | 'unused' | 'used' | 'warnings';
+type FlagFilter =
+  | 'all' | 'selected' | 'delete' | 'duplicate' | 'doNotUse'
+  | 'heroCandidate' | 'subpageOnly' | 'logoCrop' | 'missingAlt'
+  | 'unused' | 'used' | 'warnings'
+  | 'practicalInfra' | 'peopleFamily' | 'skiAction' | 'mountainView'
+  | 'restaurant' | 'duplicateCandidate' | 'doNotUseHero';
 type SortKey = 'filename' | 'category' | 'usedFirst' | 'unusedFirst' | 'flaggedFirst' | 'heroFirst';
 type CategoryFilter = 'all' | BankSlug | LegacyCategory;
 
@@ -515,6 +520,10 @@ const CATEGORY_OPTIONS: { value: CategoryFilter; label: string }[] = [
 
 function effectiveCategory(row: AssetRow, review: ReviewState): string {
   if (review.categoryOverride) return `/${review.categoryOverride} — ${BANK_LABEL[review.categoryOverride]} (override)`;
+  if (row.effectiveSlug) {
+    const tag = row.bankSlug && row.effectiveSlug !== row.bankSlug ? ' (auto-rerouted)' : '';
+    return `/${row.effectiveSlug} — ${BANK_LABEL[row.effectiveSlug]}${tag}`;
+  }
   if (row.bankSlug) return `/${row.bankSlug} — ${BANK_LABEL[row.bankSlug]}`;
   return `legacy: ${row.legacyCategory}`;
 }
@@ -534,13 +543,20 @@ function rowMatchesFlag(row: AssetRow, review: ReviewState, selected: boolean, f
     case 'delete':        return review.flags.delete;
     case 'duplicate':     return review.flags.duplicate;
     case 'doNotUse':      return review.flags.doNotUse;
-    case 'heroCandidate': return review.flags.heroCandidate || row.heroSuitability === 'Strong' || row.heroSuitability === 'Candidate';
+    case 'heroCandidate': return review.flags.heroCandidate || row.heroVerdict === 'YES' || row.heroVerdict === 'MAYBE';
     case 'subpageOnly':   return review.flags.subpageOnly;
     case 'logoCrop':      return review.flags.logoCrop || row.hasLogo;
     case 'missingAlt':    return effectiveAlt(row, review).trim().length === 0;
     case 'unused':        return row.registryKeys.length === 0;
     case 'used':          return row.registryKeys.length > 0;
     case 'warnings':      return row.autoWarnings.length > 0;
+    case 'practicalInfra': return row.signals.liftInfra;
+    case 'peopleFamily':   return row.signals.family || (row.signals.people && !row.signals.closeUpPeople);
+    case 'skiAction':      return row.signals.action;
+    case 'mountainView':   return row.signals.mountain;
+    case 'restaurant':     return row.signals.food;
+    case 'duplicateCandidate': return row.isDuplicateCandidate;
+    case 'doNotUseHero':   return row.heroVerdict === 'NO';
   }
 }
 
@@ -624,9 +640,9 @@ const ImageInventory = () => {
       if (categoryFilter !== 'all') {
         const isBank = BANK_CATEGORIES.some((c) => c.slug === categoryFilter);
         if (isBank) {
-          const eff = review.categoryOverride || row.bankSlug;
+          const eff = review.categoryOverride || row.effectiveSlug;
           if (eff !== categoryFilter) return false;
-        } else if (row.bankSlug || row.legacyCategory !== categoryFilter) return false;
+        } else if (row.effectiveSlug || row.legacyCategory !== categoryFilter) return false;
       }
       if (!rowMatchesFlag(row, review, selected.has(row.path), flagFilter)) return false;
       return true;
@@ -643,8 +659,8 @@ const ImageInventory = () => {
         return bf - af || a.filename.localeCompare(b.filename);
       },
       heroFirst:   (a, b) => {
-        const order = { Strong: 0, Candidate: 1, Possible: 2, No: 3 } as const;
-        return order[a.heroSuitability] - order[b.heroSuitability] || a.filename.localeCompare(b.filename);
+        const order = { YES: 0, MAYBE: 1, NO: 2 } as const;
+        return order[a.heroVerdict] - order[b.heroVerdict] || a.filename.localeCompare(b.filename);
       },
     };
     return [...list].sort(sortFn[sort]);
@@ -655,8 +671,8 @@ const ImageInventory = () => {
     if (!groupByCategory) return [{ key: 'All matches', rows: filtered }];
     const map = new Map<string, AssetRow[]>();
     for (const row of filtered) {
-      const key = row.bankSlug
-        ? `/${row.bankSlug} — ${BANK_LABEL[row.bankSlug]}`
+      const key = row.effectiveSlug
+        ? `/${row.effectiveSlug} — ${BANK_LABEL[row.effectiveSlug]}`
         : `legacy: ${row.legacyCategory}`;
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(row);
@@ -726,17 +742,21 @@ const ImageInventory = () => {
     const rows = buildFlaggedExport().map(({ row, review }) => ({
       filename: row.filename,
       path: row.path,
-      category: review.categoryOverride || row.bankSlug || row.legacyCategory,
+      category: review.categoryOverride || row.effectiveSlug || row.legacyCategory,
       used: row.registryKeys.length > 0,
       registryKeys: row.registryKeys,
       pageSuggestions: row.pageSuggestions,
       hasLogoBakedIn: row.hasLogo,
-      heroSuitability: row.heroSuitability,
+      heroVerdict: row.heroVerdict,
+      heroReason: row.heroReason,
+      visibleContent: row.contentSummary,
+      editorialStatus: row.editorialStatus,
       altText: effectiveAlt(row, review),
       notes: review.notes,
       replacement: review.replacement,
       flags: review.flags,
       autoWarnings: row.autoWarnings,
+      isDuplicateCandidate: row.isDuplicateCandidate,
     }));
     downloadBlob('bjorli-image-deletion-list.json', JSON.stringify(rows, null, 2), 'application/json');
   };
@@ -749,7 +769,7 @@ const ImageInventory = () => {
       return [
         row.filename,
         row.path,
-        review.categoryOverride || row.bankSlug || row.legacyCategory,
+        review.categoryOverride || row.effectiveSlug || row.legacyCategory,
         row.registryKeys.length > 0,
         row.registryKeys.join('|'),
         row.pageSuggestions.join('|'),
@@ -762,7 +782,7 @@ const ImageInventory = () => {
   };
 
   const exportFullCsv = () => {
-    const headers = ['filename','path','folder','bank_category','legacy_category','used','registry_keys','page_suggestions','hero_suitability','has_logo','recommended_use','alt_text','notes','replacement','flags','auto_warnings'];
+    const headers = ['filename','path','folder','bank_category','legacy_category','used','registry_keys','page_suggestions','hero_verdict','hero_reason','visible_content','editorial_status','has_logo','recommended_use','alt_text','notes','replacement','flags','auto_warnings','duplicate_candidate'];
     const data = allRows.map((row) => {
       const review = reviews[row.path] ?? EMPTY_REVIEW;
       const flagList = (Object.entries(review.flags) as [keyof ReviewFlags, boolean][])
@@ -771,12 +791,15 @@ const ImageInventory = () => {
         row.filename,
         row.path,
         row.folder,
-        review.categoryOverride || row.bankSlug || '',
+        review.categoryOverride || row.effectiveSlug || '',
         row.legacyCategory,
         row.registryKeys.length > 0,
         row.registryKeys.join('|'),
         row.pageSuggestions.join('|'),
-        row.heroSuitability,
+        row.heroVerdict,
+        row.heroReason,
+        row.contentSummary,
+        row.editorialStatus.join('|'),
         row.hasLogo,
         effectiveRecommended(row, review),
         effectiveAlt(row, review),
@@ -784,6 +807,7 @@ const ImageInventory = () => {
         review.replacement,
         flagList,
         row.autoWarnings.join('|'),
+        row.isDuplicateCandidate,
       ];
     });
     downloadBlob('bjorli-image-inventory.csv', toCsv(headers, data), 'text/csv');
