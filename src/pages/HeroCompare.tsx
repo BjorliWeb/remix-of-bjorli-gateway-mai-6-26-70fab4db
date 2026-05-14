@@ -23,7 +23,7 @@ const HeroCompare = () => {
 
   if (!home) return null;
 
-  const statusSection = home.sections?.find((s) => s.kind === 'status') as
+  const statusSection = home.sections?.find((s) => s.type === 'status') as
     | Parameters<typeof LiveStatusCards>[0]['section']
     | undefined;
 
