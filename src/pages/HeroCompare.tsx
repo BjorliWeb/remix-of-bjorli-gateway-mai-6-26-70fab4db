@@ -8,6 +8,9 @@ import LiveStatusCards from '@/components/LiveStatusCards';
 import variantB from '@/assets/photos/bjorli-stolheis-fjellutsikt-vinter.jpg';
 import variantC from '@/assets/photos/bjorli-toppen-vinterlandskap.jpg';
 import variantD from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
+import variantE from '@/assets/photos/bank/01-hero/bjorli-vinterpanorama-skiomrade-hero-wide.jpg';
+import variantF from '@/assets/photos/bank/01-hero/bjorli-gruppe-skiere-fjellpanorama-hero-wide.jpg';
+import variantG from '@/assets/photos/bank/01-hero/bjorli-skiheis-hoyfjell-vinter-hero.jpg';
 
 /**
  * Internal hero image comparison page. Not linked from navigation,
@@ -68,6 +71,27 @@ const HeroCompare = () => {
       // Desktop: near-center horizontally, slightly above midline.
       positionClass:
         'object-[40%_45%] md:object-[48%_50%] scale-[1.12] origin-top-left',
+    },
+    {
+      id: 'E',
+      label: 'Variant E — Vinterpanorama skiområde (wide) ★ now LIVE on desktop',
+      path: 'src/assets/photos/bank/01-hero/bjorli-vinterpanorama-skiomrade-hero-wide.jpg',
+      src: variantE,
+      positionClass: 'object-[50%_60%]',
+    },
+    {
+      id: 'F',
+      label: 'Variant F — Gruppe skiere fjellpanorama (wide)',
+      path: 'src/assets/photos/bank/01-hero/bjorli-gruppe-skiere-fjellpanorama-hero-wide.jpg',
+      src: variantF,
+      positionClass: 'object-[50%_55%]',
+    },
+    {
+      id: 'G',
+      label: 'Variant G — Skiheis høyfjell vinter (hero)',
+      path: 'src/assets/photos/bank/01-hero/bjorli-skiheis-hoyfjell-vinter-hero.jpg',
+      src: variantG,
+      positionClass: 'object-[50%_50%]',
     },
   ];
 
