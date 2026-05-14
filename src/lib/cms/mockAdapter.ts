@@ -439,145 +439,161 @@ export const mockAdapter: CmsAdapter = {
     ];
 
     // ─── SUMMER HOMEPAGE ─────────────────────────────────────────────
-    // Section order matches the official Bjorli summer homepage spec:
-    //   1 Header · 2 Summer hero · 3 Intro (Opplev sommeren)
-    //   4 Activity cards · 5 Bo på Bjorli · 6 Basecamp fjell/fjord
-    //   7 Tips · 8 Hva skjer · 9 Mat og drikke · 10 Reisen hit
-    //   11 Vinter-teaser · 12 Siste nytt · 13 FAQ · 14 Footer
-    // Detail copy below is placeholder until WordPress is connected;
-    // strings stay in NO for the placeholder iteration.
+    // Section order follows the editorial spec for the summer page:
+    //   1 Hero (rendered in Sommer.tsx)
+    //   2 Intro value (Fjellro · Aktive dager · Basecamp)
+    //   3 Main activities (hiking, biking, fishing, family, nature, day trips)
+    //   4 Biking & pumptrack
+    //   5 Hiking & nature
+    //   6 Fishing & quiet outdoor days
+    //   7 Family summer
+    //   8 Basecamp for day trips
+    //   9 Travel to Bjorli
+    //  10 Accommodation
+    //  11 Food & meeting places
+    //  12 Final CTA (rendered in Sommer.tsx, no image needed)
+    //
+    // Copy stays in NO for the placeholder iteration — it will move to
+    // WordPress + i18n dictionaries when the CMS lands.
+    const flyFishingImg  = images.flyFishing.src;
+    const riverFishingImg = images.riverFishing.src;
+    const familySummerImg = images.familySummer.src;
+    const summerWaterImg  = images.summerWater.src;
+    const summerTrailImg  = images.eventFlying.src;   // sensommer trail / fjellnatur
+    const goldenTrainImg  = images.tipTrain.src;
+
     const summerSections: any[] = [
+      // 2 — Intro value
       {
-        id: 'intro',
-        type: 'intro',
-        title: d.summer.introTitle ?? d.summer.title,
-        body: d.summer.intro,
-      },
-      {
-        id: 'summerActivities',
-        type: 'activities',
-        title: d.summer.activitiesTitle,
-        subtitle: d.summer.activitiesSubtitle,
-        items: d.summer.activities.map((a, i) => ({
-          title: a.title,
-          desc: a.desc,
-          icon: ['mountain', 'bike', 'users', 'treePine'][i],
-        })),
-        imageCards: [
-          { title: d.summer.activities[0]?.title ?? '', desc: d.summer.activities[0]?.desc, image: { url: hikingImg, alt: 'Fotturer' } },
-          { title: d.summer.activities[1]?.title ?? '', desc: d.summer.activities[1]?.desc, image: { url: bikingImg, alt: 'Sykling' } },
+        id: 'summerIntroValue',
+        type: 'cardGrid' as const,
+        eyebrow: 'Sommer på Bjorli',
+        title: 'Tre grunner til å velge Bjorli i sommer',
+        subtitle: 'Rolige fjelldager, aktive turer og et trygt basecamp mellom Østlandet og fjordene.',
+        items: [
+          { title: 'Fjellro',     desc: 'Stille morgener, åpent landskap og lange lyse kvelder i høyfjellet.', icon: 'treePine' },
+          { title: 'Aktive dager', desc: 'Sykling, fottur, fiske og familieaktiviteter rett utenfor døra.',     icon: 'activity' },
+          { title: 'Basecamp',    desc: 'Bo sentralt mellom fjell og fjord og bruk Bjorli som utgangspunkt.',  icon: 'home' },
         ],
       },
-      // Basecamp moves directly after summer activities — it is the
-      // strategic message of the summer page.
+      // 3 — Main activities (icon grid, no image reuse)
       {
-        id: 'basecamp',
-        type: 'feature',
-        eyebrow: d.summer.basecamp?.eyebrow ?? d.summer.eyebrow ?? d.summer.badge,
-        title: d.summer.basecamp?.title ?? d.summer.title,
-        body: d.summer.basecamp?.body ?? d.summer.intro,
-        image: { url: summerImg, alt: d.summer.basecamp?.title ?? d.summer.title },
-        imageSide: 'right',
+        id: 'summerActivitiesGrid',
+        type: 'activities' as const,
+        title: 'Sommeraktiviteter på Bjorli',
+        subtitle: 'Naturopplevelser i alle tempo — fra rolige turer til aktive dager med familien.',
+        items: [
+          { title: 'Fotturer',          desc: 'Korte og lange turer i åpent høyfjellsterreng.',         icon: 'mountain' },
+          { title: 'Sykling',           desc: 'Stier, grusveier og pumptrack for hele familien.',       icon: 'bike' },
+          { title: 'Fiske',             desc: 'Fluefiske, elvefiske og rolige dager ved vannet.',       icon: 'activity' },
+          { title: 'Familieaktiviteter', desc: 'Trygge, romslige opplevelser for små og store.',        icon: 'users' },
+          { title: 'Natur og utsikt',   desc: 'Åpne vidder, fjellplatåer og stille seterdaler.',        icon: 'treePine' },
+          { title: 'Dagsturer',         desc: 'Kjør eller ta toget til Trollstigen, Geiranger og Åndalsnes.', icon: 'car' },
+        ],
+      },
+      // 4 — Biking & pumptrack
+      {
+        id: 'summerBiking',
+        type: 'feature' as const,
+        eyebrow: 'Sykling',
+        title: 'Sykkel og pumptrack for hele familien',
+        body: 'Bjorli har stier, grusveier og en pumptrack rett ved sentrum. Aktive dager med lavt tempo, godt egnet for nybegynnere og familier som vil prøve sykkel i fjellet.',
+        image: { url: bikingImg, alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
+        imageSide: 'right' as const,
         ctas: [
-          { label: d.summer.basecamp?.ctaActivities ?? d.summer.ctaActivities, href: '/aktiviteter', variant: 'primary' },
-          { label: d.summer.basecamp?.ctaPlan ?? d.summer.ctaPlan ?? d.gettingHere.cta, href: '/reisen-hit', variant: 'outline' },
+          { label: 'Se sykkelmuligheter', href: '/sykling', variant: 'primary' as const },
         ],
-        subcards: d.summer.basecamp?.items?.map((it) => ({ title: it.title, desc: it.desc })),
       },
+      // 5 — Hiking & nature
       {
-        id: 'accommodationSummer',
-        type: 'feature',
-        eyebrow: d.accommodation.eyebrow,
-        title: d.accommodation.title,
-        body: d.accommodation.body,
-        image: { url: accommodationImg, alt: d.accommodation.title },
-        imageSide: 'left',
+        id: 'summerHiking',
+        type: 'feature' as const,
+        eyebrow: 'Fottur og natur',
+        title: 'Fjellturer rett utenfor døra',
+        body: 'Korte rusleturer, lengre dagsturer og åpne fjellplatåer ligger like ved sentrum. Enkel tilgang til høyfjellet uten lang innmarsj — perfekt for rolige sommerdager med utsikt.',
+        image: { url: summerTrailImg, alt: 'Sommerstier i fjellet ved Bjorli' },
+        imageSide: 'left' as const,
         ctas: [
-          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' },
-          ...(d.accommodation.ctaSecondary
-            ? [{ label: d.accommodation.ctaSecondary, href: '/overnatting', variant: 'outline' as const }]
-            : []),
+          { label: 'Se fotturer', href: '/fotturer', variant: 'primary' as const },
         ],
-        subcards: d.accommodation.subcards,
       },
-      ...(d.whyBjorli
-        ? [{
-            id: 'whyBjorliSummer',
-            type: 'cardGrid' as const,
-            eyebrow: d.whyBjorli.eyebrow,
-            title: d.whyBjorli.title,
-            items: d.whyBjorli.items,
-          }]
-        : []),
+      // 6 — Fishing & quiet outdoor days
       {
-        id: 'tips',
-        type: 'tips',
-        eyebrow: d.tips.eyebrow,
-        title: d.tips.title,
-        subtitle: d.tips.subtitle,
-        ctaLabel: d.tips.cta,
-        ctaHref: '/tips',
-        items: tips,
+        id: 'summerFishing',
+        type: 'feature' as const,
+        eyebrow: 'Fiske og rolige dager',
+        title: 'Fluefiske, elvefiske og fjellvann',
+        body: 'Rauma, Lågen og fjellvannene rundt Bjorli gir gode forhold for fiske gjennom hele sommeren. Et rolig tempo, ren natur og lange lyse kvelder ved vannet.',
+        image: { url: flyFishingImg, alt: 'Fluefiske i en fjellelv nær Bjorli om sommeren' },
+        imageSide: 'right' as const,
+        ctas: [
+          { label: 'Se fiskemuligheter', href: '/aktiviteter', variant: 'primary' as const },
+        ],
       },
+      // 7 — Family summer
       {
-        id: 'events',
-        type: 'events',
-        eyebrow: d.events.eyebrow,
-        title: d.events.title,
-        subtitle: d.events.subtitle,
-        ctaLabel: d.events.cta,
-        ctaHref: '/arrangementer',
-        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+        id: 'summerFamily',
+        type: 'feature' as const,
+        eyebrow: 'Familie',
+        title: 'Romslig og enkelt med barn',
+        body: 'Korte avstander, åpent landskap og praktiske hytter gjør sommeren på Bjorli enkel for familier. Tid sammen, friluftsliv i lavt tempo og trygge omgivelser tett på naturen.',
+        image: { url: familySummerImg, alt: 'Familie på fisketur ved et fjellvann nær Bjorli' },
+        imageSide: 'left' as const,
+        ctas: [
+          { label: 'Se familieaktiviteter', href: '/familie', variant: 'primary' as const },
+        ],
       },
+      // 8 — Basecamp for day trips
       {
-        id: 'foodDrinkSummer',
-        type: 'feature',
-        eyebrow: d.summer.foodDrink?.eyebrow ?? d.footer.planLinks.find((l) => l.href === '/mat-og-drikke')?.label ?? d.nav.practicalInfo,
-        title: d.summer.foodDrink?.title ?? d.summer.foodDrink?.eyebrow ?? d.nav.practicalInfo,
-        body: d.summer.foodDrink?.body ?? d.intro.body,
-        image: { url: foodDrinkImg, alt: d.summer.foodDrink?.imageAlt ?? d.summer.foodDrink?.title ?? 'Bjorli' },
-        imageSide: 'left',
-        ctas: [{ label: d.summer.foodDrink?.cta ?? d.footer.planLinks.find((l) => l.href === '/mat-og-drikke')?.label ?? d.common.seeAll, href: '/mat-og-drikke', variant: 'primary' }],
+        id: 'summerBasecamp',
+        type: 'feature' as const,
+        eyebrow: 'Basecamp fjell og fjord',
+        title: 'Bruk Bjorli som utgangspunkt',
+        body: 'Trollstigen, Geiranger, Åndalsnes og Romsdalen ligger innenfor en kort kjøretur. Bo rolig på fjellet og dra på dagsturer til noen av Norges mest kjente fjell- og fjordlandskap.',
+        image: { url: riverFishingImg, alt: 'Stille fjellelv nær Bjorli — rolige dagsturer fra basecamp' },
+        imageSide: 'right' as const,
+        ctas: [
+          { label: 'Planlegg reisen hit', href: '/reisen-hit', variant: 'primary' as const },
+        ],
       },
+      // 9 — Travel
       {
         id: 'gettingHere',
-        type: 'gettingHere',
+        type: 'gettingHere' as const,
         eyebrow: d.gettingHere.eyebrow,
         title: d.gettingHere.title,
         body: d.gettingHere.body,
         cities: d.gettingHere.cities,
         ctas: [
           { label: d.gettingHere.cta, href: '/reisen-hit', icon: 'car' },
-          { label: d.gettingHere.seeMap, href: 'https://maps.app.goo.gl/ahakM1xvEkJ5oPiU7', icon: 'map', external: true },
           { label: 'Raumabanen', href: 'https://www.vy.no/', icon: 'train', external: true },
         ],
       },
+      // 10 — Accommodation
       {
-        id: 'winterTeaser',
-        type: 'teaser',
-        eyebrow: d.summer.winterTeaserEyebrow ?? d.summerTeaser.eyebrow,
-        title: d.summer.winterTeaserTitle,
-        body: d.summer.winterTeaserBody,
-        ctaLabel: d.summer.winterTeaserCta,
-        ctaHref: '/',
-        image: { url: heroWinter, alt: d.summer.winterTeaserTitle },
+        id: 'accommodationSummer',
+        type: 'feature' as const,
+        eyebrow: d.accommodation.eyebrow,
+        title: d.accommodation.title,
+        body: d.accommodation.body,
+        image: { url: accommodationImg, alt: d.accommodation.title },
+        imageSide: 'left' as const,
+        ctas: [
+          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' as const },
+        ],
       },
+      // 11 — Food & meeting places
       {
-        id: 'news',
-        type: 'news',
-        eyebrow: d.news.eyebrow,
-        title: d.news.title,
-        subtitle: d.news.subtitle,
-        ctaLabel: d.news.cta,
-        ctaHref: '/nyheter',
-        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
-      },
-      {
-        id: 'faq',
-        type: 'faq',
-        eyebrow: d.faq.eyebrow,
-        title: d.faq.title,
-        items: d.faq.items,
+        id: 'foodDrinkSummer',
+        type: 'feature' as const,
+        eyebrow: 'Mat og møteplasser',
+        title: 'Steder å pause i sommerlandskapet',
+        body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
+        image: { url: summerWaterImg, alt: 'Sommeratmosfære med vannaktivitet på Bjorli' },
+        imageSide: 'right' as const,
+        ctas: [
+          { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },
+        ],
       },
     ];
 
