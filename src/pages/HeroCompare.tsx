@@ -59,11 +59,15 @@ const HeroCompare = () => {
       label: 'Variant D — Toppstasjon oversikt mars',
       path: 'src/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg',
       src: variantD,
-      // Mobile: bias toward upper-left to keep skiers + mountains and avoid
-      // the baked-in Bjorli logo at bottom-right. Desktop: near-center but
-      // slightly above midline to keep sky/mountain calm behind headline
-      // while preserving the wide valley panorama.
-      positionClass: 'object-[35%_40%] md:object-[50%_48%]',
+      // Slight enlarge from top-left pushes the baked-in Bjorli watermark
+      // (bottom-right) and the heaviest lift-station mass off-frame on
+      // both desktop and mobile, while object-position keeps the wide
+      // valley panorama and skiers visible. Headline lands over calmer
+      // mountain/sky texture in the upper third.
+      // Mobile: bias slightly left to retain skiers + mountain context.
+      // Desktop: near-center horizontally, slightly above midline.
+      positionClass:
+        'object-[40%_45%] md:object-[48%_50%] scale-[1.12] origin-top-left',
     },
   ];
 
