@@ -139,22 +139,176 @@ function inferAutoWarnings(path: string, category: LegacyCategory | 'bank'): str
   return w;
 }
 
-// Detect images that contain a baked-in Bjorli logo. Bank assets follow the
-// "LOGO" / "logo-before-use" / "crop-logo" naming convention; legacy assets
-// don't, so we don't auto-flag every "logo" filename here.
+// ---------------------------------------------------------------------------
+// Content classifier — visible content first, filename second.
+// We can only read filenames, so we use word-level signals and let strong
+// signals (snow + lift) override weaker ones (folder, "summer" in name).
+// ---------------------------------------------------------------------------
+
+interface ContentSignals {
+  snow: boolean;          // snow / ski / winter activity
+  summerOnly: boolean;    // unambiguously summer (biking, fishing, bassen, …)
+  people: boolean;        // any people present
+  closeUpPeople: boolean; // tight portraits / closeups (premium-only as hero)
+  family: boolean;        // children / family / ski school
+  liftInfra: boolean;     // lifts, base/top stations, gates, signs
+  food: boolean;          // restaurant, terrace, après-ski
+  mountain: boolean;      // mountain views / panoramas / landscape
+  wide: boolean;          // wide / panorama / overview crop
+  action: boolean;        // ski action / carving
+  crowded: boolean;       // crowded base area
+  reference: boolean;     // screenshot, map, poster, social graphic
+  hasLogo: boolean;       // baked-in Bjorli logo per filename convention
+}
+
 function detectLogoPresent(filename: string): boolean {
+  // Only true when the filename actually carries the LOGO marker. Bank files
+  // use uppercase "LOGO"; legacy files use "logo-before-use" / "crop-logo".
   const lower = filename.toLowerCase();
   return filename.includes('LOGO') || lower.includes('logo-before-use') || lower.includes('crop-logo');
 }
 
-function inferHeroSuitability(path: string, bankSlug: BankSlug | null, hasLogo: boolean): 'Strong' | 'Candidate' | 'Possible' | 'No' {
-  const lower = path.toLowerCase();
-  let h: 'Strong' | 'Candidate' | 'Possible' | 'No' = 'No';
-  if (bankSlug === '01-hero') h = lower.includes('candidate') ? 'Candidate' : 'Strong';
-  else if (lower.includes('hero-wide') || lower.includes('panorama') || lower.includes('hero')) h = lower.includes('candidate') ? 'Candidate' : 'Possible';
-  else if (lower.includes('wide') || lower.includes('overview') || lower.includes('open-landscape')) h = 'Possible';
-  if (hasLogo && h !== 'No') h = 'Candidate';
-  return h;
+function detectSignals(path: string, legacy: LegacyCategory): ContentSignals {
+  const f = path.toLowerCase();
+  const filename = path.split('/').pop() ?? path;
+
+  const snow = /(snow|sno-|sno_|sno\b|vinter|winter|ski(?!lt)|alpinbakke|nedfart|loype|carving|skikj|preparert|riller|stolheis|skiheis|fjellheis|toppstasjon|bunnstasjon|toppskilt|snowpark|skibrille|skiomr|heiskort|afterski)/.test(f);
+  const summerOnly = /(sommer|summer-(?!ski)|sykkel|bike|pumptrack|fiske|fishing|bassen|barmark|gronn|hike|hiking|fottur)/.test(f);
+
+  const family = /(barn|familie|skiskole|barneomrade)/.test(f);
+  const closeUpPeople = /(naerbilde|closeup|portrett|skibrille|skibriller|naer-action)/.test(f);
+  const peopleHint = /(folk|gjester|gruppe|vennegjeng|skiere|skikj|skikjorer)/.test(f);
+  const people = family || closeUpPeople || peopleHint;
+
+  const liftInfra = /(stolheis|skiheis|fjellheis|toppstasjon|bunnstasjon|heisomr|heiskort|loypekart|toppskilt|skiltet|destination-sign|gates?|ticket)/.test(f);
+  const food = /(restaur|servering|terrasse|afterski|after-ski|heiskro|kroa|sol(seng|stol)|uteservering|drikke)/.test(f);
+  const mountain = /(panorama|fjell|utsikt|hoyfjell|mountain-view|landskap|scenic|nordloypa|open-landscape)/.test(f);
+  const wide = /(panorama|hero-wide|-wide|overview|open-landscape)/.test(f);
+  const action = /(carving|action|skikj)/.test(f);
+  const crowded = /(bunnstasjon|heiskort-bunnstasjon|skiutstyr-heis|kø|queue)/.test(f);
+
+  const reference =
+    legacy === 'screenshot' || legacy === 'poster' || legacy === 'social' ||
+    legacy === 'map' || legacy === 'illustration' ||
+    /(screenshot|reference|skjermbilde)/.test(f);
+
+  return {
+    snow, summerOnly, people, closeUpPeople, family,
+    liftInfra, food, mountain, wide, action, crowded,
+    reference,
+    hasLogo: detectLogoPresent(filename),
+  };
+}
+
+/** Reroute folder-based bank slug when visible-content signals contradict it. */
+function effectiveBankFor(folderSlug: BankSlug | null, s: ContentSignals): BankSlug | null {
+  if (!folderSlug) return null;
+  // Snow-dominant image landed in a summer folder → bank to winter / heis / ski.
+  if (folderSlug === '09-sommer' && s.snow && !s.summerOnly) {
+    if (s.liftInfra) return '05-heis';
+    if (s.action)    return '02-ski';
+    return '08-vinter';
+  }
+  // Lift / base-station image landed in /01-hero → demote to /05-heis for grouping.
+  if (folderSlug === '01-hero' && s.liftInfra && !s.wide && !s.mountain) return '05-heis';
+  // Tight close-up landed in /01-hero → /02-ski or /03-family.
+  if (folderSlug === '01-hero' && s.closeUpPeople && !s.wide) {
+    return s.family ? '03-family' : '02-ski';
+  }
+  return folderSlug;
+}
+
+/** Plain-language summary editors can scan in <1s. */
+function visibleContentSummary(s: ContentSignals): string {
+  if (s.reference) return 'Reference graphic / screenshot — internal only.';
+  const parts: string[] = [];
+  if (s.wide && s.mountain && s.snow) parts.push('Wide winter mountain panorama');
+  else if (s.wide && s.mountain)      parts.push('Wide mountain panorama');
+  else if (s.mountain && s.snow)      parts.push('Snowy mountain view');
+  else if (s.mountain)                parts.push('Mountain view');
+  else if (s.snow && s.action)        parts.push('Ski action on snow');
+  else if (s.snow && s.liftInfra)     parts.push('Winter lift / base-station scene');
+  else if (s.snow && s.family)        parts.push('Family on the slopes');
+  else if (s.snow)                    parts.push('Winter / ski-resort scene');
+  else if (s.summerOnly)              parts.push('Summer scene');
+  else                                parts.push('General destination image');
+
+  if (s.food)          parts.push('with restaurant / après-ski elements');
+  else if (s.crowded)  parts.push('with crowded base area');
+  else if (s.closeUpPeople) parts.push('close-up of people');
+  else if (s.people && !s.family) parts.push('with skiers / guests');
+
+  if (s.hasLogo) parts.push('— baked-in Bjorli logo visible');
+  return parts.join(' ') + '.';
+}
+
+type HeroVerdict = 'YES' | 'MAYBE' | 'NO';
+
+/** Strict hero rules: only wide, calm, destination-grade images get YES. */
+function heroDecision(folderSlug: BankSlug | null, s: ContentSignals): { verdict: HeroVerdict; reason: string } {
+  if (s.reference) return { verdict: 'NO', reason: 'Reference graphic — never publish as hero.' };
+  if (s.hasLogo)   return { verdict: 'NO', reason: 'Baked-in logo — must be cropped before any hero use.' };
+  if (s.liftInfra && !s.wide && !s.mountain)
+                   return { verdict: 'NO', reason: 'Lift / infrastructure image — belongs on subpages, not hero.' };
+  if (s.crowded && !s.wide)
+                   return { verdict: 'NO', reason: 'Crowded base area — too busy for a hero.' };
+  if (s.closeUpPeople && !s.mountain && !s.wide)
+                   return { verdict: 'NO', reason: 'Tight close-up — too specific for hero use.' };
+
+  if (folderSlug === '01-hero' && s.wide && (s.mountain || s.action || s.snow))
+                   return { verdict: 'YES', reason: 'Wide hero asset — strong destination crop.' };
+  if (s.wide && s.mountain && s.snow)
+                   return { verdict: 'YES', reason: 'Wide snowy mountain panorama — strong hero candidate.' };
+
+  if (folderSlug === '01-hero')
+                   return { verdict: 'MAYBE', reason: 'In hero folder but lacks a clear wide / panoramic crop.' };
+  if (s.wide && s.mountain)
+                   return { verdict: 'MAYBE', reason: 'Wide mountain view — verify framing and calm sky band.' };
+  if (s.action && !s.closeUpPeople)
+                   return { verdict: 'MAYBE', reason: 'Strong ski action — only if it works as a wide crop.' };
+
+  return { verdict: 'NO', reason: 'Better as subpage / support image, not hero.' };
+}
+
+type EditorialStatus =
+  | 'Hero candidate'
+  | 'Strong subpage image'
+  | 'Support image'
+  | 'Practical / infrastructure image'
+  | 'Crop before use'
+  | 'Do not use as hero'
+  | 'Duplicate candidate'
+  | 'Low priority';
+
+function deriveEditorialStatus(
+  folderSlug: BankSlug | null,
+  s: ContentSignals,
+  hero: { verdict: HeroVerdict },
+  isDuplicateCandidate: boolean,
+): EditorialStatus[] {
+  const out: EditorialStatus[] = [];
+  if (hero.verdict === 'YES' || hero.verdict === 'MAYBE') out.push('Hero candidate');
+  if (hero.verdict === 'NO') out.push('Do not use as hero');
+  if (s.hasLogo) out.push('Crop before use');
+  if (s.liftInfra) out.push('Practical / infrastructure image');
+  if (folderSlug === '07-underside' || (hero.verdict !== 'YES' && (s.mountain || s.action || (s.people && !s.closeUpPeople)))) {
+    out.push('Strong subpage image');
+  }
+  if (!s.snow && !s.summerOnly && !s.mountain && !s.action && !s.food && !s.people) out.push('Support image');
+  if (s.reference) out.push('Low priority');
+  if (isDuplicateCandidate) out.push('Duplicate candidate');
+  // Dedupe while preserving order
+  return [...new Set(out)];
+}
+
+/** Reduce a filename to a stem we can use to spot near-duplicates. */
+function duplicateStem(filename: string): string {
+  return filename
+    .toLowerCase()
+    .replace(/\.[a-z0-9]+$/, '')
+    .replace(/-(scaled|hero|hero-wide|wide|candidate|closeup|naerbilde|portrett|forside|underside|crop-logo-before-use|logo-before-use)$/g, '')
+    .replace(/-(v\d+|copy|kopi|\d{3,4}x\d{3,4}|\d+)$/g, '')
+    .replace(/[-_\s]+/g, '-');
 }
 
 // ---------------------------------------------------------------------------
