@@ -6,6 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
+import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
  * Winter homepage. All editorial content is sourced from the CMS layer
@@ -23,9 +24,25 @@ const Index = () => {
     <div>
       {/* HERO */}
       <section className="relative h-screen min-h-[640px] flex items-center justify-center overflow-hidden">
+        {/* Mobile hero — clean stolheis image from CMS */}
         {home.heroImage && (
-          <img src={home.heroImage.url} alt={home.heroImage.alt || home.heroTitle} className="absolute inset-0 w-full h-full object-cover" />
+          <img
+            src={home.heroImage.url}
+            alt={home.heroImage.alt || home.heroTitle}
+            className="md:hidden absolute inset-0 w-full h-full object-cover"
+          />
         )}
+        {/* Desktop hero — Variant D wide destination overview. The slight
+            scale from top-left pushes the baked-in Bjorli watermark
+            (bottom-right) and the heaviest lift-station mass off-frame,
+            while object-position keeps the wide valley panorama, top
+            station and skiers visible under a calm sky band for the
+            headline. */}
+        <img
+          src={desktopHero}
+          alt={home.heroImage?.alt || home.heroTitle}
+          className="hidden md:block absolute inset-0 w-full h-full object-cover object-[48%_50%] scale-[1.12] origin-top-left"
+        />
         <div className="absolute inset-0 hero-gradient" />
         {/* Soft hero-to-content transition: a calm, editorial fade from
             the cinematic image into the light page background. Sits above
