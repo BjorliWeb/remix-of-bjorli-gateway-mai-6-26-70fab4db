@@ -320,23 +320,42 @@ interface AssetRow {
   url: string;
   filename: string;
   folder: string;
-  bankSlug: BankSlug | null;
+  bankSlug: BankSlug | null;          // raw folder-derived slug
+  effectiveSlug: BankSlug | null;     // after content-signal override
   legacyCategory: LegacyCategory;
   inferredAlt: string;          // alt text from registry, if known
   registryKeys: string[];       // keys in src/lib/images.ts pointing here
   hasLogo: boolean;
-  heroSuitability: 'Strong' | 'Candidate' | 'Possible' | 'No';
+  signals: ContentSignals;
+  contentSummary: string;
+  heroVerdict: HeroVerdict;
+  heroReason: string;
+  editorialStatus: EditorialStatus[];
   recommendedUse: string;
   pageSuggestions: string[];
   autoWarnings: string[];
+  duplicateStem: string;
+  isDuplicateCandidate: boolean;
 }
 
-function recommendedUseFor(bankSlug: BankSlug | null, legacy: LegacyCategory, hasLogo: boolean): string {
-  if (bankSlug === '01-hero') return hasLogo
-    ? 'Hero candidate — must be cropped to remove logo first.'
-    : 'Hero — homepage, season landing, or major destination page.';
-  if (bankSlug === '07-underside') return 'Subpage support image — cards, content blocks, guides.';
-  if (bankSlug) return `${BANK_LABEL[bankSlug]} — use on related subpages and cards.`;
+function recommendedUseFor(slug: BankSlug | null, legacy: LegacyCategory, s: ContentSignals, hero: HeroVerdict): string {
+  if (s.hasLogo) return 'Crop the visible Bjorli logo out of the frame before any public use.';
+  if (slug === '01-hero' && hero === 'YES') return 'Use as hero on homepage, season landing or a major destination page.';
+  if (slug === '01-hero')                   return 'Hero candidate — verify framing and calm sky band first.';
+  if (slug === '07-underside')              return 'Use as a support image inside subpages, cards, guides or article blocks.';
+  if (slug === '05-heis')                   return 'Use on Ski Center, Heiskort or Practical info — not as a hero.';
+  if (slug === '04-servering')              return 'Use on Food & Drink and après-ski sections.';
+  if (slug === '03-family')                 return 'Use on Familie, Ski School and family-focused content.';
+  if (slug === '02-ski')                    return hero === 'NO'
+    ? 'Use on Ski Center / Vinter cards. Not strong enough as a hero.'
+    : 'Use on Ski Center or Vinter — possible hero if framing works as a wide crop.';
+  if (slug === '06-utsikt')                 return 'Editorial mountain view — strong for cards and atmospheric blocks.';
+  if (slug === '08-vinter')                 return 'Use for general winter atmosphere and snow-condition cards.';
+  if (slug === '09-sommer')                 return 'Use for summer landing and warm-season activities.';
+  if (slug === '10-sykkel')                 return 'Use on Sykling and summer activity pages.';
+  if (slug === '11-tur')                    return 'Use on Fotturer and hiking pages.';
+  if (slug === '12-fiske')                  return 'Use on fishing / water activity pages.';
+  if (slug === '13-natur')                  return 'Use as nature / atmosphere imagery.';
   switch (legacy) {
     case 'hero':         return 'Homepage hero / large editorial covers.';
     case 'winter':       return 'Ski-center, lifts, snow-condition cards.';
@@ -356,8 +375,8 @@ function recommendedUseFor(bankSlug: BankSlug | null, legacy: LegacyCategory, ha
   }
 }
 
-function pageSuggestionsFor(bankSlug: BankSlug | null, legacy: LegacyCategory): string[] {
-  if (bankSlug) return BANK_PAGES[bankSlug];
+function pageSuggestionsFor(slug: BankSlug | null, legacy: LegacyCategory): string[] {
+  if (slug) return BANK_PAGES[slug];
   const m: Partial<Record<LegacyCategory, string[]>> = {
     hero: ['Homepage', 'Season landing'],
     winter: ['Vinter', 'Ski Center'],
@@ -377,33 +396,55 @@ function pageSuggestionsFor(bankSlug: BankSlug | null, legacy: LegacyCategory): 
   return m[legacy] ?? [];
 }
 
-const allRows: AssetRow[] = Object.entries(assetModules)
-  .map(([rawPath, url]): AssetRow => {
+const allRows: AssetRow[] = (() => {
+  // First pass: build draft rows so we can compute duplicate-stem groups.
+  const drafts = Object.entries(assetModules).map(([rawPath, url]) => {
     const path = rawPath.replace(/^\//, '');
     const filename = path.split('/').pop() ?? path;
     const folder = path.replace('src/assets/', '').split('/').slice(0, -1).join('/') || '(root)';
     const bankMatch = path.match(/\/bank\/([0-9]{2}-[a-z]+)\//);
     const bankSlug = (bankMatch ? bankMatch[1] : null) as BankSlug | null;
     const legacy = inferLegacyCategory(rawPath);
-    const hasLogo = detectLogoPresent(filename);
-    const reg = registryByUrl[url];
+    const signals = detectSignals(path, legacy);
+    const effectiveSlug = effectiveBankFor(bankSlug, signals);
+    const hero = heroDecision(effectiveSlug, signals);
+    const stem = duplicateStem(filename);
+    return { path, url, filename, folder, bankSlug, effectiveSlug, legacy, signals, hero, stem };
+  });
+
+  const stemCounts = drafts.reduce<Record<string, number>>((acc, d) => {
+    acc[d.stem] = (acc[d.stem] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  return drafts.map((d): AssetRow => {
+    const reg = registryByUrl[d.url];
+    const isDup = stemCounts[d.stem] > 1;
+    const editorialStatus = deriveEditorialStatus(d.effectiveSlug, d.signals, d.hero, isDup);
     return {
-      path,
-      url,
-      filename,
-      folder,
-      bankSlug,
-      legacyCategory: legacy,
+      path: d.path,
+      url: d.url,
+      filename: d.filename,
+      folder: d.folder,
+      bankSlug: d.bankSlug,
+      effectiveSlug: d.effectiveSlug,
+      legacyCategory: d.legacy,
       inferredAlt: reg?.alts?.[0] ?? '',
       registryKeys: reg?.keys ?? [],
-      hasLogo,
-      heroSuitability: inferHeroSuitability(path, bankSlug, hasLogo),
-      recommendedUse: recommendedUseFor(bankSlug, legacy, hasLogo),
-      pageSuggestions: pageSuggestionsFor(bankSlug, legacy),
-      autoWarnings: inferAutoWarnings(path, bankSlug ? 'bank' : legacy),
+      hasLogo: d.signals.hasLogo,
+      signals: d.signals,
+      contentSummary: visibleContentSummary(d.signals),
+      heroVerdict: d.hero.verdict,
+      heroReason: d.hero.reason,
+      editorialStatus,
+      recommendedUse: recommendedUseFor(d.effectiveSlug, d.legacy, d.signals, d.hero.verdict),
+      pageSuggestions: pageSuggestionsFor(d.effectiveSlug, d.legacy),
+      autoWarnings: inferAutoWarnings(d.path, d.effectiveSlug ? 'bank' : d.legacy),
+      duplicateStem: d.stem,
+      isDuplicateCandidate: isDup,
     };
-  })
-  .sort((a, b) => a.path.localeCompare(b.path));
+  }).sort((a, b) => a.path.localeCompare(b.path));
+})();
 
 // ---------------------------------------------------------------------------
 // Editor review state — persisted in localStorage
