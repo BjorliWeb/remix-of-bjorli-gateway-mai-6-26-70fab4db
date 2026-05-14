@@ -31,6 +31,128 @@ const registryByUrl = Object.entries(registry).reduce<Record<string, string[]>>(
   {},
 );
 
+// ---------------------------------------------------------------------------
+// Bjorli image bank — logical content structure (NOT a public route).
+// Folders live under src/assets/photos/bank/<NN-name>/. Empty categories are
+// shown so editors can see where new uploads should land.
+// ---------------------------------------------------------------------------
+
+type BankSlug =
+  | '01-hero' | '02-ski' | '03-family' | '04-servering' | '05-heis'
+  | '06-utsikt' | '07-underside' | '08-vinter' | '09-sommer'
+  | '10-sykkel' | '11-tur' | '12-fiske' | '13-natur';
+
+interface BankCategoryDef {
+  slug: BankSlug;
+  label: string;
+  description: string;
+  pageSuggestions: string[];
+}
+
+const BANK_CATEGORIES: BankCategoryDef[] = [
+  { slug: '01-hero', label: 'Hero', description: 'Strong, wide, calm — for hero use.',
+    pageSuggestions: ['Homepage', 'Vinter / Sommer landing', 'Top-level destination pages', 'Campaign banners'] },
+  { slug: '02-ski', label: 'Ski / alpint', description: 'Alpine skiing, slopes, ski action.',
+    pageSuggestions: ['Ski Center', 'Vinter', 'Heiskort', 'Ski School'] },
+  { slug: '03-family', label: 'Familie', description: 'Children, families, groups, ski school.',
+    pageSuggestions: ['Familie', 'Ski School', 'Activities'] },
+  { slug: '04-servering', label: 'Servering', description: 'Restaurant, terrace, food, drinks, après-ski.',
+    pageSuggestions: ['Food & Drink', 'After-ski sections', 'Practical info'] },
+  { slug: '05-heis', label: 'Heis & infrastruktur', description: 'Lifts, base station, lift area, infrastructure.',
+    pageSuggestions: ['Ski Center', 'Heiskort', 'Practical info', 'Loypekart'] },
+  { slug: '06-utsikt', label: 'Utsikt / panorama', description: 'Mountain views and panoramas.',
+    pageSuggestions: ['Vinter', 'Sommer', 'Destination pages', 'Editorial cards'] },
+  { slug: '07-underside', label: 'Underside / støttebilder', description: 'Useful supporting images for subpages.',
+    pageSuggestions: ['Subpage cards', 'Article blocks', 'Guides', 'Tips'] },
+  { slug: '08-vinter', label: 'Vinterstemning', description: 'General winter atmosphere.',
+    pageSuggestions: ['Vinter', 'News & tips', 'Snow conditions'] },
+  { slug: '09-sommer', label: 'Sommer', description: 'Summer content.',
+    pageSuggestions: ['Sommer', 'Activities', 'Family summer'] },
+  { slug: '10-sykkel', label: 'Sykkel / pumptrack', description: 'Biking and pumptrack content.',
+    pageSuggestions: ['Sykling', 'Sommer', 'Activities'] },
+  { slug: '11-tur', label: 'Turer', description: 'Hiking and walking.',
+    pageSuggestions: ['Fotturer', 'Sommer', 'Activities'] },
+  { slug: '12-fiske', label: 'Fiske / vann', description: 'Fishing and water activities.',
+    pageSuggestions: ['Activities', 'Sommer'] },
+  { slug: '13-natur', label: 'Natur', description: 'Landscape, forest, river, nature.',
+    pageSuggestions: ['Editorial backgrounds', 'About / destination intro', 'Atmosphere cards'] },
+];
+
+interface BankAsset {
+  path: string;
+  url: string;
+  filename: string;
+  slug: BankSlug;
+  hasLogo: boolean;
+  heroSuitability: 'Strong' | 'Candidate' | 'Possible' | 'No';
+  recommendedUse: string;
+  pageSuggestions: string[];
+  notes: string[];
+  inUseAs: string[];
+}
+
+function classifyBankAsset(path: string, url: string): BankAsset | null {
+  const m = path.match(/\/bank\/([0-9]{2}-[a-z]+)\//);
+  if (!m) return null;
+  const slug = m[1] as BankSlug;
+  const def = BANK_CATEGORIES.find((c) => c.slug === slug);
+  if (!def) return null;
+  const filename = path.split('/').pop() ?? path;
+  const lower = filename.toLowerCase();
+  const hasLogo = /logo/i.test(filename) && (filename.includes('LOGO') || lower.includes('logo-before-use') || lower.includes('crop-logo'));
+
+  // Hero suitability heuristic from filename + folder
+  let heroSuitability: BankAsset['heroSuitability'] = 'No';
+  if (slug === '01-hero') {
+    heroSuitability = lower.includes('candidate') ? 'Candidate' : 'Strong';
+  } else if (lower.includes('hero-wide') || lower.includes('panorama') || lower.includes('hero')) {
+    heroSuitability = lower.includes('candidate') ? 'Candidate' : 'Possible';
+  } else if (lower.includes('wide') || lower.includes('overview') || lower.includes('open-landscape')) {
+    heroSuitability = 'Possible';
+  }
+  // Logo'd images can never be heroes uncropped
+  if (hasLogo && heroSuitability !== 'No') heroSuitability = 'Candidate';
+
+  const notes: string[] = [];
+  if (hasLogo) notes.push('LOGO — crop required before public use');
+  if (lower.includes('candidate')) notes.push('Candidate — review against current hero');
+  if (lower.includes('screenshot') || lower.includes('reference')) notes.push('Reference / screenshot — internal only');
+  if (lower.includes('naerbilde') || lower.includes('closeup') || lower.includes('detail')) notes.push('Tight crop — weak as hero');
+  if (lower.includes('portrait') || /-portrett/.test(lower)) notes.push('Portrait orientation');
+  if (lower.includes('missing')) notes.push('Missing — download failed');
+
+  // Recommended use sentence
+  let recommendedUse = def.description;
+  if (slug === '01-hero') recommendedUse = hasLogo
+    ? 'Hero candidate — must be cropped to remove logo first.'
+    : 'Hero — homepage, season landing, or major destination page.';
+  else if (slug === '07-underside') recommendedUse = 'Subpage support image — cards, content blocks, guides.';
+
+  return {
+    path: path.replace(/^\//, ''),
+    url,
+    filename,
+    slug,
+    hasLogo,
+    heroSuitability,
+    recommendedUse,
+    pageSuggestions: def.pageSuggestions,
+    notes,
+    inUseAs: registryByUrl[url] ?? [],
+  };
+}
+
+const bankAssets: BankAsset[] = Object.entries(assetModules)
+  .map(([path, url]) => classifyBankAsset(path, url))
+  .filter((x): x is BankAsset => x !== null)
+  .sort((a, b) => a.slug.localeCompare(b.slug) || a.filename.localeCompare(b.filename));
+
+const bankBySlug: Record<BankSlug, BankAsset[]> = BANK_CATEGORIES.reduce(
+  (acc, c) => { acc[c.slug] = []; return acc; },
+  {} as Record<BankSlug, BankAsset[]>,
+);
+bankAssets.forEach((a) => bankBySlug[a.slug].push(a));
+
 type Category =
   | 'hero'
   | 'winter'
@@ -176,6 +298,10 @@ const ImageInventory = () => {
   const [onlyWarnings, setOnlyWarnings] = useState(false);
   const [onlyUsed, setOnlyUsed] = useState(false);
   const [query, setQuery] = useState('');
+  const [bankQuery, setBankQuery] = useState('');
+  const [bankSlug, setBankSlug] = useState<'all' | BankSlug>('all');
+  const [bankHeroOnly, setBankHeroOnly] = useState(false);
+  const [bankHideLogo, setBankHideLogo] = useState(false);
 
   const rows = useMemo(() => {
     return allRows.filter((r) => {
@@ -208,6 +334,166 @@ const ImageInventory = () => {
             {counts.total} assets · {counts.used} currently used · {counts.warned} flagged
           </p>
         </header>
+
+        {/* ──────────────────────────────────────────────────────────────── */}
+        {/* Bjorli image bank — logical content structure for editors.      */}
+        {/* ──────────────────────────────────────────────────────────────── */}
+        <section className="mb-16">
+          <div className="mb-4">
+            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-1">
+              Bjorli image bank
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Logical content structure (not a public route). {bankAssets.length} renamed assets across {BANK_CATEGORIES.length} categories.
+              Pick from the relevant category instead of reusing the same hero everywhere.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 mb-6 p-3 rounded-lg border border-border bg-card">
+            <input
+              type="search"
+              value={bankQuery}
+              onChange={(e) => setBankQuery(e.target.value)}
+              placeholder="Search bank filename…"
+              className="px-3 py-2 rounded-md border border-border bg-background text-sm w-64"
+            />
+            <select
+              value={bankSlug}
+              onChange={(e) => setBankSlug(e.target.value as 'all' | BankSlug)}
+              className="px-3 py-2 rounded-md border border-border bg-background text-sm"
+            >
+              <option value="all">All categories</option>
+              {BANK_CATEGORIES.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  /{c.slug} — {c.label} ({bankBySlug[c.slug].length})
+                </option>
+              ))}
+            </select>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={bankHeroOnly} onChange={(e) => setBankHeroOnly(e.target.checked)} />
+              Hero-suitable only
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={bankHideLogo} onChange={(e) => setBankHideLogo(e.target.checked)} />
+              Hide LOGO images
+            </label>
+          </div>
+
+          {BANK_CATEGORIES
+            .filter((c) => bankSlug === 'all' || c.slug === bankSlug)
+            .map((cat) => {
+              const items = bankBySlug[cat.slug].filter((a) => {
+                if (bankHeroOnly && a.heroSuitability === 'No') return false;
+                if (bankHideLogo && a.hasLogo) return false;
+                if (bankQuery && !a.filename.toLowerCase().includes(bankQuery.toLowerCase())) return false;
+                return true;
+              });
+              return (
+                <div key={cat.slug} className="mb-10">
+                  <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-border">
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        <span className="font-mono text-sm text-muted-foreground mr-2">/{cat.slug}</span>
+                        {cat.label}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {cat.description} · Suggested pages: {cat.pageSuggestions.join(', ')}
+                      </p>
+                    </div>
+                    <span className="text-xs text-muted-foreground whitespace-nowrap">
+                      {items.length} / {bankBySlug[cat.slug].length}
+                    </span>
+                  </div>
+
+                  {bankBySlug[cat.slug].length === 0 ? (
+                    <p className="text-sm text-muted-foreground italic py-4">
+                      No images yet — upload assets into{' '}
+                      <code className="font-mono">src/assets/photos/bank/{cat.slug}/</code>
+                    </p>
+                  ) : items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground italic py-4">No matches with current filters.</p>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                      {items.map((a) => (
+                        <article key={a.path} className="rounded-xl border border-border bg-card overflow-hidden flex flex-col">
+                          <div className="relative aspect-[4/3] bg-muted">
+                            <img
+                              src={a.url}
+                              alt={a.filename}
+                              loading="lazy"
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+                              <span className="text-[10px] uppercase tracking-wider bg-background/90 text-foreground px-2 py-0.5 rounded">
+                                /{a.slug}
+                              </span>
+                              {a.inUseAs.length > 0 && (
+                                <span className="text-[10px] uppercase tracking-wider bg-primary text-primary-foreground px-2 py-0.5 rounded">
+                                  in use
+                                </span>
+                              )}
+                            </div>
+                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
+                              <span
+                                className={
+                                  'text-[10px] uppercase tracking-wider px-2 py-0.5 rounded ' +
+                                  (a.heroSuitability === 'Strong'
+                                    ? 'bg-primary text-primary-foreground'
+                                    : a.heroSuitability === 'Candidate'
+                                    ? 'bg-secondary text-secondary-foreground'
+                                    : a.heroSuitability === 'Possible'
+                                    ? 'bg-muted text-foreground'
+                                    : 'bg-background/80 text-muted-foreground border border-border')
+                                }
+                              >
+                                hero: {a.heroSuitability.toLowerCase()}
+                              </span>
+                              {a.hasLogo && (
+                                <span className="text-[10px] uppercase tracking-wider bg-destructive text-destructive-foreground px-2 py-0.5 rounded">
+                                  ⚠ LOGO — crop required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="p-4 flex flex-col gap-2 text-sm">
+                            <div className="font-mono text-xs break-all text-foreground">{a.filename}</div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Recommended: </span>
+                              <span>{a.recommendedUse}</span>
+                            </div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Suggested pages: </span>
+                              <span>{a.pageSuggestions.join(', ')}</span>
+                            </div>
+                            <div className="text-xs">
+                              <span className="text-muted-foreground">Used as: </span>
+                              {a.inUseAs.length > 0
+                                ? <span className="text-foreground">{a.inUseAs.join(', ')}</span>
+                                : <span className="text-muted-foreground italic">unused</span>}
+                            </div>
+                            {a.notes.length > 0 && (
+                              <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-0.5">
+                                {a.notes.map((n) => <li key={n}>{n}</li>)}
+                              </ul>
+                            )}
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+        </section>
+
+        <div className="mb-4">
+          <h2 className="font-display text-2xl md:text-3xl font-semibold mb-1">
+            Full asset inventory
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Every image under <code className="font-mono">src/assets/</code>, including legacy and non-bank assets.
+          </p>
+        </div>
 
         <div className="flex flex-wrap items-center gap-3 mb-6 sticky top-2 z-10 bg-background/90 backdrop-blur p-3 rounded-lg border border-border">
           <input
