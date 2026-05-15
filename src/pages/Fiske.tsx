@@ -42,7 +42,7 @@ const ZONES = [
 const FAQ = [
   {
     q: 'Hvor kjøper jeg fiskekort på Bjorli?',
-    a: 'Fiskekort kan kjøpes lokalt i Lesja og Bjorli og via iNatur-lenkene på denne siden.',
+    a: 'Fiskekort kan kjøpes lokalt i Lesja og Bjorli på følgende steder: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog, og Bjorli Bensin/YX. Barn opp til og med fylte 16 år fisker gratis med stang. Samt via iNatur-lenkene på denne siden.',
   },
   {
     q: 'Kan jeg fiske i Lesjaskogsvatnet?',
