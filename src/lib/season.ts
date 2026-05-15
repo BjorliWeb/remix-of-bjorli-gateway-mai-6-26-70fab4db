@@ -11,7 +11,7 @@ import { LOCALE_PREFIX, type Locale } from '@/i18n/translations';
 export type Season = 'winter' | 'summer';
 
 /** Routes that should render with the summer theme. */
-const SUMMER_PREFIXES = ['/sommer', '/fotturer', '/sykling', '/familie'] as const;
+const SUMMER_PREFIXES = ['/sommer', '/fotturer', '/sykling', '/familie', '/sommer/korte-turer'] as const;
 
 /** Strip a locale prefix (/en, /de, …) so we can match on the canonical path. */
 const stripLocale = (pathname: string): string => {
