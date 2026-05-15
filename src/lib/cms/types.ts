@@ -348,7 +348,7 @@ export interface CmsImageCardsSection extends CmsSectionBase {
   type: 'imageCards';
   title?: string;
   eyebrow?: string;
-  cards: { title: string; eyebrow?: string; image: CmsImage; href: string }[];
+  cards: { title: string; eyebrow?: string; desc?: string; image: CmsImage; href: string; ctaLabel?: string }[];
 }
 
 export interface CmsTipsSection extends CmsSectionBase {
