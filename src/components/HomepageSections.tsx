@@ -357,8 +357,17 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       return (
                         <Link key={card.title} to={lp(card.href)}>
                           <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl">
-                            <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
+                            {card.image?.url ? (
+                              <>
+                                <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
+                              </>
+                            ) : (
+                              // Editorial fallback: no suitable summer photo available.
+                              // Renders a calm season-tinted gradient instead of reusing
+                              // a winter/snow image or repeating another card's photo.
+                              <div className="absolute inset-0 bg-gradient-to-br from-secondary/40 via-secondary/20 to-muted" aria-hidden />
+                            )}
                             <div className="absolute bottom-0 left-0 right-0 p-8">
                               {card.eyebrow && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{card.eyebrow}</div>}
                               <h3 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground leading-[1.05] tracking-tight">{card.title}</h3>
