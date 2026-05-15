@@ -30,9 +30,11 @@ const ICON_MAP: Record<SubPageIcon, React.ComponentType<{ className?: string }>>
 
 interface SubPageProps {
   slug: SubPageSlug;
+  /** Optional content rendered between the intro/body and the highlights grid. */
+  afterIntro?: React.ReactNode;
 }
 
-const SubPage = ({ slug }: SubPageProps) => {
+const SubPage = ({ slug, afterIntro }: SubPageProps) => {
   const { locale, d } = useLanguage();
   const lp = useLocalizedPath();
   const [page, setPage] = useState<CmsSubPage | null>(null);
@@ -112,6 +114,8 @@ const SubPage = ({ slug }: SubPageProps) => {
           )}
         </div>
       </section>
+
+      {afterIntro}
 
       {/* Highlights grid */}
       {page.highlights.length > 0 && (
