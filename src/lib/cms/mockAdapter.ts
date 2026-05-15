@@ -493,10 +493,11 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            // TEMPORARY FALLBACK — no dedicated hiker/trail photo yet.
-            // Calm fjellvann landscape (NATURE) used instead of the hero
-            // image to avoid repeating the page hero on the same page.
-            image: { url: fishingLakeImg, alt: 'Stille fjellvann i fjellet ved Bjorli — utgangspunkt for fotturer i sommerlandskapet' },
+            // TODO: Upload suitable summer hiking/trail photo for this card.
+            // No dedicated hiker/trail photo exists yet — the page hero is
+            // reserved (no repeats) and a fishing-lake image is forbidden
+            // here per editorial rule (no fishing image for hiking).
+            image: undefined,
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -524,7 +525,11 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            image: { url: summerTrailImg, alt: 'Vidt sommerfjellandskap nær Bjorli — sti og åpen natur' },
+            // TODO: Upload suitable green-summer landscape/panorama photo.
+            // The previous candidate (eventFlying) is a stisykling/cycling
+            // shot — forbidden here per editorial rule (no cycling image
+            // for nature). Hero is reserved (no repeats on same page).
+            image: undefined,
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
