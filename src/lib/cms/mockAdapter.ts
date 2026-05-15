@@ -572,6 +572,7 @@ export const mockAdapter: CmsAdapter = {
         ],
         ctas: [
           { label: 'Se fotturer', href: '/fotturer', variant: 'primary' as const },
+          { label: 'Snarturer i Rauma og Lesja', href: '/sommer/korte-turer', variant: 'secondary' as const },
         ],
       },
       // 6 — Fishing & quiet outdoor days

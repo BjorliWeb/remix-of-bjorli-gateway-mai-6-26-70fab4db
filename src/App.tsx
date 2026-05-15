@@ -27,6 +27,7 @@ import Heiskort from "./pages/Heiskort";
 import Langrenn from "./pages/Langrenn";
 import Fotturer from "./pages/Fotturer";
 import Sykling from "./pages/Sykling";
+import KorteTurer from "./pages/KorteTurer";
 import Familie from "./pages/Familie";
 import Vinter from "./pages/Vinter";
 import Live from "./pages/Live";
@@ -100,6 +101,7 @@ const AppRoutes = () => (
     <Route path="/fotturer" element={<Fotturer />} />
     <Route path="/sykling" element={<Sykling />} />
     <Route path="/familie" element={<Familie />} />
+    <Route path="/sommer/korte-turer" element={<KorteTurer />} />
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
     <Route path="/loypekart" element={<Loypekart />} />
