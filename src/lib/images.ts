@@ -219,3 +219,40 @@ export const images = {
  */
 
 export type ImageKey = keyof typeof images;
+
+/**
+ * Strict summer image groups.
+ * ──────────────────────────────────────────────────────────────────────
+ * Hard rule: nothing in these arrays may contain visible snow, ski
+ * slopes, lifts, alpine skiers, winter terraces or snow-covered cabins.
+ * Use these arrays — not the flat `images` map — when picking imagery
+ * for any summer page, summer card, summer teaser or related-content
+ * section. If you need a summer image and none of these arrays applies,
+ * leave the image slot empty (text-only card) rather than reaching for
+ * a winter photo.
+ *
+ * Hero photo (`heroSummer`) is intentionally excluded from the card
+ * groups so it cannot be repeated on the same page as the page hero.
+ */
+export const summerHeroImages       = [images.heroSummer] as const;
+export const summerHikingImages     = [images.hiking, images.fishingLake] as const; // TODO: upload true hiker/trail photo
+export const summerCyclingImages    = [images.biking] as const;
+export const summerFishingImages    = [images.flyFishing, images.riverFishing] as const;
+export const summerFamilyImages     = [images.familySummer, images.summerWater] as const; // bassen / kids water area
+export const summerNatureImages     = [images.eventFlying, images.fishingLake] as const; // sensommer trail / fjellvann
+export const summerDaytripImages    = [images.tipTrain] as const; // Raumabanen river valley
+export const summerAccommodationImages: readonly BjorliImage[] = []; // TODO: upload green-season cabin/exterior photo
+export const summerFoodDrinkImages  = [images.dish] as const; // TEMPORARY FALLBACK — TODO: outdoor terrace/café photo
+
+/** All summer-safe images, deduped — for QA and audit purposes. */
+export const summerImagePool: readonly BjorliImage[] = [
+  ...summerHeroImages,
+  ...summerHikingImages,
+  ...summerCyclingImages,
+  ...summerFishingImages,
+  ...summerFamilyImages,
+  ...summerNatureImages,
+  ...summerDaytripImages,
+  ...summerAccommodationImages,
+  ...summerFoodDrinkImages,
+];
