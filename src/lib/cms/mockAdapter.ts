@@ -668,11 +668,11 @@ export const mockAdapter: CmsAdapter = {
         type: 'feature' as const,
         eyebrow: 'Mat og møteplasser',
         title: 'Steder å pause i sommerlandskapet',
-        body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
-        // TEMPORARY FALLBACK — missing true summer café/terrace photo.
-        // Using a neutral plated-dish photo (SERVING) instead of any
-        // winter terrace, ski-base or random water image.
-        image: { url: images.dish.src, alt: 'Servering fra restaurant på Bjorli — mat og møteplasser' },
+        body: 'Servering og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld etter en dag ute.',
+        // TODO(image): upload a true outdoor summer café/terrace photo.
+        // Until then, use neutral restaurant interior instead of winter
+        // terrace/ski-base imagery or unrelated water/family photos.
+        image: { url: images.restaurantInterior.src, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli' },
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },
