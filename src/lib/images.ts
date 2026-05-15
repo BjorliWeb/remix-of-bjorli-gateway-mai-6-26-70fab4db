@@ -202,6 +202,9 @@ export const images = {
   // pages as a nature/landscape stand-in when no dedicated hiking or
   // wide-landscape photo is available. Not a hero candidate.
   fishingLake:      { src: s_fishingLake,  alt: 'Stille fjellvann nær Bjorli — sommerlandskap.',            wpField: 'fishing_lake_image',       placeholder: false },
+  fishingHero:      { src: s_fishingHero,    alt: 'Fisker ved fjellvann nær Bjorli en sommerdag.',           wpField: 'fishing_hero_image',       placeholder: false },
+  fishingMountain:  { src: s_fishingMountain,alt: 'Fjellfiske i Lesjafjella nær Bjorli.',                    wpField: 'fishing_mountain_image',   placeholder: false },
+  salmonRauma:      { src: s_salmonRauma,    alt: 'Laksefiske i Rauma elv. Bilde © lakseelver.no.',          wpField: 'salmon_rauma_image',       placeholder: false },
 } satisfies Record<string, BjorliImage>;
 
 /*
