@@ -114,8 +114,7 @@ const bikingImg       = images.biking.src;
 const summerHero      = images.heroSummer.src;
 const flyFishingImg   = images.flyFishing.src;
 const familySummerImg = images.familySummer.src;
-const summerWaterImg  = images.summerWater.src;
-const summerTrailImg  = images.eventFlying.src;
+const summerValleyImg = images.summerValley.src;
 
 /**
  * Mock CMS adapter.
@@ -138,7 +137,7 @@ const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
 const EVENT_IMAGES = [concertImg, tipFamily, crossCountry, summerImg];
 // Split per season so summer activities never get assigned a winter photo.
 const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
-const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, flyFishingImg, familySummerImg, summerTrailImg, summerImg];
+const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
 
 const nowIso = () => new Date().toISOString();
 
