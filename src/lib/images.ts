@@ -49,6 +49,10 @@ import h_carvingHero  from '@/assets/photos/bank/01-hero/bjorli-carving-oransje-
 import h_summerAerialValleyRiver    from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-dal-og-elvelandskap-hero-wide.jpg';
 import h_summerAerialSkiCenterMtn   from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-skisenter-og-fjell-hero-wide.jpg';
 
+// Local destination photos (real on-site images for activity cards)
+import dest_romsdalsgondolen from '@/assets/romsdalsgondolen/romsdalsgondolen-gondol.jpeg';
+import dest_sagelva          from '@/assets/sagelva/sagelva-hero-vasskraftsenter.jpg';
+
 // 02 – Ski / action / slopes
 import s_slopeView      from '@/assets/photos/bank/02-ski/bjorli-vinter-skiloyper-fjellandskap-underside.jpg';
 import s_slopePanorama  from '@/assets/photos/bank/02-ski/bjorli-skiloyper-fjellpanorama-underside.jpg';
