@@ -633,7 +633,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: d.accommodation.eyebrow,
         title: d.accommodation.title,
         body: d.accommodation.body,
-        image: { url: accommodationImg, alt: d.accommodation.title },
+        image: { url: summerLandscapeImg, alt: 'Bjorli i sommerlandskap — hytter og overnatting i grønne fjell' },
         imageSide: 'left' as const,
         ctas: [
           { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' as const },
@@ -646,7 +646,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Mat og møteplasser',
         title: 'Steder å pause i sommerlandskapet',
         body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
-        image: { url: summerWaterImg, alt: 'Sommeratmosfære med vannaktivitet på Bjorli' },
+        image: { url: images.dish.src, alt: 'Servering fra restaurant på Bjorli — mat og møteplasser' },
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },
