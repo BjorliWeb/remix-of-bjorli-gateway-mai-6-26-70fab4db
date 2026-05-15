@@ -597,12 +597,18 @@ export const mockAdapter: CmsAdapter = {
         id: 'summerBasecamp',
         type: 'feature' as const,
         eyebrow: 'Basecamp mellom fjell og fjord',
-        title: 'Dagsturer til Romsdalen, Trollstigen og Geirangerområdet',
-        body: 'Romsdalen, Trollstigen, Åndalsnes og Geirangerområdet ligger innen kort kjøretur, og Reinheimen, Dovrefjell og Romsdalsalpene starter rett utenfor døra. Bo rolig i fjellet og opplev kjent norsk natur uten å bo midt i de mest besøkte turistområdene.',
+        title: 'Bo på Bjorli. Opplev mer av regionen.',
+        body: 'Bjorli er en rolig fjellbase med god plass — bo høyt og åpent, og bruk dagene på turer ut i daler, fjell og fjordlandskap. Reinheimen, Tafjordfjella, Dovrefjell og Romsdalen ligger rundt deg, og Romsdalsalpene, Raumabanen, Trollstigen-området, Geiranger-området og Åndalsnes er innen rekkevidde for dagsturer.',
         image: { url: riverFishingImg, alt: 'Stille fjellelv nær Bjorli — rolige dagsturer fra basecamp' },
         imageSide: 'right' as const,
+        subcards: [
+          { title: 'Daler og fjellvann',  desc: 'Lesjaskogsvannet, Aursjøen og Dalsida — rolige landskap rett ved Bjorli.' },
+          { title: 'Nasjonalparker',      desc: 'Reinheimen, Tafjordfjella og Dovrefjell ligger rundt destinasjonen.' },
+          { title: 'Romsdalen og Raumabanen', desc: 'Dramatiske fjell og togtur ned mot Åndalsnes — innen rekkevidde for dagsturer.' },
+          { title: 'Fjord og kyst',       desc: 'Trollstigen- og Geiranger-området innen rekkevidde for dagsturer mot fjordene.' },
+        ],
         ctas: [
-          { label: 'Planlegg reisen hit', href: '/reisen-hit', variant: 'primary' as const },
+          { label: 'Se reise og dagsturer', href: '/reisen-hit', variant: 'primary' as const },
         ],
       },
       // 9 — Travel
