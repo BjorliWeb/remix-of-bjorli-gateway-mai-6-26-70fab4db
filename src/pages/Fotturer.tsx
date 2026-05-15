@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SubPage from '@/components/SubPage';
 
 const OUTDOORACTIVE_URL = 'https://no.outdooractive.com/oar-lesja-kommune/';
@@ -51,7 +52,32 @@ const OutdooractiveMapSection = () => {
 };
 
 const Fotturer = () => (
-  <SubPage slug="fotturer" afterIntro={<OutdooractiveMapSection />} />
+  <SubPage
+    slug="fotturer"
+    afterIntro={
+      <>
+        <section className="pt-12 md:pt-16 pb-4 px-4">
+          <div className="container mx-auto max-w-5xl">
+            <Link
+              to="/sommer/korte-turer"
+              className="group block rounded-2xl border border-border bg-card hover:bg-muted/50 transition-colors p-6 md:p-8"
+            >
+              <div className="text-secondary text-[11px] font-medium tracking-[0.22em] uppercase mb-3">
+                Snarturer i Rauma og Lesja
+              </div>
+              <h2 className="font-display text-2xl md:text-3xl font-bold leading-tight mb-2 group-hover:text-secondary transition-colors">
+                10 korte fotturer rundt Bjorli
+              </h2>
+              <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                Lette turer med kart, parkering og høydeprofil — utviklet av Nordveggen, presentert for Bjorli.
+              </p>
+            </Link>
+          </div>
+        </section>
+        <OutdooractiveMapSection />
+      </>
+    }
+  />
 );
 
 export default Fotturer;
