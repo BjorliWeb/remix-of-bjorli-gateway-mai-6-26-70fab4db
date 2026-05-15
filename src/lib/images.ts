@@ -101,6 +101,9 @@ import s_hikingView   from '@/assets/photos/bjorli-sommer-fjelltur-utsikt.jpg';
 import s_familyFarm   from '@/assets/photos/bjorli-sommer-familie-gardsopplevelse.jpg';
 import s_fishingLocal from '@/assets/photos/bjorli-sommer-elv-fiske.jpg';
 import s_restaurantInterior from '@/assets/photos/bjorli-restaurant-interior-lanterne.jpg';
+import s_fishingHero  from '@/assets/photos/02_summer_destination/bjorli-fiske-stvmlaks-hero.jpg';
+import s_fishingMountain from '@/assets/photos/02_summer_destination/bjorli-fiske-lesjafjella-mattisolav.jpg';
+import s_salmonRauma  from '@/assets/photos/02_summer_destination/bjorli-laksefiske-rauma.jpg';
 import a_vetlegrenda  from '@/assets/photos/03_accommodation/bjorli-overnatting-hytte-vetlegrenda-fra-vg-10-og-mot-skisen.jpg';
 import a_mountainLodge from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-bjorlimountainlodge-8cafc89cba-4.jpg';
 import f_dish         from '@/assets/photos/04_food_restaurant/bjorli-restaurant-mat-mattisolavbjokne-2-20410b6b4a.jpg';
@@ -199,6 +202,9 @@ export const images = {
   // pages as a nature/landscape stand-in when no dedicated hiking or
   // wide-landscape photo is available. Not a hero candidate.
   fishingLake:      { src: s_fishingLake,  alt: 'Stille fjellvann nær Bjorli — sommerlandskap.',            wpField: 'fishing_lake_image',       placeholder: false },
+  fishingHero:      { src: s_fishingHero,    alt: 'Fisker ved fjellvann nær Bjorli en sommerdag.',           wpField: 'fishing_hero_image',       placeholder: false },
+  fishingMountain:  { src: s_fishingMountain,alt: 'Fjellfiske i Lesjafjella nær Bjorli.',                    wpField: 'fishing_mountain_image',   placeholder: false },
+  salmonRauma:      { src: s_salmonRauma,    alt: 'Laksefiske i Rauma elv. Bilde © lakseelver.no.',          wpField: 'salmon_rauma_image',       placeholder: false },
 } satisfies Record<string, BjorliImage>;
 
 /*
