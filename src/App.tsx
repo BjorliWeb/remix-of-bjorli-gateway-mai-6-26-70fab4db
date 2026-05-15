@@ -146,6 +146,7 @@ const AppRoutes = () => (
     {aliasRoute('langrenn', <Langrenn />)}
     {aliasRoute('fotturer', <Fotturer />)}
     {aliasRoute('sykling', <Sykling />)}
+    {aliasRoute('fiske', <Fiske />)}
     {aliasRoute('familie', <Familie />)}
     {aliasRoute('vinter', <Vinter />)}
     {aliasRoute('loypekart', <Loypekart />)}
