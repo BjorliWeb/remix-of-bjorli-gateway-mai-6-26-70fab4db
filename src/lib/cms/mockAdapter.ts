@@ -523,7 +523,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Gardsbesøk',
             desc: 'Besøk lokale gårder i Lesja — gårdsliv, dyr, lokal mat og kulturlandskap nær Bjorli.',
-            image: { url: '/src/assets/farms/gardsbesok-lesja-kulturlandskap.avif', alt: 'Kulturlandskap i Lesja nær Bjorli' },
+            image: { url: farmVisitsImg, alt: 'Kulturlandskap i Lesja nær Bjorli' },
             href: '/gardsbesok',
             ctaLabel: 'Les mer',
           },
