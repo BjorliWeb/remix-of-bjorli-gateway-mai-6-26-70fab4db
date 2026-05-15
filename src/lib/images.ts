@@ -145,7 +145,7 @@ export const images = {
 
   // ── SUMMER TEASER & SUMMER PAGES ──────────────────────────────────────
   summer:         { src: s_homeSummer,    alt: 'Sommerlandskap på Bjorli med grønne fjell.',                wpField: 'summer_image',         placeholder: false },
-  hiking:         { src: s_flyFishing,    alt: 'Fluefiske i fjellelv ved Bjorli om sommeren.',              wpField: 'hiking_image',         placeholder: false },
+  hiking:         { src: e_summerTrail,   alt: 'Fottur i åpent sommerlandskap ved Bjorli.',                 wpField: 'hiking_image',         placeholder: false },
   biking:         { src: s_biking,        alt: 'Sykling i fjellet ved Bjorli en sommerdag.',                wpField: 'biking_image',         placeholder: false },
   familySummer:   { src: s_fishingLake,   alt: 'Familie på fisketur ved et fjellvann nær Bjorli.',          wpField: 'family_summer_image',  placeholder: false },
 

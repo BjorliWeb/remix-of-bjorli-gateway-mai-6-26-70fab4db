@@ -456,11 +456,11 @@ export const mockAdapter: CmsAdapter = {
     // Copy stays in NO for the placeholder iteration — it will move to
     // WordPress + i18n dictionaries when the CMS lands.
     const flyFishingImg  = images.flyFishing.src;
-    const riverFishingImg = images.riverFishing.src;
     const familySummerImg = images.familySummer.src;
     const summerWaterImg  = images.summerWater.src;
     const summerTrailImg  = images.eventFlying.src;   // sensommer trail / fjellnatur
-    const goldenTrainImg  = images.tipTrain.src;
+    const goldenTrainImg  = images.tipTrain.src;     // Raumabanen — regional summer landscape
+    const summerLandscapeImg = images.heroSummer.src; // wide green-season Bjorli landscape
 
     const summerSections: any[] = [
       // 2 — Intro value
@@ -514,14 +514,14 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            image: { url: summerWaterImg, alt: 'Sommerlandskap med vann ved Bjorli' },
+            image: { url: summerLandscapeImg, alt: 'Åpent sommerlandskap med grønne fjell ved Bjorli' },
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
           {
             title: 'Dagsturer fra Bjorli',
             desc: 'Romsdalen, Trollstigen, Geirangerområdet og Åndalsnes innen kort kjøretur eller togtur.',
-            image: { url: riverFishingImg, alt: 'Fjellelv og åpent landskap nær Bjorli' },
+            image: { url: goldenTrainImg, alt: 'Raumabanen langs elvedalen — regional dagstur fra Bjorli' },
             href: '/reisen-hit',
             ctaLabel: 'Les mer',
           },
@@ -599,7 +599,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Basecamp mellom fjell og fjord',
         title: 'Bo på Bjorli. Opplev mer av regionen.',
         body: 'Bjorli er en rolig fjellbase med god plass — bo høyt og åpent, og bruk dagene på turer ut i daler, fjell og fjordlandskap. Reinheimen, Tafjordfjella, Dovrefjell og Romsdalen ligger rundt deg, og Romsdalsalpene, Raumabanen, Trollstigen-området, Geiranger-området og Åndalsnes er innen rekkevidde for dagsturer.',
-        image: { url: riverFishingImg, alt: 'Stille fjellelv nær Bjorli — rolige dagsturer fra basecamp' },
+        image: { url: summerLandscapeImg, alt: 'Bjorli i sommerlandskap — basecamp mellom fjell og fjord' },
         imageSide: 'right' as const,
         subcards: [
           { title: 'Daler og fjellvann',  desc: 'Lesjaskogsvannet, Aursjøen og Dalsida — rolige landskap rett ved Bjorli.' },
