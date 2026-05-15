@@ -336,7 +336,9 @@ export interface CmsFeatureSection extends CmsSectionBase {
   eyebrow?: string;
   title: string;
   body: string;
-  image: CmsImage;
+  /** Optional. Omit to render a single-column, image-less feature
+   *  (used on summer pages when no editorially correct photo exists). */
+  image?: CmsImage;
   /** Visual order: image left or right. */
   imageSide?: 'left' | 'right';
   ctas: { label: string; href: string; variant?: 'primary' | 'secondary' | 'outline'; external?: boolean; icon?: string }[];

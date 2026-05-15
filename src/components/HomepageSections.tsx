@@ -296,14 +296,17 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           case 'feature': {
             const imageLeft = section.imageSide !== 'right';
             const bg = !imageLeft ? 'bg-muted/30' : '';
+            const hasImage = !!section.image?.url;
             return (
               <section key={section.id} className={`py-24 md:py-36 px-4 ${bg}`}>
-                <div className="container mx-auto max-w-6xl">
-                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div className={`relative rounded-2xl overflow-hidden h-96 lg:h-[560px] ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
-                      <img src={section.image.url} alt={section.image.alt || section.title} className="w-full h-full object-cover" loading="lazy" />
-                    </div>
-                    <div className={imageLeft ? '' : 'order-2 lg:order-1'}>
+                <div className={`container mx-auto ${hasImage ? 'max-w-6xl' : 'max-w-3xl'}`}>
+                  <div className={hasImage ? 'grid lg:grid-cols-2 gap-12 lg:gap-16 items-center' : ''}>
+                    {hasImage && (
+                      <div className={`relative rounded-2xl overflow-hidden h-96 lg:h-[560px] ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
+                        <img src={section.image!.url} alt={section.image!.alt || section.title} className="w-full h-full object-cover" loading="lazy" />
+                      </div>
+                    )}
+                    <div className={hasImage ? (imageLeft ? '' : 'order-2 lg:order-1') : ''}>
                       {section.eyebrow && (
                         <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
                       )}
@@ -334,8 +337,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'imageCards':
-            // Editorial split: headline aligned left, staggered card heights to
-            // break the equal-grid feeling.
+            // Equal-grid card layout — same width, height, aspect ratio,
+            // border radius, padding and CTA placement across all cards.
+            // Used by the summer activity grid where editorial rules
+            // require uniform visual weight across the 6 actions.
             return (
               <section key={section.id} className="py-28 md:py-36 px-4">
                 <div className="container mx-auto max-w-7xl">
@@ -349,12 +354,9 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {section.cards.map((card, i) => {
-                      // Stagger heights and vertical offset to reduce grid feel.
-                      const heights = ['h-[480px]', 'h-[400px]', 'h-[520px]'];
-                      const offsets = ['', 'lg:mt-16', 'lg:-mt-4'];
                       return (
-                        <Link key={card.title} to={lp(card.href)} className={offsets[i % 3]}>
-                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className={`group relative overflow-hidden cursor-pointer ${heights[i % 3]}`}>
+                        <Link key={card.title} to={lp(card.href)}>
+                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl">
                             <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
                             <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-8">

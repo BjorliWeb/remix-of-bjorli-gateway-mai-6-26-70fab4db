@@ -461,8 +461,13 @@ export const mockAdapter: CmsAdapter = {
     //
     // Copy stays in NO for the placeholder iteration — it will move to
     // WordPress + i18n dictionaries when the CMS lands.
-    const goldenTrainImg  = images.tipTrain.src;     // Raumabanen — regional summer landscape
-    const summerLandscapeImg = images.heroSummer.src; // wide green-season Bjorli landscape
+    // ── Summer-safe image pool ───────────────────────────────────────
+    // Each visual on /sommer must be DISTINCT. The hero (summerHero) is
+    // reserved for the page hero and may NOT be reused in cards or
+    // feature sections on the same page.
+    const goldenTrainImg = images.tipTrain.src;     // Raumabanen river valley — regional travel
+    const fishingLakeImg = images.fishingLake.src;  // Calm fjellvann — nature stand-in
+    const riverFishImg   = images.riverFishing.src; // Fjellelv — river/water
 
     const summerSections: any[] = [
       // 2 — Intro value
@@ -488,10 +493,10 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            // TEMPORARY FALLBACK — missing true hiking photo. Using the
-            // wide green Bjorli valley landscape (NATURE) as the closest
-            // editorial match for fotturer until a hiking asset is added.
-            image: { url: summerLandscapeImg, alt: 'Åpent grønt fjellandskap ved Bjorli — utgangspunkt for fotturer i sommerfjellet' },
+            // TEMPORARY FALLBACK — no dedicated hiker/trail photo yet.
+            // Calm fjellvann landscape (NATURE) used instead of the hero
+            // image to avoid repeating the page hero on the same page.
+            image: { url: fishingLakeImg, alt: 'Stille fjellvann i fjellet ved Bjorli — utgangspunkt for fotturer i sommerlandskapet' },
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -519,7 +524,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            image: { url: summerLandscapeImg, alt: 'Åpent sommerlandskap med grønne fjell ved Bjorli' },
+            image: { url: summerTrailImg, alt: 'Vidt sommerfjellandskap nær Bjorli — sti og åpen natur' },
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
@@ -533,26 +538,31 @@ export const mockAdapter: CmsAdapter = {
         ],
       },
       // 4 — Biking, play & active family days
+      // TODO(image): no second biking/family-active photo available;
+      // bikingImg already used in the activity card above. Leaving image
+      // empty per editorial rule (no winter / no repeats on same page).
       {
         id: 'summerBiking',
         type: 'feature' as const,
         eyebrow: 'Sykkel og familie',
         title: 'Sykkel, lek og aktive familiedager',
         body: 'Bjorli er et enkelt sted å være aktiv sammen som familie. Rolige stier, grusveier og en pumptrack i sentrum gir korte, oversiktlige dager på sykkel — fint for nybegynnere og barn som vil prøve seg. Pakk sykkelen, ta en runde på pumptracken og kombiner med en kort tur i fjellet eller en pause ved vannet.',
-        image: { url: bikingImg, alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
+        image: undefined,
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se sykkel og aktiviteter', href: '/sykling', variant: 'primary' as const },
         ],
       },
       // 5 — Hiking & nature
+      // TODO(image): no dedicated hiker photo. Hero (summerHero) is the
+      // closest match but reserved as page hero — no repeats on same page.
       {
         id: 'summerHiking',
         type: 'feature' as const,
         eyebrow: 'Fottur og natur',
         title: 'Turer rett fra fjellbygda',
         body: 'Bjorli ligger høyt og åpent, og du er raskt ute i fjellet uten lang innmarsj. Velg en kort rusletur ved sentrum, en familievennlig dagstur, eller gå lenger inn i Reinheimen og Romsdalsalpene. Et rolig utgangspunkt for sommerdager i norsk høyfjell.',
-        image: { url: summerLandscapeImg, alt: 'Åpent sommerlandskap i fjellet ved Bjorli' },
+        image: undefined,
         imageSide: 'left' as const,
         subcards: [
           { title: 'Korte turer',         desc: 'Lette rusleturer fra sentrum og hyttene — fine for en pause eller en rolig kveldstur.' },
@@ -565,26 +575,30 @@ export const mockAdapter: CmsAdapter = {
         ],
       },
       // 6 — Fishing & quiet outdoor days
+      // Card above uses flyFishingImg → use river-fishing photo here so
+      // the two fishing visuals stay distinct on the same page.
       {
         id: 'summerFishing',
         type: 'feature' as const,
         eyebrow: 'Fiske og rolige dager',
         title: 'Fluefiske, elvefiske og fjellvann',
         body: 'Rauma, Lågen og fjellvannene rundt Bjorli gir gode forhold for fiske gjennom hele sommeren. Et rolig tempo, ren natur og lange lyse kvelder ved vannet.',
-        image: { url: flyFishingImg, alt: 'Fluefiske i en fjellelv nær Bjorli om sommeren' },
+        image: { url: riverFishImg, alt: 'Fiske i en fjellelv nær Bjorli en stille sommerkveld' },
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se fiskemuligheter', href: '/aktiviteter', variant: 'primary' as const },
         ],
       },
       // 7 — Family summer
+      // TODO(image): summerWaterImg already used in the family card.
+      // No additional kid/outdoor-summer photo available — leave blank.
       {
         id: 'summerFamily',
         type: 'feature' as const,
         eyebrow: 'Familie',
         title: 'Enkel sommer med barn',
         body: 'Bjorli er en enkel plass å reise med barn. Korte avstander mellom hytte, sentrum og natur, åpent landskap rundt deg og lite kø — du slipper det tette by- og turistpresset, og får mer tid til å være ute sammen.',
-        image: { url: summerWaterImg, alt: 'Vannaktivitet i basseng på Bjorli — enkel sommerdag for familier' },
+        image: undefined,
         imageSide: 'left' as const,
         subcards: [
           { title: 'Korte turer',         desc: 'Lette stier rett fra hytta og sentrum — passer for små bein og barnevogn-tempo.' },
@@ -598,13 +612,16 @@ export const mockAdapter: CmsAdapter = {
         ],
       },
       // 8 — Basecamp for day trips
+      // TODO(image): page hero (summerHero) is the only wide green
+      // landscape; reserved for hero. goldenTrainImg already used in
+      // the Dagsturer card. Leave blank rather than repeat.
       {
         id: 'summerBasecamp',
         type: 'feature' as const,
         eyebrow: 'Basecamp mellom fjell og fjord',
         title: 'Bo på Bjorli. Opplev mer av regionen.',
         body: 'Bjorli er en rolig fjellbase med god plass — bo høyt og åpent, og bruk dagene på turer ut i daler, fjell og fjordlandskap. Reinheimen, Tafjordfjella, Dovrefjell og Romsdalen ligger rundt deg, og Romsdalsalpene, Raumabanen, Trollstigen-området, Geiranger-området og Åndalsnes er innen rekkevidde for dagsturer.',
-        image: { url: summerLandscapeImg, alt: 'Bjorli i sommerlandskap — basecamp mellom fjell og fjord' },
+        image: undefined,
         imageSide: 'right' as const,
         subcards: [
           { title: 'Daler og fjellvann',  desc: 'Lesjaskogsvannet, Aursjøen og Dalsida — rolige landskap rett ved Bjorli.' },
@@ -630,13 +647,16 @@ export const mockAdapter: CmsAdapter = {
         ],
       },
       // 10 — Accommodation
+      // TODO(image): no green-season cabin/exterior photo. Snowy
+      // Vetlegrenda (winter) is forbidden on summer pages and the only
+      // wide summer landscape is the hero. Leaving blank.
       {
         id: 'accommodationSummer',
         type: 'feature' as const,
         eyebrow: d.accommodation.eyebrow,
         title: d.accommodation.title,
         body: d.accommodation.body,
-        image: { url: summerLandscapeImg, alt: 'Bjorli i sommerlandskap — hytter og overnatting i grønne fjell' },
+        image: undefined,
         imageSide: 'left' as const,
         ctas: [
           { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' as const },

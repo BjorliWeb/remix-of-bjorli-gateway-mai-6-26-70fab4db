@@ -191,6 +191,31 @@ export const images = {
   skiDescent:       { src: s_skiDescent,   alt: 'Ski-nedfart med fjellutsikt på Bjorli.',                   wpField: 'ski_descent_image',        placeholder: false },
   kidsView:         { src: f_kidView,      alt: 'Barn på ski med fjellutsikt på Bjorli.',                   wpField: 'kids_view_image',          placeholder: false },
   summerWater:      { src: sm_water,       alt: 'Vannaktivitet i basseng på Bjorli om sommeren.',           wpField: 'summer_water_image',       placeholder: false },
+  // SUMMER-SAFE / NATURE — calm fishing-lake landscape. Used on summer
+  // pages as a nature/landscape stand-in when no dedicated hiking or
+  // wide-landscape photo is available. Not a hero candidate.
+  fishingLake:      { src: s_fishingLake,  alt: 'Stille fjellvann nær Bjorli — sommerlandskap.',            wpField: 'fishing_lake_image',       placeholder: false },
 } satisfies Record<string, BjorliImage>;
+
+/*
+ * Image QA notes (summer experience)
+ * ──────────────────────────────────────────────────────────────────────
+ *  SUMMER-SAFE  : heroSummer, summer, hiking (→ s_homeSummer landscape),
+ *                 biking, familySummer (bassen), summerWater, fishingLake,
+ *                 flyFishing, riverFishing, eventFlying (sensommer trail),
+ *                 tipTrain (Raumabanen river valley), dish.
+ *  WINTER-ONLY  : heroWinter, skiCenter, skiSlopes, liftArea, snowConditions,
+ *                 skiSchool, skiRental, crossCountry, cabinEvening,
+ *                 accommodation (snowy Vetlegrenda), foodDrink (Heiskroa
+ *                 winter), event/news/tipPlanning/tipFamily, mountainTop,
+ *                 powder, snowboard, eveningLift, resortEntrance, parking,
+ *                 restaurantEvening, bjorliSign, pisteMap, eventEaster,
+ *                 moodScenic, signMountain, all hero* / liftChair* / kidsView /
+ *                 carving* / skiDescent. Never use on summer pages.
+ *  HERO-ONLY    : heroSummer is the canonical /sommer hero. Do NOT reuse
+ *                 in cards or content sections on the same page.
+ *  LOGO / CROP  : (none currently in this registry — LOGO bank files are
+ *                 intentionally not imported. If added, document crop here.)
+ */
 
 export type ImageKey = keyof typeof images;
