@@ -15,14 +15,15 @@ const heroImg = images.heroSummer.src;
 const Activities = () => {
   const { d, locale } = useLanguage();
   const activities = useCms(() => getActivities({ language: locale }), [locale]) ?? [];
-  const items = activities.map((a) => toListingItem(a, heroImg));
+  const summerActivities = activities.filter((a) => a.season === 'summer');
+  const items = summerActivities.map((a) => toListingItem(a, heroImg));
   return (
     <ActivitiesListingTemplate
       title={d.listing.pageActivitiesTitle}
       intro={d.listing.pageActivitiesIntro}
       heroImage={heroImg}
       basePath="/aktiviteter"
-      entries={activities}
+      entries={summerActivities}
       items={items}
     />
   );
