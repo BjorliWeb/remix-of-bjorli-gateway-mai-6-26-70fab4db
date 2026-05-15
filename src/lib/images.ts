@@ -44,6 +44,10 @@ import h_panoramaWide from '@/assets/photos/bank/01-hero/bjorli-vinterpanorama-s
 import h_groupWide    from '@/assets/photos/bank/01-hero/bjorli-gruppe-skiere-fjellpanorama-hero-wide.jpg';
 import h_liftHero     from '@/assets/photos/bank/01-hero/bjorli-skiheis-hoyfjell-vinter-hero.jpg';
 import h_carvingHero  from '@/assets/photos/bank/01-hero/bjorli-carving-oransje-skikjorer-action-hero.jpg';
+// New summer aerial heroes (2026 batch) — strong replacements for snow
+// imagery on summer pages. See bjorli-extra-image-manifest.csv.
+import h_summerAerialValleyRiver    from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-dal-og-elvelandskap-hero-wide.jpg';
+import h_summerAerialSkiCenterMtn   from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-skisenter-og-fjell-hero-wide.jpg';
 
 // 02 – Ski / action / slopes
 import s_slopeView      from '@/assets/photos/bank/02-ski/bjorli-vinter-skiloyper-fjellandskap-underside.jpg';
@@ -86,9 +90,14 @@ import x_destSign     from '@/assets/photos/bank/07-underside/bjorli-winter-dest
 
 // 08 – Vinter atmosphere
 import w_corduroy     from '@/assets/photos/bank/08-vinter/bjorli-winter-groomed-corduroy-snow-detail.jpg';
+import w_mountainSkiView   from '@/assets/photos/bank/08-vinter/bjorli-vinter-fjellpanorama-skisenter-utsikt-support.jpg';
+import w_eveningSlopeLights from '@/assets/photos/bank/08-vinter/bjorli-vinter-kveld-lysloype-skibakke-support.png';
 
 // 09 – Sommer
 import sm_water       from '@/assets/photos/bank/09-sommer/bjorli-summer-bassen-water-activity-area.jpg';
+
+// 13 – Natur (summer)
+import n_summerAerialNature from '@/assets/photos/bank/13-natur/bjorli-sommer-luftfoto-rauma-elv-og-bjorli-dal-natur.jpg';
 
 // Existing summer/accommodation/practical assets we still rely on.
 import s_homeSummer   from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-home-summer-a32c838736.jpg';
@@ -205,6 +214,44 @@ export const images = {
   fishingHero:      { src: s_fishingHero,    alt: 'Fisker ved fjellvann nær Bjorli en sommerdag.',           wpField: 'fishing_hero_image',       placeholder: false },
   fishingMountain:  { src: s_fishingMountain,alt: 'Fjellfiske i Lesjafjella nær Bjorli.',                    wpField: 'fishing_mountain_image',   placeholder: false },
   salmonRauma:      { src: s_salmonRauma,    alt: 'Laksefiske i Rauma elv. Bilde © lakseelver.no.',          wpField: 'salmon_rauma_image',       placeholder: false },
+
+  // ── NEW SUMMER AERIALS (2026 batch) ───────────────────────────────────
+  // Strong wide green-season landscapes. Use as primary summer hero /
+  // nature / view replacements anywhere the site previously fell back to
+  // snow, cycling-as-hiking or repeated images.
+  summerAerialValleyRiver: {
+    src: h_summerAerialValleyRiver,
+    alt: 'Luftfoto av Bjorli med grønne fjell, dal og elvelandskap om sommeren.',
+    wpField: 'summer_aerial_valley_river_image',
+    placeholder: false,
+  },
+  summerAerialSkiCenterMountain: {
+    src: h_summerAerialSkiCenterMtn,
+    alt: 'Sommerutsikt over Bjorli med skisenter, fjell og dalføre.',
+    wpField: 'summer_aerial_ski_center_mountain_image',
+    placeholder: false,
+  },
+  summerAerialNature: {
+    src: n_summerAerialNature,
+    alt: 'Luftfoto av Rauma og dalen ved Bjorli — sommernatur og elvelandskap.',
+    wpField: 'summer_aerial_nature_image',
+    placeholder: false,
+  },
+
+  // ── NEW WINTER SUPPORT IMAGES (2026 batch) ────────────────────────────
+  // Winter-only. Never use on /sommer or summer subpages.
+  winterMountainSkiView: {
+    src: w_mountainSkiView,
+    alt: 'Vinterutsikt over Bjorli skisenter med fjell og skiløyper.',
+    wpField: 'winter_mountain_ski_view_image',
+    placeholder: false,
+  },
+  winterEveningSlopeLights: {
+    src: w_eveningSlopeLights,
+    alt: 'Kveldsstemning i skibakken på Bjorli med lys og snø.',
+    wpField: 'winter_evening_slope_lights_image',
+    placeholder: false,
+  },
 } satisfies Record<string, BjorliImage>;
 
 /*
@@ -246,7 +293,7 @@ export type ImageKey = keyof typeof images;
  * groups so it cannot be repeated on the same page as the page hero.
  */
 export const summerHeroImages       = [images.heroSummer] as const;
-export const summerHikingImages     = [images.hiking, images.summerValley] as const;
+export const summerHikingImages     = [images.hiking, images.summerAerialValleyRiver, images.summerValley] as const;
 export const summerCyclingImages    = [images.biking] as const;
 export const summerFishingImages    = [images.flyFishing, images.riverFishing, images.localFishing] as const;
 export const summerFamilyImages     = [images.familySummer] as const;
@@ -255,8 +302,8 @@ export const summerFamilyImages     = [images.familySummer] as const;
 // rule (no cycling image for nature). `fishingLake` is a calm lake
 // landscape — acceptable as a quiet nature stand-in but never as a
 // hiking image. TODO: upload a true green panorama/landscape photo.
-export const summerNatureImages     = [images.summerValley, images.fishingLake] as const;
-export const summerDaytripImages    = [images.tipTrain] as const; // Raumabanen river valley
+export const summerNatureImages     = [images.summerAerialNature, images.summerAerialValleyRiver, images.summerValley, images.fishingLake] as const;
+export const summerDaytripImages    = [images.tipTrain, images.summerAerialSkiCenterMountain] as const; // Raumabanen + aerial overview
 export const summerAccommodationImages: readonly BjorliImage[] = []; // TODO: upload green-season cabin/exterior photo
 export const summerFoodDrinkImages  = [images.restaurantInterior, images.dish] as const; // TODO: outdoor terrace/café photo
 
