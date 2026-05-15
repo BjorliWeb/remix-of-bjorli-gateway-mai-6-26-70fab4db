@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
 import {
   ArrowRight, ChevronRight, MapPin, TrendingUp, Train, Camera,
   Eye, Users, ExternalLink, Download, Mountain, TreePine, Car,
@@ -251,20 +251,26 @@ const KorteTurer = () => {
     ],
   };
 
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = 'Korte turer rundt Bjorli | Enkle fotturer i Lesja og Rauma';
+    const setMeta = (sel: string, attr: string, key: string, val: string) => {
+      let el = document.head.querySelector<HTMLMetaElement>(sel);
+      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
+      el.setAttribute('content', val);
+      return el;
+    };
+    const m1 = setMeta('meta[name="description"]', 'name', 'description',
+      'Finn korte turer rundt Bjorli, Lesja og Romsdalen. Utsiktspunkt, kulturminner, familievennlige turer og kart for enkle naturopplevelser nær E136 og Raumabanen.');
+    const m2 = setMeta('meta[property="og:title"]', 'property', 'og:title', 'Korte turer rundt Bjorli');
+    const s1 = document.createElement('script'); s1.type = 'application/ld+json'; s1.text = JSON.stringify(faqJsonLd); document.head.appendChild(s1);
+    const s2 = document.createElement('script'); s2.type = 'application/ld+json'; s2.text = JSON.stringify(breadcrumbJsonLd); document.head.appendChild(s2);
+    return () => { document.title = prevTitle; s1.remove(); s2.remove(); void m1; void m2; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
-      <Helmet>
-        <title>Korte turer rundt Bjorli | Enkle fotturer i Lesja og Rauma</title>
-        <meta name="description" content="Finn korte turer rundt Bjorli, Lesja og Romsdalen. Utsiktspunkt, kulturminner, familievennlige turer og kart for enkle naturopplevelser nær E136 og Raumabanen." />
-        <link rel="canonical" href="/sommer/korte-turer" />
-        <meta property="og:title" content="Korte turer rundt Bjorli" />
-        <meta property="og:description" content="10 utvalgte korte fotturer i Lesja og Rauma — utsiktspunkt, kulturminner og familievennlige stopp nær Bjorli." />
-        <meta property="og:url" content="/sommer/korte-turer" />
-        <meta property="og:type" content="article" />
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-      </Helmet>
-
       {/* Hero */}
       <section className="relative h-[80vh] min-h-[520px] flex items-center justify-center overflow-hidden">
         <img
