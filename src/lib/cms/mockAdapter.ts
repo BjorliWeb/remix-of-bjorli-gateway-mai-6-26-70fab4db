@@ -488,7 +488,10 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            image: { url: familySummerImg, alt: 'Person i åpent fjellandskap nær Bjorli — fottur i sommerfjellet' },
+            // TEMPORARY FALLBACK — missing true hiking photo. Using the
+            // wide green Bjorli valley landscape (NATURE) as the closest
+            // editorial match for fotturer until a hiking asset is added.
+            image: { url: summerLandscapeImg, alt: 'Åpent grønt fjellandskap ved Bjorli — utgangspunkt for fotturer i sommerfjellet' },
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -509,7 +512,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Familieaktiviteter',
             desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
-            image: { url: flyFishingImg, alt: 'Rolig sommerdag ute i naturen nær Bjorli — passer for familier' },
+            image: { url: summerWaterImg, alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp' },
             href: '/familie',
             ctaLabel: 'Les mer',
           },
@@ -581,7 +584,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Familie',
         title: 'Enkel sommer med barn',
         body: 'Bjorli er en enkel plass å reise med barn. Korte avstander mellom hytte, sentrum og natur, åpent landskap rundt deg og lite kø — du slipper det tette by- og turistpresset, og får mer tid til å være ute sammen.',
-        image: { url: familySummerImg, alt: 'Familie på fisketur ved et fjellvann nær Bjorli om sommeren' },
+        image: { url: summerWaterImg, alt: 'Vannaktivitet i basseng på Bjorli — enkel sommerdag for familier' },
         imageSide: 'left' as const,
         subcards: [
           { title: 'Korte turer',         desc: 'Lette stier rett fra hytta og sentrum — passer for små bein og barnevogn-tempo.' },
@@ -646,6 +649,9 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Mat og møteplasser',
         title: 'Steder å pause i sommerlandskapet',
         body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
+        // TEMPORARY FALLBACK — missing true summer café/terrace photo.
+        // Using a neutral plated-dish photo (SERVING) instead of any
+        // winter terrace, ski-base or random water image.
         image: { url: images.dish.src, alt: 'Servering fra restaurant på Bjorli — mat og møteplasser' },
         imageSide: 'right' as const,
         ctas: [

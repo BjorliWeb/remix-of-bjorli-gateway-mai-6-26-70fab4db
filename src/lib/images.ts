@@ -147,7 +147,11 @@ export const images = {
   summer:         { src: s_homeSummer,    alt: 'Sommerlandskap på Bjorli med grønne fjell.',                wpField: 'summer_image',         placeholder: false },
   hiking:         { src: s_homeSummer,    alt: 'Åpent sommerlandskap ved Bjorli — fottur i grønne fjell.',  wpField: 'hiking_image',         placeholder: false },
   biking:         { src: s_biking,        alt: 'Sykling i fjellet ved Bjorli en sommerdag.',                wpField: 'biking_image',         placeholder: false },
-  familySummer:   { src: s_fishingLake,   alt: 'Familie på fisketur ved et fjellvann nær Bjorli.',          wpField: 'family_summer_image',  placeholder: false },
+  // Family / low-threshold summer. Repointed from fishing-lake → bassen
+  // (kids water-activity area) so the variable matches its editorial use
+  // on summer family cards. Tag: FAMILY / SUMMER. TEMPORARY FALLBACK
+  // until a true "family on a short trail / pumptrack" photo exists.
+  familySummer:   { src: sm_water,         alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp.', wpField: 'family_summer_image',  placeholder: false },
 
   // ── GETTING HERE / PRACTICAL ──────────────────────────────────────────
   gettingHere:    { src: x_destSign,      alt: 'Velkomstskilt og fjellutsikt – ankomst til Bjorli.',        wpField: 'getting_here_image',   placeholder: false },
