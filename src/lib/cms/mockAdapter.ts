@@ -527,17 +527,17 @@ export const mockAdapter: CmsAdapter = {
           },
         ],
       },
-      // 4 — Biking & pumptrack
+      // 4 — Biking, play & active family days
       {
         id: 'summerBiking',
         type: 'feature' as const,
-        eyebrow: 'Sykling',
-        title: 'Sykkel og pumptrack for hele familien',
-        body: 'Bjorli har stier, grusveier og en pumptrack rett ved sentrum. Aktive dager med lavt tempo, godt egnet for nybegynnere og familier som vil prøve sykkel i fjellet.',
+        eyebrow: 'Sykkel og familie',
+        title: 'Sykkel, lek og aktive familiedager',
+        body: 'Bjorli er et enkelt sted å være aktiv sammen som familie. Rolige stier, grusveier og en pumptrack i sentrum gir korte, oversiktlige dager på sykkel — fint for nybegynnere og barn som vil prøve seg. Pakk sykkelen, ta en runde på pumptracken og kombiner med en kort tur i fjellet eller en pause ved vannet.',
         image: { url: bikingImg, alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
         imageSide: 'right' as const,
         ctas: [
-          { label: 'Se sykkelmuligheter', href: '/sykling', variant: 'primary' as const },
+          { label: 'Se sykkel og aktiviteter', href: '/sykling', variant: 'primary' as const },
         ],
       },
       // 5 — Hiking & nature
