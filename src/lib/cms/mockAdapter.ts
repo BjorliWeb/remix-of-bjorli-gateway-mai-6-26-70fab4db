@@ -521,6 +521,13 @@ export const mockAdapter: CmsAdapter = {
             ctaLabel: 'Les mer',
           },
           {
+            title: 'Gardsbesøk',
+            desc: 'Besøk lokale gårder i Lesja — gårdsliv, dyr, lokal mat og kulturlandskap nær Bjorli.',
+            image: { url: '/src/assets/farms/gardsbesok-lesja-kulturlandskap.avif', alt: 'Kulturlandskap i Lesja nær Bjorli' },
+            href: '/gardsbesok',
+            ctaLabel: 'Les mer',
+          },
+          {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
             image: { url: summerValleyImg, alt: 'Grønn dal og fjell rundt Bjorli en sommerdag' },

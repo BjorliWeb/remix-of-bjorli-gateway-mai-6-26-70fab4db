@@ -31,6 +31,7 @@ import Sykling from "./pages/Sykling";
 import KorteTurer from "./pages/KorteTurer";
 import Familie from "./pages/Familie";
 import Fiske from "./pages/Fiske";
+import Gardsbesok from "./pages/Gardsbesok";
 import Vinter from "./pages/Vinter";
 import Live from "./pages/Live";
 import Loypekart from "./pages/Loypekart";
@@ -104,6 +105,7 @@ const AppRoutes = () => (
     <Route path="/sykling" element={<Sykling />} />
     <Route path="/familie" element={<Familie />} />
     <Route path="/fiske" element={<Fiske />} />
+    <Route path="/gardsbesok" element={<Gardsbesok />} />
     <Route path="/sommer/korte-turer" element={<KorteTurer />} />
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
@@ -148,6 +150,7 @@ const AppRoutes = () => (
     {aliasRoute('fotturer', <Fotturer />)}
     {aliasRoute('sykling', <Sykling />)}
     {aliasRoute('fiske', <Fiske />)}
+    {aliasRoute('gardsbesok', <Gardsbesok />)}
     {aliasRoute('familie', <Familie />)}
     {aliasRoute('vinter', <Vinter />)}
     {aliasRoute('loypekart', <Loypekart />)}
