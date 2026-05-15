@@ -360,6 +360,13 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             <div className="absolute bottom-0 left-0 right-0 p-8">
                               {card.eyebrow && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{card.eyebrow}</div>}
                               <h3 className="font-display text-2xl md:text-3xl font-bold text-primary-foreground leading-[1.05] tracking-tight">{card.title}</h3>
+                              {card.desc && (
+                                <p className="text-primary-foreground/85 text-sm md:text-base leading-relaxed mt-3 max-w-md">{card.desc}</p>
+                              )}
+                              <div className="mt-5 inline-flex items-center gap-2 text-primary-foreground text-xs md:text-sm font-medium tracking-[0.18em] uppercase">
+                                {card.ctaLabel || 'Les mer'}
+                                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                              </div>
                             </div>
                           </motion.div>
                         </Link>
