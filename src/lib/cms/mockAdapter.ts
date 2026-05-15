@@ -461,10 +461,6 @@ export const mockAdapter: CmsAdapter = {
     //
     // Copy stays in NO for the placeholder iteration — it will move to
     // WordPress + i18n dictionaries when the CMS lands.
-    const flyFishingImg  = images.flyFishing.src;
-    const familySummerImg = images.familySummer.src;
-    const summerWaterImg  = images.summerWater.src;
-    const summerTrailImg  = images.eventFlying.src;   // sensommer trail / fjellnatur
     const goldenTrainImg  = images.tipTrain.src;     // Raumabanen — regional summer landscape
     const summerLandscapeImg = images.heroSummer.src; // wide green-season Bjorli landscape
 
