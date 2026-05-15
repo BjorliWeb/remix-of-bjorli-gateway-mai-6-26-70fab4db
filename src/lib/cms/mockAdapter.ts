@@ -510,7 +510,7 @@ export const mockAdapter: CmsAdapter = {
             // river-fishing photo used in the Fluefiske feature section
             // below (no image may appear twice on the same page).
             image: { url: images.flyFishing.src, alt: 'Fluefiske i en fjellelv nær Bjorli en stille sommerdag' },
-            href: '/aktiviteter',
+            href: '/fiske',
             ctaLabel: 'Les mer',
           },
           {
