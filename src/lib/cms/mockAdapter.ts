@@ -531,7 +531,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Sagelva vasskraftsenter',
             desc: 'Opplev 300 år med vasskraft, lokalhistorie og levende formidling i Lesja.',
-            image: { url: images.summerAerialValleyRiver.src, alt: images.summerAerialValleyRiver.alt },
+            image: { url: images.sagelva.src, alt: images.sagelva.alt },
             href: '/sagelva',
             ctaLabel: 'Les mer',
           },

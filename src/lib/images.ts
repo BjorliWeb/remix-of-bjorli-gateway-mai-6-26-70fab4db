@@ -49,6 +49,10 @@ import h_carvingHero  from '@/assets/photos/bank/01-hero/bjorli-carving-oransje-
 import h_summerAerialValleyRiver    from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-dal-og-elvelandskap-hero-wide.jpg';
 import h_summerAerialSkiCenterMtn   from '@/assets/photos/bank/01-hero/bjorli-sommer-luftfoto-skisenter-og-fjell-hero-wide.jpg';
 
+// Local destination photos (real on-site images for activity cards)
+import dest_romsdalsgondolen from '@/assets/romsdalsgondolen/romsdalsgondolen-gondol.jpeg';
+import dest_sagelva          from '@/assets/sagelva/sagelva-hero-vasskraftsenter.jpg';
+
 // 02 – Ski / action / slopes
 import s_slopeView      from '@/assets/photos/bank/02-ski/bjorli-vinter-skiloyper-fjellandskap-underside.jpg';
 import s_slopePanorama  from '@/assets/photos/bank/02-ski/bjorli-skiloyper-fjellpanorama-underside.jpg';
@@ -250,6 +254,22 @@ export const images = {
     src: w_eveningSlopeLights,
     alt: 'Kveldsstemning i skibakken på Bjorli med lys og snø.',
     wpField: 'winter_evening_slope_lights_image',
+    placeholder: false,
+  },
+
+  // ── DESTINATION-SPECIFIC PHOTOS ───────────────────────────────────────
+  // Real on-site photos for activity cards. Always prefer these over
+  // generic aerials when linking to the dedicated subpage.
+  romsdalsgondolen: {
+    src: dest_romsdalsgondolen,
+    alt: 'Romsdalsgondolen i Åndalsnes med utsikt mot Romsdalen.',
+    wpField: 'romsdalsgondolen_image',
+    placeholder: false,
+  },
+  sagelva: {
+    src: dest_sagelva,
+    alt: 'Sagelva vasskraftsenter på Stueflotten i Lesja — gardsmiljø ved elva.',
+    wpField: 'sagelva_image',
     placeholder: false,
   },
 } satisfies Record<string, BjorliImage>;
