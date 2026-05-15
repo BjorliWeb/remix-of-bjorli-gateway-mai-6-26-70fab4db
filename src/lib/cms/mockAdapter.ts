@@ -476,19 +476,55 @@ export const mockAdapter: CmsAdapter = {
           { title: 'Basecamp',     desc: 'Bo på Bjorli og bruk dagene mellom fjell, daler og fjordlandskap.',          icon: 'home' },
         ],
       },
-      // 3 — Main activities (icon grid, no image reuse)
+      // 3 — Main activities (image cards with short copy + "Les mer")
       {
         id: 'summerActivitiesGrid',
-        type: 'activities' as const,
-        title: 'Naturopplevelser i alle tempo',
-        subtitle: 'Fottur, sykling, fiske og dagsturer til fjord og fjell — fra et rolig utgangspunkt i høyfjellet.',
-        items: [
-          { title: 'Fotturer',          desc: 'Korte og lange turer i åpent høyfjellsterreng.',         icon: 'mountain' },
-          { title: 'Sykling',           desc: 'Stier, grusveier og pumptrack for hele familien.',       icon: 'bike' },
-          { title: 'Fiske',             desc: 'Fluefiske, elvefiske og rolige dager ved vannet.',       icon: 'activity' },
-          { title: 'Familieaktiviteter', desc: 'Trygge, romslige opplevelser for små og store.',        icon: 'users' },
-          { title: 'Natur og utsikt',   desc: 'Åpne vidder, fjellplatåer og stille seterdaler.',        icon: 'treePine' },
-          { title: 'Dagsturer',         desc: 'Kjør eller ta toget til Trollstigen, Geiranger og Åndalsnes.', icon: 'car' },
+        type: 'imageCards' as const,
+        eyebrow: 'Sommer på Bjorli',
+        title: 'Dette kan du gjøre på Bjorli om sommeren',
+        cards: [
+          {
+            title: 'Fotturer',
+            desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
+            image: { url: summerTrailImg, alt: 'Sti i fjellet ved Bjorli om sommeren' },
+            href: '/fotturer',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Sykkel og pumptrack',
+            desc: 'Stier, grusveier og en pumptrack i sentrum — for nybegynnere og hele familien.',
+            image: { url: bikingImg, alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
+            href: '/sykling',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Fiske',
+            desc: 'Fluefiske i Rauma, elvefiske og rolige dager ved fjellvannene rundt Bjorli.',
+            image: { url: flyFishingImg, alt: 'Fluefiske i en fjellelv nær Bjorli' },
+            href: '/aktiviteter',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Familieaktiviteter',
+            desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
+            image: { url: familySummerImg, alt: 'Familie på fisketur ved et fjellvann nær Bjorli' },
+            href: '/familie',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Natur og utsikt',
+            desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
+            image: { url: summerWaterImg, alt: 'Sommerlandskap med vann ved Bjorli' },
+            href: '/aktiviteter',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Dagsturer fra Bjorli',
+            desc: 'Romsdalen, Trollstigen, Geirangerområdet og Åndalsnes innen kort kjøretur eller togtur.',
+            image: { url: riverFishingImg, alt: 'Fjellelv og åpent landskap nær Bjorli' },
+            href: '/reisen-hit',
+            ctaLabel: 'Les mer',
+          },
         ],
       },
       // 4 — Biking & pumptrack
