@@ -20,10 +20,10 @@ const Sommer = () => {
 
   // Hero copy is fixed for the summer page (placeholder until WordPress).
   const heroTitle    = 'Sommer på Bjorli';
-  const heroSubtitle = 'Basecamp mellom fjell og fjord – med turer, sykling, fiske og ekte fjellro rett utenfor døra.';
+  const heroSubtitle = 'Et rolig fjellbasecamp mellom fjordene, nasjonalparkene og noen av Norges mest kjente naturopplevelser — med fottur, sykling og fiske rett utenfor døra.';
   const heroEyebrow  = d.summer.eyebrow ?? d.summer.badge;
   // Final CTA copy
-  const finalTitle = 'Planlegg sommerdagene på Bjorli';
+  const finalTitle = 'Planlegg en rolig sommer på Bjorli';
 
   return (
     <div>
