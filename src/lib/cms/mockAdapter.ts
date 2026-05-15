@@ -586,7 +586,7 @@ export const mockAdapter: CmsAdapter = {
         image: { url: riverFishImg, alt: 'Fiske i en fjellelv nær Bjorli en stille sommerkveld' },
         imageSide: 'right' as const,
         ctas: [
-          { label: 'Se fiskemuligheter', href: '/aktiviteter', variant: 'primary' as const },
+          { label: 'Se fiskemuligheter', href: '/fiske', variant: 'primary' as const },
         ],
       },
       // 7 — Family summer
