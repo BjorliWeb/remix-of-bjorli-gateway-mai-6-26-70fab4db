@@ -492,11 +492,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            // TODO: Upload suitable summer hiking/trail photo for this card.
-            // No dedicated hiker/trail photo exists yet — the page hero is
-            // reserved (no repeats) and a fishing-lake image is forbidden
-            // here per editorial rule (no fishing image for hiking).
-            image: undefined,
+            image: { url: hikingImg, alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli' },
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -520,18 +516,14 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Familieaktiviteter',
             desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
-            image: { url: summerWaterImg, alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp' },
+            image: { url: familySummerImg, alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli' },
             href: '/familie',
             ctaLabel: 'Les mer',
           },
           {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            // TODO: Upload suitable green-summer landscape/panorama photo.
-            // The previous candidate (eventFlying) is a stisykling/cycling
-            // shot — forbidden here per editorial rule (no cycling image
-            // for nature). Hero is reserved (no repeats on same page).
-            image: undefined,
+            image: { url: summerValleyImg, alt: 'Grønn dal og fjell rundt Bjorli en sommerdag' },
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
