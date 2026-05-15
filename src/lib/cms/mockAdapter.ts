@@ -114,8 +114,7 @@ const bikingImg       = images.biking.src;
 const summerHero      = images.heroSummer.src;
 const flyFishingImg   = images.flyFishing.src;
 const familySummerImg = images.familySummer.src;
-const summerWaterImg  = images.summerWater.src;
-const summerTrailImg  = images.eventFlying.src;
+const summerValleyImg = images.summerValley.src;
 
 /**
  * Mock CMS adapter.
@@ -138,7 +137,7 @@ const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
 const EVENT_IMAGES = [concertImg, tipFamily, crossCountry, summerImg];
 // Split per season so summer activities never get assigned a winter photo.
 const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
-const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, flyFishingImg, familySummerImg, summerTrailImg, summerImg];
+const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
 
 const nowIso = () => new Date().toISOString();
 
@@ -493,11 +492,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            // TODO: Upload suitable summer hiking/trail photo for this card.
-            // No dedicated hiker/trail photo exists yet — the page hero is
-            // reserved (no repeats) and a fishing-lake image is forbidden
-            // here per editorial rule (no fishing image for hiking).
-            image: undefined,
+            image: { url: hikingImg, alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli' },
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -521,18 +516,14 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Familieaktiviteter',
             desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
-            image: { url: summerWaterImg, alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp' },
+            image: { url: familySummerImg, alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli' },
             href: '/familie',
             ctaLabel: 'Les mer',
           },
           {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            // TODO: Upload suitable green-summer landscape/panorama photo.
-            // The previous candidate (eventFlying) is a stisykling/cycling
-            // shot — forbidden here per editorial rule (no cycling image
-            // for nature). Hero is reserved (no repeats on same page).
-            image: undefined,
+            image: { url: summerValleyImg, alt: 'Grønn dal og fjell rundt Bjorli en sommerdag' },
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
@@ -677,11 +668,11 @@ export const mockAdapter: CmsAdapter = {
         type: 'feature' as const,
         eyebrow: 'Mat og møteplasser',
         title: 'Steder å pause i sommerlandskapet',
-        body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
-        // TEMPORARY FALLBACK — missing true summer café/terrace photo.
-        // Using a neutral plated-dish photo (SERVING) instead of any
-        // winter terrace, ski-base or random water image.
-        image: { url: images.dish.src, alt: 'Servering fra restaurant på Bjorli — mat og møteplasser' },
+        body: 'Servering og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld etter en dag ute.',
+        // TODO(image): upload a true outdoor summer café/terrace photo.
+        // Until then, use neutral restaurant interior instead of winter
+        // terrace/ski-base imagery or unrelated water/family photos.
+        image: { url: images.restaurantInterior.src, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli' },
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },

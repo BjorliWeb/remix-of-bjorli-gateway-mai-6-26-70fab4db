@@ -1,7 +1,7 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
-const foodDrinkImg = images.foodDrink.src;
+const foodDrinkImg = images.restaurantInterior.src;
 import { UtensilsCrossed } from 'lucide-react';
 import { motion } from 'framer-motion';
 

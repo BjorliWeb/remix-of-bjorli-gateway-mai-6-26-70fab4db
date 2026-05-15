@@ -96,6 +96,11 @@ import s_flyFishing   from '@/assets/photos/02_summer_destination/bjorli-sommer-
 import s_fishingLake  from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-fiskeilesja-d91ae3c817.jpg';
 import s_fishingRiver from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-fiskelv-9210bd8a45.jpg';
 import s_biking       from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-large-sykkelilesja-e6a70b0e8d.jpg';
+import s_valleyView   from '@/assets/photos/bjorli-sommer-dal-fjellutsikt.jpg';
+import s_hikingView   from '@/assets/photos/bjorli-sommer-fjelltur-utsikt.jpg';
+import s_familyFarm   from '@/assets/photos/bjorli-sommer-familie-gardsopplevelse.jpg';
+import s_fishingLocal from '@/assets/photos/bjorli-sommer-elv-fiske.jpg';
+import s_restaurantInterior from '@/assets/photos/bjorli-restaurant-interior-lanterne.jpg';
 import a_vetlegrenda  from '@/assets/photos/03_accommodation/bjorli-overnatting-hytte-vetlegrenda-fra-vg-10-og-mot-skisen.jpg';
 import a_mountainLodge from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-bjorlimountainlodge-8cafc89cba-4.jpg';
 import f_dish         from '@/assets/photos/04_food_restaurant/bjorli-restaurant-mat-mattisolavbjokne-2-20410b6b4a.jpg';
@@ -145,13 +150,10 @@ export const images = {
 
   // ── SUMMER TEASER & SUMMER PAGES ──────────────────────────────────────
   summer:         { src: s_homeSummer,    alt: 'Sommerlandskap på Bjorli med grønne fjell.',                wpField: 'summer_image',         placeholder: false },
-  hiking:         { src: s_homeSummer,    alt: 'Åpent sommerlandskap ved Bjorli — fottur i grønne fjell.',  wpField: 'hiking_image',         placeholder: false },
+  hiking:         { src: s_hikingView,    alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli.', wpField: 'hiking_image',      placeholder: false },
   biking:         { src: s_biking,        alt: 'Sykling i fjellet ved Bjorli en sommerdag.',                wpField: 'biking_image',         placeholder: false },
-  // Family / low-threshold summer. Repointed from fishing-lake → bassen
-  // (kids water-activity area) so the variable matches its editorial use
-  // on summer family cards. Tag: FAMILY / SUMMER. TEMPORARY FALLBACK
-  // until a true "family on a short trail / pumptrack" photo exists.
-  familySummer:   { src: sm_water,         alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp.', wpField: 'family_summer_image',  placeholder: false },
+  familySummer:   { src: s_familyFarm,    alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli.',      wpField: 'family_summer_image',  placeholder: false },
+  summerValley:   { src: s_valleyView,    alt: 'Grønn dal og fjell rundt Bjorli en sommerdag.',             wpField: 'summer_valley_image',  placeholder: false },
 
   // ── GETTING HERE / PRACTICAL ──────────────────────────────────────────
   gettingHere:    { src: x_destSign,      alt: 'Velkomstskilt og fjellutsikt – ankomst til Bjorli.',        wpField: 'getting_here_image',   placeholder: false },
@@ -172,6 +174,8 @@ export const images = {
   pisteMap:      { src: p_pisteMap,       alt: 'Løypekart for Bjorli Skisenter.',                            wpField: 'piste_map_image',      placeholder: false },
   flyFishing:    { src: s_flyFishing,     alt: 'Fluefiske i en fjellelv nær Bjorli.',                        wpField: 'fly_fishing_image',    placeholder: false },
   riverFishing:  { src: s_fishingRiver,   alt: 'Fiske i en fjellelv nær Bjorli.',                            wpField: 'river_fishing_image',  placeholder: false },
+  localFishing:  { src: s_fishingLocal,   alt: 'Fisker krysser en klar sommerelv nær Bjorli.',               wpField: 'local_fishing_image',  placeholder: false },
+  restaurantInterior: { src: s_restaurantInterior, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli.', wpField: 'restaurant_interior_image', placeholder: false },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
   eventEaster:   { src: f_familyNord,     alt: 'Familie i Nordløypa på Bjorli – påskestemning.',             wpField: 'event_easter_image',   placeholder: false },
   moodScenic:    { src: x_skiersValley,   alt: 'Skiere i portrett med dalutsikt på Bjorli.',                 wpField: 'mood_scenic_image',    placeholder: false },
@@ -200,10 +204,11 @@ export const images = {
 /*
  * Image QA notes (summer experience)
  * ──────────────────────────────────────────────────────────────────────
- *  SUMMER-SAFE  : heroSummer, summer, hiking (→ s_homeSummer landscape),
- *                 biking, familySummer (bassen), summerWater, fishingLake,
- *                 flyFishing, riverFishing, eventFlying (sensommer trail),
- *                 tipTrain (Raumabanen river valley), dish.
+ *  SUMMER-SAFE  : heroSummer, summer, hiking, summerValley, biking,
+ *                 familySummer, fishingLake, flyFishing, riverFishing,
+ *                 localFishing, tipTrain, dish, restaurantInterior.
+ *                 summerWater is NOT summer-safe despite filename; it shows
+ *                 snow in the rendered crop and must not be used publicly.
  *  WINTER-ONLY  : heroWinter, skiCenter, skiSlopes, liftArea, snowConditions,
  *                 skiSchool, skiRental, crossCountry, cabinEvening,
  *                 accommodation (snowy Vetlegrenda), foodDrink (Heiskroa
@@ -235,19 +240,19 @@ export type ImageKey = keyof typeof images;
  * groups so it cannot be repeated on the same page as the page hero.
  */
 export const summerHeroImages       = [images.heroSummer] as const;
-export const summerHikingImages     = [images.hiking, images.fishingLake] as const; // TODO: upload true hiker/trail photo
+export const summerHikingImages     = [images.hiking, images.summerValley] as const;
 export const summerCyclingImages    = [images.biking] as const;
-export const summerFishingImages    = [images.flyFishing, images.riverFishing] as const;
-export const summerFamilyImages     = [images.familySummer, images.summerWater] as const; // bassen / kids water area
+export const summerFishingImages    = [images.flyFishing, images.riverFishing, images.localFishing] as const;
+export const summerFamilyImages     = [images.familySummer] as const;
 // NOTE: `eventFlying` (alt: "Stisykling i fjellandskap") is a CYCLING
 // photo and must NOT be used for Nature/Utsikt sections per editorial
 // rule (no cycling image for nature). `fishingLake` is a calm lake
 // landscape — acceptable as a quiet nature stand-in but never as a
 // hiking image. TODO: upload a true green panorama/landscape photo.
-export const summerNatureImages     = [images.fishingLake] as const;
+export const summerNatureImages     = [images.summerValley, images.fishingLake] as const;
 export const summerDaytripImages    = [images.tipTrain] as const; // Raumabanen river valley
 export const summerAccommodationImages: readonly BjorliImage[] = []; // TODO: upload green-season cabin/exterior photo
-export const summerFoodDrinkImages  = [images.dish] as const; // TEMPORARY FALLBACK — TODO: outdoor terrace/café photo
+export const summerFoodDrinkImages  = [images.restaurantInterior, images.dish] as const; // TODO: outdoor terrace/café photo
 
 /** All summer-safe images, deduped — for QA and audit purposes. */
 export const summerImagePool: readonly BjorliImage[] = [
