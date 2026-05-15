@@ -30,7 +30,13 @@ const Sommer = () => {
       {/* Hero */}
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         {home.heroImage && (
-          <img src={home.heroImage.url} alt={home.heroImage.alt || heroTitle} className="absolute inset-0 w-full h-full object-cover" />
+          <img
+            src={home.heroImage.url}
+            alt={home.heroImage.alt || heroTitle}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+          />
         )}
         <div className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
