@@ -256,6 +256,22 @@ export const images = {
     wpField: 'winter_evening_slope_lights_image',
     placeholder: false,
   },
+
+  // ── DESTINATION-SPECIFIC PHOTOS ───────────────────────────────────────
+  // Real on-site photos for activity cards. Always prefer these over
+  // generic aerials when linking to the dedicated subpage.
+  romsdalsgondolen: {
+    src: dest_romsdalsgondolen,
+    alt: 'Romsdalsgondolen i Åndalsnes med utsikt mot Romsdalen.',
+    wpField: 'romsdalsgondolen_image',
+    placeholder: false,
+  },
+  sagelva: {
+    src: dest_sagelva,
+    alt: 'Sagelva vasskraftsenter på Stueflotten i Lesja — gardsmiljø ved elva.',
+    wpField: 'sagelva_image',
+    placeholder: false,
+  },
 } satisfies Record<string, BjorliImage>;
 
 /*
