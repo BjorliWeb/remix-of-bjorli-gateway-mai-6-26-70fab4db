@@ -84,6 +84,13 @@ const SECTIONS: Section[] = [
         image: images.summerValley.src,
         alt: images.summerValley.alt,
       },
+      {
+        title: 'Sagelva vasskraftsenter',
+        desc: 'Opplev 300 år med vasskraft, lokalhistorie og levende formidling.',
+        href: '/sagelva',
+        image: images.flyFishing.src,
+        alt: 'Fjellelv og vatn i Lesja — vasskraft og kulturarv nær Bjorli',
+      },
     ],
   },
   {

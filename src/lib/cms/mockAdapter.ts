@@ -529,6 +529,13 @@ export const mockAdapter: CmsAdapter = {
             ctaLabel: 'Les mer',
           },
           {
+            title: 'Sagelva vasskraftsenter',
+            desc: 'Opplev 300 år med vasskraft, lokalhistorie og levende formidling i Lesja.',
+            image: { url: images.riverFishing.src, alt: 'Fjellelv og vassdrag i Lesja nær Bjorli en sommerdag' },
+            href: '/sagelva',
+            ctaLabel: 'Les mer',
+          },
+          {
             title: 'Natur og utsikt',
             desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
             image: { url: summerValleyImg, alt: 'Grønn dal og fjell rundt Bjorli en sommerdag' },
