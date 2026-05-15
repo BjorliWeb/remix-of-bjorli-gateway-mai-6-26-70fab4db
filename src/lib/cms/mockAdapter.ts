@@ -471,9 +471,9 @@ export const mockAdapter: CmsAdapter = {
         title: 'Et rolig basecamp mellom fjell og fjord',
         subtitle: 'Bjorli ligger midt mellom fjordene, nasjonalparkene og noen av Norges mest kjente naturopplevelser — med god plass og rolig tempo.',
         items: [
-          { title: 'Fjellro',          desc: 'Åpent landskap, stille morgener og god plass — langt unna de mest trafikkerte turistmålene.', icon: 'treePine' },
-          { title: 'Aktive dager',     desc: 'Fottur, sykling og fiske rett utenfor døra, i tempo som passer både familier og par.',         icon: 'activity' },
-          { title: 'Mellom fjell og fjord', desc: 'Bo i fjellet med kort vei til Romsdalen, Trollstigen, Geirangerområdet og Raumabanen.',   icon: 'home' },
+          { title: 'Fjellro',      desc: 'God plass, ren luft og en roligere fjellopplevelse.',                       icon: 'treePine' },
+          { title: 'Aktive dager', desc: 'Stier, sykkel, fiske, turer og familievennlige opplevelser.',                icon: 'activity' },
+          { title: 'Basecamp',     desc: 'Bo på Bjorli og bruk dagene mellom fjell, daler og fjordlandskap.',          icon: 'home' },
         ],
       },
       // 3 — Main activities (icon grid, no image reuse)
