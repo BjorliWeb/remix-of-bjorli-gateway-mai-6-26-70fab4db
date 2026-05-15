@@ -51,6 +51,7 @@ export type CanonicalRoute =
   | 'gardsbesok'
   | 'golden-train'
   | 'romsdalsgondolen'
+  | 'sagelva'
   | 'familie'
   | 'live'
   | 'loypekart'
@@ -102,6 +103,7 @@ export const ROUTE_SLUGS: Record<CanonicalRoute, Record<Locale, string>> = {
   gardsbesok:     { no: 'gardsbesok',        en: 'farm-visits',         de: 'hofbesuche',          nl: 'boerderijbezoek',     da: 'gaardsbesoeg',        sv: 'gardsbesok' },
   'golden-train': { no: 'golden-train',      en: 'golden-train',        de: 'golden-train',        nl: 'golden-train',        da: 'golden-train',        sv: 'golden-train' },
   romsdalsgondolen:{ no: 'romsdalsgondolen', en: 'romsdalsgondolen',    de: 'romsdalsgondolen',    nl: 'romsdalsgondolen',    da: 'romsdalsgondolen',    sv: 'romsdalsgondolen' },
+  sagelva:        { no: 'sagelva',           en: 'sagelva',             de: 'sagelva',             nl: 'sagelva',             da: 'sagelva',             sv: 'sagelva' },
   familie:        { no: 'familie',           en: 'family',              de: 'familie',             nl: 'familie',             da: 'familie',             sv: 'familj' },
   live:           { no: 'live',              en: 'live',                de: 'live',                nl: 'live',                da: 'live',                sv: 'live' },
   loypekart:      { no: 'loypekart',         en: 'trail-map',           de: 'loipenplan',          nl: 'pistekaart',          da: 'loipekort',           sv: 'spårkarta' },
