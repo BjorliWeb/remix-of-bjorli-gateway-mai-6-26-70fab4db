@@ -28,6 +28,7 @@ import { supabase } from '@/integrations/supabase/client';
  * later requires zero changes here.
  */
 import { images, type BjorliImage } from '@/lib/images';
+import farmVisitsImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import type { CmsImage } from './types';
 
 /**
