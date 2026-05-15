@@ -468,20 +468,20 @@ export const mockAdapter: CmsAdapter = {
         id: 'summerIntroValue',
         type: 'cardGrid' as const,
         eyebrow: 'Sommer på Bjorli',
-        title: 'Tre grunner til å velge Bjorli i sommer',
-        subtitle: 'Rolige fjelldager, aktive turer og et trygt basecamp mellom Østlandet og fjordene.',
+        title: 'Et rolig basecamp mellom fjell og fjord',
+        subtitle: 'Bjorli ligger midt mellom fjordene, nasjonalparkene og noen av Norges mest kjente naturopplevelser — med god plass og rolig tempo.',
         items: [
-          { title: 'Fjellro',     desc: 'Stille morgener, åpent landskap og lange lyse kvelder i høyfjellet.', icon: 'treePine' },
-          { title: 'Aktive dager', desc: 'Sykling, fottur, fiske og familieaktiviteter rett utenfor døra.',     icon: 'activity' },
-          { title: 'Basecamp',    desc: 'Bo sentralt mellom fjell og fjord og bruk Bjorli som utgangspunkt.',  icon: 'home' },
+          { title: 'Fjellro',          desc: 'Åpent landskap, stille morgener og god plass — langt unna de mest trafikkerte turistmålene.', icon: 'treePine' },
+          { title: 'Aktive dager',     desc: 'Fottur, sykling og fiske rett utenfor døra, i tempo som passer både familier og par.',         icon: 'activity' },
+          { title: 'Mellom fjell og fjord', desc: 'Bo i fjellet med kort vei til Romsdalen, Trollstigen, Geirangerområdet og Raumabanen.',   icon: 'home' },
         ],
       },
       // 3 — Main activities (icon grid, no image reuse)
       {
         id: 'summerActivitiesGrid',
         type: 'activities' as const,
-        title: 'Sommeraktiviteter på Bjorli',
-        subtitle: 'Naturopplevelser i alle tempo — fra rolige turer til aktive dager med familien.',
+        title: 'Naturopplevelser i alle tempo',
+        subtitle: 'Fottur, sykling, fiske og dagsturer til fjord og fjell — fra et rolig utgangspunkt i høyfjellet.',
         items: [
           { title: 'Fotturer',          desc: 'Korte og lange turer i åpent høyfjellsterreng.',         icon: 'mountain' },
           { title: 'Sykling',           desc: 'Stier, grusveier og pumptrack for hele familien.',       icon: 'bike' },
@@ -547,9 +547,9 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerBasecamp',
         type: 'feature' as const,
-        eyebrow: 'Basecamp fjell og fjord',
-        title: 'Bruk Bjorli som utgangspunkt',
-        body: 'Trollstigen, Geiranger, Åndalsnes og Romsdalen ligger innenfor en kort kjøretur. Bo rolig på fjellet og dra på dagsturer til noen av Norges mest kjente fjell- og fjordlandskap.',
+        eyebrow: 'Basecamp mellom fjell og fjord',
+        title: 'Dagsturer til Romsdalen, Trollstigen og Geirangerområdet',
+        body: 'Romsdalen, Trollstigen, Åndalsnes og Geirangerområdet ligger innen kort kjøretur, og Reinheimen, Dovrefjell og Romsdalsalpene starter rett utenfor døra. Bo rolig i fjellet og opplev kjent norsk natur uten å bo midt i de mest besøkte turistområdene.',
         image: { url: riverFishingImg, alt: 'Stille fjellelv nær Bjorli — rolige dagsturer fra basecamp' },
         imageSide: 'right' as const,
         ctas: [
