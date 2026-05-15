@@ -204,10 +204,11 @@ export const images = {
 /*
  * Image QA notes (summer experience)
  * ──────────────────────────────────────────────────────────────────────
- *  SUMMER-SAFE  : heroSummer, summer, hiking (→ s_homeSummer landscape),
- *                 biking, familySummer (bassen), summerWater, fishingLake,
- *                 flyFishing, riverFishing, eventFlying (sensommer trail),
- *                 tipTrain (Raumabanen river valley), dish.
+ *  SUMMER-SAFE  : heroSummer, summer, hiking, summerValley, biking,
+ *                 familySummer, fishingLake, flyFishing, riverFishing,
+ *                 localFishing, tipTrain, dish, restaurantInterior.
+ *                 summerWater is NOT summer-safe despite filename; it shows
+ *                 snow in the rendered crop and must not be used publicly.
  *  WINTER-ONLY  : heroWinter, skiCenter, skiSlopes, liftArea, snowConditions,
  *                 skiSchool, skiRental, crossCountry, cabinEvening,
  *                 accommodation (snowy Vetlegrenda), foodDrink (Heiskroa
@@ -239,19 +240,19 @@ export type ImageKey = keyof typeof images;
  * groups so it cannot be repeated on the same page as the page hero.
  */
 export const summerHeroImages       = [images.heroSummer] as const;
-export const summerHikingImages     = [images.hiking, images.fishingLake] as const; // TODO: upload true hiker/trail photo
+export const summerHikingImages     = [images.hiking, images.summerValley] as const;
 export const summerCyclingImages    = [images.biking] as const;
-export const summerFishingImages    = [images.flyFishing, images.riverFishing] as const;
-export const summerFamilyImages     = [images.familySummer, images.summerWater] as const; // bassen / kids water area
+export const summerFishingImages    = [images.flyFishing, images.riverFishing, images.localFishing] as const;
+export const summerFamilyImages     = [images.familySummer] as const;
 // NOTE: `eventFlying` (alt: "Stisykling i fjellandskap") is a CYCLING
 // photo and must NOT be used for Nature/Utsikt sections per editorial
 // rule (no cycling image for nature). `fishingLake` is a calm lake
 // landscape — acceptable as a quiet nature stand-in but never as a
 // hiking image. TODO: upload a true green panorama/landscape photo.
-export const summerNatureImages     = [images.fishingLake] as const;
+export const summerNatureImages     = [images.summerValley, images.fishingLake] as const;
 export const summerDaytripImages    = [images.tipTrain] as const; // Raumabanen river valley
 export const summerAccommodationImages: readonly BjorliImage[] = []; // TODO: upload green-season cabin/exterior photo
-export const summerFoodDrinkImages  = [images.dish] as const; // TEMPORARY FALLBACK — TODO: outdoor terrace/café photo
+export const summerFoodDrinkImages  = [images.restaurantInterior, images.dish] as const; // TODO: outdoor terrace/café photo
 
 /** All summer-safe images, deduped — for QA and audit purposes. */
 export const summerImagePool: readonly BjorliImage[] = [
