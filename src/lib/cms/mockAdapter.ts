@@ -112,6 +112,10 @@ const concertImg      = images.event.src;
 const hikingImg       = images.hiking.src;
 const bikingImg       = images.biking.src;
 const summerHero      = images.heroSummer.src;
+const flyFishingImg   = images.flyFishing.src;
+const familySummerImg = images.familySummer.src;
+const summerWaterImg  = images.summerWater.src;
+const summerTrailImg  = images.eventFlying.src;
 
 /**
  * Mock CMS adapter.
@@ -132,7 +136,9 @@ const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
 //   2 Påske       → crossCountry (sunny snow-covered mountains)
 //   3 Sommer      → summerImg
 const EVENT_IMAGES = [concertImg, tipFamily, crossCountry, summerImg];
-const ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, hikingImg, bikingImg, heroWinter];
+// Split per season so summer activities never get assigned a winter photo.
+const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
+const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, flyFishingImg, familySummerImg, summerTrailImg, summerImg];
 
 const nowIso = () => new Date().toISOString();
 
@@ -211,7 +217,7 @@ const buildActivities = (lang: Language): CmsActivity[] => {
     title: it.title,
     intro: it.desc,
     body: it.desc,
-    heroImage: { url: ACTIVITY_IMAGES[i % ACTIVITY_IMAGES.length], alt: it.title },
+    heroImage: { url: WINTER_ACTIVITY_IMAGES[i % WINTER_ACTIVITY_IMAGES.length], alt: it.title },
     category: d.nav.winter,
     season: 'winter' as const,
     publishedAt: nowIso(),
@@ -226,7 +232,7 @@ const buildActivities = (lang: Language): CmsActivity[] => {
     title: it.title,
     intro: it.desc,
     body: it.desc,
-    heroImage: { url: ACTIVITY_IMAGES[(i + 3) % ACTIVITY_IMAGES.length], alt: it.title },
+    heroImage: { url: SUMMER_ACTIVITY_IMAGES[i % SUMMER_ACTIVITY_IMAGES.length], alt: it.title },
     category: d.nav.summer,
     season: 'summer' as const,
     publishedAt: nowIso(),
