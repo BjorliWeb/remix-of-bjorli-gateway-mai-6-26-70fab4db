@@ -3,23 +3,18 @@ import ActivitiesListingTemplate from '@/components/listing/ActivitiesListingTem
 import { toListingItem } from '@/components/listing/listingHelpers';
 import { getActivities, useCms } from '@/lib/cms';
 import { images } from '@/lib/images';
-import { isSummerRoute } from '@/lib/season';
 
-// /aktiviteter is reachable from both winter and summer crosslinks, but
-// the summer activity grid (Fiske, Natur og utsikt) explicitly routes
-// users here. To honour the editorial rule "no winter imagery on summer
-// content paths" we pick the hero by the current route's season.
-const useHeroImage = () => {
-  if (typeof window === 'undefined') return images.heroSummer.src;
-  return isSummerRoute(window.location.pathname)
-    ? images.heroSummer.src
-    : images.skiCenter.src;
-};
+// /aktiviteter is the destination of summer-card hrefs (Fiske, Natur og
+// utsikt, Familieaktiviteter). To comply with the strict editorial rule
+// "no winter imagery on summer content paths" we use the green summer
+// landscape as the page hero. Winter activities continue to be served
+// from /vinter and the dedicated ski-center pages, which keep their
+// own winter heroes.
+const heroImg = images.heroSummer.src;
 
 const Activities = () => {
   const { d, locale } = useLanguage();
   const activities = useCms(() => getActivities({ language: locale }), [locale]) ?? [];
-  const heroImg = useHeroImage();
   const items = activities.map((a) => toListingItem(a, heroImg));
   return (
     <ActivitiesListingTemplate
