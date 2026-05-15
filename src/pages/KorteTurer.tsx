@@ -338,6 +338,24 @@ const KorteTurer = () => {
           <p>
             Turene under er hentet fra brosjyren <em>«Snarturer i Rauma og Lesja»</em>, og er alle lett tilgjengelige fra E136. Flere kan kombineres med en togreise på Raumabanen, og noen ligger så nær veien at de fungerer som en kort pause på vei mot fjorden.
           </p>
+          <div className="flex flex-wrap gap-3 not-prose text-base">
+            <a
+              href="https://designmanual.norgesnasjonalparker.no/uploads/documents/Snartur_2023_web.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-secondary hover:underline"
+            >
+              Original brosjyre <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="/Snartur_2023_web.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card text-sm font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              <Download className="h-4 w-4" /> Last ned originalbrosjyren
+            </a>
+          </div>
           <p>
             Lengden er oppgitt tur-retur. Noen turer er svært enkle og passer for hele familien. Andre er korte, men bratte, og krever litt mer av beina. Sjekk gjerne vær og lokale anbefalinger før du går.
           </p>
