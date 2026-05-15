@@ -239,7 +239,12 @@ export const summerHikingImages     = [images.hiking, images.fishingLake] as con
 export const summerCyclingImages    = [images.biking] as const;
 export const summerFishingImages    = [images.flyFishing, images.riverFishing] as const;
 export const summerFamilyImages     = [images.familySummer, images.summerWater] as const; // bassen / kids water area
-export const summerNatureImages     = [images.eventFlying, images.fishingLake] as const; // sensommer trail / fjellvann
+// NOTE: `eventFlying` (alt: "Stisykling i fjellandskap") is a CYCLING
+// photo and must NOT be used for Nature/Utsikt sections per editorial
+// rule (no cycling image for nature). `fishingLake` is a calm lake
+// landscape — acceptable as a quiet nature stand-in but never as a
+// hiking image. TODO: upload a true green panorama/landscape photo.
+export const summerNatureImages     = [images.fishingLake] as const;
 export const summerDaytripImages    = [images.tipTrain] as const; // Raumabanen river valley
 export const summerAccommodationImages: readonly BjorliImage[] = []; // TODO: upload green-season cabin/exterior photo
 export const summerFoodDrinkImages  = [images.dish] as const; // TEMPORARY FALLBACK — TODO: outdoor terrace/café photo
