@@ -488,7 +488,7 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fotturer',
             desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            image: { url: summerTrailImg, alt: 'Sti i fjellet ved Bjorli om sommeren' },
+            image: { url: familySummerImg, alt: 'Person i åpent fjellandskap nær Bjorli — fottur i sommerfjellet' },
             href: '/fotturer',
             ctaLabel: 'Les mer',
           },
@@ -502,14 +502,14 @@ export const mockAdapter: CmsAdapter = {
           {
             title: 'Fiske',
             desc: 'Fluefiske i Rauma, elvefiske og rolige dager ved fjellvannene rundt Bjorli.',
-            image: { url: flyFishingImg, alt: 'Fluefiske i en fjellelv nær Bjorli' },
+            image: { url: images.riverFishing.src, alt: 'Fjellelv ved Bjorli — fiske og rolige dager ved vannet' },
             href: '/aktiviteter',
             ctaLabel: 'Les mer',
           },
           {
             title: 'Familieaktiviteter',
             desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
-            image: { url: familySummerImg, alt: 'Familie på fisketur ved et fjellvann nær Bjorli' },
+            image: { url: flyFishingImg, alt: 'Rolig sommerdag ute i naturen nær Bjorli — passer for familier' },
             href: '/familie',
             ctaLabel: 'Les mer',
           },
@@ -549,7 +549,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Fottur og natur',
         title: 'Turer rett fra fjellbygda',
         body: 'Bjorli ligger høyt og åpent, og du er raskt ute i fjellet uten lang innmarsj. Velg en kort rusletur ved sentrum, en familievennlig dagstur, eller gå lenger inn i Reinheimen og Romsdalsalpene. Et rolig utgangspunkt for sommerdager i norsk høyfjell.',
-        image: { url: summerTrailImg, alt: 'Sti og åpent sommerlandskap i fjellet ved Bjorli' },
+        image: { url: summerLandscapeImg, alt: 'Åpent sommerlandskap i fjellet ved Bjorli' },
         imageSide: 'left' as const,
         subcards: [
           { title: 'Korte turer',         desc: 'Lette rusleturer fra sentrum og hyttene — fine for en pause eller en rolig kveldstur.' },
@@ -633,7 +633,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: d.accommodation.eyebrow,
         title: d.accommodation.title,
         body: d.accommodation.body,
-        image: { url: accommodationImg, alt: d.accommodation.title },
+        image: { url: summerLandscapeImg, alt: 'Bjorli i sommerlandskap — hytter og overnatting i grønne fjell' },
         imageSide: 'left' as const,
         ctas: [
           { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' as const },
@@ -646,7 +646,7 @@ export const mockAdapter: CmsAdapter = {
         eyebrow: 'Mat og møteplasser',
         title: 'Steder å pause i sommerlandskapet',
         body: 'Servering, terrasser og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld ute.',
-        image: { url: summerWaterImg, alt: 'Sommeratmosfære med vannaktivitet på Bjorli' },
+        image: { url: images.dish.src, alt: 'Servering fra restaurant på Bjorli — mat og møteplasser' },
         imageSide: 'right' as const,
         ctas: [
           { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },
