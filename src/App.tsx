@@ -32,6 +32,8 @@ import KorteTurer from "./pages/KorteTurer";
 import Familie from "./pages/Familie";
 import Fiske from "./pages/Fiske";
 import Gardsbesok from "./pages/Gardsbesok";
+import GoldenTrain from "./pages/GoldenTrain";
+import Romsdalsgondolen from "./pages/Romsdalsgondolen";
 import Vinter from "./pages/Vinter";
 import Live from "./pages/Live";
 import Loypekart from "./pages/Loypekart";
@@ -106,6 +108,8 @@ const AppRoutes = () => (
     <Route path="/familie" element={<Familie />} />
     <Route path="/fiske" element={<Fiske />} />
     <Route path="/gardsbesok" element={<Gardsbesok />} />
+    <Route path="/golden-train" element={<GoldenTrain />} />
+    <Route path="/romsdalsgondolen" element={<Romsdalsgondolen />} />
     <Route path="/sommer/korte-turer" element={<KorteTurer />} />
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
@@ -151,6 +155,8 @@ const AppRoutes = () => (
     {aliasRoute('sykling', <Sykling />)}
     {aliasRoute('fiske', <Fiske />)}
     {aliasRoute('gardsbesok', <Gardsbesok />)}
+    {aliasRoute('golden-train', <GoldenTrain />)}
+    {aliasRoute('romsdalsgondolen', <Romsdalsgondolen />)}
     {aliasRoute('familie', <Familie />)}
     {aliasRoute('vinter', <Vinter />)}
     {aliasRoute('loypekart', <Loypekart />)}

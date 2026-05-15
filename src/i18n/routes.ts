@@ -49,6 +49,8 @@ export type CanonicalRoute =
   | 'sykling'
   | 'fiske'
   | 'gardsbesok'
+  | 'golden-train'
+  | 'romsdalsgondolen'
   | 'familie'
   | 'live'
   | 'loypekart'
@@ -98,6 +100,8 @@ export const ROUTE_SLUGS: Record<CanonicalRoute, Record<Locale, string>> = {
   sykling:        { no: 'sykling',           en: 'cycling',             de: 'radfahren',           nl: 'fietsen',             da: 'cykling',             sv: 'cykling' },
   fiske:          { no: 'fiske',             en: 'fishing',             de: 'angeln',              nl: 'vissen',              da: 'fiskeri',             sv: 'fiske' },
   gardsbesok:     { no: 'gardsbesok',        en: 'farm-visits',         de: 'hofbesuche',          nl: 'boerderijbezoek',     da: 'gaardsbesoeg',        sv: 'gardsbesok' },
+  'golden-train': { no: 'golden-train',      en: 'golden-train',        de: 'golden-train',        nl: 'golden-train',        da: 'golden-train',        sv: 'golden-train' },
+  romsdalsgondolen:{ no: 'romsdalsgondolen', en: 'romsdalsgondolen',    de: 'romsdalsgondolen',    nl: 'romsdalsgondolen',    da: 'romsdalsgondolen',    sv: 'romsdalsgondolen' },
   familie:        { no: 'familie',           en: 'family',              de: 'familie',             nl: 'familie',             da: 'familie',             sv: 'familj' },
   live:           { no: 'live',              en: 'live',                de: 'live',                nl: 'live',                da: 'live',                sv: 'live' },
   loypekart:      { no: 'loypekart',         en: 'trail-map',           de: 'loipenplan',          nl: 'pistekaart',          da: 'loipekort',           sv: 'spårkarta' },
