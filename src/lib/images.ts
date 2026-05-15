@@ -96,6 +96,11 @@ import s_flyFishing   from '@/assets/photos/02_summer_destination/bjorli-sommer-
 import s_fishingLake  from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-fiskeilesja-d91ae3c817.jpg';
 import s_fishingRiver from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-fiskelv-9210bd8a45.jpg';
 import s_biking       from '@/assets/photos/02_summer_destination/bjorli-sommer-destinasjon-large-sykkelilesja-e6a70b0e8d.jpg';
+import s_valleyView   from '@/assets/photos/bjorli-sommer-dal-fjellutsikt.jpg';
+import s_hikingView   from '@/assets/photos/bjorli-sommer-fjelltur-utsikt.jpg';
+import s_familyFarm   from '@/assets/photos/bjorli-sommer-familie-gardsopplevelse.jpg';
+import s_fishingLocal from '@/assets/photos/bjorli-sommer-elv-fiske.jpg';
+import s_restaurantInterior from '@/assets/photos/bjorli-restaurant-interior-lanterne.jpg';
 import a_vetlegrenda  from '@/assets/photos/03_accommodation/bjorli-overnatting-hytte-vetlegrenda-fra-vg-10-og-mot-skisen.jpg';
 import a_mountainLodge from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-bjorlimountainlodge-8cafc89cba-4.jpg';
 import f_dish         from '@/assets/photos/04_food_restaurant/bjorli-restaurant-mat-mattisolavbjokne-2-20410b6b4a.jpg';
@@ -145,13 +150,10 @@ export const images = {
 
   // ── SUMMER TEASER & SUMMER PAGES ──────────────────────────────────────
   summer:         { src: s_homeSummer,    alt: 'Sommerlandskap på Bjorli med grønne fjell.',                wpField: 'summer_image',         placeholder: false },
-  hiking:         { src: s_homeSummer,    alt: 'Åpent sommerlandskap ved Bjorli — fottur i grønne fjell.',  wpField: 'hiking_image',         placeholder: false },
+  hiking:         { src: s_hikingView,    alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli.', wpField: 'hiking_image',      placeholder: false },
   biking:         { src: s_biking,        alt: 'Sykling i fjellet ved Bjorli en sommerdag.',                wpField: 'biking_image',         placeholder: false },
-  // Family / low-threshold summer. Repointed from fishing-lake → bassen
-  // (kids water-activity area) so the variable matches its editorial use
-  // on summer family cards. Tag: FAMILY / SUMMER. TEMPORARY FALLBACK
-  // until a true "family on a short trail / pumptrack" photo exists.
-  familySummer:   { src: sm_water,         alt: 'Vannaktivitet i basseng på Bjorli — familievennlig sommerstopp.', wpField: 'family_summer_image',  placeholder: false },
+  familySummer:   { src: s_familyFarm,    alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli.',      wpField: 'family_summer_image',  placeholder: false },
+  summerValley:   { src: s_valleyView,    alt: 'Grønn dal og fjell rundt Bjorli en sommerdag.',             wpField: 'summer_valley_image',  placeholder: false },
 
   // ── GETTING HERE / PRACTICAL ──────────────────────────────────────────
   gettingHere:    { src: x_destSign,      alt: 'Velkomstskilt og fjellutsikt – ankomst til Bjorli.',        wpField: 'getting_here_image',   placeholder: false },
@@ -172,6 +174,8 @@ export const images = {
   pisteMap:      { src: p_pisteMap,       alt: 'Løypekart for Bjorli Skisenter.',                            wpField: 'piste_map_image',      placeholder: false },
   flyFishing:    { src: s_flyFishing,     alt: 'Fluefiske i en fjellelv nær Bjorli.',                        wpField: 'fly_fishing_image',    placeholder: false },
   riverFishing:  { src: s_fishingRiver,   alt: 'Fiske i en fjellelv nær Bjorli.',                            wpField: 'river_fishing_image',  placeholder: false },
+  localFishing:  { src: s_fishingLocal,   alt: 'Fisker krysser en klar sommerelv nær Bjorli.',               wpField: 'local_fishing_image',  placeholder: false },
+  restaurantInterior: { src: s_restaurantInterior, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli.', wpField: 'restaurant_interior_image', placeholder: false },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
   eventEaster:   { src: f_familyNord,     alt: 'Familie i Nordløypa på Bjorli – påskestemning.',             wpField: 'event_easter_image',   placeholder: false },
   moodScenic:    { src: x_skiersValley,   alt: 'Skiere i portrett med dalutsikt på Bjorli.',                 wpField: 'mood_scenic_image',    placeholder: false },
