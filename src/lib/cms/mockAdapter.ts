@@ -28,6 +28,7 @@ import { supabase } from '@/integrations/supabase/client';
  * later requires zero changes here.
  */
 import { images, type BjorliImage } from '@/lib/images';
+import farmVisitsImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import type { CmsImage } from './types';
 
 /**
@@ -518,6 +519,13 @@ export const mockAdapter: CmsAdapter = {
             desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
             image: { url: familySummerImg, alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli' },
             href: '/familie',
+            ctaLabel: 'Les mer',
+          },
+          {
+            title: 'Gardsbesøk',
+            desc: 'Besøk lokale gårder i Lesja — gårdsliv, dyr, lokal mat og kulturlandskap nær Bjorli.',
+            image: { url: farmVisitsImg, alt: 'Kulturlandskap i Lesja nær Bjorli' },
+            href: '/gardsbesok',
             ctaLabel: 'Les mer',
           },
           {
