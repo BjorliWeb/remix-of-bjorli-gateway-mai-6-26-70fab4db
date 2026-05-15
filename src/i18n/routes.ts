@@ -47,6 +47,7 @@ export type CanonicalRoute =
   | 'langrenn'
   | 'fotturer'
   | 'sykling'
+  | 'fiske'
   | 'familie'
   | 'live'
   | 'loypekart'
@@ -94,6 +95,7 @@ export const ROUTE_SLUGS: Record<CanonicalRoute, Record<Locale, string>> = {
   langrenn:       { no: 'langrenn',          en: 'cross-country-skiing',de: 'langlauf',            nl: 'langlaufen',          da: 'langrend',            sv: 'langdakning' },
   fotturer:       { no: 'fotturer',          en: 'hiking',              de: 'wandern',             nl: 'wandelen',            da: 'vandring',            sv: 'vandring' },
   sykling:        { no: 'sykling',           en: 'cycling',             de: 'radfahren',           nl: 'fietsen',             da: 'cykling',             sv: 'cykling' },
+  fiske:          { no: 'fiske',             en: 'fishing',             de: 'angeln',              nl: 'vissen',              da: 'fiskeri',             sv: 'fiske' },
   familie:        { no: 'familie',           en: 'family',              de: 'familie',             nl: 'familie',             da: 'familie',             sv: 'familj' },
   live:           { no: 'live',              en: 'live',                de: 'live',                nl: 'live',                da: 'live',                sv: 'live' },
   loypekart:      { no: 'loypekart',         en: 'trail-map',           de: 'loipenplan',          nl: 'pistekaart',          da: 'loipekort',           sv: 'spårkarta' },
