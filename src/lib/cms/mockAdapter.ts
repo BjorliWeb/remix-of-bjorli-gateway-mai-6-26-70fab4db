@@ -461,8 +461,13 @@ export const mockAdapter: CmsAdapter = {
     //
     // Copy stays in NO for the placeholder iteration — it will move to
     // WordPress + i18n dictionaries when the CMS lands.
-    const goldenTrainImg  = images.tipTrain.src;     // Raumabanen — regional summer landscape
-    const summerLandscapeImg = images.heroSummer.src; // wide green-season Bjorli landscape
+    // ── Summer-safe image pool ───────────────────────────────────────
+    // Each visual on /sommer must be DISTINCT. The hero (summerHero) is
+    // reserved for the page hero and may NOT be reused in cards or
+    // feature sections on the same page.
+    const goldenTrainImg = images.tipTrain.src;     // Raumabanen river valley — regional travel
+    const fishingLakeImg = images.fishingLake.src;  // Calm fjellvann — nature stand-in
+    const riverFishImg   = images.riverFishing.src; // Fjellelv — river/water
 
     const summerSections: any[] = [
       // 2 — Intro value
