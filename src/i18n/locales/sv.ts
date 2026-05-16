@@ -241,7 +241,7 @@ const sv: Dictionary = {
     loadMore: 'Visa fler',
     featured: 'Utvalt',
     seoPlaceholderTitle: 'Mer om Bjorli',
-    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen och porten mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en unik utgångspunkt för både vinter- och sommarsemester.',
+    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen och porten mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en naturlig utgångspunkt för både vinter- och sommarsemester.',
     sectionWinter: 'Vinteraktiviteter',
     sectionSummer: 'Sommaraktiviteter',
     sectionFamily: 'Familjeaktiviteter',
