@@ -197,9 +197,20 @@ const Activities = () => {
     <div>
       <PageHero
         title="Aktiviteter på Bjorli"
-        subtitle="Tur, sykling, fiske, familieliv og dagsturer fra fjellbygda — her finner du oversikten."
+        subtitle="Finn fotturer, sykling, fiske, familieopplevelser og dagsturer med Bjorli som base."
         image={images.heroSummer.src}
       />
+
+      <section className="pt-16 md:pt-20 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            Bjorli er et helårs reisemål med korte aktiviteter rett utenfor døra
+            og store opplevelser innen kort kjøreavstand- eller togreise. Her
+            finner du fotturer, sykling, fiske, familieopplevelser, lokal kultur
+            og dagsturer mot Romsdalen, fjellet og fjorden.
+          </p>
+        </div>
+      </section>
 
       {SECTIONS.map((section) => (
         <section key={section.id} id={section.id} className="py-16 md:py-20 px-4">
