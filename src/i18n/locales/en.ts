@@ -65,7 +65,7 @@ const en: Dictionary = {
       { title: 'Trail map', desc: 'All slopes and lifts at a glance' },
       { title: 'Stay', desc: 'Cabins, apartments and hotels' },
       { title: 'Ski rental', desc: 'Skis, snowboards and gear in all sizes' },
-      { title: 'Food & drink', desc: 'Heiskroa and dining at the mountain' },
+      { title: 'Food & drink', desc: 'Heiskroa (the mountain café) and dining at the mountain' },
     ],
   },
   skiCenter: {
