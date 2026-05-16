@@ -114,7 +114,7 @@ const sv: Dictionary = {
   beyondAlpine: {
     eyebrow: 'Mer än utförsåkning',
     title: 'Vinter på Bjorli är mer än liftar och nedfarter',
-    body: 'Fjälldagarna handlar här också om längdåkning, pulka, snölek, stugkvällar, korta avstånd och tid tillsammans. Bjorli passar familjer och vänner som vill ha riktig vinter utan att allt ska vara stort, dyrt och stressigt.',
+    body: 'Fjälldagarna handlar här också om längdåkning, pulka och snölek. Till det kommer stugkvällar, korta avstånd och tid tillsammans — Bjorli passar familjer och vänner som vill ha riktig vinter utan att allt ska vara stort, dyrt och stressigt.',
     items: [
       { title: 'Längdåkning', desc: 'Preparerade spår i vackert fjällandskap.' },
       { title: 'Pulka och snölek', desc: 'Trygga backar för hela familjen.' },
@@ -173,7 +173,7 @@ const sv: Dictionary = {
   },
   footer: {
     aboutTitle: 'Om Bjorli',
-    aboutBody: 'Destination Bjorli – en snösäker vinterdestination och en lugn fjällbas året runt, porten mellan östra och nordvästra Norge.',
+    aboutBody: 'Destination Bjorli – en snösäker vinterdestination och en lugn fjällbas året runt, mellan östra Norge och fjordarna i väster.',
     winterTitle: 'Vinter',
     summerTitle: 'Sommar',
     planTitle: 'Planera resan',
@@ -227,7 +227,7 @@ const sv: Dictionary = {
     pageActivitiesTitle: 'Aktiviteter på Bjorli',
     pageActivitiesIntro: 'Alpint, längdåkning, vandring och fjällupplevelser – välj din nästa aktivitet.',
     pageGettingHereTitle: 'Resan till Bjorli',
-    pageGettingHereIntro: 'Bjorli är porten mellan östra och nordvästra Norge – lätt att nå med både bil och tåg, med Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell på kort avstånd.',
+    pageGettingHereIntro: 'Bjorli ligger mellan östra och nordvästra Norge – lätt att nå med både bil och tåg, med Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell på kort avstånd.',
     filterAll: 'Alla',
     filterCategory: 'Kategori',
     filterSeason: 'Säsong',
@@ -241,7 +241,7 @@ const sv: Dictionary = {
     loadMore: 'Visa fler',
     featured: 'Utvalt',
     seoPlaceholderTitle: 'Mer om Bjorli',
-    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen och porten mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en naturlig utgångspunkt för både vinter- och sommarsemester.',
+    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen, mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en naturlig utgångspunkt för både vinter- och sommarsemester.',
     sectionWinter: 'Vinteraktiviteter',
     sectionSummer: 'Sommaraktiviteter',
     sectionFamily: 'Familjeaktiviteter',
@@ -279,7 +279,7 @@ const sv: Dictionary = {
     basecamp: {
       eyebrow: 'Mellan fjäll och fjord',
       title: 'Mitt emellan fjäll och fjord',
-      body: 'Från Bjorli har du nära till Raumabanan, Romsdalen, Trollveggen, Dovrefjell och fjordlandskapet i nordvästra Norge. Du bor lugnt i fjällen, med några av Norges starkaste naturupplevelser inom räckhåll.',
+      body: 'Från Bjorli har du nära till Raumabanan, Romsdalen, Trollveggen, Dovrefjell och fjordlandskapet i nordvästra Norge. Du bor lugnt i fjällen, med Trollveggen, Dovrefjell, Romsdalsalpene och fjordarna inom räckhåll.',
       items: [
         { title: 'Raumabanan', desc: 'En av Norges vackraste tågresor, med Bjorli som naturligt stopp i fjällen.' },
         { title: 'Romsdalen och Trollveggen', desc: 'Branta toppar, vandringar och stark natur inom kort körsträcka.' },
