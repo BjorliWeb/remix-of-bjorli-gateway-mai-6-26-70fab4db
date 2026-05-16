@@ -116,7 +116,7 @@ const en: Dictionary = {
     title: 'Winter in Bjorli is more than lifts and pistes',
     body: 'Mountain days here are also about cross-country, sledging, snow play, cabin evenings, short distances and time together. Bjorli suits families and friends who want real winter without everything having to be big, expensive and busy.',
     items: [
-      { title: 'Cross-country', desc: 'Groomed trails through beautiful mountain landscapes.' },
+      { title: 'Cross-country skiing', desc: 'Groomed trails through beautiful mountain landscapes.' },
       { title: 'Sledging and snow play', desc: 'Safe hills for the whole family.' },
       { title: 'Cabin evenings', desc: 'Long evenings, fireplaces and time indoors.' },
       { title: 'Calm winter walks', desc: 'Snowshoes and easy tours for those who want to get out.' },
@@ -197,7 +197,7 @@ const en: Dictionary = {
       { label: 'Weather and webcams', href: '/vaer-og-webkamera' },
       { label: 'Ski rental', href: '/skiutleie' },
       { label: 'Ski school', href: '/skiskole' },
-      { label: 'Cross-country', href: '/langrenn' },
+      { label: 'Cross-country skiing', href: '/langrenn' },
     ],
     summerLinks: [
       { label: 'Hiking', href: '/fotturer' },
