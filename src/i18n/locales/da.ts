@@ -42,7 +42,7 @@ const da: Dictionary = {
     openToday: 'Åbningstider',
     livecams: 'Livecams',
     seeMore: 'Se mere',
-    heading: 'Aktuel status på fjeldet',
+    heading: 'Aktuel status på Bjorli',
     caption: 'Opdateret i dag. Tjek åbningstider, forhold, lifte og webcams, før du tager afsted.',
   },
   alert: {
@@ -51,7 +51,7 @@ const da: Dictionary = {
     sampleCta: 'Se åbningstider',
   },
   intro: {
-    title: 'Oplev vinteren på Bjorli',
+    title: 'Vinter på Bjorli',
     body: 'Bjorli er en snesikker vinterdestination for familier, hyttegæster og alle, der ønsker ægte fjelddage uden stress. Her finder du alpinski, langrend, skiudlejning, skiskole, mad og drikke, overnatning og let adgang med bil og tog.',
   },
   planning: {
@@ -65,7 +65,7 @@ const da: Dictionary = {
       { title: 'Pistekort', desc: 'Overblik over alle pister og lifte' },
       { title: 'Overnatning', desc: 'Hytter, lejligheder og hoteller' },
       { title: 'Skiudlejning', desc: 'Ski, snowboard og udstyr i alle størrelser' },
-      { title: 'Mad & drikke', desc: 'Heiskroa og spisesteder ved fjeldet' },
+      { title: 'Mad & drikke', desc: 'Heiskroa (bjergcaféen) og spisesteder ved fjeldet' },
     ],
   },
   skiCenter: {
@@ -114,12 +114,12 @@ const da: Dictionary = {
   beyondAlpine: {
     eyebrow: 'Mere end alpinski',
     title: 'Vinter på Bjorli er mere end lifte og pister',
-    body: 'Fjelddagene her handler også om langrend, kælk, sneleg, hytteaftener, korte afstande og tid sammen. Bjorli passer til familier og venner, der vil have ægte vinter uden at alt skal være stort, dyrt og travlt.',
+    body: 'Dagene på fjeldet her handler også om langrend, kælk, leg i sneen, hytteaftener, korte afstande og tid sammen. Bjorli passer til familier og venner, der vil have ægte vinter uden at alt skal være stort, dyrt og travlt.',
     items: [
       { title: 'Langrend', desc: 'Præparerede spor i smukt fjeldlandskab.' },
-      { title: 'Kælk og sneleg', desc: 'Sikre bakker for hele familien.' },
+      { title: 'Kælk og leg i sneen', desc: 'Sikre bakker for hele familien.' },
       { title: 'Hytteaftener', desc: 'Lange aftener, pejs og ro indenfor.' },
-      { title: 'Rolige vintervandringer', desc: 'Snesko og lette ture for dem, der vil ud.' },
+      { title: 'Rolige vinterture', desc: 'Snesko og lette ture for dem, der vil ud.' },
       { title: 'Tog til fjeldet', desc: 'Raumabanen kører helt op til Bjorli station.' },
       { title: 'Familievenlige dage', desc: 'Korte afstande og roligt tempo for små og store.' },
     ],
@@ -151,7 +151,7 @@ const da: Dictionary = {
     eyebrow: 'Året rundt',
     title: 'Bjorli om sommeren',
     body: 'Når sneen smelter, bliver Bjorli en rolig fjeldbase for vandreture, cykling, familieferie og naturoplevelser – med Rauma-elven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell lige om hjørnet.',
-    cta: 'Udforsk sommer på Bjorli',
+    cta: 'Sommer på Bjorli',
   },
   news: {
     eyebrow: 'Nyheder',
@@ -234,7 +234,7 @@ const da: Dictionary = {
     pageActivitiesTitle: 'Aktiviteter på Bjorli',
     pageActivitiesIntro: 'Alpint, langrend, vandring og fjeldoplevelser – vælg din næste aktivitet.',
     pageGettingHereTitle: 'Rejsen til Bjorli',
-    pageGettingHereIntro: 'Bjorli ligger mellem Dombås og Åndalsnes – let at nå med både bil og tog.',
+    pageGettingHereIntro: 'Bjorli er porten mellem Østlandet og Nordvestlandet – let at nå med både bil og tog, og kort vej til Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell.',
     filterAll: 'Alle',
     filterCategory: 'Kategori',
     filterSeason: 'Sæson',
@@ -278,7 +278,7 @@ const da: Dictionary = {
     winterTeaserEyebrow: 'Året rundt',
     foodDrink: {
       eyebrow: 'Mad og drikke',
-      title: 'Smage fra fjeldet',
+      title: 'Smag fra fjeldet',
       body: 'Efter en dag ude smager maden ekstra godt. På Bjorli finder du spisesteder, lokal mad og rolige stunder ved bordet – fra en kop kaffe på turen til et ordentligt måltid efter en lang dag på fjeldet.',
       cta: 'Se mad og drikke',
       imageAlt: 'Mad og drikke på Bjorli',
@@ -301,7 +301,7 @@ const da: Dictionary = {
     eyebrow: 'Derfor vælger gæster Bjorli',
     title: 'Hvorfor Bjorli?',
     items: [
-      { title: 'Snesikker og familievenlig', desc: 'Ægte vinter, trygge rammer og gode oplevelser for både børn og voksne.', icon: 'snowflake' },
+      { title: 'Snesikker og familievenlig', desc: 'Ægte vinter, i trygge omgivelser og gode oplevelser for både børn og voksne.', icon: 'snowflake' },
       { title: 'Kort vej til ski, hytter og natur', desc: 'Mindre logistik, kortere afstande og mere tid ude.', icon: 'mountain' },
       { title: 'Tog til fjeldet med Raumabanen', desc: 'Rejs til Bjorli ad en af Norges smukkeste togstrækninger.', icon: 'train' },
       { title: 'Midt mellem bjerge og fjorde', desc: 'Oplev fjeldet, Romsdalen, Dovrefjell og Nordvestlandet fra ét udgangspunkt.', icon: 'treePine' },
