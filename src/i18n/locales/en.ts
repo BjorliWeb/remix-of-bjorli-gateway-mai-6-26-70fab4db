@@ -151,7 +151,7 @@ const en: Dictionary = {
     eyebrow: 'Year-round',
     title: 'Bjorli in summer',
     body: 'When the snow melts, Bjorli becomes a calm mountain basecamp for hiking, cycling, family trips and nature experiences – with the Rauma River, Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell right around the corner.',
-    cta: 'Explore summer in Bjorli',
+    cta: 'Summer at Bjorli',
   },
   news: {
     eyebrow: 'News',
