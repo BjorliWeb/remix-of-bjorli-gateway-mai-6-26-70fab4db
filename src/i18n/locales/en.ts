@@ -240,8 +240,8 @@ const en: Dictionary = {
     badge: 'Summer at Bjorli',
     eyebrow: 'Summer at Bjorli',
     title: 'Your base between the mountains and the fjord',
-    subtitle: 'Use Bjorli as your starting point for hiking, biking, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
-    intro: 'Use Bjorli as a base for hiking, biking, family holidays, train travel and genuine Norwegian nature experiences.',
+    subtitle: 'Use Bjorli as your starting point for hiking, cycling, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
+    intro: 'Use Bjorli as a base for hiking, cycling, family holidays, train travel and genuine Norwegian nature experiences.',
     ctaExplore: 'See activities',
     ctaActivities: 'See activities',
     ctaStay: 'Find accommodation',
@@ -255,7 +255,7 @@ const en: Dictionary = {
         desc: 'Short family walks and longer summit trips in beautiful mountain terrain.'
       },
       {
-        title: 'Biking',
+        title: 'Cycling',
         desc: 'Trails and gravel roads for mountain biking and easy rides.'
       },
       {
