@@ -43,7 +43,7 @@ const de: Dictionary = {
     livecams: 'Livecams',
     seeMore: 'Mehr ansehen',
     heading: 'Aktuelle Lage am Berg',
-    caption: 'Heute aktualisiert. Sehen Sie Öffnungszeiten, Bedingungen, Lifte und Webcams an, bevor Sie aufbrechen.',
+    caption: 'Heute aktualisiert. Prüfen Sie Öffnungszeiten, Bedingungen, Lifte und Webcams, bevor Sie aufbrechen.',
   },
   alert: {
     label: 'Betriebsmeldung',
@@ -51,12 +51,12 @@ const de: Dictionary = {
     sampleCta: 'Öffnungszeiten ansehen',
   },
   intro: {
-    title: 'Erleben Sie den Winter in Bjorli',
+    title: 'Der Winter in Bjorli',
     body: 'Bjorli ist eine schneesichere Winterdestination für Familien, Hüttengäste und alle, die echte Bergtage ohne Stress wollen. Hier finden Sie Alpin- und Langlaufski, Skiverleih, Skischule, Gastronomie, Unterkünfte und eine bequeme Anreise mit Auto oder Bahn.',
   },
   planning: {
     title: 'Alles für Ihren Tag am Berg',
-    subtitle: 'Planen Sie Ihren Skitag mit aktuellen Informationen, Skipässen und praktischen Services.',
+    subtitle: 'Planen Sie Ihren Skitag mit aktuellen Informationen, Skipässen und nützlichen Angeboten.',
     items: [
       { title: 'Skigebiet Bjorli', desc: 'Familienfreundliche Pisten und schneesichere Bedingungen' },
       { title: 'Skipass', desc: 'Tages- und Saisonkarten online kaufen' },
@@ -65,7 +65,7 @@ const de: Dictionary = {
       { title: 'Pistenplan', desc: 'Alle Pisten und Lifte auf einen Blick' },
       { title: 'Unterkunft', desc: 'Hütten, Apartments und Hotels' },
       { title: 'Skiverleih', desc: 'Ski, Snowboard und Ausrüstung in allen Größen' },
-      { title: 'Essen & Trinken', desc: 'Heiskroa und Gastronomie am Berg' },
+      { title: 'Essen & Trinken', desc: 'Heiskroa (die Hüttenbar am Lift) und Gastronomie am Berg' },
     ],
   },
   skiCenter: {
@@ -91,7 +91,7 @@ const de: Dictionary = {
     eyebrow: 'Inspiration',
     title: 'Tipps aus Bjorli',
     subtitle: 'Guides und Ideen für eine schöne Reise an den Berg.',
-    cta: 'Alle Inspirationen',
+    cta: 'Alle Reisetipps',
     items: [
       { category: 'Planung', title: 'So planen Sie ein Winterwochenende in Bjorli', intro: 'Vom Skipass bis zur Hütte – alles, woran Sie vor der Reise denken sollten.' },
       { category: 'Anreise', title: '5 Gründe, mit dem Zug nach Bjorli zu fahren', intro: 'Die Rauma-Bahn macht den Berg auch ohne Auto leicht erreichbar.' },
@@ -143,7 +143,7 @@ const de: Dictionary = {
     flightAccess: {
       eyebrow: 'Internationale Flüge',
       title: 'Direktflüge zum Flughafen Ålesund Vigra',
-      body: 'Bjorli ist auch aus dem deutschsprachigen Raum gut erreichbar – etwa über den Flughafen Ålesund Vigra mit Anschlussflügen in relevanten Zeiträumen. Vom Flughafen Ålesund Vigra nach Bjorli sind es etwa 2,5 Stunden Fahrt.',
+      body: 'Bjorli ist auch aus dem deutschsprachigen Raum gut erreichbar – etwa über den Flughafen Ålesund Vigra mit Direktflügen in relevanten Zeiträumen. Vom Flughafen Ålesund Vigra nach Bjorli sind es etwa 2,5 Stunden Fahrt.',
       note: 'Laut Travel Trade Møre & Romsdal verkehren in relevanten Zeiträumen Direktflüge nach Ålesund. Prüfen Sie vor der Buchung stets die aktuellen Flugzeiten der Fluggesellschaft.',
     },
   },
@@ -151,7 +151,7 @@ const de: Dictionary = {
     eyebrow: 'Das ganze Jahr',
     title: 'Bjorli im Sommer',
     body: 'Wenn der Schnee schmilzt, wird Bjorli zum ruhigen Bergcamp für Wandern, Radfahren, Familienurlaub und Naturerlebnisse – mit Rauma-Fluss, Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell direkt um die Ecke.',
-    cta: 'Sommer in Bjorli entdecken',
+    cta: 'Bjorli im Sommer',
   },
   news: {
     eyebrow: 'Neuigkeiten',

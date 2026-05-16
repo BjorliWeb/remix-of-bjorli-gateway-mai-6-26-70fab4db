@@ -51,7 +51,7 @@ const en: Dictionary = {
     sampleCta: 'See opening hours',
   },
   intro: {
-    title: 'Experience winter in Bjorli',
+    title: 'Winter at Bjorli',
     body: 'Bjorli is a snow-sure winter destination for families, cabin guests and anyone who wants real mountain days without the stress. Find alpine and cross-country skiing, ski rental, ski school, food, accommodation and easy access by car or train.',
   },
   planning: {
@@ -65,7 +65,7 @@ const en: Dictionary = {
       { title: 'Trail map', desc: 'All slopes and lifts at a glance' },
       { title: 'Stay', desc: 'Cabins, apartments and hotels' },
       { title: 'Ski rental', desc: 'Skis, snowboards and gear in all sizes' },
-      { title: 'Food & drink', desc: 'Heiskroa and dining at the mountain' },
+      { title: 'Food & drink', desc: 'Heiskroa (the mountain café) and dining at the mountain' },
     ],
   },
   skiCenter: {
@@ -116,7 +116,7 @@ const en: Dictionary = {
     title: 'Winter in Bjorli is more than lifts and pistes',
     body: 'Mountain days here are also about cross-country, sledging, snow play, cabin evenings, short distances and time together. Bjorli suits families and friends who want real winter without everything having to be big, expensive and busy.',
     items: [
-      { title: 'Cross-country', desc: 'Groomed trails through beautiful mountain landscapes.' },
+      { title: 'Cross-country skiing', desc: 'Groomed trails through beautiful mountain landscapes.' },
       { title: 'Sledging and snow play', desc: 'Safe hills for the whole family.' },
       { title: 'Cabin evenings', desc: 'Long evenings, fireplaces and time indoors.' },
       { title: 'Calm winter walks', desc: 'Snowshoes and easy tours for those who want to get out.' },
@@ -151,7 +151,7 @@ const en: Dictionary = {
     eyebrow: 'Year-round',
     title: 'Bjorli in summer',
     body: 'When the snow melts, Bjorli becomes a calm mountain basecamp for hiking, cycling, family trips and nature experiences – with the Rauma River, Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell right around the corner.',
-    cta: 'Explore summer in Bjorli',
+    cta: 'Summer at Bjorli',
   },
   news: {
     eyebrow: 'News',
@@ -197,7 +197,7 @@ const en: Dictionary = {
       { label: 'Weather and webcams', href: '/vaer-og-webkamera' },
       { label: 'Ski rental', href: '/skiutleie' },
       { label: 'Ski school', href: '/skiskole' },
-      { label: 'Cross-country', href: '/langrenn' },
+      { label: 'Cross-country skiing', href: '/langrenn' },
     ],
     summerLinks: [
       { label: 'Hiking', href: '/fotturer' },
@@ -240,8 +240,8 @@ const en: Dictionary = {
     badge: 'Summer at Bjorli',
     eyebrow: 'Summer at Bjorli',
     title: 'Your base between the mountains and the fjord',
-    subtitle: 'Use Bjorli as your starting point for hiking, biking, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
-    intro: 'Use Bjorli as a base for hiking, biking, family holidays, train travel and genuine Norwegian nature experiences.',
+    subtitle: 'Use Bjorli as your starting point for hiking, cycling, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
+    intro: 'Use Bjorli as a base for hiking, cycling, family holidays, train travel and genuine Norwegian nature experiences.',
     ctaExplore: 'See activities',
     ctaActivities: 'See activities',
     ctaStay: 'Find accommodation',
@@ -255,7 +255,7 @@ const en: Dictionary = {
         desc: 'Short family walks and longer summit trips in beautiful mountain terrain.'
       },
       {
-        title: 'Biking',
+        title: 'Cycling',
         desc: 'Trails and gravel roads for mountain biking and easy rides.'
       },
       {

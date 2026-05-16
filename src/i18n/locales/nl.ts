@@ -51,7 +51,7 @@ const nl: Dictionary = {
     sampleCta: 'Openingstijden bekijken',
   },
   intro: {
-    title: 'Beleef de winter in Bjorli',
+    title: 'Winter in Bjorli',
     body: 'Bjorli is een sneeuwzekere winterbestemming voor gezinnen, hutgasten en iedereen die echte bergdagen zonder stress wil. Hier vind je alpineskiën, langlauf, skiverhuur, skischool, eten en drinken, accommodatie en een eenvoudige bereikbaarheid met auto of trein.',
   },
   planning: {
@@ -65,7 +65,7 @@ const nl: Dictionary = {
       { title: 'Pistekaart', desc: 'Alle pistes en liften in één overzicht' },
       { title: 'Verblijf', desc: 'Hutten, appartementen en hotels' },
       { title: 'Skiverhuur', desc: 'Ski’s, snowboards en uitrusting in alle maten' },
-      { title: 'Eten & drinken', desc: 'Heiskroa en restaurants aan de berg' },
+      { title: 'Eten & drinken', desc: 'Heiskroa (het bergcafé) en restaurants aan de berg' },
     ],
   },
   skiCenter: {
@@ -82,7 +82,7 @@ const nl: Dictionary = {
     cta: 'Verblijf zoeken',
     ctaSecondary: 'Alle opties bekijken',
     subcards: [
-      { title: 'Hutten en appartementen', desc: 'Klassieke Noorse huttenvakantie, dicht bij loipes en liften.' },
+      { title: 'Hutten en appartementen', desc: 'Klassieke Noorse huttenvakantie, dicht bij langlaufsporen en liften.' },
       { title: 'Hotels', desc: 'Comfortabel verblijf met restaurant en service.' },
       { title: 'Gezinnen en groepen', desc: 'Ruimere opties voor grotere reisgezelschappen.' },
     ],
@@ -106,7 +106,7 @@ const nl: Dictionary = {
     cta: 'Bekijk agenda',
     items: [
       { category: 'Seizoensopening', date: 'Nov', title: 'Openingsweekend', intro: 'We vieren de start van het seizoen met aanbiedingen, activiteiten en après-ski.' },
-      { category: 'Familie', date: 'Feb', title: 'Krokusvakantieprogramma', intro: 'Activiteiten voor jong en oud tijdens de krokusvakantie.' },
+      { category: 'Familie', date: 'Feb', title: 'Voorjaarsvakantie', intro: 'Activiteiten voor jong en oud tijdens de voorjaarsvakantie.' },
       { category: 'Pasen', date: 'Apr', title: 'Pasen op Bjorli', intro: 'Zon, sneeuw en gezinsactiviteiten op de berg.' },
       { category: 'Zomer', date: 'Jul', title: 'Zomeractiviteiten', intro: 'Wandelen, fietsen en bergervaringen.' },
     ],
@@ -151,7 +151,7 @@ const nl: Dictionary = {
     eyebrow: 'Het hele jaar door',
     title: 'Bjorli in de zomer',
     body: 'Als de sneeuw smelt wordt Bjorli een rustige bergbasis voor wandelen, fietsen, gezinsuitjes en natuurervaringen – met de Rauma-rivier, Trollveggen, Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell vlakbij.',
-    cta: 'Ontdek Bjorli in de zomer',
+    cta: 'Bjorli in de zomer',
   },
   news: {
     eyebrow: 'Nieuws',
@@ -173,7 +173,7 @@ const nl: Dictionary = {
       { q: 'Waar koop ik een liftpas?', a: 'Liftpassen kun je online kopen voordat je vertrekt of bij de kassa in het skigebied. Online kopen is het snelst.' },
       { q: 'Hoe kom ik met de trein in Bjorli?', a: 'Bjorli ligt aan de Raumalijn, tussen Dombås en Åndalsnes. Station Bjorli ligt op korte afstand van het skigebied en de accommodaties. Bekijk www.entur.no voor dienstregelingen en het boeken van tickets voor trein en bus.' },
       { q: 'Zijn er skiverhuur en skischool?', a: 'Ja, je kunt ski’s, snowboards en uitrusting huren bij het skigebied en lessen boeken bij de Bjorli Skischool.' },
-      { q: 'Waar kan ik in Bjorli verblijven?', a: 'Je kunt kiezen uit hutten, appartementen en hotels. Veel verblijven liggen op loopafstand van de berg en de loipes.' },
+      { q: 'Waar kan ik in Bjorli verblijven?', a: 'Je kunt kiezen uit hutten, appartementen en hotels. Veel verblijven liggen op loopafstand van de berg en de langlaufsporen.' },
       { q: 'Wat kan ik in de zomer in Bjorli doen?', a: 'Zomer in Bjorli betekent wandelen, fietsen, gezinsactiviteiten en natuurervaringen in Romsdalen – met Trollveggen, Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell binnen handbereik.' },
       { q: 'Kun je vanuit Amsterdam naar Bjorli vliegen?', a: 'In relevante periodes zijn er directe vluchten tussen Amsterdam en Ålesund Airport Vigra. Vanaf Vigra is het ongeveer 2,5 uur rijden naar Bjorli. Controleer altijd de actuele vluchttijden bij de luchtvaartmaatschappij.' },
     ],
@@ -217,7 +217,7 @@ const nl: Dictionary = {
   common: {
     readMore: 'Lees meer',
     seeAll: 'Bekijk alles',
-    learnMore: 'Meer informatie',
+    learnMore: 'Meer weten',
   },
   listing: {
     backHome: 'Terug naar home',
