@@ -38,22 +38,22 @@ export const ROUTE_SEO: RouteSeoMap = {
     en: {
       title: 'Bjorli, Norway – snow-sure mountain destination near Åndalsnes',
       description:
-        'Bjorli is a year-round mountain destination in Norway between Dombås and Åndalsnes, easy to reach by E136 or the Rauma Line. Snow-sure winters at Bjorli Ski Resort and a calm base for hiking and cycling in summer.',
+        'Bjorli is a year-round mountain destination in Norway between Dombås and Åndalsnes, easy to reach by E136 or the Rauma Line. Snow-sure winters at Bjorli Skisenter and a calm base for hiking and cycling in summer.',
     },
     de: {
       title: 'Bjorli, Norwegen – schneesicheres Bergziel an der Raumabahn',
       description:
-        'Bjorli ist ein ganzjähriges Bergreiseziel in Norwegen zwischen Dombås und Åndalsnes, gut erreichbar über die E136 und mit dem Zug auf der Raumabahn. Schneesichere Winter im Skigebiet Bjorli und ruhige Sommertage in Romsdalen.',
+        'Bjorli ist ein ganzjähriges Bergreiseziel in Norwegen zwischen Dombås und Åndalsnes, gut erreichbar über die E136 und mit dem Zug auf der Raumabahn. Schneesichere Winter im Bjorli Skisenter und ruhige Sommertage in Romsdalen.',
     },
     nl: {
       title: 'Bjorli, Noorwegen – sneeuwzekere bergbestemming bij Åndalsnes',
       description:
-        'Bjorli is een bergbestemming in Noorwegen tussen Dombås en Åndalsnes, makkelijk te bereiken via de E136 of met de trein op de Raumabanen. Sneeuwzekere winters bij Skigebied Bjorli en een rustige basis voor wandelen en fietsen in de zomer.',
+        'Bjorli is een bergbestemming in Noorwegen tussen Dombås en Åndalsnes, makkelijk te bereiken via de E136 of met de trein op de Raumabanen. Sneeuwzekere winters bij Bjorli Skisenter en een rustige basis voor wandelen en fietsen in de zomer.',
     },
     da: {
       title: 'Bjorli, Norge – snøsikker fjelddestination ved Raumabanen',
       description:
-        'Bjorli er en helårs fjelddestination i Norge mellem Dombås og Åndalsnes, nem at nå via E136 og med tog på Raumabanen. Snøsikre vintre på Bjorli Skicenter og en rolig fjeldbase om sommeren.',
+        'Bjorli er en helårs fjelddestination i Norge mellem Dombås og Åndalsnes, nem at nå via E136 og med tog på Raumabanen. Snøsikre vintre på Bjorli Skisenter og en rolig fjeldbase om sommeren.',
     },
     sv: {
       title: 'Bjorli, Norge – snösäker fjälldestination nära Åndalsnes',
@@ -64,10 +64,10 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   vinter: {
     no: { title: 'Vinter på Bjorli – alpint, langrenn og snøsikre dager', description: 'Vinter på Bjorli betyr lang sesong, alpint i Bjorli Skisenter, langrennsløyper og familievennlige forhold mellom Dombås og Åndalsnes.' },
-    en: { title: 'Winter in Bjorli, Norway – alpine, cross-country and snow-sure days', description: 'Winter in Bjorli means a long season, alpine skiing at Bjorli Ski Resort, cross-country trails and family-friendly conditions between Dombås and Åndalsnes.' },
-    de: { title: 'Winter in Bjorli – Alpin, Langlauf und schneesichere Tage', description: 'Der Winter in Bjorli bedeutet lange Saison, Alpinski im Skigebiet Bjorli, Langlaufloipen und familienfreundliche Bedingungen in Norwegen.' },
-    nl: { title: 'Winter in Bjorli – alpineskiën, langlaufen en sneeuwzekere dagen', description: 'Winter in Bjorli: lang seizoen, alpineskiën in Skigebied Bjorli, langlaufloipes en familievriendelijke omstandigheden tussen Dombås en Åndalsnes.' },
-    da: { title: 'Vinter på Bjorli – alpint, langrend og snøsikre dage', description: 'Vinter på Bjorli betyder lang sæson, alpint i Bjorli Skicenter, langrendsspor og familievenlige forhold i Norge.' },
+    en: { title: 'Winter in Bjorli, Norway – alpine, cross-country and snow-sure days', description: 'Winter in Bjorli means a long season, alpine skiing at Bjorli Skisenter, cross-country trails and family-friendly conditions between Dombås and Åndalsnes.' },
+    de: { title: 'Winter in Bjorli – Alpin, Langlauf und schneesichere Tage', description: 'Der Winter in Bjorli bedeutet lange Saison, Alpinski im Bjorli Skisenter, Langlaufloipen und familienfreundliche Bedingungen in Norwegen.' },
+    nl: { title: 'Winter in Bjorli – alpineskiën, langlaufen en sneeuwzekere dagen', description: 'Winter in Bjorli: lang seizoen, alpineskiën in Bjorli Skisenter, langlaufloipes en familievriendelijke omstandigheden tussen Dombås en Åndalsnes.' },
+    da: { title: 'Vinter på Bjorli – alpint, langrend og snøsikre dage', description: 'Vinter på Bjorli betyder lang sæson, alpint i Bjorli Skisenter, langrendsspor og familievenlige forhold i Norge.' },
     sv: { title: 'Vinter på Bjorli – alpint, längdåkning och snösäkra dagar', description: 'Vinter på Bjorli innebär lång säsong, alpint vid Bjorli Skidcenter, längdspår och familjevänliga förhållanden i Norge.' },
   },
 
@@ -82,37 +82,37 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   skisenter: {
     no: { title: 'Bjorli Skisenter – snøsikkert alpinanlegg i Romsdalen', description: 'Bjorli Skisenter er kjent for tidlige åpninger og snøsikre forhold. Heiser, nedfarter, skiskole, skiutleie og barneområder mellom Dombås og Åndalsnes.' },
-    en: { title: 'Bjorli Ski Resort – snow-sure alpine skiing in Norway', description: 'Bjorli Ski Resort is often among the first to open in Norway and is known for snow-sure conditions. Lifts, slopes, ski school, rental and children’s areas at the top of Romsdalen.' },
-    de: { title: 'Skigebiet Bjorli – schneesicheres Alpinskifahren in Norwegen', description: 'Bjorli gehört oft zu den ersten geöffneten Skigebieten Norwegens und ist bekannt für schneesichere Bedingungen. Lifte, Pisten, Skischule, Verleih und Kinderbereiche.' },
-    nl: { title: 'Skigebied Bjorli – sneeuwzeker alpineskiën in Noorwegen', description: 'Skigebied Bjorli behoort vaak tot de eerste skigebieden in Noorwegen die opengaan en staat bekend om sneeuwzekere omstandigheden. Liften, pistes, skischool, verhuur en kinderzones.' },
-    da: { title: 'Bjorli Skicenter – snøsikkert alpinanlæg i Norge', description: 'Bjorli Skicenter er ofte blandt de første der åbner i Norge og kendt for snøsikre forhold. Lifte, pister, skiskole, udlejning og børneområder.' },
+    en: { title: 'Bjorli Skisenter – snow-sure alpine skiing in Norway', description: 'Bjorli Skisenter is often among the first to open in Norway and is known for snow-sure conditions. Lifts, slopes, ski school, rental and children’s areas at the top of Romsdalen.' },
+    de: { title: 'Bjorli Skisenter – schneesicheres Alpinskifahren in Norwegen', description: 'Bjorli gehört oft zu den ersten geöffneten Skigebieten Norwegens und ist bekannt für schneesichere Bedingungen. Lifte, Pisten, Skischule, Verleih und Kinderbereiche.' },
+    nl: { title: 'Bjorli Skisenter – sneeuwzeker alpineskiën in Noorwegen', description: 'Bjorli Skisenter behoort vaak tot de eerste skigebieden in Noorwegen die opengaan en staat bekend om sneeuwzekere omstandigheden. Liften, pistes, skischool, verhuur en kinderzones.' },
+    da: { title: 'Bjorli Skisenter – snøsikkert alpinanlæg i Norge', description: 'Bjorli Skisenter er ofte blandt de første der åbner i Norge og kendt for snøsikre forhold. Lifte, pister, skiskole, udlejning og børneområder.' },
     sv: { title: 'Bjorli Skidcenter – snösäker alpin skidåkning i Norge', description: 'Bjorli Skidcenter är ofta bland de första som öppnar i Norge och känt för snösäkra förhållanden. Liftar, backar, skidskola, uthyrning och barnområden.' },
   },
 
   heiskort: {
     no: { title: 'Heiskort – Bjorli Skisenter', description: 'Heiskort til Bjorli Skisenter – dagskort, flerdagskort og sesongkort. Se gjeldende informasjon og kjøp på bjorli.no.' },
-    en: { title: 'Lift passes – Bjorli Ski Resort, Norway', description: 'Lift passes for Bjorli Ski Resort – day, multi-day and season passes. Check current information and buy on bjorli.no.' },
-    de: { title: 'Skipässe – Skigebiet Bjorli, Norwegen', description: 'Skipässe für das Skigebiet Bjorli – Tages-, Mehrtages- und Saisonpässe. Aktuelle Informationen und Kauf auf bjorli.no.' },
-    nl: { title: 'Skipassen – Skigebied Bjorli, Noorwegen', description: 'Skipassen voor Skigebied Bjorli – dag-, meerdaagse en seizoenpassen. Bekijk actuele informatie en koop op bjorli.no.' },
-    da: { title: 'Liftkort – Bjorli Skicenter, Norge', description: 'Liftkort til Bjorli Skicenter – dagskort, flerdagskort og sæsonkort. Se aktuel information og køb på bjorli.no.' },
+    en: { title: 'Lift passes – Bjorli Skisenter, Norway', description: 'Lift passes for Bjorli Skisenter – day, multi-day and season passes. Check current information and buy on bjorli.no.' },
+    de: { title: 'Skipässe – Bjorli Skisenter, Norwegen', description: 'Skipässe für das Bjorli Skisenter – Tages-, Mehrtages- und Saisonpässe. Aktuelle Informationen und Kauf auf bjorli.no.' },
+    nl: { title: 'Skipassen – Bjorli Skisenter, Noorwegen', description: 'Skipassen voor Bjorli Skisenter – dag-, meerdaagse en seizoenpassen. Bekijk actuele informatie en koop op bjorli.no.' },
+    da: { title: 'Liftkort – Bjorli Skisenter, Norge', description: 'Liftkort til Bjorli Skisenter – dagskort, flerdagskort og sæsonkort. Se aktuel information og køb på bjorli.no.' },
     sv: { title: 'Liftkort – Bjorli Skidcenter, Norge', description: 'Liftkort till Bjorli Skidcenter – dagskort, flerdagarskort och säsongskort. Se aktuell information och köp på bjorli.no.' },
   },
 
   apningstider: {
     no: { title: 'Åpningstider – Bjorli', description: 'Åpningstider for Bjorli Skisenter, heiser, restaurant og butikker. Se siste oppdaterte informasjon på bjorli.no.' },
-    en: { title: 'Opening hours – Bjorli, Norway', description: 'Opening hours for Bjorli Ski Resort, lifts, restaurant and shops. See the latest information on bjorli.no.' },
-    de: { title: 'Öffnungszeiten – Bjorli, Norwegen', description: 'Öffnungszeiten für das Skigebiet Bjorli, Lifte, Restaurant und Geschäfte. Aktuelle Informationen auf bjorli.no.' },
-    nl: { title: 'Openingstijden – Bjorli, Noorwegen', description: 'Openingstijden voor Skigebied Bjorli, liften, restaurant en winkels. Bekijk de laatste informatie op bjorli.no.' },
-    da: { title: 'Åbningstider – Bjorli, Norge', description: 'Åbningstider for Bjorli Skicenter, lifte, restaurant og butikker. Se den nyeste information på bjorli.no.' },
+    en: { title: 'Opening hours – Bjorli, Norway', description: 'Opening hours for Bjorli Skisenter, lifts, restaurant and shops. See the latest information on bjorli.no.' },
+    de: { title: 'Öffnungszeiten – Bjorli, Norwegen', description: 'Öffnungszeiten für das Bjorli Skisenter, Lifte, Restaurant und Geschäfte. Aktuelle Informationen auf bjorli.no.' },
+    nl: { title: 'Openingstijden – Bjorli, Noorwegen', description: 'Openingstijden voor Bjorli Skisenter, liften, restaurant en winkels. Bekijk de laatste informatie op bjorli.no.' },
+    da: { title: 'Åbningstider – Bjorli, Norge', description: 'Åbningstider for Bjorli Skisenter, lifte, restaurant og butikker. Se den nyeste information på bjorli.no.' },
     sv: { title: 'Öppettider – Bjorli, Norge', description: 'Öppettider för Bjorli Skidcenter, liftar, restaurang och butiker. Se senaste informationen på bjorli.no.' },
   },
 
   'vaer-og-webkamera': {
     no: { title: 'Vær og webkamera – Bjorli', description: 'Se vær, snøforhold og live webkameraer fra Bjorli Skisenter og destinasjonen.' },
-    en: { title: 'Weather and webcams – Bjorli, Norway', description: 'See weather, snow conditions and live webcams from Bjorli Ski Resort and the destination.' },
-    de: { title: 'Wetter und Webcams – Bjorli, Norwegen', description: 'Wetter, Schneebedingungen und Live-Webcams aus dem Skigebiet Bjorli und der Region.' },
-    nl: { title: 'Weer en webcams – Bjorli, Noorwegen', description: 'Bekijk weer, sneeuwcondities en live webcams van Skigebied Bjorli en de bestemming.' },
-    da: { title: 'Vejr og webcams – Bjorli, Norge', description: 'Se vejr, sneforhold og live webcams fra Bjorli Skicenter og destinationen.' },
+    en: { title: 'Weather and webcams – Bjorli, Norway', description: 'See weather, snow conditions and live webcams from Bjorli Skisenter and the destination.' },
+    de: { title: 'Wetter und Webcams – Bjorli, Norwegen', description: 'Wetter, Schneebedingungen und Live-Webcams aus dem Bjorli Skisenter und der Region.' },
+    nl: { title: 'Weer en webcams – Bjorli, Noorwegen', description: 'Bekijk weer, sneeuwcondities en live webcams van Bjorli Skisenter en de bestemming.' },
+    da: { title: 'Vejr og webcams – Bjorli, Norge', description: 'Se vejr, sneforhold og live webcams fra Bjorli Skisenter og destinationen.' },
     sv: { title: 'Väder och webbkameror – Bjorli, Norge', description: 'Se väder, snöförhållanden och live-webbkameror från Bjorli Skidcenter och destinationen.' },
   },
 
@@ -127,10 +127,10 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   overnatting: {
     no: { title: 'Overnatting på Bjorli – hytter, leiligheter og hotell', description: 'Finn overnatting på Bjorli – fra hytter og selvhusholdsleiligheter til hotell og camping, nær Bjorli Skisenter og Romsdalen.' },
-    en: { title: 'Accommodation in Bjorli, Norway – cabins, apartments, hotels', description: 'Find accommodation in Bjorli – cabins, self-catering apartments, hotels and camping, close to Bjorli Ski Resort and Romsdalen.' },
+    en: { title: 'Accommodation in Bjorli, Norway – cabins, apartments, hotels', description: 'Find accommodation in Bjorli – cabins, self-catering apartments, hotels and camping, close to Bjorli Skisenter and Romsdalen.' },
     de: { title: 'Unterkunft in Bjorli, Norwegen – Hütten, Apartments, Hotels', description: 'Unterkünfte in Bjorli – Hütten, Ferienwohnungen, Hotels und Camping in der Nähe des Skigebiets Bjorli und Romsdal.' },
-    nl: { title: 'Accommodatie in Bjorli, Noorwegen – hutten, appartementen, hotels', description: 'Accommodatie in Bjorli – hutten, appartementen, hotels en camping dicht bij Skigebied Bjorli en Romsdalen.' },
-    da: { title: 'Overnatning på Bjorli – hytter, lejligheder og hoteller', description: 'Find overnatning på Bjorli – hytter, selvhusholdningslejligheder, hoteller og camping nær Bjorli Skicenter.' },
+    nl: { title: 'Accommodatie in Bjorli, Noorwegen – hutten, appartementen, hotels', description: 'Accommodatie in Bjorli – hutten, appartementen, hotels en camping dicht bij Bjorli Skisenter en Romsdalen.' },
+    da: { title: 'Overnatning på Bjorli – hytter, lejligheder og hoteller', description: 'Find overnatning på Bjorli – hytter, selvhusholdningslejligheder, hoteller og camping nær Bjorli Skisenter.' },
     sv: { title: 'Boende på Bjorli – stugor, lägenheter och hotell', description: 'Hitta boende på Bjorli – stugor, självhushåll, hotell och camping nära Bjorli Skidcenter.' },
   },
 
@@ -163,10 +163,10 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   nyheter: {
     no: { title: 'Nyheter – Bjorli', description: 'Nyheter, driftsmeldinger og oppdateringer fra Bjorli og Bjorli Skisenter.' },
-    en: { title: 'News – Bjorli, Norway', description: 'News, operational updates and announcements from Bjorli and Bjorli Ski Resort.' },
-    de: { title: 'Neuigkeiten – Bjorli, Norwegen', description: 'Aktuelles und Betriebsmeldungen aus Bjorli und dem Skigebiet Bjorli.' },
-    nl: { title: 'Nieuws – Bjorli, Noorwegen', description: 'Nieuws en updates van Bjorli en Skigebied Bjorli.' },
-    da: { title: 'Nyheder – Bjorli', description: 'Nyheder og driftsmeldinger fra Bjorli og Bjorli Skicenter.' },
+    en: { title: 'News – Bjorli, Norway', description: 'News, operational updates and announcements from Bjorli and Bjorli Skisenter.' },
+    de: { title: 'Neuigkeiten – Bjorli, Norwegen', description: 'Aktuelles und Betriebsmeldungen aus Bjorli und dem Bjorli Skisenter.' },
+    nl: { title: 'Nieuws – Bjorli, Noorwegen', description: 'Nieuws en updates van Bjorli en Bjorli Skisenter.' },
+    da: { title: 'Nyheder – Bjorli', description: 'Nyheder og driftsmeldinger fra Bjorli og Bjorli Skisenter.' },
     sv: { title: 'Nyheter – Bjorli', description: 'Nyheter och driftmeddelanden från Bjorli och Bjorli Skidcenter.' },
   },
 
@@ -253,28 +253,28 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   kontakt: {
     no: { title: 'Kontakt – Destinasjon Bjorli', description: 'Kontakt Destinasjon Bjorli og Bjorli Skisenter. Adresse, telefon og e-post.' },
-    en: { title: 'Contact – Destination Bjorli, Norway', description: 'Contact Destination Bjorli and Bjorli Ski Resort. Address, phone and email.' },
-    de: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt zu Destination Bjorli und dem Skigebiet Bjorli. Adresse, Telefon und E-Mail.' },
-    nl: { title: 'Contact – Destination Bjorli', description: 'Contact met Destination Bjorli en Skigebied Bjorli. Adres, telefoon en e-mail.' },
-    da: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt Destination Bjorli og Bjorli Skicenter. Adresse, telefon og e-mail.' },
+    en: { title: 'Contact – Destination Bjorli, Norway', description: 'Contact Destination Bjorli and Bjorli Skisenter. Address, phone and email.' },
+    de: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt zu Destination Bjorli und dem Bjorli Skisenter. Adresse, Telefon und E-Mail.' },
+    nl: { title: 'Contact – Destination Bjorli', description: 'Contact met Destination Bjorli en Bjorli Skisenter. Adres, telefoon en e-mail.' },
+    da: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt Destination Bjorli og Bjorli Skisenter. Adresse, telefon og e-mail.' },
     sv: { title: 'Kontakt – Destination Bjorli', description: 'Kontakta Destination Bjorli och Bjorli Skidcenter. Adress, telefon och e-post.' },
   },
 
   loypekart: {
     no: { title: 'Løypekart – Bjorli Skisenter', description: 'Løypekart for Bjorli Skisenter – nedfarter, heiser og barneområder.' },
-    en: { title: 'Trail map – Bjorli Ski Resort, Norway', description: 'Trail and slope map for Bjorli Ski Resort – runs, lifts and children’s areas.' },
-    de: { title: 'Pistenplan – Skigebiet Bjorli', description: 'Pisten- und Loipenplan des Skigebiets Bjorli – Abfahrten, Lifte und Kinderbereiche.' },
-    nl: { title: 'Pistekaart – Skigebied Bjorli', description: 'Pistekaart voor Skigebied Bjorli – afdalingen, liften en kinderzones.' },
-    da: { title: 'Loipekort – Bjorli Skicenter', description: 'Loipe- og pistekort for Bjorli Skicenter – pister, lifte og børneområder.' },
+    en: { title: 'Trail map – Bjorli Skisenter, Norway', description: 'Trail and slope map for Bjorli Skisenter – runs, lifts and children’s areas.' },
+    de: { title: 'Pistenplan – Bjorli Skisenter', description: 'Pisten- und Loipenplan des Skigebiets Bjorli – Abfahrten, Lifte und Kinderbereiche.' },
+    nl: { title: 'Pistekaart – Bjorli Skisenter', description: 'Pistekaart voor Bjorli Skisenter – afdalingen, liften en kinderzones.' },
+    da: { title: 'Loipekort – Bjorli Skisenter', description: 'Loipe- og pistekort for Bjorli Skisenter – pister, lifte og børneområder.' },
     sv: { title: 'Spårkarta – Bjorli Skidcenter', description: 'Spår- och backkarta för Bjorli Skidcenter – backar, liftar och barnområden.' },
   },
 
   live: {
     no: { title: 'Live status – Bjorli', description: 'Live oppdateringer fra Bjorli Skisenter – heiser, nedfarter og forhold.' },
-    en: { title: 'Live status – Bjorli, Norway', description: 'Live updates from Bjorli Ski Resort – lifts, slopes and conditions.' },
-    de: { title: 'Live-Status – Bjorli', description: 'Live-Updates aus dem Skigebiet Bjorli – Lifte, Pisten und Bedingungen.' },
-    nl: { title: 'Live status – Bjorli', description: 'Live updates van Skigebied Bjorli – liften, pistes en condities.' },
-    da: { title: 'Live status – Bjorli', description: 'Live opdateringer fra Bjorli Skicenter – lifte, pister og forhold.' },
+    en: { title: 'Live status – Bjorli, Norway', description: 'Live updates from Bjorli Skisenter – lifts, slopes and conditions.' },
+    de: { title: 'Live-Status – Bjorli', description: 'Live-Updates aus dem Bjorli Skisenter – Lifte, Pisten und Bedingungen.' },
+    nl: { title: 'Live status – Bjorli', description: 'Live updates van Bjorli Skisenter – liften, pistes en condities.' },
+    da: { title: 'Live status – Bjorli', description: 'Live opdateringer fra Bjorli Skisenter – lifte, pister og forhold.' },
     sv: { title: 'Live status – Bjorli', description: 'Live uppdateringar från Bjorli Skidcenter – liftar, backar och förhållanden.' },
   },
 };

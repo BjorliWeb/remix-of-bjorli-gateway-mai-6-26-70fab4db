@@ -9,7 +9,7 @@ const da: Dictionary = {
   nav: {
     winter: 'Vinter',
     summer: 'Sommer',
-    skiCenter: 'Bjorli Skicenter',
+    skiCenter: 'Bjorli Skisenter',
     accommodation: 'Overnatning',
     activities: 'Aktiviteter',
     whatsOn: 'Hvad sker der',
@@ -29,7 +29,7 @@ const da: Dictionary = {
     title: 'Ægte vinter. Roligere fjelddage.',
     subtitle: 'Snesikre Bjorli giver dig alpinski, langrend, hytteliv og rolige familiedage mellem Østlandet og fjordene mod vest.',
     intro: 'Destination Bjorli – vinter',
-    ctaSkiCenter: 'Se Bjorli Skicenter',
+    ctaSkiCenter: 'Se Bjorli Skisenter',
     ctaLiftPass: 'Køb liftkort',
     ctaOpening: 'Åbningstider og forhold',
     ctaStay: 'Find overnatning',
@@ -58,7 +58,7 @@ const da: Dictionary = {
     title: 'Alt du behøver til en dag på fjeldet',
     subtitle: 'Planlæg dagen med opdateret information, liftkort og praktiske services.',
     items: [
-      { title: 'Bjorli Skicenter', desc: 'Familievenlige pister og snesikre forhold' },
+      { title: 'Bjorli Skisenter', desc: 'Familievenlige pister og snesikre forhold' },
       { title: 'Liftkort', desc: 'Køb dags- eller sæsonkort online' },
       { title: 'Åbningstider', desc: 'Dagens tider i skicentret' },
       { title: 'Livecams', desc: 'Se forholdene på fjeldet i realtid' },
@@ -70,9 +70,9 @@ const da: Dictionary = {
   },
   skiCenter: {
     eyebrow: 'Vinterens hjerte',
-    title: 'Bjorli Skicenter',
-    body: 'I vinterens måneder er Bjorli Skicenter destinationens naturlige samlingspunkt. Familievenlige pister, liftkort, skiudlejning, skiskole, mad og drikke, livecams og opdateret information – alt på ét sted.',
-    ctaPrimary: 'Se Bjorli Skicenter',
+    title: 'Bjorli Skisenter',
+    body: 'I vinterens måneder er Bjorli Skisenter destinationens naturlige samlingspunkt. Familievenlige pister, liftkort, skiudlejning, skiskole, mad og drikke, livecams og opdateret information – alt på ét sted.',
+    ctaPrimary: 'Se Bjorli Skisenter',
     ctaSecondary: 'Køb liftkort',
   },
   accommodation: {
@@ -169,7 +169,7 @@ const da: Dictionary = {
     eyebrow: 'Ofte stillede spørgsmål',
     title: 'Godt at vide',
     items: [
-      { q: 'Hvornår åbner Bjorli Skicenter?', a: 'Bjorli er ofte et af de første skiområder i Norge, der åbner hver sæson. Sæsonstart er som regel i november, afhængigt af sne og temperatur.' },
+      { q: 'Hvornår åbner Bjorli Skisenter?', a: 'Bjorli er ofte et af de første skiområder i Norge, der åbner hver sæson. Sæsonstart er som regel i november, afhængigt af sne og temperatur.' },
       { q: 'Hvor køber jeg liftkort?', a: 'Liftkort kan købes online før du kommer eller i billetlugen i skicentret. Online-køb giver dig hurtigst vej til liften.' },
       { q: 'Hvordan kommer jeg til Bjorli med tog?', a: 'Bjorli ligger på Raumabanen mellem Dombås og Åndalsnes. Bjorli station ligger kort vej fra skicentret og overnatningsstederne. Tjek www.entur.no for køreplaner og billetbestilling til tog og bus.' },
       { q: 'Findes der skiudlejning og skiskole?', a: 'Ja, du kan leje ski, snowboard og andet udstyr ved skicentret og melde dig til kurser i Bjorli Skiskole.' },
@@ -191,7 +191,7 @@ const da: Dictionary = {
     privacy: 'Privatliv',
     cookies: 'Cookies',
     winterLinks: [
-      { label: 'Bjorli Skicenter', href: '/bjorli-skisenter' },
+      { label: 'Bjorli Skisenter', href: '/bjorli-skisenter' },
       { label: 'Liftkort', href: '/heiskort' },
       { label: 'Åbningstider', href: '/apningstider' },
       { label: 'Vejr og webcams', href: '/vaer-og-webkamera' },

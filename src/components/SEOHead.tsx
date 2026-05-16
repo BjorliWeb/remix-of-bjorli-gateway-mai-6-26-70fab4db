@@ -25,12 +25,12 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
   },
   en: {
     title: 'Bjorli – Snow-sure winter destination in Norway',
-    description: 'Destination Bjorli in Romsdalen, Norway – snow-sure mountain days with alpine skiing, cross-country, cabins and family experiences. Bjorli Ski Resort is the heart of winter.',
+    description: 'Destination Bjorli in Romsdalen, Norway – snow-sure mountain days with alpine skiing, cross-country, cabins and family experiences. Bjorli Skisenter is the heart of winter.',
     keywords: 'bjorli, bjorli norway, snow sure ski resort, ski holiday norway, romsdalen, alpine skiing, cross country skiing, family ski',
   },
   de: {
     title: 'Bjorli – Schneesicheres Winterreiseziel in Norwegen',
-    description: 'Destination Bjorli im Romsdal, Norwegen – schneesichere Bergtage mit Alpin, Langlauf, Hütten und Familienerlebnissen. Bjorli Skigebiet ist das Herz des Winters.',
+    description: 'Destination Bjorli im Romsdal, Norwegen – schneesichere Bergtage mit Alpin, Langlauf, Hütten und Familienerlebnissen. Bjorli Skisenter ist das Herz des Winters.',
     keywords: 'bjorli, bjorli norwegen, schneesicheres skigebiet, skiurlaub norwegen, romsdal, alpinski, langlauf, familienurlaub norwegen',
   },
   nl: {
@@ -40,12 +40,12 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
   },
   da: {
     title: 'Bjorli – Snøsikker vinterdestination i Norge',
-    description: 'Destination Bjorli i Romsdalen, Norge – snøsikre fjelddage med alpint, langrend, hytter og familieoplevelser. Bjorli Skicenter er hjertet af vinteren.',
+    description: 'Destination Bjorli i Romsdalen, Norge – snøsikre fjelddage med alpint, langrend, hytter og familieoplevelser. Bjorli Skisenter er hjertet af vinteren.',
     keywords: 'bjorli, bjorli norge, snøsikker skicenter, skiferie norge, romsdalen, alpint, langrend, familieferie norge',
   },
   sv: {
     title: 'Bjorli – Snösäker vinterdestination i Norge',
-    description: 'Destination Bjorli i Romsdalen, Norge – snösäkra fjälldagar med alpint, längdåkning, stugor och familjeupplevelser. Bjorli Skidanläggning är vinterns hjärta.',
+    description: 'Destination Bjorli i Romsdalen, Norge – snösäkra fjälldagar med alpint, längdåkning, stugor och familjeupplevelser. Bjorli Skisenter är vinterns hjärta.',
     keywords: 'bjorli, bjorli norge, snösäker skidort, skidsemester norge, romsdalen, alpint, längdåkning, familjesemester norge',
   },
 };
