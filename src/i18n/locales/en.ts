@@ -56,7 +56,7 @@ const en: Dictionary = {
   },
   planning: {
     title: 'Everything you need for a day on the mountain',
-    subtitle: 'Plan your day with up-to-date information, lift passes and practical services.',
+    subtitle: 'Plan your day with the latest information, lift passes and what you need on the mountain.',
     items: [
       { title: 'Bjorli Ski Resort', desc: 'Family-friendly slopes and snow-sure conditions' },
       { title: 'Lift pass', desc: 'Buy day or season passes online' },
@@ -114,7 +114,7 @@ const en: Dictionary = {
   beyondAlpine: {
     eyebrow: 'More than alpine',
     title: 'Winter in Bjorli is more than lifts and pistes',
-    body: 'Mountain days here are also about cross-country, sledging, snow play, cabin evenings, short distances and time together. Bjorli suits families and friends who want real winter without everything having to be big, expensive and busy.',
+    body: 'Mountain days here also mean cross-country, sledging and snow play. They are about cabin evenings, short distances and time together — Bjorli suits families and friends who want real winter without everything having to be big, expensive and busy.',
     items: [
       { title: 'Cross-country skiing', desc: 'Groomed trails through beautiful mountain landscapes.' },
       { title: 'Sledging and snow play', desc: 'Safe hills for the whole family.' },
@@ -180,7 +180,7 @@ const en: Dictionary = {
   },
   footer: {
     aboutTitle: 'About Bjorli',
-    aboutBody: 'Destination Bjorli – a snow-sure winter destination and a calm mountain basecamp year-round, the gateway between eastern and north-western Norway.',
+    aboutBody: 'Destination Bjorli – a snow-sure winter destination and a calm mountain basecamp year-round, between eastern Norway and the fjords of the north-west.',
     winterTitle: 'Winter',
     summerTitle: 'Summer',
     planTitle: 'Plan your trip',
@@ -234,7 +234,7 @@ const en: Dictionary = {
     pageActivitiesTitle: 'Activities at Bjorli',
     pageActivitiesIntro: 'Alpine skiing, cross-country, hiking and mountain experiences – pick your next activity.',
     pageGettingHereTitle: 'Getting to Bjorli',
-    pageGettingHereIntro: 'Bjorli is the gateway between eastern and north-western Norway – easy to reach by car or train, with Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell just a short trip away.'
+    pageGettingHereIntro: 'Bjorli sits between eastern and north-western Norway – easy to reach by car or train, with Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell just a short trip away.'
   },
   summer: {
     badge: 'Summer at Bjorli',
@@ -281,7 +281,7 @@ const en: Dictionary = {
     basecamp: {
       eyebrow: 'Between mountain and fjord',
       title: 'Your base between the mountains and the fjord',
-      body: 'From Bjorli you have a short journey to the Rauma Line, Romsdalen, Trollveggen, Dovrefjell and the fjord landscapes of north-western Norway. Stay quietly in the mountains while some of Norway’s most powerful nature experiences are within easy reach.',
+      body: 'From Bjorli you have a short journey to the Rauma Line, Romsdalen, Trollveggen, Dovrefjell and the fjord landscapes of north-western Norway. You stay quietly in the mountains, with Trollveggen, Dovrefjell, the Romsdalsalpene and the fjords within easy reach.',
       items: [
         { title: 'The Rauma Line', desc: 'One of Norway’s most beautiful train rides, with Bjorli as a natural mountain stop.' },
         { title: 'Romsdalen and Trollveggen', desc: 'Dramatic peaks, hiking and powerful nature within a short drive.' },

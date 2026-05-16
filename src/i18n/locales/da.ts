@@ -114,7 +114,7 @@ const da: Dictionary = {
   beyondAlpine: {
     eyebrow: 'Mere end alpinski',
     title: 'Vinter på Bjorli er mere end lifte og pister',
-    body: 'Dagene på fjeldet her handler også om langrend, kælk, leg i sneen, hytteaftener, korte afstande og tid sammen. Bjorli passer til familier og venner, der vil have ægte vinter uden at alt skal være stort, dyrt og travlt.',
+    body: 'Dagene på fjeldet her handler også om langrend, kælk og leg i sneen. Dertil kommer hytteaftener, korte afstande og tid sammen — Bjorli passer til familier og venner, der vil have ægte vinter uden at alt skal være stort, dyrt og travlt.',
     items: [
       { title: 'Langrend', desc: 'Præparerede spor i smukt fjeldlandskab.' },
       { title: 'Kælk og leg i sneen', desc: 'Sikre bakker for hele familien.' },
@@ -180,7 +180,7 @@ const da: Dictionary = {
   },
   footer: {
     aboutTitle: 'Om Bjorli',
-    aboutBody: 'Destination Bjorli – en snesikker vinterdestination og en rolig fjeldbase året rundt, porten mellem Østlandet og Nordvestlandet.',
+    aboutBody: 'Destination Bjorli – en snesikker vinterdestination og en rolig fjeldbase året rundt, mellem Østlandet og fjordene mod vest.',
     winterTitle: 'Vinter',
     summerTitle: 'Sommer',
     planTitle: 'Planlæg rejsen',
@@ -234,7 +234,7 @@ const da: Dictionary = {
     pageActivitiesTitle: 'Aktiviteter på Bjorli',
     pageActivitiesIntro: 'Alpint, langrend, vandring og fjeldoplevelser – vælg din næste aktivitet.',
     pageGettingHereTitle: 'Rejsen til Bjorli',
-    pageGettingHereIntro: 'Bjorli er porten mellem Østlandet og Nordvestlandet – let at nå med både bil og tog, og kort vej til Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell.',
+    pageGettingHereIntro: 'Bjorli ligger mellem Østlandet og Nordvestlandet – let at nå med både bil og tog, og kort vej til Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell.',
     filterAll: 'Alle',
     filterCategory: 'Kategori',
     filterSeason: 'Sæson',
@@ -248,7 +248,7 @@ const da: Dictionary = {
     loadMore: 'Vis flere',
     featured: 'Udvalgt',
     seoPlaceholderTitle: 'Mere om Bjorli',
-    seoPlaceholderBody: 'Bjorli er en helårs fjelddestination i Romsdalen og porten mellem Østlandet og Nordvestlandet. Med tre nationalparker, Raumabanen, snesikre forhold og kort vej til Rauma-elven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell er Bjorli et særligt udgangspunkt for både vinter- og sommerferie.',
+    seoPlaceholderBody: 'Bjorli er en helårs fjelddestination i Romsdalen, mellem Østlandet og Nordvestlandet. Med tre nationalparker, Raumabanen, snesikre forhold og kort vej til Rauma-elven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell er Bjorli et naturligt udgangspunkt for både vinter- og sommerferie.',
     sectionWinter: 'Vinteraktiviteter',
     sectionSummer: 'Sommeraktiviteter',
     sectionFamily: 'Familieaktiviteter',
@@ -286,7 +286,7 @@ const da: Dictionary = {
     basecamp: {
       eyebrow: 'Mellem fjeld og fjord',
       title: 'Midt mellem bjerge og fjorde',
-      body: 'Fra Bjorli har du kort vej til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordoplevelserne i Nordvestlandet. Du bor roligt på fjeldet, men har nogle af Norges stærkeste naturoplevelser inden for rækkevidde.',
+      body: 'Fra Bjorli har du kort vej til Raumabanen, Romsdalen, Trollveggen, Dovrefjell og fjordoplevelserne i Nordvestlandet. Du bor roligt på fjeldet, med Trollveggen, Dovrefjell, Romsdalsalpene og fjordene inden for rækkevidde.',
       items: [
         { title: 'Raumabanen', desc: 'En af Norges smukkeste togrejser, med Bjorli som naturligt stop på fjeldet.' },
         { title: 'Romsdalen og Trollveggen', desc: 'Stejle fjelde, vandreture og stærk natur inden for kort køreafstand.' },

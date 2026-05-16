@@ -114,7 +114,7 @@ const nl: Dictionary = {
   beyondAlpine: {
     eyebrow: 'Meer dan alpineski',
     title: 'Winter in Bjorli is meer dan liften en pistes',
-    body: 'Bergdagen draaien hier ook om langlaufen, sleeën, sneeuwspel, avonden in de hut, korte afstanden en tijd samen. Bjorli past bij gezinnen en vrienden die echte winter willen zonder dat alles groot, duur en druk hoeft te zijn.',
+    body: 'Bergdagen draaien hier ook om langlaufen, sleeën en sneeuwspel. Daarbij horen avonden in de hut, korte afstanden en tijd samen — Bjorli past bij gezinnen en vrienden die echte winter willen zonder dat alles groot, duur en druk hoeft te zijn.',
     items: [
       { title: 'Langlaufen', desc: 'Geprepareerde loipes door prachtig berglandschap.' },
       { title: 'Sleeën en sneeuwspel', desc: 'Veilige hellingen voor het hele gezin.' },
@@ -180,7 +180,7 @@ const nl: Dictionary = {
   },
   footer: {
     aboutTitle: 'Over Bjorli',
-    aboutBody: 'Bestemming Bjorli – een sneeuwzekere winterbestemming en een rustige bergbasis het hele jaar door, de toegangspoort tussen Oost- en Noordwest-Noorwegen.',
+    aboutBody: 'Bestemming Bjorli – een sneeuwzekere winterbestemming en een rustige bergbasis het hele jaar door, tussen Oost-Noorwegen en de fjorden in het westen.',
     winterTitle: 'Winter',
     summerTitle: 'Zomer',
     planTitle: 'Reis plannen',
@@ -234,7 +234,7 @@ const nl: Dictionary = {
     pageActivitiesTitle: 'Activiteiten in Bjorli',
     pageActivitiesIntro: 'Alpineskiën, langlaufen, wandelen en bergavonturen – kies je volgende activiteit.',
     pageGettingHereTitle: 'Reizen naar Bjorli',
-    pageGettingHereIntro: 'Bjorli is de toegangspoort tussen Oost- en Noordwest-Noorwegen – eenvoudig te bereiken met auto of trein, met Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell op korte afstand.',
+    pageGettingHereIntro: 'Bjorli ligt tussen Oost- en Noordwest-Noorwegen – eenvoudig te bereiken met auto of trein, met Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell op korte afstand.',
     filterAll: 'Alles',
     filterCategory: 'Categorie',
     filterSeason: 'Seizoen',
@@ -248,7 +248,7 @@ const nl: Dictionary = {
     loadMore: 'Meer laden',
     featured: 'Uitgelicht',
     seoPlaceholderTitle: 'Meer over Bjorli',
-    seoPlaceholderBody: 'Bjorli is een bergbestemming voor het hele jaar in Romsdalen, de toegangspoort tussen Oost- en Noordwest-Noorwegen. Met drie nationale parken, de Raumalijn, sneeuwzekere omstandigheden en korte afstanden tot de Rauma-rivier, Trollveggen, Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell is Bjorli een uniek vertrekpunt voor zowel een winter- als een zomervakantie.',
+    seoPlaceholderBody: 'Bjorli is een bergbestemming voor het hele jaar in Romsdalen, tussen Oost- en Noordwest-Noorwegen. Met drie nationale parken, de Raumalijn, sneeuwzekere omstandigheden en korte afstanden tot de Rauma-rivier, Trollveggen, Trollstigen, het Geirangerfjord, Ålesund en Dovrefjell is Bjorli een natuurlijk vertrekpunt voor zowel een winter- als een zomervakantie.',
     sectionWinter: 'Winteractiviteiten',
     sectionSummer: 'Zomeractiviteiten',
     sectionFamily: 'Gezinsactiviteiten',
@@ -286,7 +286,7 @@ const nl: Dictionary = {
     basecamp: {
       eyebrow: 'Tussen berg en fjord',
       title: 'Een uitvalsbasis tussen bergen en fjorden',
-      body: 'Vanuit Bjorli ben je snel bij de Raumalijn, Romsdalen, Trollveggen, Dovrefjell en het fjordlandschap van Noordwest-Noorwegen. Je verblijft rustig in de bergen, met enkele van de mooiste natuurgebieden van Noorwegen binnen handbereik.',
+      body: 'Vanuit Bjorli ben je snel bij de Raumalijn, Romsdalen, Trollveggen, Dovrefjell en het fjordlandschap van Noordwest-Noorwegen. Je verblijft rustig in de bergen, met Trollveggen, Dovrefjell, de Romsdalsalpene en de fjorden binnen handbereik.',
       items: [
         { title: 'De Raumalijn', desc: 'Een van de mooiste treinreizen van Noorwegen, met Bjorli als natuurlijke halte in de bergen.' },
         { title: 'Romsdalen en Trollveggen', desc: 'Steile pieken, wandelingen en indrukwekkende natuur op korte rijafstand.' },

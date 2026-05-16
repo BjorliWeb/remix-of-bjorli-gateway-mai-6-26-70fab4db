@@ -114,7 +114,7 @@ const de: Dictionary = {
   beyondAlpine: {
     eyebrow: 'Mehr als Alpinski',
     title: 'Winter in Bjorli ist mehr als Lifte und Pisten',
-    body: 'Bergtage drehen sich hier auch um Langlauf, Schlittenfahren, Schneespiel, Hüttenabende, kurze Wege und gemeinsame Zeit. Bjorli passt zu Familien und Freundeskreisen, die echten Winter ohne große Inszenierung wollen.',
+    body: 'Bergtage drehen sich hier auch um Langlauf, Schlittenfahren und Schneespiel. Dazu kommen Hüttenabende, kurze Wege und gemeinsame Zeit — Bjorli passt zu Familien und Freundeskreisen, die echten Winter ohne große Inszenierung wollen.',
     items: [
       { title: 'Langlauf', desc: 'Gespurte Loipen in schöner Berglandschaft.' },
       { title: 'Schlitten und Schneespiel', desc: 'Sichere Hänge für die ganze Familie.' },
@@ -179,7 +179,7 @@ const de: Dictionary = {
   },
   footer: {
     aboutTitle: 'Über Bjorli',
-    aboutBody: 'Destination Bjorli – eine schneesichere Winterdestination und ein ruhiges Bergcamp das ganze Jahr, das Tor zwischen Ost- und Nordwestnorwegen.',
+    aboutBody: 'Destination Bjorli – eine schneesichere Winterdestination und ein ruhiges Bergcamp das ganze Jahr, zwischen Ostnorwegen und den Fjorden im Westen.',
     winterTitle: 'Winter',
     summerTitle: 'Sommer',
     planTitle: 'Reise planen',
@@ -233,7 +233,7 @@ const de: Dictionary = {
     pageActivitiesTitle: 'Aktivitäten in Bjorli',
     pageActivitiesIntro: 'Alpinski, Langlauf, Wandern und Bergerlebnisse – wählen Sie Ihre nächste Aktivität.',
     pageGettingHereTitle: 'Anreise nach Bjorli',
-    pageGettingHereIntro: 'Bjorli ist das Tor zwischen Ost- und Nordwestnorwegen – einfach mit Auto oder Bahn erreichbar, mit Trollstigen, Geirangerfjord, Ålesund und Dovrefjell in kurzer Distanz.',
+    pageGettingHereIntro: 'Bjorli liegt zwischen Ost- und Nordwestnorwegen – einfach mit Auto oder Bahn erreichbar, mit Trollstigen, Geirangerfjord, Ålesund und Dovrefjell in kurzer Distanz.',
     filterAll: 'Alle',
     filterCategory: 'Kategorie',
     filterSeason: 'Saison',
@@ -247,7 +247,7 @@ const de: Dictionary = {
     loadMore: 'Mehr laden',
     featured: 'Hervorgehoben',
     seoPlaceholderTitle: 'Mehr über Bjorli',
-    seoPlaceholderBody: 'Bjorli ist eine ganzjährige Bergdestination im Romsdalen und das Tor zwischen Ost- und Nordwestnorwegen. Mit drei Nationalparks, der Rauma-Bahn, schneesicheren Bedingungen und kurzen Wegen zum Rauma-Fluss, Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell ist Bjorli ein besonderer Ausgangspunkt für Winter- und Sommerurlaub.',
+    seoPlaceholderBody: 'Bjorli ist eine ganzjährige Bergdestination im Romsdalen, zwischen Ost- und Nordwestnorwegen. Mit drei Nationalparks, der Rauma-Bahn, schneesicheren Bedingungen und kurzen Wegen zum Rauma-Fluss, Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell ist Bjorli ein besonderer Ausgangspunkt für Winter- und Sommerurlaub.',
     sectionWinter: 'Winteraktivitäten',
     sectionSummer: 'Sommeraktivitäten',
     sectionFamily: 'Familienaktivitäten',
@@ -285,7 +285,7 @@ const de: Dictionary = {
     basecamp: {
       eyebrow: 'Zwischen Berg und Fjord',
       title: 'Mitten zwischen Bergen und Fjorden',
-      body: 'Von Bjorli aus haben Sie kurze Wege zur Rauma-Bahn, ins Romsdalen, zum Trollveggen, ins Dovrefjell und zu den Fjordlandschaften Nordwestnorwegens. Sie wohnen ruhig in den Bergen und haben einige der eindrucksvollsten Naturerlebnisse Norwegens in Reichweite.',
+      body: 'Von Bjorli aus haben Sie kurze Wege zur Rauma-Bahn, ins Romsdalen, zum Trollveggen, ins Dovrefjell und zu den Fjordlandschaften Nordwestnorwegens. Sie wohnen ruhig in den Bergen, mit Trollveggen, Dovrefjell, den Romsdalsalpen und den Fjorden in Reichweite.',
       items: [
         { title: 'Die Rauma-Bahn', desc: 'Eine der schönsten Bahnstrecken Norwegens, mit Bjorli als natürlichem Halt in den Bergen.' },
         { title: 'Romsdalen und Trollveggen', desc: 'Steile Gipfel, Wanderungen und beeindruckende Natur in kurzer Fahrtdistanz.' },
