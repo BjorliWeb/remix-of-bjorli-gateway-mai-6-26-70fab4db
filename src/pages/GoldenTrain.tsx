@@ -1,21 +1,15 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Train, Info, Clock, MapPin, Ticket, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, Train, Info, MapPin, CheckCircle2 } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import { Button } from '@/components/ui/button';
 import { images } from '@/lib/images';
 
 const META_TITLE = 'The Golden Train fra Bjorli | Naturskjønn togtur på Raumabanen';
 const META_DESC =
-  'The Golden Train er en guidet rundtur på Raumabanen fra Åndalsnes — forbi Trollveggen, Kyllingbrua og Vermafossen, med kort stopp på Bjorli. Pris fra 690 NOK.';
+  'The Golden Train er en guidet rundtur på Raumabanen fra Åndalsnes — forbi Trollveggen, Kyllingbrua og Vermafossen, med kort stopp på Bjorli.';
 
 const EXTERNAL = 'https://book.thegoldentrain.com/en/to-do/2822206/the-golden-train-roundtrip/showdetails';
-
-const DEPARTURES = [
-  { out: '09:50', back: '12:25' },
-  { out: '12:50', back: '15:30' },
-  { out: '17:00', back: '19:30' },
-];
 
 const GoldenTrain = () => {
   useEffect(() => {
@@ -55,30 +49,19 @@ const GoldenTrain = () => {
             beina og puste inn fjelluft før turen går tilbake til Åndalsnes.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-4 mb-10">
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-5">
-              <Clock className="h-5 w-5 text-secondary mb-2" />
-              <h3 className="font-display font-bold text-foreground mb-2">Avganger</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                {DEPARTURES.map((d) => (
-                  <li key={d.out}>{d.out} – {d.back}</li>
-                ))}
-              </ul>
-              <p className="text-xs text-muted-foreground mt-3">Alle avganger starter og slutter på Åndalsnes.</p>
-            </div>
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-5">
-              <MapPin className="h-5 w-5 text-secondary mb-2" />
-              <h3 className="font-display font-bold text-foreground mb-2">Oppmøte</h3>
-              <p className="text-sm text-muted-foreground">
-                Møt opp <strong>15 minutter før avgang</strong> på Åndalsnes togstasjon.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-border/70 bg-muted/30 p-5">
-              <Ticket className="h-5 w-5 text-secondary mb-2" />
-              <h3 className="font-display font-bold text-foreground mb-2">Pris</h3>
-              <p className="text-sm text-muted-foreground">
-                Fra <strong>690 NOK</strong> for tur-retur.
-              </p>
+          <div className="rounded-2xl border border-border/70 bg-muted/30 p-6 md:p-8 mb-10">
+            <div className="flex items-start gap-3">
+              <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+              <div>
+                <h2 className="font-display text-xl font-bold text-foreground mb-2">
+                  Avganger og billetter
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Alle avganger starter og slutter på Åndalsnes togstasjon. Sjekk
+                  oppdaterte tider og billetter hos The Golden Train før du planlegger
+                  turen.
+                </p>
+              </div>
             </div>
           </div>
 
