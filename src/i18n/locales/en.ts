@@ -51,7 +51,7 @@ const en: Dictionary = {
     sampleCta: 'See opening hours',
   },
   intro: {
-    title: 'Experience winter in Bjorli',
+    title: 'Winter at Bjorli',
     body: 'Bjorli is a snow-sure winter destination for families, cabin guests and anyone who wants real mountain days without the stress. Find alpine and cross-country skiing, ski rental, ski school, food, accommodation and easy access by car or train.',
   },
   planning: {
