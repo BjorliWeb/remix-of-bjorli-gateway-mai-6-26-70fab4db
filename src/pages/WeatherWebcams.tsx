@@ -88,7 +88,7 @@ const WeatherWebcams = () => {
         statusTitle: 'Status right now',
         statusSourceNote: 'Data from Fnugg',
         webcamsTitle: 'Webcams',
-        webcamsIntro: 'Live views from Bjorli Ski Resort. Streams refresh automatically.',
+        webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
         webcamsFallback: 'Webcam is temporarily unavailable.',
         langrennTitle: 'Cross-country and trail map',
         langrennBody:
@@ -103,7 +103,7 @@ const WeatherWebcams = () => {
             href: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
             external: true,
           },
-          { label: 'Bjorli Ski Resort', href: '/bjorli-skisenter', external: false },
+          { label: 'Bjorli Skisenter', href: '/bjorli-skisenter', external: false },
           { label: 'Live status on Fnugg', href: 'https://fnugg.no/bjorli/', external: true },
           { label: 'Trail map', href: '/loypekart', external: false },
         ],

@@ -256,7 +256,7 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
     slug: 'heiskort',
     language: 'en',
     title: 'Lift passes at Bjorli',
-    intro: 'Buy lift passes for Bjorli Ski Resort – day passes, multi-day passes and season passes for the whole family.',
+    intro: 'Buy lift passes for Bjorli Skisenter – day passes, multi-day passes and season passes for the whole family.',
     body: 'A lift pass at Bjorli gives you access to snow-sure slopes between Dombas and Andalsnes in Norway. We recommend buying your pass online before you arrive – skip the ticket queue and head straight for the lifts. Children below a certain age ski for free with a paying adult, and dedicated family rates apply in high season.',
     heroImage: { url: heroWinter, alt: 'Lifts and slopes at Bjorli', ...meta(heroWinter) },
     highlights: [
@@ -267,7 +267,7 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
     ],
     ctas: [
       { label: 'Buy lift pass', href: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862', variant: 'primary', external: true },
-      { label: 'See Bjorli Ski Resort', href: '/bjorli-skisenter', variant: 'secondary' },
+      { label: 'See Bjorli Skisenter', href: '/bjorli-skisenter', variant: 'secondary' },
     ],
     faq: [
       { q: 'Where do I buy lift passes?', a: 'Buy your pass online before arrival or at the ticket office at the resort.' },
@@ -275,7 +275,7 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
       { q: 'Does each person need their own pass?', a: 'Yes, every skier needs a valid personal lift pass.' },
     ],
     seoTitle: 'Bjorli Lift Pass – Day, Multi-Day & Season Passes',
-    seoDescription: 'Buy lift passes for Bjorli Ski Resort online – snow-sure slopes, family rates and easy access to the lifts. Day, multi-day and season passes.',
+    seoDescription: 'Buy lift passes for Bjorli Skisenter online – snow-sure slopes, family rates and easy access to the lifts. Day, multi-day and season passes.',
   },
   langrenn: {
     slug: 'langrenn',
@@ -356,7 +356,7 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
     ],
     faq: [
       { q: 'Is Bjorli suitable for small children?', a: 'Yes, short distances, gentle slopes and family-friendly cabins make Bjorli ideal for families.' },
-      { q: 'Is there a ski school?', a: 'Yes, Bjorli Ski Resort offers ski school for both beginners and children.' },
+      { q: 'Is there a ski school?', a: 'Yes, Bjorli Skisenter offers ski school for both beginners and children.' },
     ],
     seoTitle: 'Family Holiday at Bjorli – Snow-Sure Winter & Easy Summer',
     seoDescription: 'Family holiday at Bjorli – snow-sure winter days with ski school and gentle slopes, and family-friendly summer experiences in Romsdalen, Norway.',
@@ -366,16 +366,16 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
     language: 'en',
     title: 'Winter at Bjorli',
     intro: 'Snow-sure winter destination between Dombas and Andalsnes – alpine, cross-country, cabins and family holidays.',
-    body: 'Bjorli is one of Norway’s most snow-sure winter destinations. The season typically runs from November to May, with stable conditions for both alpine and cross-country skiing. You will find Bjorli Ski Resort with varied slopes, an extensive cross-country trail network, cosy cabins and family-friendly activities right by the mountain.',
+    body: 'Bjorli is one of Norway’s most snow-sure winter destinations. The season typically runs from November to May, with stable conditions for both alpine and cross-country skiing. You will find Bjorli Skisenter with varied slopes, an extensive cross-country trail network, cosy cabins and family-friendly activities right by the mountain.',
     heroImage: { url: heroWinter, alt: 'Winter at Bjorli', ...meta(heroWinter) },
     highlights: [
-      { title: 'Alpine skiing', desc: 'Slopes for every level at Bjorli Ski Resort.', icon: 'mountain' },
+      { title: 'Alpine skiing', desc: 'Slopes for every level at Bjorli Skisenter.', icon: 'mountain' },
       { title: 'Cross-country', desc: 'Snow-sure trails in open mountain terrain.', icon: 'snowflake' },
       { title: 'Family friendly', desc: 'Short distances and a safe ski school.', icon: 'users' },
       { title: 'Cabin life', desc: 'Cabins and apartments by the lifts.', icon: 'compass' },
     ],
     ctas: [
-      { label: 'Bjorli Ski Resort', href: '/bjorli-skisenter', variant: 'primary' },
+      { label: 'Bjorli Skisenter', href: '/bjorli-skisenter', variant: 'primary' },
       { label: 'Lift passes', href: '/heiskort', variant: 'secondary' },
     ],
     seoTitle: 'Winter at Bjorli – Snow-Sure Ski Holiday in Norway',
@@ -405,8 +405,8 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
     slug: 'loypekart',
     language: 'en',
     title: 'Trail map for Bjorli',
-    intro: 'Overview of alpine slopes and cross-country trails in and around Bjorli Ski Resort.',
-    body: 'The trail map shows the alpine slopes at Bjorli Ski Resort and the extensive cross-country trail network connecting the valley with the mountain plateau. Useful both for planning your ski day and for discovering new loops throughout the season. Download a PDF or open the digital map for details on difficulty and distance.',
+    intro: 'Overview of alpine slopes and cross-country trails in and around Bjorli Skisenter.',
+    body: 'The trail map shows the alpine slopes at Bjorli Skisenter and the extensive cross-country trail network connecting the valley with the mountain plateau. Useful both for planning your ski day and for discovering new loops throughout the season. Download a PDF or open the digital map for details on difficulty and distance.',
     heroImage: { url: crossCountry, alt: 'Trail map for Bjorli', ...meta(crossCountry) },
     highlights: [
       { title: 'Alpine slopes', desc: 'Difficulty levels and lift connections.', icon: 'mountain' },
@@ -415,11 +415,11 @@ const EN: Record<SubPageSlug, CmsSubPage> = {
       { title: 'Connected', desc: 'Bjorli, Bostolen and the high mountain.', icon: 'compass' },
     ],
     ctas: [
-      { label: 'Bjorli Ski Resort', href: '/bjorli-skisenter', variant: 'primary' },
+      { label: 'Bjorli Skisenter', href: '/bjorli-skisenter', variant: 'primary' },
       { label: 'Cross-country', href: '/langrenn', variant: 'secondary' },
     ],
     seoTitle: 'Bjorli Trail Map – Alpine Slopes & Cross-Country Trails',
-    seoDescription: 'Trail map for Bjorli Ski Resort and the cross-country trails in the mountains – difficulty levels, distances and the full trail network.',
+    seoDescription: 'Trail map for Bjorli Skisenter and the cross-country trails in the mountains – difficulty levels, distances and the full trail network.',
   },
 };
 

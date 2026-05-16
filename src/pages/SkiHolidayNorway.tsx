@@ -46,14 +46,14 @@ const SkiHolidayNorway = () => {
     trackPageView({
       path: '/en/ski-holiday-norway',
       language: 'en',
-      title: 'Ski Holiday in Norway | Discover Bjorli Ski Resort',
+      title: 'Ski Holiday in Norway | Discover Bjorli Skisenter',
     });
   }, []);
 
   return (
     <>
       <PageMeta
-        title="Ski Holiday in Norway | Discover Bjorli Ski Resort"
+        title="Ski Holiday in Norway | Discover Bjorli Skisenter"
         description="Plan a ski holiday in Norway at Bjorli, a family-friendly mountain destination with alpine skiing, cross-country trails, snow-secure winter conditions, accommodation, webcams and easy access by road and train."
         ogImage={SITE_ORIGIN + images.heroWinter.src}
         ogType="website"
@@ -73,7 +73,7 @@ const SkiHolidayNorway = () => {
       <JsonLd
         data={buildSkiResort(
           `${SITE_ORIGIN}/en/bjorli-ski-resort`,
-          'Bjorli Ski Resort offers alpine skiing on snow-secure slopes in Romsdalen, with lifts, ski school, ski rental and family-friendly terrain.',
+          'Bjorli Skisenter offers alpine skiing on snow-secure slopes in Romsdalen, with lifts, ski school, ski rental and family-friendly terrain.',
         )}
       />
 
@@ -119,15 +119,15 @@ const SkiHolidayNorway = () => {
         </div>
       </section>
 
-      {/* Bjorli Ski Resort */}
+      {/* Bjorli Skisenter */}
       <section className="py-16 px-4 bg-muted/30 border-y border-border">
         <div className="container mx-auto max-w-5xl grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Bjorli Ski Resort
+              Bjorli Skisenter
             </h2>
             <p className="text-muted-foreground mb-4">
-              Bjorli Ski Resort (Bjorli Skisenter) is the heart of winter at Bjorli — alpine slopes
+              Bjorli Skisenter is the heart of winter at Bjorli — alpine slopes
               for every level, modern lifts, snow cannons for early-season cover and wide-open views
               over the Romsdalen mountains. Live lift and slope status, snow depth and temperature
               are published from the resort throughout the season.
@@ -260,7 +260,7 @@ const SkiHolidayNorway = () => {
       <RelatedLinksBlock
         title="Plan your Bjorli ski holiday"
         links={[
-          { label: 'Bjorli Ski Resort', href: '/en/bjorli-ski-resort', description: 'Lifts, slopes and live status from the resort.' },
+          { label: 'Bjorli Skisenter', href: '/en/bjorli-ski-resort', description: 'Lifts, slopes and live status from the resort.' },
           { label: 'Ski passes', href: '/en/ski-passes', description: 'Day passes, season passes and family deals.' },
           { label: 'Opening hours', href: '/en/opening-hours', description: 'Current and seasonal opening times.' },
           { label: 'Accommodation', href: '/en/accommodation', description: 'Cabins, apartments and hotels at Bjorli.' },

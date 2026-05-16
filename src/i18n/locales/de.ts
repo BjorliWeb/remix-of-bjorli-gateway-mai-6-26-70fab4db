@@ -9,7 +9,7 @@ const de: Dictionary = {
   nav: {
     winter: 'Winter',
     summer: 'Sommer',
-    skiCenter: 'Skigebiet Bjorli',
+    skiCenter: 'Bjorli Skisenter',
     accommodation: 'Unterkunft',
     activities: 'Aktivitäten',
     whatsOn: 'Veranstaltungen',
@@ -29,7 +29,7 @@ const de: Dictionary = {
     title: 'Echter Winter. Entspanntere Bergtage.',
     subtitle: 'Schneesicheres Bjorli verbindet Alpinski, Langlauf, Hüttenleben und ruhige Familientage zwischen Ostnorwegen und den westlichen Fjorden.',
     intro: 'Destination Bjorli – Winter',
-    ctaSkiCenter: 'Skigebiet Bjorli ansehen',
+    ctaSkiCenter: 'Bjorli Skisenter ansehen',
     ctaLiftPass: 'Skipass kaufen',
     ctaOpening: 'Öffnungszeiten und Bedingungen',
     ctaStay: 'Unterkunft finden',
@@ -58,7 +58,7 @@ const de: Dictionary = {
     title: 'Alles für Ihren Tag am Berg',
     subtitle: 'Planen Sie Ihren Skitag mit aktuellen Informationen, Skipässen und nützlichen Angeboten.',
     items: [
-      { title: 'Skigebiet Bjorli', desc: 'Familienfreundliche Pisten und schneesichere Bedingungen' },
+      { title: 'Bjorli Skisenter', desc: 'Familienfreundliche Pisten und schneesichere Bedingungen' },
       { title: 'Skipass', desc: 'Tages- und Saisonkarten online kaufen' },
       { title: 'Öffnungszeiten', desc: 'Die heutigen Zeiten im Skigebiet' },
       { title: 'Livecams', desc: 'Bedingungen am Berg in Echtzeit' },
@@ -70,9 +70,9 @@ const de: Dictionary = {
   },
   skiCenter: {
     eyebrow: 'Das Herz des Winters',
-    title: 'Skigebiet Bjorli',
-    body: 'Im Winter ist das Skigebiet Bjorli der natürliche Treffpunkt der Destination. Familienfreundliche Pisten, Skipässe, Skiverleih, Skischule, Gastronomie, Livecams und tagesaktuelle Infos – alles an einem Ort.',
-    ctaPrimary: 'Skigebiet Bjorli ansehen',
+    title: 'Bjorli Skisenter',
+    body: 'Im Winter ist das Bjorli Skisenter der natürliche Treffpunkt der Destination. Familienfreundliche Pisten, Skipässe, Skiverleih, Skischule, Gastronomie, Livecams und tagesaktuelle Infos – alles an einem Ort.',
+    ctaPrimary: 'Bjorli Skisenter ansehen',
     ctaSecondary: 'Skipass kaufen',
   },
   accommodation: {
@@ -169,7 +169,7 @@ const de: Dictionary = {
     eyebrow: 'Häufige Fragen',
     title: 'Gut zu wissen',
     items: [
-      { q: 'Wann öffnet das Skigebiet Bjorli?', a: 'Bjorli ist häufig eines der ersten Skigebiete Norwegens, das jede Saison öffnet. Der Saisonstart ist meist im November, je nach Schnee- und Temperaturlage.' },
+      { q: 'Wann öffnet das Bjorli Skisenter?', a: 'Bjorli ist häufig eines der ersten Skigebiete Norwegens, das jede Saison öffnet. Der Saisonstart ist meist im November, je nach Schnee- und Temperaturlage.' },
       { q: 'Wo kann ich einen Skipass kaufen?', a: 'Skipässe können Sie online vor der Anreise oder am Ticketschalter im Skigebiet kaufen. Online geht es am schnellsten.' },
       { q: 'Wie komme ich mit dem Zug nach Bjorli?', a: 'Bjorli liegt an der Rauma-Bahn zwischen Dombås und Åndalsnes. Vom Bahnhof Bjorli sind es nur wenige Minuten zum Skigebiet und den Unterkünften. Auf www.entur.no finden Sie Fahrpläne und können Tickets für Zug und Bus buchen.' },
       { q: 'Gibt es Skiverleih und Skischule?', a: 'Ja, im Skigebiet können Sie Ski, Snowboards und Ausrüstung mieten und Kurse in der Bjorli Skischule buchen.' },
@@ -190,7 +190,7 @@ const de: Dictionary = {
     privacy: 'Datenschutz',
     cookies: 'Cookies',
     winterLinks: [
-      { label: 'Skigebiet Bjorli', href: '/bjorli-skisenter' },
+      { label: 'Bjorli Skisenter', href: '/bjorli-skisenter' },
       { label: 'Skipass', href: '/heiskort' },
       { label: 'Öffnungszeiten', href: '/apningstider' },
       { label: 'Wetter und Webcams', href: '/vaer-og-webkamera' },
