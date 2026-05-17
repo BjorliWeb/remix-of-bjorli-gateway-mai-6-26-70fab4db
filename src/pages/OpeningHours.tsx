@@ -19,7 +19,7 @@ const OpeningHours = () => {
           {/* Live operational status from Fnugg — distinct from the
               general / seasonal hours below, which are CMS-driven. */}
           <div className="mb-10">
-            <LiveFnuggStatus variant="block" locale={locale} title="Status akkurat nå" />
+            <LiveFnuggStatus variant="block" locale={locale} title={s.statusNow} />
           </div>
 
           <div className="space-y-4">
