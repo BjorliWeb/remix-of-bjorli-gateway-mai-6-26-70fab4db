@@ -597,6 +597,5 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       alt: 'Interiör med bord och lyktor — servering och mötesplats i Bjorli',
       cta: 'Se mat och dryck',
     },
-    foodDrinkLegacy: undefined as never,
-  } as SummerHomepageCopy,
+  },
 };
