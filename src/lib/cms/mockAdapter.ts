@@ -470,87 +470,47 @@ export const mockAdapter: CmsAdapter = {
     const fishingLakeImg = images.fishingLake.src;  // Calm fjellvann — nature stand-in
     const riverFishImg   = images.riverFishing.src; // Fjellelv — river/water
 
+    // Localized summer copy — every locale supplies its own strings so
+    // non-NO routes never fall back to Norwegian.
+    const s = SUMMER_HOMEPAGE_COPY[language] ?? SUMMER_HOMEPAGE_COPY.no;
+    const activityCardMeta = [
+      { href: '/fotturer',     image: { url: hikingImg } },
+      { href: '/sykling',      image: { url: bikingImg } },
+      { href: '/fiske',        image: { url: images.flyFishing.src } },
+      { href: '/familie',      image: { url: familySummerImg } },
+      { href: '/gardsbesok',   image: { url: farmVisitsImg } },
+      { href: '/sagelva',      image: { url: images.sagelva.src } },
+      { href: '/aktiviteter',  image: { url: images.summerAerialNature.src } },
+      { href: '/reisen-hit',   image: { url: goldenTrainImg } },
+    ];
+
     const summerSections: any[] = [
       // 2 — Intro value
       {
         id: 'summerIntroValue',
         type: 'cardGrid' as const,
-        eyebrow: 'Sommer på Bjorli',
-        title: 'Et rolig basecamp mellom fjell og fjord',
-        subtitle: 'Bjorli ligger midt mellom fjordene, nasjonalparkene og noen av Norges mest kjente naturopplevelser — med god plass og rolig tempo.',
+        eyebrow: s.intro.eyebrow,
+        title: s.intro.title,
+        subtitle: s.intro.subtitle,
         items: [
-          { title: 'Fjellro',      desc: 'God plass, ren luft og en roligere fjellopplevelse.',                       icon: 'treePine' },
-          { title: 'Aktive dager', desc: 'Stier, sykkel, fiske, turer og familievennlige opplevelser.',                icon: 'activity' },
-          { title: 'Basecamp',     desc: 'Bo på Bjorli og bruk dagene mellom fjell, daler og fjordlandskap.',          icon: 'home' },
+          { title: s.intro.items[0].title, desc: s.intro.items[0].desc, icon: 'treePine' },
+          { title: s.intro.items[1].title, desc: s.intro.items[1].desc, icon: 'activity' },
+          { title: s.intro.items[2].title, desc: s.intro.items[2].desc, icon: 'home' },
         ],
       },
       // 3 — Main activities (image cards with short copy + "Les mer")
       {
         id: 'summerActivitiesGrid',
         type: 'imageCards' as const,
-        eyebrow: 'Sommer på Bjorli',
-        title: 'Dette kan du gjøre på Bjorli om sommeren',
-        cards: [
-          {
-            title: 'Fotturer',
-            desc: 'Korte rusleturer og lengre dagsturer i åpent høyfjell — rett utenfor døra.',
-            image: { url: hikingImg, alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli' },
-            href: '/fotturer',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Sykkel og pumptrack',
-            desc: 'Stier, grusveier og en pumptrack i sentrum — for nybegynnere og hele familien.',
-            image: { url: bikingImg, alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
-            href: '/sykling',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Fiske',
-            desc: 'Fluefiske i Rauma, elvefiske og rolige dager ved fjellvannene rundt Bjorli.',
-            // Use the fly-fishing photo here so it stays distinct from the
-            // river-fishing photo used in the Fluefiske feature section
-            // below (no image may appear twice on the same page).
-            image: { url: images.flyFishing.src, alt: 'Fluefiske i en fjellelv nær Bjorli en stille sommerdag' },
-            href: '/fiske',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Familieaktiviteter',
-            desc: 'Trygge, romslige opplevelser i lavt tempo — passer for både små og store.',
-            image: { url: familySummerImg, alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli' },
-            href: '/familie',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Gardsbesøk',
-            desc: 'Besøk lokale gårder i Lesja — gårdsliv, dyr, lokal mat og kulturlandskap nær Bjorli.',
-            image: { url: farmVisitsImg, alt: 'Kulturlandskap i Lesja nær Bjorli' },
-            href: '/gardsbesok',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Sagelva vasskraftsenter',
-            desc: 'Opplev 300 år med vasskraft, lokalhistorie og levende formidling i Lesja.',
-            image: { url: images.sagelva.src, alt: images.sagelva.alt },
-            href: '/sagelva',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Natur og utsikt',
-            desc: 'Åpne vidder, fjellplatåer og stille seterdaler i tre nasjonalparker like ved.',
-            image: { url: images.summerAerialNature.src, alt: images.summerAerialNature.alt },
-            href: '/aktiviteter',
-            ctaLabel: 'Les mer',
-          },
-          {
-            title: 'Dagsturer fra Bjorli',
-            desc: 'Romsdalen, Trollstigen, Geirangerområdet og Åndalsnes innen kort kjøretur eller togtur.',
-            image: { url: goldenTrainImg, alt: 'Raumabanen langs elvedalen — regional dagstur fra Bjorli' },
-            href: '/reisen-hit',
-            ctaLabel: 'Les mer',
-          },
-        ],
+        eyebrow: s.activitiesGrid.eyebrow,
+        title: s.activitiesGrid.title,
+        cards: s.activitiesGrid.cards.map((c, i) => ({
+          title: c.title,
+          desc: c.desc,
+          image: { url: activityCardMeta[i].image.url, alt: c.alt },
+          href: activityCardMeta[i].href,
+          ctaLabel: s.activitiesGrid.readMore,
+        })),
       },
       // 4 — Biking, play & active family days
       // TODO(image): no second biking/family-active photo available;
@@ -559,13 +519,13 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerBiking',
         type: 'feature' as const,
-        eyebrow: 'Sykkel og familie',
-        title: 'Sykkel, lek og aktive familiedager',
-        body: 'Bjorli er et enkelt sted å være aktiv sammen som familie. Rolige stier, grusveier og en pumptrack i sentrum gir korte, oversiktlige dager på sykkel — fint for nybegynnere og barn som vil prøve seg. Pakk sykkelen, ta en runde på pumptracken og kombiner med en kort tur i fjellet eller en pause ved vannet.',
+        eyebrow: s.biking.eyebrow,
+        title: s.biking.title,
+        body: s.biking.body,
         image: undefined,
         imageSide: 'right' as const,
         ctas: [
-          { label: 'Se sykkel og aktiviteter', href: '/sykling', variant: 'primary' as const },
+          { label: s.biking.cta, href: '/sykling', variant: 'primary' as const },
         ],
       },
       // 5 — Hiking & nature
@@ -574,20 +534,15 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerHiking',
         type: 'feature' as const,
-        eyebrow: 'Fottur og natur',
-        title: 'Turer rett fra fjellbygda',
-        body: 'Bjorli ligger høyt og åpent, og du er raskt ute i fjellet uten lang innmarsj. Velg en kort rusletur ved sentrum, en familievennlig dagstur, eller gå lenger inn i Reinheimen og Romsdalsalpene. Et rolig utgangspunkt for sommerdager i norsk høyfjell.',
+        eyebrow: s.hiking.eyebrow,
+        title: s.hiking.title,
+        body: s.hiking.body,
         image: undefined,
         imageSide: 'left' as const,
-        subcards: [
-          { title: 'Korte turer',         desc: 'Lette rusleturer fra sentrum og hyttene — fine for en pause eller en rolig kveldstur.' },
-          { title: 'Familieturer',        desc: 'Oversiktlige stier og åpent terreng som passer for barn og bestemødre.' },
-          { title: 'Lengre fjellturer',   desc: 'Dagsturer inn i Reinheimen, Dovrefjell og Romsdalsalpene for de som vil gå lenger.' },
-          { title: 'Utsikt og natur',     desc: 'Åpne vidder, fjellplatåer og stille seterdaler — typisk norsk høyfjell.' },
-        ],
+        subcards: s.hiking.subcards,
         ctas: [
-          { label: 'Se fotturer', href: '/fotturer', variant: 'primary' as const },
-          { label: 'Snarturer i Rauma og Lesja', href: '/sommer/korte-turer', variant: 'secondary' as const },
+          { label: s.hiking.ctaPrimary, href: '/fotturer', variant: 'primary' as const },
+          { label: s.hiking.ctaSecondary, href: '/sommer/korte-turer', variant: 'secondary' as const },
         ],
       },
       // 6 — Fishing & quiet outdoor days
@@ -596,13 +551,13 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerFishing',
         type: 'feature' as const,
-        eyebrow: 'Fiske og rolige dager',
-        title: 'Fluefiske, elvefiske og fjellvann',
-        body: 'Rauma, Lågen og fjellvannene rundt Bjorli gir gode forhold for fiske gjennom hele sommeren. Et rolig tempo, ren natur og lange lyse kvelder ved vannet.',
-        image: { url: riverFishImg, alt: 'Fiske i en fjellelv nær Bjorli en stille sommerkveld' },
+        eyebrow: s.fishing.eyebrow,
+        title: s.fishing.title,
+        body: s.fishing.body,
+        image: { url: riverFishImg, alt: s.fishing.alt },
         imageSide: 'right' as const,
         ctas: [
-          { label: 'Se fiskemuligheter', href: '/fiske', variant: 'primary' as const },
+          { label: s.fishing.cta, href: '/fiske', variant: 'primary' as const },
         ],
       },
       // 7 — Family summer
@@ -611,20 +566,14 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerFamily',
         type: 'feature' as const,
-        eyebrow: 'Familie',
-        title: 'Enkel sommer med barn',
-        body: 'Bjorli er en enkel plass å reise med barn. Korte avstander mellom hytte, sentrum og natur, åpent landskap rundt deg og lite kø — du slipper det tette by- og turistpresset, og får mer tid til å være ute sammen.',
+        eyebrow: s.family.eyebrow,
+        title: s.family.title,
+        body: s.family.body,
         image: undefined,
         imageSide: 'left' as const,
-        subcards: [
-          { title: 'Korte turer',         desc: 'Lette stier rett fra hytta og sentrum — passer for små bein og barnevogn-tempo.' },
-          { title: 'Sykkel og lek',       desc: 'Pumptrack, grusveier og åpne uteområder for sykling og fri lek.' },
-          { title: 'Fiske',               desc: 'Rolige fjellvann og elvepartier der barna kan prøve seg på fiske.' },
-          { title: 'Uteområder',          desc: 'Plener, badeplasser og samlingspunkter der dagene faller naturlig på plass.' },
-          { title: 'Rolige dager',        desc: 'God plass og lite folk — en ferie uten tett by- eller turistpress.' },
-        ],
+        subcards: s.family.subcards,
         ctas: [
-          { label: 'Se familieaktiviteter', href: '/familie', variant: 'primary' as const },
+          { label: s.family.cta, href: '/familie', variant: 'primary' as const },
         ],
       },
       // 8 — Basecamp for day trips
@@ -634,19 +583,14 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'summerBasecamp',
         type: 'feature' as const,
-        eyebrow: 'Basecamp mellom fjell og fjord',
-        title: 'Bo på Bjorli. Opplev mer av regionen.',
-        body: 'Bjorli er en rolig fjellbase med god plass — bo høyt og åpent, og bruk dagene på turer ut i daler, fjell og fjordlandskap. Reinheimen, Tafjordfjella, Dovrefjell og Romsdalen ligger rundt deg, og Romsdalsalpene, Raumabanen, Trollstigen-området, Geiranger-området og Åndalsnes er innen rekkevidde for dagsturer.',
+        eyebrow: s.basecamp.eyebrow,
+        title: s.basecamp.title,
+        body: s.basecamp.body,
         image: undefined,
         imageSide: 'right' as const,
-        subcards: [
-          { title: 'Daler og fjellvann',  desc: 'Lesjaskogsvannet, Aursjøen og Dalsida — rolige landskap rett ved Bjorli.' },
-          { title: 'Nasjonalparker',      desc: 'Reinheimen, Tafjordfjella og Dovrefjell ligger rundt destinasjonen.' },
-          { title: 'Romsdalen og Raumabanen', desc: 'Dramatiske fjell og togtur ned mot Åndalsnes — innen rekkevidde for dagsturer.' },
-          { title: 'Fjord og kyst',       desc: 'Trollstigen- og Geiranger-området innen rekkevidde for dagsturer mot fjordene.' },
-        ],
+        subcards: s.basecamp.subcards,
         ctas: [
-          { label: 'Se reise og dagsturer', href: '/reisen-hit', variant: 'primary' as const },
+          { label: s.basecamp.cta, href: '/reisen-hit', variant: 'primary' as const },
         ],
       },
       // 9 — Travel
@@ -682,16 +626,16 @@ export const mockAdapter: CmsAdapter = {
       {
         id: 'foodDrinkSummer',
         type: 'feature' as const,
-        eyebrow: 'Mat og møteplasser',
-        title: 'Steder å pause i sommerlandskapet',
-        body: 'Servering og rolige møteplasser i sentrum og rundt Bjorli — perfekt for en pause mellom turene eller en lang sommerkveld etter en dag ute.',
+        eyebrow: s.foodDrink.eyebrow,
+        title: s.foodDrink.title,
+        body: s.foodDrink.body,
         // TODO(image): upload a true outdoor summer café/terrace photo.
         // Until then, use neutral restaurant interior instead of winter
         // terrace/ski-base imagery or unrelated water/family photos.
-        image: { url: images.restaurantInterior.src, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli' },
+        image: { url: images.restaurantInterior.src, alt: s.foodDrink.alt },
         imageSide: 'right' as const,
         ctas: [
-          { label: 'Se mat og drikke', href: '/mat-og-drikke', variant: 'primary' as const },
+          { label: s.foodDrink.cta, href: '/mat-og-drikke', variant: 'primary' as const },
         ],
       },
     ];
