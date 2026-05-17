@@ -18,7 +18,7 @@ const en: Dictionary = {
     weatherWebcams: 'Weather and webcams',
     practicalInfo: 'Practical info',
     buyLiftPass: 'Buy lift pass',
-    findStay: 'Find a stay',
+    findStay: 'Find accommodation',
     seeActivities: 'See activities',
     menu: 'Menu',
     close: 'Close',
