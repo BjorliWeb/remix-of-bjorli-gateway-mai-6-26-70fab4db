@@ -98,6 +98,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Åpningstidene kan variere. Sjekk bjorli.no for daglig oppdatering.',
+      statusNow: 'Status akkurat nå',
     },
     livecamsPage: {
       title: 'Livecams',
@@ -228,6 +229,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Opening hours may vary. Check bjorli.no for daily updates.',
+      statusNow: 'Current status',
     },
     livecamsPage: {
       title: 'Livecams',
@@ -358,6 +360,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Åbningstiderne kan variere. Tjek bjorli.no for daglig opdatering.',
+      statusNow: 'Aktuel status',
     },
     livecamsPage: {
       title: 'Livecams',
@@ -488,6 +491,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Openingstijden kunnen variëren. Check bjorli.no voor dagelijkse updates.',
+      statusNow: 'Actuele status',
     },
     livecamsPage: {
       title: 'Livecams',
@@ -618,6 +622,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Die Öffnungszeiten können variieren. Aktuelle Zeiten auf bjorli.no.',
+      statusNow: 'Aktueller Status',
     },
     livecamsPage: {
       title: 'Livecams',
@@ -748,6 +753,7 @@ export const translations = {
       shop: 'Intersport Bjorli: 10:00 – 16:00',
       restaurant: 'Heiskroa: 10:00 – 16:00',
       note: 'Öppettiderna kan variera. Se bjorli.no för dagliga uppdateringar.',
+      statusNow: 'Aktuell status',
     },
     livecamsPage: {
       title: 'Livekameror',
