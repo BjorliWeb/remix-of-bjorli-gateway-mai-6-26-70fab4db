@@ -19,6 +19,7 @@ import { dictionaries } from '@/i18n/translations';
 import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { supabase } from '@/integrations/supabase/client';
+import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
 
 /**
  * Image strategy: never import AI/stock JPGs directly anymore.
