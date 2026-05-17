@@ -32,7 +32,7 @@ snow-sure conditions and is often among the first ski resorts in Norway
 to open each season. The resort offers alpine slopes, lifts, ski school,
 ski rental, children's areas and food and drink. Live operational status
 (lifts, slopes, snow conditions) is published on the website during the
-season.
+season. The on-mountain restaurant Heiskroa is located at the resort.
 
 ## Lift passes (Heiskort) — https://www.bjorli.no/heiskort
 Day, multi-day and season passes are available. Current pricing and
@@ -115,6 +115,45 @@ the ski resort.
 
 ## Food and drink (Mat og drikke) — https://www.bjorli.no/mat-og-drikke
 Restaurants and cafés around Bjorli, including Heiskroa at the resort.
+
+## Hiking (Fotturer) — https://www.bjorli.no/fotturer
+Bjorli is a base for hiking in Romsdalen, Reinheimen and Lesja, with a
+mix of short family walks and longer mountain routes. The page collects
+route suggestions and links into the wider trail network around Bjorli.
+
+## Cycling (Sykling) — https://www.bjorli.no/sykling
+Cycling around Bjorli ranges from gravel and road routes in the Lesja
+and Romsdalen valleys to local pumptrack and family options near the
+village. See the page for current cycling suggestions and facilities.
+
+## Trail map (Løypekart) — https://www.bjorli.no/loypekart
+The trail map page collects maps for alpine slopes, cross-country
+trails and other marked routes around Bjorli. Live trail and grooming
+status is published on the website and should be checked there directly.
+
+## Sagelva vasskraftsenter — https://www.bjorli.no/sagelva
+Sagelva vasskraftsenter is a local cultural and family-friendly
+experience near Bjorli in Lesja, focused on the area's water-powered
+history. It is an external attraction; check the page for current
+visiting information.
+
+## The Golden Train — https://www.bjorli.no/golden-train
+The Golden Train is an external scenic railway day-trip experience on
+Raumabanen, typically run as a guided round trip from Åndalsnes with a
+short stop at Bjorli stasjon. Departures, prices and tickets are managed
+by the operator — always check the official provider for current details.
+
+## Romsdalsgondolen — https://www.bjorli.no/romsdalsgondolen
+Romsdalsgondolen is an external day-trip experience from Bjorli toward
+Åndalsnes and Romsdalen, with a cable car up to Nesaksla and the Eggen
+restaurant at the top. Opening hours, tickets and availability are
+managed by the operator — consult the official provider for current
+information.
+
+## Contact (Kontakt) — https://www.bjorli.no/kontakt
+The contact page for Destinasjon Bjorli, with destination information
+enquiries, postal address and contact channels for the Bjorli
+destination team.
 
 ## Practical information — https://www.bjorli.no/praktisk-info
 Parking, facilities, maps and useful tips for visitors.
