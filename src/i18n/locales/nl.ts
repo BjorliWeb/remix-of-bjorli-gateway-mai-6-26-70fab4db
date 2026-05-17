@@ -9,7 +9,7 @@ const nl: Dictionary = {
   nav: {
     winter: 'Winter',
     summer: 'Zomer',
-    skiCenter: 'Bjorli Skigebied',
+    skiCenter: 'Bjorli Skisenter',
     accommodation: 'Verblijf',
     activities: 'Activiteiten',
     whatsOn: 'Agenda',
@@ -29,7 +29,7 @@ const nl: Dictionary = {
     title: 'Echte winter. Rustigere bergdagen.',
     subtitle: 'Sneeuwzeker Bjorli combineert alpineskiën, langlaufen, hutten en kalme gezinsdagen tussen Oost-Noorwegen en de fjorden in het westen.',
     intro: 'Bestemming Bjorli – winter',
-    ctaSkiCenter: 'Bekijk Bjorli Skigebied',
+    ctaSkiCenter: 'Bekijk Bjorli Skisenter',
     ctaLiftPass: 'Liftpas kopen',
     ctaOpening: 'Openingstijden en omstandigheden',
     ctaStay: 'Verblijf vinden',
@@ -58,7 +58,7 @@ const nl: Dictionary = {
     title: 'Alles wat je nodig hebt voor een dag op de berg',
     subtitle: 'Plan je dag met actuele informatie, liftpassen en praktische diensten.',
     items: [
-      { title: 'Bjorli Skigebied', desc: 'Familievriendelijke pistes en sneeuwzekere omstandigheden' },
+      { title: 'Bjorli Skisenter', desc: 'Familievriendelijke pistes en sneeuwzekere omstandigheden' },
       { title: 'Liftpas', desc: 'Koop dag- of seizoenpassen online' },
       { title: 'Openingstijden', desc: 'De tijden van vandaag in het skigebied' },
       { title: 'Livecams', desc: 'Bekijk de omstandigheden op de berg in realtime' },
@@ -70,9 +70,9 @@ const nl: Dictionary = {
   },
   skiCenter: {
     eyebrow: 'Het hart van de winter',
-    title: 'Bjorli Skigebied',
-    body: 'In de winter is Bjorli Skigebied het natuurlijke middelpunt van de bestemming. Je vindt er familievriendelijke pistes, liftpassen, skiverhuur, skischool, eten en drinken, livecams en de actuele omstandigheden.',
-    ctaPrimary: 'Bekijk Bjorli Skigebied',
+    title: 'Bjorli Skisenter',
+    body: 'In de winter is Bjorli Skisenter het natuurlijke middelpunt van de bestemming. Je vindt er familievriendelijke pistes, liftpassen, skiverhuur, skischool, eten en drinken, livecams en de actuele omstandigheden.',
+    ctaPrimary: 'Bekijk Bjorli Skisenter',
     ctaSecondary: 'Liftpas kopen',
   },
   accommodation: {
@@ -169,7 +169,7 @@ const nl: Dictionary = {
     eyebrow: 'Veelgestelde vragen',
     title: 'Goed om te weten',
     items: [
-      { q: 'Wanneer opent Bjorli Skigebied?', a: 'Bjorli is vaak een van de eerste skigebieden in Noorwegen die elk seizoen opengaat. De opening vindt meestal in november plaats, afhankelijk van sneeuw en temperatuur.' },
+      { q: 'Wanneer opent Bjorli Skisenter?', a: 'Bjorli is vaak een van de eerste skigebieden in Noorwegen die elk seizoen opengaat. De opening vindt meestal in november plaats, afhankelijk van sneeuw en temperatuur.' },
       { q: 'Waar koop ik een liftpas?', a: 'Liftpassen kun je online kopen voordat je vertrekt of bij de kassa in het skigebied. Online kopen is het snelst.' },
       { q: 'Hoe kom ik met de trein in Bjorli?', a: 'Bjorli ligt aan de Raumalijn, tussen Dombås en Åndalsnes. Station Bjorli ligt op korte afstand van het skigebied en de accommodaties. Bekijk www.entur.no voor dienstregelingen en het boeken van tickets voor trein en bus.' },
       { q: 'Zijn er skiverhuur en skischool?', a: 'Ja, je kunt ski’s, snowboards en uitrusting huren bij het skigebied en lessen boeken bij de Bjorli Skischool.' },
@@ -191,7 +191,7 @@ const nl: Dictionary = {
     privacy: 'Privacy',
     cookies: 'Cookies',
     winterLinks: [
-      { label: 'Bjorli Skigebied', href: '/bjorli-skisenter' },
+      { label: 'Bjorli Skisenter', href: '/bjorli-skisenter' },
       { label: 'Liftpas', href: '/heiskort' },
       { label: 'Openingstijden', href: '/apningstider' },
       { label: 'Weer en webcams', href: '/vaer-og-webkamera' },

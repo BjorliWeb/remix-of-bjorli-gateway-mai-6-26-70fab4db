@@ -35,7 +35,7 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
   },
   nl: {
     title: 'Bjorli – Sneeuwzekere winterbestemming in Noorwegen',
-    description: 'Destination Bjorli in Romsdalen, Noorwegen – sneeuwzekere bergdagen met alpineskiën, langlaufen, hutten en familie-ervaringen. Bjorli Skigebied is het hart van de winter.',
+    description: 'Destination Bjorli in Romsdalen, Noorwegen – sneeuwzekere bergdagen met alpineskiën, langlaufen, hutten en familie-ervaringen. Bjorli Skisenter is het hart van de winter.',
     keywords: 'bjorli, bjorli noorwegen, sneeuwzeker skigebied, skivakantie noorwegen, romsdalen, alpineskiën, langlaufen, gezinsvakantie noorwegen',
   },
   da: {
