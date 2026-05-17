@@ -7,11 +7,29 @@
  * (where each route segment will own its season explicitly).
  */
 import { LOCALE_PREFIX, type Locale } from '@/i18n/translations';
+import { ROUTE_SLUGS, type CanonicalRoute } from '@/i18n/routes';
 
 export type Season = 'winter' | 'summer';
 
-/** Routes that should render with the summer theme. */
-const SUMMER_PREFIXES = ['/sommer', '/fotturer', '/sykling', '/familie', '/sommer/korte-turer'] as const;
+/**
+ * Canonical routes that should render with the summer theme.
+ * We expand these to every locale's slug below so localized URLs
+ * like /nl/zomer/korte-turer, /en/summer, /sv/cykling, etc. all
+ * trigger the summer header CTA + theme.
+ */
+const SUMMER_CANONICALS: CanonicalRoute[] = [
+  'sommer', 'fotturer', 'sykling', 'familie', 'fiske',
+  'gardsbesok', 'sagelva', 'golden-train', 'romsdalsgondolen',
+];
+
+/** Set of localized first-segment slugs (no leading slash) that are summer routes. */
+const SUMMER_SLUGS: Set<string> = (() => {
+  const out = new Set<string>();
+  SUMMER_CANONICALS.forEach((c) => {
+    Object.values(ROUTE_SLUGS[c]).forEach((s) => { if (s) out.add(s); });
+  });
+  return out;
+})();
 
 /** Strip a locale prefix (/en, /de, …) so we can match on the canonical path. */
 const stripLocale = (pathname: string): string => {
@@ -26,7 +44,9 @@ const stripLocale = (pathname: string): string => {
 
 export const isSummerRoute = (pathname: string): boolean => {
   const path = stripLocale(pathname);
-  return SUMMER_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`));
+  const first = path.split('/').filter(Boolean)[0];
+  if (!first) return false;
+  return SUMMER_SLUGS.has(first);
 };
 
 export const seasonForRoute = (pathname: string): Season =>
