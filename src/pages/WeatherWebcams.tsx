@@ -1,5 +1,6 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { usePageCopy } from '@/i18n/usePageCopy';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Map, Activity, ExternalLink } from 'lucide-react';
@@ -27,19 +28,20 @@ import heroImage from '@/assets/hero-winter.jpg';
  * Source HTML: https://bjorli.no/livecams/ (inspected 2026-05-02).
  * Only the first camera was labelled in the WP markup ("BASEOMRÅDE").
  * Labels for the remaining three are placeholders — confirm exact names
- * with the destination team before WordPress migration.
+ * with the destination team before WordPress migration. Tile titles are
+ * resolved per-locale via COPY.webcamTitles below.
  */
 interface WebcamDef {
   alias: string;
-  title: string;
+  /** Key into COPY[locale].webcamTitles */
+  titleKey: 'base' | 'cam2' | 'cam3' | 'cam4';
   needsLabelConfirmation?: boolean;
 }
 const WEBCAMS: WebcamDef[] = [
-  { alias: '61b467311f905', title: 'Baseområde' },
-  // TODO confirm with destination — labels not present in current WP markup.
-  { alias: '61c4bf99a3979', title: 'Webkamera 2', needsLabelConfirmation: true },
-  { alias: '61b717228326c', title: 'Webkamera 3', needsLabelConfirmation: true },
-  { alias: '61b702b231cf9', title: 'Webkamera 4', needsLabelConfirmation: true },
+  { alias: '61b467311f905', titleKey: 'base' },
+  { alias: '61c4bf99a3979', titleKey: 'cam2', needsLabelConfirmation: true },
+  { alias: '61b717228326c', titleKey: 'cam3', needsLabelConfirmation: true },
+  { alias: '61b702b231cf9', titleKey: 'cam4', needsLabelConfirmation: true },
 ];
 
 /** Build the IPCamLive embed URL with the same player flags as the WP page. */
@@ -49,65 +51,203 @@ const buildIpcamUrl = (alias: string) =>
   '&disabletimelapseplayer=1&disablestorageplayer=1&disabledownloadbutton=1' +
   '&disableplaybackspeedbutton=1&disablenavigation=1&disableuserpause=1&disablezoombutton=1';
 
+interface RelatedLink {
+  label: string;
+  href: string;
+  external: boolean;
+}
+interface WeatherWebcamsCopy {
+  heroTitle: string;
+  heroSubtitle: string;
+  statusTitle: string;
+  statusSourceNote: string;
+  alertLabel: string;
+  alertFallback: string;
+  webcamsTitle: string;
+  webcamsIntro: string;
+  webcamsFallback: string;
+  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string };
+  langrennTitle: string;
+  langrennBody: string;
+  langrennStatusCta: string;
+  langrennMapCta: string;
+  externalNewTab: string;
+  relatedTitle: string;
+  related: RelatedLink[];
+}
+
+const RELATED_HREFS = {
+  openingHours: '/apningstider',
+  liftPass:
+    'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+  skisenter: '/bjorli-skisenter',
+  fnugg: 'https://fnugg.no/bjorli/',
+  trailMap: '/loypekart',
+} as const;
+
+const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> = {
+  no: {
+    heroTitle: 'Vær og webkamera',
+    heroSubtitle: 'Se dagens forhold, live status og webkamera fra Bjorli.',
+    statusTitle: 'Status akkurat nå',
+    statusSourceNote: 'Data hentet fra Fnugg',
+    alertLabel: 'Driftsmelding',
+    alertFallback: 'Ingen ny driftsmelding tilgjengelig akkurat nå.',
+    webcamsTitle: 'Webkamera',
+    webcamsIntro: 'Live bilder fra Bjorli Skisenter. Bildene oppdateres automatisk.',
+    webcamsFallback: 'Webkamera er midlertidig utilgjengelig.',
+    webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4' },
+    langrennTitle: 'Langrenn og løypekart',
+    langrennBody:
+      'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se live løypestatus og interaktivt løypekart for oppdatert informasjon.',
+    langrennStatusCta: 'Se løypestatus',
+    langrennMapCta: 'Se løypekart',
+    externalNewTab: 'loyper.net, åpnes i ny fane',
+    relatedTitle: 'Relaterte sider',
+    related: [
+      { label: 'Se åpningstider', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Kjøp heiskort', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Live status på Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Løypekart', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+  en: {
+    heroTitle: 'Weather and webcams',
+    heroSubtitle: 'See current conditions, live status and webcams from Bjorli.',
+    statusTitle: 'Current status',
+    statusSourceNote: 'Data from Fnugg',
+    alertLabel: 'Operational update',
+    alertFallback: 'No operational update available right now.',
+    webcamsTitle: 'Webcams',
+    webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
+    webcamsFallback: 'Webcam is temporarily unavailable.',
+    webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    langrennTitle: 'Cross-country and trail map',
+    langrennBody:
+      'Bjorli has cross-country trails through varied mountain and forest terrain. See live trail status and the interactive trail map for the latest information.',
+    langrennStatusCta: 'See trail status',
+    langrennMapCta: 'See trail map',
+    externalNewTab: 'loyper.net, opens in a new tab',
+    relatedTitle: 'Related pages',
+    related: [
+      { label: 'Opening hours', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Buy lift pass', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Live status on Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Trail map', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+  de: {
+    heroTitle: 'Wetter und Webcams',
+    heroSubtitle: 'Sehen Sie die aktuellen Bedingungen, den Live-Status und die Webcams aus Bjorli.',
+    statusTitle: 'Aktueller Status',
+    statusSourceNote: 'Daten von Fnugg',
+    alertLabel: 'Betriebsmeldung',
+    alertFallback: 'Derzeit liegt keine neue Betriebsmeldung vor.',
+    webcamsTitle: 'Webcams',
+    webcamsIntro: 'Live-Bilder vom Bjorli Skisenter. Die Bilder werden automatisch aktualisiert.',
+    webcamsFallback: 'Die Webcam ist vorübergehend nicht verfügbar.',
+    webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    langrennTitle: 'Langlauf und Loipenkarte',
+    langrennBody:
+      'Bjorli bietet Langlaufloipen durch abwechslungsreiches Hochgebirgs- und Waldgelände. Sehen Sie den Live-Loipenstatus und die interaktive Loipenkarte für aktuelle Informationen.',
+    langrennStatusCta: 'Loipenstatus ansehen',
+    langrennMapCta: 'Loipenkarte ansehen',
+    externalNewTab: 'loyper.net, wird in einem neuen Tab geöffnet',
+    relatedTitle: 'Verwandte Seiten',
+    related: [
+      { label: 'Öffnungszeiten', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Skipass kaufen', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Live-Status auf Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Loipenkarte', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+  nl: {
+    heroTitle: 'Weer en webcams',
+    heroSubtitle: 'Bekijk de actuele omstandigheden, livestatus en webcams van Bjorli.',
+    statusTitle: 'Actuele status',
+    statusSourceNote: 'Gegevens van Fnugg',
+    alertLabel: 'Operationele update',
+    alertFallback: 'Er is op dit moment geen nieuwe operationele update.',
+    webcamsTitle: 'Webcams',
+    webcamsIntro: 'Livebeelden van Bjorli Skisenter. De beelden worden automatisch ververst.',
+    webcamsFallback: 'De webcam is tijdelijk niet beschikbaar.',
+    webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    langrennTitle: 'Langlaufen en loipekaart',
+    langrennBody:
+      'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de live loipestatus en de interactieve loipekaart voor actuele informatie.',
+    langrennStatusCta: 'Bekijk loipestatus',
+    langrennMapCta: 'Bekijk loipekaart',
+    externalNewTab: 'loyper.net, opent in een nieuw tabblad',
+    relatedTitle: 'Gerelateerde pagina’s',
+    related: [
+      { label: 'Openingstijden', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Skipas kopen', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Livestatus op Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Loipekaart', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+  da: {
+    heroTitle: 'Vejr og webkameraer',
+    heroSubtitle: 'Se aktuelle forhold, livestatus og webkameraer fra Bjorli.',
+    statusTitle: 'Aktuel status',
+    statusSourceNote: 'Data fra Fnugg',
+    alertLabel: 'Driftsmeddelelse',
+    alertFallback: 'Der er ingen ny driftsmeddelelse lige nu.',
+    webcamsTitle: 'Webkameraer',
+    webcamsIntro: 'Livebilleder fra Bjorli Skisenter. Billederne opdateres automatisk.',
+    webcamsFallback: 'Webkameraet er midlertidigt utilgængeligt.',
+    webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4' },
+    langrennTitle: 'Langrend og løjpekort',
+    langrennBody:
+      'Bjorli har langrendsspor gennem varieret højfjelds- og skovterræn. Se live løjpestatus og det interaktive løjpekort for opdateret information.',
+    langrennStatusCta: 'Se løjpestatus',
+    langrennMapCta: 'Se løjpekort',
+    externalNewTab: 'loyper.net, åbnes i en ny fane',
+    relatedTitle: 'Relaterede sider',
+    related: [
+      { label: 'Åbningstider', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Køb liftkort', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Livestatus på Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Løjpekort', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+  sv: {
+    heroTitle: 'Väder och webbkameror',
+    heroSubtitle: 'Se aktuella förhållanden, livestatus och webbkameror från Bjorli.',
+    statusTitle: 'Aktuell status',
+    statusSourceNote: 'Data från Fnugg',
+    alertLabel: 'Driftmeddelande',
+    alertFallback: 'Det finns inget nytt driftmeddelande just nu.',
+    webcamsTitle: 'Webbkameror',
+    webcamsIntro: 'Livebilder från Bjorli Skisenter. Bilderna uppdateras automatiskt.',
+    webcamsFallback: 'Webbkameran är tillfälligt otillgänglig.',
+    webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4' },
+    langrennTitle: 'Längdskidor och spårkarta',
+    langrennBody:
+      'Bjorli har längdspår genom varierande högfjälls- och skogsterräng. Se live spårstatus och den interaktiva spårkartan för aktuell information.',
+    langrennStatusCta: 'Se spårstatus',
+    langrennMapCta: 'Se spårkarta',
+    externalNewTab: 'loyper.net, öppnas i en ny flik',
+    relatedTitle: 'Relaterade sidor',
+    related: [
+      { label: 'Öppettider', href: RELATED_HREFS.openingHours, external: false },
+      { label: 'Köp liftkort', href: RELATED_HREFS.liftPass, external: true },
+      { label: 'Bjorli Skisenter', href: RELATED_HREFS.skisenter, external: false },
+      { label: 'Livestatus på Fnugg', href: RELATED_HREFS.fnugg, external: true },
+      { label: 'Spårkarta', href: RELATED_HREFS.trailMap, external: false },
+    ],
+  },
+};
+
 const WeatherWebcams = () => {
   const { locale } = useLanguage();
   const lp = useLocalizedPath();
-
-  // Locale-aware copy. Norwegian is canonical; other locales fall back to EN.
-  const isNo = locale === 'no';
-  const copy = isNo
-    ? {
-        heroTitle: 'Vær og webkamera',
-        heroSubtitle: 'Se dagens forhold, live status og webkamera fra Bjorli.',
-        statusTitle: 'Status akkurat nå',
-        statusSourceNote: 'Data hentet fra Fnugg',
-        webcamsTitle: 'Webkamera',
-        webcamsIntro: 'Live bilder fra Bjorli Skisenter. Bildene oppdateres automatisk.',
-        webcamsFallback: 'Webkamera er midlertidig utilgjengelig.',
-        langrennTitle: 'Langrenn og løypekart',
-        langrennBody:
-          'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se live løypestatus og interaktivt løypekart for oppdatert informasjon.',
-        langrennStatusCta: 'Se løypestatus',
-        langrennMapCta: 'Se løypekart',
-        relatedTitle: 'Relaterte sider',
-        related: [
-          { label: 'Se åpningstider', href: '/apningstider', external: false },
-          {
-            label: 'Kjøp heiskort',
-            href: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
-            external: true,
-          },
-          { label: 'Bjorli Skisenter', href: '/bjorli-skisenter', external: false },
-          { label: 'Live status på Fnugg', href: 'https://fnugg.no/bjorli/', external: true },
-          { label: 'Løypekart', href: '/loypekart', external: false },
-        ],
-      }
-    : {
-        heroTitle: 'Weather and webcams',
-        heroSubtitle: 'See current conditions, live status and webcams from Bjorli.',
-        statusTitle: 'Status right now',
-        statusSourceNote: 'Data from Fnugg',
-        webcamsTitle: 'Webcams',
-        webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
-        webcamsFallback: 'Webcam is temporarily unavailable.',
-        langrennTitle: 'Cross-country and trail map',
-        langrennBody:
-          'Bjorli has cross-country trails through varied mountain and forest terrain. See live trail status and the interactive trail map for the latest info.',
-        langrennStatusCta: 'See trail status',
-        langrennMapCta: 'See trail map',
-        relatedTitle: 'Related pages',
-        related: [
-          { label: 'Opening hours', href: '/apningstider', external: false },
-          {
-            label: 'Buy lift pass',
-            href: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
-            external: true,
-          },
-          { label: 'Bjorli Skisenter', href: '/bjorli-skisenter', external: false },
-          { label: 'Live status on Fnugg', href: 'https://fnugg.no/bjorli/', external: true },
-          { label: 'Trail map', href: '/loypekart', external: false },
-        ],
-      };
+  const copy = usePageCopy(COPY);
 
   return (
     <div>
@@ -136,10 +276,8 @@ const WeatherWebcams = () => {
       {/* 2. Dagens driftsmelding — same banner used on the homepage. */}
       <LiveAlertBanner
         fallback={{
-          label: isNo ? 'Driftsmelding' : 'Operational update',
-          message: isNo
-            ? 'Ingen ny driftsmelding tilgjengelig akkurat nå.'
-            : 'No operational update available right now.',
+          label: copy.alertLabel,
+          message: copy.alertFallback,
         }}
       />
 
@@ -164,7 +302,10 @@ const WeatherWebcams = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05, duration: 0.4 }}
               >
-                <WebcamEmbed title={cam.title} embedUrl={buildIpcamUrl(cam.alias)} />
+                <WebcamEmbed
+                  title={copy.webcamTitles[cam.titleKey]}
+                  embedUrl={buildIpcamUrl(cam.alias)}
+                />
               </motion.div>
             ))}
           </div>
@@ -189,7 +330,7 @@ const WeatherWebcams = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
-              aria-label={`${copy.langrennStatusCta} (loyper.net, åpnes i ny fane)`}
+              aria-label={`${copy.langrennStatusCta} (${copy.externalNewTab})`}
             >
               <Activity className="h-4 w-4 text-secondary" aria-hidden="true" />
               {copy.langrennStatusCta}
@@ -200,7 +341,7 @@ const WeatherWebcams = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
-              aria-label={`${copy.langrennMapCta} (loyper.net, åpnes i ny fane)`}
+              aria-label={`${copy.langrennMapCta} (${copy.externalNewTab})`}
             >
               <Map className="h-4 w-4 text-secondary" aria-hidden="true" />
               {copy.langrennMapCta}
