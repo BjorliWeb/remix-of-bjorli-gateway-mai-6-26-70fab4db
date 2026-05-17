@@ -113,6 +113,19 @@ const AppRoutes = () => (
     <Route path="/romsdalsgondolen" element={<Romsdalsgondolen />} />
     <Route path="/sagelva" element={<Sagelva />} />
     <Route path="/sommer/korte-turer" element={<KorteTurer />} />
+    {/* Localized aliases for the nested /sommer/korte-turer page.
+        We only need to register variants where the parent slug differs
+        from the Norwegian "sommer" — de/da reuse "sommer" so the
+        canonical route above already handles them. The child slug
+        ("korte-turer") is intentionally kept as a legacy alias for
+        every locale until proper translated child slugs are added. */}
+    {Array.from(new Set(
+      LOCALES.filter((l) => l !== 'no').map((l) => ROUTE_SLUGS.sommer[l])
+    ))
+      .filter((s) => s && s !== 'sommer')
+      .map((s) => (
+        <Route key={`korte-${s}`} path={`/${s}/korte-turer`} element={<KorteTurer />} />
+      ))}
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
     <Route path="/loypekart" element={<Loypekart />} />
