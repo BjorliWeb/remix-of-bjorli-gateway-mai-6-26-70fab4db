@@ -129,7 +129,7 @@ Every operational page should ship a short FAQ that mirrors how real
 visitors phrase questions. Examples (translated per locale, populated
 from WordPress later):
 
-- When does Bjorli Ski Resort open?
+- When does Bjorli Skisenter open?
 - Where can I buy ski passes for Bjorli?
 - How do I get to Bjorli by train?
 - Is Bjorli suitable for families?
