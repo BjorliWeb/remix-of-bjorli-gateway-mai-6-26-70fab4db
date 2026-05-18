@@ -102,6 +102,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva vasskraftsenter', desc: 'Opplev 300 år med vasskraft, lokalhistorie og levende formidling i Lesja.', alt: 'Sagelva vasskraftsenter i Lesja' },
         { title: 'Fossefall og moskus', desc: 'Mardalsfossen i Mardøla og guidede moskussafarier på Dovrefjell — to av regionens store naturopplevelser.', alt: 'Mardalsfossen og moskus på Dovrefjell — naturopplevelser i regionen rundt Bjorli' },
         { title: 'Dagsturer vestover', desc: 'Romsdalen, Raumabanen, Trollstigen, Geirangerområdet og Åndalsnes — fjordlandskap innen rekkevidde.', alt: 'Raumabanen langs elvedalen — regional dagstur fra Bjorli' },
+        { title: 'Klatring og buldring', desc: 'Sportsklatring, buldring, via ferrata og alpine opplevelser i Romsdalen. Bjorli som basecamp mellom fjell, elv og fjord.', alt: 'Dramatiske granittvegger i Romsdalen — klatring og buldring' },
       ],
     },
     biking: {
@@ -189,6 +190,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva hydropower centre', desc: 'Discover 300 years of hydropower, local history and living storytelling in Lesja.', alt: 'Sagelva hydropower centre in Lesja' },
         { title: 'Nature and views', desc: 'Open plateaus, mountain ridges and quiet summer pastures in three national parks nearby.', alt: 'Open summer landscape near Bjorli' },
         { title: 'Day trips from Bjorli', desc: 'Romsdalen, Trollstigen, the Geiranger area and Åndalsnes within a short drive or train ride.', alt: 'Raumabanen along the river valley — a regional day trip from Bjorli' },
+        { title: 'Climbing and bouldering', desc: 'Sport climbing, bouldering, via ferrata and alpine experiences in Romsdalen. Bjorli as a basecamp between mountains, river and fjord.', alt: 'Dramatic granite walls in Romsdalen — climbing and bouldering' },
       ],
     },
     biking: {
@@ -276,6 +278,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva Wasserkraftzentrum', desc: 'Erleben Sie 300 Jahre Wasserkraft, lokale Geschichte und lebendige Vermittlung in Lesja.', alt: 'Sagelva Wasserkraftzentrum in Lesja' },
         { title: 'Natur und Aussicht', desc: 'Offene Hochebenen, Bergplateaus und stille Almtäler in drei nahen Nationalparks.', alt: 'Offene Sommerlandschaft bei Bjorli' },
         { title: 'Tagesausflüge ab Bjorli', desc: 'Romsdalen, Trollstigen, die Geiranger-Region und Åndalsnes in kurzer Auto- oder Zugfahrt.', alt: 'Raumabanen entlang des Flusstals — regionaler Tagesausflug ab Bjorli' },
+        { title: 'Klettern und Bouldern', desc: 'Sportklettern, Bouldern, Via Ferrata und alpine Erlebnisse im Romsdalen. Bjorli als Basislager zwischen Bergen, Fluss und Fjord.', alt: 'Dramatische Granitwände im Romsdalen — Klettern und Bouldern' },
       ],
     },
     biking: {
@@ -363,6 +366,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva waterkrachtcentrum', desc: 'Beleef 300 jaar waterkracht, lokale geschiedenis en levendige vertelling in Lesja.', alt: 'Sagelva waterkrachtcentrum in Lesja' },
         { title: 'Natuur en uitzicht', desc: 'Open vlaktes, bergplateaus en stille zomerweiden in drie nabijgelegen nationale parken.', alt: 'Open zomerlandschap bij Bjorli' },
         { title: 'Dagtochten vanuit Bjorli', desc: 'Romsdalen, Trollstigen, de Geiranger-regio en Åndalsnes binnen een korte rit of treinreis.', alt: 'Raumabanen langs het rivierdal — regionale dagtocht vanuit Bjorli' },
+        { title: 'Klimmen en boulderen', desc: 'Sportklimmen, boulderen, via ferrata en alpine ervaringen in Romsdalen. Bjorli als basiskamp tussen bergen, rivier en fjord.', alt: 'Dramatische granietwanden in Romsdalen — klimmen en boulderen' },
       ],
     },
     biking: {
@@ -450,6 +454,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva vandkraftcenter', desc: 'Oplev 300 års vandkraft, lokalhistorie og levende formidling i Lesja.', alt: 'Sagelva vandkraftcenter i Lesja' },
         { title: 'Natur og udsigt', desc: 'Åbne vidder, fjeldplateauer og stille sæterdale i tre nærliggende nationalparker.', alt: 'Åbent sommerlandskab nær Bjorli' },
         { title: 'Dagsture fra Bjorli', desc: 'Romsdalen, Trollstigen, Geiranger-området og Åndalsnes inden for kort køre- eller togtur.', alt: 'Raumabanen langs ådalen — regional dagstur fra Bjorli' },
+        { title: 'Klatring og bouldering', desc: 'Sportsklatring, bouldering, via ferrata og alpine oplevelser i Romsdalen. Bjorli som basislejr mellem fjeld, elv og fjord.', alt: 'Dramatiske granitvægge i Romsdalen — klatring og bouldering' },
       ],
     },
     biking: {
@@ -537,6 +542,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Sagelva vattenkraftcenter', desc: 'Upplev 300 år av vattenkraft, lokalhistoria och levande förmedling i Lesja.', alt: 'Sagelva vattenkraftcenter i Lesja' },
         { title: 'Natur och utsikt', desc: 'Öppna vidder, fjällplatåer och stilla sätertrakter i tre närliggande nationalparker.', alt: 'Öppet sommarlandskap nära Bjorli' },
         { title: 'Dagsturer från Bjorli', desc: 'Romsdalen, Trollstigen, Geiranger-området och Åndalsnes inom kort bil- eller tågresa.', alt: 'Raumabanen längs floddalen — regional dagstur från Bjorli' },
+        { title: 'Klättring och bouldering', desc: 'Sportklättring, bouldering, via ferrata och alpina upplevelser i Romsdalen. Bjorli som basläger mellan fjäll, älv och fjord.', alt: 'Dramatiska granitväggar i Romsdalen — klättring och bouldering' },
       ],
     },
     biking: {
