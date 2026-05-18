@@ -215,7 +215,10 @@ const KlatringRomsdalen = () => {
             Et klatredistrikt fra fjord til fjell
           </h2>
           <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Romsdalen har et etablert klatremiljø og et stort spenn av opplevelser, fra innendørs klatring og via ferrata til sportsklatring, buldring og alpine fjellruter. Bjorli ligger i sørenden av regionen og fungerer godt som en roligere base for deg som vil kombinere klatring med fjell, elv, tog, sykkel og fjordopplevelser.
+            Romsdalen har et etablert klatremiljø og et stort spenn av opplevelser, fra innendørs klatring og via ferrata til sportsklatring, buldring og alpine fjellruter. Bjorli ligger i sørenden av regionen og fungerer godt som en roligere base for deg som vil kombinere klatring med{' '}
+            <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
+            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link>, tog,{' '}
+            <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link> og fjordopplevelser.
           </p>
         </div>
       </section>
@@ -337,7 +340,12 @@ const KlatringRomsdalen = () => {
               Bjorli som basecamp
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed">
-              Bo roligere. Reis lettere. Utforsk mer. Fra Bjorli kan du kombinere klatredager i Romsdalen med sykling, fiske, fjellturer, Raumaelva, Raumabanen, Lesjaskogsvatnet og dagsturer mot fjordlandskapet. Det gjør Bjorli til et godt utgangspunkt for deg som vil ha mer enn én aktivitet på sommerferien.
+              Bo roligere. Reis lettere. Utforsk mer. Fra Bjorli kan du kombinere klatredager i Romsdalen med{' '}
+              <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>,{' '}
+              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske</Link>,{' '}
+              <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
+              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">Raumaelva</Link>, Raumabanen, Lesjaskogsvatnet og{' '}
+              <Link to={lp('/sommer/korte-turer')} className="text-secondary underline-offset-4 hover:underline">korte turer rundt Bjorli</Link>. Det gjør Bjorli til et godt utgangspunkt for deg som vil ha mer enn én aktivitet på sommerferien.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
