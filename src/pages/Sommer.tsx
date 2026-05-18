@@ -169,7 +169,7 @@ const Sommer = () => {
       </div>
 
       {/* 12 — Final CTA */}
-      <section className="py-24 md:py-32 px-4 bg-muted/30">
+      <section className="pt-20 pb-16 md:pt-24 md:pb-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-3xl text-center">
           <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">
             {t.finalTitle}

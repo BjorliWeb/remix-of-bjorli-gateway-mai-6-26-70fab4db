@@ -50,7 +50,7 @@ const Footer = () => {
         }}
       />
 
-      <div className="relative container mx-auto px-6 pt-20 pb-6 lg:pt-24 lg:pb-8">
+      <div className="relative container mx-auto px-6 pt-14 pb-6 lg:pt-16 lg:pb-8">
         {/* Top section — 5 col layout: editorial brand panel + 3 link cols + contact */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1.3fr] gap-y-14 md:gap-x-10 lg:gap-x-16">
           {/* 1 — Brand block (editorial panel, visually distinct) */}
