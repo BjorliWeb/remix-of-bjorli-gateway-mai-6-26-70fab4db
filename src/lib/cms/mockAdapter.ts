@@ -33,6 +33,22 @@ import farmVisitsImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import type { CmsImage } from './types';
 
 /**
+ * Editorial rename for the homepage "news" section. The official
+ * scope is updates from Bjorli Skisenter / Nye Bjorli Skisenter AS
+ * (season opening, snow, lift-pass, campaigns, slope/park, ski school
+ * & rental, operational and relevant company news), so the section
+ * title is overridden here rather than touching translation files.
+ */
+const SKISENTER_NEWS_TITLE: Record<Language, string> = {
+  no: 'Siste nytt fra Bjorli Skisenter',
+  en: 'Latest from Bjorli Skisenter',
+  de: 'Aktuelles aus dem Bjorli Skisenter',
+  nl: 'Laatste nieuws van Bjorli Skisenter',
+  da: 'Sidste nyt fra Bjorli Skisenter',
+  sv: 'Senaste nytt från Bjorli Skisenter',
+};
+
+/**
  * Editorial winter intro copy (split layout, Stayli-inspired pacing).
  * Falls back to the dictionary `intro.title/body` for any locale we
  * have not yet hand-translated.
