@@ -19,94 +19,99 @@
    */
   :root {
     /* ─── Winter palette (default) ────────────────────────────────────
-     * #001d28  deep winter dark        197 100% 8%
-     * #003b4b  dark blue-green         191 100% 15%
-     * #065b7c  winter blue             197  90% 25%
-     * #3595ba  medium winter blue      197  53% 47%
-     * #64cdf2  bright ice blue         195  86% 67%
-     * #c8eaf5  pale ice blue           198  70% 87%
-     * Brand accent CTA: bright ice blue on dark backgrounds.
+     * Bjorli winter seasonal identity (snow-secure, ski-focused).
+     *   #123846 nav dark         196 59% 17%
+     *   #0B2630 deep winter blue 197 64% 12%
+     *   #65799B muted blue       220 21% 50%
+     *   #DDEAF2 ice background   204 49% 91%
+     *   #F9F8EB warm snow        55  56% 95%
+     *   #58C4E8 primary CTA      195 76% 63%
+     *   #36AEDA CTA hover        196 70% 53%
+     *   #F3D8A6 accent           37  76% 80%
      */
-    --background: 198 70% 97%;       /* near-white with a hint of ice */
-    --foreground: 197 100% 8%;       /* deep winter dark */
+    --background: 55 56% 95%;        /* warm snow */
+    --foreground: 197 64% 12%;       /* deep winter blue */
 
     --card: 0 0% 100%;
-    --card-foreground: 197 100% 8%;
+    --card-foreground: 197 64% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 197 100% 8%;
+    --popover-foreground: 197 64% 12%;
 
-    --primary: 197 90% 25%;          /* winter blue #065b7c */
+    --primary: 196 59% 17%;          /* nav dark #123846 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 195 86% 67%;        /* bright ice blue #64cdf2 — main CTA */
-    --secondary-foreground: 197 100% 8%;
+    --secondary: 195 76% 63%;        /* primary CTA #58C4E8 */
+    --secondary-foreground: 197 64% 12%;
 
-    --muted: 198 70% 92%;            /* pale ice blue tint */
-    --muted-foreground: 197 40% 30%;
+    --muted: 204 49% 91%;            /* ice background #DDEAF2 */
+    --muted-foreground: 220 21% 35%;
 
-    --accent: 198 70% 87%;           /* pale ice blue #c8eaf5 */
-    --accent-foreground: 197 90% 25%;
+    --accent: 37 76% 80%;             /* warm accent #F3D8A6 */
+    --accent-foreground: 196 59% 17%;
 
     --destructive: 0 70% 45%;        /* restrained accessible red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 198 50% 85%;
-    --input: 198 50% 85%;
-    --ring: 197 90% 25%;
+    --border: 204 49% 86%;
+    --input: 204 49% 86%;
+    --ring: 196 70% 53%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 197 100% 8%;
-    --sidebar-foreground: 198 70% 87%;
-    --sidebar-primary: 195 86% 67%;
-    --sidebar-primary-foreground: 197 100% 8%;
-    --sidebar-accent: 191 100% 15%;
-    --sidebar-accent-foreground: 198 70% 87%;
-    --sidebar-border: 191 100% 20%;
-    --sidebar-ring: 195 86% 67%;
+    --sidebar-background: 196 59% 17%;
+    --sidebar-foreground: 204 49% 91%;
+    --sidebar-primary: 195 76% 63%;
+    --sidebar-primary-foreground: 197 64% 12%;
+    --sidebar-accent: 197 64% 12%;
+    --sidebar-accent-foreground: 204 49% 91%;
+    --sidebar-border: 197 64% 18%;
+    --sidebar-ring: 195 76% 63%;
 
     /* ─── Bjorli brand tokens ──────────────────────────────────────── */
-    /* Navigation surface (always dark winter on every page so the brand
-       feels consistent — even on summer pages). */
-    --nav-bg: 197 100% 8%;
+    /* Navigation + hero overlay default to the winter nav dark. The
+       summer block below re-points these to the summer nav dark so the
+       header and footer breathe with the seasonal identity. */
+    --nav-bg: 196 59% 17%;            /* #123846 */
     --nav-foreground: 0 0% 100%;
-    --hero-overlay: 197 100% 8%;
+    --hero-overlay: 197 64% 12%;
     --glass-bg: 0 0% 100%;
     --glass-border: 0 0% 100%;
 
     /* Winter palette aliases (always available, used for explicitly
        winter-themed components like Status cards, Skisenter, livecams). */
-    --winter-deep: 197 100% 8%;
-    --winter-dark: 191 100% 15%;
-    --winter-blue: 197 90% 25%;
-    --winter-mid: 197 53% 47%;
-    --winter-ice: 195 86% 67%;
-    --winter-pale: 198 70% 87%;
+    --winter-deep: 197 64% 12%;       /* #0B2630 */
+    --winter-dark: 196 59% 17%;       /* #123846 */
+    --winter-blue: 220 21% 50%;       /* #65799B muted blue */
+    --winter-mid: 196 70% 53%;        /* #36AEDA CTA hover */
+    --winter-ice: 195 76% 63%;        /* #58C4E8 primary CTA */
+    --winter-pale: 204 49% 91%;       /* #DDEAF2 ice bg */
 
     /* Summer palette aliases (always available, used for explicitly
        summer-themed components like hiking, cycling, family). */
-    --summer-soft: 179 30% 66%;
-    --summer-turquoise: 179 41% 48%;
-    --summer-deep: 184 69% 34%;
-    --summer-green: 158 81% 31%;
-    --summer-peach: 25 89% 73%;
-    --summer-neutral: 53 30% 87%;
+    --summer-soft: 85 19% 56%;        /* #8FA57A soft green */
+    --summer-turquoise: 173 54% 40%;  /* #2F9E8F primary CTA */
+    --summer-deep: 173 50% 11%;       /* #0E2B28 deep green */
+    --summer-green: 178 45% 33%;      /* #2F7D7A teal */
+    --summer-peach: 36 60% 61%;       /* #D8A85F accent */
+    --summer-neutral: 72 25% 89%;     /* #E7EBDD pale green */
 
     /* Seasonal accent — flips between winter ice blue and summer
        turquoise based on data-season. Use this for season-aware CTAs,
        borders, hovers, etc. */
     --season-accent: var(--winter-ice);
-    --season-accent-foreground: 197 100% 8%;
+    --season-accent-foreground: 197 64% 12%;
     --season-surface: var(--winter-pale);
-    --season-deep: var(--winter-blue);
+    --season-deep: var(--winter-dark);
 
-    /* Legacy aliases kept so existing components keep compiling. */
-    --snow: 198 70% 87%;
-    --gold: 195 86% 67%;
-    --gold-light: 198 70% 87%;
-    --deep-navy: 197 100% 8%;
-    --ice-blue: 195 86% 67%;
+    /* Legacy aliases kept so existing components keep compiling.
+       These now follow the active season so summer pages don't bleed
+       the winter dark navy through old `bg-deep-navy` usages. */
+    --snow: 204 49% 91%;
+    --gold: 195 76% 63%;
+    --gold-light: 37 76% 80%;
+    --deep-navy: 197 64% 12%;
+    --ice-blue: 195 76% 63%;
 
     font-family: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   }
@@ -115,24 +120,41 @@
    * Triggered by <html data-season="summer"> (set in Layout.tsx for
    * /sommer and other summer pages). Same tokens, summer values. */
   [data-season='summer'] {
-    --background: 53 30% 97%;        /* warm neutral, very light */
-    --foreground: 197 100% 8%;       /* keep deep brand dark for text */
+    /* Summer seasonal identity (warm green basecamp). */
+    --background: 42 46% 94%;        /* warm cream #F7F3EA */
+    --foreground: 173 50% 11%;       /* deep green #0E2B28 */
 
-    --primary: 184 69% 34%;          /* deep turquoise #1b8e94 */
+    --card: 0 0% 100%;
+    --card-foreground: 173 50% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 173 50% 11%;
+
+    --primary: 172 49% 17%;          /* nav dark #163F3A */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 25 89% 73%;         /* warm peach #f7b57b — CTA */
-    --secondary-foreground: 197 100% 8%;
+    --secondary: 173 54% 40%;        /* primary CTA #2F9E8F */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 53 30% 92%;
-    --muted-foreground: 184 40% 25%;
+    --muted: 72 25% 89%;             /* pale green #E7EBDD */
+    --muted-foreground: 178 45% 22%;
 
-    --accent: 179 30% 86%;           /* soft turquoise tint */
-    --accent-foreground: 184 69% 25%;
+    --accent: 36 60% 61%;             /* warm accent #D8A85F */
+    --accent-foreground: 172 49% 17%;
 
-    --border: 179 25% 82%;
-    --input: 179 25% 82%;
-    --ring: 184 69% 34%;
+    --border: 72 25% 82%;
+    --input: 72 25% 82%;
+    --ring: 173 56% 32%;
+
+    /* Re-skin shared chrome (nav, footer, hero overlay, legacy
+       `deep-navy` callers) so summer pages don't leak winter blues. */
+    --nav-bg: 172 49% 17%;            /* #163F3A */
+    --hero-overlay: 173 50% 11%;
+    --deep-navy: 173 50% 11%;
+    --snow: 72 25% 89%;
+    --gold: 173 54% 40%;
+    --gold-light: 36 60% 61%;
+    --ice-blue: 173 54% 40%;
 
     --season-accent: var(--summer-turquoise);
     --season-accent-foreground: 0 0% 100%;
