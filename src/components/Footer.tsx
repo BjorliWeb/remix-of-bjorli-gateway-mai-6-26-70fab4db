@@ -16,15 +16,15 @@ const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-b from-nav via-nav to-season-deep text-nav-foreground">
       <div className="absolute inset-x-0 top-0 h-px bg-nav-foreground/10" aria-hidden="true" />
-      <div className="container mx-auto px-6 py-20 lg:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10">
+      <div className="container mx-auto px-6 py-14 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Brand block */}
           <div className="lg:col-span-4 md:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
-              <img src={bjorliLogo} alt="Bjorli logo" className="h-11 w-11 rounded-full ring-1 ring-nav-foreground/20" />
-              <span className="font-display text-2xl font-bold tracking-tight">{d.meta.siteName}</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={bjorliLogo} alt="Bjorli logo" className="h-10 w-10 rounded-full ring-1 ring-nav-foreground/20" />
+              <span className="font-display text-xl font-bold tracking-tight">{d.meta.siteName}</span>
             </div>
-            <p className="text-nav-foreground/70 text-sm leading-relaxed max-w-sm">
+            <p className="text-nav-foreground/65 text-sm leading-relaxed max-w-sm">
               {aboutBody}
             </p>
           </div>
@@ -32,10 +32,10 @@ const Footer = () => {
           {/* CMS-driven link columns */}
           {columns.map((col) => (
             <div key={col.title} className="lg:col-span-2">
-              <h4 className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-nav-foreground/55 mb-5">
+              <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-nav-foreground/50 mb-4">
                 {col.title}
               </h4>
-              <ul className="space-y-3 text-sm text-nav-foreground/80">
+              <ul className="space-y-2.5 text-sm text-nav-foreground/80">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -52,10 +52,10 @@ const Footer = () => {
 
           {/* Contact column */}
           <div className="lg:col-span-2">
-            <h4 className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-nav-foreground/55 mb-5">
+            <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-nav-foreground/50 mb-4">
               {d.footer.contactTitle}
             </h4>
-            <ul className="space-y-3 text-sm text-nav-foreground/80">
+            <ul className="space-y-2.5 text-sm text-nav-foreground/80">
               <li className="flex items-start gap-2.5">
                 <MapPin className="h-4 w-4 mt-0.5 text-season shrink-0" />
                 <span className="leading-relaxed">{address}</span>
@@ -72,7 +72,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-nav-foreground/10 mt-16 pt-8 flex flex-col sm:flex-row gap-4 justify-between items-center text-xs text-nav-foreground/55">
+        <div className="border-t border-nav-foreground/10 mt-12 pt-6 flex flex-col sm:flex-row gap-4 justify-between items-center text-xs text-nav-foreground/50">
           <div className="tracking-wide">{d.footer.rights} · {d.footer.company}</div>
           <div className="flex gap-6">
             <a href="https://bjorli.no/personvern/" target="_blank" rel="noopener noreferrer" className="hover:text-nav-foreground transition-colors">{d.footer.privacy}</a>
