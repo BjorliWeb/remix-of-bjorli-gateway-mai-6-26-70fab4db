@@ -349,7 +349,7 @@ const KlatringRomsdalen = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
               { icon: Train, title: 'Raumabanen', desc: 'Toget kjører gjennom dalen og stopper nær flere klatrefelt.' },
-              { icon: Bed, title: 'Overnatting på Bjorli', desc: 'Hytter og leiligheter med kjøkken og plass til utstyr.' },
+              { icon: Bed, title: 'Overnatting på Bjorli', desc: 'Overnatting med enkel tilgang til fjell og dal.' },
               { icon: Fish, title: 'Raumaelva og fjellene', desc: 'Laksefiske i Raumaelva og fjellturer i Reinheimen.' },
               { icon: Mountain, title: 'Fjord og fossefall', desc: 'Dagsturer vestover til Mardalsfossen og Romsdalsfjorden.' },
               { icon: Bike, title: 'Hviledager mellom øktene', desc: 'Sykling, fiske eller en stille kveld ved hytta.' },
