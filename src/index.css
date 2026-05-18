@@ -213,9 +213,14 @@
   .hero-gradient {
     background: linear-gradient(
       180deg,
-      hsl(var(--hero-overlay) / 0.7) 0%,
-      hsl(var(--hero-overlay) / 0.3) 50%,
-      hsl(var(--hero-overlay) / 0.8) 100%
+      hsl(var(--hero-overlay) / 0.55) 0%,
+      hsl(var(--hero-overlay) / 0.25) 38%,
+      hsl(var(--hero-overlay) / 0.55) 70%,
+      hsl(var(--hero-overlay) / 0.92) 100%
     );
+  }
+  .hero-vignette {
+    background:
+      radial-gradient(ellipse at center, transparent 40%, hsl(var(--hero-overlay) / 0.35) 100%);
   }
 }
