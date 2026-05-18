@@ -20,6 +20,7 @@ import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { supabase } from '@/integrations/supabase/client';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
+import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 
 /**
  * Image strategy: never import AI/stock JPGs directly anymore.
@@ -496,6 +497,7 @@ export const mockAdapter: CmsAdapter = {
       { href: '/sagelva',      image: { url: images.sagelva.src } },
       { href: '/aktiviteter',  image: { url: images.summerAerialNature.src } },
       { href: '/reisen-hit',   image: { url: goldenTrainImg } },
+      { href: '/sommer/klatring-og-buldring-romsdalen', image: { url: klatringHeroImg } },
     ];
 
     const summerSections: any[] = [
