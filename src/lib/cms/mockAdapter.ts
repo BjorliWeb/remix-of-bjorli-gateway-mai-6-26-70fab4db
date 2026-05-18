@@ -358,6 +358,34 @@ export const mockAdapter: CmsAdapter = {
           },
         ],
       },
+      // Editorial role split (per spec):
+      //   "Siste nytt fra Bjorli Skisenter" — official Skisenter
+      //   updates (season opening, snow, lift pass, campaigns, slope &
+      //   park, ski school, rental, operational + relevant company
+      //   news). Sourced from the existing `news` collection.
+      {
+        id: 'news',
+        type: 'news',
+        eyebrow: d.news.eyebrow,
+        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
+        subtitle: d.news.subtitle,
+        ctaLabel: d.news.cta,
+        ctaHref: '/nyheter',
+        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
+      },
+      // "Hva skjer på Bjorli" — destination-wide events and local
+      // happenings (concerts, festivals, food & drink, family,
+      // guided trips, farms, cycling, hiking, partner activities).
+      {
+        id: 'events',
+        type: 'events',
+        eyebrow: d.events.eyebrow,
+        title: d.events.title,
+        subtitle: d.events.subtitle,
+        ctaLabel: d.events.cta,
+        ctaHref: '/arrangementer',
+        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+      },
       {
         id: 'accommodation',
         type: 'feature',
@@ -383,16 +411,6 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.tips.cta,
         ctaHref: '/tips',
         items: tips,
-      },
-      {
-        id: 'events',
-        type: 'events',
-        eyebrow: d.events.eyebrow,
-        title: d.events.title,
-        subtitle: d.events.subtitle,
-        ctaLabel: d.events.cta,
-        ctaHref: '/arrangementer',
-        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
       },
       {
         id: 'beyond',
@@ -431,26 +449,6 @@ export const mockAdapter: CmsAdapter = {
           { label: d.gettingHere.seeMap, href: 'https://maps.app.goo.gl/ahakM1xvEkJ5oPiU7', icon: 'map', external: true },
           { label: 'Raumabanen', href: 'https://www.vy.no/', icon: 'train', external: true },
         ],
-      },
-      {
-        id: 'summerTeaser',
-        type: 'teaser',
-        eyebrow: d.summerTeaser.eyebrow,
-        title: d.summerTeaser.title,
-        body: d.summerTeaser.body,
-        ctaLabel: d.summerTeaser.cta,
-        ctaHref: '/sommer',
-        image: { url: summerImg, alt: d.summerTeaser.title },
-      },
-      {
-        id: 'news',
-        type: 'news',
-        eyebrow: d.news.eyebrow,
-        title: d.news.title,
-        subtitle: d.news.subtitle,
-        ctaLabel: d.news.cta,
-        ctaHref: '/nyheter',
-        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
       },
       {
         id: 'faq',
