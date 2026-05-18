@@ -19,10 +19,18 @@ const Layout = ({ children }: { children: ReactNode }) => {
   }, [season]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className="min-h-screen flex flex-col"
+      style={{
+        background:
+          'radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--season-surface) / 0.55), transparent 65%), linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--season-surface) / 0.35) 100%)',
+      }}
+    >
       <Navbar season={season} />
-      <main className="flex-1 pt-16 lg:pt-20">{children}</main>
-      <Footer />
+      <div className="flex-1 flex flex-col lg:max-w-[1440px] lg:w-[calc(100%-2rem)] lg:mx-auto lg:my-4 lg:rounded-[28px] lg:overflow-hidden lg:shadow-[0_30px_80px_-40px_hsl(var(--season-deep)/0.45)] lg:ring-1 lg:ring-nav-foreground/10 bg-background">
+        <main className="flex-1 pt-16 lg:pt-24">{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };
