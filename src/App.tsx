@@ -29,6 +29,7 @@ import Langrenn from "./pages/Langrenn";
 import Fotturer from "./pages/Fotturer";
 import Sykling from "./pages/Sykling";
 import KorteTurer from "./pages/KorteTurer";
+import KlatringRomsdalen from "./pages/KlatringRomsdalen";
 import Familie from "./pages/Familie";
 import Fiske from "./pages/Fiske";
 import Gardsbesok from "./pages/Gardsbesok";
@@ -113,6 +114,7 @@ const AppRoutes = () => (
     <Route path="/romsdalsgondolen" element={<Romsdalsgondolen />} />
     <Route path="/sagelva" element={<Sagelva />} />
     <Route path="/sommer/korte-turer" element={<KorteTurer />} />
+    <Route path="/sommer/klatring-og-buldring-romsdalen" element={<KlatringRomsdalen />} />
     {/* Localized aliases for the nested /sommer/korte-turer page.
         We only need to register variants where the parent slug differs
         from the Norwegian "sommer" — de/da reuse "sommer" so the
@@ -125,6 +127,17 @@ const AppRoutes = () => (
       .filter((s) => s && s !== 'sommer')
       .map((s) => (
         <Route key={`korte-${s}`} path={`/${s}/korte-turer`} element={<KorteTurer />} />
+      ))}
+    {Array.from(new Set(
+      LOCALES.filter((l) => l !== 'no').map((l) => ROUTE_SLUGS.sommer[l])
+    ))
+      .filter((s) => s && s !== 'sommer')
+      .map((s) => (
+        <Route
+          key={`klatring-${s}`}
+          path={`/${s}/klatring-og-buldring-romsdalen`}
+          element={<KlatringRomsdalen />}
+        />
       ))}
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
