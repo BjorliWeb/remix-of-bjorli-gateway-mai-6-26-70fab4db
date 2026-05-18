@@ -14,7 +14,8 @@ const Footer = () => {
   const address = footer?.address ?? d.footer.address;
 
   return (
-    <footer className="relative isolate overflow-hidden text-nav-foreground bg-season-deep">
+    // TEMP_VISUAL_TEST_FOOTER_BORDER
+    <footer className="relative isolate overflow-hidden border-t-[6px] border-season text-nav-foreground bg-season-deep">
       {/* Layered seasonal background — deep gradient + understated radial glow */}
       <div
         className="absolute inset-0 -z-10 pointer-events-none"
