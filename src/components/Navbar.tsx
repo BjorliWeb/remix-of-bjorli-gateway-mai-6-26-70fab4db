@@ -61,7 +61,7 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1392px] lg:w-[calc(100%-2rem-16px)] bg-nav/85 backdrop-blur-xl border-b border-nav-foreground/10 lg:border lg:rounded-2xl lg:shadow-[0_18px_50px_-25px_hsl(var(--season-deep)/0.6)]">
+    <nav className="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1440px] lg:w-[calc(100%-2rem)] bg-nav/85 backdrop-blur-xl border-b border-nav-foreground/10 lg:border lg:border-nav-foreground/15 lg:rounded-2xl lg:shadow-[0_18px_50px_-25px_hsl(var(--season-deep)/0.6)]">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
