@@ -159,7 +159,7 @@ const KlatringRomsdalen = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/85 text-lg md:text-2xl mb-10 font-light max-w-2xl leading-relaxed"
           >
-            Fra sportsklatring og buldring til via ferrata og alpine fjellopplevelser. Med Bjorli som basecamp har du kort vei til et av Norges mest spektakulære klatreområder.
+            Tusen meter granitt reiser seg fra dalen, og Romsdalen samler sportsklatring, buldring og via ferrata på et lite område. Bjorli ligger en togtur sør for veggene.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -187,7 +187,7 @@ const KlatringRomsdalen = () => {
                 size="lg"
                 className="bg-transparent text-white border-white/40 hover:bg-white/10 hover:text-white font-semibold w-full sm:w-auto"
               >
-                Utforsk sommeraktiviteter <ArrowRight className="ml-2 h-5 w-5" />
+                Se sommeraktiviteter <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </motion.div>
@@ -209,16 +209,16 @@ const KlatringRomsdalen = () => {
       <section className="py-20 md:py-28 px-4">
         <div className="container mx-auto max-w-3xl">
           <div className="text-secondary text-xs font-medium tracking-[0.24em] uppercase mb-5">
-            Et klatredistrikt
+            Romsdalen
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">
             Et klatredistrikt fra fjord til fjell
           </h2>
           <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Romsdalen har et etablert klatremiljø og et stort spenn av opplevelser, fra innendørs klatring og via ferrata til sportsklatring, buldring og alpine fjellruter. Bjorli ligger i sørenden av regionen og fungerer godt som en roligere base for deg som vil kombinere klatring med{' '}
+            Veggene står tett her – granitt og gneis fra dalbunnen og oppover. Klatremiljøet er etablert og spenner fra innendørs vegg til alpine ruter i Romsdalshorn og Trolltindene. Bjorli ligger i sørenden av regionen og gir en roligere base for deg som vil veksle mellom klatring og{' '}
             <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
-            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link>, tog,{' '}
-            <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link> og fjordopplevelser.
+            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
+            <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>.
           </p>
         </div>
       </section>
@@ -234,7 +234,7 @@ const KlatringRomsdalen = () => {
               For deg som vil prøve klatring
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-8">
-              Start gjerne på Norsk Tindesenter i Åndalsnes. Her finner du innendørs klatrevegg, buldring, led, topptau og autobelay, i tillegg til barnevennlige tilbud. Dette er et godt sted for familier, nybegynnere og deg som vil bygge trygghet før du går ut i fjellet.
+              Norsk Tindesenter i Åndalsnes er et godt sted å begynne. Innendørs vegg, buldring og barnevennlige tilbud gir trygghet før du går ut i fjellet. Her finner du led, topptau og autobelay.
             </p>
             <a href={LINKS.tindesenter} {...ext}>
               <Button size="lg" className="font-semibold">
@@ -273,10 +273,10 @@ const KlatringRomsdalen = () => {
               Via ferrata
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
-              Luftige opplevelser med guide eller riktig utstyr
+              Bratt fjell, gjort tilgjengelig
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-8">
-              Via ferrata i Åndalsnes gir deg følelsen av bratt fjell på en mer tilgjengelig måte. Norsk Tindesenter beskriver rutene Introveggen, Randersveggen og Vestveggen, med ulik vanskelighetsgrad og utsikt over Romsdalsfjella.
+              Via ferrata gir deg luften under føttene uten at du må kunne klatre. Norsk Tindesenter beskriver Introveggen, Randersveggen og Vestveggen med ulik vanskelighetsgrad og utsikt mot Romsdalsfjella.
             </p>
             <a href={LINKS.viaFerrata} {...ext}>
               <Button size="lg" className="font-semibold">
