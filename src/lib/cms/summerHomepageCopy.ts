@@ -30,7 +30,7 @@ export interface SummerHomepageCopy {
       title: string;
       desc: string;
       alt: string;
-    }[]; // 8
+    }[]; // 9
   };
   biking: {
     eyebrow: string;
