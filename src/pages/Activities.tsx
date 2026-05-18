@@ -271,9 +271,9 @@ const ActivityCard = ({ card, index, readMore }: { card: Card; index: number; re
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.45, delay: index * 0.05 }}
-      className="group h-full bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors flex flex-col"
+      className="group h-full bg-card rounded-2xl overflow-hidden border border-border/60 shadow-[0_1px_2px_hsl(var(--foreground)/0.04)] hover:shadow-[0_18px_40px_-20px_hsl(var(--foreground)/0.25)] hover:border-secondary/50 hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
     >
-      <div className="relative aspect-[5/4] overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted/40">
         <img
           src={card.image}
           alt={card.alt}
@@ -281,12 +281,12 @@ const ActivityCard = ({ card, index, readMore }: { card: Card; index: number; re
           className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
         />
       </div>
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-display text-xl font-bold text-foreground mb-2 leading-tight group-hover:text-secondary transition-colors">
+      <div className="p-7 flex flex-col flex-1">
+        <h3 className="font-display text-xl font-bold text-foreground mb-3 leading-tight tracking-tight group-hover:text-secondary transition-colors">
           {card.title}
         </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{card.desc}</p>
-        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary mt-auto">
+        <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{card.desc}</p>
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-secondary mt-auto pt-1 border-t border-border/0 group-hover:border-border/40 transition-colors">
           <span>{readMore}</span>
           {card.external ? (
             <ExternalLink className="h-4 w-4" />
@@ -348,17 +348,18 @@ const Activities = () => {
       </section>
 
       {sections.map((section) => (
-        <section key={section.id} id={section.id} className="py-16 md:py-20 px-4">
+        <section key={section.id} id={section.id} className="py-20 md:py-28 px-4 even:bg-muted/30">
           <div className="container mx-auto">
-            <div className="max-w-2xl mb-10">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight">
+            <div className="max-w-2xl mb-12 md:mb-14">
+              <div className="h-px w-12 bg-secondary mb-6" aria-hidden />
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">
                 {section.title}
               </h2>
               {section.intro && (
-                <p className="text-base text-muted-foreground leading-relaxed">{section.intro}</p>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{section.intro}</p>
               )}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
               {section.cards.map((card, i) => (
                 <ActivityCard key={card.key} card={card} index={i} readMore={t.readMore} />
               ))}

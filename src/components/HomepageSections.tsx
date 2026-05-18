@@ -302,7 +302,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className={`container mx-auto ${hasImage ? 'max-w-6xl' : 'max-w-3xl'}`}>
                   <div className={hasImage ? 'grid lg:grid-cols-2 gap-12 lg:gap-16 items-center' : ''}>
                     {hasImage && (
-                      <div className={`relative rounded-2xl overflow-hidden h-96 lg:h-[560px] ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
+                      <div className={`relative rounded-2xl overflow-hidden h-96 lg:h-[560px] shadow-[0_24px_60px_-30px_hsl(var(--foreground)/0.35)] ring-1 ring-border/40 ${imageLeft ? '' : 'order-1 lg:order-2'}`}>
                         <img src={section.image!.url} alt={section.image!.alt || section.title} className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     )}
@@ -315,8 +315,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.subcards && section.subcards.length > 0 && (
                         <div className="grid sm:grid-cols-2 gap-4 mb-10">
                           {section.subcards.map((c) => (
-                            <div key={c.title} className="rounded-xl border border-border/70 bg-card/50 p-5">
-                              <div className="font-display font-semibold text-foreground mb-1.5">{c.title}</div>
+                            <div key={c.title} className="rounded-xl border border-border/60 bg-card/70 p-6 shadow-[0_1px_2px_hsl(var(--foreground)/0.04)] hover:shadow-[0_12px_28px_-16px_hsl(var(--foreground)/0.2)] transition-shadow">
+                              <div className="font-display font-semibold text-foreground mb-2 tracking-tight">{c.title}</div>
                               {c.desc && <div className="text-sm text-muted-foreground leading-relaxed">{c.desc}</div>}
                             </div>
                           ))}
@@ -356,7 +356,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     {section.cards.map((card, i) => {
                       return (
                         <Link key={card.title} to={lp(card.href)}>
-                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl">
+                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl ring-1 ring-border/30 shadow-[0_8px_24px_-12px_hsl(var(--foreground)/0.25)] hover:shadow-[0_24px_50px_-20px_hsl(var(--foreground)/0.4)] transition-shadow duration-500">
                             {card.image?.url ? (
                               <>
                                 <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
