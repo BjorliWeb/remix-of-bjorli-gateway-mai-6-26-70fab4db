@@ -61,9 +61,9 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-nav/90 backdrop-blur-xl border-b border-nav-foreground/10">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+    <nav className="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1392px] lg:w-[calc(100%-2rem-16px)] bg-nav/85 backdrop-blur-xl border-b border-nav-foreground/10 lg:border lg:rounded-2xl lg:shadow-[0_18px_50px_-25px_hsl(var(--season-deep)/0.6)]">
+      <div className="container mx-auto px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
           <Link to={lp('/')} className="flex items-center gap-2">
             <img src={bjorliLogo} alt="Bjorli logo" className="h-10 w-10 rounded-full" />
@@ -75,13 +75,15 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden xl:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={lp(link.to)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(link.to) ? 'text-secondary' : 'text-nav-foreground/80 hover:text-nav-foreground'
+                className={`relative px-3 py-2 text-sm font-medium transition-colors after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-season after:transition-transform after:origin-left ${
+                  isActive(link.to)
+                    ? 'text-nav-foreground after:scale-x-100'
+                    : 'text-nav-foreground/75 hover:text-nav-foreground after:scale-x-0 hover:after:scale-x-100'
                 }`}
               >
                 {link.label}
@@ -128,19 +130,19 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
             </DropdownMenu>
 
             {/* Seasonal CTA — winter: Kjøp heiskort · summer: Finn overnatting. */}
-            {ctaExternal ? (
-              <a href={ctaHref} target="_blank" rel="noopener noreferrer" className="hidden md:block" onClick={trackCta}>
-                <Button variant="secondary" size="sm" className="font-semibold">
+            {(() => {
+              const ctaClass =
+                'hidden md:inline-flex items-center justify-center h-9 px-4 rounded-full text-sm font-semibold bg-season text-season-foreground shadow-[0_8px_22px_-8px_hsl(var(--season-accent)/0.7)] ring-1 ring-season/40 hover:brightness-110 transition';
+              return ctaExternal ? (
+                <a href={ctaHref} target="_blank" rel="noopener noreferrer" className={ctaClass} onClick={trackCta}>
                   {ctaLabel}
-                </Button>
-              </a>
-            ) : (
-              <Link to={ctaHref} className="hidden md:block" onClick={trackCta}>
-                <Button variant="secondary" size="sm" className="font-semibold">
+                </a>
+              ) : (
+                <Link to={ctaHref} className={ctaClass} onClick={trackCta}>
                   {ctaLabel}
-                </Button>
-              </Link>
-            )}
+                </Link>
+              );
+            })()}
 
             {/* Mobile toggle */}
             <button
