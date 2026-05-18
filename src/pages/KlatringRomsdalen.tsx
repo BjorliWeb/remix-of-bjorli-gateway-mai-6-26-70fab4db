@@ -13,9 +13,9 @@ import heroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import sportImg from '@/assets/klatring/klatring-sportsklatring-tau-kalk.jpg';
 import ferrataImg from '@/assets/klatring/klatring-via-ferrata-aandalsnes.jpg';
 
-const META_TITLE = 'Klatring og buldring i Romsdalen | Bjorli som basecamp';
+const META_TITLE = 'Klatring i Romsdalen | Bjorli som basecamp';
 const META_DESC =
-  'Opplev sportsklatring, buldring, via ferrata og alpine opplevelser i Romsdalen. Bjorli er basecamp mellom fjell, elv og fjord.';
+  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger i sørenden av regionen – en rolig base mellom fjell, elv og dal.';
 
 const LINKS = {
   klatredepot:
@@ -31,15 +31,15 @@ const LINKS = {
 const FAQ = [
   {
     q: 'Kan nybegynnere prøve klatring i Romsdalen?',
-    a: 'Ja, start gjerne med innendørs klatring, buldring eller via ferrata hos Norsk Tindesenter i Åndalsnes.',
+    a: 'Ja. Start gjerne innendørs eller på via ferrata hos Norsk Tindesenter i Åndalsnes.',
   },
   {
     q: 'Finnes det klatrefører for området?',
-    a: 'Ja, Romsdal Sportsklatring beskriver nesten 750 ruter på 36 felt og dekker området fra Harøya til Eresfjord og Bjorli.',
+    a: 'Ja. Romsdal Sportsklatring beskriver nesten 750 ruter på 36 felt fra Harøya til Eresfjord og Bjorli.',
   },
   {
     q: 'Er Bjorli et godt utgangspunkt for klatring?',
-    a: 'Ja, Bjorli fungerer godt som basecamp for en aktiv sommerferie i regionen, særlig hvis du vil kombinere klatring med fjell, elv, tog, sykling, fiske og dagsturer.',
+    a: 'Ja. Bjorli ligger i sørenden av regionen og gir en rolig base for deg som vil veksle mellom klatring og andre dager i fjellet.',
   },
   {
     q: 'Viser bjorli.no konkrete ruter og grader?',
@@ -91,7 +91,7 @@ const KlatringRomsdalen = () => {
     const sportLd = {
       '@context': 'https://schema.org',
       '@type': 'SportsActivityLocation',
-      name: 'Romsdalen klimbing region',
+      name: 'Romsdalen climbing region',
       sport: ['Sport climbing', 'Bouldering', 'Via ferrata'],
       description:
         'Romsdal Sportsklatring dekker området fra Harøya til Eresfjord og Bjorli, med nesten 750 ruter på 36 felt.',
