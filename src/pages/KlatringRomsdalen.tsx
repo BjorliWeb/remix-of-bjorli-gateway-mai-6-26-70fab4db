@@ -425,7 +425,7 @@ const KlatringRomsdalen = () => {
               </h2>
             </div>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed">
-              Denne siden er ikke en klatrefører. Bruk oppdatert fører, sjekk lokale forhold, respekter adgang, parkering og naturhensyn, og klatre med riktig kompetanse og utstyr. Vær spesielt oppmerksom på vær, vannføring, løse steiner og lokale restriksjoner.
+              Denne siden er ikke en klatrefører. Bruk oppdatert fører, sjekk lokale forhold og respekter adgang og naturhensyn. Klatre med riktig kompetanse og utstyr, og vær oppmerksom på vær, vannføring og løse steiner.
             </p>
           </div>
         </div>
