@@ -33,6 +33,22 @@ import farmVisitsImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import type { CmsImage } from './types';
 
 /**
+ * Editorial rename for the homepage "news" section. The official
+ * scope is updates from Bjorli Skisenter / Nye Bjorli Skisenter AS
+ * (season opening, snow, lift-pass, campaigns, slope/park, ski school
+ * & rental, operational and relevant company news), so the section
+ * title is overridden here rather than touching translation files.
+ */
+const SKISENTER_NEWS_TITLE: Record<Language, string> = {
+  no: 'Siste nytt fra Bjorli Skisenter',
+  en: 'Latest from Bjorli Skisenter',
+  de: 'Aktuelles aus dem Bjorli Skisenter',
+  nl: 'Laatste nieuws van Bjorli Skisenter',
+  da: 'Sidste nyt fra Bjorli Skisenter',
+  sv: 'Senaste nytt från Bjorli Skisenter',
+};
+
+/**
  * Editorial winter intro copy (split layout, Stayli-inspired pacing).
  * Falls back to the dictionary `intro.title/body` for any locale we
  * have not yet hand-translated.
@@ -342,6 +358,34 @@ export const mockAdapter: CmsAdapter = {
           },
         ],
       },
+      // Editorial role split (per spec):
+      //   "Siste nytt fra Bjorli Skisenter" — official Skisenter
+      //   updates (season opening, snow, lift pass, campaigns, slope &
+      //   park, ski school, rental, operational + relevant company
+      //   news). Sourced from the existing `news` collection.
+      {
+        id: 'news',
+        type: 'news',
+        eyebrow: d.news.eyebrow,
+        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
+        subtitle: d.news.subtitle,
+        ctaLabel: d.news.cta,
+        ctaHref: '/nyheter',
+        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
+      },
+      // "Hva skjer på Bjorli" — destination-wide events and local
+      // happenings (concerts, festivals, food & drink, family,
+      // guided trips, farms, cycling, hiking, partner activities).
+      {
+        id: 'events',
+        type: 'events',
+        eyebrow: d.events.eyebrow,
+        title: d.events.title,
+        subtitle: d.events.subtitle,
+        ctaLabel: d.events.cta,
+        ctaHref: '/arrangementer',
+        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+      },
       {
         id: 'accommodation',
         type: 'feature',
@@ -367,16 +411,6 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.tips.cta,
         ctaHref: '/tips',
         items: tips,
-      },
-      {
-        id: 'events',
-        type: 'events',
-        eyebrow: d.events.eyebrow,
-        title: d.events.title,
-        subtitle: d.events.subtitle,
-        ctaLabel: d.events.cta,
-        ctaHref: '/arrangementer',
-        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
       },
       {
         id: 'beyond',
@@ -415,26 +449,6 @@ export const mockAdapter: CmsAdapter = {
           { label: d.gettingHere.seeMap, href: 'https://maps.app.goo.gl/ahakM1xvEkJ5oPiU7', icon: 'map', external: true },
           { label: 'Raumabanen', href: 'https://www.vy.no/', icon: 'train', external: true },
         ],
-      },
-      {
-        id: 'summerTeaser',
-        type: 'teaser',
-        eyebrow: d.summerTeaser.eyebrow,
-        title: d.summerTeaser.title,
-        body: d.summerTeaser.body,
-        ctaLabel: d.summerTeaser.cta,
-        ctaHref: '/sommer',
-        image: { url: summerImg, alt: d.summerTeaser.title },
-      },
-      {
-        id: 'news',
-        type: 'news',
-        eyebrow: d.news.eyebrow,
-        title: d.news.title,
-        subtitle: d.news.subtitle,
-        ctaLabel: d.news.cta,
-        ctaHref: '/nyheter',
-        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
       },
       {
         id: 'faq',
@@ -511,6 +525,30 @@ export const mockAdapter: CmsAdapter = {
           href: activityCardMeta[i].href,
           ctaLabel: s.activitiesGrid.readMore,
         })),
+      },
+      // Editorial role split (per spec): on the summer homepage the
+      // destination-wide "Hva skjer på Bjorli" section comes first,
+      // followed by official Skisenter updates. Both sections must
+      // exist on both winter and summer homepages.
+      {
+        id: 'events',
+        type: 'events' as const,
+        eyebrow: d.events.eyebrow,
+        title: d.events.title,
+        subtitle: d.events.subtitle,
+        ctaLabel: d.events.cta,
+        ctaHref: '/arrangementer',
+        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+      },
+      {
+        id: 'news',
+        type: 'news' as const,
+        eyebrow: d.news.eyebrow,
+        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
+        subtitle: d.news.subtitle,
+        ctaLabel: d.news.cta,
+        ctaHref: '/nyheter',
+        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
       },
       // 4 — Biking, play & active family days
       // TODO(image): no second biking/family-active photo available;
