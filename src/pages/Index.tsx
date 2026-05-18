@@ -56,7 +56,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-block text-primary-foreground/75 text-xs md:text-sm font-medium tracking-[0.22em] uppercase mb-8"
+            className="inline-block text-primary-foreground/80 text-xs md:text-sm font-medium tracking-[0.28em] uppercase mb-6 md:mb-8 px-4 py-1.5 border border-primary-foreground/25 rounded-full backdrop-blur-sm"
           >
             {d.hero.eyebrow ?? home.intro}
           </motion.span>
@@ -64,7 +64,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-8 leading-[0.95] tracking-tight"
+            className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-6 md:mb-8 leading-[0.92] tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)]"
           >
             {home.heroTitle}
           </motion.h1>
@@ -73,7 +73,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-primary-foreground/80 text-lg md:text-2xl mb-12 font-light max-w-2xl mx-auto leading-relaxed"
+              className="text-primary-foreground/85 text-lg md:text-2xl mb-10 md:mb-14 font-light max-w-2xl mx-auto leading-relaxed"
             >
               {home.heroSubtitle}
             </motion.p>
