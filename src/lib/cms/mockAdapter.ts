@@ -526,6 +526,30 @@ export const mockAdapter: CmsAdapter = {
           ctaLabel: s.activitiesGrid.readMore,
         })),
       },
+      // Editorial role split (per spec): on the summer homepage the
+      // destination-wide "Hva skjer på Bjorli" section comes first,
+      // followed by official Skisenter updates. Both sections must
+      // exist on both winter and summer homepages.
+      {
+        id: 'events',
+        type: 'events' as const,
+        eyebrow: d.events.eyebrow,
+        title: d.events.title,
+        subtitle: d.events.subtitle,
+        ctaLabel: d.events.cta,
+        ctaHref: '/arrangementer',
+        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+      },
+      {
+        id: 'news',
+        type: 'news' as const,
+        eyebrow: d.news.eyebrow,
+        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
+        subtitle: d.news.subtitle,
+        ctaLabel: d.news.cta,
+        ctaHref: '/nyheter',
+        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
+      },
       // 4 — Biking, play & active family days
       // TODO(image): no second biking/family-active photo available;
       // bikingImg already used in the activity card above. Leaving image
