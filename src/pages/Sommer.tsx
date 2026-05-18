@@ -25,12 +25,12 @@ interface SommerCopy {
 
 const COPY: Record<Locale, SommerCopy> = {
   no: {
-    heroTitle: 'Sommer på Bjorli',
+    heroTitle: 'Basecamp for fjell, fjord og ville naturopplevelser',
     heroSubtitle:
-      'Et rolig fjellbasecamp mellom fjordene, nasjonalparkene og noen av Norges mest kjente naturopplevelser — med fottur, sykling og fiske rett utenfor døra.',
+      'Bo på Bjorli og bruk dagene på fjellturer, fiske i Rauma og Lesjaskogsvatnet, fossefall i Mardøla, sykkel, Raumabanen, moskus på Dovrefjell og dagsturer vestover mot fjordlandskapet.',
     primaryCta: 'Se sommeraktiviteter',
     secondaryCta: 'Planlegg reisen hit',
-    finalTitle: 'Planlegg en rolig sommer på Bjorli',
+    finalTitle: 'Planlegg en aktiv sommer på Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se overnatting',
   },
