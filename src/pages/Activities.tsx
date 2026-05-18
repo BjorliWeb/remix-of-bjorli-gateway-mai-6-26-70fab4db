@@ -5,6 +5,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
 import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
+import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
@@ -39,6 +40,7 @@ const buildSections = (
     fiske: { t: string; d: string };
     familie: { t: string; d: string };
     gard: { t: string; d: string; alt: string };
+    klatring: { t: string; d: string; alt: string };
     dagsturerTitle: string; dagsturerIntro: string;
     golden: { t: string; d: string };
     gondol: { t: string; d: string };
@@ -61,6 +63,7 @@ const buildSections = (
       { key: 'fiske', title: c.fiske.t, desc: c.fiske.d, href: lp('/fiske'), image: images.fishingHero.src, alt: images.fishingHero.alt },
       { key: 'familie', title: c.familie.t, desc: c.familie.d, href: lp('/familie'), image: images.familySummer.src, alt: images.familySummer.alt },
       { key: 'gard', title: c.gard.t, desc: c.gard.d, href: lp('/gardsbesok'), image: farmHeroImg, alt: c.gard.alt },
+      { key: 'klatring', title: c.klatring.t, desc: c.klatring.d, href: lp('/sommer/klatring-og-buldring-romsdalen'), image: klatringHeroImg, alt: c.klatring.alt },
     ],
   },
   {
