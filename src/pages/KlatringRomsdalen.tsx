@@ -439,7 +439,7 @@ const KlatringRomsdalen = () => {
               Sommer på Bjorli
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-[1.05] tracking-tight">
-              Kombiner klatring med flere sommeropplevelser
+              Kombiner klatring med resten av sommeren
             </h2>
           </div>
           <div className="flex flex-wrap gap-3">
