@@ -13,9 +13,9 @@ import heroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import sportImg from '@/assets/klatring/klatring-sportsklatring-tau-kalk.jpg';
 import ferrataImg from '@/assets/klatring/klatring-via-ferrata-aandalsnes.jpg';
 
-const META_TITLE = 'Klatring og buldring i Romsdalen | Bjorli som basecamp';
+const META_TITLE = 'Klatring i Romsdalen | Bjorli som basecamp';
 const META_DESC =
-  'Opplev sportsklatring, buldring, via ferrata og alpine opplevelser i Romsdalen. Bjorli er basecamp mellom fjell, elv og fjord.';
+  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger i sørenden av regionen – en rolig base mellom fjell, elv og dal.';
 
 const LINKS = {
   klatredepot:
@@ -31,15 +31,15 @@ const LINKS = {
 const FAQ = [
   {
     q: 'Kan nybegynnere prøve klatring i Romsdalen?',
-    a: 'Ja, start gjerne med innendørs klatring, buldring eller via ferrata hos Norsk Tindesenter i Åndalsnes.',
+    a: 'Ja. Start gjerne innendørs eller på via ferrata hos Norsk Tindesenter i Åndalsnes.',
   },
   {
     q: 'Finnes det klatrefører for området?',
-    a: 'Ja, Romsdal Sportsklatring beskriver nesten 750 ruter på 36 felt og dekker området fra Harøya til Eresfjord og Bjorli.',
+    a: 'Ja. Romsdal Sportsklatring beskriver nesten 750 ruter på 36 felt fra Harøya til Eresfjord og Bjorli.',
   },
   {
     q: 'Er Bjorli et godt utgangspunkt for klatring?',
-    a: 'Ja, Bjorli fungerer godt som basecamp for en aktiv sommerferie i regionen, særlig hvis du vil kombinere klatring med fjell, elv, tog, sykling, fiske og dagsturer.',
+    a: 'Ja. Bjorli ligger i sørenden av regionen og gir en rolig base for deg som vil veksle mellom klatring og andre dager i fjellet.',
   },
   {
     q: 'Viser bjorli.no konkrete ruter og grader?',
@@ -91,7 +91,7 @@ const KlatringRomsdalen = () => {
     const sportLd = {
       '@context': 'https://schema.org',
       '@type': 'SportsActivityLocation',
-      name: 'Romsdalen klimbing region',
+      name: 'Romsdalen climbing region',
       sport: ['Sport climbing', 'Bouldering', 'Via ferrata'],
       description:
         'Romsdal Sportsklatring dekker området fra Harøya til Eresfjord og Bjorli, med nesten 750 ruter på 36 felt.',
@@ -159,7 +159,7 @@ const KlatringRomsdalen = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/85 text-lg md:text-2xl mb-10 font-light max-w-2xl leading-relaxed"
           >
-            Fra sportsklatring og buldring til via ferrata og alpine fjellopplevelser. Med Bjorli som basecamp har du kort vei til et av Norges mest spektakulære klatreområder.
+            Tusen meter granitt reiser seg fra dalen, og Romsdalen samler sportsklatring, buldring og via ferrata på et lite område. Bjorli ligger en togtur sør for veggene.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -187,7 +187,7 @@ const KlatringRomsdalen = () => {
                 size="lg"
                 className="bg-transparent text-white border-white/40 hover:bg-white/10 hover:text-white font-semibold w-full sm:w-auto"
               >
-                Utforsk sommeraktiviteter <ArrowRight className="ml-2 h-5 w-5" />
+                Se sommeraktiviteter <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </motion.div>
@@ -209,16 +209,16 @@ const KlatringRomsdalen = () => {
       <section className="py-20 md:py-28 px-4">
         <div className="container mx-auto max-w-3xl">
           <div className="text-secondary text-xs font-medium tracking-[0.24em] uppercase mb-5">
-            Et klatredistrikt
+            Romsdalen
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">
             Et klatredistrikt fra fjord til fjell
           </h2>
           <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Romsdalen har et etablert klatremiljø og et stort spenn av opplevelser, fra innendørs klatring og via ferrata til sportsklatring, buldring og alpine fjellruter. Bjorli ligger i sørenden av regionen og fungerer godt som en roligere base for deg som vil kombinere klatring med{' '}
+            Veggene står tett her – granitt og gneis fra dalbunnen og oppover. Klatremiljøet er etablert og spenner fra innendørs vegg til alpine ruter i Romsdalshorn og Trolltindene. Bjorli ligger i sørenden av regionen og gir en roligere base for deg som vil veksle mellom klatring og{' '}
             <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
-            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link>, tog,{' '}
-            <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link> og fjordopplevelser.
+            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
+            <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>.
           </p>
         </div>
       </section>
@@ -234,7 +234,7 @@ const KlatringRomsdalen = () => {
               For deg som vil prøve klatring
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-8">
-              Start gjerne på Norsk Tindesenter i Åndalsnes. Her finner du innendørs klatrevegg, buldring, led, topptau og autobelay, i tillegg til barnevennlige tilbud. Dette er et godt sted for familier, nybegynnere og deg som vil bygge trygghet før du går ut i fjellet.
+              Norsk Tindesenter i Åndalsnes er et godt sted å begynne. Innendørs vegg, buldring og barnevennlige tilbud gir trygghet før du går ut i fjellet. Her finner du led, topptau og autobelay.
             </p>
             <a href={LINKS.tindesenter} {...ext}>
               <Button size="lg" className="font-semibold">
@@ -273,10 +273,10 @@ const KlatringRomsdalen = () => {
               Via ferrata
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
-              Luftige opplevelser med guide eller riktig utstyr
+              Bratt fjell, gjort tilgjengelig
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-8">
-              Via ferrata i Åndalsnes gir deg følelsen av bratt fjell på en mer tilgjengelig måte. Norsk Tindesenter beskriver rutene Introveggen, Randersveggen og Vestveggen, med ulik vanskelighetsgrad og utsikt over Romsdalsfjella.
+              Via ferrata gir deg luften under føttene uten at du må kunne klatre. Norsk Tindesenter beskriver Introveggen, Randersveggen og Vestveggen med ulik vanskelighetsgrad og utsikt mot Romsdalsfjella.
             </p>
             <a href={LINKS.viaFerrata} {...ext}>
               <Button size="lg" className="font-semibold">
@@ -302,10 +302,10 @@ const KlatringRomsdalen = () => {
             Sportsklatring og buldring
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-8 leading-[1.05] tracking-tight">
-            Sportsklatring, buldring og klippeklatring
+            Granitt, kalk på fingrene og 750 ruter
           </h2>
           <p className="text-white/85 text-base md:text-lg leading-relaxed mb-10">
-            Romsdal Sportsklatring samler nesten 750 ruter på 36 felt i Molderegionen, Eresfjord og Romsdalen. Føreren dekker området fra Harøya i vest til Eresfjord i øst og Bjorli i sør. Bruk føreren, lokale oppdateringer og klatremiljøet for presis informasjon om felt, ruter, adgang og sikkerhet.
+            Romsdal Sportsklatring samler nesten 750 ruter på 36 felt fra Harøya i vest til Eresfjord i øst og Bjorli i sør. Bruk føreren og det lokale klatremiljøet for presis informasjon om felt, adgang og sikkerhet.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
             <a href={LINKS.klatredepot} {...ext}>
@@ -324,7 +324,7 @@ const KlatringRomsdalen = () => {
             </a>
           </div>
           <p className="mt-8 text-white/55 text-xs leading-relaxed max-w-xl mx-auto">
-            Eksempler på felt i regionen er Mjelvahammaren, Norafjell, Hornaksla, Helveten og Brattveggen. Bruk klatreføreren og lokale ressurser for oppdaterte beskrivelser, grader og adgang.
+            Felt i regionen inkluderer Mjelvahammaren, Norafjell og Hornaksla. Sjekk klatreføreren for grader og oppdaterte beskrivelser.
           </p>
         </div>
       </section>
@@ -334,27 +334,25 @@ const KlatringRomsdalen = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="max-w-2xl mb-12">
             <div className="text-secondary text-xs font-medium tracking-[0.24em] uppercase mb-5">
-              Bjorli som basecamp
+              Basen din
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
               Bjorli som basecamp
             </h2>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed">
-              Bo roligere. Reis lettere. Utforsk mer. Fra Bjorli kan du kombinere klatredager i Romsdalen med{' '}
-              <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>,{' '}
-              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske</Link>,{' '}
+              Bo roligere. Reis lettere. Utforsk mer. Fra Bjorli rekker du veggene i Romsdalen på en kort kjøretur, og Raumabanen knytter dalen sammen uten bil. Når klatredagen er ferdig venter{' '}
               <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
-              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">Raumaelva</Link>, Raumabanen, Lesjaskogsvatnet og{' '}
-              <Link to={lp('/sommer/korte-turer')} className="text-secondary underline-offset-4 hover:underline">korte turer rundt Bjorli</Link>. Det gjør Bjorli til et godt utgangspunkt for deg som vil ha mer enn én aktivitet på sommerferien.
+              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
+              <Link to={lp('/sommer/korte-turer')} className="text-secondary underline-offset-4 hover:underline">korte turer rundt Bjorli</Link>.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
-              { icon: Train, title: 'Tog og E136', desc: 'Raumabanen og E136 gjør regionen tilgjengelig.' },
-              { icon: Bed, title: 'Overnatting på Bjorli', desc: 'Hytter, leiligheter og hotell som base.' },
-              { icon: Fish, title: 'Raumaelva og fjellene', desc: 'Elv, fjell og rolig natur tett på.' },
-              { icon: Mountain, title: 'Fjord, fjell og fossefall', desc: 'Dagsturer vestover mot fjordlandskapet.' },
-              { icon: Bike, title: 'Sykling, fiske og fotturer', desc: 'Aktive dager for hele følget.' },
+              { icon: Train, title: 'Raumabanen', desc: 'Toget kjører gjennom dalen og stopper nær flere klatrefelt.' },
+              { icon: Bed, title: 'Overnatting på Bjorli', desc: 'Hytter og leiligheter med kjøkken og plass til utstyr.' },
+              { icon: Fish, title: 'Raumaelva og fjellene', desc: 'Laksefiske i Raumaelva og fjellturer i Reinheimen.' },
+              { icon: Mountain, title: 'Fjord og fossefall', desc: 'Dagsturer vestover til Mardalsfossen og Romsdalsfjorden.' },
+              { icon: Bike, title: 'Hviledager mellom øktene', desc: 'Sykling, fiske eller en stille kveld ved hytta.' },
             ].map(({ icon: Icon, title, desc }) => (
               <Card key={title} className="bg-card/60 backdrop-blur border-border/60 h-full">
                 <CardContent className="p-5">
@@ -427,7 +425,7 @@ const KlatringRomsdalen = () => {
               </h2>
             </div>
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed">
-              Denne siden er ikke en klatrefører. Bruk oppdatert fører, sjekk lokale forhold, respekter adgang, parkering og naturhensyn, og klatre med riktig kompetanse og utstyr. Vær spesielt oppmerksom på vær, vannføring, løse steiner og lokale restriksjoner.
+              Denne siden er ikke en klatrefører. Bruk oppdatert fører, sjekk lokale forhold og respekter adgang og naturhensyn. Klatre med riktig kompetanse og utstyr, og vær oppmerksom på vær, vannføring og løse steiner.
             </p>
           </div>
         </div>
@@ -441,7 +439,7 @@ const KlatringRomsdalen = () => {
               Sommer på Bjorli
             </div>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-[1.05] tracking-tight">
-              Kombiner klatring med flere sommeropplevelser
+              Kombiner klatring med resten av sommeren
             </h2>
           </div>
           <div className="flex flex-wrap gap-3">
