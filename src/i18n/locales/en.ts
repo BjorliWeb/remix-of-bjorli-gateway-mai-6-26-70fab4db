@@ -237,8 +237,8 @@ const en: Dictionary = {
     pageGettingHereIntro: 'Bjorli sits between eastern and north-western Norway – easy to reach by car or train, with Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell just a short trip away.'
   },
   summer: {
-    badge: 'Summer at Bjorli',
-    eyebrow: 'Summer at Bjorli',
+    badge: 'Summer in Bjorli',
+    eyebrow: 'Summer in Bjorli',
     title: 'Your base between the mountains and the fjord',
     subtitle: 'Use Bjorli as your starting point for hiking, cycling, the Rauma Line, Romsdalen, Dovrefjell and calm summer days in the mountains.',
     intro: 'Use Bjorli as a base for hiking, cycling, family holidays, train travel and genuine Norwegian nature experiences.',
