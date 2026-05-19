@@ -15,7 +15,7 @@ import ferrataImg from '@/assets/klatring/klatring-via-ferrata-aandalsnes.jpg';
 
 const META_TITLE = 'Klatring i Romsdalen | Bjorli som basecamp';
 const META_DESC =
-  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger i sørenden av regionen – en rolig base mellom fjell, elv og dal.';
+  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger på fjellet sør for regionen og er en praktisk base for klatredager vestover.';
 
 const LINKS = {
   klatredepot:
@@ -39,7 +39,7 @@ const FAQ = [
   },
   {
     q: 'Er Bjorli et godt utgangspunkt for klatring?',
-    a: 'Ja. Bjorli ligger i sørenden av regionen og gir en rolig base for deg som vil veksle mellom klatring og andre dager i fjellet.',
+    a: 'Ja. Bjorli ligger på fjellet sør for Romsdalen og er en praktisk base når du vil kombinere klatring med fjelldager, sykling, fiske og familiedager.',
   },
   {
     q: 'Viser bjorli.no konkrete ruter og grader?',
@@ -128,7 +128,7 @@ const KlatringRomsdalen = () => {
       <section className="relative h-[88vh] min-h-[600px] flex items-end overflow-hidden">
         <img
           src={heroImg}
-          alt="Dramatiske granittvegger i Romsdalen i kveldslys med tåke mellom toppene"
+          alt="Bratte fjellvegger i Romsdalen i kveldslys med tåke mellom toppene"
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
           fetchPriority="high"
@@ -159,7 +159,7 @@ const KlatringRomsdalen = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-white/85 text-lg md:text-2xl mb-10 font-light max-w-2xl leading-relaxed"
           >
-            Tusen meter granitt reiser seg fra dalen, og Romsdalen samler sportsklatring, buldring og via ferrata på et lite område. Bjorli ligger en togtur sør for veggene.
+            Romsdalen er kjent for høye fjellvegger, lange ruter og et sterkt klatremiljø. Bjorli ligger på fjellet i sør, en togtur eller kjøretur unna veggene.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -215,7 +215,7 @@ const KlatringRomsdalen = () => {
             Et klatredistrikt fra fjord til fjell
           </h2>
           <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Veggene står tett her – granitt og gneis fra dalbunnen og oppover. Klatremiljøet er etablert og spenner fra innendørs vegg til alpine ruter i Romsdalshorn og Trolltindene. Bjorli ligger i sørenden av regionen og gir en roligere base for deg som vil veksle mellom klatring og{' '}
+            Fjellveggene står tett her, fra dalbunnen og opp til alpine ruter i Romsdalshorn og Trolltindene. Klatremiljøet er etablert, med alt fra innendørs vegg til lange ruter i fjellet. Bjorli ligger sør for regionen og er en praktisk base når du vil kombinere klatring med{' '}
             <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
             <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
             <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>.
@@ -245,7 +245,7 @@ const KlatringRomsdalen = () => {
           <figure className="rounded-2xl overflow-hidden bg-muted aspect-[4/3]">
             <img
               src={sportImg}
-              alt="Klatreutstyr — tau, kalkpose og karabiner på granitt"
+              alt="Klatreutstyr — tau, kalkpose og karabiner på fjellet"
               loading="lazy"
               className="w-full h-full object-cover"
               width={1600}
@@ -302,7 +302,7 @@ const KlatringRomsdalen = () => {
             Sportsklatring og buldring
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-8 leading-[1.05] tracking-tight">
-            Granitt, kalk på fingrene og 750 ruter
+            Fjellvegger, kalk på fingrene og 750 ruter
           </h2>
           <p className="text-white/85 text-base md:text-lg leading-relaxed mb-10">
             Romsdal Sportsklatring samler nesten 750 ruter på 36 felt fra Harøya i vest til Eresfjord i øst og Bjorli i sør. Bruk føreren og det lokale klatremiljøet for presis informasjon om felt, adgang og sikkerhet.
