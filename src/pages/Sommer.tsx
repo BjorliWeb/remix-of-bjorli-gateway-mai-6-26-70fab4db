@@ -25,7 +25,7 @@ interface SommerCopy {
 
 const COPY: Record<Locale, SommerCopy> = {
   no: {
-    heroTitle: 'Basecamp for fjell, fjord og ville naturopplevelser',
+    heroTitle: 'Fjell, fjord og friske sommerdager',
     heroSubtitle:
       'Bo på Bjorli og bruk dagene på fjellturer, fiske i Rauma og Lesjaskogsvatnet, fossefall i Mardøla, sykkel, Raumabanen, moskus på Dovrefjell og dagsturer vestover mot fjordlandskapet.',
     primaryCta: 'Se sommeraktiviteter',
@@ -37,50 +37,50 @@ const COPY: Record<Locale, SommerCopy> = {
   en: {
     heroTitle: 'Summer in Bjorli',
     heroSubtitle:
-      'A calm mountain basecamp between the fjords, the national parks and some of Norway’s best-known landscapes — with hiking, cycling and fishing right outside the door.',
+      'Stay in Bjorli and spend your days on mountain hikes, cycling, fishing in Rauma and Lesjaskogsvatnet, the Mardøla waterfall, the Rauma Line, muskox on Dovrefjell and day trips west toward the fjords.',
     primaryCta: 'See summer activities',
     secondaryCta: 'Plan your journey',
-    finalTitle: 'Plan a calm summer in Bjorli',
+    finalTitle: 'Plan an active summer in Bjorli',
     finalPrimaryCta: 'See activities',
     finalSecondaryCta: 'See accommodation',
   },
   de: {
     heroTitle: 'Sommer in Bjorli',
     heroSubtitle:
-      'Ein ruhiges Bergbasislager zwischen den Fjorden, den Nationalparks und einigen der bekanntesten Landschaften Norwegens — mit Wandern, Radfahren und Angeln direkt vor der Tür.',
+      'Wohnen Sie in Bjorli und verbringen Sie die Tage mit Bergwanderungen, Radfahren, Angeln im Rauma und Lesjaskogsvatnet, dem Mardøla-Wasserfall, der Raumabahn, Moschusochsen auf Dovrefjell und Tagesausflügen westwärts zu den Fjorden.',
     primaryCta: 'Sommeraktivitäten ansehen',
     secondaryCta: 'Anreise planen',
-    finalTitle: 'Planen Sie einen ruhigen Sommer in Bjorli',
+    finalTitle: 'Planen Sie einen aktiven Sommer in Bjorli',
     finalPrimaryCta: 'Aktivitäten ansehen',
     finalSecondaryCta: 'Unterkünfte ansehen',
   },
   nl: {
     heroTitle: 'Zomer in Bjorli',
     heroSubtitle:
-      'Een rustig basiskamp in de bergen tussen de fjorden, de nationale parken en enkele van Noorwegens bekendste landschappen — met wandelen, fietsen en vissen direct voor de deur.',
+      'Verblijf in Bjorli en besteed de dagen aan bergwandelingen, fietsen, vissen in de Rauma en Lesjaskogsvatnet, de Mardøla-waterval, de Raumabaan, muskusossen op Dovrefjell en dagtochten westwaarts richting de fjorden.',
     primaryCta: 'Bekijk zomeractiviteiten',
     secondaryCta: 'Plan je reis',
-    finalTitle: 'Plan een rustige zomer in Bjorli',
+    finalTitle: 'Plan een actieve zomer in Bjorli',
     finalPrimaryCta: 'Bekijk activiteiten',
     finalSecondaryCta: 'Bekijk accommodatie',
   },
   da: {
     heroTitle: 'Sommer i Bjorli',
     heroSubtitle:
-      'En rolig basislejr i fjeldet mellem fjordene, nationalparkerne og nogle af Norges mest kendte landskaber — med vandring, cykling og fiskeri lige uden for døren.',
+      'Bo i Bjorli og brug dagene på fjeldture, cykling, fiskeri i Rauma og Lesjaskogsvatnet, Mardøla-vandfaldet, Raumabanen, moskusokser på Dovrefjell og dagsture vestpå mod fjordene.',
     primaryCta: 'Se sommeraktiviteter',
     secondaryCta: 'Planlæg rejsen hertil',
-    finalTitle: 'Planlæg en rolig sommer i Bjorli',
+    finalTitle: 'Planlæg en aktiv sommer i Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se overnatning',
   },
   sv: {
     heroTitle: 'Sommar i Bjorli',
     heroSubtitle:
-      'Ett lugnt basläger i fjället mellan fjordarna, nationalparkerna och några av Norges mest kända landskap — med vandring, cykling och fiske precis utanför dörren.',
+      'Bo i Bjorli och använd dagarna till fjällvandringar, cykling, fiske i Rauma och Lesjaskogsvatnet, Mardøla-fallet, Raumabanan, myskoxar på Dovrefjell och dagsturer västerut mot fjordarna.',
     primaryCta: 'Se sommaraktiviteter',
     secondaryCta: 'Planera resan hit',
-    finalTitle: 'Planera en lugn sommar i Bjorli',
+    finalTitle: 'Planera en aktiv sommar i Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se boende',
   },
@@ -99,7 +99,7 @@ const Sommer = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[640px] h-[88vh] max-h-[920px] flex items-center justify-center overflow-hidden">
         {home.heroImage && (
           <img
             src={home.heroImage.url}
@@ -110,7 +110,7 @@ const Sommer = () => {
           />
         )}
         <div className="absolute inset-0 hero-gradient" />
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto py-16 md:py-20">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,12 @@ const Sommer = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-6 md:mb-8 leading-[0.92] tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)]"
+            className="font-display font-bold text-primary-foreground mb-6 md:mb-8 tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)] mx-auto"
+            style={{
+              fontSize: 'clamp(2.75rem, 6.4vw, 6.5rem)',
+              lineHeight: 0.95,
+              maxWidth: '1100px',
+            }}
           >
             {t.heroTitle}
           </motion.h1>
@@ -131,7 +136,11 @@ const Sommer = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-primary-foreground/85 text-lg md:text-2xl mb-10 md:mb-14 font-light max-w-2xl mx-auto leading-relaxed"
+            className="text-primary-foreground/85 mb-10 md:mb-12 font-light mx-auto leading-relaxed"
+            style={{
+              fontSize: 'clamp(1.05rem, 1.5vw, 1.5rem)',
+              maxWidth: '850px',
+            }}
           >
             {t.heroSubtitle}
           </motion.p>
