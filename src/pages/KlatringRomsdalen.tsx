@@ -15,7 +15,7 @@ import ferrataImg from '@/assets/klatring/klatring-via-ferrata-aandalsnes.jpg';
 
 const META_TITLE = 'Klatring i Romsdalen | Bjorli som basecamp';
 const META_DESC =
-  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger i sørenden av regionen – en rolig base mellom fjell, elv og dal.';
+  'Sportsklatring, buldring og via ferrata i Romsdalen. Bjorli ligger på fjellet sør for regionen og er en praktisk base for klatredager vestover.';
 
 const LINKS = {
   klatredepot:
@@ -39,7 +39,7 @@ const FAQ = [
   },
   {
     q: 'Er Bjorli et godt utgangspunkt for klatring?',
-    a: 'Ja. Bjorli ligger i sørenden av regionen og gir en rolig base for deg som vil veksle mellom klatring og andre dager i fjellet.',
+    a: 'Ja. Bjorli ligger på fjellet sør for Romsdalen og er en praktisk base når du vil kombinere klatring med fjelldager, sykling, fiske og familiedager.',
   },
   {
     q: 'Viser bjorli.no konkrete ruter og grader?',
