@@ -510,9 +510,19 @@ export const translations = {
     },
     accommodationPage: {
       title: 'Accommodatie in Bjorli',
-      subtitle: 'Vind je perfecte verblijfplaats',
-      desc: 'In de buurt van het skigebied vindt u een gevarieerd aanbod van accommodaties – van zelfverzorgende appartementen en hotels tot hutten in verschillende groottes.',
+      subtitle: 'Verblijf dicht bij de berg, de liften en de pistes.',
+      desc: 'Kies uit zelfverzorgende hutten en appartementen, hotels en camping. Selecteer op groepsgrootte, budget en afstand tot de lift.',
       types: ['Hotels', 'Hutten', 'Appartementen', 'Camping'],
+      sections: [
+        { title: 'Hutten en appartementen', desc: 'Zelfverzorgend met keuken en ruimte. Geschikt voor gezinnen en groepen.' },
+        { title: 'Hotels', desc: 'Service, ontbijt en restaurant inbegrepen. Praktisch voor korte verblijven.' },
+        { title: 'Familie en groepen', desc: 'Grotere units en flexibele opties voor grotere gezelschappen.' },
+        { title: 'Dicht bij het skigebied', desc: 'Verblijf zo dicht bij de lift dat je direct de piste op kunt.' },
+        { title: 'Camping', desc: 'Camper, tent en eenvoudiger overnachten het hele jaar door.' },
+      ],
+      ctaPrimary: 'Verblijf vinden',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Boeken via bjorli.no',
     },
     openingHoursPage: {
       title: 'Openingstijden',
