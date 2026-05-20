@@ -792,9 +792,19 @@ export const translations = {
     },
     accommodationPage: {
       title: 'Boende på Bjorli',
-      subtitle: 'Hitta ditt boende',
-      desc: 'Nära skidanläggningen finns ett brett utbud – från självhushållslägenheter och hotell till stugor i olika storlekar.',
+      subtitle: 'Bo nära fjället, liftarna och nedfarterna.',
+      desc: 'Välj mellan självhushållsstugor och lägenheter, hotell och camping – efter sällskap, budget och avstånd till liften.',
       types: ['Hotell', 'Stugor', 'Lägenheter', 'Camping'],
+      sections: [
+        { title: 'Stugor och lägenheter', desc: 'Självhushåll med kök och gott om plats. Bra för familjer och kompisgäng.' },
+        { title: 'Hotell', desc: 'Service, frukost och restaurang ingår. Praktiskt för kortare vistelser.' },
+        { title: 'Familj och grupper', desc: 'Större enheter och flexibla alternativ för större sällskap.' },
+        { title: 'Nära skidanläggningen', desc: 'Bo så nära liften att du kan kliva direkt på skidorna.' },
+        { title: 'Camping', desc: 'Husbil, tält och enklare boende året runt.' },
+      ],
+      ctaPrimary: 'Hitta boende',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Bokning via bjorli.no',
     },
     openingHoursPage: {
       title: 'Öppettider',
