@@ -369,9 +369,19 @@ export const translations = {
     },
     accommodationPage: {
       title: 'Overnatning på Bjorli',
-      subtitle: 'Find dit perfekte sted at bo',
-      desc: 'I nærheden af skicentret findes et varieret udbud af overnatning – fra selvhusholdningslejligheder og hoteller til hytter i forskellige størrelser.',
+      subtitle: 'Bo tæt på fjeldet, lifte og pister.',
+      desc: 'Vælg mellem selvhusholdningshytter og lejligheder, hoteller og camping. Vælg efter rejsefølge, budget og hvor tæt på liften du vil bo.',
       types: ['Hoteller', 'Hytter', 'Lejligheder', 'Campingplads'],
+      sections: [
+        { title: 'Hytter og lejligheder', desc: 'Selvhusholdning med køkken og god plads. Passer til familier og grupper.' },
+        { title: 'Hoteller', desc: 'Servering, morgenmad og service inkluderet. Praktisk til kortere ophold.' },
+        { title: 'Familie og grupper', desc: 'Større enheder og fleksible løsninger for større rejsefølger.' },
+        { title: 'Nær skicentret', desc: 'Bo så tæt på liften, at du kan gå direkte på ski.' },
+        { title: 'Camping', desc: 'Autocamper, telt og enklere overnatning året rundt.' },
+      ],
+      ctaPrimary: 'Find overnatning',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Booking via bjorli.no',
     },
     openingHoursPage: {
       title: 'Åbningstider',
