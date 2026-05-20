@@ -26,8 +26,8 @@ const no: Dictionary = {
   },
   hero: {
     eyebrow: 'Destinasjon Bjorli – vinter',
-    title: 'Ekte vinter. Enklere fjelldager.',
-    subtitle: 'Snøsikre Bjorli gir deg alpint, langrenn, hytteglede og rolige familiedager mellom Østlandet og fjordene på Vestlandet.',
+    title: 'Snøsikre skidager for hele familien',
+    subtitle: 'Alpint, langrenn, hytter og enkle fjelldager på Bjorli – mellom fjell og fjord.',
     intro: 'Destinasjon Bjorli – vinter',
     ctaSkiCenter: 'Se Bjorli Skisenter',
     ctaLiftPass: 'Kjøp heiskort',
@@ -306,10 +306,11 @@ const no: Dictionary = {
     eyebrow: 'Derfor velger folk Bjorli',
     title: 'Hvorfor Bjorli?',
     items: [
-      { title: 'Snøsikkert og familievennlig', desc: 'Ekte vinter, trygge rammer og gode opplevelser for både barn og voksne.', icon: 'snowflake' },
-      { title: 'Kort vei til ski, hytter og natur', desc: 'Mindre logistikk, kortere avstander og mer tid ute.', icon: 'mountain' },
-      { title: 'Tog til fjellet med Raumabanen', desc: 'Reis til Bjorli med en av Norges vakreste togstrekninger.', icon: 'train' },
-      { title: 'Basecamp mellom fjell og fjord', desc: 'Opplev fjellet, Romsdalen, Dovrefjell og Nordvestlandet fra samme utgangspunkt.', icon: 'treePine' },
+      { title: 'Snøsikker vinterdestinasjon', desc: 'Bjorli ligger høyt og får tidlig vinter – en av landets mest stabile snødestinasjoner.', icon: 'snowflake' },
+      { title: 'Familievennlig skiområde', desc: 'Brede nedfarter, korte heiskøer og god plass for nybegynnere og barn.', icon: 'mountain' },
+      { title: 'Tog til Bjorli med Raumabanen', desc: 'Kom hit uten bil. Toget stopper midt i fjellet.', icon: 'train' },
+      { title: 'Kort vei mellom alt', desc: 'Overnatting, ski, mat og aktiviteter ligger tett samlet på destinasjonen.', icon: 'treePine' },
+      { title: 'Basecamp mellom fjell og fjord', desc: 'Romsdalen, Dovrefjell og fjordene på Nordvestlandet ligger innen kort kjørevei.', icon: 'treePine' },
     ],
   },
 };
