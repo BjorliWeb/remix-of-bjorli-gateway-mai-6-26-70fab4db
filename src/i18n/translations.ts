@@ -228,9 +228,19 @@ export const translations = {
     },
     accommodationPage: {
       title: 'Accommodation at Bjorli',
-      subtitle: 'Find your perfect place to stay',
-      desc: 'Near the ski center you\'ll find a varied selection of accommodation – from self-catering apartments and hotels to cabins of various sizes.',
+      subtitle: 'Stay close to the mountain, the lifts and the trails.',
+      desc: 'Choose from self-catering cabins and apartments, hotels and camping. Pick by group size, budget and how close to the lift you want to stay.',
       types: ['Hotels', 'Cabins', 'Apartments', 'Camping'],
+      sections: [
+        { title: 'Cabins and apartments', desc: 'Self-catering with a kitchen and space. Good for families, cabin guests and groups of friends.' },
+        { title: 'Hotels', desc: 'Service, breakfast and dining included. Practical for shorter stays and groups.' },
+        { title: 'Family and groups', desc: 'Larger units and flexible options for bigger parties.' },
+        { title: 'Near the ski centre', desc: 'Stay close enough to step out and onto the slopes.' },
+        { title: 'Camping', desc: 'Motorhome, tent and simpler stays year-round.' },
+      ],
+      ctaPrimary: 'Find a stay',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Booking via bjorli.no',
     },
     openingHoursPage: {
       title: 'Opening Hours',
