@@ -86,10 +86,20 @@ export const translations = {
       liftsList: ['Bjorliexpressen (stolheis)', 'Lykke-maNEUVER (skitrekk)', 'Barneheis 1', 'Barneheis 2', 'Tautrekk 1', 'Tautrekk 2'],
     },
     accommodationPage: {
-      title: 'Overnatting på Bjorli',
-      subtitle: 'Finn ditt perfekte sted å bo',
-      desc: 'I nærheten av skisenteret finnes et variert tilbud av overnatting – fra selvhusholdsleiligheter og hotell til hytter i ulik størrelse.',
+      title: 'Overnatting på Bjorli – hytter, leiligheter og hotell',
+      subtitle: 'Bo tett på fjellet, skiheisene og løypene.',
+      desc: 'På Bjorli finner du alt fra selvhusholdshytter og leiligheter til hotell og camping. Velg etter reisefølge, budsjett og hvor nær heisen du vil bo.',
       types: ['Hotell', 'Hytter', 'Leiligheter', 'Campingplass'],
+      sections: [
+        { title: 'Hytter og leiligheter', desc: 'Selvhusholdning med kjøkken og god plass. Passer for familier, hyttegjester og vennegjenger.' },
+        { title: 'Hotell', desc: 'Servering, frokost og service inkludert. Praktisk for kortere opphold og grupper.' },
+        { title: 'Familie og grupper', desc: 'Større enheter, romslige hytter og fleksible alternativer for reisefølger.' },
+        { title: 'Nær skisenteret', desc: 'Bo så nær heisen at du kan gå ut og rett på ski.' },
+        { title: 'Camping', desc: 'Bobil, telt og enklere overnatting året rundt.' },
+      ],
+      ctaPrimary: 'Finn overnatting',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Bookes via bjorli.no',
     },
     openingHoursPage: {
       title: 'Åpningstider',
