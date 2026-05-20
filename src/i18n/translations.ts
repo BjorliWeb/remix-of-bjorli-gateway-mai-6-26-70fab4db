@@ -651,9 +651,19 @@ export const translations = {
     },
     accommodationPage: {
       title: 'Unterkunft in Bjorli',
-      subtitle: 'Finden Sie Ihre passende Unterkunft',
-      desc: 'In der Nähe des Skigebiets gibt es ein vielfältiges Angebot – von Selbstversorger-Appartements und Hotels bis hin zu Hütten in unterschiedlichen Größen.',
+      subtitle: 'Wohnen Sie nah am Berg, an Liften und Pisten.',
+      desc: 'Wählen Sie zwischen Selbstversorgerhütten und Appartements, Hotels und Camping – nach Reisegröße, Budget und Nähe zum Lift.',
       types: ['Hotels', 'Hütten', 'Appartements', 'Camping'],
+      sections: [
+        { title: 'Hütten und Appartements', desc: 'Selbstversorgung mit Küche und Platz. Passt für Familien und Gruppen.' },
+        { title: 'Hotels', desc: 'Service, Frühstück und Gastronomie inklusive. Praktisch für kurze Aufenthalte.' },
+        { title: 'Familie und Gruppen', desc: 'Größere Einheiten und flexible Optionen für größere Reisegruppen.' },
+        { title: 'Nahe am Skigebiet', desc: 'Wohnen direkt am Lift – mit Ski von der Tür.' },
+        { title: 'Camping', desc: 'Wohnmobil, Zelt und einfachere Übernachtung das ganze Jahr.' },
+      ],
+      ctaPrimary: 'Unterkunft finden',
+      ctaHref: 'https://bjorli.no/overnatting/',
+      ctaNote: 'Buchung über bjorli.no',
     },
     openingHoursPage: {
       title: 'Öffnungszeiten',
