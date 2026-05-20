@@ -26,8 +26,8 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: 'Destination Bjorli – winter',
-    title: 'Real winter. Easier mountain days.',
-    subtitle: 'Snow-sure Bjorli offers alpine and cross-country skiing, cabin life and calm family days between eastern Norway and the western fjords.',
+    title: 'Snow-sure ski days for the whole family',
+    subtitle: 'Alpine, cross-country, cabins and easy mountain days at Bjorli – between mountain and fjord.',
     intro: 'Destination Bjorli – winter',
     ctaSkiCenter: 'Visit Bjorli Skisenter',
     ctaLiftPass: 'Buy lift pass',
@@ -296,10 +296,11 @@ const en: Dictionary = {
     eyebrow: 'Why people choose Bjorli',
     title: 'Why Bjorli?',
     items: [
-      { title: 'Snow-sure and family-friendly', desc: 'Real winter, safe surroundings and good experiences for kids and adults alike.', icon: 'snowflake' },
-      { title: 'Short distances to skiing, cabins and nature', desc: 'Less logistics, shorter distances and more time outdoors.', icon: 'mountain' },
-      { title: 'Train to the mountain via the Rauma Line', desc: 'Reach Bjorli on one of Norway’s most scenic railway journeys.', icon: 'train' },
-      { title: 'Your base between the mountains and the fjord', desc: 'Experience the mountains, Romsdalen, Dovrefjell and north-western Norway from one base.', icon: 'treePine' },
+      { title: 'Snow-sure winter destination', desc: 'Bjorli sits high in the mountains and is one of Norway’s most reliable snow areas.', icon: 'snowflake' },
+      { title: 'Family-friendly ski area', desc: 'Wide slopes, short lift queues and plenty of space for beginners and kids.', icon: 'mountain' },
+      { title: 'Train to Bjorli on the Rauma Line', desc: 'Travel here without a car. The train stops in the mountains.', icon: 'train' },
+      { title: 'Short distances between everything', desc: 'Stays, skiing, food and activities are gathered close together.', icon: 'treePine' },
+      { title: 'Base between mountain and fjord', desc: 'Romsdalen, Dovrefjell and the western fjords are all within a short drive.', icon: 'treePine' },
     ],
   },
 };

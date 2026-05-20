@@ -26,8 +26,8 @@ const de: Dictionary = {
   },
   hero: {
     eyebrow: 'Destination Bjorli – Winter',
-    title: 'Echter Winter. Entspanntere Bergtage.',
-    subtitle: 'Schneesicheres Bjorli verbindet Alpinski, Langlauf, Hüttenleben und ruhige Familientage zwischen Ostnorwegen und den westlichen Fjorden.',
+    title: 'Schneesichere Skitage für die ganze Familie',
+    subtitle: 'Alpinski, Langlauf, Hütten und unkomplizierte Bergtage auf Bjorli – zwischen Berg und Fjord.',
     intro: 'Destination Bjorli – Winter',
     ctaSkiCenter: 'Bjorli Skisenter ansehen',
     ctaLiftPass: 'Skipass kaufen',
@@ -300,10 +300,11 @@ const de: Dictionary = {
     eyebrow: 'Darum kommen Gäste nach Bjorli',
     title: 'Warum Bjorli?',
     items: [
-      { title: 'Schneesicher und familienfreundlich', desc: 'Echter Winter, sichere Umgebung und gute Erlebnisse für Kinder und Erwachsene.', icon: 'snowflake' },
-      { title: 'Kurze Wege zu Ski, Hütten und Natur', desc: 'Weniger Logistik, kürzere Strecken und mehr Zeit draußen.', icon: 'mountain' },
-      { title: 'Mit dem Zug in die Berge über die Rauma-Bahn', desc: 'Reisen Sie auf einer der schönsten Bahnstrecken Norwegens nach Bjorli.', icon: 'train' },
-      { title: 'Mitten zwischen Bergen und Fjorden', desc: 'Erleben Sie Berge, Romsdalen, Dovrefjell und Nordwestnorwegen von einem Standort aus.', icon: 'treePine' },
+      { title: 'Schneesicheres Wintergebiet', desc: 'Bjorli liegt hoch im Gebirge und gehört zu den schneesichersten Gebieten Norwegens.', icon: 'snowflake' },
+      { title: 'Familienfreundliches Skigebiet', desc: 'Breite Pisten, kurze Liftwartezeiten und viel Platz für Anfänger und Kinder.', icon: 'mountain' },
+      { title: 'Mit dem Zug nach Bjorli über die Rauma-Bahn', desc: 'Anreise ohne Auto. Der Zug hält mitten in den Bergen.', icon: 'train' },
+      { title: 'Kurze Wege zwischen allem', desc: 'Unterkunft, Ski, Gastronomie und Aktivitäten liegen nah beieinander.', icon: 'treePine' },
+      { title: 'Basislager zwischen Berg und Fjord', desc: 'Romsdalen, Dovrefjell und die westlichen Fjorde sind in kurzer Fahrtzeit erreichbar.', icon: 'treePine' },
     ],
   },
 };

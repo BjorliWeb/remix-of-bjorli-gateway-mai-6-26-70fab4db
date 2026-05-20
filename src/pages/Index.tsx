@@ -64,7 +64,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-bold text-primary-foreground mb-6 md:mb-8 leading-[0.92] tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)]"
+            className="font-display text-[2.5rem] xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.5rem] font-bold text-primary-foreground mb-5 md:mb-8 leading-[0.95] tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)]"
           >
             {home.heroTitle}
           </motion.h1>
@@ -73,7 +73,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-primary-foreground/85 text-lg md:text-2xl mb-10 md:mb-14 font-light max-w-2xl mx-auto leading-relaxed"
+              className="text-primary-foreground/85 text-base sm:text-lg md:text-2xl mb-8 md:mb-12 font-light max-w-2xl mx-auto leading-relaxed"
             >
               {home.heroSubtitle}
             </motion.p>
@@ -82,7 +82,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-2 justify-center flex-wrap items-center w-full max-w-sm sm:max-w-none mx-auto"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto"
           >
             {/* Primary — Kjøp heiskort */}
             <a
@@ -91,26 +91,36 @@ const Index = () => {
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
             >
-              <Button size="lg" className="font-medium w-full sm:w-auto sm:h-10 sm:px-4 sm:text-sm">
-                <Ticket className="mr-2 h-4 w-4" />
+              <Button size="lg" className="font-medium w-full sm:w-auto h-12 px-6 text-base">
+                <Ticket className="mr-2 h-5 w-5" />
                 {d.hero.ctaLiftPass}
               </Button>
             </a>
-            {/* Secondary — quieter inline link with separator */}
+            {/* Secondary — Finn overnatting */}
+            <Link to={lp('/overnatting')} className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                variant="outline"
+                className="font-medium w-full sm:w-auto h-12 px-6 text-base bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              >
+                <HomeIcon className="mr-2 h-5 w-5" />
+                {d.hero.ctaStay}
+              </Button>
+            </Link>
+          </motion.div>
+          {/* Tertiary — small inline link to opening hours */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-6"
+          >
             <Link
               to={lp('/apningstider')}
-              className="inline-flex items-center justify-center gap-2 text-primary-foreground/90 hover:text-primary-foreground text-base sm:text-sm font-medium tracking-wide w-full sm:w-auto px-5 py-3 sm:px-4 sm:py-2 rounded-md border border-primary-foreground/20 sm:border-0 transition-colors"
+              className="inline-flex items-center gap-1.5 text-primary-foreground/75 hover:text-primary-foreground text-sm font-medium tracking-wide transition-colors"
             >
-              <Clock className="h-4 w-4" />
+              <Clock className="h-3.5 w-3.5" />
               {d.hero.ctaOpening ?? d.status.openToday}
-            </Link>
-            <span className="hidden sm:inline text-primary-foreground/30">·</span>
-            <Link
-              to={lp('/overnatting')}
-              className="inline-flex items-center justify-center gap-2 text-primary-foreground/90 hover:text-primary-foreground text-base sm:text-sm font-medium tracking-wide w-full sm:w-auto px-5 py-3 sm:px-4 sm:py-2 rounded-md border border-primary-foreground/20 sm:border-0 transition-colors"
-            >
-              <HomeIcon className="h-4 w-4" />
-              {d.hero.ctaStay}
             </Link>
           </motion.div>
         </div>

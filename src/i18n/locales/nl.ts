@@ -26,8 +26,8 @@ const nl: Dictionary = {
   },
   hero: {
     eyebrow: 'Bestemming Bjorli – winter',
-    title: 'Echte winter. Rustigere bergdagen.',
-    subtitle: 'Sneeuwzeker Bjorli combineert alpineskiën, langlaufen, hutten en kalme gezinsdagen tussen Oost-Noorwegen en de fjorden in het westen.',
+    title: 'Sneeuwzekere skidagen voor het hele gezin',
+    subtitle: 'Alpineskiën, langlaufen, hutten en eenvoudige bergdagen op Bjorli – tussen berg en fjord.',
     intro: 'Bestemming Bjorli – winter',
     ctaSkiCenter: 'Bekijk Bjorli Skisenter',
     ctaLiftPass: 'Liftpas kopen',
@@ -301,10 +301,11 @@ const nl: Dictionary = {
     eyebrow: 'Waarom mensen voor Bjorli kiezen',
     title: 'Waarom Bjorli?',
     items: [
-      { title: 'Sneeuwzeker en gezinsvriendelijk', desc: 'Echte winter, een veilige omgeving en goede ervaringen voor kinderen en volwassenen.', icon: 'snowflake' },
-      { title: 'Korte afstanden tot ski, hutten en natuur', desc: 'Minder logistiek, kortere afstanden en meer tijd buiten.', icon: 'mountain' },
-      { title: 'Met de trein de bergen in via de Raumalijn', desc: 'Bereik Bjorli via een van de mooiste spoorlijnen van Noorwegen.', icon: 'train' },
-      { title: 'Een uitvalsbasis tussen bergen en fjorden', desc: 'Beleef de bergen, Romsdalen, Dovrefjell en Noordwest-Noorwegen vanuit één basis.', icon: 'treePine' },
+      { title: 'Sneeuwzekere wintergebied', desc: 'Bjorli ligt hoog in de bergen en is een van de meest stabiele sneeuwgebieden van Noorwegen.', icon: 'snowflake' },
+      { title: 'Gezinsvriendelijk skigebied', desc: 'Brede pistes, korte liftwachtrijen en veel ruimte voor beginners en kinderen.', icon: 'mountain' },
+      { title: 'Trein naar Bjorli met de Raumalijn', desc: 'Reis hierheen zonder auto. De trein stopt in de bergen.', icon: 'train' },
+      { title: 'Korte afstanden tussen alles', desc: 'Verblijf, ski, eten en activiteiten liggen dicht bij elkaar.', icon: 'treePine' },
+      { title: 'Uitvalsbasis tussen berg en fjord', desc: 'Romsdalen, Dovrefjell en de westelijke fjorden liggen op korte rijafstand.', icon: 'treePine' },
     ],
   },
 };
