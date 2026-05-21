@@ -43,6 +43,9 @@ import WeatherWebcams from "./pages/WeatherWebcams";
 import SkiHolidayNorway from "./pages/SkiHolidayNorway";
 import ImageInventory from "./pages/ImageInventory";
 import HeroCompare from "./pages/HeroCompare";
+import SubmitEvent from "./pages/SubmitEvent";
+import AdminLogin from "./pages/AdminLogin";
+import AdminEventSubmissions from "./pages/AdminEventSubmissions";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
 
@@ -148,6 +151,12 @@ const AppRoutes = () => (
     <Route path="/image-inventory" element={<ImageInventory />} />
     {/* Internal hero image comparison. Not linked, not in sitemap, not in SEO. */}
     <Route path="/hero-compare" element={<HeroCompare />} />
+    {/* Submit-event flow (NO + EN only for v1) */}
+    <Route path="/meld-inn-arrangement" element={<SubmitEvent lang="no" />} />
+    <Route path="/en/submit-event" element={<SubmitEvent lang="en" />} />
+    {/* Editor admin (protected inside the component) */}
+    <Route path="/admin/login" element={<AdminLogin />} />
+    <Route path="/admin/innsendinger" element={<AdminEventSubmissions />} />
     {/* Localized aliases — same components, translated slugs. */}
     {aliasRoute('sommer', <Sommer />)}
     {aliasRoute('skisenter', <SkiCenter />)}
