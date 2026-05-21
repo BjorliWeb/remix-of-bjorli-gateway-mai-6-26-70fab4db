@@ -89,6 +89,102 @@ export type Database = {
         }
         Relationships: []
       }
+      event_submissions: {
+        Row: {
+          ai_polished_description: string | null
+          ai_polished_summary: string | null
+          ai_seo_meta: string | null
+          ai_seo_title: string | null
+          category: string
+          consent_editing: boolean
+          consent_rights: boolean
+          contact_name: string
+          created_at: string
+          description: string
+          editor_notes: string | null
+          email: string
+          end_date: string | null
+          id: string
+          image_urls: string[]
+          language: string
+          location: string
+          maps_url: string | null
+          organizer: string
+          phone: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          start_date: string
+          status: Database["public"]["Enums"]["event_submission_status"]
+          summary: string | null
+          time_text: string | null
+          title: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          ai_polished_description?: string | null
+          ai_polished_summary?: string | null
+          ai_seo_meta?: string | null
+          ai_seo_title?: string | null
+          category: string
+          consent_editing?: boolean
+          consent_rights?: boolean
+          contact_name: string
+          created_at?: string
+          description: string
+          editor_notes?: string | null
+          email: string
+          end_date?: string | null
+          id?: string
+          image_urls?: string[]
+          language?: string
+          location: string
+          maps_url?: string | null
+          organizer: string
+          phone?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          start_date: string
+          status?: Database["public"]["Enums"]["event_submission_status"]
+          summary?: string | null
+          time_text?: string | null
+          title: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          ai_polished_description?: string | null
+          ai_polished_summary?: string | null
+          ai_seo_meta?: string | null
+          ai_seo_title?: string | null
+          category?: string
+          consent_editing?: boolean
+          consent_rights?: boolean
+          contact_name?: string
+          created_at?: string
+          description?: string
+          editor_notes?: string | null
+          email?: string
+          end_date?: string | null
+          id?: string
+          image_urls?: string[]
+          language?: string
+          location?: string
+          maps_url?: string | null
+          organizer?: string
+          phone?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          start_date?: string
+          status?: Database["public"]["Enums"]["event_submission_status"]
+          summary?: string | null
+          time_text?: string | null
+          title?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       operational_status: {
         Row: {
           created_at: string
@@ -221,6 +317,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      event_submission_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -349,6 +446,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      event_submission_status: ["pending", "approved", "rejected"],
     },
   },
 } as const
