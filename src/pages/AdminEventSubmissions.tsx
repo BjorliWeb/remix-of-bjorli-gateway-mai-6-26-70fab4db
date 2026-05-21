@@ -382,6 +382,11 @@ function DetailView({
 
       <div className="grid md:grid-cols-[1.6fr_1fr] gap-10">
         <div>
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <span className="text-[11px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-season/15 text-season">
+              {(item.language || 'no').toUpperCase()} · {SOURCE_LOCALE_LABEL[item.language] ?? 'Submitted in ' + (item.language || 'no').toUpperCase()}
+            </span>
+          </div>
           <h2 className="font-display text-2xl font-semibold text-foreground mb-2">{item.title}</h2>
           <p className="text-sm text-muted-foreground mb-6">
             {item.organizer} · {CATEGORY_LABELS.no[item.category as EventCategoryKey] ?? item.category}
@@ -411,34 +416,57 @@ function DetailView({
             </div>
           )}
 
-          {/* AI assist (Norwegian source) */}
+          {/* AI assist — buttons depend on source locale (NO or EN) */}
           <div className="border-t border-border pt-6">
             <div className="flex items-center gap-2 mb-1">
               <Sparkles className="h-4 w-4 text-season" />
-              <h3 className="font-medium text-foreground">AI-assistent · norsk kilde</h3>
+              <h3 className="font-medium text-foreground">
+                AI-assistent · {item.language === 'en' ? 'English source' : 'norsk kilde'}
+              </h3>
             </div>
             <p className="text-xs text-muted-foreground mb-3">
-              Norsk er kildespråket. AI-forslag publiseres aldri automatisk – en redaktør må godkjenne.
+              {item.language === 'en'
+                ? 'AI cleanup produces an editable English DRAFT. The original submission is never overwritten without your preview and approval.'
+                : 'Norsk er kildespråket. AI-forslag publiseres aldri automatisk – en redaktør må godkjenne.'}
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('shorten_no')}>
-                Forkort norsk tekst
-              </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('improve_intro_no')}>
-                Forbedre norsk ingress
-              </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('editorial_no')}>
-                Gjør norsk tekst mer redaksjonell
-              </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_title_no')}>
-                Lag SEO-tittel på norsk
-              </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_meta_no')}>
-                Lag meta-beskrivelse på norsk
-              </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('missing_info')}>
-                Sjekk manglende informasjon
-              </Button>
+              {item.language === 'en' ? (
+                <>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('shorten_en')}>
+                    Shorten English text
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('improve_intro_en')}>
+                    Improve English intro
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('editorial_en')}>
+                    Make English more editorial
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('missing_info')}>
+                    Check missing information
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('shorten_no')}>
+                    Forkort norsk tekst
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('improve_intro_no')}>
+                    Forbedre norsk ingress
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('editorial_no')}>
+                    Gjør norsk tekst mer redaksjonell
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_title_no')}>
+                    Lag SEO-tittel på norsk
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_meta_no')}>
+                    Lag meta-beskrivelse på norsk
+                  </Button>
+                  <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('missing_info')}>
+                    Sjekk manglende informasjon
+                  </Button>
+                </>
+              )}
               {aiBusy && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground self-center" />}
             </div>
 
@@ -462,7 +490,10 @@ function DetailView({
             )}
           </div>
 
-          {/* English draft — must be reviewed and approved */}
+          {/* English draft — must be reviewed and approved.
+              Shown when source is Norwegian (translate) OR when source is English
+              and AI cleanup has produced a revised draft of the original. */}
+          {item.language !== 'en' && (
           <div className="border-t border-border pt-6 mt-6">
             <div className="flex items-center gap-2 mb-1">
               <Languages className="h-4 w-4 text-season" />
@@ -516,6 +547,39 @@ function DetailView({
               <AiBlock label="English description" text={item.english_draft_description} />
             )}
           </div>
+          )}
+
+          {item.language === 'en' && (item.english_draft_summary || item.english_draft_description) && (
+            <div className="border-t border-border pt-6 mt-6">
+              <div className="flex items-center gap-2 mb-1">
+                <Languages className="h-4 w-4 text-season" />
+                <h3 className="font-medium text-foreground">English cleanup draft</h3>
+                {item.english_approved ? (
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600">Approved</span>
+                ) : (
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">Awaiting approval</span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mb-3">
+                Preview the AI-revised English text. The original submission stays untouched until you approve.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {!item.english_approved && (
+                  <Button size="sm" disabled={actionBusy} onClick={() => onSetEnglishApproval(true)}>
+                    <CheckCircle2 className="h-4 w-4" />
+                    Approve English cleanup
+                  </Button>
+                )}
+                {item.english_approved && (
+                  <Button size="sm" variant="ghost" disabled={actionBusy} onClick={() => onSetEnglishApproval(false)}>
+                    Withdraw approval
+                  </Button>
+                )}
+              </div>
+              {item.english_draft_summary && <AiBlock label="English intro" text={item.english_draft_summary} />}
+              {item.english_draft_description && <AiBlock label="English description" text={item.english_draft_description} />}
+            </div>
+          )}
         </div>
 
         {/* Side panel */}
