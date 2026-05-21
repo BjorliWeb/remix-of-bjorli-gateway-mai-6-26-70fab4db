@@ -23,6 +23,11 @@ Deno.serve(async (req) => {
       seo_meta_no: `Foreslå én meta-beskrivelse på norsk (bokmål), maks 155 tegn, basert på arrangementet. Returnér JSON {"seoMeta":"..."}.`,
       missing_info: `Gå gjennom innsendingen og pek ut manglende eller uklar informasjon en redaktør bør be om før publisering (f.eks. pris, tid, kontakt, bilder, lokasjon). Skriv kort og konkret på norsk. Returnér JSON {"qualityFlag":"..."}.`,
       translate_en: `Translate this event into natural British English for bjorli.no. Keep all facts, dates, times, prices, place names, organizer names and booking links unchanged. Use clear destination language. Do not add claims. Do not exaggerate. Do not overwrite the Norwegian original. Return an editable English draft only. Returnér JSON {"englishTitle":"...","englishSummary":"...","englishDescription":"..."}.`,
+      // English-source cleanup. Always produces an English DRAFT — editor previews
+      // and approves before anything overwrites the original submission text.
+      shorten_en: `Shorten the description to 2–3 tight paragraphs in natural British English for bjorli.no. Keep all facts, dates, times, prices, place names, organizer names and booking links unchanged. Do not add claims. Do not exaggerate. Return an editable English draft only. Return JSON {"englishDescription":"..."}.`,
+      improve_intro_en: `Rewrite the intro as one clear sentence in natural British English for bjorli.no. Keep facts. Do not exaggerate. Return an editable English draft only. Return JSON {"englishSummary":"..."}.`,
+      editorial_en: `Rewrite the description in a calm, editorial destination tone in British English for bjorli.no. Keep all facts, dates, times, prices, place names, organizer names and booking links unchanged. Do not add marketing claims. Return an editable English draft only. Return JSON {"englishDescription":"..."}.`,
     };
     const instruction = prompts[mode] || prompts.improve_intro_no;
 
