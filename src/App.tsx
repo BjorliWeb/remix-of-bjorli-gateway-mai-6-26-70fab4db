@@ -153,7 +153,8 @@ const AppRoutes = () => (
     <Route path="/hero-compare" element={<HeroCompare />} />
     {/* Submit-event flow (NO + EN only for v1) */}
     <Route path="/meld-inn-arrangement" element={<SubmitEvent lang="no" />} />
-    <Route path="/en/submit-event" element={<SubmitEvent lang="en" />} />
+    {/* EN prefix is stripped by the outer <Route path="/en/*">, so register the bare slug here */}
+    <Route path="/submit-event" element={<SubmitEvent lang="en" />} />
     {/* Editor admin (protected inside the component) */}
     <Route path="/admin/login" element={<AdminLogin />} />
     <Route path="/admin/innsendinger" element={<AdminEventSubmissions />} />
