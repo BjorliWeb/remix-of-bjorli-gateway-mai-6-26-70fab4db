@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Loader2, CheckCircle2, XCircle, Sparkles, Mail, Phone, Globe, MapPin,
-  Calendar, ImageOff, LogOut, Inbox,
+  Calendar, ImageOff, LogOut, Inbox, Languages,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +13,15 @@ import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
 
 type Status = 'pending' | 'approved' | 'rejected';
+
+type AiMode =
+  | 'shorten_no'
+  | 'improve_intro_no'
+  | 'editorial_no'
+  | 'seo_title_no'
+  | 'seo_meta_no'
+  | 'missing_info'
+  | 'translate_en';
 
 interface Submission {
   id: string;
@@ -38,6 +47,12 @@ interface Submission {
   ai_polished_description: string | null;
   ai_seo_title: string | null;
   ai_seo_meta: string | null;
+  ai_quality_notes: string | null;
+  english_draft_title: string | null;
+  english_draft_summary: string | null;
+  english_draft_description: string | null;
+  english_approved: boolean;
+  english_approved_at: string | null;
   created_at: string;
 }
 
@@ -163,7 +178,7 @@ const AdminEventSubmissions = () => {
     load();
   };
 
-  const runAi = async (mode: 'cleanup' | 'shorten' | 'seo' | 'quality') => {
+  const runAi = async (mode: AiMode) => {
     if (!selected) return;
     setAiBusy(true);
     try {
@@ -174,18 +189,22 @@ const AdminEventSubmissions = () => {
           summary: selected.summary,
           description: selected.description,
           category: selected.category,
-          language: selected.language,
         },
       });
       if (error) throw error;
-      const update: Record<string, string | null> = {};
+      const update: Record<string, string | boolean | null> = {};
       if (data?.summary) update.ai_polished_summary = data.summary;
       if (data?.description) update.ai_polished_description = data.description;
       if (data?.seoTitle) update.ai_seo_title = data.seoTitle;
       if (data?.seoMeta) update.ai_seo_meta = data.seoMeta;
-      if (data?.qualityFlag !== undefined) {
-        update.editor_notes = `${editorNotes ? editorNotes + '\n\n' : ''}AI-vurdering: ${data.qualityFlag}`;
-        setEditorNotes(update.editor_notes as string);
+      if (data?.qualityFlag) update.ai_quality_notes = data.qualityFlag;
+      if (data?.englishTitle || data?.englishSummary || data?.englishDescription) {
+        update.english_draft_title = data.englishTitle ?? null;
+        update.english_draft_summary = data.englishSummary ?? null;
+        update.english_draft_description = data.englishDescription ?? null;
+        // Any regeneration resets approval — editor must re-approve.
+        update.english_approved = false;
+        update.english_approved_at = null;
       }
       if (Object.keys(update).length > 0) {
         await supabase.from('event_submissions').update(update).eq('id', selected.id);
@@ -198,6 +217,25 @@ const AdminEventSubmissions = () => {
     } finally {
       setAiBusy(false);
     }
+  };
+
+  const setEnglishApproval = async (approved: boolean) => {
+    if (!selected) return;
+    setActionBusy(true);
+    const { error } = await supabase
+      .from('event_submissions')
+      .update({
+        english_approved: approved,
+        english_approved_at: approved ? new Date().toISOString() : null,
+      })
+      .eq('id', selected.id);
+    setActionBusy(false);
+    if (error) {
+      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({ title: approved ? 'Engelsk utkast godkjent' : 'Godkjenning trukket tilbake' });
+    load();
   };
 
   if (!authChecked) {
@@ -265,6 +303,7 @@ const AdminEventSubmissions = () => {
           onSaveNotes={saveNotes}
           onSetStatus={setStatus}
           onAi={runAi}
+          onSetEnglishApproval={setEnglishApproval}
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
