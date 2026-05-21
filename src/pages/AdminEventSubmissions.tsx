@@ -21,7 +21,15 @@ type AiMode =
   | 'seo_title_no'
   | 'seo_meta_no'
   | 'missing_info'
-  | 'translate_en';
+  | 'translate_en'
+  | 'shorten_en'
+  | 'improve_intro_en'
+  | 'editorial_en';
+
+const SOURCE_LOCALE_LABEL: Record<string, string> = {
+  no: 'Innsendt på norsk',
+  en: 'Submitted in English',
+};
 
 interface Submission {
   id: string;
