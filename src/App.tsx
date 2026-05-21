@@ -151,10 +151,11 @@ const AppRoutes = () => (
     <Route path="/image-inventory" element={<ImageInventory />} />
     {/* Internal hero image comparison. Not linked, not in sitemap, not in SEO. */}
     <Route path="/hero-compare" element={<HeroCompare />} />
-    {/* Submit-event flow (NO + EN only for v1) */}
+    {/* Submit-event flow — v1: Norwegian only (external submitters).
+        Editors create the English draft from the admin review screen.
+        SubmitEvent still accepts a `lang` prop so we can expose more
+        public-facing languages later without refactoring. */}
     <Route path="/meld-inn-arrangement" element={<SubmitEvent lang="no" />} />
-    {/* EN prefix is stripped by the outer <Route path="/en/*">, so register the bare slug here */}
-    <Route path="/submit-event" element={<SubmitEvent lang="en" />} />
     {/* Editor admin (protected inside the component) */}
     <Route path="/admin/login" element={<AdminLogin />} />
     <Route path="/admin/innsendinger" element={<AdminEventSubmissions />} />
