@@ -344,6 +344,9 @@ const AdminEventSubmissions = () => {
                     <div className="mt-1 inline-block px-2 py-0.5 rounded-full bg-muted text-foreground/70">
                       {CATEGORY_LABELS.no[i.category as EventCategoryKey] ?? i.category}
                     </div>
+                    <div className="mt-1 inline-block px-2 py-0.5 rounded-full bg-season/15 text-season uppercase tracking-wider">
+                      {(i.language || 'no').toUpperCase()}
+                    </div>
                   </div>
                 </div>
               </button>
