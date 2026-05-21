@@ -93,6 +93,7 @@ export type Database = {
         Row: {
           ai_polished_description: string | null
           ai_polished_summary: string | null
+          ai_quality_notes: string | null
           ai_seo_meta: string | null
           ai_seo_title: string | null
           category: string
@@ -104,6 +105,11 @@ export type Database = {
           editor_notes: string | null
           email: string
           end_date: string | null
+          english_approved: boolean
+          english_approved_at: string | null
+          english_draft_description: string | null
+          english_draft_summary: string | null
+          english_draft_title: string | null
           id: string
           image_urls: string[]
           language: string
@@ -124,6 +130,7 @@ export type Database = {
         Insert: {
           ai_polished_description?: string | null
           ai_polished_summary?: string | null
+          ai_quality_notes?: string | null
           ai_seo_meta?: string | null
           ai_seo_title?: string | null
           category: string
@@ -135,6 +142,11 @@ export type Database = {
           editor_notes?: string | null
           email: string
           end_date?: string | null
+          english_approved?: boolean
+          english_approved_at?: string | null
+          english_draft_description?: string | null
+          english_draft_summary?: string | null
+          english_draft_title?: string | null
           id?: string
           image_urls?: string[]
           language?: string
@@ -155,6 +167,7 @@ export type Database = {
         Update: {
           ai_polished_description?: string | null
           ai_polished_summary?: string | null
+          ai_quality_notes?: string | null
           ai_seo_meta?: string | null
           ai_seo_title?: string | null
           category?: string
@@ -166,6 +179,11 @@ export type Database = {
           editor_notes?: string | null
           email?: string
           end_date?: string | null
+          english_approved?: boolean
+          english_approved_at?: string | null
+          english_draft_description?: string | null
+          english_draft_summary?: string | null
+          english_draft_title?: string | null
           id?: string
           image_urls?: string[]
           language?: string
