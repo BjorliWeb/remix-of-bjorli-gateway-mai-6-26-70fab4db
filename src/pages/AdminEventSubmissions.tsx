@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Loader2, CheckCircle2, XCircle, Sparkles, Mail, Phone, Globe, MapPin,
-  Calendar, ImageOff, LogOut, Inbox,
+  Calendar, ImageOff, LogOut, Inbox, Languages,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,6 +13,15 @@ import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
 
 type Status = 'pending' | 'approved' | 'rejected';
+
+type AiMode =
+  | 'shorten_no'
+  | 'improve_intro_no'
+  | 'editorial_no'
+  | 'seo_title_no'
+  | 'seo_meta_no'
+  | 'missing_info'
+  | 'translate_en';
 
 interface Submission {
   id: string;
@@ -38,6 +47,12 @@ interface Submission {
   ai_polished_description: string | null;
   ai_seo_title: string | null;
   ai_seo_meta: string | null;
+  ai_quality_notes: string | null;
+  english_draft_title: string | null;
+  english_draft_summary: string | null;
+  english_draft_description: string | null;
+  english_approved: boolean;
+  english_approved_at: string | null;
   created_at: string;
 }
 
@@ -163,7 +178,7 @@ const AdminEventSubmissions = () => {
     load();
   };
 
-  const runAi = async (mode: 'cleanup' | 'shorten' | 'seo' | 'quality') => {
+  const runAi = async (mode: AiMode) => {
     if (!selected) return;
     setAiBusy(true);
     try {
@@ -174,18 +189,22 @@ const AdminEventSubmissions = () => {
           summary: selected.summary,
           description: selected.description,
           category: selected.category,
-          language: selected.language,
         },
       });
       if (error) throw error;
-      const update: Record<string, string | null> = {};
+      const update: Record<string, string | boolean | null> = {};
       if (data?.summary) update.ai_polished_summary = data.summary;
       if (data?.description) update.ai_polished_description = data.description;
       if (data?.seoTitle) update.ai_seo_title = data.seoTitle;
       if (data?.seoMeta) update.ai_seo_meta = data.seoMeta;
-      if (data?.qualityFlag !== undefined) {
-        update.editor_notes = `${editorNotes ? editorNotes + '\n\n' : ''}AI-vurdering: ${data.qualityFlag}`;
-        setEditorNotes(update.editor_notes as string);
+      if (data?.qualityFlag) update.ai_quality_notes = data.qualityFlag;
+      if (data?.englishTitle || data?.englishSummary || data?.englishDescription) {
+        update.english_draft_title = data.englishTitle ?? null;
+        update.english_draft_summary = data.englishSummary ?? null;
+        update.english_draft_description = data.englishDescription ?? null;
+        // Any regeneration resets approval — editor must re-approve.
+        update.english_approved = false;
+        update.english_approved_at = null;
       }
       if (Object.keys(update).length > 0) {
         await supabase.from('event_submissions').update(update).eq('id', selected.id);
@@ -198,6 +217,25 @@ const AdminEventSubmissions = () => {
     } finally {
       setAiBusy(false);
     }
+  };
+
+  const setEnglishApproval = async (approved: boolean) => {
+    if (!selected) return;
+    setActionBusy(true);
+    const { error } = await supabase
+      .from('event_submissions')
+      .update({
+        english_approved: approved,
+        english_approved_at: approved ? new Date().toISOString() : null,
+      })
+      .eq('id', selected.id);
+    setActionBusy(false);
+    if (error) {
+      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({ title: approved ? 'Engelsk utkast godkjent' : 'Godkjenning trukket tilbake' });
+    load();
   };
 
   if (!authChecked) {
@@ -265,6 +303,7 @@ const AdminEventSubmissions = () => {
           onSaveNotes={saveNotes}
           onSetStatus={setStatus}
           onAi={runAi}
+          onSetEnglishApproval={setEnglishApproval}
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
@@ -309,7 +348,8 @@ const AdminEventSubmissions = () => {
 };
 
 function DetailView({
-  item, signedUrls, editorNotes, setEditorNotes, onBack, onSaveNotes, onSetStatus, onAi, aiBusy, actionBusy,
+  item, signedUrls, editorNotes, setEditorNotes, onBack, onSaveNotes, onSetStatus,
+  onAi, onSetEnglishApproval, aiBusy, actionBusy,
 }: {
   item: Submission;
   signedUrls: Record<string, string>;
@@ -318,7 +358,8 @@ function DetailView({
   onBack: () => void;
   onSaveNotes: () => void;
   onSetStatus: (s: Status) => void;
-  onAi: (m: 'cleanup' | 'shorten' | 'seo' | 'quality') => void;
+  onAi: (m: AiMode) => void;
+  onSetEnglishApproval: (approved: boolean) => void;
   aiBusy: boolean;
   actionBusy: boolean;
 }) {
@@ -359,39 +400,109 @@ function DetailView({
             </div>
           )}
 
-          {/* AI assist */}
+          {/* AI assist (Norwegian source) */}
           <div className="border-t border-border pt-6">
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-1">
               <Sparkles className="h-4 w-4 text-season" />
-              <h3 className="font-medium text-foreground">AI-assistent</h3>
-              <span className="text-xs text-muted-foreground">– aldri auto-publisering</span>
+              <h3 className="font-medium text-foreground">AI-assistent · norsk kilde</h3>
             </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              Norsk er kildespråket. AI-forslag publiseres aldri automatisk – en redaktør må godkjenne.
+            </p>
             <div className="flex flex-wrap gap-2 mb-4">
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('cleanup')}>
-                Forbedre ingress
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('shorten_no')}>
+                Forkort norsk tekst
               </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('shorten')}>
-                Kort ned beskrivelse
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('improve_intro_no')}>
+                Forbedre norsk ingress
               </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo')}>
-                Foreslå SEO
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('editorial_no')}>
+                Gjør norsk tekst mer redaksjonell
               </Button>
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('quality')}>
-                Vurder kvalitet
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_title_no')}>
+                Lag SEO-tittel på norsk
+              </Button>
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('seo_meta_no')}>
+                Lag meta-beskrivelse på norsk
+              </Button>
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('missing_info')}>
+                Sjekk manglende informasjon
               </Button>
               {aiBusy && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground self-center" />}
             </div>
+
             {item.ai_polished_summary && (
-              <AiBlock label="Forslag til ingress" text={item.ai_polished_summary} />
+              <AiBlock label="Forslag til ingress (NO)" text={item.ai_polished_summary} />
             )}
             {item.ai_polished_description && (
-              <AiBlock label="Forslag til beskrivelse" text={item.ai_polished_description} />
+              <AiBlock label="Forslag til beskrivelse (NO)" text={item.ai_polished_description} />
             )}
             {(item.ai_seo_title || item.ai_seo_meta) && (
               <AiBlock
-                label="SEO-forslag"
-                text={[item.ai_seo_title && `Tittel: ${item.ai_seo_title}`, item.ai_seo_meta && `Meta: ${item.ai_seo_meta}`].filter(Boolean).join('\n')}
+                label="SEO-forslag (NO)"
+                text={[
+                  item.ai_seo_title && `Tittel: ${item.ai_seo_title}`,
+                  item.ai_seo_meta && `Meta: ${item.ai_seo_meta}`,
+                ].filter(Boolean).join('\n')}
               />
+            )}
+            {item.ai_quality_notes && (
+              <AiBlock label="Manglende informasjon" text={item.ai_quality_notes} />
+            )}
+          </div>
+
+          {/* English draft — must be reviewed and approved */}
+          <div className="border-t border-border pt-6 mt-6">
+            <div className="flex items-center gap-2 mb-1">
+              <Languages className="h-4 w-4 text-season" />
+              <h3 className="font-medium text-foreground">Engelsk utkast</h3>
+              {item.english_approved ? (
+                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600">
+                  Godkjent
+                </span>
+              ) : (
+                <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                  Avventer godkjenning
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              Engelsk versjon må alltid leses gjennom og godkjennes manuelt. Den norske originalen
+              overskrives aldri.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('translate_en')}>
+                {item.english_draft_description ? 'Generer engelsk utkast på nytt' : 'Lag engelsk utkast'}
+              </Button>
+              {item.english_draft_description && !item.english_approved && (
+                <Button
+                  size="sm"
+                  disabled={actionBusy}
+                  onClick={() => onSetEnglishApproval(true)}
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                  Godkjenn engelsk utkast
+                </Button>
+              )}
+              {item.english_approved && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={actionBusy}
+                  onClick={() => onSetEnglishApproval(false)}
+                >
+                  Trekk tilbake godkjenning
+                </Button>
+              )}
+            </div>
+            {item.english_draft_title && (
+              <AiBlock label="English title" text={item.english_draft_title} />
+            )}
+            {item.english_draft_summary && (
+              <AiBlock label="English intro" text={item.english_draft_summary} />
+            )}
+            {item.english_draft_description && (
+              <AiBlock label="English description" text={item.english_draft_description} />
             )}
           </div>
         </div>

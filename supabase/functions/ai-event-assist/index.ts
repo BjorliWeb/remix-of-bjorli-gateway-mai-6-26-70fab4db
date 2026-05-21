@@ -8,20 +8,23 @@ Deno.serve(async (req) => {
     if (!LOVABLE_API_KEY) throw new Error('LOVABLE_API_KEY missing');
 
     const body = await req.json();
-    const mode = String(body.mode || 'cleanup');
+    const mode = String(body.mode || 'improve_intro_no');
     const title = String(body.title || '').slice(0, 300);
     const summary = String(body.summary || '').slice(0, 600);
     const description = String(body.description || '').slice(0, 6000);
-    const language = body.language === 'en' ? 'en' : 'no';
 
-    const langName = language === 'en' ? 'English' : 'Norwegian (Bokmål)';
+    // v1 supports Norwegian editing + one-way English draft translation.
+    // Other locales (DE/NL/DA/SV) are intentionally not exposed.
     const prompts: Record<string, string> = {
-      cleanup: `Rewrite the intro of this event in clean editorial ${langName}. Keep facts. Return JSON {"summary": "..."}.`,
-      shorten: `Shorten the description to 2–3 tight paragraphs in editorial ${langName}. Keep facts. Return JSON {"description": "..."}.`,
-      seo: `Suggest an SEO title (max 60 chars) and meta description (max 155 chars) in ${langName}. Return JSON {"seoTitle":"...","seoMeta":"..."}.`,
-      quality: `Evaluate the submission quality for an editorial tourism site (Bjorli). Flag spam, off-topic or low-quality content. Return JSON {"qualityFlag":"OK | Trenger gjennomgang | Avvis – grunn"}.`,
+      shorten_no: `Forkort beskrivelsen til 2–3 stramme avsnitt på naturlig redaksjonell norsk (bokmål). Behold alle fakta, datoer, priser og stedsnavn. Ikke legg til påstander. Returnér JSON {"description":"..."}.`,
+      improve_intro_no: `Skriv om ingressen til én tydelig setning på naturlig redaksjonell norsk (bokmål) for bjorli.no. Behold fakta. Ikke overdriv. Returnér JSON {"summary":"..."}.`,
+      editorial_no: `Skriv om beskrivelsen i en rolig, redaksjonell destinasjonstone på norsk (bokmål). Behold alle fakta, datoer, priser, stedsnavn, arrangørnavn og lenker. Ikke legg til markedsføringspåstander. Returnér JSON {"description":"..."}.`,
+      seo_title_no: `Foreslå én SEO-tittel på norsk (bokmål), maks 60 tegn, basert på arrangementet. Returnér JSON {"seoTitle":"..."}.`,
+      seo_meta_no: `Foreslå én meta-beskrivelse på norsk (bokmål), maks 155 tegn, basert på arrangementet. Returnér JSON {"seoMeta":"..."}.`,
+      missing_info: `Gå gjennom innsendingen og pek ut manglende eller uklar informasjon en redaktør bør be om før publisering (f.eks. pris, tid, kontakt, bilder, lokasjon). Skriv kort og konkret på norsk. Returnér JSON {"qualityFlag":"..."}.`,
+      translate_en: `Translate this event into natural British English for bjorli.no. Keep all facts, dates, times, prices, place names, organizer names and booking links unchanged. Use clear destination language. Do not add claims. Do not exaggerate. Do not overwrite the Norwegian original. Return an editable English draft only. Returnér JSON {"englishTitle":"...","englishSummary":"...","englishDescription":"..."}.`,
     };
-    const instruction = prompts[mode] || prompts.cleanup;
+    const instruction = prompts[mode] || prompts.improve_intro_no;
 
     const userContent = `Title: ${title}\nSummary: ${summary}\nDescription: ${description}`;
 
