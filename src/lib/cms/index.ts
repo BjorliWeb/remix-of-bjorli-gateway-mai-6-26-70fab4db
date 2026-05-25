@@ -41,3 +41,4 @@ export const getFooter:       CmsAdapter['getFooter']       = (q) => activeAdapt
 export const getAlerts:       CmsAdapter['getAlerts']       = (q) => activeAdapter.getAlerts(q);
 export const getOpeningHours: CmsAdapter['getOpeningHours'] = (q) => activeAdapter.getOpeningHours(q);
 export const getSeoSettings:  CmsAdapter['getSeoSettings']  = (q) => activeAdapter.getSeoSettings(q);
+export const getSeoLanding:   CmsAdapter['getSeoLanding']   = (q) => activeAdapter.getSeoLanding(q);

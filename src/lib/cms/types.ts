@@ -530,3 +530,79 @@ export interface CmsItemQuery {
   language: Language;
   slug: string;
 }
+
+/* ------------------------------------------------------------------ */
+/* SEO Landing Page (dedicated CPT for high-intent SEO destinations)  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * `SeoLandingEntry` powers locale-scoped SEO landing pages such as
+ * /en/ski-holiday-norway, /da/skiferie-norge, /nl/ski-vakantie-noorwegen,
+ * /en/family and /en/getting-here.
+ *
+ * IMPORTANT — slug convention:
+ *   - `slug` is the BARE slug (e.g. `ski-holiday-norway`).
+ *   - `locale` is stored separately.
+ *   - The frontend composes the URL as `/<locale>/<slug>`.
+ *   - WordPress must NOT store locale-prefixed slugs.
+ *
+ * WordPress mapping (future):
+ *   - CPT: `seo_landing`
+ *   - REST: `/wp-json/wp/v2/seo_landing?slug=<slug>&lang=<locale>`
+ *   - ACF group: `seo_landing_fields`
+ *   - Multilingual: Polylang / WPML `lang` filter
+ */
+export interface SeoLandingFaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface SeoLandingRelatedLink {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+/**
+ * Optional flight-access block. Only attach when factually current.
+ * Both `sourceUrl` and `lastReviewedAt` are REQUIRED on every entry so
+ * editors can defend any claim and rotate stale data out.
+ */
+export interface SeoLandingFlightAccess {
+  airport: string;
+  routeText: string;
+  driveTimeText: string;
+  /** Source of truth (airline schedule, airport page, etc.). */
+  sourceUrl: string;
+  /** ISO date — last editorial review of this block. */
+  lastReviewedAt: string;
+}
+
+export type SeoLandingBodySection =
+  | { type: 'rich_text'; id: string; heading?: string; body: string }
+  | { type: 'cta_block'; id: string; label: string; href: string; variant?: 'primary' | 'secondary' | 'outline'; external?: boolean }
+  | { type: 'flight_access_block'; id: string; heading?: string; items: SeoLandingFlightAccess[] };
+
+export interface SeoLandingEntry extends CmsSeo {
+  id: string;
+  /** Bare slug — never locale-prefixed. */
+  slug: string;
+  locale: Language;
+  title: string;
+  intro?: string;
+  heroImage?: CmsImage;
+  /** Short factual summary rendered near the top (PageSummaryBlock). */
+  pageSummary?: string;
+  pageSummaryFacts?: { label: string; value: string }[];
+  bodySections?: SeoLandingBodySection[];
+  faq?: SeoLandingFaqItem[];
+  relatedLinks?: SeoLandingRelatedLink[];
+  /** Optional canonical override; defaults to /<locale>/<slug>. */
+  canonicalPath?: string;
+  lastReviewedAt?: string;
+}
+
+export interface SeoLandingQuery {
+  locale: Language;
+  slug: string;
+}
