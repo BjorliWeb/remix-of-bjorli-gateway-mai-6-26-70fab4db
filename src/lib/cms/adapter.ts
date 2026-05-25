@@ -14,6 +14,8 @@ import type {
   CmsPage,
   CmsSeoSettings,
   CmsTip,
+  SeoLandingEntry,
+  SeoLandingQuery,
 } from './types';
 
 /**
@@ -46,4 +48,12 @@ export interface CmsAdapter {
   getAlerts(query: CmsListQuery): Promise<CmsAlert[]>;
   getOpeningHours(query: { language: CmsListQuery['language'] }): Promise<CmsOpeningHours>;
   getSeoSettings(query: { language: CmsListQuery['language'] }): Promise<CmsSeoSettings>;
+
+  /**
+   * Fetch a single SEO landing page by bare slug + locale.
+   * URL composition (`/<locale>/<slug>`) is the caller's responsibility.
+   * Returns `null` when the entry is missing — caller decides whether to
+   * 404 or fall back to a sibling locale.
+   */
+  getSeoLanding(query: SeoLandingQuery): Promise<SeoLandingEntry | null>;
 }

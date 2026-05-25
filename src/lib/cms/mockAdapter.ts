@@ -13,6 +13,7 @@ import type {
   CmsPage,
   CmsTip,
   Language,
+  SeoLandingEntry,
 } from './types';
 
 import { dictionaries } from '@/i18n/translations';
@@ -159,6 +160,114 @@ const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWi
 const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
 
 const nowIso = () => new Date().toISOString();
+
+/* ------------------------------------------------------------------ */
+/* SEO landing fixtures (Build 1 — single test entry)                 */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Key format: `<locale>/<slug>` — the bare slug, never URL-prefixed.
+ * The frontend composes `/<locale>/<slug>` from these two fields.
+ */
+const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
+  'en/ski-holiday-norway': {
+    id: 'seo-landing-en-ski-holiday-norway',
+    locale: 'en',
+    slug: 'ski-holiday-norway',
+    title: 'Ski Holiday in Norway',
+    intro:
+      'Snow-secure slopes, real Norwegian mountains and a family-friendly base in Romsdalen — discover Bjorli.',
+    heroImage: img('heroWinter', 'Bjorli mountain panorama in winter'),
+    pageSummary:
+      'Bjorli is a snow-secure mountain destination in Lesja, between Dombås and Åndalsnes in Romsdalen. The high-altitude, inland location gives a long winter season with alpine and cross-country skiing, family-friendly slopes and easy access by road, train and air.',
+    pageSummaryFacts: [
+      { label: 'Region', value: 'Romsdalen, Innlandet, Norway' },
+      { label: 'Nearest airports', value: 'Molde, Ålesund, Oslo' },
+      { label: 'Train', value: 'Rauma Line via Dombås' },
+      { label: 'Best for', value: 'Family ski holidays, snow-sure conditions' },
+    ],
+    bodySections: [
+      {
+        id: 'why-bjorli',
+        type: 'rich_text',
+        heading: 'Why choose Bjorli for a ski holiday in Norway',
+        body:
+          'Bjorli sits high in the Romsdalen valley and is the gateway between eastern and north-western Norway. The altitude and inland climate make it one of Norway’s most snow-secure resorts, with a long winter season, real mountain terrain and a relaxed, family-friendly atmosphere — a short drive or train ride from Oslo and Trondheim, and close to the Rauma River, Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell.',
+      },
+      {
+        id: 'ski-center',
+        type: 'rich_text',
+        heading: 'Bjorli Skisenter',
+        body:
+          'Bjorli Skisenter is the heart of winter at Bjorli — alpine slopes for every level, modern lifts, snow cannons for early-season cover and wide-open views over the Romsdalen mountains. Live lift and slope status, snow depth and temperature are published from the resort throughout the season.',
+      },
+      {
+        id: 'cta-ski-resort',
+        type: 'cta_block',
+        label: 'Explore the ski resort',
+        href: '/en/bjorli-ski-resort',
+        variant: 'primary',
+      },
+      {
+        id: 'family',
+        type: 'rich_text',
+        heading: 'Family-friendly skiing',
+        body:
+          'Bjorli is built around families. The ski resort has gentle beginner slopes close to the base area, a ski school for first-timers and improvers, and ski rental on site so you can travel light. Most accommodation is within a short drive or shuttle of the lifts, making the day easy to manage with children.',
+      },
+      {
+        id: 'travel',
+        type: 'rich_text',
+        heading: 'Travel to Bjorli',
+        body:
+          'By car: take E6 north from Oslo to Dombås, then E136 west to Bjorli — around 4–5 hours. By train: the Rauma Line connects Dombås with Bjorli station, just a short walk from the village. The nearest airports are Molde, Ålesund and Oslo. For train and bus schedules and ticket booking, visit www.entur.no.',
+      },
+      {
+        id: 'beyond-alpine',
+        type: 'rich_text',
+        heading: 'More than alpine skiing',
+        body:
+          'Bjorli is also a cross-country destination, with groomed trails (langrennsløyper) connecting the village with the surrounding fells. Beyond skiing, you can sled, snowshoe, ski tour and enjoy local food and drink — and in summer, the same mountains turn into world-class hiking and cycling country.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Where is Bjorli located in Norway?',
+        a: 'Bjorli is a mountain village in Lesja, Innlandet county, between Dombås and Åndalsnes along the E136 highway and the Rauma Line. It sits on a high plateau, which is the main reason it has such a long, snow-secure winter season.',
+      },
+      {
+        q: 'When is the ski season at Bjorli?',
+        a: 'Bjorli is one of Norway’s most snow-secure resorts and typically opens earlier and closes later than lower-altitude resorts. For the latest live status, lift count and snow depth, check the live status on the homepage and the opening hours page.',
+      },
+      {
+        q: 'Is Bjorli good for a family ski holiday?',
+        a: 'Yes. Bjorli has dedicated beginner areas, a ski school, ski rental on site and a wide range of family-friendly accommodation, from cabins to apartments. The compact ski resort layout makes it easy to keep children close.',
+      },
+      {
+        q: 'How do you get to Bjorli from Oslo?',
+        a: 'By car, follow E6 north to Dombås and continue west on E136 — about a 4–5 hour drive. By train, take the Dovre Line to Dombås and change to the Rauma Line to Bjorli station, which is a short walk from the village. Check www.entur.no for train and bus schedules and ticket booking.',
+      },
+      {
+        q: 'What is there to do at Bjorli besides alpine skiing?',
+        a: 'Cross-country trails (langrenn), ski touring, snowshoeing, sledding, family activities and great food and drink. In summer, Bjorli is a base for hiking, cycling and trips to Trollstigen, Åndalsnes and the Romsdalsfjord.',
+      },
+    ],
+    relatedLinks: [
+      { label: 'Bjorli Skisenter', href: '/en/bjorli-ski-resort', description: 'Lifts, slopes and live status from the resort.' },
+      { label: 'Ski passes', href: '/en/ski-passes', description: 'Day passes, season passes and family deals.' },
+      { label: 'Opening hours', href: '/en/opening-hours', description: 'Current and seasonal opening times.' },
+      { label: 'Accommodation', href: '/en/accommodation', description: 'Cabins, apartments and hotels at Bjorli.' },
+      { label: 'Weather & webcams', href: '/en/weather-and-webcams', description: 'Live cameras, weather and snow conditions.' },
+      { label: 'Getting here', href: '/en/getting-here', description: 'By car, train and air to Bjorli.' },
+    ],
+    seoTitle: 'Ski Holiday in Norway | Discover Bjorli Skisenter',
+    seoDescription:
+      'Plan a ski holiday in Norway at Bjorli, a family-friendly mountain destination with alpine skiing, cross-country trails, snow-secure winter conditions, accommodation, webcams and easy access by road and train.',
+    availableTranslations: ['en'],
+    translatedBody: true,
+    lastReviewedAt: '2026-05-25',
+  },
+};
 
 const apply = <T>(items: T[], q: CmsListQuery): T[] => {
   let out = items;
@@ -840,5 +949,16 @@ export const mockAdapter: CmsAdapter = {
       sitemapUrl: '/sitemap.xml',
       llmsTxtBlocks: [],
     };
+  },
+
+  /* ------------------------------------------------------------------ */
+  /* SEO landing pages                                                  */
+  /*                                                                    */
+  /* Build 1 ships exactly ONE test entry: /en/ski-holiday-norway.      */
+  /* Additional locales/slugs return null until WordPress is connected  */
+  /* or new mock fallbacks are added.                                   */
+  /* ------------------------------------------------------------------ */
+  async getSeoLanding({ locale, slug }) {
+    return SEO_LANDING_FIXTURES[`${locale}/${slug}`] ?? null;
   },
 };
