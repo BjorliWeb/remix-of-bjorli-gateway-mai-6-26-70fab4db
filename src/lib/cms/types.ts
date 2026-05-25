@@ -553,8 +553,8 @@ export interface CmsItemQuery {
  *   - Multilingual: Polylang / WPML `lang` filter
  */
 export interface SeoLandingFaqItem {
-  question: string;
-  answer: string;
+  q: string;
+  a: string;
 }
 
 export interface SeoLandingRelatedLink {
