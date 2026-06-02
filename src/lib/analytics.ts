@@ -13,6 +13,9 @@
  * In Next.js production, replace the script-injection block with
  * `next/script` in `app/layout.tsx`. The `track()` API stays identical.
  */
+import { isProductionOrigin } from '@/lib/seo/origin';
+import { getAnalyticsContext } from '@/lib/analyticsContext';
+
 type EnvLike = { env?: Record<string, string | undefined> };
 const env = (import.meta as unknown as EnvLike).env ?? {};
 const GA4_ID = env.VITE_GA4_MEASUREMENT_ID;
@@ -39,7 +42,25 @@ let consentGranted = false;
  */
 export const setAnalyticsConsent = (granted: boolean): void => {
   consentGranted = granted;
-  if (granted) bootstrap();
+  if (granted) {
+    bootstrap();
+    // Consent Mode v2 — flip the relevant categories to "granted".
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('consent', 'update', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+    }
+  } else if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('consent', 'update', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+  }
 };
 
 const canFire = (): boolean => {
@@ -58,8 +79,23 @@ const hasCmpFlag = (): boolean =>
 
 const bootstrap = (): void => {
   if (bootstrapped || typeof window === 'undefined') return;
+  // Production guard — never inject GA4/GTM scripts on Lovable preview,
+  // staging, localhost, or any non-production origin, even if the env
+  // var has accidentally been set.
+  if (!isProductionOrigin(window.location.origin)) return;
   bootstrapped = true;
   window.dataLayer = window.dataLayer || [];
+  // Consent Mode v2 default-deny — MUST be pushed before gtag.js loads.
+  window.gtag = window.gtag || function gtag(...args: unknown[]) {
+    window.dataLayer!.push(args as unknown as Record<string, unknown>);
+  };
+  window.gtag('consent', 'default', {
+    ad_storage: 'denied',
+    analytics_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500,
+  });
 
   // GTM: tag manager loads GA4 itself; we only own dataLayer.
   if (GTM_ID) {
@@ -76,9 +112,6 @@ const bootstrap = (): void => {
     s.async = true;
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
     document.head.appendChild(s);
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer!.push(args as unknown as Record<string, unknown>);
-    };
     window.gtag('js', new Date());
     // anonymize_ip is enforced; SPA page_view is sent manually via trackPageView.
     window.gtag('config', GA4_ID, { send_page_view: false, anonymize_ip: true });
@@ -134,9 +167,13 @@ export const track = (event: AnalyticsEventName, params: BaseEventParams = {}): 
   if (!canFire()) return;
   bootstrap();
   if (typeof window === 'undefined') return;
+  // Auto-merge ambient context (language / season / page_path) so
+  // individual call sites stay terse. Explicit params win.
+  const ambient = getAnalyticsContext();
+  const merged: BaseEventParams = { ...ambient, ...params };
   // Strip undefined keys so GA4 reports stay clean.
   const clean: Record<string, unknown> = {};
-  Object.entries(params).forEach(([k, v]) => {
+  Object.entries(merged).forEach(([k, v]) => {
     if (v !== undefined && v !== null && v !== '') clean[k] = v;
   });
   window.dataLayer = window.dataLayer || [];
@@ -159,11 +196,14 @@ export const trackPageView = (params: {
   // accidental PII leakage from search params or tokens.
   const safePath = params.path.split('?')[0];
   const page_location = window.location.origin + safePath;
+  const ambient = getAnalyticsContext();
+  const season = ambient.season;
   if (GA4_ID && window.gtag) {
     window.gtag('event', 'page_view', {
       page_location,
       page_title: params.title,
       language: params.language,
+      season,
     });
   }
   window.dataLayer = window.dataLayer || [];
@@ -172,6 +212,7 @@ export const trackPageView = (params: {
     page_path: safePath,
     page_title: params.title,
     language: params.language,
+    season,
   });
 };
 
