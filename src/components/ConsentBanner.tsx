@@ -20,15 +20,15 @@ type Choice = 'accepted' | 'declined';
 const COPY: Record<string, { title: string; body: string; accept: string; decline: string }> = {
   no: {
     title: 'Vi bruker informasjonskapsler',
-    body: 'Vi bruker valgfrie informasjonskapsler for å forstå hvordan nettstedet brukes. Ingen data deles før du samtykker.',
-    accept: 'Godta',
-    decline: 'Avslå',
+    body: 'Vi bruker nødvendige informasjonskapsler for at nettsiden skal fungere. Analysecookies brukes bare hvis du godtar det.',
+    accept: 'Godta analyse',
+    decline: 'Avslå analyse',
   },
   en: {
     title: 'We use cookies',
-    body: 'We use optional cookies to understand how this site is used. Nothing is shared until you agree.',
-    accept: 'Accept',
-    decline: 'Decline',
+    body: 'We use necessary cookies to make the website work. Analytics cookies are used only if you accept them.',
+    accept: 'Accept analytics',
+    decline: 'Decline analytics',
   },
 };
 
@@ -80,22 +80,22 @@ const ConsentBanner = () => {
       role="dialog"
       aria-live="polite"
       aria-label={copy.title}
-      className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-xl rounded-2xl border border-border bg-card/95 backdrop-blur p-5 shadow-2xl"
+      className="fixed bottom-3 left-3 right-3 z-50 rounded-xl border border-border bg-card/95 backdrop-blur p-3 shadow-xl sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-sm sm:p-4"
     >
-      <div className="text-sm font-semibold text-foreground mb-1">{copy.title}</div>
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{copy.body}</p>
+      <div className="text-xs font-semibold text-foreground mb-1">{copy.title}</div>
+      <p className="text-xs text-muted-foreground leading-snug mb-3">{copy.body}</p>
       <div className="flex flex-wrap gap-2 justify-end">
         <button
           type="button"
           onClick={() => handle('declined')}
-          className="px-4 py-2 rounded-full text-sm border border-border hover:bg-muted transition-colors"
+          className="px-3 py-1.5 rounded-full text-xs border border-border hover:bg-muted transition-colors"
         >
           {copy.decline}
         </button>
         <button
           type="button"
           onClick={() => handle('accepted')}
-          className="px-4 py-2 rounded-full text-sm bg-season text-season-foreground hover:opacity-90 transition-opacity"
+          className="px-3 py-1.5 rounded-full text-xs bg-season text-season-foreground hover:opacity-90 transition-opacity"
         >
           {copy.accept}
         </button>
