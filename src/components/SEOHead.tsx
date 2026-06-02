@@ -254,30 +254,39 @@ const SEOHead = () => {
       document.head.appendChild(xd);
     }
 
-    // JSON-LD structured data
-    let script = document.getElementById('jsonld-org');
-    if (!script) {
-      script = document.createElement('script');
-      script.id = 'jsonld-org';
-      script.setAttribute('type', 'application/ld+json');
-      document.head.appendChild(script);
+    // JSON-LD: emit the destination-level TouristDestination ONLY on the
+    // homepage. Inner pages describe more specific entities (SkiResort,
+    // Article, Event, ...) and should not be tagged as the destination
+    // itself — that confused Google and AI crawlers about which page is
+    // about Bjorli the place vs. Bjorli Skisenter the operator.
+    const existingOrg = document.getElementById('jsonld-org');
+    if (canonicalPath === '/') {
+      const script = existingOrg ?? document.createElement('script');
+      if (!existingOrg) {
+        script.id = 'jsonld-org';
+        (script as HTMLScriptElement).setAttribute('type', 'application/ld+json');
+        document.head.appendChild(script);
+      }
+      script.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'TouristDestination',
+        name: 'Bjorli',
+        description: seo.description,
+        url: SITE_ORIGIN + (LOCALE_PREFIX[locale] || ''),
+        inLanguage: LOCALE_LABELS[locale].bcp47,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Bjorliveien 84',
+          addressLocality: 'Bjorli',
+          postalCode: '2669',
+          addressCountry: 'NO',
+        },
+        telephone: '+4748152200',
+        geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
+      });
+    } else if (existingOrg) {
+      existingOrg.remove();
     }
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'TouristDestination',
-      name: 'Bjorli',
-      description: seo.description,
-      url: SITE_ORIGIN + (LOCALE_PREFIX[locale] || ''),
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Bjorliveien 84',
-        addressLocality: 'Bjorli',
-        postalCode: '2669',
-        addressCountry: 'NO',
-      },
-      telephone: '+4748152200',
-      geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
-    });
 
     // Per-route JSON-LD (Article / NewsArticle / Event)
     let routeScript = document.getElementById('jsonld-route');
