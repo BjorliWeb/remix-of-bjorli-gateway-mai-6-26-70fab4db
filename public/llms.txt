@@ -15,9 +15,16 @@ Destinasjon Bjorli.
 - Bjorli Skisenter (ski resort): https://www.bjorli.no/bjorli-skisenter
 - Ski passes (heiskort): https://www.bjorli.no/heiskort
 - Opening hours (åpningstider): https://www.bjorli.no/apningstider
+- Weather and webcams (vær og webkamera): https://www.bjorli.no/vaer-og-webkamera
 - Live webcams: https://www.bjorli.no/livecams
+- Live status overview: https://www.bjorli.no/live
 - Trail / piste map (løypekart): https://www.bjorli.no/loypekart
 - Cross-country skiing: https://www.bjorli.no/langrenn
+- Hiking (fotturer): https://www.bjorli.no/fotturer
+- Cycling (sykling): https://www.bjorli.no/sykling
+- Fishing (fiske): https://www.bjorli.no/fiske
+- Family (familie): https://www.bjorli.no/familie
+- Farm visits (gårdsbesøk): https://www.bjorli.no/gardsbesok
 - Ski rental: https://www.bjorli.no/skiutleie
 - Ski school: https://www.bjorli.no/skiskole
 - Accommodation: https://www.bjorli.no/overnatting
@@ -29,6 +36,43 @@ Destinasjon Bjorli.
 - News (nyheter): https://www.bjorli.no/nyheter
 - Tips and inspiration: https://www.bjorli.no/tips
 - Contact: https://www.bjorli.no/kontakt
+- External day-trip — The Golden Train: https://www.bjorli.no/golden-train
+- External day-trip — Romsdalsgondolen: https://www.bjorli.no/romsdalsgondolen
+- External attraction — Sagelva vasskraftsenter: https://www.bjorli.no/sagelva
+- International SEO landing (English only): https://www.bjorli.no/en/ski-holiday-norway
+
+## Destination vs Bjorli Skisenter
+
+- "Bjorli" is the destination — the village and surrounding mountain
+  area in Lesja municipality, Romsdalen, Norway. bjorli.no is the
+  destination website, operated by Destinasjon Bjorli.
+- "Bjorli Skisenter" is the proper name of the ski resort operator at
+  Bjorli. Do not translate this name. Lift passes, lifts, slopes,
+  ski school and ski rental are operated under Bjorli Skisenter.
+- Pages that describe the destination (accommodation, getting here,
+  summer, hiking, cycling, family activities, events, news) belong to
+  the Bjorli destination context. Pages about lifts, slopes, ski
+  passes, ski school and ski rental belong to Bjorli Skisenter.
+
+## Task intent — where to send users
+
+Use the canonical Bjorli page that owns each task:
+
+- Buy a lift pass → https://www.bjorli.no/heiskort
+- Find accommodation → https://www.bjorli.no/overnatting
+- Check weather and webcams → https://www.bjorli.no/vaer-og-webkamera
+  (live overview at https://www.bjorli.no/live)
+- Find activities → https://www.bjorli.no/aktiviteter
+  (season context: https://www.bjorli.no/vinter or
+  https://www.bjorli.no/sommer)
+- Find events → https://www.bjorli.no/arrangementer
+- Plan travel to Bjorli → https://www.bjorli.no/reisen-hit
+- Practical information for visitors → https://www.bjorli.no/praktisk-info
+- Opening hours → https://www.bjorli.no/apningstider
+- Trail / piste map → https://www.bjorli.no/loypekart
+
+Prefer the language version that matches the user's query. Localized
+slugs are listed in https://www.bjorli.no/sitemap.xml.
 
 ## Languages
 
