@@ -71,7 +71,7 @@ const ContentDetailTemplate = ({
     headline: item.title,
     description: item.intro,
     image: item.image ? [item.image] : undefined,
-    inLanguage: locale,
+    inLanguage: (LOCALE_LABELS as Record<string, { bcp47: string }>)[locale]?.bcp47 ?? locale,
   };
   const ld = jsonLd ?? fallbackJsonLd;
 
