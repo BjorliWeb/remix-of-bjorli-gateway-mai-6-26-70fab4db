@@ -2,7 +2,10 @@ import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ConsentBanner from './ConsentBanner';
 import { isSummerRoute } from '@/lib/season';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { setAnalyticsContext } from '@/lib/analyticsContext';
 
 /**
  * App layout. Sets `data-season` on the <html> element so the seasonal
@@ -11,12 +14,19 @@ import { isSummerRoute } from '@/lib/season';
  */
 const Layout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation();
+  const { locale } = useLanguage();
   const season = isSummerRoute(pathname) ? 'summer' : 'winter';
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
     document.documentElement.dataset.season = season;
   }, [season]);
+
+  // Keep ambient analytics context fresh so trackPageView / track() can
+  // stamp every event with language + season + page_path automatically.
+  useEffect(() => {
+    setAnalyticsContext({ language: locale, season, page_path: pathname });
+  }, [locale, season, pathname]);
 
   return (
     <div
@@ -31,6 +41,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <main className="flex-1 pt-16 lg:pt-24">{children}</main>
         <Footer />
       </div>
+      <ConsentBanner />
     </div>
   );
 };

@@ -37,11 +37,47 @@ traffic:
 
 ### Consent
 
-`analytics.ts` ships with a `setAnalyticsConsent(granted)` gate. No CMP
-is wired in this prototype, so events fire as soon as the ID is set. For
-EU/EEA traffic at launch, wire a Consent Management Platform (Cookiebot,
-Klaro, OneTrust, or Google Consent Mode v2) before calling
-`setAnalyticsConsent(true)`.
+`src/lib/analytics.ts` implements **Google Consent Mode v2** with
+default-deny. Before `gtag.js` loads, the helper pushes:
+
+```js
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  analytics_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  wait_for_update: 500,
+});
+```
+
+The in-house `ConsentBanner` (`src/components/ConsentBanner.tsx`) shows
+on first visit, persists the choice in `localStorage` under
+`bjorli_consent_v1`, and on Accept calls `setAnalyticsConsent(true)`
+which flips `analytics_storage` to `granted`. The footer "Cookies" link
+re-opens the banner.
+
+### Production-only enablement
+
+Even if `VITE_GA4_MEASUREMENT_ID` is accidentally set on a non-production
+origin, `bootstrap()` short-circuits via `isProductionOrigin()` — no
+gtag/GTM script is injected on Lovable preview, staging, or localhost.
+Production origins are listed in `src/lib/seo/origin.ts`.
+
+### Phase 1 tracking scope
+
+- `page_view` on every SPA route change, stamped with `language`,
+  `season` and `page_path` via `src/lib/analyticsContext.ts`.
+- Pre-existing CTA `track()` calls in `Navbar`, `HomepageSections`,
+  `LiveStatusCards`, `Livecams`, `GettingHere`, `SkiHolidayNorway`
+  auto-merge ambient context.
+
+### Next phase (not yet implemented)
+
+- Document-level outbound link auto-listener (`click_external_link`).
+- Per-page CTA coverage for remaining static pages.
+- `click_phone`, `click_email`, `season_switch`, `view_*` events.
+- Localized banner copy for DE, NL, DA, SV (currently NO + EN; other
+  locales fall back to EN).
 
 ## 2. Google Search Console
 

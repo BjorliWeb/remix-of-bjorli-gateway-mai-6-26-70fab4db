@@ -173,6 +173,12 @@ const Footer = () => {
                 href="https://bjorli.no/cookies/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => {
+                  // Reopen the in-house consent banner instead of leaving
+                  // the page. Keeps layout/styling untouched.
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent('bjorli:open-consent'));
+                }}
                 className="hover:text-season transition-colors"
               >
                 {d.footer.cookies}
