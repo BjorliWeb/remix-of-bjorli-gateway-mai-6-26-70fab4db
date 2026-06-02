@@ -10,6 +10,7 @@ import TranslationPendingNotice from '@/components/TranslationPendingNotice';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { LOCALE_LABELS } from '@/i18n/locales/types';
 import type { ListingItem } from '@/components/ListingPage';
 
 export type DetailKind = 'news' | 'event' | 'tip' | 'activity';
