@@ -15,6 +15,11 @@ import {
 } from './index';
 import type { CmsEntryBase, CmsEvent, Language } from './types';
 import { getSubPage, isSubPageSlug } from './subpages';
+import { LOCALE_LABELS, type Locale } from '@/i18n/locales/types';
+
+/** Map an internal language code to a BCP-47 tag for JSON-LD `inLanguage`. */
+const toBcp47 = (language: Language): string =>
+  LOCALE_LABELS[language as Locale]?.bcp47 ?? language;
 
 export interface ResolvedSeo {
   title?: string;
@@ -52,7 +57,7 @@ const buildJsonLd = (
     headline: entry.title,
     name: entry.title,
     description: entry.seoDescription ?? entry.intro ?? '',
-    inLanguage: entry.language,
+    inLanguage: toBcp47(entry.language),
     url,
     datePublished: entry.publishedAt,
     dateModified: entry.updatedAt ?? entry.publishedAt,
@@ -107,7 +112,7 @@ export async function resolveSeoForRoute(
           name: sp.title,
           headline: sp.title,
           description: sp.seoDescription,
-          inLanguage: language,
+          inLanguage: toBcp47(language),
           url: absoluteUrl,
           image: [sp.heroImage.url],
         },

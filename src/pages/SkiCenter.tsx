@@ -3,6 +3,8 @@ import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
 import { Mountain, ArrowUpRight, Snowflake } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { JsonLd } from '@/components/seo';
+import { buildSkiResort } from '@/lib/seo/schema';
 
 const SkiCenter = () => {
   const { t } = useLanguage();
@@ -15,8 +17,17 @@ const SkiCenter = () => {
     { label: s.season, value: 'Nov–Mai' },
   ];
 
+  // Canonical URL for this page in the current locale (falls back to
+  // production origin during SSR). The schema name is intentionally the
+  // proper Norwegian brand "Bjorli Skisenter" in every locale.
+  const pageUrl =
+    typeof window !== 'undefined'
+      ? window.location.origin + window.location.pathname
+      : 'https://www.bjorli.no/bjorli-skisenter';
+
   return (
     <div>
+      <JsonLd id="jsonld-skiresort" data={buildSkiResort(pageUrl, s.desc)} />
       <PageHero title={s.title} subtitle={s.subtitle} image={heroImage} />
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">

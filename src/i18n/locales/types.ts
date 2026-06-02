@@ -7,17 +7,19 @@ export const LOCALES: Locale[] = ['no', 'en', 'de', 'nl', 'da', 'sv'];
  * - `htmlLang` is used for the <html lang> attribute (BCP 47 short form).
  * - `ogLocale` is the Facebook OpenGraph locale code (xx_YY) used for og:locale
  *   and og:locale:alternate. Norwegian Bokmål is `nb_NO`.
+ * - `bcp47` is the full BCP-47 language tag used in JSON-LD `inLanguage`
+ *   (Norwegian Bokmål is `nb-NO`).
  */
 export const LOCALE_LABELS: Record<
   Locale,
-  { name: string; flag: string; short: string; htmlLang: string; ogLocale: string }
+  { name: string; flag: string; short: string; htmlLang: string; ogLocale: string; bcp47: string }
 > = {
-  no: { name: 'Norsk',      flag: '🇳🇴', short: 'NO', htmlLang: 'no', ogLocale: 'nb_NO' },
-  en: { name: 'English',    flag: '🇬🇧', short: 'EN', htmlLang: 'en', ogLocale: 'en_GB' },
-  de: { name: 'Deutsch',    flag: '🇩🇪', short: 'DE', htmlLang: 'de', ogLocale: 'de_DE' },
-  nl: { name: 'Nederlands', flag: '🇳🇱', short: 'NL', htmlLang: 'nl', ogLocale: 'nl_NL' },
-  da: { name: 'Dansk',      flag: '🇩🇰', short: 'DA', htmlLang: 'da', ogLocale: 'da_DK' },
-  sv: { name: 'Svenska',    flag: '🇸🇪', short: 'SV', htmlLang: 'sv', ogLocale: 'sv_SE' },
+  no: { name: 'Norsk',      flag: '🇳🇴', short: 'NO', htmlLang: 'no', ogLocale: 'nb_NO', bcp47: 'nb-NO' },
+  en: { name: 'English',    flag: '🇬🇧', short: 'EN', htmlLang: 'en', ogLocale: 'en_GB', bcp47: 'en-GB' },
+  de: { name: 'Deutsch',    flag: '🇩🇪', short: 'DE', htmlLang: 'de', ogLocale: 'de_DE', bcp47: 'de-DE' },
+  nl: { name: 'Nederlands', flag: '🇳🇱', short: 'NL', htmlLang: 'nl', ogLocale: 'nl_NL', bcp47: 'nl-NL' },
+  da: { name: 'Dansk',      flag: '🇩🇰', short: 'DA', htmlLang: 'da', ogLocale: 'da_DK', bcp47: 'da-DK' },
+  sv: { name: 'Svenska',    flag: '🇸🇪', short: 'SV', htmlLang: 'sv', ogLocale: 'sv_SE', bcp47: 'sv-SE' },
 };
 
 /** Locale -> URL prefix. Norwegian is at the root (no prefix). */
