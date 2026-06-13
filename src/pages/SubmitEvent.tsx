@@ -226,6 +226,17 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     e.preventDefault();
     setErrors({});
 
+    // Honeypot — silently succeed if tripped.
+    if (hp.trim() !== '') {
+      setDone(true);
+      return;
+    }
+    // Minimum render-to-submit time (humans rarely submit < 2s).
+    if (Date.now() - mountedAt.current < 2000) {
+      toast({ title: c.errors.generic, variant: 'destructive' });
+      return;
+    }
+
     if (!consentRights || !consentEditing) {
       toast({ title: c.errors.consent, variant: 'destructive' });
       return;
@@ -239,6 +250,21 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       });
       setErrors(map);
       return;
+    }
+
+    // Duplicate submission guard (same title+email within 10 min).
+    try {
+      const fingerprint = `${parsed.data.email}|${parsed.data.title}`.slice(0, 500);
+      const raw = window.localStorage.getItem(DEDUPE_KEY);
+      if (raw) {
+        const last = JSON.parse(raw) as { fp: string; ts: number };
+        if (last.fp === fingerprint && Date.now() - last.ts < DEDUPE_WINDOW_MS) {
+          setDone(true);
+          return;
+        }
+      }
+    } catch {
+      /* ignore */
     }
 
     setLoading(true);
