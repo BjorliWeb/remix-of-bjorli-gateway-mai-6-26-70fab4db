@@ -130,6 +130,9 @@ const COPY = {
 
 const MAX_IMAGES = 5;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_FILE_BYTES = 8 * 1024 * 1024; // 8 MB per file (matches intended bucket limit)
+const DEDUPE_KEY = 'bjorli_event_last_v1';
+const DEDUPE_WINDOW_MS = 10 * 60 * 1000;
 
 const schema = z.object({
   title: z.string().trim().min(3).max(160),
@@ -182,6 +185,12 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  // Bot/abuse protection: honeypot + minimum render-to-submit time.
+  const [hp, setHp] = useState('');
+  const mountedAt = useRef<number>(Date.now());
+  useEffect(() => {
+    mountedAt.current = Date.now();
+  }, []);
 
   const update = (k: keyof typeof form, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
@@ -190,6 +199,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     const valid: File[] = [];
     for (const f of incoming) {
       if (!ALLOWED_TYPES.includes(f.type)) {
+        toast({ title: c.errors.badImage, variant: 'destructive' });
+        continue;
+      }
+      if (f.size > MAX_FILE_BYTES) {
         toast({ title: c.errors.badImage, variant: 'destructive' });
         continue;
       }
