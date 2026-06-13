@@ -398,6 +398,28 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
           </motion.ul>
 
           <form onSubmit={handleSubmit} className="space-y-12">
+            {/* Honeypot — hidden from users; bots tend to fill it. */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-10000px',
+                top: 'auto',
+                width: 1,
+                height: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <label htmlFor="event_company_url">Company URL</label>
+              <input
+                id="event_company_url"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={hp}
+                onChange={(e) => setHp(e.target.value)}
+              />
+            </div>
             {/* Section 1 */}
             <SectionHeader title={c.s1} />
             <div className="grid gap-5">
