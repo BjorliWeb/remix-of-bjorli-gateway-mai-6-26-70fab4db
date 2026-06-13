@@ -230,21 +230,13 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
 
     setLoading(true);
     try {
-      // Upload images
-      const uploadedPaths: string[] = [];
-      for (const file of images) {
+      // 1. Insert the submission row FIRST so storage uploads can be tied to a fresh row.
+      const uploadToken = crypto.randomUUID();
+      const plannedPaths = images.map((file) => {
         const ext = file.name.split('.').pop() || 'jpg';
-        const path = `uploads/${crypto.randomUUID()}.${ext}`;
-        const { error: upErr } = await supabase.storage
-          .from('event-submissions')
-          .upload(path, file, { contentType: file.type });
-        if (upErr) {
-          throw new Error(c.errors.uploadFailed);
-        }
-        uploadedPaths.push(path);
-      }
-
-      const { error } = await supabase.from('event_submissions').insert({
+        return `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
+      });
+      const { error: insertErr } = await supabase.from('event_submissions').insert({
         title: parsed.data.title,
         summary: parsed.data.summary || null,
         description: parsed.data.description,
@@ -259,14 +251,28 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
         location: parsed.data.location,
         maps_url: parsed.data.maps || null,
         category: parsed.data.category,
-        image_urls: uploadedPaths,
+        image_urls: plannedPaths,
+        upload_token: uploadToken,
         language: lang,
         consent_rights: consentRights,
         consent_editing: consentEditing,
         status: 'pending',
       });
 
-      if (error) throw error;
+      if (insertErr) throw insertErr;
+
+      // 2. Upload images into the token-scoped folder. The storage RLS policy
+      // requires a fresh matching event_submissions row to exist.
+      for (let i = 0; i < images.length; i++) {
+        const file = images[i];
+        const path = plannedPaths[i];
+        const { error: upErr } = await supabase.storage
+          .from('event-submissions')
+          .upload(path, file, { contentType: file.type });
+        if (upErr) {
+          throw new Error(c.errors.uploadFailed);
+        }
+      }
 
       // Fire-and-forget notification — must not block UX
       supabase.functions

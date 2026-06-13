@@ -125,6 +125,7 @@ export type Database = {
           time_text: string | null
           title: string
           updated_at: string
+          upload_token: string
           website: string | null
         }
         Insert: {
@@ -162,6 +163,7 @@ export type Database = {
           time_text?: string | null
           title: string
           updated_at?: string
+          upload_token?: string
           website?: string | null
         }
         Update: {
@@ -199,6 +201,7 @@ export type Database = {
           time_text?: string | null
           title?: string
           updated_at?: string
+          upload_token?: string
           website?: string | null
         }
         Relationships: []
