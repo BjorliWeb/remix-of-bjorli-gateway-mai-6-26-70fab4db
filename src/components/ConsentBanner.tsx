@@ -31,8 +31,8 @@ const COPY: Record<
   },
   en: {
     title: 'We use cookies',
-    body: 'We use necessary cookies to make the website work. Analytics cookies are used only if you accept them.',
-    later: 'You can change your choice at any time via "Cookies" in the footer.',
+    body: 'We use cookies to improve the website and understand how it is used. Analytics tools are only activated if you consent.',
+    later: 'You can change your choice at any time via "Cookies" in the footer. Read more in ',
     privacy: 'Privacy',
     accept: 'Accept analytics',
     decline: 'Decline analytics',
