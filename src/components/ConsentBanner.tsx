@@ -23,8 +23,8 @@ const COPY: Record<
 > = {
   no: {
     title: 'Vi bruker informasjonskapsler',
-    body: 'Vi bruker nødvendige informasjonskapsler for at nettsiden skal fungere. Analysecookies brukes bare hvis du godtar det.',
-    later: 'Du kan endre valget når som helst via «Cookies» i bunnmenyen.',
+    body: 'Vi bruker informasjonskapsler for å forbedre nettstedet og forstå hvordan det brukes. Analyseverktøy aktiveres bare dersom du samtykker.',
+    later: 'Du kan endre valget når som helst via «Cookies» i bunnmenyen. Les mer i ',
     privacy: 'Personvern',
     accept: 'Godta analyse',
     decline: 'Avslå analyse',
