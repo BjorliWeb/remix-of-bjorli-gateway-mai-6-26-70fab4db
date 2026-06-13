@@ -13,21 +13,50 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Hard admin-role gate: signed in is NOT enough — must have admin role.
+  const ensureAdminOrSignOut = async (userId: string): Promise<boolean> => {
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .eq('role', 'admin')
+      .limit(1);
+    if (error || !data || data.length === 0) {
+      await supabase.auth.signOut();
+      toast({
+        title: 'Ingen tilgang',
+        description: 'Kontoen din har ikke redaktørtilgang.',
+        variant: 'destructive',
+      });
+      return false;
+    }
+    return true;
+  };
+
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate('/admin/innsendinger', { replace: true });
-    });
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return;
+      const ok = await ensureAdminOrSignOut(data.session.user.id);
+      if (ok) navigate('/admin/innsendinger', { replace: true });
+    })();
   }, [navigate]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
       toast({ title: 'Innlogging feilet', description: error.message, variant: 'destructive' });
       return;
     }
+    if (!data.user) {
+      toast({ title: 'Innlogging feilet', variant: 'destructive' });
+      return;
+    }
+    const ok = await ensureAdminOrSignOut(data.user.id);
+    if (!ok) return;
     navigate('/admin/innsendinger', { replace: true });
   };
 
