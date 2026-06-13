@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
 import { Upload, X, Calendar, MapPin, Tag, ImagePlus, CheckCircle2 } from 'lucide-react';
