@@ -327,6 +327,17 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
           /* notification is best-effort */
         });
 
+      try {
+        window.localStorage.setItem(
+          DEDUPE_KEY,
+          JSON.stringify({
+            fp: `${parsed.data.email}|${parsed.data.title}`.slice(0, 500),
+            ts: Date.now(),
+          }),
+        );
+      } catch {
+        /* ignore */
+      }
       setDone(true);
     } catch (err) {
       const msg = err instanceof Error ? err.message : c.errors.generic;
