@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
 import { Upload, X, Calendar, MapPin, Tag, ImagePlus, CheckCircle2 } from 'lucide-react';
@@ -130,6 +130,9 @@ const COPY = {
 
 const MAX_IMAGES = 5;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_FILE_BYTES = 8 * 1024 * 1024; // 8 MB per file (matches intended bucket limit)
+const DEDUPE_KEY = 'bjorli_event_last_v1';
+const DEDUPE_WINDOW_MS = 10 * 60 * 1000;
 
 const schema = z.object({
   title: z.string().trim().min(3).max(160),
@@ -182,6 +185,12 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  // Bot/abuse protection: honeypot + minimum render-to-submit time.
+  const [hp, setHp] = useState('');
+  const mountedAt = useRef<number>(Date.now());
+  useEffect(() => {
+    mountedAt.current = Date.now();
+  }, []);
 
   const update = (k: keyof typeof form, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
@@ -190,6 +199,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     const valid: File[] = [];
     for (const f of incoming) {
       if (!ALLOWED_TYPES.includes(f.type)) {
+        toast({ title: c.errors.badImage, variant: 'destructive' });
+        continue;
+      }
+      if (f.size > MAX_FILE_BYTES) {
         toast({ title: c.errors.badImage, variant: 'destructive' });
         continue;
       }
@@ -213,6 +226,17 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     e.preventDefault();
     setErrors({});
 
+    // Honeypot — silently succeed if tripped.
+    if (hp.trim() !== '') {
+      setDone(true);
+      return;
+    }
+    // Minimum render-to-submit time (humans rarely submit < 2s).
+    if (Date.now() - mountedAt.current < 2000) {
+      toast({ title: c.errors.generic, variant: 'destructive' });
+      return;
+    }
+
     if (!consentRights || !consentEditing) {
       toast({ title: c.errors.consent, variant: 'destructive' });
       return;
@@ -226,6 +250,21 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       });
       setErrors(map);
       return;
+    }
+
+    // Duplicate submission guard (same title+email within 10 min).
+    try {
+      const fingerprint = `${parsed.data.email}|${parsed.data.title}`.slice(0, 500);
+      const raw = window.localStorage.getItem(DEDUPE_KEY);
+      if (raw) {
+        const last = JSON.parse(raw) as { fp: string; ts: number };
+        if (last.fp === fingerprint && Date.now() - last.ts < DEDUPE_WINDOW_MS) {
+          setDone(true);
+          return;
+        }
+      }
+    } catch {
+      /* ignore */
     }
 
     setLoading(true);
@@ -288,6 +327,17 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
           /* notification is best-effort */
         });
 
+      try {
+        window.localStorage.setItem(
+          DEDUPE_KEY,
+          JSON.stringify({
+            fp: `${parsed.data.email}|${parsed.data.title}`.slice(0, 500),
+            ts: Date.now(),
+          }),
+        );
+      } catch {
+        /* ignore */
+      }
       setDone(true);
     } catch (err) {
       const msg = err instanceof Error ? err.message : c.errors.generic;
@@ -348,6 +398,28 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
           </motion.ul>
 
           <form onSubmit={handleSubmit} className="space-y-12">
+            {/* Honeypot — hidden from users; bots tend to fill it. */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-10000px',
+                top: 'auto',
+                width: 1,
+                height: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <label htmlFor="event_company_url">Company URL</label>
+              <input
+                id="event_company_url"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={hp}
+                onChange={(e) => setHp(e.target.value)}
+              />
+            </div>
             {/* Section 1 */}
             <SectionHeader title={c.s1} />
             <div className="grid gap-5">

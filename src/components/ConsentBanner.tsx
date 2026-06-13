@@ -17,20 +17,29 @@ const STORAGE_KEY = 'bjorli_consent_v1';
 
 type Choice = 'accepted' | 'declined';
 
-const COPY: Record<string, { title: string; body: string; accept: string; decline: string }> = {
+const COPY: Record<
+  string,
+  { title: string; body: string; later: string; privacy: string; accept: string; decline: string }
+> = {
   no: {
     title: 'Vi bruker informasjonskapsler',
     body: 'Vi bruker nødvendige informasjonskapsler for at nettsiden skal fungere. Analysecookies brukes bare hvis du godtar det.',
+    later: 'Du kan endre valget når som helst via «Cookies» i bunnmenyen.',
+    privacy: 'Personvern',
     accept: 'Godta analyse',
     decline: 'Avslå analyse',
   },
   en: {
     title: 'We use cookies',
     body: 'We use necessary cookies to make the website work. Analytics cookies are used only if you accept them.',
+    later: 'You can change your choice at any time via "Cookies" in the footer.',
+    privacy: 'Privacy',
     accept: 'Accept analytics',
     decline: 'Decline analytics',
   },
 };
+
+const PRIVACY_URL = 'https://bjorli.no/personvern/';
 
 const readChoice = (): Choice | null => {
   if (typeof window === 'undefined') return null;
@@ -83,7 +92,19 @@ const ConsentBanner = () => {
       className="fixed bottom-3 left-3 right-3 z-50 rounded-xl border border-border bg-card/95 backdrop-blur p-3 shadow-xl sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-sm sm:p-4"
     >
       <div className="text-xs font-semibold text-foreground mb-1">{copy.title}</div>
-      <p className="text-xs text-muted-foreground leading-snug mb-3">{copy.body}</p>
+      <p className="text-xs text-muted-foreground leading-snug mb-1">{copy.body}</p>
+      <p className="text-[11px] text-muted-foreground leading-snug mb-3">
+        {copy.later}{' '}
+        <a
+          href={PRIVACY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-foreground"
+        >
+          {copy.privacy}
+        </a>
+        .
+      </p>
       <div className="flex flex-wrap gap-2 justify-end">
         <button
           type="button"
