@@ -232,6 +232,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     try {
       // 1. Insert the submission row FIRST so storage uploads can be tied to a fresh row.
       const uploadToken = crypto.randomUUID();
+      const plannedPaths = images.map((file) => {
+        const ext = file.name.split('.').pop() || 'jpg';
+        return `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
+      });
       const { error: insertErr } = await supabase.from('event_submissions').insert({
         title: parsed.data.title,
         summary: parsed.data.summary || null,
@@ -247,10 +251,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
         location: parsed.data.location,
         maps_url: parsed.data.maps || null,
         category: parsed.data.category,
-        image_urls: images.map((file) => {
-          const ext = file.name.split('.').pop() || 'jpg';
-          return `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
-        }),
+        image_urls: plannedPaths,
         upload_token: uploadToken,
         language: lang,
         consent_rights: consentRights,
@@ -264,15 +265,11 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       // requires a fresh matching event_submissions row to exist.
       for (let i = 0; i < images.length; i++) {
         const file = images[i];
-        const ext = file.name.split('.').pop() || 'jpg';
-        // Deterministic-ish: a new uuid per file, but always under uploads/<token>/
-        const path = `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
+        const path = plannedPaths[i];
         const { error: upErr } = await supabase.storage
           .from('event-submissions')
           .upload(path, file, { contentType: file.type });
         if (upErr) {
-          // Best-effort: row is already submitted; admin will see missing images.
-          // Surface the error so the user knows uploads failed.
           throw new Error(c.errors.uploadFailed);
         }
       }
