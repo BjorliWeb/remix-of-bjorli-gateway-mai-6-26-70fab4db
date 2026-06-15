@@ -1,5 +1,8 @@
 # Conversion-clarity pass — change plan
 
+**Status:** Ready for Cloudflare Pages staging deploy. Copy/CTA pass completed; no pending source changes. Last updated: 2026-06-15.
+
+
 Scope: copy + CTA hierarchy only. No redesign, no new routes, no fake proof, no klatrepark. NO is primary; EN/DA/NL/DE/SV updated where the same string lives.
 
 ## Pages & risk
