@@ -1,5 +1,22 @@
 # Conversion-clarity pass — change plan
 
+**Status:** Ready for Cloudflare Pages staging deploy. Copy/CTA pass completed; no pending source changes. Last updated: 2026-06-15.
+
+## Completed milestones
+- **Cloudflare Pages readiness** — SPA fallback (`public/_redirects`), `.nvmrc`, `.gitignore`, `DEPLOYMENT.md`, build scripts verified.
+- **GitHub sync safety** — working tree clean, `.env` untracked, required files present. Exact GitHub repo name must be verified in Lovable UI (sandbox remotes point to internal Lovable storage).
+- **Norwegian accommodation page (`/overnatting`)** — updated copy, provider sections, and external booking link; TypeScript check passed.
+- **Package lock integrity** — `package-lock.json` regenerated and present.
+
+## Remaining before first *.pages.dev deploy
+- Verify GitHub sync target in Lovable UI (expected: `remix-of-bjorli-gateway-mai-6-26-70fab4db`).
+- Configure Cloudflare Pages build settings per `DEPLOYMENT.md`.
+- Deploy to staging `*.pages.dev` and verify SPA routing.
+
+## Out of scope (preserved)
+Design, layout, routes, images, SEO metadata, schema, analytics, CMS logic, Supabase schema/RLS, domain settings, live bjorli.no, old WordPress site.
+
+
 Scope: copy + CTA hierarchy only. No redesign, no new routes, no fake proof, no klatrepark. NO is primary; EN/DA/NL/DE/SV updated where the same string lives.
 
 ## Pages & risk
