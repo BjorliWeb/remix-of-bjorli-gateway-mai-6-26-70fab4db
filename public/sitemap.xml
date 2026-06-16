@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.bjorli.no/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -16,7 +16,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -29,7 +29,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -55,7 +55,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/"/>
@@ -81,7 +81,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/vinter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/winter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -107,7 +107,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/winter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -120,7 +120,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/winter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -133,7 +133,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/vinter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -146,7 +146,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/vinter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vinter"/>
@@ -159,7 +159,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sommer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -172,7 +172,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/summer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -185,7 +185,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/sommer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -198,7 +198,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/zomer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -211,7 +211,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/sommer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -224,7 +224,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/sommar</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sommer"/>
@@ -237,7 +237,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/bjorli-skisenter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -250,7 +250,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/bjorli-ski-resort</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -263,7 +263,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/bjorli-skigebiet</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -276,7 +276,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/bjorli-skigebied</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -289,7 +289,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/bjorli-skisenter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -302,7 +302,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/bjorli-skidcenter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/bjorli-skisenter"/>
@@ -315,7 +315,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/heiskort</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -328,7 +328,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/ski-passes</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -341,7 +341,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/skipass</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -354,7 +354,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/skipassen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -367,7 +367,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/liftkort</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -380,7 +380,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/liftkort</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/heiskort"/>
@@ -393,7 +393,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/apningstider</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -406,7 +406,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/opening-hours</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -419,7 +419,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/oeffnungszeiten</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -432,7 +432,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/openingstijden</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -445,7 +445,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/aabningstider</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -458,7 +458,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/oppettider</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/apningstider"/>
@@ -471,7 +471,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/overnatting</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -484,7 +484,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/accommodation</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -497,7 +497,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/unterkunft</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -510,7 +510,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/accommodatie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -523,7 +523,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/overnatning</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -536,7 +536,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/boende</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/overnatting"/>
@@ -549,7 +549,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/aktiviteter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -562,7 +562,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/activities</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -575,7 +575,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/aktivitaeten</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -588,7 +588,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/activiteiten</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -601,7 +601,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/aktiviteter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -614,7 +614,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/aktiviteter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/aktiviteter"/>
@@ -627,7 +627,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/arrangementer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -640,7 +640,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/events</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -653,7 +653,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/veranstaltungen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -666,7 +666,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/evenementen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -679,7 +679,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/arrangementer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -692,7 +692,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/evenemang</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/arrangementer"/>
@@ -705,7 +705,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/tips</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -718,7 +718,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/tips</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -731,7 +731,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/tipps</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -744,7 +744,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/tips</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -757,7 +757,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/tips</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -770,7 +770,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/tips</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/tips"/>
@@ -783,7 +783,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/reisen-hit</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -796,7 +796,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/getting-here</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -809,7 +809,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/anreise</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -822,7 +822,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/reizen-naar-bjorli</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -835,7 +835,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/rejsen-hertil</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -848,7 +848,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/resa-hit</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/reisen-hit"/>
@@ -861,7 +861,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/praktisk-info</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -874,7 +874,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/practical-information</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -887,7 +887,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/praktische-informationen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -900,7 +900,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/praktische-informatie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -913,7 +913,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/praktisk-info</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -926,7 +926,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/praktisk-information</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/praktisk-info"/>
@@ -939,7 +939,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/kontakt</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -952,7 +952,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/contact</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -965,7 +965,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/kontakt</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -978,7 +978,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/contact</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -991,7 +991,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/kontakt</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -1004,7 +1004,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/kontakt</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/kontakt"/>
@@ -1017,7 +1017,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nyheter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1030,7 +1030,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/news</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1043,7 +1043,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/neuigkeiten</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1056,7 +1056,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/nieuws</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1069,7 +1069,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/nyheder</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1082,7 +1082,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/nyheter</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/nyheter"/>
@@ -1095,7 +1095,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/skiskole</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1108,7 +1108,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/ski-school</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1121,7 +1121,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/skischule</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1134,7 +1134,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/skischool</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1147,7 +1147,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/skiskole</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1160,7 +1160,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/skidskola</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiskole"/>
@@ -1173,7 +1173,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/skiutleie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1186,7 +1186,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/ski-rental</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1199,7 +1199,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/skiverleih</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1212,7 +1212,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/skiverhuur</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1225,7 +1225,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/skiudlejning</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1238,7 +1238,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/skiduthyrning</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/skiutleie"/>
@@ -1251,7 +1251,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/mat-og-drikke</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1264,7 +1264,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/food-and-drink</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1277,7 +1277,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/essen-und-trinken</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1290,7 +1290,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/eten-en-drinken</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1303,7 +1303,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/mad-og-drikke</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1316,7 +1316,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/mat-och-dryck</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/mat-og-drikke"/>
@@ -1329,7 +1329,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/langrenn</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1342,7 +1342,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/cross-country-skiing</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1355,7 +1355,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/langlauf</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1368,7 +1368,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/langlaufen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1381,7 +1381,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/langrend</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1394,7 +1394,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/langdakning</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/langrenn"/>
@@ -1407,7 +1407,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/fotturer</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1420,7 +1420,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/hiking</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1433,7 +1433,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/wandern</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1446,7 +1446,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/wandelen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1459,7 +1459,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/vandring</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1472,7 +1472,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/vandring</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fotturer"/>
@@ -1485,7 +1485,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sykling</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1498,7 +1498,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/cycling</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1511,7 +1511,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/radfahren</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1524,7 +1524,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/fietsen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1537,7 +1537,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/cykling</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1550,7 +1550,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/cykling</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sykling"/>
@@ -1563,7 +1563,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/fiske</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1576,7 +1576,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/fishing</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1589,7 +1589,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/angeln</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1602,7 +1602,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/vissen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1615,7 +1615,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/fiskeri</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1628,7 +1628,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/fiske</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/fiske"/>
@@ -1641,7 +1641,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/gardsbesok</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1654,7 +1654,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/farm-visits</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1667,7 +1667,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/hofbesuche</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1680,7 +1680,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/boerderijbezoek</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1693,7 +1693,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/gaardsbesoeg</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1706,7 +1706,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/gardsbesok</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/gardsbesok"/>
@@ -1719,7 +1719,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1732,7 +1732,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1745,7 +1745,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1758,7 +1758,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1771,7 +1771,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1784,7 +1784,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/golden-train</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/golden-train"/>
@@ -1797,7 +1797,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1810,7 +1810,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1823,7 +1823,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1836,7 +1836,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1849,7 +1849,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1862,7 +1862,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/romsdalsgondolen</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/romsdalsgondolen"/>
@@ -1875,7 +1875,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1888,7 +1888,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1901,7 +1901,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1914,7 +1914,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1927,7 +1927,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1940,7 +1940,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/sagelva</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/sagelva"/>
@@ -1953,7 +1953,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/familie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -1966,7 +1966,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/family</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -1979,7 +1979,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/familie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -1992,7 +1992,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/familie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -2005,7 +2005,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/familie</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -2018,7 +2018,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/familj</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/familie"/>
@@ -2031,7 +2031,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/loypekart</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2044,7 +2044,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/trail-map</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2057,7 +2057,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/loipenplan</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2070,7 +2070,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/pistekaart</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2083,7 +2083,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/loipekort</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2096,7 +2096,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/spårkarta</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/loypekart"/>
@@ -2109,7 +2109,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/vaer-og-webkamera</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2122,7 +2122,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/weather-and-webcams</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2135,7 +2135,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/de/wetter-und-webcams</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2148,7 +2148,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/nl/weer-en-webcams</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2161,7 +2161,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/da/vejr-og-webcams</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2174,7 +2174,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/sv/vader-och-webbkameror</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/vaer-og-webkamera"/>
@@ -2187,7 +2187,7 @@
   </url>
   <url>
     <loc>https://www.bjorli.no/en/ski-holiday-norway</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/ski-holiday-norway"/>
