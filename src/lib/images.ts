@@ -126,21 +126,13 @@ import p_pisteMap     from '@/assets/photos/05_practical_facilities/bjorli-prakt
 import e_goldenTrain  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-large-goldentrain3-6dd14cfc26.jpg';
 import e_summerTrail  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-dsc-8636-2-min-7debf59814-scaled.jpg';
 
-// T-Kroken / Heiskroa collage (CDN asset — large 3×3 grid, never crop).
-import tkrokenCollageAsset from '@/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png.asset.json';
-const tkrokenCollage = tkrokenCollageAsset.url;
-
-import hillsAsset from '@/assets/photos/bank/04-servering/bjorli-hills-serveringssted-fjellandskap.jpg.asset.json';
-const hillsImg = hillsAsset.url;
-import avdemsbueAsset from '@/assets/photos/bank/04-servering/bjorli-avdemsbue-gardsmiljo-gudbrandsdalen.avif.asset.json';
-const avdemsbueImg = avdemsbueAsset.url;
-
-import bunnprisAsset from '@/assets/photos/bank/05-handel/bjorli-bunnpris-dagligvarer-post.jpg.asset.json';
-const bunnprisImg = bunnprisAsset.url;
-import luntAsset from '@/assets/photos/bank/05-handel/bjorli-lunt-interior-gaver-logo.jpg.asset.json';
-const luntImg = luntAsset.url;
-import xlByggAsset from '@/assets/photos/bank/05-handel/bjorli-xl-bygg-byggvarehus.webp.asset.json';
-const xlByggImg = xlByggAsset.url;
+// T-Kroken / Heiskroa collage (large 3×3 grid, never crop).
+import tkrokenCollage from '@/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png';
+import hillsImg from '@/assets/photos/bank/04-servering/bjorli-hills-serveringssted-fjellandskap.jpg';
+import avdemsbueImg from '@/assets/photos/bank/04-servering/bjorli-avdemsbue-gardsmiljo-gudbrandsdalen.avif';
+import bunnprisImg from '@/assets/photos/bank/05-handel/bjorli-bunnpris-dagligvarer-post.jpg';
+import luntImg from '@/assets/photos/bank/05-handel/bjorli-lunt-interior-gaver-logo.jpg';
+import xlByggImg from '@/assets/photos/bank/05-handel/bjorli-xl-bygg-byggvarehus.webp';
 
 export const images = {
   // ── HERO ──────────────────────────────────────────────────────────────
