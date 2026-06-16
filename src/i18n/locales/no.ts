@@ -105,6 +105,7 @@ const no: Dictionary = {
     subtitle: 'Arrangementer, konserter og høydepunkter i sesongen.',
     cta: 'Se kalender',
     items: [
+      { category: 'Aktuelt', date: 'Juni 2026', title: 'Ny asfaltert pump track i Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark har åpnet en ny asfaltert pump track i juni 2026. Et lavterskel aktivitetstilbud for barn, ungdom og voksne som vil øve balanse, flyt og sykkelteknikk på Bjorli. Parken ligger omtrent 850 meter fra E136.' },
       { category: 'Sesongåpning', date: 'Nov', title: 'Åpningshelg', intro: 'Vi markerer sesongstart med tilbud, aktiviteter og afterski.' },
       { category: 'Familie', date: 'Feb', title: 'Vinterferieprogram', intro: 'Aktiviteter for store og små gjennom hele vinterferien.' },
       { category: 'Påske', date: 'Apr', title: 'Påske på Bjorli', intro: 'Sol, snø og familieaktiviteter på fjellet.' },

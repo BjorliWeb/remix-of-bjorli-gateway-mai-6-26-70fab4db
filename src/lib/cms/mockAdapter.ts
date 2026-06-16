@@ -135,6 +135,7 @@ const summerHero      = images.heroSummer.src;
 const flyFishingImg   = images.flyFishing.src;
 const familySummerImg = images.familySummer.src;
 const summerValleyImg = images.summerValley.src;
+import pumpTrackImg   from '@/assets/photos/bjorli-aktivitetspark-skilt.jpg';
 
 /**
  * Mock CMS adapter.
@@ -150,11 +151,12 @@ const dict = (lang: Language): Dictionary => dictionaries[lang] ?? dictionaries.
 const TIP_IMAGES = [tipPlanning, tipTrain, tipFamily, summerImg];
 const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
 // Index map mirrors event order in dictionaries (no.ts/en.ts/...):
-//   0 Åpningshelg → concertImg (golden village)
-//   1 Vinterferie → tipFamily (kid on the snow)
-//   2 Påske       → crossCountry (sunny snow-covered mountains)
-//   3 Sommer      → summerImg
-const EVENT_IMAGES = [concertImg, tipFamily, crossCountry, summerImg];
+//   0 Pump track  → pumpTrackImg (Bjorli Aktivitetspark sign)
+//   1 Åpningshelg → concertImg (golden village)
+//   2 Vinterferie → tipFamily (kid on the snow)
+//   3 Påske       → crossCountry (sunny snow-covered mountains)
+//   4 Sommer      → summerImg
+const EVENT_IMAGES = [pumpTrackImg, concertImg, tipFamily, crossCountry, summerImg];
 // Split per season so summer activities never get assigned a winter photo.
 const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
 const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
