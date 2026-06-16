@@ -1,16 +1,19 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
-import { Coffee, Flame, ExternalLink, MapPin, Fuel, Utensils } from 'lucide-react';
+import { Coffee, Flame, ExternalLink, MapPin, Fuel, Utensils, ShoppingBag, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import FaqBlock from '@/components/seo/FaqBlock';
+import { Link } from 'react-router-dom';
+import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
 const foodDrinkImg = images.restaurantInterior.src;
 
 const FoodDrink = () => {
   const { t } = useLanguage();
   const s = t.foodDrinkPage;
+  const lp = useLocalizedPath();
 
   const faqItems = [
     {
@@ -274,6 +277,32 @@ const FoodDrink = () => {
             <li>Sjekk alltid stedets egne kanaler for oppdatert informasjon.</li>
             <li>For grupper og større besøk anbefales det å kontakte serveringsstedet direkte.</li>
           </ul>
+        </div>
+      </section>
+
+      {/* Related: Handel */}
+      <section className="py-12 md:py-16 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <Card className="bg-card/60 backdrop-blur border-border/60">
+            <CardContent className="p-8 flex flex-col md:flex-row md:items-center gap-6">
+              <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                <ShoppingBag className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-display text-2xl font-bold mb-2">Handle på Bjorli</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Trenger du sportsutstyr, skiutleie, dagligvarer, gaver eller lading? Se
+                  oversikten over handel og praktiske ærend på Bjorli.
+                </p>
+              </div>
+              <Link
+                to={lp('/handel')}
+                className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline shrink-0"
+              >
+                Se handel på Bjorli <ArrowRight className="h-4 w-4" />
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
