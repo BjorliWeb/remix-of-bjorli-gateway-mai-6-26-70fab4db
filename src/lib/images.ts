@@ -130,6 +130,11 @@ import e_summerTrail  from '@/assets/photos/06_events_atmosphere/bjorli-destinas
 import tkrokenCollageAsset from '@/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png.asset.json';
 const tkrokenCollage = tkrokenCollageAsset.url;
 
+import hillsAsset from '@/assets/photos/bank/04-servering/bjorli-hills-serveringssted-fjellandskap.jpg.asset.json';
+const hillsImg = hillsAsset.url;
+import avdemsbueAsset from '@/assets/photos/bank/04-servering/bjorli-avdemsbue-gardsmiljo-gudbrandsdalen.avif.asset.json';
+const avdemsbueImg = avdemsbueAsset.url;
+
 export const images = {
   // ── HERO ──────────────────────────────────────────────────────────────
   heroWinter: {
@@ -200,6 +205,18 @@ export const images = {
     src: tkrokenCollage,
     alt: 'Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
     wpField: 'tkroken_collage_image',
+    placeholder: false,
+  },
+  hillsBjorli: {
+    src: hillsImg,
+    alt: 'HILLS Bjorli med serveringssted og uteområde i fjellandskapet på Bjorli.',
+    wpField: 'hills_bjorli_image',
+    placeholder: false,
+  },
+  avdemsbue: {
+    src: avdemsbueImg,
+    alt: 'Avdemsbue med moderne serveringsbygg og gårdsmiljø i Gudbrandsdalen.',
+    wpField: 'avdemsbue_image',
     placeholder: false,
   },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
