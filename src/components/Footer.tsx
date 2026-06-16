@@ -59,7 +59,7 @@ const Footer = () => {
               <img
                 src={bjorliLogo}
                 alt="Bjorli logo"
-                className="h-16 w-16 rounded-2xl ring-1 ring-nav-foreground/25 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+                className="h-14 w-14 rounded-full"
               />
               <div className="flex flex-col">
                 <span className="font-display text-[34px] leading-none font-bold tracking-tight">
