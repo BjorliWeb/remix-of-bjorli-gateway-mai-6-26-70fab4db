@@ -105,6 +105,7 @@ const de: Dictionary = {
     subtitle: 'Events, Konzerte und Highlights der Saison.',
     cta: 'Kalender ansehen',
     items: [
+      { category: 'Aktuell', date: 'Juni 2026', title: 'Neuer asphaltierter Pumptrack im Bjorli Aktivitetspark', intro: 'Der Bjorli Aktivitetspark hat im Juni 2026 einen neuen asphaltierten Pumptrack eröffnet — ein niederschwelliges Angebot für Kinder, Jugendliche und Erwachsene, um Balance, Flow und Radtechnik zu üben. Der Park liegt etwa 850 Meter von der E136 entfernt.' },
       { category: 'Saisonstart', date: 'Nov', title: 'Eröffnungswochenende', intro: 'Wir feiern den Start in die Saison mit Angeboten, Aktivitäten und Après-Ski.' },
       { category: 'Familie', date: 'Feb', title: 'Winterferienprogramm', intro: 'Aktivitäten für Groß und Klein während der gesamten Winterferien.' },
       { category: 'Ostern', date: 'Apr', title: 'Ostern in Bjorli', intro: 'Sonne, Schnee und Familienaktivitäten am Berg.' },
