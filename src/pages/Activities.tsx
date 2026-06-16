@@ -138,6 +138,14 @@ const COPY_RAW = {
     lengre: { t: 'Lengre fotturer', d: 'Toppturer, dagsmarsjer og fjellruter for vante turgåere.' },
     tafjord: { t: 'Tafjordfjella', d: 'Store fjellområder, åpne vidder og turmuligheter fra Bjorli-siden.' },
     natur: { t: 'Natur og utsikt', d: 'Utsiktspunkt, elvelandskap og stille natur i Lesja og Romsdalen.' },
+    luftigeTitle: 'Luftige opplevelser og lokale aktører',
+    luftigeIntro: 'Lokale aktører og spesialiserte tilbud i og rundt Bjorli.',
+    flyplass: {
+      t: 'Bjorli Flyplass og Lesja Fallskjermklubb',
+      d: 'Lesja Fallskjermklubb eier og driver Bjorli Flyplass, en flott privateid flyplass på Bjorli med 850 meter asfaltert flystripe, hangar og klubbhus. Flyplassen leies også ut til eksterne aktører — sjekk klubbens terminliste før planlagt besøk eller landing.',
+      alt: 'Oversiktsbilde av Bjorli med Bjorli sentrum nederst og flystripa til Bjorli Flyplass oppe til høyre.',
+      caption: 'Bjorli Flyplass ligger tett på sentrum av Bjorli. Flystripa sees oppe til høyre i bildet.',
+    },
   },
   en: {
     metaTitle: 'Things to do at Bjorli | Hiking, cycling, fishing, farm visits and day trips',
