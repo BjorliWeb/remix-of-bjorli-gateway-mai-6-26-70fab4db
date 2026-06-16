@@ -6,6 +6,7 @@ import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
 import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
+import flyplassImg from '@/assets/photos/bjorli-flyplass-oversikt.png';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
@@ -17,6 +18,7 @@ type Card = {
   image: string;
   alt: string;
   external?: boolean;
+  objectPosition?: string;
 };
 
 type Section = { id: string; title: string; intro?: string; cards: Card[] };
