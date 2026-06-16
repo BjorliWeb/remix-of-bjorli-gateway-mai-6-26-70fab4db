@@ -157,6 +157,11 @@ const COPY_RAW = {
       alt: 'Oversiktsbilde av Bjorli med Bjorli sentrum nederst og flystripa til Bjorli Flyplass oppe til høyre.',
       caption: 'Bjorli Flyplass ligger tett på sentrum av Bjorli. Flystripa sees oppe til høyre i bildet.',
     },
+    verma: {
+      t: 'Ville Verma',
+      d: 'Høydeparken Ville Verma på Verma øverst i Romsdalen byr på ziplines, juvopplevelser og luftige aktiviteter ved Rauma elv. Et spennende valg for familier, vennegjenger og firmagrupper som vil kombinere Bjorli-oppholdet med en aktiv dagstur — kort kjøretur fra Bjorli.',
+      alt: 'Person i hjelm på zipline og høydeaktivitet over Rauma elv ved Ville Verma i Romsdalen.',
+    },
   },
   en: {
     metaTitle: 'Things to do at Bjorli | Hiking, cycling, fishing, farm visits and day trips',
@@ -191,6 +196,11 @@ const COPY_RAW = {
       d: 'Lesja Skydiving Club owns and operates Bjorli Airfield, a privately owned airfield at Bjorli with an 850 metre paved runway, a hangar and a clubhouse. The airfield is also rented out to external operators — check the club calendar before any planned visit or landing.',
       alt: 'Aerial overview of Bjorli with the village centre at the bottom and the Bjorli Airfield runway in the upper right.',
       caption: 'Bjorli Airfield sits close to the village centre. The runway is visible in the upper right of the image.',
+    },
+    verma: {
+      t: 'Ville Verma',
+      d: 'The Ville Verma adventure park at Verma in upper Romsdalen offers ziplines, canyon experiences and aerial activities above the Rauma river. A good choice for families, friends and company groups looking to combine their Bjorli stay with an active day trip — a short drive from Bjorli.',
+      alt: 'Person in helmet on zipline and aerial activity above the Rauma river at Ville Verma in Romsdalen.',
     },
   },
   de: {
@@ -227,6 +237,11 @@ const COPY_RAW = {
       alt: 'Luftaufnahme von Bjorli mit dem Ortszentrum unten und der Piste des Flugplatzes Bjorli oben rechts.',
       caption: 'Der Flugplatz Bjorli liegt nahe am Ortszentrum. Die Piste ist oben rechts im Bild sichtbar.',
     },
+    verma: {
+      t: 'Ville Verma',
+      d: 'Der Höhenpark Ville Verma in Verma im oberen Romsdalen bietet Ziplines, Schluchtenerlebnisse und luftige Aktivitäten über dem Fluss Rauma. Eine spannende Wahl für Familien, Freundeskreise und Firmengruppen, die ihren Bjorli-Aufenthalt mit einem aktiven Tagesausflug verbinden möchten — kurze Fahrt ab Bjorli.',
+      alt: 'Person mit Helm auf Zipline und Höhenaktivität über dem Fluss Rauma bei Ville Verma in Romsdalen.',
+    },
   },
   nl: {
     metaTitle: 'Activiteiten in Bjorli | Wandelen, fietsen, vissen, boerderijbezoek en dagtrips',
@@ -261,6 +276,11 @@ const COPY_RAW = {
       d: 'Lesja Parachuteclub bezit en beheert Bjorli Vliegveld, een mooi particulier vliegveld in Bjorli met een geasfalteerde baan van 850 meter, een hangar en een clubgebouw. Het vliegveld wordt ook verhuurd aan externe gebruikers — bekijk de agenda van de club vóór een bezoek of landing.',
       alt: 'Luchtfoto van Bjorli met het centrum onderaan en de start- en landingsbaan van Bjorli Vliegveld rechtsboven.',
       caption: 'Bjorli Vliegveld ligt dicht bij het centrum. De landingsbaan is rechtsboven in beeld te zien.',
+    },
+    verma: {
+      t: 'Ville Verma',
+      d: 'Het hoogteparcours Ville Verma in Verma bovenin Romsdalen biedt ziplines, kloofbelevingen en luchtige activiteiten boven de Rauma-rivier. Een spannende keuze voor families, vriendengroepen en bedrijfsuitjes die het verblijf in Bjorli willen combineren met een actieve dagtrip — korte rit vanaf Bjorli.',
+      alt: 'Persoon met helm op zipline en hoogteactiviteit boven de Rauma-rivier bij Ville Verma in Romsdalen.',
     },
   },
   da: {
@@ -297,6 +317,11 @@ const COPY_RAW = {
       alt: 'Oversigtsbillede af Bjorli med bycentrum nederst og landingsbanen ved Bjorli Flyveplads øverst til højre.',
       caption: 'Bjorli Flyveplads ligger tæt på bycentrum. Landingsbanen ses øverst til højre i billedet.',
     },
+    verma: {
+      t: 'Ville Verma',
+      d: 'Højdeparken Ville Verma på Verma øverst i Romsdalen byder på ziplines, kløftoplevelser og luftige aktiviteter ved Rauma-elven. Et spændende valg for familier, venner og firmagrupper, der vil kombinere Bjorli-opholdet med en aktiv dagstur — kort køretur fra Bjorli.',
+      alt: 'Person med hjelm på zipline og højdeaktivitet over Rauma-elven ved Ville Verma i Romsdalen.',
+    },
   },
   sv: {
     metaTitle: 'Aktiviteter på Bjorli | Vandring, cykling, fiske, gårdsbesök och dagsturer',
@@ -331,6 +356,11 @@ const COPY_RAW = {
       d: 'Lesja Fallskärmsklubb äger och driver Bjorli Flygplats, en fin privatägd flygplats i Bjorli med 850 meter asfalterad landningsbana, hangar och klubbhus. Flygplatsen hyrs också ut till externa aktörer — kontrollera klubbens terminlista före planerat besök eller landning.',
       alt: 'Översiktsbild av Bjorli med centrum nederst och landningsbanan vid Bjorli Flygplats uppe till höger.',
       caption: 'Bjorli Flygplats ligger nära centrum. Landningsbanan syns uppe till höger i bilden.',
+    },
+    verma: {
+      t: 'Ville Verma',
+      d: 'Höjdparken Ville Verma på Verma längst upp i Romsdalen bjuder på ziplines, ravinupplevelser och luftiga aktiviteter vid Rauma älv. Ett spännande val för familjer, vänner och företagsgrupper som vill kombinera Bjorli-vistelsen med en aktiv dagstur — kort bilresa från Bjorli.',
+      alt: 'Person med hjälm på zipline och höjdaktivitet över Rauma älv vid Ville Verma i Romsdalen.',
     },
   },
 };
