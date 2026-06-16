@@ -105,6 +105,7 @@ const nl: Dictionary = {
     subtitle: 'Evenementen, concerten en hoogtepunten van het seizoen.',
     cta: 'Bekijk agenda',
     items: [
+      { category: 'Actueel', date: 'Juni 2026', title: 'Nieuwe asfalt-pumptrack in Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark heeft in juni 2026 een nieuwe asfalt-pumptrack geopend — een laagdrempelige plek voor kinderen, jongeren en volwassenen om balans, flow en fietstechniek te oefenen. Het park ligt op ongeveer 850 meter van de E136.' },
       { category: 'Seizoensopening', date: 'Nov', title: 'Openingsweekend', intro: 'We vieren de start van het seizoen met aanbiedingen, activiteiten en après-ski.' },
       { category: 'Familie', date: 'Feb', title: 'Voorjaarsvakantie', intro: 'Activiteiten voor jong en oud tijdens de voorjaarsvakantie.' },
       { category: 'Pasen', date: 'Apr', title: 'Pasen op Bjorli', intro: 'Zon, sneeuw en gezinsactiviteiten op de berg.' },
