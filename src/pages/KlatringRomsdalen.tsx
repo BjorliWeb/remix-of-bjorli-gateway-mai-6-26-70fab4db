@@ -467,6 +467,59 @@ const KlatringRomsdalen = () => {
         </div>
       </section>
 
+      {/* Ville Verma */}
+      <section className="py-20 md:py-28 px-4">
+        <div className="container mx-auto max-w-6xl grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            <div className="text-secondary text-xs font-medium tracking-[0.24em] uppercase mb-5">
+              Flere høydeopplevelser i Romsdalen
+            </div>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">
+              Høydeparken Ville Verma
+            </h2>
+            <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-6">
+              Høydeparken Ville Verma ligger på Verma øverst i Romsdalen, en kort kjøretur fra Bjorli. Her får vennegjenger, firmagrupper og familier en luftig juvopplevelse i det trange fossejuvet nedenfor den kjente Kyllingbrua.
+            </p>
+            <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-6">
+              I området rundt Neagarafossen er det montert flere lange ziplines som lar deg krysse den ville Rauma elv og oppleve juvet fra høyden. Den lengste ziplinen er rundt 200 meter lang og starter fra en plattform omtrent 30 meter over elven.
+            </p>
+            <p className="text-foreground/85 text-base md:text-lg leading-relaxed mb-10">
+              Dette er et spennende alternativ for deg som liker høyde, fart og aktive opplevelser i Romsdalen.
+            </p>
+            <a href="https://www.villeverma.no/" {...ext}>
+              <Button size="lg" className="font-semibold">
+                Se Ville Verma <ExternalLink className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+          </div>
+          <Card className="bg-card/60 backdrop-blur border-border/60">
+            <CardContent className="p-6">
+              <h3 className="font-display text-lg font-semibold mb-4 text-foreground">
+                Praktisk info
+              </h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1.5 h-1.5 w-1.5 rounded-full bg-current shrink-0" />
+                  <span>Høydepark og juvopplevelse på Verma</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1.5 h-1.5 w-1.5 rounded-full bg-current shrink-0" />
+                  <span>Ziplines over Rauma elv og ved Neagarafossen</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1.5 h-1.5 w-1.5 rounded-full bg-current shrink-0" />
+                  <span>Passer for vennegjenger, firmagrupper og familier</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1.5 h-1.5 w-1.5 rounded-full bg-current shrink-0" />
+                  <span>Kort kjøretur fra Bjorli</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 md:py-28 px-4">
         <div className="container mx-auto max-w-3xl">
