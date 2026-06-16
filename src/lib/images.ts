@@ -126,6 +126,10 @@ import p_pisteMap     from '@/assets/photos/05_practical_facilities/bjorli-prakt
 import e_goldenTrain  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-large-goldentrain3-6dd14cfc26.jpg';
 import e_summerTrail  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-dsc-8636-2-min-7debf59814-scaled.jpg';
 
+// T-Kroken / Heiskroa collage (CDN asset — large 3×3 grid, never crop).
+import tkrokenCollageAsset from '@/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png.asset.json';
+const tkrokenCollage = tkrokenCollageAsset.url;
+
 export const images = {
   // ── HERO ──────────────────────────────────────────────────────────────
   heroWinter: {
@@ -192,6 +196,12 @@ export const images = {
   riverFishing:  { src: s_fishingRiver,   alt: 'Fiske i en fjellelv nær Bjorli.',                            wpField: 'river_fishing_image',  placeholder: false },
   localFishing:  { src: s_fishingLocal,   alt: 'Fisker krysser en klar sommerelv nær Bjorli.',               wpField: 'local_fishing_image',  placeholder: false },
   restaurantInterior: { src: s_restaurantInterior, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli.', wpField: 'restaurant_interior_image', placeholder: false },
+  tkrokenCollage: {
+    src: tkrokenCollage,
+    alt: 'Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
+    wpField: 'tkroken_collage_image',
+    placeholder: false,
+  },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
   eventEaster:   { src: f_familyNord,     alt: 'Familie i Nordløypa på Bjorli – påskestemning.',             wpField: 'event_easter_image',   placeholder: false },
   moodScenic:    { src: x_skiersValley,   alt: 'Skiere i portrett med dalutsikt på Bjorli.',                 wpField: 'mood_scenic_image',    placeholder: false },
