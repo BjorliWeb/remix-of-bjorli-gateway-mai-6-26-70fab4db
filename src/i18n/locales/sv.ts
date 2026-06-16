@@ -106,6 +106,7 @@ const sv: Dictionary = {
     cta: 'Se kalender',
     items: [
       { category: 'Aktuellt', date: 'Juni 2026', title: 'Ny asfalterad pumptrack i Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark öppnade en ny asfalterad pumptrack i juni 2026 — ett lågtröskelutbud för barn, ungdomar och vuxna som vill öva balans, flyt och cykelteknik. Parken ligger cirka 850 meter från E136.' },
+      { category: 'Aktuellt', date: '5–6 september 2026', title: 'Höstmarknad på Bjorli 2026', intro: 'Den traditionsrika höstmarknaden på Bjorli arrangeras även i år helgen 5–6 september 2026. Liksom tidigare år blir det liv och rörelse på Bjorli, med många spännande utställare och bra erbjudanden.' },
       { category: 'Säsongsöppning', date: 'Nov', title: 'Öppningshelg', intro: 'Vi firar säsongsstart med erbjudanden, aktiviteter och afterski.' },
       { category: 'Familj', date: 'Feb', title: 'Sportlovsprogram', intro: 'Aktiviteter för stora och små under hela sportlovet.' },
       { category: 'Påsk', date: 'Apr', title: 'Påsk på Bjorli', intro: 'Sol, snö och familjeaktiviteter på fjället.' },
