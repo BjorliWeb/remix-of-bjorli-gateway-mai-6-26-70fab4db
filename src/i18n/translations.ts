@@ -129,7 +129,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mat & Drikke',
       subtitle: 'Nyt maten på fjellet',
-      desc: 'Heiskroa serverer tradisjonell norsk fjellmat, varme drikker og hjemmelagde spesialiteter. Perfekt for en pause midt på skidagen!',
+      intro: 'I skisenteret finner du både Heiskroa og T-Kroken. Sammen gir de gjestene et godt tilbud gjennom skidagen, enten du vil ha en rask pause, varm drikke, lunsj, loungefølelse eller afterski etter siste tur.\n\nBegge serveringsstedene drives samlet, med vekt på god service, lun stemning og mat laget med omtanke. Der det er mulig brukes kortreiste og lokale råvarer.',
+      venuesSectionTitle: 'Heiskroa og T-Kroken',
+      imageAlt: 'Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Kafé, lounge, mat og afterski',
+        desc: 'T-Kroken er stedet for deg som vil sette deg ned for mat, drikke og en mer komplett serveringsopplevelse. Her gjelder spiseplikt i serveringsområdet.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Varmestue og praktisk møteplass',
+        desc: 'Heiskroa fungerer også som varmestue, og passer godt for gjester som trenger en enkel pause, varme seg, vente på andre eller ta en roligere stopp i løpet av skidagen.',
+      },
     },
     practicalInfoPage: {
       title: 'Praktisk Info',
@@ -270,7 +282,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Food & Drink',
       subtitle: 'Enjoy mountain cuisine',
-      desc: 'Heiskroa serves traditional Norwegian mountain food, warm drinks and homemade specialties. Perfect for a mid-ski day break!',
+      intro: 'In the ski centre you will find both Heiskroa and T-Kroken. Together they give guests a great offering throughout the ski day, whether you want a quick break, a warm drink, lunch, a lounge feel or après-ski after the last run.\n\nBoth venues are run together, with an emphasis on good service, a warm atmosphere and food made with care. Where possible, short-travelled and local ingredients are used.',
+      venuesSectionTitle: 'Heiskroa and T-Kroken',
+      imageAlt: 'Atmosphere shots from T-Kroken and Heiskroa at Bjorli Ski Center with café, lounge, fireplace, baked goods and winter ambience.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Café, lounge, food and après-ski',
+        desc: 'T-Kroken is the place for those who want to sit down for food, drink and a more complete dining experience. Please note that the seating area is reserved for guests enjoying a meal.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Warm-up room and practical meeting point',
+        desc: 'Heiskroa also functions as a warm-up room, and suits guests who need a simple break, somewhere to warm up, a place to wait for others or a quieter stop during the ski day.',
+      },
     },
     practicalInfoPage: {
       title: 'Practical Info',
@@ -411,7 +435,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mad & Drikke',
       subtitle: 'Nyd maden på fjeldet',
-      desc: 'Heiskroa serverer traditionel norsk fjeldmad, varme drikke og hjemmelavede specialiteter. Perfekt til en pause midt på skidagen!',
+      intro: 'I skianlægget finder du både Heiskroa og T-Kroken. Sammen giver de gæsterne et godt tilbud gennem skidagen, uanset om du vil have en hurtig pause, varm drik, frokost, loungestemning eller afterski efter sidste tur.\n\nBegge serveringssteder drives samlet, med vægt på god service, lun stemning og mad lavet med omtanke. Hvor det er muligt, bruges kortrejste og lokale råvarer.',
+      venuesSectionTitle: 'Heiskroa og T-Kroken',
+      imageAlt: 'Stemningsbilleder fra T-Kroken og Heiskroa på Bjorli Skisenter med café, lounge, pejs, bagværk og vinterstemning.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Café, lounge, mad og afterski',
+        desc: 'T-Kroken er stedet for dig, der vil sætte dig ned til mad, drikke og en mere komplet serveringsoplevelse. Her gælder spisepligt i serveringsområdet.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Varmestue og praktisk mødested',
+        desc: 'Heiskroa fungerer også som varmestue og passer godt til gæster, der har brug for en enkel pause, vil varme sig, vente på andre eller tage et roligere stop i løbet af skidagen.',
+      },
     },
     practicalInfoPage: {
       title: 'Praktisk Info',
@@ -552,7 +588,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Eten & Drinken',
       subtitle: 'Geniet van de bergkeuken',
-      desc: 'Heiskroa serveert traditioneel Noors bergvoedsel, warme dranken en huisgemaakte specialiteiten. Perfect voor een pauze midden op de skidag!',
+      intro: 'In het skigebied vind je zowel Heiskroa als T-Kroken. Samen bieden ze gasten een goed aanbod gedurende de skildag, of je nu een korte pauze, warme drank, lunch, loungegevoel of après-ski na de laatste afdaling wilt.\n\nBeide horecagelegenheden worden samen gerund, met nadruk op goede service, een warme sfeer en eten bereid met zorg. Waar mogelijk worden kortgetelde en lokale ingrediënten gebruikt.',
+      venuesSectionTitle: 'Heiskroa en T-Kroken',
+      imageAlt: 'Sfeerbeelden van T-Kroken en Heiskroa bij Bjorli Skisenter met café, lounge, open haard, gebak en winterse sfeer.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Café, lounge, eten en après-ski',
+        desc: 'T-Kroken is de plek voor wie wil neerzitten voor eten, drinken en een completere horeca-ervaring. Houd er rekening mee dat het zitgedeelte is gereserveerd voor gasten die een maaltijd nuttigen.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Warmtekamer en praktisch ontmoetingspunt',
+        desc: 'Heiskroa fungeert ook als warmtekamer en is goed geschikt voor gasten die een eenvoudige pauze nodig hebben, willen opwarmen, op anderen wachten of een rustiger moment in de skildag willen inlassen.',
+      },
     },
     practicalInfoPage: {
       title: 'Praktische Info',
@@ -693,7 +741,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Essen & Trinken',
       subtitle: 'Bergküche genießen',
-      desc: 'Heiskroa serviert traditionelle norwegische Bergküche, warme Getränke und hausgemachte Spezialitäten – ideal für eine Pause auf der Piste.',
+      intro: 'Im Skigebiet finden Sie sowohl Heiskroa als auch T-Kroken. Gemeinsam bieten sie den Gästen den ganzen Tag über eine gute Auswahl – ob schnelle Pause, warmer Drink, Mittagessen, Lounge-Atmosphäre oder Après-Ski nach der letzten Abfahrt.\n\nBeide Lokale werden gemeinsam geführt, mit Schwerpunkt auf gutem Service, warmer Atmosphäre und mit Bedacht zubereiteter Speisen. Wo möglich, werden kurze Lieferwege und lokale Zutaten verwendet.',
+      venuesSectionTitle: 'Heiskroa und T-Kroken',
+      imageAlt: 'Stimmungsbilder von T-Kroken und Heiskroa im Bjorli Skisenter mit Café, Lounge, Kamin, Gebäck und Winterstimmung.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Café, Lounge, Essen und Après-Ski',
+        desc: 'T-Kroken ist der Ort für alle, die sich zum Essen, Trinken und einem vollständigeren gastronomischen Erlebnis hinsetzen möchten. Im Servierbereich gilt Tischplatz für Speisende.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Aufwärmraum und praktischer Treffpunkt',
+        desc: 'Heiskroa dient auch als Aufwärmraum und eignet sich gut für Gäste, die eine einfache Pause brauchen, sich aufwärmen möchten, auf andere warten oder einen ruhigeren Stopp im Laufe des Skitags einlegen möchten.',
+      },
     },
     practicalInfoPage: {
       title: 'Praktische Infos',
@@ -834,7 +894,19 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mat & Dryck',
       subtitle: 'Njut av fjällmaten',
-      desc: 'Heiskroa serverar traditionell norsk fjällmat, varma drycker och hemlagade specialiteter – perfekt för en paus mitt på skiddagen.',
+      intro: 'I skidanläggningen hittar du både Heiskroa och T-Kroken. Tillsammans ger de gästerna ett bra utbud genom skidagen, oavsett om du vill ha en kort paus, varm dryck, lunch, loungekänsla eller afterski efter sista åket.\n\nBåda serveringsställena drivs gemensamt, med fokus på god service, varm stämning och mat lagad med omtanke. Där det är möjligt används kortresta och lokala råvaror.',
+      venuesSectionTitle: 'Heiskroa och T-Kroken',
+      imageAlt: 'Stämningsbilder från T-Kroken och Heiskroa på Bjorli Skisenter med kafé, lounge, öppen spis, bakverk och vinterstämning.',
+      tkroken: {
+        name: 'T-Kroken',
+        tag: 'Kafé, lounge, mat och afterski',
+        desc: 'T-Kroken är stället för dig som vill sätta dig ner för mat, dryck och en mer komplett serveringsupplevelse. Här gäller spisplikt i serveringsområdet.',
+      },
+      heiskroa: {
+        name: 'Heiskroa',
+        tag: 'Varmestuga och praktisk mötesplats',
+        desc: 'Heiskroa fungerar också som varmestuga och passar bra för gäster som behöver en enkel paus, vill värma sig, vänta på andra eller ta ett lugnare stopp under skidagen.',
+      },
     },
     practicalInfoPage: {
       title: 'Praktisk info',
