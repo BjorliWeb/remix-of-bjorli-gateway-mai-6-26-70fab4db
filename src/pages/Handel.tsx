@@ -2,7 +2,7 @@ import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { ShoppingBag, ShoppingCart, Store, MapPin, Zap, ExternalLink, Utensils, ArrowRight } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, Store, MapPin, Zap, ExternalLink, Utensils, ArrowRight, Hammer } from 'lucide-react';
 import FaqBlock from '@/components/seo/FaqBlock';
 import { Link } from 'react-router-dom';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
@@ -196,6 +196,49 @@ const Handel = () => {
                   className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
                 >
                   Se Lunt Bjorli på Facebook <ExternalLink className="h-4 w-4" />
+                </a>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Større innkjøp */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">
+              Byggevarer og oppussing
+            </h2>
+            <Card className="overflow-hidden bg-card/60 backdrop-blur border-border/60">
+              <div className="bg-muted">
+                <img
+                  src={images.xlByggBjorli.src}
+                  alt={images.xlByggBjorli.alt}
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
+              </div>
+              <CardContent className="p-8">
+                <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                  <Hammer className="h-6 w-6" />
+                </div>
+                <h3 className="font-display text-2xl font-bold mb-2">XL-BYGG Bjorli</h3>
+                <p className="text-secondary font-medium mb-4">Byggvarehus på Bjorli</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  XL-BYGG Bjorli er det lokale byggvarehuset på Bjorli, og er et nyttig stopp
+                  for hyttefolk og fastboende som trenger byggevarer, verktøy eller utstyr til
+                  prosjekter på hytta. Sjekk butikkens egne kanaler for oppdatert utvalg og
+                  åpningstider.
+                </p>
+                <a
+                  href="https://xl-bygg.no/butikker/xl-bygg-bjorli"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                >
+                  Se XL-BYGG Bjorli <ExternalLink className="h-4 w-4" />
                 </a>
               </CardContent>
             </Card>

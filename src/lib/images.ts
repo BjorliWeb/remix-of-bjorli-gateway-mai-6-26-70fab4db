@@ -139,6 +139,8 @@ import bunnprisAsset from '@/assets/photos/bank/05-handel/bjorli-bunnpris-daglig
 const bunnprisImg = bunnprisAsset.url;
 import luntAsset from '@/assets/photos/bank/05-handel/bjorli-lunt-interior-gaver-logo.jpg.asset.json';
 const luntImg = luntAsset.url;
+import xlByggAsset from '@/assets/photos/bank/05-handel/bjorli-xl-bygg-byggvarehus.webp.asset.json';
+const xlByggImg = xlByggAsset.url;
 
 export const images = {
   // ── HERO ──────────────────────────────────────────────────────────────
@@ -234,6 +236,12 @@ export const images = {
     src: luntImg,
     alt: 'Lunt Bjorli logo for interiør og gaver.',
     wpField: 'lunt_bjorli_image',
+    placeholder: false,
+  },
+  xlByggBjorli: {
+    src: xlByggImg,
+    alt: 'XL-BYGG Bjorli byggvarehus i vinterlandskap med snødekt tak og opplyst inngang.',
+    wpField: 'xl_bygg_bjorli_image',
     placeholder: false,
   },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
