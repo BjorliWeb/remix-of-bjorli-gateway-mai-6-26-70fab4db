@@ -2,12 +2,15 @@ import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { ShoppingBag, ShoppingCart, Store, MapPin, Zap, ExternalLink } from 'lucide-react';
+import { ShoppingBag, ShoppingCart, Store, MapPin, Zap, ExternalLink, Utensils, ArrowRight } from 'lucide-react';
 import FaqBlock from '@/components/seo/FaqBlock';
+import { Link } from 'react-router-dom';
+import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
 const heroImg = images.resortEntrance.src;
 
 const Handel = () => {
+  const lp = useLocalizedPath();
   const faqItems = [
     {
       q: 'Hvor kan jeg kjøpe sportsutstyr på Bjorli?',
@@ -30,8 +33,8 @@ const Handel = () => {
       a: 'Ja. Ved Bunnpris finner du hurtiglading, og det finnes også Tesla Superchargers i området.',
     },
     {
-      q: 'Hvor kan jeg handle hvis jeg trenger større utvalg?',
-      a: 'For større innkjøp ligger både Dombås og Åndalsnes omtrent 50 km fra Bjorli med bil, med flere butikker og tjenester.',
+      q: 'Finnes det lokale butikker på Bjorli?',
+      a: 'Ja. På Bjorli finner du lokale butikker med blant annet klær, interiør og gaver. Lunt Bjorli er ett av tilbudene. Utvalg og åpningstider kan variere gjennom året, så sjekk butikkens egne kanaler før du besøker.',
     },
   ];
 
