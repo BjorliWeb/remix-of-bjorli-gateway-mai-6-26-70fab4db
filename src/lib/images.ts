@@ -135,6 +135,11 @@ const hillsImg = hillsAsset.url;
 import avdemsbueAsset from '@/assets/photos/bank/04-servering/bjorli-avdemsbue-gardsmiljo-gudbrandsdalen.avif.asset.json';
 const avdemsbueImg = avdemsbueAsset.url;
 
+import bunnprisAsset from '@/assets/photos/bank/05-handel/bjorli-bunnpris-dagligvarer-post.jpg.asset.json';
+const bunnprisImg = bunnprisAsset.url;
+import luntAsset from '@/assets/photos/bank/05-handel/bjorli-lunt-interior-gaver-logo.jpg.asset.json';
+const luntImg = luntAsset.url;
+
 export const images = {
   // ── HERO ──────────────────────────────────────────────────────────────
   heroWinter: {
@@ -217,6 +222,18 @@ export const images = {
     src: avdemsbueImg,
     alt: 'Avdemsbue med moderne serveringsbygg og gårdsmiljø i Gudbrandsdalen.',
     wpField: 'avdemsbue_image',
+    placeholder: false,
+  },
+  bunnprisBjorli: {
+    src: bunnprisImg,
+    alt: 'Bunnpris Bjorli med dagligvarer, post i butikk og parkering nær skisenteret.',
+    wpField: 'bunnpris_bjorli_image',
+    placeholder: false,
+  },
+  luntBjorli: {
+    src: luntImg,
+    alt: 'Lunt Bjorli logo for interiør og gaver.',
+    wpField: 'lunt_bjorli_image',
     placeholder: false,
   },
   eventFlying:   { src: e_summerTrail,    alt: 'Stisykling i fjellandskap ved Bjorli sensommer.',            wpField: 'event_flying_image',   placeholder: false },
