@@ -309,6 +309,7 @@ const ActivityCard = ({ card, index, readMore }: { card: Card; index: number; re
           alt={card.alt}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+          style={card.objectPosition ? { objectPosition: card.objectPosition } : undefined}
         />
       </div>
       <div className="p-7 flex flex-col flex-1">
