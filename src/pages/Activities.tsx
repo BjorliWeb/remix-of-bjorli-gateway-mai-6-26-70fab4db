@@ -7,6 +7,7 @@ import { images } from '@/lib/images';
 import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import flyplassImg from '@/assets/photos/bjorli-flyplass-oversikt.png';
+import villeVermaImg from '@/assets/photos/villeverma-zipline-rauma.jpg';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
@@ -54,6 +55,7 @@ const buildSections = (
     natur: { t: string; d: string };
     luftigeTitle: string; luftigeIntro: string;
     flyplass: { t: string; d: string; alt: string; caption: string };
+    verma: { t: string; d: string; alt: string };
   },
   lp: (p: string) => string,
 ): Section[] => [
@@ -106,6 +108,15 @@ const buildSections = (
         alt: c.flyplass.alt,
         external: true,
         objectPosition: '75% 30%',
+      },
+      {
+        key: 'verma',
+        title: c.verma.t,
+        desc: c.verma.d,
+        href: 'https://www.villeverma.no/',
+        image: villeVermaImg,
+        alt: c.verma.alt,
+        external: true,
       },
     ],
   },
