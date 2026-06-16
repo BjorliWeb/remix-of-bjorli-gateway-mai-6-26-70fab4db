@@ -100,6 +100,12 @@ Legend
 |---|---|---|---|---|---|---|---|---|
 | `…/bjorli-restaurant-mat-mattisolavbjokne-2-20410b6b4a.jpg` | mattisolavbjokne-2-…jpg | `images.dish` (defined, unused) | — | food | Y | N | N | Food/Drink page. **Note**: `images.foodDrink` currently substitutes `e_event2` (a cabin interior) because no other restaurant interiors exist in the bank. |
 
+### `photos/bank/04-servering/` — CDN-hosted additions
+
+| Path | Filename | Used in | Section / component | Category | Editorial-grade? | Text in image? | Avoid on homepage? | Suggested best-use location |
+|---|---|---|---|---|---|---|---|---|
+| `src/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png.asset.json` (CDN) | bjorli-tkroken-heiskroa-collage-vinterstemning.png | `images.tkrokenCollage` (defined, not yet rendered) | — | food / atmosphere / collage | Y | N (no overlay text; Costa cup + Coca-Cola signage visible in tiles) | Y (do not crop — preserve full 3×3 collage) | Food & Drink page as a full-bleed, uncropped responsive image (`w-full h-auto`, never `object-cover`). Alt: "Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning." |
+
 ### `photos/05_practical_facilities/` — 3 files
 
 | Path | Filename | Used in | Section / component | Category | Editorial-grade? | Text in image? | Avoid on homepage? | Suggested best-use location |
