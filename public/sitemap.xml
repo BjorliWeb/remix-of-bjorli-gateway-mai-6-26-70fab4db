@@ -1263,14 +1263,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/food-and-drink"/>
   </url>
   <url>
-    <loc>https://www.bjorli.no/handel</loc>
-    <lastmod>2026-06-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/handel"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/handel"/>
-  </url>
-  <url>
     <loc>https://www.bjorli.no/en/food-and-drink</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>weekly</changefreq>
