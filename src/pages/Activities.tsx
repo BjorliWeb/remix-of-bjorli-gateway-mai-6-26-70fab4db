@@ -6,6 +6,7 @@ import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
 import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
+import flyplassImg from '@/assets/photos/bjorli-flyplass-oversikt.png';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
@@ -17,6 +18,7 @@ type Card = {
   image: string;
   alt: string;
   external?: boolean;
+  objectPosition?: string;
 };
 
 type Section = { id: string; title: string; intro?: string; cards: Card[] };
@@ -50,6 +52,8 @@ const buildSections = (
     lengre: { t: string; d: string };
     tafjord: { t: string; d: string };
     natur: { t: string; d: string };
+    luftigeTitle: string; luftigeIntro: string;
+    flyplass: { t: string; d: string; alt: string; caption: string };
   },
   lp: (p: string) => string,
 ): Section[] => [
@@ -88,6 +92,23 @@ const buildSections = (
       { key: 'natur', title: c.natur.t, desc: c.natur.d, href: lp('/sommer'), image: images.summerAerialNature.src, alt: images.summerAerialNature.alt },
     ],
   },
+  {
+    id: 'luftige-opplevelser',
+    title: c.luftigeTitle,
+    intro: c.luftigeIntro,
+    cards: [
+      {
+        key: 'flyplass',
+        title: c.flyplass.t,
+        desc: c.flyplass.d,
+        href: 'https://www.lesjafsk.no/',
+        image: flyplassImg,
+        alt: c.flyplass.alt,
+        external: true,
+        objectPosition: '75% 30%',
+      },
+    ],
+  },
 ];
 
 const COPY_RAW = {
@@ -117,6 +138,14 @@ const COPY_RAW = {
     lengre: { t: 'Lengre fotturer', d: 'Toppturer, dagsmarsjer og fjellruter for vante turgåere.' },
     tafjord: { t: 'Tafjordfjella', d: 'Store fjellområder, åpne vidder og turmuligheter fra Bjorli-siden.' },
     natur: { t: 'Natur og utsikt', d: 'Utsiktspunkt, elvelandskap og stille natur i Lesja og Romsdalen.' },
+    luftigeTitle: 'Luftige opplevelser og lokale aktører',
+    luftigeIntro: 'Lokale aktører og spesialiserte tilbud i og rundt Bjorli.',
+    flyplass: {
+      t: 'Bjorli Flyplass og Lesja Fallskjermklubb',
+      d: 'Lesja Fallskjermklubb eier og driver Bjorli Flyplass, en flott privateid flyplass på Bjorli med 850 meter asfaltert flystripe, hangar og klubbhus. Flyplassen leies også ut til eksterne aktører — sjekk klubbens terminliste før planlagt besøk eller landing.',
+      alt: 'Oversiktsbilde av Bjorli med Bjorli sentrum nederst og flystripa til Bjorli Flyplass oppe til høyre.',
+      caption: 'Bjorli Flyplass ligger tett på sentrum av Bjorli. Flystripa sees oppe til høyre i bildet.',
+    },
   },
   en: {
     metaTitle: 'Things to do at Bjorli | Hiking, cycling, fishing, farm visits and day trips',
@@ -144,6 +173,14 @@ const COPY_RAW = {
     lengre: { t: 'Longer hikes', d: 'Summits, full-day routes and mountain trails for experienced walkers.' },
     tafjord: { t: 'Tafjordfjella', d: 'Wide mountain areas, open plateaus and hiking options from the Bjorli side.' },
     natur: { t: 'Nature and views', d: 'Viewpoints, river landscapes and quiet nature in Lesja and Romsdalen.' },
+    luftigeTitle: 'From the air and local operators',
+    luftigeIntro: 'Specialised local operators in and around Bjorli.',
+    flyplass: {
+      t: 'Bjorli Airfield and Lesja Skydiving Club',
+      d: 'Lesja Skydiving Club owns and operates Bjorli Airfield, a privately owned airfield at Bjorli with an 850 metre paved runway, a hangar and a clubhouse. The airfield is also rented out to external operators — check the club calendar before any planned visit or landing.',
+      alt: 'Aerial overview of Bjorli with the village centre at the bottom and the Bjorli Airfield runway in the upper right.',
+      caption: 'Bjorli Airfield sits close to the village centre. The runway is visible in the upper right of the image.',
+    },
   },
   de: {
     metaTitle: 'Aktivitäten in Bjorli | Wandern, Radfahren, Angeln, Hofbesuche und Tagesausflüge',
@@ -171,6 +208,14 @@ const COPY_RAW = {
     lengre: { t: 'Längere Wanderungen', d: 'Gipfeltouren, Tagesmärsche und Bergrouten für erfahrene Wanderer.' },
     tafjord: { t: 'Tafjordfjella', d: 'Große Bergareale, offene Hochflächen und Tourenmöglichkeiten von Bjorli aus.' },
     natur: { t: 'Natur und Aussicht', d: 'Aussichtspunkte, Flusslandschaften und ruhige Natur in Lesja und Romsdalen.' },
+    luftigeTitle: 'Aus der Luft und lokale Anbieter',
+    luftigeIntro: 'Spezialisierte lokale Anbieter in und um Bjorli.',
+    flyplass: {
+      t: 'Bjorli Flugplatz und Lesja Fallschirmclub',
+      d: 'Der Lesja Fallschirmclub besitzt und betreibt den Flugplatz Bjorli, einen schönen privaten Flugplatz in Bjorli mit 850 m asphaltierter Piste, Hangar und Clubhaus. Der Platz wird auch an externe Nutzer vermietet — vor jedem geplanten Besuch oder einer Landung bitte den Terminkalender des Clubs prüfen.',
+      alt: 'Luftaufnahme von Bjorli mit dem Ortszentrum unten und der Piste des Flugplatzes Bjorli oben rechts.',
+      caption: 'Der Flugplatz Bjorli liegt nahe am Ortszentrum. Die Piste ist oben rechts im Bild sichtbar.',
+    },
   },
   nl: {
     metaTitle: 'Activiteiten in Bjorli | Wandelen, fietsen, vissen, boerderijbezoek en dagtrips',
@@ -198,6 +243,14 @@ const COPY_RAW = {
     lengre: { t: 'Langere wandeltochten', d: 'Toppen, dagtochten en bergroutes voor ervaren wandelaars.' },
     tafjord: { t: 'Tafjordfjella', d: 'Uitgestrekte berggebieden, open hoogvlakten en routes vanaf de Bjorli-kant.' },
     natur: { t: 'Natuur en uitzicht', d: 'Uitzichtpunten, rivierlandschappen en stille natuur in Lesja en Romsdalen.' },
+    luftigeTitle: 'Vanuit de lucht en lokale aanbieders',
+    luftigeIntro: 'Gespecialiseerde lokale aanbieders in en rond Bjorli.',
+    flyplass: {
+      t: 'Bjorli Vliegveld en Lesja Parachuteclub',
+      d: 'Lesja Parachuteclub bezit en beheert Bjorli Vliegveld, een mooi particulier vliegveld in Bjorli met een geasfalteerde baan van 850 meter, een hangar en een clubgebouw. Het vliegveld wordt ook verhuurd aan externe gebruikers — bekijk de agenda van de club vóór een bezoek of landing.',
+      alt: 'Luchtfoto van Bjorli met het centrum onderaan en de start- en landingsbaan van Bjorli Vliegveld rechtsboven.',
+      caption: 'Bjorli Vliegveld ligt dicht bij het centrum. De landingsbaan is rechtsboven in beeld te zien.',
+    },
   },
   da: {
     metaTitle: 'Aktiviteter på Bjorli | Vandring, cykling, fiskeri, gårdsbesøg og dagsture',
@@ -225,6 +278,14 @@ const COPY_RAW = {
     lengre: { t: 'Længere vandreture', d: 'Toptur, dagsmarcher og fjeldruter for vante vandrere.' },
     tafjord: { t: 'Tafjordfjella', d: 'Store fjeldområder, åbne vidder og turmuligheder fra Bjorli-siden.' },
     natur: { t: 'Natur og udsigt', d: 'Udsigtspunkter, elvelandskaber og stille natur i Lesja og Romsdalen.' },
+    luftigeTitle: 'Luftige oplevelser og lokale aktører',
+    luftigeIntro: 'Specialiserede lokale aktører i og omkring Bjorli.',
+    flyplass: {
+      t: 'Bjorli Flyveplads og Lesja Faldskærmsklub',
+      d: 'Lesja Faldskærmsklub ejer og driver Bjorli Flyveplads, en flot privatejet flyveplads i Bjorli med 850 meter asfalteret landingsbane, hangar og klubhus. Flyvepladsen lejes også ud til eksterne aktører — tjek klubbens terminliste før planlagt besøg eller landing.',
+      alt: 'Oversigtsbillede af Bjorli med bycentrum nederst og landingsbanen ved Bjorli Flyveplads øverst til højre.',
+      caption: 'Bjorli Flyveplads ligger tæt på bycentrum. Landingsbanen ses øverst til højre i billedet.',
+    },
   },
   sv: {
     metaTitle: 'Aktiviteter på Bjorli | Vandring, cykling, fiske, gårdsbesök och dagsturer',
@@ -252,6 +313,14 @@ const COPY_RAW = {
     lengre: { t: 'Längre vandringar', d: 'Toppturer, dagsmarscher och fjällrutter för vana vandrare.' },
     tafjord: { t: 'Tafjordfjella', d: 'Stora fjällområden, öppna vidder och turmöjligheter från Bjorli-sidan.' },
     natur: { t: 'Natur och utsikt', d: 'Utsiktspunkter, älvlandskap och stilla natur i Lesja och Romsdalen.' },
+    luftigeTitle: 'Luftiga upplevelser och lokala aktörer',
+    luftigeIntro: 'Specialiserade lokala aktörer i och runt Bjorli.',
+    flyplass: {
+      t: 'Bjorli Flygplats och Lesja Fallskärmsklubb',
+      d: 'Lesja Fallskärmsklubb äger och driver Bjorli Flygplats, en fin privatägd flygplats i Bjorli med 850 meter asfalterad landningsbana, hangar och klubbhus. Flygplatsen hyrs också ut till externa aktörer — kontrollera klubbens terminlista före planerat besök eller landning.',
+      alt: 'Översiktsbild av Bjorli med centrum nederst och landningsbanan vid Bjorli Flygplats uppe till höger.',
+      caption: 'Bjorli Flygplats ligger nära centrum. Landningsbanan syns uppe till höger i bilden.',
+    },
   },
 };
 
@@ -288,6 +357,7 @@ const ActivityCard = ({ card, index, readMore }: { card: Card; index: number; re
           alt={card.alt}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+          style={card.objectPosition ? { objectPosition: card.objectPosition } : undefined}
         />
       </div>
       <div className="p-7 flex flex-col flex-1">
