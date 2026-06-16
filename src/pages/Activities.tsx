@@ -52,6 +52,8 @@ const buildSections = (
     lengre: { t: string; d: string };
     tafjord: { t: string; d: string };
     natur: { t: string; d: string };
+    luftigeTitle: string; luftigeIntro: string;
+    flyplass: { t: string; d: string; alt: string; caption: string };
   },
   lp: (p: string) => string,
 ): Section[] => [
@@ -88,6 +90,23 @@ const buildSections = (
       { key: 'lengre', title: c.lengre.t, desc: c.lengre.d, href: lp('/fotturer'), image: images.summerAerialValleyRiver.src, alt: images.summerAerialValleyRiver.alt },
       { key: 'tafjord', title: c.tafjord.t, desc: c.tafjord.d, href: lp('/fotturer'), image: images.summerAerialSkiCenterMountain.src, alt: images.summerAerialSkiCenterMountain.alt },
       { key: 'natur', title: c.natur.t, desc: c.natur.d, href: lp('/sommer'), image: images.summerAerialNature.src, alt: images.summerAerialNature.alt },
+    ],
+  },
+  {
+    id: 'luftige-opplevelser',
+    title: c.luftigeTitle,
+    intro: c.luftigeIntro,
+    cards: [
+      {
+        key: 'flyplass',
+        title: c.flyplass.t,
+        desc: c.flyplass.d,
+        href: 'https://www.lesjafsk.no/',
+        image: flyplassImg,
+        alt: c.flyplass.alt,
+        external: true,
+        objectPosition: '75% 30%',
+      },
     ],
   },
 ];
