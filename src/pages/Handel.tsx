@@ -236,6 +236,32 @@ const Handel = () => {
         </div>
       </section>
 
+      {/* Related: Food & Drink */}
+      <section className="py-12 md:py-16 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <Card className="bg-card/60 backdrop-blur border-border/60">
+            <CardContent className="p-8 flex flex-col md:flex-row md:items-center gap-6">
+              <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                <Utensils className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-display text-2xl font-bold mb-2">Mat og drikke på Bjorli</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Ser du etter kafé, lunsj, lounge eller afterski? Se oversikten over mat og
+                  drikke på Bjorli, inkludert Heiskroa, T-Kroken og andre spisesteder i området.
+                </p>
+              </div>
+              <Link
+                to={lp('/mat-og-drikke')}
+                className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline shrink-0"
+              >
+                Se mat og drikke <ArrowRight className="h-4 w-4" />
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       <FaqBlock title="Ofte stilte spørsmål" items={faqItems} />
     </div>
   );
