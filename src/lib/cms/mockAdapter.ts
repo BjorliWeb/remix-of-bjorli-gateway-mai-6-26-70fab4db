@@ -615,6 +615,22 @@ export const mockAdapter: CmsAdapter = {
       { href: '/sommer/klatring-og-buldring-romsdalen', image: { url: klatringHeroImg } },
     ];
 
+    // Slim activities grid to 6 cards, dropping entries already covered
+    // by the new "Velg din sommerdag" picker (Sykkel #1, Familie #3,
+    // Klatring #8).
+    const ACTIVITY_KEEP = [0, 2, 4, 5, 6, 7];
+
+    // Picker — "Velg din sommerdag på Bjorli". Reuses imageCards renderer.
+    // Images chosen to avoid duplicating any image used in the slimmed
+    // activities grid above.
+    const pickerCardMeta = [
+      { href: '/familie',      image: { url: familySummerImg } },
+      { href: '/sykling',      image: { url: bikingImg } },
+      { href: '/fotturer',     image: { url: summerValleyImg } },
+      { href: '/fiske',        image: { url: images.fishingLake.src } },
+      { href: '/sommer/klatring-og-buldring-romsdalen', image: { url: klatringHeroImg } },
+    ];
+
     const summerSections: any[] = [
       // 2 — Intro value
       {
@@ -629,24 +645,40 @@ export const mockAdapter: CmsAdapter = {
           { title: s.intro.items[2].title, desc: s.intro.items[2].desc, icon: 'home' },
         ],
       },
-      // 3 — Main activities (image cards with short copy + "Les mer")
+      // 3 — "Velg din sommerdag på Bjorli" — visitor-path picker
+      {
+        id: 'summerDayPicker',
+        type: 'imageCards' as const,
+        eyebrow: s.picker.eyebrow,
+        title: s.picker.title,
+        cards: s.picker.cards.map((c, i) => ({
+          title: c.title,
+          desc: c.desc,
+          image: { url: pickerCardMeta[i].image.url, alt: c.alt },
+          href: pickerCardMeta[i].href,
+          ctaLabel: s.picker.readMore,
+        })),
+      },
+      // 4 — Main activities (image cards with short copy + "Les mer")
       {
         id: 'summerActivitiesGrid',
         type: 'imageCards' as const,
         eyebrow: s.activitiesGrid.eyebrow,
         title: s.activitiesGrid.title,
-        cards: s.activitiesGrid.cards.map((c, i) => ({
-          title: c.title,
-          desc: c.desc,
-          image: { url: activityCardMeta[i].image.url, alt: c.alt },
-          href: activityCardMeta[i].href,
-          ctaLabel: s.activitiesGrid.readMore,
-        })),
+        cards: ACTIVITY_KEEP.map((i) => {
+          const c = s.activitiesGrid.cards[i];
+          return {
+            title: c.title,
+            desc: c.desc,
+            image: { url: activityCardMeta[i].image.url, alt: c.alt },
+            href: activityCardMeta[i].href,
+            ctaLabel: s.activitiesGrid.readMore,
+          };
+        }),
       },
-      // Editorial role split (per spec): on the summer homepage the
-      // destination-wide "Hva skjer på Bjorli" section comes first,
-      // followed by official Skisenter updates. Both sections must
-      // exist on both winter and summer homepages.
+      // Destination-wide "Hva skjer på Bjorli".
+      // Note: the Skisenter "news" section is intentionally NOT
+      // rendered on /sommer — it stays on the winter homepage only.
       {
         id: 'events',
         type: 'events' as const,
@@ -656,49 +688,6 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.events.cta,
         ctaHref: '/arrangementer',
         items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
-      },
-      {
-        id: 'news',
-        type: 'news' as const,
-        eyebrow: d.news.eyebrow,
-        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
-        subtitle: d.news.subtitle,
-        ctaLabel: d.news.cta,
-        ctaHref: '/nyheter',
-        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
-      },
-      // 4 — Biking, play & active family days
-      // TODO(image): no second biking/family-active photo available;
-      // bikingImg already used in the activity card above. Leaving image
-      // empty per editorial rule (no winter / no repeats on same page).
-      {
-        id: 'summerBiking',
-        type: 'feature' as const,
-        eyebrow: s.biking.eyebrow,
-        title: s.biking.title,
-        body: s.biking.body,
-        image: undefined,
-        imageSide: 'right' as const,
-        ctas: [
-          { label: s.biking.cta, href: '/sykling', variant: 'primary' as const },
-        ],
-      },
-      // 5 — Hiking & nature
-      // TODO(image): no dedicated hiker photo. Hero (summerHero) is the
-      // closest match but reserved as page hero — no repeats on same page.
-      {
-        id: 'summerHiking',
-        type: 'feature' as const,
-        eyebrow: s.hiking.eyebrow,
-        title: s.hiking.title,
-        body: s.hiking.body,
-        image: undefined,
-        imageSide: 'left' as const,
-        subcards: s.hiking.subcards,
-        ctas: [
-          { label: s.hiking.ctaPrimary, href: '/fotturer', variant: 'primary' as const },
-          { label: s.hiking.ctaSecondary, href: '/sommer/korte-turer', variant: 'secondary' as const },
-        ],
       },
       // 6 — Fishing & quiet outdoor days
       // Card above uses flyFishingImg → use river-fishing photo here so
@@ -715,39 +704,6 @@ export const mockAdapter: CmsAdapter = {
           { label: s.fishing.cta, href: '/fiske', variant: 'primary' as const },
         ],
       },
-      // 7 — Family summer
-      // TODO(image): summerWaterImg already used in the family card.
-      // No additional kid/outdoor-summer photo available — leave blank.
-      {
-        id: 'summerFamily',
-        type: 'feature' as const,
-        eyebrow: s.family.eyebrow,
-        title: s.family.title,
-        body: s.family.body,
-        image: undefined,
-        imageSide: 'left' as const,
-        subcards: s.family.subcards,
-        ctas: [
-          { label: s.family.cta, href: '/familie', variant: 'primary' as const },
-        ],
-      },
-      // 8 — Basecamp for day trips
-      // TODO(image): page hero (summerHero) is the only wide green
-      // landscape; reserved for hero. goldenTrainImg already used in
-      // the Dagsturer card. Leave blank rather than repeat.
-      {
-        id: 'summerBasecamp',
-        type: 'feature' as const,
-        eyebrow: s.basecamp.eyebrow,
-        title: s.basecamp.title,
-        body: s.basecamp.body,
-        image: undefined,
-        imageSide: 'right' as const,
-        subcards: s.basecamp.subcards,
-        ctas: [
-          { label: s.basecamp.cta, href: '/reisen-hit', variant: 'primary' as const },
-        ],
-      },
       // 9 — Travel
       {
         id: 'gettingHere',
@@ -759,22 +715,6 @@ export const mockAdapter: CmsAdapter = {
         ctas: [
           { label: d.gettingHere.cta, href: '/reisen-hit', icon: 'car' },
           { label: 'Raumabanen', href: 'https://www.vy.no/', icon: 'train', external: true },
-        ],
-      },
-      // 10 — Accommodation
-      // TODO(image): no green-season cabin/exterior photo. Snowy
-      // Vetlegrenda (winter) is forbidden on summer pages and the only
-      // wide summer landscape is the hero. Leaving blank.
-      {
-        id: 'accommodationSummer',
-        type: 'feature' as const,
-        eyebrow: d.accommodation.eyebrow,
-        title: d.accommodation.title,
-        body: d.accommodation.body,
-        image: undefined,
-        imageSide: 'left' as const,
-        ctas: [
-          { label: d.accommodation.cta, href: '/overnatting', variant: 'primary' as const },
         ],
       },
       // 11 — Food & meeting places
