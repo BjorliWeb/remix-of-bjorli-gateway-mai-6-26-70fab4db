@@ -224,20 +224,20 @@ const Sommer = () => {
 
       {/* Accommodation CTA widget */}
       <div className="relative z-20 -mt-16 md:-mt-24 px-4">
-        <div className="container mx-auto max-w-3xl">
+        <div className="container mx-auto max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <Card className="rounded-2xl border border-border/60 bg-card/95 backdrop-blur-sm shadow-lg p-6 md:p-8">
+            <Card className="rounded-3xl border border-border/40 bg-background/90 backdrop-blur-md shadow-md p-6 md:p-8">
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 tracking-tight">
                 {t.stayWidgetTitle}
               </h2>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-2xl">
                 {t.stayWidgetBody}
               </p>
-              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-6">
                 <li className="flex items-start gap-2 text-sm text-foreground/80">
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
                   <span>{t.stayWidgetProof1}</span>
