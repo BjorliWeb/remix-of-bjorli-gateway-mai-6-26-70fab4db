@@ -106,6 +106,7 @@ const no: Dictionary = {
     cta: 'Se kalender',
     items: [
       { category: 'Aktuelt', date: 'Juni 2026', title: 'Ny asfaltert pump track i Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark har åpnet en ny asfaltert pump track i juni 2026. Et lavterskel aktivitetstilbud for barn, ungdom og voksne som vil øve balanse, flyt og sykkelteknikk på Bjorli. Parken ligger omtrent 850 meter fra E136.' },
+      { category: 'Aktuelt', date: '21. juni – 23. august 2026', title: 'Søndagsbuffet på Bjorliheimen Fjellhotell', intro: 'Bjorliheimen Fjellhotell inviterer til søndagsbuffet fra og med søndag 21. juni til og med søndag 23. august 2026. Buffeten er åpen hver søndag kl. 13:00–17:00. Mer info: www.bjorliheimen.no' },
       { category: 'Aktuelt', date: '5.–6. september 2026', title: 'Høstmarked på Bjorli 2026', intro: 'Det tradisjonsrike høstmarkedet på Bjorli arrangeres også i år helgen 5.–6. september 2026. Som tidligere år blir det liv og røre på Bjorli, med mange spennende utstillere og gode tilbud.' },
       { category: 'Sesongåpning', date: 'Nov', title: 'Åpningshelg', intro: 'Vi markerer sesongstart med tilbud, aktiviteter og afterski.' },
       { category: 'Familie', date: 'Feb', title: 'Vinterferieprogram', intro: 'Aktiviteter for store og små gjennom hele vinterferien.' },
