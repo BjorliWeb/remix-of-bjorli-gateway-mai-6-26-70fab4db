@@ -22,6 +22,12 @@ export interface SummerHomepageCopy {
     subtitle: string;
     items: { title: string; desc: string }[]; // 3
   };
+  picker: {
+    eyebrow: string;
+    title: string;
+    readMore: string;
+    cards: { title: string; desc: string; alt: string }[]; // 5
+  };
   activitiesGrid: {
     eyebrow: string;
     title: string;
