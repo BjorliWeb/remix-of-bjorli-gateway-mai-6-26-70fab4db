@@ -25,7 +25,6 @@ interface SommerCopy {
   stayWidgetTitle: string;
   stayWidgetBody: string;
   stayWidgetPrimaryCta: string;
-  stayWidgetSecondaryCta: string;
   stayWidgetProof1: string;
   stayWidgetProof2: string;
   stayWidgetProof3: string;
