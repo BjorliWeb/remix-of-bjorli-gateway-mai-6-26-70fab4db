@@ -6,6 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
 
@@ -21,6 +22,13 @@ interface SommerCopy {
   finalTitle: string;
   finalPrimaryCta: string;
   finalSecondaryCta: string;
+  stayWidgetTitle: string;
+  stayWidgetBody: string;
+  stayWidgetPrimaryCta: string;
+  stayWidgetSecondaryCta: string;
+  stayWidgetProof1: string;
+  stayWidgetProof2: string;
+  stayWidgetProof3: string;
 }
 
 const COPY: Record<Locale, SommerCopy> = {
@@ -33,6 +41,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Planlegg en aktiv sommer på Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se overnatting',
+    stayWidgetTitle: 'Planlegg sommeroppholdet på Bjorli',
+    stayWidgetBody:
+      'Finn hytte, leilighet eller overnatting tett på fjellet, aktivitetene og sommeropplevelsene.',
+    stayWidgetPrimaryCta: 'Se overnatting',
+    stayWidgetSecondaryCta: 'Se sommeraktiviteter',
+    stayWidgetProof1: 'Kort vei til tur, sykkel og fjell',
+    stayWidgetProof2: 'Passer for familier, par og vennegjenger',
+    stayWidgetProof3: 'Sommerbase mellom Østlandet og Nordvestlandet',
   },
   en: {
     heroTitle: 'Summer in Bjorli',
@@ -43,6 +59,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Plan an active summer in Bjorli',
     finalPrimaryCta: 'See activities',
     finalSecondaryCta: 'See accommodation',
+    stayWidgetTitle: 'Plan your summer stay in Bjorli',
+    stayWidgetBody:
+      'Find a cabin, apartment or accommodation close to the mountains, activities and summer experiences.',
+    stayWidgetPrimaryCta: 'See accommodation',
+    stayWidgetSecondaryCta: 'See summer activities',
+    stayWidgetProof1: 'Short distance to hiking, cycling and mountains',
+    stayWidgetProof2: 'Suits families, couples and groups of friends',
+    stayWidgetProof3: 'Summer base between Eastern and Northwestern Norway',
   },
   de: {
     heroTitle: 'Sommer in Bjorli',
@@ -53,6 +77,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Planen Sie einen aktiven Sommer in Bjorli',
     finalPrimaryCta: 'Aktivitäten ansehen',
     finalSecondaryCta: 'Unterkünfte ansehen',
+    stayWidgetTitle: 'Planen Sie Ihren Sommeraufenthalt in Bjorli',
+    stayWidgetBody:
+      'Finden Sie eine Hütte, Wohnung oder Unterkunft in der Nähe von Bergen, Aktivitäten und Sommererlebnissen.',
+    stayWidgetPrimaryCta: 'Unterkünfte ansehen',
+    stayWidgetSecondaryCta: 'Sommeraktivitäten ansehen',
+    stayWidgetProof1: 'Kurzer Weg zu Wanderungen, Radfahren und Bergen',
+    stayWidgetProof2: 'Geeignet für Familien, Paare und Freundesgruppen',
+    stayWidgetProof3: 'Sommerbasis zwischen Ostlandet und Nordwestlandet',
   },
   nl: {
     heroTitle: 'Zomer in Bjorli',
@@ -63,6 +95,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Plan een actieve zomer in Bjorli',
     finalPrimaryCta: 'Bekijk activiteiten',
     finalSecondaryCta: 'Bekijk accommodatie',
+    stayWidgetTitle: 'Plan uw zomerverblijf in Bjorli',
+    stayWidgetBody:
+      'Vind een hut, appartement of accommodatie dicht bij de bergen, activiteiten en zomerervaringen.',
+    stayWidgetPrimaryCta: 'Bekijk accommodatie',
+    stayWidgetSecondaryCta: 'Bekijk zomeractiviteiten',
+    stayWidgetProof1: 'Korte afstand tot wandelen, fietsen en bergen',
+    stayWidgetProof2: 'Geschikt voor gezinnen, stellen en vriendengroepen',
+    stayWidgetProof3: 'Zomerbasis tussen Østlandet en Nordwestlandet',
   },
   da: {
     heroTitle: 'Sommer i Bjorli',
@@ -73,6 +113,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Planlæg en aktiv sommer i Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se overnatning',
+    stayWidgetTitle: 'Planlæg dit sommerophold i Bjorli',
+    stayWidgetBody:
+      'Find en hytte, lejlighed eller overnatning tæt på bjergene, aktiviteterne og sommeroplevelserne.',
+    stayWidgetPrimaryCta: 'Se overnatning',
+    stayWidgetSecondaryCta: 'Se sommeraktiviteter',
+    stayWidgetProof1: 'Kort vej til vandring, cykling og bjerge',
+    stayWidgetProof2: 'Passer til familier, par og vennegrupper',
+    stayWidgetProof3: 'Sommerbase mellem Østlandet og Nordvestlandet',
   },
   sv: {
     heroTitle: 'Sommar i Bjorli',
@@ -83,6 +131,14 @@ const COPY: Record<Locale, SommerCopy> = {
     finalTitle: 'Planera en aktiv sommar i Bjorli',
     finalPrimaryCta: 'Se aktiviteter',
     finalSecondaryCta: 'Se boende',
+    stayWidgetTitle: 'Planera din sommarvistelse i Bjorli',
+    stayWidgetBody:
+      'Hitta en stuga, lägenhet eller boende nära fjällen, aktiviteterna och sommarupplevelserna.',
+    stayWidgetPrimaryCta: 'Se boende',
+    stayWidgetSecondaryCta: 'Se sommaraktiviteter',
+    stayWidgetProof1: 'Kort väg till vandring, cykling och fjäll',
+    stayWidgetProof2: 'Passar för familjer, par och vänner',
+    stayWidgetProof3: 'Sommarbas mellan Østlandet och Nordvestlandet',
   },
 };
 
@@ -172,6 +228,53 @@ const Sommer = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Accommodation CTA widget */}
+      <div className="relative z-20 -mt-16 md:-mt-24 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <Card className="rounded-2xl border border-border/60 bg-card/95 backdrop-blur-sm shadow-lg p-6 md:p-8">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 tracking-tight">
+                {t.stayWidgetTitle}
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-2xl">
+                {t.stayWidgetBody}
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof1}</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof2}</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof3}</span>
+                </li>
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link to={lp('/overnatting')}>
+                  <Button size="lg" className="font-semibold w-full sm:w-auto">
+                    {t.stayWidgetPrimaryCta}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to={lp('/aktiviteter')}>
+                  <Button variant="outline" size="lg" className="font-semibold w-full sm:w-auto">
+                    {t.stayWidgetSecondaryCta}
+                  </Button>
+                </Link>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
 
       <div id="opplev-sommer">
         {home.sections && <HomepageSections sections={home.sections} />}
