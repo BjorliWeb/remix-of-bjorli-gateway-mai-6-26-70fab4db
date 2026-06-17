@@ -95,6 +95,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Vestover på dagstur', desc: 'Bo på Bjorli og bruk dagene i Romsdalen, langs Raumabanen og mot fjordene.' },
       ],
     },
+    picker: {
+      eyebrow: 'Sommerdager',
+      title: 'Velg din sommerdag på Bjorli',
+      readMore: 'Les mer',
+      cards: [
+        { title: 'Aktiv familiedag', desc: 'Pumptrack, fiske og korte turer.', alt: 'Familie på tur i sommerlandskap ved Bjorli' },
+        { title: 'På sykkel og pumptrack', desc: 'Stier, grusveier og pumptrack i sentrum.', alt: 'Sykling og pumptrack på Bjorli en sommerdag' },
+        { title: 'Til fjells', desc: 'Korte stier og lange dagsturer i høyfjellet.', alt: 'Åpent høyfjell og dalføre ved Bjorli' },
+        { title: 'Ved vannet', desc: 'Fluefiske og rolige stunder ved Rauma.', alt: 'Stille fjellvann nær Bjorli en sommerdag' },
+        { title: 'Luftig dag i Romsdalen', desc: 'Klatring, buldring og via ferrata.', alt: 'Bratte fjellvegger i Romsdalen' },
+      ],
+    },
     activitiesGrid: {
       eyebrow: 'Sommer på Bjorli',
       title: 'Dette kan du gjøre på Bjorli om sommeren',
