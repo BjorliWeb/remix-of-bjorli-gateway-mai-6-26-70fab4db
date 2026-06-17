@@ -6,6 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
 
