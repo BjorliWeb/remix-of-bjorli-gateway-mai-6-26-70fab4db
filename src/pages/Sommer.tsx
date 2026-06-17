@@ -60,11 +60,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Plan your summer stay in Bjorli',
     stayWidgetBody:
       'Find a cabin, apartment or accommodation close to the mountains, activities and summer experiences.',
-    stayWidgetPrimaryCta: 'See accommodation',
-    stayWidgetSecondaryCta: 'See summer activities',
+    stayWidgetPrimaryCta: 'Find accommodation',
     stayWidgetProof1: 'Short distance to hiking, cycling and mountains',
-    stayWidgetProof2: 'Suits families, couples and groups of friends',
-    stayWidgetProof3: 'Summer base between Eastern and Northwestern Norway',
+    stayWidgetProof2: 'For families, couples and friends',
+    stayWidgetProof3: 'Base between Eastern and Northwestern Norway',
   },
   de: {
     heroTitle: 'Sommer in Bjorli',
