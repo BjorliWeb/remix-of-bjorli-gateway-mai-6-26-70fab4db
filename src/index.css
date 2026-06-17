@@ -224,3 +224,31 @@
       radial-gradient(ellipse at center, transparent 40%, hsl(var(--hero-overlay) / 0.35) 100%);
   }
 }
+
+/* ─── Summer page spacing polish ─────────────────────────────────── */
+/* Reduce section padding by ~15–20% on /sommer while keeping /vinter
+   untouched. Relies on [data-season="summer"] (set by Layout.tsx) and
+   #opplev-sommer (the CMS sections wrapper in Sommer.tsx).            */
+[data-season="summer"] #opplev-sommer > section.py-28 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+[data-season="summer"] #opplev-sommer > section.py-24 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  [data-season="summer"] #opplev-sommer > section.md\:py-40 {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+  [data-season="summer"] #opplev-sommer > section.md\:py-36 {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+  [data-season="summer"] #opplev-sommer > section.md\:py-32 {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
