@@ -251,16 +251,11 @@ const Sommer = () => {
                   <span>{t.stayWidgetProof3}</span>
                 </li>
               </ul>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex justify-center">
                 <Link to={lp('/overnatting')}>
                   <Button size="lg" className="font-semibold w-full sm:w-auto">
                     {t.stayWidgetPrimaryCta}
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to={lp('/aktiviteter')}>
-                  <Button variant="outline" size="lg" className="font-semibold w-full sm:w-auto">
-                    {t.stayWidgetSecondaryCta}
                   </Button>
                 </Link>
               </div>
