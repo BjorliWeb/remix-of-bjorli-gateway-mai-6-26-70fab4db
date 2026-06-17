@@ -25,7 +25,6 @@ interface SommerCopy {
   stayWidgetTitle: string;
   stayWidgetBody: string;
   stayWidgetPrimaryCta: string;
-  stayWidgetSecondaryCta: string;
   stayWidgetProof1: string;
   stayWidgetProof2: string;
   stayWidgetProof3: string;
@@ -44,11 +43,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Planlegg sommeroppholdet på Bjorli',
     stayWidgetBody:
       'Finn hytte, leilighet eller overnatting tett på fjellet, aktivitetene og sommeropplevelsene.',
-    stayWidgetPrimaryCta: 'Se overnatting',
-    stayWidgetSecondaryCta: 'Se sommeraktiviteter',
-    stayWidgetProof1: 'Kort vei til tur, sykkel og fjell',
-    stayWidgetProof2: 'Passer for familier, par og vennegjenger',
-    stayWidgetProof3: 'Sommerbase mellom Østlandet og Nordvestlandet',
+    stayWidgetPrimaryCta: 'Finn overnatting',
+  stayWidgetProof1: 'Kort vei til tur, sykkel og fjell',
+    stayWidgetProof2: 'For familier, par og vennegjenger',
+    stayWidgetProof3: 'Base mellom Østlandet og Nordvestlandet',
   },
   en: {
     heroTitle: 'Summer in Bjorli',
@@ -62,11 +60,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Plan your summer stay in Bjorli',
     stayWidgetBody:
       'Find a cabin, apartment or accommodation close to the mountains, activities and summer experiences.',
-    stayWidgetPrimaryCta: 'See accommodation',
-    stayWidgetSecondaryCta: 'See summer activities',
+    stayWidgetPrimaryCta: 'Find accommodation',
     stayWidgetProof1: 'Short distance to hiking, cycling and mountains',
-    stayWidgetProof2: 'Suits families, couples and groups of friends',
-    stayWidgetProof3: 'Summer base between Eastern and Northwestern Norway',
+    stayWidgetProof2: 'For families, couples and friends',
+    stayWidgetProof3: 'Base between Eastern and Northwestern Norway',
   },
   de: {
     heroTitle: 'Sommer in Bjorli',
@@ -80,11 +77,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Planen Sie Ihren Sommeraufenthalt in Bjorli',
     stayWidgetBody:
       'Finden Sie eine Hütte, Wohnung oder Unterkunft in der Nähe von Bergen, Aktivitäten und Sommererlebnissen.',
-    stayWidgetPrimaryCta: 'Unterkünfte ansehen',
-    stayWidgetSecondaryCta: 'Sommeraktivitäten ansehen',
+    stayWidgetPrimaryCta: 'Unterkunft finden',
     stayWidgetProof1: 'Kurzer Weg zu Wanderungen, Radfahren und Bergen',
-    stayWidgetProof2: 'Geeignet für Familien, Paare und Freundesgruppen',
-    stayWidgetProof3: 'Sommerbasis zwischen Ostlandet und Nordwestlandet',
+    stayWidgetProof2: 'Für Familien, Paare und Freundesgruppen',
+    stayWidgetProof3: 'Basis zwischen Ostlandet und Nordwestlandet',
   },
   nl: {
     heroTitle: 'Zomer in Bjorli',
@@ -98,11 +94,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Plan uw zomerverblijf in Bjorli',
     stayWidgetBody:
       'Vind een hut, appartement of accommodatie dicht bij de bergen, activiteiten en zomerervaringen.',
-    stayWidgetPrimaryCta: 'Bekijk accommodatie',
-    stayWidgetSecondaryCta: 'Bekijk zomeractiviteiten',
+    stayWidgetPrimaryCta: 'Accommodatie zoeken',
     stayWidgetProof1: 'Korte afstand tot wandelen, fietsen en bergen',
-    stayWidgetProof2: 'Geschikt voor gezinnen, stellen en vriendengroepen',
-    stayWidgetProof3: 'Zomerbasis tussen Østlandet en Nordwestlandet',
+    stayWidgetProof2: 'Voor gezinnen, stellen en vrienden',
+    stayWidgetProof3: 'Basis tussen Østlandet en Nordwestlandet',
   },
   da: {
     heroTitle: 'Sommer i Bjorli',
@@ -116,11 +111,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Planlæg dit sommerophold i Bjorli',
     stayWidgetBody:
       'Find en hytte, lejlighed eller overnatning tæt på bjergene, aktiviteterne og sommeroplevelserne.',
-    stayWidgetPrimaryCta: 'Se overnatning',
-    stayWidgetSecondaryCta: 'Se sommeraktiviteter',
+    stayWidgetPrimaryCta: 'Find overnatning',
     stayWidgetProof1: 'Kort vej til vandring, cykling og bjerge',
-    stayWidgetProof2: 'Passer til familier, par og vennegrupper',
-    stayWidgetProof3: 'Sommerbase mellem Østlandet og Nordvestlandet',
+    stayWidgetProof2: 'For familier, par og vennegrupper',
+    stayWidgetProof3: 'Base mellem Østlandet og Nordvestlandet',
   },
   sv: {
     heroTitle: 'Sommar i Bjorli',
@@ -134,11 +128,10 @@ const COPY: Record<Locale, SommerCopy> = {
     stayWidgetTitle: 'Planera din sommarvistelse i Bjorli',
     stayWidgetBody:
       'Hitta en stuga, lägenhet eller boende nära fjällen, aktiviteterna och sommarupplevelserna.',
-    stayWidgetPrimaryCta: 'Se boende',
-    stayWidgetSecondaryCta: 'Se sommaraktiviteter',
+    stayWidgetPrimaryCta: 'Hitta boende',
     stayWidgetProof1: 'Kort väg till vandring, cykling och fjäll',
-    stayWidgetProof2: 'Passar för familjer, par och vänner',
-    stayWidgetProof3: 'Sommarbas mellan Østlandet och Nordvestlandet',
+    stayWidgetProof2: 'För familjer, par och vänner',
+    stayWidgetProof3: 'Bas mellan Østlandet och Nordvestlandet',
   },
 };
 
@@ -258,16 +251,11 @@ const Sommer = () => {
                   <span>{t.stayWidgetProof3}</span>
                 </li>
               </ul>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex justify-center">
                 <Link to={lp('/overnatting')}>
                   <Button size="lg" className="font-semibold w-full sm:w-auto">
                     {t.stayWidgetPrimaryCta}
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link to={lp('/aktiviteter')}>
-                  <Button variant="outline" size="lg" className="font-semibold w-full sm:w-auto">
-                    {t.stayWidgetSecondaryCta}
                   </Button>
                 </Link>
               </div>
