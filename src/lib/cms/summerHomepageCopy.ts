@@ -195,6 +195,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Days out westward',   desc: 'Stay in Bjorli and spend your days in Romsdalen, on the Raumabanen and toward the fjords.' },
       ],
     },
+    picker: {
+      eyebrow: 'Summer days',
+      title: 'Pick your summer day at Bjorli',
+      readMore: 'Read more',
+      cards: [
+        { title: 'Active family day', desc: 'Pumptrack, fishing and short walks.', alt: 'Family in summer landscape near Bjorli' },
+        { title: 'On the bike and pumptrack', desc: 'Trails, gravel and a village pumptrack.', alt: 'Cycling and pumptrack at Bjorli on a summer day' },
+        { title: 'Up to the mountains', desc: 'Short trails and long high-country days.', alt: 'Open high country and valley near Bjorli' },
+        { title: 'By the water', desc: 'Fly fishing and quiet hours by Rauma.', alt: 'Calm mountain lake near Bjorli on a summer day' },
+        { title: 'Airy day in Romsdalen', desc: 'Climbing, bouldering and via ferrata.', alt: 'Steep mountain walls in Romsdalen' },
+      ],
+    },
     activitiesGrid: {
       eyebrow: 'Summer in Bjorli',
       title: 'What you can do in Bjorli in summer',
