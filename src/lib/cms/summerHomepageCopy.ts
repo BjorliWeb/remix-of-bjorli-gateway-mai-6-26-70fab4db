@@ -295,6 +295,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Tage gen Westen',  desc: 'Wohnen Sie in Bjorli und verbringen Sie die Tage im Romsdalen, auf der Raumabanen und Richtung Fjorde.' },
       ],
     },
+    picker: {
+      eyebrow: 'Sommertage',
+      title: 'Wählen Sie Ihren Sommertag in Bjorli',
+      readMore: 'Mehr erfahren',
+      cards: [
+        { title: 'Aktiver Familientag', desc: 'Pumptrack, Angeln und kurze Wanderungen.', alt: 'Familie in Sommerlandschaft bei Bjorli' },
+        { title: 'Mit dem Rad und Pumptrack', desc: 'Pfade, Schotterwege und Pumptrack im Ort.', alt: 'Radfahren und Pumptrack in Bjorli im Sommer' },
+        { title: 'Hinauf in die Berge', desc: 'Kurze Pfade und lange Tage im Hochgebirge.', alt: 'Offenes Hochgebirge und Tal bei Bjorli' },
+        { title: 'Am Wasser', desc: 'Fliegenfischen und ruhige Stunden an der Rauma.', alt: 'Ruhiger Bergsee bei Bjorli im Sommer' },
+        { title: 'Luftiger Tag im Romsdalen', desc: 'Klettern, Bouldern und Klettersteig.', alt: 'Steile Bergwände im Romsdalen' },
+      ],
+    },
     activitiesGrid: {
       eyebrow: 'Sommer in Bjorli',
       title: 'Das können Sie im Sommer in Bjorli unternehmen',
