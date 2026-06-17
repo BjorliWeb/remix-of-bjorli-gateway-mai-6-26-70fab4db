@@ -229,6 +229,53 @@ const Sommer = () => {
         </div>
       </section>
 
+      {/* Accommodation CTA widget */}
+      <div className="relative z-20 -mt-16 md:-mt-24 px-4">
+        <div className="container mx-auto max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <Card className="rounded-2xl border border-border/60 bg-card/95 backdrop-blur-sm shadow-lg p-6 md:p-8">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 tracking-tight">
+                {t.stayWidgetTitle}
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6 max-w-2xl">
+                {t.stayWidgetBody}
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof1}</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof2}</span>
+                </li>
+                <li className="flex items-start gap-2 text-sm text-foreground/80">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-secondary shrink-0" />
+                  <span>{t.stayWidgetProof3}</span>
+                </li>
+              </ul>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link to={lp('/overnatting')}>
+                  <Button size="lg" className="font-semibold w-full sm:w-auto">
+                    {t.stayWidgetPrimaryCta}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link to={lp('/aktiviteter')}>
+                  <Button variant="outline" size="lg" className="font-semibold w-full sm:w-auto">
+                    {t.stayWidgetSecondaryCta}
+                  </Button>
+                </Link>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
+
       <div id="opplev-sommer">
         {home.sections && <HomepageSections sections={home.sections} />}
       </div>
