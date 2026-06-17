@@ -395,6 +395,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Dagen naar het westen', desc: 'Verblijf in Bjorli en breng je dagen door in Romsdalen, op de Raumabanen en richting de fjorden.' },
       ],
     },
+    picker: {
+      eyebrow: 'Zomerdagen',
+      title: 'Kies je zomerdag in Bjorli',
+      readMore: 'Lees meer',
+      cards: [
+        { title: 'Actieve gezinsdag', desc: 'Pumptrack, vissen en korte wandelingen.', alt: 'Gezin in zomerlandschap bij Bjorli' },
+        { title: 'Op de fiets en pumptrack', desc: 'Paden, grindwegen en pumptrack in het dorp.', alt: 'Fietsen en pumptrack in Bjorli in de zomer' },
+        { title: 'De bergen in', desc: 'Korte paden en lange dagen in het hooggebergte.', alt: 'Open hooggebergte en dal bij Bjorli' },
+        { title: 'Aan het water', desc: 'Vliegvissen en rustige uren bij de Rauma.', alt: 'Rustig bergmeer bij Bjorli in de zomer' },
+        { title: 'Luchtige dag in Romsdalen', desc: 'Klimmen, boulderen en via ferrata.', alt: 'Steile bergwanden in Romsdalen' },
+      ],
+    },
     activitiesGrid: {
       eyebrow: 'Zomer in Bjorli',
       title: 'Dit kun je doen in Bjorli in de zomer',
@@ -483,6 +495,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Dage mod vest',   desc: 'Bo i Bjorli og brug dagene i Romsdalen, på Raumabanen og mod fjordene.' },
       ],
     },
+    picker: {
+      eyebrow: 'Sommerdage',
+      title: 'Vælg din sommerdag i Bjorli',
+      readMore: 'Læs mere',
+      cards: [
+        { title: 'Aktiv familiedag', desc: 'Pumptrack, fiskeri og korte ture.', alt: 'Familie i sommerlandskab ved Bjorli' },
+        { title: 'På cykel og pumptrack', desc: 'Stier, grusveje og pumptrack i centrum.', alt: 'Cykling og pumptrack i Bjorli om sommeren' },
+        { title: 'Op i fjeldet', desc: 'Korte stier og lange dage i højfjeldet.', alt: 'Åbent højfjeld og dal ved Bjorli' },
+        { title: 'Ved vandet', desc: 'Fluefiskeri og rolige stunder ved Rauma.', alt: 'Stille fjeldsø ved Bjorli om sommeren' },
+        { title: 'Luftig dag i Romsdalen', desc: 'Klatring, bouldering og via ferrata.', alt: 'Stejle fjeldvægge i Romsdalen' },
+      ],
+    },
     activitiesGrid: {
       eyebrow: 'Sommer i Bjorli',
       title: 'Dette kan du opleve i Bjorli om sommeren',
@@ -569,6 +593,18 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
         { title: 'Fjäll och vatten', desc: 'Öppet högfjäll, Rauma, Lesjaskogsvatnet och fjällsjöar precis utanför dörren.' },
         { title: 'Aktiva dagar',     desc: 'Vandring, cykling, fiske, gårdsbesök och turer till Mardalsfossen och Dovrefjell.' },
         { title: 'Dagar västerut',   desc: 'Bo i Bjorli och tillbringa dagarna i Romsdalen, på Raumabanen och mot fjordarna.' },
+      ],
+    },
+    picker: {
+      eyebrow: 'Sommardagar',
+      title: 'Välj din sommardag i Bjorli',
+      readMore: 'Läs mer',
+      cards: [
+        { title: 'Aktiv familjedag', desc: 'Pumptrack, fiske och korta vandringar.', alt: 'Familj i sommarlandskap vid Bjorli' },
+        { title: 'På cykel och pumptrack', desc: 'Stigar, grusvägar och pumptrack i centrum.', alt: 'Cykling och pumptrack i Bjorli på sommaren' },
+        { title: 'Upp till fjälls', desc: 'Korta stigar och långa dagar i högfjället.', alt: 'Öppet högfjäll och dal vid Bjorli' },
+        { title: 'Vid vattnet', desc: 'Flugfiske och lugna stunder vid Rauma.', alt: 'Stilla fjällsjö vid Bjorli på sommaren' },
+        { title: 'Luftig dag i Romsdalen', desc: 'Klättring, bouldering och via ferrata.', alt: 'Branta fjällväggar i Romsdalen' },
       ],
     },
     activitiesGrid: {
