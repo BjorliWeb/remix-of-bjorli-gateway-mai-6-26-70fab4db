@@ -106,6 +106,7 @@ const nl: Dictionary = {
     cta: 'Bekijk agenda',
     items: [
       { category: 'Actueel', date: 'Juni 2026', title: 'Nieuwe asfalt-pumptrack in Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark heeft in juni 2026 een nieuwe asfalt-pumptrack geopend — een laagdrempelige plek voor kinderen, jongeren en volwassenen om balans, flow en fietstechniek te oefenen. Het park ligt op ongeveer 850 meter van de E136.' },
+      { category: 'Actueel', date: '21 juni – 23 augustus 2026', title: 'Zondagsbuffet bij Bjorliheimen Fjellhotell', intro: 'Bjorliheimen Fjellhotell nodigt uit voor het zondagsbuffet van zondag 21 juni tot en met zondag 23 augustus 2026. Elke zondag geopend van 13:00 tot 17:00 uur. Meer info: www.bjorliheimen.no' },
       { category: 'Actueel', date: '5–6 september 2026', title: 'Najaarsmarkt op Bjorli 2026', intro: 'De traditionele najaarsmarkt op Bjorli vindt ook dit jaar plaats in het weekend van 5–6 september 2026. Net als voorgaande jaren wordt het een levendig weekend op Bjorli met veel exposanten en mooie aanbiedingen.' },
       { category: 'Seizoensopening', date: 'Nov', title: 'Openingsweekend', intro: 'We vieren de start van het seizoen met aanbiedingen, activiteiten en après-ski.' },
       { category: 'Familie', date: 'Feb', title: 'Voorjaarsvakantie', intro: 'Activiteiten voor jong en oud tijdens de voorjaarsvakantie.' },

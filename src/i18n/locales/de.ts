@@ -106,6 +106,7 @@ const de: Dictionary = {
     cta: 'Kalender ansehen',
     items: [
       { category: 'Aktuell', date: 'Juni 2026', title: 'Neuer asphaltierter Pumptrack im Bjorli Aktivitetspark', intro: 'Der Bjorli Aktivitetspark hat im Juni 2026 einen neuen asphaltierten Pumptrack eröffnet — ein niederschwelliges Angebot für Kinder, Jugendliche und Erwachsene, um Balance, Flow und Radtechnik zu üben. Der Park liegt etwa 850 Meter von der E136 entfernt.' },
+      { category: 'Aktuell', date: '21. Juni – 23. August 2026', title: 'Sonntagsbuffet im Bjorliheimen Fjellhotell', intro: 'Das Bjorliheimen Fjellhotell lädt von Sonntag, 21. Juni bis Sonntag, 23. August 2026 zum Sonntagsbuffet ein. Jeden Sonntag von 13:00 bis 17:00 Uhr geöffnet. Mehr Infos: www.bjorliheimen.no' },
       { category: 'Aktuell', date: '5.–6. September 2026', title: 'Herbstmarkt in Bjorli 2026', intro: 'Der traditionelle Herbstmarkt in Bjorli findet auch in diesem Jahr statt – am Wochenende vom 5. bis 6. September 2026. Wie in den Vorjahren erwartet Sie ein lebendiges Wochenende mit vielen Ausstellern und attraktiven Angeboten.' },
       { category: 'Saisonstart', date: 'Nov', title: 'Eröffnungswochenende', intro: 'Wir feiern den Start in die Saison mit Angeboten, Aktivitäten und Après-Ski.' },
       { category: 'Familie', date: 'Feb', title: 'Winterferienprogramm', intro: 'Aktivitäten für Groß und Klein während der gesamten Winterferien.' },

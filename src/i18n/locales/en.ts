@@ -106,6 +106,7 @@ const en: Dictionary = {
     cta: 'See the calendar',
     items: [
       { category: 'News', date: 'Jun 2026', title: 'New paved pump track at Bjorli Aktivitetspark', intro: 'Bjorli Aktivitetspark opened a new paved pump track in June 2026 — a low-threshold spot for kids, youth and adults to practise balance, flow and bike skills. The park sits about 850 metres from the E136.' },
+      { category: 'News', date: '21 June – 23 August 2026', title: 'Sunday buffet at Bjorliheimen Fjellhotell', intro: 'Bjorliheimen Fjellhotell hosts a Sunday buffet from Sunday 21 June through Sunday 23 August 2026. Open every Sunday from 13:00 to 17:00. More info: www.bjorliheimen.no' },
       { category: 'News', date: '5–6 September 2026', title: 'Høstmarked at Bjorli 2026', intro: 'The traditional autumn market at Bjorli returns the weekend of 5–6 September 2026. As in previous years, expect a lively weekend on Bjorli with many exhibitors and good deals.' },
       { category: 'Season opening', date: 'Nov', title: 'Opening weekend', intro: 'We mark the season start with deals, activities and après-ski.' },
       { category: 'Family', date: 'Feb', title: 'Winter break programme', intro: 'Activities for kids and adults throughout the winter holiday week.' },
