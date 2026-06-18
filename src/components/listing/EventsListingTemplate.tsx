@@ -112,8 +112,6 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: Eve
         </div>
       </section>
 
-      <RelatedContentSection title={d.listing.relatedTitle} items={items.slice(0, 3)} basePath={basePath} />
-
       <SEOPlaceholderBlock title={d.listing.seoPlaceholderTitle ?? title} body={d.listing.seoPlaceholderBody} />
     </div>
   );
