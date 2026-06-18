@@ -58,9 +58,7 @@ const providers: Provider[] = [
     category: 'Leiligheter og hytter',
     desc: 'Private leiligheter og hytter lagt ut på Airbnb.',
     ctaLabel: 'Søk på Airbnb',
-    // TODO: replace with the Airbnb-søk-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.airbnb.com/bjorli-norway/stays',
   },
   {
     name: 'Finn.no',
