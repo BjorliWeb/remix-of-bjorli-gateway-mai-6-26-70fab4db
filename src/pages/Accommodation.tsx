@@ -79,7 +79,7 @@ const providers: Provider[] = [
     category: 'Leiligheter med hotellkomfort',
     desc: 'Leilighetsovernatting med hotellkomfort.',
     ctaLabel: 'Søk hos Bjorli Fjellstuer',
-    href: 'https://bjorlibooking.no',
+    href: 'https://bjorlifjellstuer.no/',
   },
 ];
 
