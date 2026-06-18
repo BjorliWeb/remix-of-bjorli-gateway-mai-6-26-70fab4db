@@ -334,7 +334,7 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     body: e.intro,
     heroImage: { url: e.image ?? EVENT_IMAGES[i % EVENT_IMAGES.length], alt: e.imageAlt ?? e.title },
     category: e.category,
-    season: 'all',
+    season: 'all' as const,
     publishedAt: e.date,
     updatedAt: e.date,
     startsAt: e.date,
