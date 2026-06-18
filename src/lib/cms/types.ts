@@ -161,6 +161,8 @@ export interface CmsEvent extends CmsEntryBase {
   location?: string;
   organizer?: string;
   bookingUrl?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
 /* ------------------------------------------------------------------ */
