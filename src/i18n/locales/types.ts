@@ -134,6 +134,12 @@ export interface Dictionary {
       imageAlt?: string;
       ctaLabel?: string;
       ctaUrl?: string;
+      /**
+       * Publication state. Defaults to `'published'` when missing.
+       * `'archived'` keeps the entry in the data (for future CMS/editor use)
+       * but hides it from all public rendering.
+       */
+      status?: 'published' | 'archived';
     }[];
   };
   beyondAlpine: {

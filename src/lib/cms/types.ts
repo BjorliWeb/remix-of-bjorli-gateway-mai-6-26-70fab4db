@@ -163,6 +163,12 @@ export interface CmsEvent extends CmsEntryBase {
   bookingUrl?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /**
+   * Publication state. Defaults to `'published'` when missing.
+   * Archived events stay in the data for future CMS/editor use but
+   * MUST NOT be returned by the public adapter.
+   */
+  status?: 'published' | 'archived';
 }
 
 /* ------------------------------------------------------------------ */

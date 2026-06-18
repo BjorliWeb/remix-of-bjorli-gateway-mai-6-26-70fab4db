@@ -334,7 +334,7 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     body: e.intro,
     heroImage: { url: e.image ?? EVENT_IMAGES[i % EVENT_IMAGES.length], alt: e.imageAlt ?? e.title },
     category: e.category,
-    season: 'all',
+    season: 'all' as const,
     publishedAt: e.date,
     updatedAt: e.date,
     startsAt: e.date,
@@ -343,7 +343,8 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     ctaHref: e.ctaUrl,
     seoTitle: e.title,
     seoDescription: e.intro,
-  }));
+    status: e.status ?? 'published',
+  })).filter((ev) => ev.status !== 'archived');
 };
 
 const buildActivities = (lang: Language): CmsActivity[] => {
