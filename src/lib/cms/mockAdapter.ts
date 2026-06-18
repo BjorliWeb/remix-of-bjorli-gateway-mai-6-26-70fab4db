@@ -138,6 +138,8 @@ const summerValleyImg = images.summerValley.src;
 import pumpTrackImg   from '@/assets/photos/bjorli-aktivitetspark-skilt.jpg';
 import hostmarkedImg  from '@/assets/photos/bjorli-hostmarked-plakat.jpg';
 import bjorliheimenBuffetImg from '@/assets/photos/bjorliheimen-sondagsbuffet.jpg';
+import ls2026Asset    from '@/assets/photos/ls2026-landsskytterstevnet-lesja.jpg.asset.json';
+const ls2026Img = ls2026Asset.url;
 
 /**
  * Mock CMS adapter.
@@ -155,12 +157,13 @@ const NEWS_IMAGES = [skiSchoolImg, accommodationImg, foodDrinkImg, summerImg];
 // Index map mirrors event order in dictionaries (no.ts/en.ts/...):
 //   0 Pump track  → pumpTrackImg (Bjorli Aktivitetspark sign)
 //   1 Søndagsbuffet Bjorliheimen → bjorliheimenBuffetImg
-//   2 Høstmarked  → hostmarkedImg (Marked på Bjorli poster)
-//   3 Åpningshelg → concertImg (golden village)
-//   4 Vinterferie → tipFamily (kid on the snow)
-//   5 Påske       → crossCountry (sunny snow-covered mountains)
-//   6 Sommer      → summerImg
-const EVENT_IMAGES = [pumpTrackImg, bjorliheimenBuffetImg, hostmarkedImg, concertImg, tipFamily, crossCountry, summerImg];
+//   2 Landsskytterstevnet 2026 → ls2026Img
+//   3 Høstmarked  → hostmarkedImg (Marked på Bjorli poster)
+//   4 Åpningshelg → concertImg (golden village)
+//   5 Vinterferie → tipFamily (kid on the snow)
+//   6 Påske       → crossCountry (sunny snow-covered mountains)
+//   7 Sommer      → summerImg
+const EVENT_IMAGES = [pumpTrackImg, bjorliheimenBuffetImg, ls2026Img, hostmarkedImg, concertImg, tipFamily, crossCountry, summerImg];
 // Split per season so summer activities never get assigned a winter photo.
 const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
 const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
@@ -330,12 +333,15 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     title: e.title,
     intro: e.intro,
     body: e.intro,
-    heroImage: { url: EVENT_IMAGES[i % EVENT_IMAGES.length], alt: e.title },
+    heroImage: { url: e.image ?? EVENT_IMAGES[i % EVENT_IMAGES.length], alt: e.imageAlt ?? e.title },
     category: e.category,
     season: 'all',
     publishedAt: e.date,
     updatedAt: e.date,
     startsAt: e.date,
+    bookingUrl: e.ctaUrl,
+    ctaLabel: e.ctaLabel,
+    ctaHref: e.ctaUrl,
     seoTitle: e.title,
     seoDescription: e.intro,
   }));
