@@ -65,9 +65,7 @@ const providers: Provider[] = [
     category: 'Leiligheter og hytter',
     desc: 'Private leiligheter og hytter lagt ut på Finn.no.',
     ctaLabel: 'Søk på Finn.no',
-    // TODO: replace with the Finn.no-søk-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.finn.no/reise/feriehus-hytteutleie/resultat/?lat_sw=62.095259&lng_sw=7.900766&lat_ne=62.456655&lng_ne=8.522246&nrFUSAds=2&country=Norge&city=Bjorli&no_of_bedrooms_from=0&no_of_beds_from=0',
   },
   {
     name: 'Booking.com',
