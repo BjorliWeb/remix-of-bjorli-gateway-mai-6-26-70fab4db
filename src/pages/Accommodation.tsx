@@ -30,9 +30,7 @@ const providers: Provider[] = [
     category: 'Private utleieenheter',
     desc: 'Utleie av private enheter gjennom Novasol på Bjorli og i Lesja.',
     ctaLabel: 'Søk hos Novasol',
-    // TODO: replace with the canonical Novasol partner-link used on the old bjorli.no/overnatting page.
-    href: '#',
-    todo: true,
+    href: 'https://www.novasol.com/search?adult=2&child=0&pets=0&range=3&nights=3&accommodationType=novasol_cottages&regionName=Bjorli&placesId=62001&destinationCategory=578%7Coppland%7Clesja%7Cbjorli&page=1&sort=recommended&salesMarket=999&displayMode=LIST',
   },
   {
     name: 'Bjorliheimen Fjellhotel',
@@ -60,34 +58,28 @@ const providers: Provider[] = [
     category: 'Leiligheter og hytter',
     desc: 'Private leiligheter og hytter lagt ut på Airbnb.',
     ctaLabel: 'Søk på Airbnb',
-    // TODO: replace with the Airbnb-søk-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.airbnb.com/bjorli-norway/stays',
   },
   {
     name: 'Finn.no',
     category: 'Leiligheter og hytter',
     desc: 'Private leiligheter og hytter lagt ut på Finn.no.',
     ctaLabel: 'Søk på Finn.no',
-    // TODO: replace with the Finn.no-søk-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.finn.no/reise/feriehus-hytteutleie/resultat/?lat_sw=62.095259&lng_sw=7.900766&lat_ne=62.456655&lng_ne=8.522246&nrFUSAds=2&country=Norge&city=Bjorli&no_of_bedrooms_from=0&no_of_beds_from=0',
   },
   {
     name: 'Booking.com',
     category: 'Leiligheter og hytter',
     desc: 'Overnattingsmuligheter lagt ut på Booking.com.',
     ctaLabel: 'Søk på Booking.com',
-    // TODO: replace with the Booking.com-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.booking.com/city/no/bjorli.html',
   },
   {
     name: 'Bjorli Fjellstuer',
     category: 'Leiligheter med hotellkomfort',
     desc: 'Leilighetsovernatting med hotellkomfort.',
     ctaLabel: 'Søk hos Bjorli Fjellstuer',
-    href: 'https://bjorlibooking.no',
+    href: 'https://bjorlifjellstuer.no/',
   },
 ];
 
