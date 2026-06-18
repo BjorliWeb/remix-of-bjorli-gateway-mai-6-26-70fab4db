@@ -108,7 +108,9 @@ const ContentDetailTemplate = ({
         <div className="container mx-auto max-w-3xl">
           <TranslationPendingNotice translated={translatedBody} />
           {item.intro && <p className="text-xl text-foreground/90 leading-relaxed mb-6 font-medium">{item.intro}</p>}
-          {body && <div className="prose prose-neutral max-w-none text-muted-foreground text-lg leading-relaxed whitespace-pre-line">{body}</div>}
+          {body && body.trim() !== (item.intro ?? '').trim() && (
+            <div className="prose prose-neutral max-w-none text-muted-foreground text-lg leading-relaxed whitespace-pre-line">{body}</div>
+          )}
 
           {(ctaLabel && ctaHref) && (
             <div className="mt-10 rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
