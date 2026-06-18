@@ -343,7 +343,8 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     ctaHref: e.ctaUrl,
     seoTitle: e.title,
     seoDescription: e.intro,
-  }));
+    status: e.status ?? 'published',
+  })).filter((ev) => ev.status !== 'archived');
 };
 
 const buildActivities = (lang: Language): CmsActivity[] => {
