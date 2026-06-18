@@ -1,7 +1,8 @@
-# robots.txt for Bjorli (destinasjonbjorli.no / bjorli.no)
-# This is a placeholder shipped from the Lovable prototype.
-# In production (Next.js on Vercel/Netlify) this file should be generated
-# from `app/robots.ts` so staging environments can return `Disallow: /`.
+# robots.txt for Bjorli (bjorli.no)
+# Production is indexable. Non-production *.pages.dev deployments are
+# blocked from indexing at the hosting layer via `public/_headers`
+# (X-Robots-Tag: noindex, nofollow), generated per-deploy by
+# scripts/build-deploy-headers.ts.
 
 # ---------------------------------------------------------------------------
 # Standard search engines — full crawl access
