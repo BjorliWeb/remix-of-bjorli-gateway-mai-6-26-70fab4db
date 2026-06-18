@@ -138,8 +138,7 @@ const summerValleyImg = images.summerValley.src;
 import pumpTrackImg   from '@/assets/photos/bjorli-aktivitetspark-skilt.jpg';
 import hostmarkedImg  from '@/assets/photos/bjorli-hostmarked-plakat.jpg';
 import bjorliheimenBuffetImg from '@/assets/photos/bjorliheimen-sondagsbuffet.jpg';
-import ls2026Asset    from '@/assets/photos/ls2026-landsskytterstevnet-lesja.jpg.asset.json';
-const ls2026Img = ls2026Asset.url;
+import ls2026Img from '@/assets/photos/ls2026-landsskytterstevnet-lesja.jpg';
 
 /**
  * Mock CMS adapter.
