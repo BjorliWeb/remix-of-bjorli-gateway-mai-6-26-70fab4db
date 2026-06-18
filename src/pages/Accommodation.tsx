@@ -72,9 +72,7 @@ const providers: Provider[] = [
     category: 'Leiligheter og hytter',
     desc: 'Overnattingsmuligheter lagt ut på Booking.com.',
     ctaLabel: 'Søk på Booking.com',
-    // TODO: replace with the Booking.com-lenke som lå på den gamle /overnatting-siden.
-    href: '#',
-    todo: true,
+    href: 'https://www.booking.com/city/no/bjorli.html',
   },
   {
     name: 'Bjorli Fjellstuer',
