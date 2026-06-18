@@ -30,9 +30,7 @@ const providers: Provider[] = [
     category: 'Private utleieenheter',
     desc: 'Utleie av private enheter gjennom Novasol på Bjorli og i Lesja.',
     ctaLabel: 'Søk hos Novasol',
-    // TODO: replace with the canonical Novasol partner-link used on the old bjorli.no/overnatting page.
-    href: '#',
-    todo: true,
+    href: 'https://www.novasol.com/search?adult=2&child=0&pets=0&range=3&nights=3&accommodationType=novasol_cottages&regionName=Bjorli&placesId=62001&destinationCategory=578%7Coppland%7Clesja%7Cbjorli&page=1&sort=recommended&salesMarket=999&displayMode=LIST',
   },
   {
     name: 'Bjorliheimen Fjellhotel',
