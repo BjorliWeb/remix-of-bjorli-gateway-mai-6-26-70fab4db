@@ -125,7 +125,16 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     cta: string;
-    items: { category: string; date: string; title: string; intro: string }[];
+    items: {
+      category: string;
+      date: string;
+      title: string;
+      intro: string;
+      image?: string;
+      imageAlt?: string;
+      ctaLabel?: string;
+      ctaUrl?: string;
+    }[];
   };
   beyondAlpine: {
     eyebrow: string;
