@@ -117,7 +117,11 @@ const ContentDetailTemplate = ({
                 <p className="text-sm text-muted-foreground">{listingTitle}</p>
               </div>
               <Button asChild size="lg" className="rounded-full">
-                <Link to={ctaHref}>{ctaLabel}</Link>
+                {/^https?:\/\//.test(ctaHref) ? (
+                  <a href={ctaHref} target="_blank" rel="noopener noreferrer">{ctaLabel}</a>
+                ) : (
+                  <Link to={ctaHref}>{ctaLabel}</Link>
+                )}
               </Button>
             </div>
           )}

@@ -58,6 +58,10 @@ const ContentDetailPage = ({ kind }: Props) => {
     ? d.faq.items.slice(0, 3)
     : undefined;
 
+  const eventCta = kind === 'events'
+    ? (fullEntry as { ctaLabel?: string; ctaHref?: string } | undefined)
+    : undefined;
+
   return (
     <ContentDetailTemplate
       kind={cfg.detailKind}
@@ -67,6 +71,8 @@ const ContentDetailPage = ({ kind }: Props) => {
       related={related}
       body={fullEntry?.body ?? item?.intro}
       faq={faq}
+      ctaLabel={eventCta?.ctaLabel}
+      ctaHref={eventCta?.ctaHref}
     />
   );
 };
