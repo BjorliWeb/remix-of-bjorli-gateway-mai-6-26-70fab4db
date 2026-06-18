@@ -25,7 +25,16 @@ import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 
-const ORIGIN = 'https://www.bjorli.no';
+/**
+ * Base origin for absolute URLs in the sitemap.
+ *
+ * Reads `SITE_URL` from the build environment so Cloudflare Pages
+ * Preview deployments can point the sitemap at the preview origin
+ * (or skip indexing entirely via `_headers`). Falls back to the
+ * production hostname so local dev and the canonical production
+ * build keep emitting the same URLs as before.
+ */
+const ORIGIN = (process.env.SITE_URL ?? 'https://www.bjorli.no').replace(/\/$/, '');
 const LASTMOD = new Date().toISOString().slice(0, 10);
 
 /**
