@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const nl: Dictionary = {
   meta: {
@@ -113,6 +114,14 @@ const nl: Dictionary = {
       { category: 'Familie', date: 'Feb', title: 'Voorjaarsvakantie', intro: 'Activiteiten voor jong en oud tijdens de voorjaarsvakantie.', status: 'archived' },
       { category: 'Pasen', date: 'Apr', title: 'Pasen op Bjorli', intro: 'Zon, sneeuw en gezinsactiviteiten op de berg.', status: 'archived' },
       { category: 'Zomer', date: 'Jul', title: 'Zomeractiviteiten', intro: 'Wandelen, fietsen en bergervaringen.' },
+      {
+        category: 'Actueel',
+        date: 'Juni – half augustus 2026',
+        title: 'Bezoek het zomercafé in Lesjaverk',
+        intro: 'Het zomercafé in Lesjaverk is geopend in juni, juli en tot half augustus. Kom langs voor een ontspannen pauze met koffie en eenvoudige hapjes — de buurtwinkel zit direct ernaast, op ongeveer 15 minuten rijden van Bjorli.\n\nOpeningstijden:\nMaandag–vrijdag: 11:00–16:00\nZaterdag: 10:00–15:00\nZondag: 12:00–16:00\n\nJe vindt het zomercafé in de buurtwinkel in Lesjaverk.',
+        image: sommerkafeenLesjaverkImg,
+        imageAlt: 'Interieur van het zomercafé in Lesjaverk met toonbank, menubord en zitplaatsen.',
+      },
     ],
   },
   beyondAlpine: {
