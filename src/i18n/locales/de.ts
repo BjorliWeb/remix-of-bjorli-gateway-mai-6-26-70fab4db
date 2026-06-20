@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const de: Dictionary = {
   meta: {
@@ -113,6 +114,14 @@ const de: Dictionary = {
       { category: 'Familie', date: 'Feb', title: 'Winterferienprogramm', intro: 'Aktivitäten für Groß und Klein während der gesamten Winterferien.', status: 'archived' },
       { category: 'Ostern', date: 'Apr', title: 'Ostern in Bjorli', intro: 'Sonne, Schnee und Familienaktivitäten am Berg.', status: 'archived' },
       { category: 'Sommer', date: 'Jul', title: 'Sommeraktivitäten', intro: 'Wandern, Radfahren und Bergerlebnisse.' },
+      {
+        category: 'Aktuell',
+        date: 'Juni – Mitte August 2026',
+        title: 'Schauen Sie im Sommercafé in Lesjaverk vorbei',
+        intro: 'Das Sommercafé in Lesjaverk ist im Juni, Juli und bis Mitte August geöffnet. Hier können Sie eine entspannte Pause mit Kaffee und einfacher Bewirtung einlegen — der Dorfladen liegt direkt nebenan, etwa 15 Autominuten von Bjorli entfernt.\n\nÖffnungszeiten:\nMontag–Freitag: 11:00–16:00\nSamstag: 10:00–15:00\nSonntag: 12:00–16:00\n\nSie finden das Sommercafé im Dorfladen in Lesjaverk.',
+        image: sommerkafeenLesjaverkImg,
+        imageAlt: 'Innenraum des Sommercafés in Lesjaverk mit Theke, Menütafel und Sitzplätzen.',
+      },
     ],
   },
   beyondAlpine: {
