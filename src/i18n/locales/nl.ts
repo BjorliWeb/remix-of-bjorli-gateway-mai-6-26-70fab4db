@@ -113,7 +113,6 @@ const nl: Dictionary = {
       { category: 'Seizoensopening', date: 'Nov', title: 'Openingsweekend', intro: 'We vieren de start van het seizoen met aanbiedingen, activiteiten en après-ski.', status: 'archived' },
       { category: 'Familie', date: 'Feb', title: 'Voorjaarsvakantie', intro: 'Activiteiten voor jong en oud tijdens de voorjaarsvakantie.', status: 'archived' },
       { category: 'Pasen', date: 'Apr', title: 'Pasen op Bjorli', intro: 'Zon, sneeuw en gezinsactiviteiten op de berg.', status: 'archived' },
-      { category: 'Zomer', date: 'Jul', title: 'Zomeractiviteiten', intro: 'Wandelen, fietsen en bergervaringen.' },
       {
         category: 'Actueel',
         date: 'Juni – half augustus 2026',
@@ -122,6 +121,7 @@ const nl: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Interieur van het zomercafé in Lesjaverk met toonbank, menubord en zitplaatsen.',
       },
+      { category: 'Zomer', date: 'Jul', title: 'Zomeractiviteiten', intro: 'Wandelen, fietsen en bergervaringen.' },
     ],
   },
   beyondAlpine: {

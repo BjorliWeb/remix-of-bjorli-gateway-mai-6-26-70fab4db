@@ -113,7 +113,6 @@ const sv: Dictionary = {
       { category: 'Säsongsöppning', date: 'Nov', title: 'Öppningshelg', intro: 'Vi firar säsongsstart med erbjudanden, aktiviteter och afterski.', status: 'archived' },
       { category: 'Familj', date: 'Feb', title: 'Sportlovsprogram', intro: 'Aktiviteter för stora och små under hela sportlovet.', status: 'archived' },
       { category: 'Påsk', date: 'Apr', title: 'Påsk på Bjorli', intro: 'Sol, snö och familjeaktiviteter på fjället.', status: 'archived' },
-      { category: 'Sommar', date: 'Jul', title: 'Sommaraktiviteter', intro: 'Vandring, cykling och fjällupplevelser.' },
       {
         category: 'Aktuellt',
         date: 'Juni – mitten av augusti 2026',
@@ -122,6 +121,7 @@ const sv: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Interiör från sommarcaféet på Lesjaverk med disk, meny och sittplatser.',
       },
+      { category: 'Sommar', date: 'Jul', title: 'Sommaraktiviteter', intro: 'Vandring, cykling och fjällupplevelser.' },
     ],
   },
   beyondAlpine: {
