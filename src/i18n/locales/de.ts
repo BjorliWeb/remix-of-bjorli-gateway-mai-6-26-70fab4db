@@ -113,7 +113,6 @@ const de: Dictionary = {
       { category: 'Saisonstart', date: 'Nov', title: 'Eröffnungswochenende', intro: 'Wir feiern den Start in die Saison mit Angeboten, Aktivitäten und Après-Ski.', status: 'archived' },
       { category: 'Familie', date: 'Feb', title: 'Winterferienprogramm', intro: 'Aktivitäten für Groß und Klein während der gesamten Winterferien.', status: 'archived' },
       { category: 'Ostern', date: 'Apr', title: 'Ostern in Bjorli', intro: 'Sonne, Schnee und Familienaktivitäten am Berg.', status: 'archived' },
-      { category: 'Sommer', date: 'Jul', title: 'Sommeraktivitäten', intro: 'Wandern, Radfahren und Bergerlebnisse.' },
       {
         category: 'Aktuell',
         date: 'Juni – Mitte August 2026',
@@ -122,6 +121,7 @@ const de: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Innenraum des Sommercafés in Lesjaverk mit Theke, Menütafel und Sitzplätzen.',
       },
+      { category: 'Sommer', date: 'Jul', title: 'Sommeraktivitäten', intro: 'Wandern, Radfahren und Bergerlebnisse.' },
     ],
   },
   beyondAlpine: {

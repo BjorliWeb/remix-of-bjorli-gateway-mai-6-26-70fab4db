@@ -113,7 +113,6 @@ const en: Dictionary = {
       { category: 'Season opening', date: 'Nov', title: 'Opening weekend', intro: 'We mark the season start with deals, activities and après-ski.', status: 'archived' },
       { category: 'Family', date: 'Feb', title: 'Winter break programme', intro: 'Activities for kids and adults throughout the winter holiday week.', status: 'archived' },
       { category: 'Easter', date: 'Apr', title: 'Easter at Bjorli', intro: 'Sun, snow and family activities on the mountain.', status: 'archived' },
-      { category: 'Summer', date: 'Jul', title: 'Summer activities', intro: 'Hiking, cycling and mountain experiences.' },
       {
         category: 'News',
         date: 'June – mid-August 2026',
@@ -122,6 +121,7 @@ const en: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Interior of the summer café at Lesjaverk with counter, menu board and seating.',
       },
+      { category: 'Summer', date: 'Jul', title: 'Summer activities', intro: 'Hiking, cycling and mountain experiences.' },
     ],
   },
   beyondAlpine: {
