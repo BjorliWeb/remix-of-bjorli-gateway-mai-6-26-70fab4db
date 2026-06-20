@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const sv: Dictionary = {
   meta: {
@@ -113,6 +114,14 @@ const sv: Dictionary = {
       { category: 'Familj', date: 'Feb', title: 'Sportlovsprogram', intro: 'Aktiviteter för stora och små under hela sportlovet.', status: 'archived' },
       { category: 'Påsk', date: 'Apr', title: 'Påsk på Bjorli', intro: 'Sol, snö och familjeaktiviteter på fjället.', status: 'archived' },
       { category: 'Sommar', date: 'Jul', title: 'Sommaraktiviteter', intro: 'Vandring, cykling och fjällupplevelser.' },
+      {
+        category: 'Aktuellt',
+        date: 'Juni – mitten av augusti 2026',
+        title: 'Besök sommarcaféet på Lesjaverk',
+        intro: 'Sommarcaféet på Lesjaverk har öppet i juni, juli och till mitten av augusti. Här kan du ta en trevlig paus med kaffe, enkel servering och en närbutik precis intill, cirka 15 minuter med bil från Bjorli.\n\nÖppettider:\nMåndag–fredag: 11:00–16:00\nLördag: 10:00–15:00\nSöndag: 12:00–16:00\n\nDu hittar sommarcaféet i närbutiken på Lesjaverk.',
+        image: sommerkafeenLesjaverkImg,
+        imageAlt: 'Interiör från sommarcaféet på Lesjaverk med disk, meny och sittplatser.',
+      },
     ],
   },
   beyondAlpine: {
