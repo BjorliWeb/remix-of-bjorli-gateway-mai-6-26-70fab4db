@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
-import { Car, CreditCard, Info, ArrowLeft } from 'lucide-react';
+import parkeringKart from '@/assets/parkering-kart-bjorli.png';
+import betalingsautomatBilde from '@/assets/parkering-betalingsautomat.jpeg';
+import { Car, CreditCard, Info, ArrowLeft, Banknote, ExternalLink, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 /**
@@ -55,6 +57,22 @@ const Parkering = () => {
             </p>
           </motion.div>
 
+          <figure className="space-y-3">
+            <div className="rounded-xl overflow-hidden border border-border shadow-md bg-card">
+              <img
+                src={parkeringKart}
+                alt="Kart over parkering ved Bjorli Skisenter med P1, P2 og betalingsautomat merket BA."
+                className="w-full h-auto block"
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="text-sm text-foreground/70 leading-relaxed">
+              Oversikt over parkering ved Bjorli Skisenter. P1 er
+              hovedparkering, P2 ligger ved T-Kroken, og BA viser
+              betalingsautomaten.
+            </figcaption>
+          </figure>
+
           <div className="grid gap-4 md:grid-cols-2">
             {areas.map((a) => (
               <div
@@ -84,6 +102,52 @@ const Parkering = () => {
                 kundeservice.
               </li>
             </ul>
+          </div>
+
+          <div className="bg-card rounded-xl p-6 shadow-md border border-border space-y-4">
+            <div className="flex items-center gap-3">
+              <Banknote className="h-5 w-5 text-secondary" />
+              <h2 className="font-display text-lg font-semibold">Betalingsautomat</h2>
+            </div>
+            <p className="text-foreground/85 leading-relaxed">
+              Det finnes en egen betalingsautomat hvor du kan betale for
+              parkering før du forlater skianlegget. Automaten er plassert
+              rett rundt hjørnet for skikortautomaten og er merket BA på
+              kartet.
+            </p>
+            <figure className="space-y-2">
+              <div className="rounded-lg overflow-hidden border border-border bg-muted/30">
+                <img
+                  src={betalingsautomatBilde}
+                  alt="Betalingsautomat for parkering ved Bjorli Skisenter."
+                  className="w-full h-auto max-h-[420px] object-cover block"
+                  loading="lazy"
+                />
+              </div>
+              <figcaption className="text-sm text-foreground/70 leading-relaxed">
+                Betalingsautomaten står ved skisenteret, rett rundt hjørnet
+                for skikortautomaten.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="bg-card rounded-xl p-6 shadow-md border border-border space-y-4">
+            <div className="flex items-center gap-3">
+              <LifeBuoy className="h-5 w-5 text-secondary" />
+              <h2 className="font-display text-lg font-semibold">Kundeservice</h2>
+            </div>
+            <p className="text-foreground/85 leading-relaxed">
+              Alle henvendelser vedrørende parkering, inkludert betaling,
+              rettes til Parkly.
+            </p>
+            <a
+              href="https://www.parkly.no/kundeservice/"
+              target="_blank"
+              rel="noopener noreferrer external"
+              className="inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline"
+            >
+              Kontakt Parkly kundeservice <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
 
           <div className="rounded-xl border border-border bg-muted/40 p-5 flex gap-3">
