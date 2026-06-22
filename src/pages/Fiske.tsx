@@ -603,16 +603,11 @@ const Fiske = () => {
           <div className="space-y-4 text-foreground/80 text-lg leading-relaxed">
             <p>{t.introP1}</p>
             <p>{t.introP2}</p>
-            <p>{t.introP3}</p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={INATUR_VANNSKILLET} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
               {t.ctaInatur}
-              <ExternalLink className="h-4 w-4" />
-            </a>
-            <a href={ELVEGUIDEN_RAUMA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-card text-foreground hover:bg-muted transition-colors">
-              {t.ctaRauma}
               <ExternalLink className="h-4 w-4" />
             </a>
           </div>
@@ -703,30 +698,6 @@ const Fiske = () => {
           </div>
           <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
             <img src={images.fishingMountain.src} alt={t.mountainAlt} loading="lazy" className="w-full h-full object-cover" />
-          </div>
-        </div>
-      </section>
-
-      {/* Laksefiske i Rauma */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center max-w-6xl">
-          <figure className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-2 md:order-1 relative">
-            <img src={images.salmonRauma.src} alt={t.salmonAlt} loading="lazy" className="w-full h-full object-cover" />
-            <figcaption className="absolute bottom-2 right-3 text-[11px] text-white/90 bg-black/40 px-2 py-0.5 rounded">
-              {t.salmonCaption}
-            </figcaption>
-          </figure>
-          <div className="order-1 md:order-2">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">{t.salmonTitle}</h2>
-            <p className="text-foreground/80 text-lg leading-relaxed mb-4">{t.salmonP1}</p>
-            <p className="text-muted-foreground leading-relaxed mb-2">{t.salmonP2}</p>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              {t.salmonP3Pre}<a href="tel:+4791740533" className="underline hover:text-secondary">917 40 533</a>{t.salmonP3Post}
-            </p>
-            <a href={ELVEGUIDEN_RAUMA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
-              {t.salmonCta}
-              <ExternalLink className="h-4 w-4" />
-            </a>
           </div>
         </div>
       </section>
