@@ -665,6 +665,21 @@ export const mockAdapter: CmsAdapter = {
           ctaLabel: s.picker.readMore,
         })),
       },
+      // Destination-wide "Hva skjer på Bjorli".
+      // Note: the Skisenter "news" section is intentionally NOT
+      // rendered on /sommer — it stays on the winter homepage only.
+      // Placed directly after the "Velg din sommerdag" picker so
+      // current events surface before the broader activity grid.
+      {
+        id: 'events',
+        type: 'events' as const,
+        eyebrow: d.events.eyebrow,
+        title: d.events.title,
+        subtitle: d.events.subtitle,
+        ctaLabel: d.events.cta,
+        ctaHref: '/arrangementer',
+        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+      },
       // 4 — Main activities (image cards with short copy + "Les mer")
       {
         id: 'summerActivitiesGrid',
@@ -681,19 +696,6 @@ export const mockAdapter: CmsAdapter = {
             ctaLabel: s.activitiesGrid.readMore,
           };
         }),
-      },
-      // Destination-wide "Hva skjer på Bjorli".
-      // Note: the Skisenter "news" section is intentionally NOT
-      // rendered on /sommer — it stays on the winter homepage only.
-      {
-        id: 'events',
-        type: 'events' as const,
-        eyebrow: d.events.eyebrow,
-        title: d.events.title,
-        subtitle: d.events.subtitle,
-        ctaLabel: d.events.cta,
-        ctaHref: '/arrangementer',
-        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
       },
       // 6 — Fishing & quiet outdoor days
       // Card above uses flyFishingImg → use river-fishing photo here so

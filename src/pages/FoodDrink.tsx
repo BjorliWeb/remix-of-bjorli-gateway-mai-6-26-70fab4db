@@ -56,130 +56,66 @@ const FoodDrink = () => {
             className="text-center mb-12 md:mb-16"
           >
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              På Bjorli finner du flere steder for mat, drikke og gode pauser gjennom dagen.
-              I skisenteret ligger <strong className="text-foreground font-medium">Heiskroa</strong> og{' '}
-              <strong className="text-foreground font-medium">T-Kroken</strong>, med kafé, lounge,
-              afterski og servering tett på bakken. I tillegg finnes det flere spisesteder og
-              møteplasser i området.
+              På Bjorli finner du flere steder for mat, drikke og gode pauser gjennom hele året.
+              Utenfor skisenteret ligger blant annet{' '}
+              <strong className="text-foreground font-medium">Avdemsbue</strong>,{' '}
+              <strong className="text-foreground font-medium">HILLS Bjorli</strong> og{' '}
+              <strong className="text-foreground font-medium">YX Bjorli</strong>, og dagligvarer er
+              tilgjengelig på{' '}
+              <strong className="text-foreground font-medium">Bunnpris Lesjaskog</strong> og{' '}
+              <strong className="text-foreground font-medium">Coop Marked Lesjaverk</strong> — fint
+              hvis du vil lage maten selv på hytta. I skisesongen, når heisene går, åpner i tillegg
+              Heiskroa og T-Kroken i selve skisenteret.
             </p>
           </motion.div>
-
-          {/* Featured: Heiskroa & T-Kroken */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-10"
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Heiskroa og T-Kroken i skisenteret
-            </h2>
-            <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
-              <p>
-                I skisenteret finner du både Heiskroa og T-Kroken. Sammen gir de gjestene et godt
-                tilbud gjennom skidagen, enten du vil ha en rask pause, varm drikke, lunsj,
-                loungefølelse eller afterski etter siste tur.
-              </p>
-              <p>
-                Begge serveringsstedene drives samlet, med vekt på god service, lun stemning og mat
-                laget med omtanke. Der det er mulig brukes kortreiste og lokale råvarer.
-              </p>
-              <p>
-                <strong className="text-foreground font-medium">T-Kroken</strong> er stedet for deg
-                som vil sette deg ned for mat, drikke og en mer komplett serveringsopplevelse. Her
-                gjelder spiseplikt i serveringsområdet.
-              </p>
-              <p>
-                <strong className="text-foreground font-medium">Heiskroa</strong> fungerer også som
-                varmestue, og passer godt for gjester som trenger en enkel pause, varme seg, vente
-                på andre eller ta en roligere stopp i løpet av skidagen.
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mb-16 md:mb-20"
-          >
-            <img
-              src={images.tkrokenCollage.src}
-              alt={s.imageAlt}
-              className="w-full h-auto rounded-2xl shadow-md border border-border"
-              loading="lazy"
-            />
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
-                <CardContent className="p-8">
-                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
-                    <Flame className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-2">Heiskroa</h3>
-                  <p className="text-secondary font-medium mb-4">Varmestue og praktisk møteplass</p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    Heiskroa er et naturlig møtepunkt i skisenteret, med enkel servering, varme og en
-                    praktisk pause gjennom skidagen.
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li><span className="font-semibold text-foreground">Passer for: </span><span className="text-muted-foreground">Varm pause, enkel servering, møtepunkt og varmestue.</span></li>
-                    <li><span className="font-semibold text-foreground">Praktisk: </span><span className="text-muted-foreground">Varmestue finner du i Heiskroa.</span></li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
-                <CardContent className="p-8">
-                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
-                    <Coffee className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-2">T-Kroken</h3>
-                  <p className="text-secondary font-medium mb-4">Kafé, lounge, mat og afterski</p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    T-Kroken passer for deg som vil sette seg ned for mat, drikke, loungefølelse og
-                    afterski tett på bakken.
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li><span className="font-semibold text-foreground">Passer for: </span><span className="text-muted-foreground">Mat, drikke, loungefølelse og afterski.</span></li>
-                    <li><span className="font-semibold text-foreground">Praktisk: </span><span className="text-muted-foreground">I serveringsområdet på T-Kroken gjelder spiseplikt.</span></li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
         </div>
       </section>
 
       {/* Other places */}
-      <section className="py-16 md:py-24 px-4 bg-muted/30 border-t border-border">
+      <section className="py-16 md:py-24 px-4 border-t border-border">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Andre spisesteder og møteplasser på Bjorli
+              Spisesteder og møteplasser på Bjorli
             </h2>
             <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Bjorli har også flere spisesteder og møteplasser utenfor selve skisenteret. Utvalg og
-              åpningstider kan variere gjennom året, så sjekk alltid stedets egne kanaler før du
+              Bjorli har flere spisesteder og møteplasser utenfor selve skisenteret — åpne gjennom
+              året. Utvalg og åpningstider kan variere, så sjekk alltid stedets egne kanaler før du
               planlegger besøket.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Avdemsbue */}
+            <Card className="overflow-hidden flex flex-col bg-card/60 backdrop-blur border-border/60">
+              <div className="aspect-[4/3] overflow-hidden bg-muted">
+                <img
+                  src={images.avdemsbue.src}
+                  alt={images.avdemsbue.alt}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <CardContent className="p-6 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="h-5 w-5 text-secondary" />
+                  <h3 className="font-display text-xl font-bold">Avdemsbue</h3>
+                </div>
+                <p className="text-muted-foreground leading-relaxed flex-1">
+                  Avdemsbue ligger omtrent 35 km fra Bjorli og er et godt alternativ for deg som vil
+                  kombinere turen med lokalmat, gårdsmiljø og en matopplevelse i Gudbrandsdalen.
+                </p>
+                <a
+                  href="https://www.avdem.no/avdemsbue/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                >
+                  Se Avdemsbue <ExternalLink className="h-4 w-4" />
+                </a>
+              </CardContent>
+            </Card>
+
             {/* HILLS Bjorli */}
             <Card className="overflow-hidden flex flex-col bg-card/60 backdrop-blur border-border/60">
               <div className="aspect-[4/3] overflow-hidden bg-muted">
@@ -234,36 +170,132 @@ const FoodDrink = () => {
                 </a>
               </CardContent>
             </Card>
+          </div>
 
-            {/* Avdemsbue */}
-            <Card className="overflow-hidden flex flex-col bg-card/60 backdrop-blur border-border/60">
-              <div className="aspect-[4/3] overflow-hidden bg-muted">
-                <img
-                  src={images.avdemsbue.src}
-                  alt={images.avdemsbue.alt}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+          {/* Lokalmat og dagligvarer */}
+          <div className="mt-10 rounded-2xl border border-border/60 bg-card/60 backdrop-blur p-6 md:p-8">
+            <div className="flex items-start gap-4">
+              <div className="h-11 w-11 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center shrink-0">
+                <ShoppingBag className="h-5 w-5" />
               </div>
-              <CardContent className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center gap-2 mb-2">
-                  <MapPin className="h-5 w-5 text-secondary" />
-                  <h3 className="font-display text-xl font-bold">Avdemsbue</h3>
-                </div>
-                <p className="text-muted-foreground leading-relaxed flex-1">
-                  Avdemsbue ligger omtrent 35 km fra Bjorli og er et godt alternativ for deg som vil
-                  kombinere turen med lokalmat, gårdsmiljø og en matopplevelse i Gudbrandsdalen.
+              <div>
+                <h3 className="font-display text-xl md:text-2xl font-bold mb-2">
+                  Lokalmat og dagligvarer
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Vil du lage maten selv på hytta? Dagligvarer får du på{' '}
+                  <strong className="text-foreground font-medium">Bunnpris Lesjaskog</strong> og{' '}
+                  <strong className="text-foreground font-medium">Coop Marked Lesjaverk</strong>.
+                  YX Bjorli har også et utvalg gjennom døgnet.
                 </p>
-                <a
-                  href="https://www.avdem.no/avdemsbue/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
-                >
-                  Se Avdemsbue <ExternalLink className="h-4 w-4" />
-                </a>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured: Heiskroa & T-Kroken — only in ski season */}
+      <section className="py-16 md:py-24 px-4 bg-muted/30 border-t border-border">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <p className="text-secondary text-xs font-semibold tracking-[0.22em] uppercase mb-3">
+              I skisesongen, når heisene går
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              Heiskroa og T-Kroken i skisenteret
+            </h2>
+            <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
+              <p>
+                I skisenteret finner du både Heiskroa og T-Kroken. Sammen gir de gjestene et godt
+                tilbud gjennom skidagen, enten du vil ha en rask pause, varm drikke, lunsj,
+                loungefølelse eller afterski etter siste tur.
+              </p>
+              <p>
+                Begge serveringsstedene drives samlet, med vekt på god service, lun stemning og mat
+                laget med omtanke. Der det er mulig brukes kortreiste og lokale råvarer.
+              </p>
+              <p>
+                <strong className="text-foreground font-medium">T-Kroken</strong> er stedet for deg
+                som vil sette deg ned for mat, drikke og en mer komplett serveringsopplevelse. Her
+                gjelder spiseplikt i serveringsområdet.
+              </p>
+              <p>
+                <strong className="text-foreground font-medium">Heiskroa</strong> fungerer også som
+                varmestue, og passer godt for gjester som trenger en enkel pause, varme seg, vente
+                på andre eller ta en roligere stopp i løpet av skidagen.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="mb-10"
+          >
+            <img
+              src={images.tkrokenCollage.src}
+              alt={s.imageAlt}
+              className="w-full h-auto rounded-2xl shadow-md border border-border"
+              loading="lazy"
+            />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
+                <CardContent className="p-8">
+                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                    <Flame className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold mb-2">Heiskroa</h3>
+                  <p className="text-secondary font-medium mb-4">Varmestue og praktisk møteplass</p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Heiskroa er et naturlig møtepunkt i skisenteret, med enkel servering, varme og en
+                    praktisk pause gjennom skidagen.
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li><span className="font-semibold text-foreground">Passer for: </span><span className="text-muted-foreground">Varm pause, enkel servering, møtepunkt og varmestue.</span></li>
+                    <li><span className="font-semibold text-foreground">Praktisk: </span><span className="text-muted-foreground">Varmestue finner du i Heiskroa. Åpent i skisesongen, når heisene går.</span></li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
+                <CardContent className="p-8">
+                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                    <Coffee className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold mb-2">T-Kroken</h3>
+                  <p className="text-secondary font-medium mb-4">Kafé, lounge, mat og afterski</p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    T-Kroken passer for deg som vil sette seg ned for mat, drikke, loungefølelse og
+                    afterski tett på bakken.
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li><span className="font-semibold text-foreground">Passer for: </span><span className="text-muted-foreground">Mat, drikke, loungefølelse og afterski.</span></li>
+                    <li><span className="font-semibold text-foreground">Praktisk: </span><span className="text-muted-foreground">I serveringsområdet på T-Kroken gjelder spiseplikt. Åpent i skisesongen, når heisene går.</span></li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>

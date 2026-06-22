@@ -12,7 +12,6 @@ import type { Locale } from '@/i18n/locales/types';
 const INATUR_VANNSKILLET = 'https://www.inatur.no/fiske/50f405d8e4b0e07d03ec36f9';
 const INATUR_SONE7 = 'https://www.inatur.no/fiske/5ec50b50dbe4590003613e7e';
 const LESJA_FJELLSTYRE = 'https://www.lesja-fjellstyre.no/';
-const ELVEGUIDEN_RAUMA = 'https://elveguiden.no/no/elv/rauma?tabType=findselection';
 
 const setMeta = (name: string, content: string, attr: 'name' | 'property' = 'name') => {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
@@ -42,9 +41,7 @@ type Copy = {
   introTitle: string;
   introP1: string;
   introP2: string;
-  introP3: string;
   ctaInatur: string;
-  ctaRauma: string;
   zonesTitle: string;
   zones: [Zone, Zone, Zone];
   lakeTitle: string;
@@ -60,14 +57,6 @@ type Copy = {
   mountainBullets: string[];
   mountainCta: string;
   mountainAlt: string;
-  salmonTitle: string;
-  salmonP1: string;
-  salmonP2: string;
-  salmonP3Pre: string;
-  salmonP3Post: string;
-  salmonCta: string;
-  salmonAlt: string;
-  salmonCaption: string;
   practicalTitle: string;
   practicalBullets: string[];
   faqTitle: string;
@@ -89,9 +78,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Fiske på Bjorli og i Lesja',
     introP1: 'Lesja er delt opp i tre fiskesoner. Fiskerettene forvaltes av Lesjaskogsvatnet fiskeforening, Lesja fjellstyre og A/L Lågen fiskeelv.',
     introP2: 'Fiskekort kan kjøpes i dagligvareforretningene i Lesja, Hydro Texaco Bjorli, Sjong Seter på Dalsida eller på iNatur.no.',
-    introP3: 'Fiske i Rauma elv nedenfor fylkesgrensen mellom Innlandet og Møre og Romsdal forvaltes av Rauma Elveeierlag SA.',
     ctaInatur: 'Kjøp fiskekort på iNatur',
-    ctaRauma: 'Se laksefiske i Rauma',
     zonesTitle: 'Fiskesoner i Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Gjelder Lesjaskogsvatnet, Lågen ned til den gamle sognegrensen, Rauma ned til fylkesgrensen og vann og elver innenfor Lesjaskog Heimrast.', cta: 'Fiske på vannskillet' },
@@ -120,14 +107,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Les mer hos Lesja fjellstyre',
     mountainAlt: 'Fjellfiske i Lesjafjella',
-    salmonTitle: 'Laksefiske i Rauma',
-    salmonP1: 'Raumalaksen er tilbake i elva. Rauma elv har en total lengde på 65 km og starter fra Lesjaskogsvatnet før den går ned gjennom Romsdalen. Topografien gjør elva spesiell, med bratte fjell og krystallklart vann. Den lakseførende delen av elva er 42 km.',
-    salmonP2: 'Fisket i Rauma formidles av grunneierne. Rauma Elveeierlag SA er forvaltningslaget.',
-    salmonP3Pre: 'Ved spørsmål knyttet til forvaltning: Vidar Skiri, tlf. ',
-    salmonP3Post: '. Ved spørsmål knyttet til fisket: kontakt den enkelte grunneier via Elveguiden.',
-    salmonCta: 'Laksefiske i hele Rauma',
-    salmonAlt: 'Laksefiske i Rauma elv',
-    salmonCaption: 'Bilde © lakseelver.no',
     practicalTitle: 'Praktisk informasjon',
     practicalBullets: [
       'Sjekk alltid gjeldende regler før du fisker.',
@@ -164,9 +143,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Fishing at Bjorli and in Lesja',
     introP1: 'Lesja is divided into three fishing zones. The fishing rights are managed by Lesjaskogsvatnet fiskeforening, Lesja fjellstyre and A/L Lågen fiskeelv.',
     introP2: 'Fishing licences can be bought at the local grocery shops in Lesja, at Hydro Texaco Bjorli, at Sjong Seter on Dalsida or at iNatur.no.',
-    introP3: 'Fishing in the Rauma river below the county border between Innlandet and Møre og Romsdal is managed by Rauma Elveeierlag SA.',
     ctaInatur: 'Buy fishing licence at iNatur',
-    ctaRauma: 'See salmon fishing in the Rauma',
     zonesTitle: 'Fishing zones in Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Covers Lesjaskogsvatnet, the Lågen down to the old parish border, the Rauma down to the county border, and lakes and rivers within Lesjaskog Heimrast.', cta: 'Fishing at the watershed' },
@@ -195,14 +172,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Read more at Lesja fjellstyre',
     mountainAlt: 'Mountain fishing in the Lesja mountains',
-    salmonTitle: 'Salmon fishing in the Rauma',
-    salmonP1: 'The Rauma salmon is back in the river. The Rauma river is 65 km long in total and starts from Lesjaskogsvatnet before running down through Romsdalen. The topography makes the river special, with steep mountains and crystal-clear water. The salmon-bearing part of the river is 42 km.',
-    salmonP2: 'Fishing in the Rauma is offered through the landowners. Rauma Elveeierlag SA is the management body.',
-    salmonP3Pre: 'For management questions: Vidar Skiri, tel. ',
-    salmonP3Post: '. For questions about the fishing: contact the individual landowner via Elveguiden.',
-    salmonCta: 'Salmon fishing across the Rauma',
-    salmonAlt: 'Salmon fishing in the Rauma river',
-    salmonCaption: 'Photo © lakseelver.no',
     practicalTitle: 'Practical information',
     practicalBullets: [
       'Always check the current rules before you fish.',
@@ -239,9 +208,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Angeln in Bjorli und Lesja',
     introP1: 'Lesja ist in drei Fischereizonen unterteilt. Die Fischrechte werden von Lesjaskogsvatnet fiskeforening, Lesja fjellstyre und A/L Lågen fiskeelv verwaltet.',
     introP2: 'Angelkarten sind in den Lebensmittelgeschäften in Lesja, bei Hydro Texaco Bjorli, am Sjong Seter auf Dalsida oder auf iNatur.no erhältlich.',
-    introP3: 'Das Angeln in der Rauma unterhalb der Provinzgrenze zwischen Innlandet und Møre og Romsdal wird von Rauma Elveeierlag SA verwaltet.',
     ctaInatur: 'Angelkarte auf iNatur kaufen',
-    ctaRauma: 'Lachsfischen in der Rauma ansehen',
     zonesTitle: 'Fischereizonen in Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Umfasst Lesjaskogsvatnet, die Lågen bis zur alten Pfarrgrenze, die Rauma bis zur Provinzgrenze sowie Seen und Flüsse innerhalb von Lesjaskog Heimrast.', cta: 'Angeln an der Wasserscheide' },
@@ -270,14 +237,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Mehr bei Lesja fjellstyre',
     mountainAlt: 'Bergfischen in den Lesja-Bergen',
-    salmonTitle: 'Lachsfischen in der Rauma',
-    salmonP1: 'Der Rauma-Lachs ist wieder in den Fluss zurückgekehrt. Die Rauma ist insgesamt 65 km lang und beginnt am Lesjaskogsvatnet, bevor sie durch Romsdalen abwärts fließt. Die Topografie macht den Fluss besonders, mit steilen Bergen und glasklarem Wasser. Der lachsführende Teil des Flusses ist 42 km lang.',
-    salmonP2: 'Das Fischen in der Rauma wird von den Grundeigentümern vermittelt. Rauma Elveeierlag SA ist die Verwaltungsorganisation.',
-    salmonP3Pre: 'Fragen zur Verwaltung: Vidar Skiri, Tel. ',
-    salmonP3Post: '. Fragen zum Fischen: den jeweiligen Grundeigentümer über Elveguiden kontaktieren.',
-    salmonCta: 'Lachsfischen in der gesamten Rauma',
-    salmonAlt: 'Lachsfischen in der Rauma',
-    salmonCaption: 'Foto © lakseelver.no',
     practicalTitle: 'Praktische Hinweise',
     practicalBullets: [
       'Prüfen Sie immer die aktuellen Regeln, bevor Sie fischen.',
@@ -314,9 +273,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Vissen op Bjorli en in Lesja',
     introP1: 'Lesja is verdeeld in drie viszones. De visrechten worden beheerd door Lesjaskogsvatnet fiskeforening, Lesja fjellstyre en A/L Lågen fiskeelv.',
     introP2: 'Visvergunningen zijn te koop bij de supermarkten in Lesja, bij Hydro Texaco Bjorli, bij Sjong Seter op Dalsida of via iNatur.no.',
-    introP3: 'Vissen in de Rauma onder de provinciegrens tussen Innlandet en Møre og Romsdal wordt beheerd door Rauma Elveeierlag SA.',
     ctaInatur: 'Koop visvergunning op iNatur',
-    ctaRauma: 'Bekijk zalmvissen in de Rauma',
     zonesTitle: 'Viszones in Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Geldt voor Lesjaskogsvatnet, de Lågen tot de oude parochiegrens, de Rauma tot de provinciegrens en meren en rivieren binnen Lesjaskog Heimrast.', cta: 'Vissen op de waterscheiding' },
@@ -345,14 +302,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Meer bij Lesja fjellstyre',
     mountainAlt: 'Bergvissen in de Lesja-bergen',
-    salmonTitle: 'Zalmvissen in de Rauma',
-    salmonP1: 'De Rauma-zalm is terug in de rivier. De Rauma is in totaal 65 km lang en begint bij Lesjaskogsvatnet voor hij door Romsdalen naar beneden stroomt. De topografie maakt de rivier bijzonder, met steile bergen en kristalhelder water. Het zalmvoerende deel van de rivier is 42 km lang.',
-    salmonP2: 'Het vissen in de Rauma wordt aangeboden via de grondeigenaren. Rauma Elveeierlag SA is het beheersorgaan.',
-    salmonP3Pre: 'Vragen over beheer: Vidar Skiri, tel. ',
-    salmonP3Post: '. Vragen over het vissen: neem contact op met de individuele grondeigenaar via Elveguiden.',
-    salmonCta: 'Zalmvissen in de hele Rauma',
-    salmonAlt: 'Zalmvissen in de Rauma',
-    salmonCaption: 'Foto © lakseelver.no',
     practicalTitle: 'Praktische informatie',
     practicalBullets: [
       'Controleer altijd de actuele regels voordat je gaat vissen.',
@@ -389,9 +338,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Fiskeri på Bjorli og i Lesja',
     introP1: 'Lesja er opdelt i tre fiskezoner. Fiskerettighederne forvaltes af Lesjaskogsvatnet fiskeforening, Lesja fjellstyre og A/L Lågen fiskeelv.',
     introP2: 'Fiskekort kan købes i dagligvarebutikkerne i Lesja, hos Hydro Texaco Bjorli, på Sjong Seter på Dalsida eller på iNatur.no.',
-    introP3: 'Fiskeri i Rauma elv neden for amtsgrænsen mellem Innlandet og Møre og Romsdal forvaltes af Rauma Elveeierlag SA.',
     ctaInatur: 'Køb fiskekort på iNatur',
-    ctaRauma: 'Se laksefiskeri i Rauma',
     zonesTitle: 'Fiskezoner i Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Gælder Lesjaskogsvatnet, Lågen ned til den gamle sognegrænse, Rauma ned til amtsgrænsen og søer og elve inden for Lesjaskog Heimrast.', cta: 'Fiskeri på vandskillet' },
@@ -420,14 +367,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Læs mere hos Lesja fjellstyre',
     mountainAlt: 'Fjeldfiskeri i Lesjafjeldene',
-    salmonTitle: 'Laksefiskeri i Rauma',
-    salmonP1: 'Raumalaksen er tilbage i elven. Rauma elv er i alt 65 km lang og starter ved Lesjaskogsvatnet, før den løber ned gennem Romsdalen. Topografien gør elven særlig, med stejle fjelde og krystalklart vand. Den laksebærende del af elven er 42 km.',
-    salmonP2: 'Fiskeriet i Rauma formidles af grundejerne. Rauma Elveeierlag SA er forvaltningsorganet.',
-    salmonP3Pre: 'Ved spørgsmål om forvaltning: Vidar Skiri, tlf. ',
-    salmonP3Post: '. Ved spørgsmål om fiskeriet: kontakt den enkelte grundejer via Elveguiden.',
-    salmonCta: 'Laksefiskeri i hele Rauma',
-    salmonAlt: 'Laksefiskeri i Rauma elv',
-    salmonCaption: 'Foto © lakseelver.no',
     practicalTitle: 'Praktisk information',
     practicalBullets: [
       'Tjek altid de gældende regler, før du fisker.',
@@ -464,9 +403,7 @@ const COPY: Record<Locale, Copy> = {
     introTitle: 'Fiske på Bjorli och i Lesja',
     introP1: 'Lesja är indelat i tre fiskezoner. Fiskerätterna förvaltas av Lesjaskogsvatnet fiskeforening, Lesja fjellstyre och A/L Lågen fiskeelv.',
     introP2: 'Fiskekort kan köpas i livsmedelsbutikerna i Lesja, hos Hydro Texaco Bjorli, på Sjong Seter på Dalsida eller på iNatur.no.',
-    introP3: 'Fiske i Rauma älv nedanför länsgränsen mellan Innlandet och Møre og Romsdal förvaltas av Rauma Elveeierlag SA.',
     ctaInatur: 'Köp fiskekort på iNatur',
-    ctaRauma: 'Se laxfiske i Rauma',
     zonesTitle: 'Fiskezoner i Lesja',
     zones: [
       { title: 'Lesjaskogsvatnet fiskeforening', text: 'Gäller Lesjaskogsvatnet, Lågen ner till den gamla sockengränsen, Rauma ner till länsgränsen och sjöar och älvar inom Lesjaskog Heimrast.', cta: 'Fiske vid vattendelaren' },
@@ -495,14 +432,6 @@ const COPY: Record<Locale, Copy> = {
     ],
     mountainCta: 'Läs mer hos Lesja fjellstyre',
     mountainAlt: 'Fjällfiske i Lesjafjällen',
-    salmonTitle: 'Laxfiske i Rauma',
-    salmonP1: 'Raumalaxen är tillbaka i älven. Rauma älv är totalt 65 km lång och börjar vid Lesjaskogsvatnet innan den rinner ned genom Romsdalen. Topografin gör älven speciell, med branta fjäll och kristallklart vatten. Den laxförande delen av älven är 42 km.',
-    salmonP2: 'Fisket i Rauma förmedlas av markägarna. Rauma Elveeierlag SA är förvaltningsorganet.',
-    salmonP3Pre: 'Frågor om förvaltning: Vidar Skiri, tel. ',
-    salmonP3Post: '. Frågor om fisket: kontakta den enskilde markägaren via Elveguiden.',
-    salmonCta: 'Laxfiske i hela Rauma',
-    salmonAlt: 'Laxfiske i Rauma älv',
-    salmonCaption: 'Foto © lakseelver.no',
     practicalTitle: 'Praktisk information',
     practicalBullets: [
       'Kontrollera alltid gällande regler innan du fiskar.',
