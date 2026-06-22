@@ -590,7 +590,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       subtitle:
         'Från Bjorli har du nära till vandring, cykling, fiske i Lesjaskogsvatnet och fjällsjöar, myskoxar på Dovrefjell, vattenfallet Mardalsfossen i Mardøla och dagsturer in i Romsdalen och mot fjordarna.',
       items: [
-        { title: 'Fjäll och vatten', desc: 'Öppet högfjäll, Rauma, Lesjaskogsvatnet och fjällsjöar precis utanför dörren.' },
+        { title: 'Fjäll och vatten', desc: 'Öppet högfjäll, Lesjaskogsvatnet och fjällsjöar precis utanför dörren.' },
         { title: 'Aktiva dagar',     desc: 'Vandring, cykling, fiske, gårdsbesök och turer till Mardalsfossen och Dovrefjell.' },
         { title: 'Dagar västerut',   desc: 'Bo i Bjorli och tillbringa dagarna i Romsdalen, på Raumabanen och mot fjordarna.' },
       ],
