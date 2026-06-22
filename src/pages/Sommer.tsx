@@ -201,7 +201,7 @@ const Sommer = () => {
           >
             {/* Primary — summer activities */}
             <Link to={lp('/aktiviteter')}>
-              <Button size="lg" className="font-semibold w-full sm:w-auto">
+              <Button size="lg" className="font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10">
                 <MapPin className="mr-2 h-5 w-5" />
                 {t.primaryCta}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -212,7 +212,7 @@ const Sommer = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto"
+                className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10"
               >
                 <Car className="mr-2 h-5 w-5" />
                 {t.secondaryCta}
@@ -253,7 +253,7 @@ const Sommer = () => {
               </ul>
               <div className="flex justify-center">
                 <Link to={lp('/overnatting')}>
-                  <Button size="lg" className="font-semibold w-full sm:w-auto">
+                  <Button size="lg" className="font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10">
                     {t.stayWidgetPrimaryCta}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
