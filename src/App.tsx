@@ -15,6 +15,7 @@ import SkiRental from "./pages/SkiRental";
 import FoodDrink from "./pages/FoodDrink";
 import Handel from "./pages/Handel";
 import PracticalInfo from "./pages/PracticalInfo";
+import Parkering from "./pages/Parkering";
 import Contact from "./pages/Contact";
 import SEOHead from "./components/SEOHead";
 import NotFound from "./pages/NotFound";
@@ -98,6 +99,9 @@ const AppRoutes = () => (
     <Route path="/mat-og-drikke" element={<FoodDrink />} />
     <Route path="/handel" element={<Handel />} />
     <Route path="/praktisk-info" element={<PracticalInfo />} />
+    <Route path="/parkering" element={<Parkering />} />
+    {/* Legacy alias for the previous English URL. */}
+    <Route path="/parking" element={<Parkering />} />
     <Route path="/reisen-hit" element={<GettingHere />} />
     <Route path="/tips" element={<Tips />} />
     <Route path="/tips/:slug" element={<ContentDetailPage kind="tips" />} />
