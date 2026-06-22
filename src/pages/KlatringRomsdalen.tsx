@@ -217,7 +217,7 @@ const KlatringRomsdalen = () => {
           <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
             Fjellveggene står tett her, fra dalbunnen og opp til alpine ruter i Romsdalshorn og Trolltindene. Klatremiljøet er etablert, med alt fra innendørs vegg til lange ruter i fjellet. Bjorli ligger sør for regionen og er en praktisk base når du vil kombinere klatring med{' '}
             <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
-            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
+            <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Lesjaskogsvatnet</Link> eller{' '}
             <Link to={lp('/sykling')} className="text-secondary underline-offset-4 hover:underline">sykling</Link>.
           </p>
         </div>
@@ -342,7 +342,7 @@ const KlatringRomsdalen = () => {
             <p className="text-foreground/85 text-base md:text-lg leading-relaxed">
               Bo roligere. Reis lettere. Utforsk mer. Fra Bjorli rekker du veggene i Romsdalen på en kort kjøretur, og Raumabanen knytter dalen sammen uten bil. Når klatredagen er ferdig venter{' '}
               <Link to={lp('/fotturer')} className="text-secondary underline-offset-4 hover:underline">fjellturer</Link>,{' '}
-              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Raumaelva</Link> eller{' '}
+              <Link to={lp('/fiske')} className="text-secondary underline-offset-4 hover:underline">fiske i Lesjaskogsvatnet</Link> eller{' '}
               <Link to={lp('/sommer/korte-turer')} className="text-secondary underline-offset-4 hover:underline">korte turer rundt Bjorli</Link>.
             </p>
           </div>
@@ -350,7 +350,7 @@ const KlatringRomsdalen = () => {
             {[
               { icon: Train, title: 'Raumabanen', desc: 'Toget kjører gjennom dalen og stopper nær flere klatrefelt.' },
               { icon: Bed, title: 'Overnatting på Bjorli', desc: 'Overnatting med enkel tilgang til fjell og dal.' },
-              { icon: Fish, title: 'Raumaelva og fjellene', desc: 'Laksefiske i Raumaelva og fjellturer i Reinheimen.' },
+              { icon: Fish, title: 'Fjellvann og fjellene', desc: 'Fiske i Lesjaskogsvatnet og fjellturer i Reinheimen.' },
               { icon: Mountain, title: 'Fjord og fossefall', desc: 'Dagsturer vestover til Mardalsfossen og Romsdalsfjorden.' },
               { icon: Bike, title: 'Hviledager mellom øktene', desc: 'Sykling, fiske eller en stille kveld ved hytta.' },
             ].map(({ icon: Icon, title, desc }) => (
@@ -448,7 +448,6 @@ const KlatringRomsdalen = () => {
               { label: 'Korte turer rundt Bjorli', to: '/sommer/korte-turer' },
               { label: 'Sykling', to: '/sykling' },
               { label: 'Fiske', to: '/fiske' },
-              { label: 'Raumaelva', to: '/fiske' },
               { label: 'Mardalsfossen', to: '/sommer' },
               { label: 'Moskus på Dovrefjell', to: '/sommer' },
               { label: 'Overnatting', to: '/overnatting' },
