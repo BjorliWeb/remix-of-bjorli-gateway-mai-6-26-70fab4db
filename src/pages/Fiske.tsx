@@ -553,8 +553,8 @@ const Fiske = () => {
         name: t.schemaName,
         description: t.metaDesc,
         url: '/fiske',
-        touristType: ['Fishing', 'Fly fishing', 'Salmon fishing'],
-        areaServed: { '@type': 'Place', name: 'Bjorli, Lesja, Rauma' },
+        touristType: ['Fishing', 'Fly fishing', 'Mountain fishing'],
+        areaServed: { '@type': 'Place', name: 'Bjorli, Lesja' },
       },
       {
         '@context': 'https://schema.org',
@@ -568,7 +568,7 @@ const Fiske = () => {
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: t.faqs.map((f) => ({
+        mainEntity: t.faqs.filter((f) => !/rauma/i.test(f.q + f.a)).map((f) => ({
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -724,7 +724,7 @@ const Fiske = () => {
         <div className="container mx-auto max-w-3xl">
           <h2 className="font-display text-2xl md:text-3xl font-bold mb-6">{t.faqTitle}</h2>
           <div className="space-y-3">
-            {t.faqs.map((f) => (
+            {t.faqs.filter((f) => !/rauma/i.test(f.q + f.a)).map((f) => (
               <details key={f.q} className="group rounded-xl border border-border bg-card/60 backdrop-blur p-5 open:bg-card transition-colors">
                 <summary className="cursor-pointer font-semibold list-none flex items-center justify-between gap-3">
                   <span>{f.q}</span>
