@@ -34,7 +34,7 @@ const COPY: Record<Locale, SommerCopy> = {
   no: {
     heroTitle: 'Fjell, fjord og friske sommerdager',
     heroSubtitle:
-      'Bo på Bjorli og bruk dagene på fjellturer, fiske i Rauma og Lesjaskogsvatnet, fossefall i Mardøla, sykkel, Raumabanen, moskus på Dovrefjell og dagsturer vestover mot fjordlandskapet.',
+      'Basecamp mellom fjell og fjord: fjellturer, sykkel, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell og dagsturer vestover.',
     primaryCta: 'Se sommeraktiviteter',
     secondaryCta: 'Planlegg reisen hit',
     finalTitle: 'Planlegg en aktiv sommer på Bjorli',
@@ -51,7 +51,7 @@ const COPY: Record<Locale, SommerCopy> = {
   en: {
     heroTitle: 'Summer in Bjorli',
     heroSubtitle:
-      'Stay in Bjorli and spend your days on mountain hikes, cycling, fishing in Rauma and Lesjaskogsvatnet, the Mardøla waterfall, the Rauma Line, muskox on Dovrefjell and day trips west toward the fjords.',
+      'Basecamp between mountains and fjords: hiking, cycling, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell and day trips westward.',
     primaryCta: 'See summer activities',
     secondaryCta: 'Plan your journey',
     finalTitle: 'Plan an active summer in Bjorli',
@@ -68,7 +68,7 @@ const COPY: Record<Locale, SommerCopy> = {
   de: {
     heroTitle: 'Sommer in Bjorli',
     heroSubtitle:
-      'Wohnen Sie in Bjorli und verbringen Sie die Tage mit Bergwanderungen, Radfahren, Angeln im Rauma und Lesjaskogsvatnet, dem Mardøla-Wasserfall, der Raumabahn, Moschusochsen auf Dovrefjell und Tagesausflügen westwärts zu den Fjorden.',
+      'Basislager zwischen Bergen und Fjorden: Wandern, Radfahren, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell und Tagesausflüge westwärts.',
     primaryCta: 'Sommeraktivitäten ansehen',
     secondaryCta: 'Anreise planen',
     finalTitle: 'Planen Sie einen aktiven Sommer in Bjorli',
@@ -85,7 +85,7 @@ const COPY: Record<Locale, SommerCopy> = {
   nl: {
     heroTitle: 'Zomer in Bjorli',
     heroSubtitle:
-      'Verblijf in Bjorli en besteed de dagen aan bergwandelingen, fietsen, vissen in de Rauma en Lesjaskogsvatnet, de Mardøla-waterval, de Raumabaan, muskusossen op Dovrefjell en dagtochten westwaarts richting de fjorden.',
+      'Basiskamp tussen bergen en fjorden: wandelen, fietsen, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell en dagtochten westwaarts.',
     primaryCta: 'Bekijk zomeractiviteiten',
     secondaryCta: 'Plan je reis',
     finalTitle: 'Plan een actieve zomer in Bjorli',
@@ -102,7 +102,7 @@ const COPY: Record<Locale, SommerCopy> = {
   da: {
     heroTitle: 'Sommer i Bjorli',
     heroSubtitle:
-      'Bo i Bjorli og brug dagene på fjeldture, cykling, fiskeri i Rauma og Lesjaskogsvatnet, Mardøla-vandfaldet, Raumabanen, moskusokser på Dovrefjell og dagsture vestpå mod fjordene.',
+      'Basecamp mellem fjeld og fjord: vandring, cykling, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell og dagsture vestpå.',
     primaryCta: 'Se sommeraktiviteter',
     secondaryCta: 'Planlæg rejsen hertil',
     finalTitle: 'Planlæg en aktiv sommer i Bjorli',
@@ -119,7 +119,7 @@ const COPY: Record<Locale, SommerCopy> = {
   sv: {
     heroTitle: 'Sommar i Bjorli',
     heroSubtitle:
-      'Bo i Bjorli och använd dagarna till fjällvandringar, cykling, fiske i Rauma och Lesjaskogsvatnet, Mardøla-fallet, Raumabanan, myskoxar på Dovrefjell och dagsturer västerut mot fjordarna.',
+      'Basläger mellan fjäll och fjord: vandring, cykling, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell och dagsturer västerut.',
     primaryCta: 'Se sommaraktiviteter',
     secondaryCta: 'Planera resan hit',
     finalTitle: 'Planera en aktiv sommar i Bjorli',
@@ -201,7 +201,7 @@ const Sommer = () => {
           >
             {/* Primary — summer activities */}
             <Link to={lp('/aktiviteter')}>
-              <Button size="lg" className="font-semibold w-full sm:w-auto">
+              <Button size="lg" className="font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10">
                 <MapPin className="mr-2 h-5 w-5" />
                 {t.primaryCta}
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -212,7 +212,7 @@ const Sommer = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto"
+                className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10"
               >
                 <Car className="mr-2 h-5 w-5" />
                 {t.secondaryCta}
@@ -253,7 +253,7 @@ const Sommer = () => {
               </ul>
               <div className="flex justify-center">
                 <Link to={lp('/overnatting')}>
-                  <Button size="lg" className="font-semibold w-full sm:w-auto">
+                  <Button size="lg" className="font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10">
                     {t.stayWidgetPrimaryCta}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>

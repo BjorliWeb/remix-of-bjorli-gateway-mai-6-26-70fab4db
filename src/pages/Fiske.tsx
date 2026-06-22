@@ -78,11 +78,11 @@ type Copy = {
 
 const COPY: Record<Locale, Copy> = {
   no: {
-    metaTitle: 'Fiske på Bjorli | Ørret, fjellfiske, fluefiske og laksefiske',
-    metaDesc: 'Opplev fiske på Bjorli og i Lesja med fjellvann, elver, fluefiskesoner, Lesjaskogsvatnet og laksefiske i Rauma. Finn fiskekort, soner og nyttige lenker.',
+    metaTitle: 'Fiske på Bjorli | Ørret, fjellfiske og fluefiske',
+    metaDesc: 'Opplev fiske på Bjorli og i Lesja med fjellvann, elver, fluefiskesoner og Lesjaskogsvatnet. Finn fiskekort, soner og nyttige lenker.',
     schemaName: 'Fiske på Bjorli',
     heroTitle: 'Fiske på Bjorli',
-    heroSubtitle: 'Med fjellvann, klare elver og korte avstander til både ørretfiske, fluefiske og laksefiske er Bjorli et godt utgangspunkt for fiskedager i Lesja og Rauma.',
+    heroSubtitle: 'Med fjellvann, klare elver og korte avstander til ørretfiske og fluefiske er Bjorli et godt utgangspunkt for familievennlige fiskedager i Lesja.',
     heroAlt: 'Fiske ved Bjorli',
     breadcrumbAria: 'Brødsmuler',
     crumbHome: 'Bjorli', crumbSummer: 'Sommer', crumbFishing: 'Fiske',
@@ -153,11 +153,11 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   en: {
-    metaTitle: 'Fishing at Bjorli | Trout, mountain fishing, fly fishing and salmon fishing',
-    metaDesc: 'Fishing at Bjorli and in Lesja — mountain lakes, rivers, fly-fishing zones, Lesjaskogsvatnet and salmon fishing in the Rauma. Find fishing licences, zones and useful links.',
+    metaTitle: 'Fishing at Bjorli | Trout, mountain fishing and fly fishing',
+    metaDesc: 'Fishing at Bjorli and in Lesja — mountain lakes, rivers, fly-fishing zones and Lesjaskogsvatnet. Find fishing licences, zones and useful links.',
     schemaName: 'Fishing at Bjorli',
     heroTitle: 'Fishing at Bjorli',
-    heroSubtitle: 'With mountain lakes, clear rivers and short distances to trout, fly and salmon fishing, Bjorli is a good base for fishing days in Lesja and Rauma.',
+    heroSubtitle: 'With mountain lakes, clear rivers and short distances to trout and fly fishing, Bjorli is a good base for family-friendly fishing days in Lesja.',
     heroAlt: 'Fishing near Bjorli',
     breadcrumbAria: 'Breadcrumb',
     crumbHome: 'Bjorli', crumbSummer: 'Summer', crumbFishing: 'Fishing',
@@ -228,11 +228,11 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   de: {
-    metaTitle: 'Angeln in Bjorli | Forelle, Bergfischen, Fliegenfischen und Lachsfischen',
-    metaDesc: 'Angeln in Bjorli und Lesja — Bergseen, Flüsse, Fliegenfischzonen, Lesjaskogsvatnet und Lachsfischen in der Rauma. Angelkarten, Zonen und nützliche Links.',
+    metaTitle: 'Angeln in Bjorli | Forelle, Bergfischen und Fliegenfischen',
+    metaDesc: 'Angeln in Bjorli und Lesja — Bergseen, Flüsse, Fliegenfischzonen und Lesjaskogsvatnet. Angelkarten, Zonen und nützliche Links.',
     schemaName: 'Angeln in Bjorli',
     heroTitle: 'Angeln in Bjorli',
-    heroSubtitle: 'Mit Bergseen, klaren Flüssen und kurzen Wegen zum Forellen-, Fliegen- und Lachsfischen ist Bjorli ein guter Ausgangspunkt für Angeltage in Lesja und Rauma.',
+    heroSubtitle: 'Mit Bergseen, klaren Flüssen und kurzen Wegen zum Forellen- und Fliegenfischen ist Bjorli ein guter Ausgangspunkt für familienfreundliche Angeltage in Lesja.',
     heroAlt: 'Angeln bei Bjorli',
     breadcrumbAria: 'Brotkrumen',
     crumbHome: 'Bjorli', crumbSummer: 'Sommer', crumbFishing: 'Angeln',
@@ -303,11 +303,11 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   nl: {
-    metaTitle: 'Vissen op Bjorli | Forel, bergvissen, vliegvissen en zalmvissen',
-    metaDesc: 'Vissen op Bjorli en in Lesja — bergmeren, rivieren, vliegviszones, Lesjaskogsvatnet en zalmvissen in de Rauma. Vergunningen, zones en handige links.',
+    metaTitle: 'Vissen op Bjorli | Forel, bergvissen en vliegvissen',
+    metaDesc: 'Vissen op Bjorli en in Lesja — bergmeren, rivieren, vliegviszones en Lesjaskogsvatnet. Vergunningen, zones en handige links.',
     schemaName: 'Vissen op Bjorli',
     heroTitle: 'Vissen op Bjorli',
-    heroSubtitle: 'Met bergmeren, heldere rivieren en korte afstanden tot forel-, vlieg- en zalmvissen is Bjorli een goed uitvalsbasis voor visdagen in Lesja en Rauma.',
+    heroSubtitle: 'Met bergmeren, heldere rivieren en korte afstanden tot forel- en vliegvissen is Bjorli een goed uitvalsbasis voor gezinsvriendelijke visdagen in Lesja.',
     heroAlt: 'Vissen bij Bjorli',
     breadcrumbAria: 'Kruimelpad',
     crumbHome: 'Bjorli', crumbSummer: 'Zomer', crumbFishing: 'Vissen',
@@ -378,11 +378,11 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   da: {
-    metaTitle: 'Fiskeri på Bjorli | Ørred, fjeldfiskeri, fluefiskeri og laksefiskeri',
-    metaDesc: 'Fiskeri på Bjorli og i Lesja — fjeldsøer, elve, fluefiskezoner, Lesjaskogsvatnet og laksefiskeri i Rauma. Find fiskekort, zoner og nyttige links.',
+    metaTitle: 'Fiskeri på Bjorli | Ørred, fjeldfiskeri og fluefiskeri',
+    metaDesc: 'Fiskeri på Bjorli og i Lesja — fjeldsøer, elve, fluefiskezoner og Lesjaskogsvatnet. Find fiskekort, zoner og nyttige links.',
     schemaName: 'Fiskeri på Bjorli',
     heroTitle: 'Fiskeri på Bjorli',
-    heroSubtitle: 'Med fjeldsøer, klare elve og korte afstande til ørred-, flue- og laksefiskeri er Bjorli et godt udgangspunkt for fiskedage i Lesja og Rauma.',
+    heroSubtitle: 'Med fjeldsøer, klare elve og korte afstande til ørred- og fluefiskeri er Bjorli et godt udgangspunkt for familievenlige fiskedage i Lesja.',
     heroAlt: 'Fiskeri ved Bjorli',
     breadcrumbAria: 'Brødkrummer',
     crumbHome: 'Bjorli', crumbSummer: 'Sommer', crumbFishing: 'Fiskeri',
@@ -453,11 +453,11 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   sv: {
-    metaTitle: 'Fiske på Bjorli | Öring, fjällfiske, flugfiske och laxfiske',
-    metaDesc: 'Fiske på Bjorli och i Lesja — fjällsjöar, älvar, flugfiskezoner, Lesjaskogsvatnet och laxfiske i Rauma. Hitta fiskekort, zoner och användbara länkar.',
+    metaTitle: 'Fiske på Bjorli | Öring, fjällfiske och flugfiske',
+    metaDesc: 'Fiske på Bjorli och i Lesja — fjällsjöar, älvar, flugfiskezoner och Lesjaskogsvatnet. Hitta fiskekort, zoner och användbara länkar.',
     schemaName: 'Fiske på Bjorli',
     heroTitle: 'Fiske på Bjorli',
-    heroSubtitle: 'Med fjällsjöar, klara älvar och korta avstånd till öring-, flug- och laxfiske är Bjorli en bra utgångspunkt för fiskedagar i Lesja och Rauma.',
+    heroSubtitle: 'Med fjällsjöar, klara älvar och korta avstånd till öring- och flugfiske är Bjorli en bra utgångspunkt för familjevänliga fiskedagar i Lesja.',
     heroAlt: 'Fiske vid Bjorli',
     breadcrumbAria: 'Brödsmulor',
     crumbHome: 'Bjorli', crumbSummer: 'Sommar', crumbFishing: 'Fiske',
@@ -553,8 +553,8 @@ const Fiske = () => {
         name: t.schemaName,
         description: t.metaDesc,
         url: '/fiske',
-        touristType: ['Fishing', 'Fly fishing', 'Salmon fishing'],
-        areaServed: { '@type': 'Place', name: 'Bjorli, Lesja, Rauma' },
+        touristType: ['Fishing', 'Fly fishing', 'Mountain fishing'],
+        areaServed: { '@type': 'Place', name: 'Bjorli, Lesja' },
       },
       {
         '@context': 'https://schema.org',
@@ -568,7 +568,7 @@ const Fiske = () => {
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: t.faqs.map((f) => ({
+        mainEntity: t.faqs.filter((f) => !/rauma/i.test(f.q + f.a)).map((f) => ({
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -603,16 +603,11 @@ const Fiske = () => {
           <div className="space-y-4 text-foreground/80 text-lg leading-relaxed">
             <p>{t.introP1}</p>
             <p>{t.introP2}</p>
-            <p>{t.introP3}</p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={INATUR_VANNSKILLET} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
               {t.ctaInatur}
-              <ExternalLink className="h-4 w-4" />
-            </a>
-            <a href={ELVEGUIDEN_RAUMA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-card text-foreground hover:bg-muted transition-colors">
-              {t.ctaRauma}
               <ExternalLink className="h-4 w-4" />
             </a>
           </div>
@@ -707,30 +702,6 @@ const Fiske = () => {
         </div>
       </section>
 
-      {/* Laksefiske i Rauma */}
-      <section className="py-16 md:py-24 px-4">
-        <div className="container mx-auto grid md:grid-cols-2 gap-10 items-center max-w-6xl">
-          <figure className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-2 md:order-1 relative">
-            <img src={images.salmonRauma.src} alt={t.salmonAlt} loading="lazy" className="w-full h-full object-cover" />
-            <figcaption className="absolute bottom-2 right-3 text-[11px] text-white/90 bg-black/40 px-2 py-0.5 rounded">
-              {t.salmonCaption}
-            </figcaption>
-          </figure>
-          <div className="order-1 md:order-2">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-6">{t.salmonTitle}</h2>
-            <p className="text-foreground/80 text-lg leading-relaxed mb-4">{t.salmonP1}</p>
-            <p className="text-muted-foreground leading-relaxed mb-2">{t.salmonP2}</p>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              {t.salmonP3Pre}<a href="tel:+4791740533" className="underline hover:text-secondary">917 40 533</a>{t.salmonP3Post}
-            </p>
-            <a href={ELVEGUIDEN_RAUMA} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm">
-              {t.salmonCta}
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* Practical info */}
       <section className="py-16 md:py-24 px-4 bg-muted/30">
         <div className="container mx-auto max-w-3xl">
@@ -753,7 +724,7 @@ const Fiske = () => {
         <div className="container mx-auto max-w-3xl">
           <h2 className="font-display text-2xl md:text-3xl font-bold mb-6">{t.faqTitle}</h2>
           <div className="space-y-3">
-            {t.faqs.map((f) => (
+            {t.faqs.filter((f) => !/rauma/i.test(f.q + f.a)).map((f) => (
               <details key={f.q} className="group rounded-xl border border-border bg-card/60 backdrop-blur p-5 open:bg-card transition-colors">
                 <summary className="cursor-pointer font-semibold list-none flex items-center justify-between gap-3">
                   <span>{f.q}</span>

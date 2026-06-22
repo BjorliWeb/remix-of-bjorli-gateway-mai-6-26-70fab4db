@@ -88,9 +88,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Sommer på Bjorli',
       title: 'Fjell, vann og dagsturer vestover',
       subtitle:
-        'Bjorli gir kort vei til fotturer, sykkel, fiske i Rauma og Lesjaskogsvatnet, moskus på Dovrefjell, Mardalsfossen i Mardøla og dagsturer ut i Romsdalen og mot fjordene.',
+        'Bjorli gir kort vei til fotturer, sykkel, fiske i Lesjaskogsvatnet og fjellvannene, moskus på Dovrefjell, Mardalsfossen i Mardøla og dagsturer ut i Romsdalen og mot fjordene.',
       items: [
-        { title: 'Fjell og vann',     desc: 'Åpent høyfjell, Rauma, Lesjaskogsvatnet og fjellvann rett utenfor døra.' },
+        { title: 'Fjell og vann',     desc: 'Åpent høyfjell, Lesjaskogsvatnet og fjellvann rett utenfor døra.' },
         { title: 'Aktive dager',      desc: 'Fottur, sykkel, fiske, gardsbesøk og turer til Mardalsfossen og Dovrefjell.' },
         { title: 'Vestover på dagstur', desc: 'Bo på Bjorli og bruk dagene i Romsdalen, langs Raumabanen og mot fjordene.' },
       ],
@@ -100,10 +100,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Velg din sommerdag på Bjorli',
       readMore: 'Les mer',
       cards: [
-        { title: 'Aktiv familiedag', desc: 'Pumptrack, fiske og korte turer.', alt: 'Familie på tur i sommerlandskap ved Bjorli' },
+        { title: 'Familieferie', desc: 'Pumptrack, fiske og korte turer.', alt: 'Familie på tur i sommerlandskap ved Bjorli' },
         { title: 'På sykkel og pumptrack', desc: 'Stier, grusveier og pumptrack i sentrum.', alt: 'Sykling og pumptrack på Bjorli en sommerdag' },
         { title: 'Til fjells', desc: 'Korte stier og lange dagsturer i høyfjellet.', alt: 'Åpent høyfjell og dalføre ved Bjorli' },
-        { title: 'Ved vannet', desc: 'Fluefiske og rolige stunder ved Rauma.', alt: 'Stille fjellvann nær Bjorli en sommerdag' },
+        { title: 'Ved vannet', desc: 'Familievennlig fiske og rolige stunder ved Lesjaskogsvatnet.', alt: 'Stille fjellvann nær Bjorli en sommerdag' },
         { title: 'Luftig dag i Romsdalen', desc: 'Klatring, buldring og via ferrata.', alt: 'Bratte fjellvegger i Romsdalen' },
       ],
     },
@@ -114,7 +114,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Fotturer', desc: 'Korte stier fra sentrum og lengre dagsturer i Reinheimen, Dovrefjell og Romsdalsalpene.', alt: 'Sommersti og utsikt over dalen — fottur i fjellet ved Bjorli' },
         { title: 'Sykkel og pumptrack', desc: 'Stier, grusveier og en pumptrack i sentrum — for nybegynnere og hele familien.', alt: 'Sykling i fjellet ved Bjorli en sommerdag' },
-        { title: 'Fiske', desc: 'Fluefiske i Rauma, fiske i Lesjaskogsvatnet, Lågen og fjellvannene rundt Bjorli.', alt: 'Fluefiske i en fjellelv nær Bjorli en sommerdag' },
+        { title: 'Fiske', desc: 'Fiske i Lesjaskogsvatnet, Lågen og fjellvannene rundt Bjorli — familievennlig fiske i fjellet.', alt: 'Familievennlig fjellfiske nær Bjorli en sommerdag' },
         { title: 'Familieaktiviteter', desc: 'Pumptrack, fiske ved vannet, korte fjellturer og gardsbesøk i Lesja.', alt: 'Familie møter dyr i grønt sommerlandskap ved Bjorli' },
         { title: 'Gardsbesøk', desc: 'Lokale gårder i Lesja med gårdsliv, dyr, lokal mat og kulturlandskap nær Bjorli.', alt: 'Kulturlandskap i Lesja nær Bjorli' },
         { title: 'Sagelva vasskraftsenter', desc: '300 år med vasskraft, lokalhistorie og levende formidling i Lesja.', alt: 'Sagelva vasskraftsenter i Lesja' },
@@ -144,8 +144,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Fiske, elv og fjellvann',
-      title: 'Fluefiske i Rauma, fiske i Lesjaskogsvatnet og Lågen',
-      body: 'Rauma er kjent for fluefiske. Lesjaskogsvatnet, Lågen og fjellvannene rundt Bjorli gir lange dager ved vannet gjennom hele sommeren — fra rolige familiefiske til mer dedikerte dager med stang og vader.',
+      title: 'Fiske i Lesjaskogsvatnet, Lågen og fjellvannene',
+      body: 'Lesjaskogsvatnet, Lågen og fjellvannene rundt Bjorli gir lange dager ved vannet gjennom hele sommeren — fra rolig familiefiske til mer dedikerte dager med stang og vader.',
       alt: 'Fiske i en fjellelv nær Bjorli en sommerkveld',
       cta: 'Se fiskemuligheter',
     },
@@ -165,9 +165,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Mellom fjell og fjord',
       title: 'Bo på Bjorli. Bruk dagene ut i regionen.',
-      body: 'Bjorli ligger høyt og åpent med kort vei ut i regionen. Bruk dagene på Raumabanen ned mot Åndalsnes, Mardalsfossen i Mardøla, moskussafari på Dovrefjell, fiske i Rauma og Lesjaskogsvatnet, og turer videre vestover mot Trollstigen, Geirangerområdet og fjordlandskapet.',
+      body: 'Bjorli ligger høyt og åpent med kort vei ut i regionen. Bruk dagene på Raumabanen ned mot Åndalsnes, Mardalsfossen i Mardøla, moskussafari på Dovrefjell, fiske i Lesjaskogsvatnet og fjellvannene, og turer videre vestover mot Trollstigen, Geirangerområdet og fjordlandskapet.',
       subcards: [
-        { title: 'Fjellvann og elv',         desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida og Rauma — vann og fiske rett ved Bjorli.' },
+        { title: 'Fjellvann og elv',         desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida og fjellvann — vann og fiske rett ved Bjorli.' },
         { title: 'Fossefall og moskus',      desc: 'Mardalsfossen i Mardøla og guidet moskussafari på Dovrefjell.' },
         { title: 'Romsdalen og Raumabanen',  desc: 'Bratte fjell og togtur ned mot Åndalsnes — en av de mest kjente dagsturene fra Bjorli.' },
         { title: 'Fjordlandskap vestover',   desc: 'Trollstigen- og Geirangerområdet innen rekkevidde for dagsturer mot fjordene.' },
@@ -188,9 +188,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Summer in Bjorli',
       title: 'Mountains, water and day trips westward',
       subtitle:
-        'Bjorli gives you easy access to hiking, cycling, fly fishing in Rauma, Lesjaskogsvatnet, muskox on Dovrefjell, Mardalsfossen in Mardøla and day trips into Romsdalen and toward the fjords.',
+        'Bjorli gives you easy access to hiking, cycling, fishing in Lesjaskogsvatnet and the mountain lakes, muskox on Dovrefjell, Mardalsfossen in Mardøla and day trips into Romsdalen and toward the fjords.',
       items: [
-        { title: 'Mountains and water', desc: 'Open high country, Rauma, Lesjaskogsvatnet and mountain lakes right outside the door.' },
+        { title: 'Mountains and water', desc: 'Open high country, Lesjaskogsvatnet and mountain lakes right outside the door.' },
         { title: 'Active days',         desc: 'Hiking, cycling, fishing, farm visits and trips to Mardalsfossen and Dovrefjell.' },
         { title: 'Days out westward',   desc: 'Stay in Bjorli and spend your days in Romsdalen, on the Raumabanen and toward the fjords.' },
       ],
@@ -200,10 +200,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Pick your summer day at Bjorli',
       readMore: 'Read more',
       cards: [
-        { title: 'Active family day', desc: 'Pumptrack, fishing and short walks.', alt: 'Family in summer landscape near Bjorli' },
+        { title: 'Family holiday', desc: 'Pumptrack, fishing and short walks.', alt: 'Family in summer landscape near Bjorli' },
         { title: 'On the bike and pumptrack', desc: 'Trails, gravel and a village pumptrack.', alt: 'Cycling and pumptrack at Bjorli on a summer day' },
         { title: 'Up to the mountains', desc: 'Short trails and long high-country days.', alt: 'Open high country and valley near Bjorli' },
-        { title: 'By the water', desc: 'Fly fishing and quiet hours by Rauma.', alt: 'Calm mountain lake near Bjorli on a summer day' },
+        { title: 'By the water', desc: 'Family-friendly fishing and quiet hours by Lesjaskogsvatnet.', alt: 'Calm mountain lake near Bjorli on a summer day' },
         { title: 'Airy day in Romsdalen', desc: 'Climbing, bouldering and via ferrata.', alt: 'Steep mountain walls in Romsdalen' },
       ],
     },
@@ -214,7 +214,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Hiking', desc: 'Short walks from the village and longer day hikes into Reinheimen, Dovrefjell and Romsdalsalpene.', alt: 'Summer trail and valley view — hiking in the mountains near Bjorli' },
         { title: 'Cycling and pumptrack', desc: 'Trails, gravel roads and a pumptrack in the village — for beginners and the whole family.', alt: 'Cycling in the mountains near Bjorli on a summer day' },
-        { title: 'Fishing', desc: 'Fly fishing in Rauma, fishing in Lesjaskogsvatnet, Lågen and the mountain lakes around Bjorli.', alt: 'Fly fishing in a mountain river near Bjorli on a summer day' },
+        { title: 'Fishing', desc: 'Fishing in Lesjaskogsvatnet, Lågen and the mountain lakes around Bjorli — family-friendly mountain fishing.', alt: 'Family-friendly mountain fishing near Bjorli on a summer day' },
         { title: 'Family activities', desc: 'Pumptrack, fishing by the water, short mountain walks and farm visits in Lesja.', alt: 'Family meeting animals in a green summer landscape near Bjorli' },
         { title: 'Farm visits', desc: 'Local farms in Lesja — farm life, animals, local food and cultural landscape near Bjorli.', alt: 'Cultural landscape in Lesja near Bjorli' },
         { title: 'Sagelva hydropower centre', desc: '300 years of hydropower, local history and living storytelling in Lesja.', alt: 'Sagelva hydropower centre in Lesja' },
@@ -244,8 +244,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Fishing, rivers and mountain lakes',
-      title: 'Fly fishing in Rauma, fishing in Lesjaskogsvatnet and Lågen',
-      body: 'Rauma is known for fly fishing. Lesjaskogsvatnet, Lågen and the mountain lakes around Bjorli give long days by the water through the whole summer — from family fishing to dedicated days with rod and waders.',
+      title: 'Fishing in Lesjaskogsvatnet, Lågen and the mountain lakes',
+      body: 'Lesjaskogsvatnet, Lågen and the mountain lakes around Bjorli give long days by the water through the whole summer — from relaxed family fishing to dedicated days with rod and waders.',
       alt: 'Fishing in a mountain river near Bjorli on a summer evening',
       cta: 'See fishing options',
     },
@@ -265,9 +265,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Between mountains and fjords',
       title: 'Stay in Bjorli. Spend your days out in the region.',
-      body: 'Bjorli sits high and open with easy access to the wider region. Spend your days on the Raumabanen down to Åndalsnes, Mardalsfossen in Mardøla, a muskox safari on Dovrefjell, fishing in Rauma and Lesjaskogsvatnet, and trips westward toward Trollstigen, the Geiranger area and the fjord landscape.',
+      body: 'Bjorli sits high and open with easy access to the wider region. Spend your days on the Raumabanen down to Åndalsnes, Mardalsfossen in Mardøla, a muskox safari on Dovrefjell, fishing in Lesjaskogsvatnet and the mountain lakes, and trips westward toward Trollstigen, the Geiranger area and the fjord landscape.',
       subcards: [
-        { title: 'Mountain lakes and river', desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida and Rauma — water and fishing right by Bjorli.' },
+        { title: 'Mountain lakes and river', desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida and mountain lakes — water and fishing right by Bjorli.' },
         { title: 'Waterfalls and muskox',    desc: 'Mardalsfossen in Mardøla and guided muskox safaris on Dovrefjell.' },
         { title: 'Romsdalen and Raumabanen', desc: 'Steep mountains and a train ride down to Åndalsnes — one of the best-known day trips from Bjorli.' },
         { title: 'Fjord landscape westward', desc: 'The Trollstigen and Geiranger areas within reach for day trips toward the fjords.' },
@@ -288,9 +288,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Sommer in Bjorli',
       title: 'Berge, Wasser und Tagesausflüge gen Westen',
       subtitle:
-        'Von Bjorli aus erreichen Sie unkompliziert Wanderungen, Radtouren, das Fliegenfischen in der Rauma, den Lesjaskogsvatnet, Moschusochsen im Dovrefjell, den Wasserfall Mardalsfossen im Mardøla und Tagesausflüge ins Romsdalen und zu den Fjorden.',
+        'Von Bjorli aus erreichen Sie unkompliziert Wanderungen, Radtouren, Angeln im Lesjaskogsvatnet und an Bergseen, Moschusochsen im Dovrefjell, den Wasserfall Mardalsfossen im Mardøla und Tagesausflüge ins Romsdalen und zu den Fjorden.',
       items: [
-        { title: 'Berge und Wasser', desc: 'Offenes Hochgebirge, die Rauma, der Lesjaskogsvatnet und Bergseen direkt vor der Tür.' },
+        { title: 'Berge und Wasser', desc: 'Offenes Hochgebirge, der Lesjaskogsvatnet und Bergseen direkt vor der Tür.' },
         { title: 'Aktive Tage',      desc: 'Wandern, Radfahren, Angeln, Hofbesuche und Touren zum Mardalsfossen und ins Dovrefjell.' },
         { title: 'Tage gen Westen',  desc: 'Wohnen Sie in Bjorli und verbringen Sie die Tage im Romsdalen, auf der Raumabanen und Richtung Fjorde.' },
       ],
@@ -300,10 +300,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Wählen Sie Ihren Sommertag in Bjorli',
       readMore: 'Mehr erfahren',
       cards: [
-        { title: 'Aktiver Familientag', desc: 'Pumptrack, Angeln und kurze Wanderungen.', alt: 'Familie in Sommerlandschaft bei Bjorli' },
+        { title: 'Familienurlaub', desc: 'Pumptrack, Angeln und kurze Wanderungen.', alt: 'Familie in Sommerlandschaft bei Bjorli' },
         { title: 'Mit dem Rad und Pumptrack', desc: 'Pfade, Schotterwege und Pumptrack im Ort.', alt: 'Radfahren und Pumptrack in Bjorli im Sommer' },
         { title: 'Hinauf in die Berge', desc: 'Kurze Pfade und lange Tage im Hochgebirge.', alt: 'Offenes Hochgebirge und Tal bei Bjorli' },
-        { title: 'Am Wasser', desc: 'Fliegenfischen und ruhige Stunden an der Rauma.', alt: 'Ruhiger Bergsee bei Bjorli im Sommer' },
+        { title: 'Am Wasser', desc: 'Familienfreundliches Angeln und ruhige Stunden am Lesjaskogsvatnet.', alt: 'Ruhiger Bergsee bei Bjorli im Sommer' },
         { title: 'Luftiger Tag im Romsdalen', desc: 'Klettern, Bouldern und Klettersteig.', alt: 'Steile Bergwände im Romsdalen' },
       ],
     },
@@ -314,7 +314,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Wandern', desc: 'Kurze Wege vom Ort und längere Tageswanderungen ins Reinheimen, Dovrefjell und in die Romsdalsalpene.', alt: 'Sommerpfad mit Blick ins Tal — Wandern in den Bergen bei Bjorli' },
         { title: 'Radfahren und Pumptrack', desc: 'Pfade, Schotterstraßen und ein Pumptrack im Ort — für Anfänger und die ganze Familie.', alt: 'Radfahren in den Bergen bei Bjorli an einem Sommertag' },
-        { title: 'Angeln', desc: 'Fliegenfischen in der Rauma, Angeln im Lesjaskogsvatnet, im Lågen und an den Bergseen rund um Bjorli.', alt: 'Fliegenfischen in einem Bergfluss bei Bjorli an einem Sommertag' },
+        { title: 'Angeln', desc: 'Angeln im Lesjaskogsvatnet, im Lågen und an den Bergseen rund um Bjorli — familienfreundliches Bergangeln.', alt: 'Familienfreundliches Bergangeln bei Bjorli an einem Sommertag' },
         { title: 'Familienaktivitäten', desc: 'Pumptrack, Angeln am Wasser, kurze Bergwanderungen und Hofbesuche in Lesja.', alt: 'Familie trifft Tiere in grüner Sommerlandschaft bei Bjorli' },
         { title: 'Hofbesuche', desc: 'Lokale Höfe in Lesja mit Hofleben, Tieren, regionaler Küche und Kulturlandschaft nahe Bjorli.', alt: 'Kulturlandschaft in Lesja nahe Bjorli' },
         { title: 'Sagelva Wasserkraftzentrum', desc: '300 Jahre Wasserkraft, lokale Geschichte und lebendige Vermittlung in Lesja.', alt: 'Sagelva Wasserkraftzentrum in Lesja' },
@@ -344,8 +344,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Angeln, Fluss und Bergseen',
-      title: 'Fliegenfischen in der Rauma, Angeln im Lesjaskogsvatnet und Lågen',
-      body: 'Die Rauma ist für das Fliegenfischen bekannt. Lesjaskogsvatnet, der Lågen und die Bergseen rund um Bjorli geben Ihnen den ganzen Sommer über lange Tage am Wasser — vom Familienangeln bis zu engagierten Tagen mit Rute und Wathose.',
+      title: 'Angeln im Lesjaskogsvatnet, im Lågen und an den Bergseen',
+      body: 'Der Lesjaskogsvatnet, der Lågen und die Bergseen rund um Bjorli geben Ihnen den ganzen Sommer über lange Tage am Wasser — vom entspannten Familienangeln bis zu engagierten Tagen mit Rute und Wathose.',
       alt: 'Angeln in einem Bergfluss bei Bjorli an einem Sommerabend',
       cta: 'Angelmöglichkeiten ansehen',
     },
@@ -365,9 +365,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Zwischen Bergen und Fjorden',
       title: 'Wohnen in Bjorli. Tage in der Region verbringen.',
-      body: 'Bjorli liegt hoch und offen, mit kurzen Wegen in die Region. Verbringen Sie die Tage mit der Raumabanen hinunter nach Åndalsnes, am Mardalsfossen im Mardøla, auf Moschus-Safari im Dovrefjell, beim Angeln in der Rauma und im Lesjaskogsvatnet sowie auf Touren weiter Richtung Trollstigen, Geiranger und Fjordlandschaft.',
+      body: 'Bjorli liegt hoch und offen, mit kurzen Wegen in die Region. Verbringen Sie die Tage mit der Raumabanen hinunter nach Åndalsnes, am Mardalsfossen im Mardøla, auf Moschus-Safari im Dovrefjell, beim Angeln im Lesjaskogsvatnet und an den Bergseen sowie auf Touren weiter Richtung Trollstigen, Geiranger und Fjordlandschaft.',
       subcards: [
-        { title: 'Bergseen und Fluss',         desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida und die Rauma — Wasser und Angeln direkt bei Bjorli.' },
+        { title: 'Bergseen und Fluss',         desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida und Bergseen — Wasser und Angeln direkt bei Bjorli.' },
         { title: 'Wasserfälle und Moschus',    desc: 'Mardalsfossen im Mardøla und geführte Moschus-Safari im Dovrefjell.' },
         { title: 'Romsdalen und Raumabanen',   desc: 'Steile Berge und eine Zugfahrt hinunter nach Åndalsnes — einer der bekanntesten Tagesausflüge ab Bjorli.' },
         { title: 'Fjordlandschaft im Westen',  desc: 'Trollstigen- und Geiranger-Region in Reichweite für Tagesausflüge zu den Fjorden.' },
@@ -388,9 +388,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Zomer in Bjorli',
       title: 'Bergen, water en dagtochten naar het westen',
       subtitle:
-        'Vanuit Bjorli bereik je eenvoudig wandelingen, fietsen, vliegvissen in de Rauma, Lesjaskogsvatnet, muskusossen op Dovrefjell, de waterval Mardalsfossen in Mardøla en dagtochten in Romsdalen en richting de fjorden.',
+        'Vanuit Bjorli bereik je eenvoudig wandelingen, fietsen, vissen in Lesjaskogsvatnet en bergmeren, muskusossen op Dovrefjell, de waterval Mardalsfossen in Mardøla en dagtochten in Romsdalen en richting de fjorden.',
       items: [
-        { title: 'Bergen en water',  desc: 'Open hooggebergte, de Rauma, Lesjaskogsvatnet en bergmeren direct voor de deur.' },
+        { title: 'Bergen en water',  desc: 'Open hooggebergte, Lesjaskogsvatnet en bergmeren direct voor de deur.' },
         { title: 'Actieve dagen',    desc: 'Wandelen, fietsen, vissen, boerderijbezoeken en tochten naar Mardalsfossen en Dovrefjell.' },
         { title: 'Dagen naar het westen', desc: 'Verblijf in Bjorli en breng je dagen door in Romsdalen, op de Raumabanen en richting de fjorden.' },
       ],
@@ -400,10 +400,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Kies je zomerdag in Bjorli',
       readMore: 'Lees meer',
       cards: [
-        { title: 'Actieve gezinsdag', desc: 'Pumptrack, vissen en korte wandelingen.', alt: 'Gezin in zomerlandschap bij Bjorli' },
+        { title: 'Gezinsvakantie', desc: 'Pumptrack, vissen en korte wandelingen.', alt: 'Gezin in zomerlandschap bij Bjorli' },
         { title: 'Op de fiets en pumptrack', desc: 'Paden, grindwegen en pumptrack in het dorp.', alt: 'Fietsen en pumptrack in Bjorli in de zomer' },
         { title: 'De bergen in', desc: 'Korte paden en lange dagen in het hooggebergte.', alt: 'Open hooggebergte en dal bij Bjorli' },
-        { title: 'Aan het water', desc: 'Vliegvissen en rustige uren bij de Rauma.', alt: 'Rustig bergmeer bij Bjorli in de zomer' },
+        { title: 'Aan het water', desc: 'Gezinsvriendelijk vissen en rustige uren bij Lesjaskogsvatnet.', alt: 'Rustig bergmeer bij Bjorli in de zomer' },
         { title: 'Luchtige dag in Romsdalen', desc: 'Klimmen, boulderen en via ferrata.', alt: 'Steile bergwanden in Romsdalen' },
       ],
     },
@@ -414,7 +414,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Wandelen', desc: 'Korte paden vanuit het dorp en langere dagtochten in Reinheimen, Dovrefjell en de Romsdalsalpene.', alt: 'Zomerpad met uitzicht over de vallei — wandelen in de bergen bij Bjorli' },
         { title: 'Fietsen en pumptrack', desc: 'Paden, grindwegen en een pumptrack in het dorp — voor beginners en het hele gezin.', alt: 'Fietsen in de bergen bij Bjorli op een zomerdag' },
-        { title: 'Vissen', desc: 'Vliegvissen in de Rauma, vissen in Lesjaskogsvatnet, de Lågen en de bergmeren rond Bjorli.', alt: 'Vliegvissen in een bergrivier bij Bjorli op een zomerdag' },
+        { title: 'Vissen', desc: 'Vissen in Lesjaskogsvatnet, de Lågen en de bergmeren rond Bjorli — gezinsvriendelijk bergvissen.', alt: 'Gezinsvriendelijk bergvissen bij Bjorli op een zomerdag' },
         { title: 'Gezinsactiviteiten', desc: 'Pumptrack, vissen aan het water, korte bergwandelingen en boerderijbezoeken in Lesja.', alt: 'Gezin ontmoet dieren in groen zomerlandschap bij Bjorli' },
         { title: 'Boerderijbezoeken', desc: 'Lokale boerderijen in Lesja met boerderijleven, dieren, lokaal eten en cultuurlandschap bij Bjorli.', alt: 'Cultuurlandschap in Lesja bij Bjorli' },
         { title: 'Sagelva waterkrachtcentrum', desc: '300 jaar waterkracht, lokale geschiedenis en levendige vertelling in Lesja.', alt: 'Sagelva waterkrachtcentrum in Lesja' },
@@ -444,8 +444,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Vissen, rivier en bergmeren',
-      title: 'Vliegvissen in de Rauma, vissen in Lesjaskogsvatnet en de Lågen',
-      body: 'De Rauma staat bekend om vliegvissen. Lesjaskogsvatnet, de Lågen en de bergmeren rond Bjorli geven je de hele zomer lange dagen aan het water — van gezinsvissen tot toegewijde dagen met hengel en lieslaarzen.',
+      title: 'Vissen in Lesjaskogsvatnet, de Lågen en de bergmeren',
+      body: 'Lesjaskogsvatnet, de Lågen en de bergmeren rond Bjorli geven je de hele zomer lange dagen aan het water — van rustig gezinsvissen tot toegewijde dagen met hengel en lieslaarzen.',
       alt: 'Vissen in een bergrivier bij Bjorli op een zomeravond',
       cta: 'Bekijk vismogelijkheden',
     },
@@ -465,9 +465,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Tussen bergen en fjorden',
       title: 'Verblijf in Bjorli. Breng je dagen door in de regio.',
-      body: 'Bjorli ligt hoog en open, met korte afstanden naar de regio. Breng je dagen door met de Raumabanen richting Åndalsnes, bij Mardalsfossen in Mardøla, op muskussafari op Dovrefjell, met vissen in de Rauma en Lesjaskogsvatnet, en met tochten verder westwaarts richting Trollstigen, het Geiranger-gebied en het fjordlandschap.',
+      body: 'Bjorli ligt hoog en open, met korte afstanden naar de regio. Breng je dagen door met de Raumabanen richting Åndalsnes, bij Mardalsfossen in Mardøla, op muskussafari op Dovrefjell, met vissen in Lesjaskogsvatnet en de bergmeren, en met tochten verder westwaarts richting Trollstigen, het Geiranger-gebied en het fjordlandschap.',
       subcards: [
-        { title: 'Bergmeren en rivier',     desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida en de Rauma — water en vissen vlakbij Bjorli.' },
+        { title: 'Bergmeren en rivier',     desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida en bergmeren — water en vissen vlakbij Bjorli.' },
         { title: 'Watervallen en muskus',   desc: 'Mardalsfossen in Mardøla en geleide muskussafari op Dovrefjell.' },
         { title: 'Romsdalen en Raumabanen', desc: 'Steile bergen en een treinrit naar Åndalsnes — een van de bekendste dagtochten vanuit Bjorli.' },
         { title: 'Fjordlandschap westwaarts', desc: 'Trollstigen- en Geiranger-regio binnen bereik voor dagtochten richting de fjorden.' },
@@ -488,9 +488,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Sommer i Bjorli',
       title: 'Fjelde, vand og dagsture mod vest',
       subtitle:
-        'Fra Bjorli har du nem adgang til vandring, cykling, fluefiskeri i Rauma, Lesjaskogsvatnet, moskusokser på Dovrefjell, vandfaldet Mardalsfossen i Mardøla og dagsture ind i Romsdalen og mod fjordene.',
+        'Fra Bjorli har du nem adgang til vandring, cykling, fiskeri i Lesjaskogsvatnet og fjeldsøer, moskusokser på Dovrefjell, vandfaldet Mardalsfossen i Mardøla og dagsture ind i Romsdalen og mod fjordene.',
       items: [
-        { title: 'Fjelde og vand',  desc: 'Åbent højfjeld, Rauma, Lesjaskogsvatnet og fjeldsøer lige uden for døren.' },
+        { title: 'Fjelde og vand',  desc: 'Åbent højfjeld, Lesjaskogsvatnet og fjeldsøer lige uden for døren.' },
         { title: 'Aktive dage',     desc: 'Vandring, cykling, fiskeri, gårdbesøg og ture til Mardalsfossen og Dovrefjell.' },
         { title: 'Dage mod vest',   desc: 'Bo i Bjorli og brug dagene i Romsdalen, på Raumabanen og mod fjordene.' },
       ],
@@ -500,10 +500,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Vælg din sommerdag i Bjorli',
       readMore: 'Læs mere',
       cards: [
-        { title: 'Aktiv familiedag', desc: 'Pumptrack, fiskeri og korte ture.', alt: 'Familie i sommerlandskab ved Bjorli' },
+        { title: 'Familieferie', desc: 'Pumptrack, fiskeri og korte ture.', alt: 'Familie i sommerlandskab ved Bjorli' },
         { title: 'På cykel og pumptrack', desc: 'Stier, grusveje og pumptrack i centrum.', alt: 'Cykling og pumptrack i Bjorli om sommeren' },
         { title: 'Op i fjeldet', desc: 'Korte stier og lange dage i højfjeldet.', alt: 'Åbent højfjeld og dal ved Bjorli' },
-        { title: 'Ved vandet', desc: 'Fluefiskeri og rolige stunder ved Rauma.', alt: 'Stille fjeldsø ved Bjorli om sommeren' },
+        { title: 'Ved vandet', desc: 'Familievenligt fiskeri og rolige stunder ved Lesjaskogsvatnet.', alt: 'Stille fjeldsø ved Bjorli om sommeren' },
         { title: 'Luftig dag i Romsdalen', desc: 'Klatring, bouldering og via ferrata.', alt: 'Stejle fjeldvægge i Romsdalen' },
       ],
     },
@@ -514,7 +514,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Vandring', desc: 'Korte stier fra centrum og længere dagsture i Reinheimen, Dovrefjell og Romsdalsalpene.', alt: 'Sommersti med udsigt over dalen — vandring i fjeldet ved Bjorli' },
         { title: 'Cykling og pumptrack', desc: 'Stier, grusveje og en pumptrack i centrum — for begyndere og hele familien.', alt: 'Cykling i fjeldet ved Bjorli en sommerdag' },
-        { title: 'Fiskeri', desc: 'Fluefiskeri i Rauma, fiskeri i Lesjaskogsvatnet, Lågen og fjeldsøerne omkring Bjorli.', alt: 'Fluefiskeri i en fjeldå nær Bjorli en sommerdag' },
+        { title: 'Fiskeri', desc: 'Fiskeri i Lesjaskogsvatnet, Lågen og fjeldsøerne omkring Bjorli — familievenligt fjeldfiskeri.', alt: 'Familievenligt fjeldfiskeri nær Bjorli en sommerdag' },
         { title: 'Familieaktiviteter', desc: 'Pumptrack, fiskeri ved vandet, korte fjeldture og gårdbesøg i Lesja.', alt: 'Familie møder dyr i grønt sommerlandskab ved Bjorli' },
         { title: 'Gårdbesøg', desc: 'Lokale gårde i Lesja med gårdliv, dyr, lokal mad og kulturlandskab nær Bjorli.', alt: 'Kulturlandskab i Lesja nær Bjorli' },
         { title: 'Sagelva vandkraftcenter', desc: '300 års vandkraft, lokalhistorie og levende formidling i Lesja.', alt: 'Sagelva vandkraftcenter i Lesja' },
@@ -544,8 +544,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Fiskeri, å og fjeldsøer',
-      title: 'Fluefiskeri i Rauma, fiskeri i Lesjaskogsvatnet og Lågen',
-      body: 'Rauma er kendt for fluefiskeri. Lesjaskogsvatnet, Lågen og fjeldsøerne omkring Bjorli giver lange dage ved vandet hele sommeren — fra familiefiskeri til mere dedikerede dage med stang og waders.',
+      title: 'Fiskeri i Lesjaskogsvatnet, Lågen og fjeldsøerne',
+      body: 'Lesjaskogsvatnet, Lågen og fjeldsøerne omkring Bjorli giver lange dage ved vandet hele sommeren — fra roligt familiefiskeri til mere dedikerede dage med stang og waders.',
       alt: 'Fiskeri i en fjeldå nær Bjorli en sommeraften',
       cta: 'Se fiskemuligheder',
     },
@@ -565,9 +565,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Mellem fjelde og fjorde',
       title: 'Bo i Bjorli. Brug dagene ude i regionen.',
-      body: 'Bjorli ligger højt og åbent med korte afstande ud i regionen. Brug dagene på Raumabanen ned mod Åndalsnes, Mardalsfossen i Mardøla, moskussafari på Dovrefjell, fiskeri i Rauma og Lesjaskogsvatnet samt ture videre mod Trollstigen, Geiranger-området og fjordlandskabet.',
+      body: 'Bjorli ligger højt og åbent med korte afstande ud i regionen. Brug dagene på Raumabanen ned mod Åndalsnes, Mardalsfossen i Mardøla, moskussafari på Dovrefjell, fiskeri i Lesjaskogsvatnet og fjeldsøerne samt ture videre mod Trollstigen, Geiranger-området og fjordlandskabet.',
       subcards: [
-        { title: 'Fjeldsøer og å',           desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida og Rauma — vand og fiskeri lige ved Bjorli.' },
+        { title: 'Fjeldsøer og å',           desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida og fjeldsøer — vand og fiskeri lige ved Bjorli.' },
         { title: 'Vandfald og moskus',       desc: 'Mardalsfossen i Mardøla og guidet moskussafari på Dovrefjell.' },
         { title: 'Romsdalen og Raumabanen',  desc: 'Stejle fjelde og en togtur ned mod Åndalsnes — en af de mest kendte dagsture fra Bjorli.' },
         { title: 'Fjordlandskab mod vest',   desc: 'Trollstigen- og Geiranger-området inden for rækkevidde som dagstur mod fjordene.' },
@@ -588,9 +588,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       eyebrow: 'Sommar i Bjorli',
       title: 'Fjäll, vatten och dagsturer västerut',
       subtitle:
-        'Från Bjorli har du nära till vandring, cykling, flugfiske i Rauma, Lesjaskogsvatnet, myskoxar på Dovrefjell, vattenfallet Mardalsfossen i Mardøla och dagsturer in i Romsdalen och mot fjordarna.',
+        'Från Bjorli har du nära till vandring, cykling, fiske i Lesjaskogsvatnet och fjällsjöar, myskoxar på Dovrefjell, vattenfallet Mardalsfossen i Mardøla och dagsturer in i Romsdalen och mot fjordarna.',
       items: [
-        { title: 'Fjäll och vatten', desc: 'Öppet högfjäll, Rauma, Lesjaskogsvatnet och fjällsjöar precis utanför dörren.' },
+        { title: 'Fjäll och vatten', desc: 'Öppet högfjäll, Lesjaskogsvatnet och fjällsjöar precis utanför dörren.' },
         { title: 'Aktiva dagar',     desc: 'Vandring, cykling, fiske, gårdsbesök och turer till Mardalsfossen och Dovrefjell.' },
         { title: 'Dagar västerut',   desc: 'Bo i Bjorli och tillbringa dagarna i Romsdalen, på Raumabanen och mot fjordarna.' },
       ],
@@ -600,10 +600,10 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       title: 'Välj din sommardag i Bjorli',
       readMore: 'Läs mer',
       cards: [
-        { title: 'Aktiv familjedag', desc: 'Pumptrack, fiske och korta vandringar.', alt: 'Familj i sommarlandskap vid Bjorli' },
+        { title: 'Familjesemester', desc: 'Pumptrack, fiske och korta vandringar.', alt: 'Familj i sommarlandskap vid Bjorli' },
         { title: 'På cykel och pumptrack', desc: 'Stigar, grusvägar och pumptrack i centrum.', alt: 'Cykling och pumptrack i Bjorli på sommaren' },
         { title: 'Upp till fjälls', desc: 'Korta stigar och långa dagar i högfjället.', alt: 'Öppet högfjäll och dal vid Bjorli' },
-        { title: 'Vid vattnet', desc: 'Flugfiske och lugna stunder vid Rauma.', alt: 'Stilla fjällsjö vid Bjorli på sommaren' },
+        { title: 'Vid vattnet', desc: 'Familjevänligt fiske och lugna stunder vid Lesjaskogsvatnet.', alt: 'Stilla fjällsjö vid Bjorli på sommaren' },
         { title: 'Luftig dag i Romsdalen', desc: 'Klättring, bouldering och via ferrata.', alt: 'Branta fjällväggar i Romsdalen' },
       ],
     },
@@ -614,7 +614,7 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
       cards: [
         { title: 'Vandring', desc: 'Korta stigar från centrum och längre dagsturer i Reinheimen, Dovrefjell och Romsdalsalpene.', alt: 'Sommarstig med utsikt över dalen — vandring i fjället vid Bjorli' },
         { title: 'Cykling och pumptrack', desc: 'Stigar, grusvägar och en pumptrack i centrum — för nybörjare och hela familjen.', alt: 'Cykling i fjället vid Bjorli en sommardag' },
-        { title: 'Fiske', desc: 'Flugfiske i Rauma, fiske i Lesjaskogsvatnet, Lågen och fjällsjöarna runt Bjorli.', alt: 'Flugfiske i en fjällälv nära Bjorli en sommardag' },
+        { title: 'Fiske', desc: 'Fiske i Lesjaskogsvatnet, Lågen och fjällsjöarna runt Bjorli — familjevänligt fjällfiske.', alt: 'Familjevänligt fjällfiske nära Bjorli en sommardag' },
         { title: 'Familjeaktiviteter', desc: 'Pumptrack, fiske vid vattnet, korta fjällturer och gårdsbesök i Lesja.', alt: 'Familj möter djur i grönt sommarlandskap vid Bjorli' },
         { title: 'Gårdsbesök', desc: 'Lokala gårdar i Lesja med gårdsliv, djur, lokal mat och kulturlandskap nära Bjorli.', alt: 'Kulturlandskap i Lesja nära Bjorli' },
         { title: 'Sagelva vattenkraftcenter', desc: '300 år av vattenkraft, lokalhistoria och levande förmedling i Lesja.', alt: 'Sagelva vattenkraftcenter i Lesja' },
@@ -644,8 +644,8 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     },
     fishing: {
       eyebrow: 'Fiske, älv och fjällsjöar',
-      title: 'Flugfiske i Rauma, fiske i Lesjaskogsvatnet och Lågen',
-      body: 'Rauma är känt för flugfiske. Lesjaskogsvatnet, Lågen och fjällsjöarna runt Bjorli ger långa dagar vid vattnet hela sommaren — från familjefiske till dedikerade dagar med spö och vadarbyxor.',
+      title: 'Fiske i Lesjaskogsvatnet, Lågen och fjällsjöarna',
+      body: 'Lesjaskogsvatnet, Lågen och fjällsjöarna runt Bjorli ger långa dagar vid vattnet hela sommaren — från lugnt familjefiske till dedikerade dagar med spö och vadarbyxor.',
       alt: 'Fiske i en fjällälv nära Bjorli en sommarkväll',
       cta: 'Se fiskemöjligheter',
     },
@@ -665,9 +665,9 @@ export const SUMMER_HOMEPAGE_COPY: Record<Language, SummerHomepageCopy> = {
     basecamp: {
       eyebrow: 'Mellan fjäll och fjordar',
       title: 'Bo i Bjorli. Använd dagarna ute i regionen.',
-      body: 'Bjorli ligger högt och öppet med nära avstånd ut i regionen. Använd dagarna till Raumabanen ner mot Åndalsnes, Mardalsfossen i Mardøla, myskoxsafari på Dovrefjell, fiske i Rauma och Lesjaskogsvatnet samt turer vidare västerut mot Trollstigen, Geiranger-området och fjordlandskapet.',
+      body: 'Bjorli ligger högt och öppet med nära avstånd ut i regionen. Använd dagarna till Raumabanen ner mot Åndalsnes, Mardalsfossen i Mardøla, myskoxsafari på Dovrefjell, fiske i Lesjaskogsvatnet och fjällsjöarna samt turer vidare västerut mot Trollstigen, Geiranger-området och fjordlandskapet.',
       subcards: [
-        { title: 'Fjällsjöar och älv',       desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida och Rauma — vatten och fiske precis vid Bjorli.' },
+        { title: 'Fjällsjöar och älv',       desc: 'Lesjaskogsvatnet, Aursjøen, Dalsida och fjällsjöar — vatten och fiske precis vid Bjorli.' },
         { title: 'Vattenfall och myskoxar',  desc: 'Mardalsfossen i Mardøla och guidad myskoxsafari på Dovrefjell.' },
         { title: 'Romsdalen och Raumabanen', desc: 'Branta fjäll och en tågresa ner mot Åndalsnes — en av de mest kända dagsturerna från Bjorli.' },
         { title: 'Fjordlandskap västerut',   desc: 'Trollstigen- och Geiranger-området inom räckhåll som dagstur mot fjordarna.' },
