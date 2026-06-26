@@ -7,6 +7,14 @@ import { Button } from '@/components/ui/button';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { Locale } from '@/i18n/locales/types';
+import imgNovasol from '@/assets/photos/accommodation/overnatting-novasol-bjorli-hytte.jpg';
+import imgBjorliheimen from '@/assets/photos/accommodation/overnatting-bjorliheimen-fjellhotell.jpg';
+import imgMountainLodge from '@/assets/photos/accommodation/overnatting-bjorli-mountain-lodge.jpg';
+import imgVintercamping from '@/assets/photos/accommodation/overnatting-bjorli-vintercamping.jpg';
+import imgAirbnb from '@/assets/photos/accommodation/overnatting-airbnb-bjorli.jpg';
+import imgFinn from '@/assets/photos/accommodation/overnatting-finn-bjorli.jpg';
+import imgBooking from '@/assets/photos/accommodation/overnatting-booking-bjorli.jpg';
+import imgFjellstuer from '@/assets/photos/accommodation/overnatting-bjorli-fjellstuer.jpg';
 
 /**
  * /overnatting — destination page listing accommodation providers on Bjorli.
@@ -16,6 +24,26 @@ import type { Locale } from '@/i18n/locales/types';
 
 const heroImg = images.summerValley.src;
 const editorialImg = images.accommodation.src;
+
+const PROVIDER_IMAGES: Record<ProviderKey, string> = {
+  novasol: imgNovasol,
+  bjorliheimen: imgBjorliheimen,
+  mountainLodge: imgMountainLodge,
+  vintercamping: imgVintercamping,
+  airbnb: imgAirbnb,
+  finn: imgFinn,
+  booking: imgBooking,
+  fjellstuer: imgFjellstuer,
+};
+
+const PROVIDER_ALT_TEMPLATE: Record<Locale, (name: string) => string> = {
+  no: (n) => `${n} — overnatting på Bjorli.`,
+  en: (n) => `${n} — accommodation in Bjorli.`,
+  de: (n) => `${n} — Unterkunft in Bjorli.`,
+  nl: (n) => `${n} — overnachten in Bjorli.`,
+  da: (n) => `${n} — overnatning på Bjorli.`,
+  sv: (n) => `${n} — boende på Bjorli.`,
+};
 
 type ProviderKey =
   | 'novasol'
