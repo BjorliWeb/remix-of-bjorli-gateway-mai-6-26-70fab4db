@@ -9,6 +9,7 @@ import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import heroImage from '@/assets/hero-winter.jpg';
+import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 
 /**
  * "Vær og webkamera" — combined live status, daily operational update,
@@ -313,6 +314,34 @@ const WeatherWebcams = () => {
       </section>
 
       {/* 4. Langrenn og løypekart */}
+      <section className="py-12 px-4" aria-labelledby="loypekart-image-heading">
+        <div className="container mx-auto max-w-5xl">
+          <h2 id="loypekart-image-heading" className="sr-only">Løypekart</h2>
+          <figure className="space-y-3">
+            <a
+              href={loypekartImage}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl overflow-hidden border border-border shadow-md bg-card"
+              aria-label="Åpne løypekart i full størrelse"
+            >
+              <img
+                src={loypekartImage}
+                alt="Løypekart for Bjorli Skisenter med alpinløyper, heiser, langrennsløyper og symbolforklaring."
+                className="w-full h-auto block"
+                loading="lazy"
+              />
+            </a>
+            <figcaption className="text-sm text-foreground/70 leading-relaxed">
+              Løypekart for Bjorli Skisenter. Kartet viser alpinløyper, heiser, nærområde, symboler og tilknyttede langrennsløyper.
+            </figcaption>
+            <p className="text-xs text-muted-foreground">
+              Se alltid skilt, vær- og føreforhold og oppdatert informasjon på bjorli.no for gjeldende drift.
+            </p>
+          </figure>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/30" aria-labelledby="langrenn-heading">
         <div className="container mx-auto max-w-4xl text-center">
           <h2
