@@ -73,7 +73,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-3">
               {[
-                { Icon: Facebook, href: 'https://www.facebook.com/bjorli', label: 'Facebook' },
+                { Icon: Facebook, href: 'https://www.facebook.com/bjorliskisenter', label: 'Facebook' },
                 { Icon: Instagram, href: 'https://www.instagram.com/bjorli', label: 'Instagram' },
                 { Icon: Youtube, href: 'https://www.youtube.com/@bjorli', label: 'YouTube' },
               ].map(({ Icon, href, label }) => (
