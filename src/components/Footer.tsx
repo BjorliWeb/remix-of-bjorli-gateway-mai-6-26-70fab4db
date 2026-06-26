@@ -161,14 +161,12 @@ const Footer = () => {
               {d.footer.rights} · {d.footer.company}
             </div>
             <div className="flex flex-wrap gap-x-7 gap-y-2 order-1 sm:order-2 uppercase tracking-[0.18em]">
-              <a
-                href="https://bjorli.no/personvern/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to={lp('/personvern')}
                 className="hover:text-season transition-colors"
               >
                 {d.footer.privacy}
-              </a>
+              </Link>
               <a
                 href="https://bjorli.no/cookies/"
                 target="_blank"
