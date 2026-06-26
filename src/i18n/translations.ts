@@ -169,6 +169,10 @@ export const translations = {
       successDesc: 'Takk for din henvendelse. Vi tar kontakt snart.',
       errorTitle: 'Feil',
       errorDesc: 'Noe gikk galt. Vennligst prøv igjen.',
+      formErrors: {
+        required: 'Dette feltet må fylles ut.',
+        invalidEmail: 'Skriv inn en gyldig e-postadresse.',
+      },
     },
   },
   en: {
@@ -326,6 +330,10 @@ export const translations = {
       successDesc: 'Thank you for your inquiry. We will be in touch soon.',
       errorTitle: 'Error',
       errorDesc: 'Something went wrong. Please try again.',
+      formErrors: {
+        required: 'Please fill in this field.',
+        invalidEmail: 'Please enter a valid email address.',
+      },
     },
   },
   da: {
@@ -483,6 +491,10 @@ export const translations = {
       successDesc: 'Tak for din henvendelse. Vi kontakter dig snart.',
       errorTitle: 'Fejl',
       errorDesc: 'Noget gik galt. Prøv venligst igen.',
+      formErrors: {
+        required: 'Udfyld venligst dette felt.',
+        invalidEmail: 'Indtast en gyldig e-mailadresse.',
+      },
     },
   },
   nl: {
@@ -640,6 +652,10 @@ export const translations = {
       successDesc: 'Bedankt voor je bericht. We nemen snel contact met je op.',
       errorTitle: 'Fout',
       errorDesc: 'Er ging iets mis. Probeer het opnieuw.',
+      formErrors: {
+        required: 'Vul dit veld in.',
+        invalidEmail: 'Voer een geldig e-mailadres in.',
+      },
     },
   },
   de: {
@@ -797,6 +813,10 @@ export const translations = {
       successDesc: 'Vielen Dank für Ihre Anfrage. Wir melden uns in Kürze.',
       errorTitle: 'Fehler',
       errorDesc: 'Etwas ist schiefgelaufen. Bitte erneut versuchen.',
+      formErrors: {
+        required: 'Bitte fülle dieses Feld aus.',
+        invalidEmail: 'Bitte gib eine gültige E-Mail-Adresse ein.',
+      },
     },
   },
   sv: {
@@ -954,6 +974,10 @@ export const translations = {
       successDesc: 'Tack för din förfrågan. Vi återkommer snart.',
       errorTitle: 'Fel',
       errorDesc: 'Något gick fel. Försök igen.',
+      formErrors: {
+        required: 'Fyll i det här fältet.',
+        invalidEmail: 'Ange en giltig e-postadress.',
+      },
     },
   },
 } as const;
