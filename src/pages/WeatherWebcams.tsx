@@ -73,6 +73,11 @@ interface WeatherWebcamsCopy {
   langrennStatusCta: string;
   langrennMapCta: string;
   externalNewTab: string;
+  trailMapSrLabel: string;
+  trailMapAriaOpen: string;
+  trailMapAlt: string;
+  trailMapCaption: string;
+  trailMapOperationalNote: string;
   relatedTitle: string;
   related: RelatedLink[];
 }
@@ -104,6 +109,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'Se løypestatus',
     langrennMapCta: 'Se løypekart',
     externalNewTab: 'loyper.net, åpnes i ny fane',
+    trailMapSrLabel: 'Løypekart',
+    trailMapAriaOpen: 'Åpne løypekart i full størrelse',
+    trailMapAlt: 'Løypekart for Bjorli Skisenter med alpinløyper, heiser, langrennsløyper og symbolforklaring.',
+    trailMapCaption: 'Løypekart for Bjorli Skisenter. Kartet viser alpinløyper, heiser, nærområde, symboler og tilknyttede langrennsløyper.',
+    trailMapOperationalNote: 'Se alltid skilt, vær- og føreforhold og oppdatert informasjon på bjorli.no for gjeldende drift.',
     relatedTitle: 'Relaterte sider',
     related: [
       { label: 'Se åpningstider', href: RELATED_HREFS.openingHours, external: false },
@@ -130,6 +140,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'See trail status',
     langrennMapCta: 'See trail map',
     externalNewTab: 'loyper.net, opens in a new tab',
+    trailMapSrLabel: 'Trail map',
+    trailMapAriaOpen: 'Open trail map at full size',
+    trailMapAlt: 'Trail map for Bjorli Skisenter showing alpine runs, lifts, cross-country trails and a symbol key.',
+    trailMapCaption: 'Trail map for Bjorli Skisenter. The map shows alpine runs, lifts, the base area, symbols and connected cross-country trails.',
+    trailMapOperationalNote: 'Always check on-site signs, current weather and snow conditions, and the latest updates on bjorli.no for live operations.',
     relatedTitle: 'Related pages',
     related: [
       { label: 'Opening hours', href: RELATED_HREFS.openingHours, external: false },
@@ -156,6 +171,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'Loipenstatus ansehen',
     langrennMapCta: 'Loipenkarte ansehen',
     externalNewTab: 'loyper.net, wird in einem neuen Tab geöffnet',
+    trailMapSrLabel: 'Loipenkarte',
+    trailMapAriaOpen: 'Loipenkarte in voller Größe öffnen',
+    trailMapAlt: 'Loipenkarte des Bjorli Skisenter mit Alpinabfahrten, Liften, Loipen und Zeichenerklärung.',
+    trailMapCaption: 'Loipenkarte des Bjorli Skisenter. Sie zeigt Abfahrten, Lifte, das Basisgebiet, Symbole und angeschlossene Langlaufloipen.',
+    trailMapOperationalNote: 'Beachten Sie immer Beschilderung vor Ort, Wetter- und Schneeverhältnisse sowie die aktuellen Hinweise auf bjorli.no.',
     relatedTitle: 'Verwandte Seiten',
     related: [
       { label: 'Öffnungszeiten', href: RELATED_HREFS.openingHours, external: false },
@@ -182,6 +202,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'Bekijk loipestatus',
     langrennMapCta: 'Bekijk loipekaart',
     externalNewTab: 'loyper.net, opent in een nieuw tabblad',
+    trailMapSrLabel: 'Loipekaart',
+    trailMapAriaOpen: 'Loipekaart op volledig formaat openen',
+    trailMapAlt: 'Loipekaart van Bjorli Skisenter met afdalingen, liften, langlaufloipes en legenda.',
+    trailMapCaption: 'Loipekaart van Bjorli Skisenter. De kaart toont afdalingen, liften, het basisgebied, symbolen en aansluitende langlaufloipes.',
+    trailMapOperationalNote: 'Volg altijd de bewegwijzering ter plaatse, de actuele weers- en sneeuwomstandigheden en de updates op bjorli.no.',
     relatedTitle: 'Gerelateerde pagina’s',
     related: [
       { label: 'Openingstijden', href: RELATED_HREFS.openingHours, external: false },
@@ -208,6 +233,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'Se løjpestatus',
     langrennMapCta: 'Se løjpekort',
     externalNewTab: 'loyper.net, åbnes i en ny fane',
+    trailMapSrLabel: 'Løjpekort',
+    trailMapAriaOpen: 'Åbn løjpekort i fuld størrelse',
+    trailMapAlt: 'Løjpekort for Bjorli Skisenter med alpinløjper, lifter, langrendsspor og symbolforklaring.',
+    trailMapCaption: 'Løjpekort for Bjorli Skisenter. Kortet viser alpinløjper, lifter, nærområdet, symboler og tilknyttede langrendsspor.',
+    trailMapOperationalNote: 'Følg altid skiltning, vejr- og føreforhold samt opdateret information på bjorli.no for aktuel drift.',
     relatedTitle: 'Relaterede sider',
     related: [
       { label: 'Åbningstider', href: RELATED_HREFS.openingHours, external: false },
@@ -234,6 +264,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     langrennStatusCta: 'Se spårstatus',
     langrennMapCta: 'Se spårkarta',
     externalNewTab: 'loyper.net, öppnas i en ny flik',
+    trailMapSrLabel: 'Spårkarta',
+    trailMapAriaOpen: 'Öppna spårkartan i full storlek',
+    trailMapAlt: 'Spårkarta för Bjorli Skisenter med alpinbackar, liftar, längdspår och teckenförklaring.',
+    trailMapCaption: 'Spårkarta för Bjorli Skisenter. Kartan visar alpinbackar, liftar, basområdet, symboler och anslutande längdspår.',
+    trailMapOperationalNote: 'Följ alltid skyltning på plats, väder- och föreförhållanden samt aktuell information på bjorli.no.',
     relatedTitle: 'Relaterade sidor',
     related: [
       { label: 'Öppettider', href: RELATED_HREFS.openingHours, external: false },
