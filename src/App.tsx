@@ -53,6 +53,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminEventSubmissions from "./pages/AdminEventSubmissions";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
+import { DEFAULT_SEASON } from "@/lib/season";
 
 const queryClient = new QueryClient();
 
@@ -84,9 +85,13 @@ const aliasRoute = (canonical: CanonicalRoute, element: JSX.Element) =>
     <Route key={`${canonical}-${p}`} path={p} element={element} />
   ));
 
+// Root "/" renders the season-default homepage. Flip DEFAULT_SEASON in
+// src/lib/season.ts to swap which component is mounted at "/".
+const HomeRoute = DEFAULT_SEASON === 'summer' ? <Sommer /> : <Index />;
+
 const AppRoutes = () => (
   <Routes>
-    <Route path="/" element={<Index />} />
+    <Route path="/" element={HomeRoute} />
     <Route path="/sommer" element={<Sommer />} />
     <Route path="/skisenter" element={<SkiCenter />} />
     <Route path="/bjorli-skisenter" element={<SkiCenter />} />

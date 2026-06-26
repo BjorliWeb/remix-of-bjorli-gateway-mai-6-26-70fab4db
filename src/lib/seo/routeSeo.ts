@@ -31,9 +31,11 @@ type RouteSeoMap = Partial<Record<CanonicalRoute, Record<Locale, RouteSeoEntry>>
 export const ROUTE_SEO: RouteSeoMap = {
   home: {
     no: {
-      title: 'Bjorli – snøsikker fjelldestinasjon mellom Dombås og Åndalsnes',
+      // Summer-first while DEFAULT_SEASON === 'summer' (src/lib/season.ts).
+      // Restore the winter-leaning copy when switching back in mid-September.
+      title: 'Bjorli | Sommer, fjell, sykkel, fiske og opplevelser',
       description:
-        'Destinasjon Bjorli i Romsdalen – snøsikre vinterdager med Bjorli Skisenter, langrenn og familieopplevelser, og en rolig fjellbase for fotturer og sykling om sommeren.',
+        'Opplev Bjorli om sommeren med fjellturer, sykling, fiske, familieaktiviteter, mat, overnatting og kort vei til Romsdalen og Dovrefjell.',
     },
     en: {
       title: 'Bjorli, Norway – snow-sure mountain destination near Åndalsnes',

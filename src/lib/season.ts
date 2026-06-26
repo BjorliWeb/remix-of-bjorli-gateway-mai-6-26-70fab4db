@@ -12,6 +12,17 @@ import { ROUTE_SLUGS, type CanonicalRoute } from '@/i18n/routes';
 export type Season = 'winter' | 'summer';
 
 /**
+ * Default season for the root URL ("/") and any other route that has no
+ * explicit season. Controls both:
+ *   - which homepage component is rendered at "/" (see src/App.tsx)
+ *   - which theme/tokens are applied at "/" (see isSummerRoute below)
+ *
+ * TODO: Switch DEFAULT_SEASON back to "winter" around mid-September when
+ * Bjorli should return to winter-first homepage positioning.
+ */
+export const DEFAULT_SEASON: Season = 'summer';
+
+/**
  * Canonical routes that should render with the summer theme.
  * We expand these to every locale's slug below so localized URLs
  * like /nl/zomer/korte-turer, /en/summer, /sv/cykling, etc. all
@@ -45,7 +56,9 @@ const stripLocale = (pathname: string): string => {
 export const isSummerRoute = (pathname: string): boolean => {
   const path = stripLocale(pathname);
   const first = path.split('/').filter(Boolean)[0];
-  if (!first) return false;
+  // Root / locale-root URL: defer to DEFAULT_SEASON so the homepage theme
+  // matches whichever homepage component is rendered at "/".
+  if (!first) return DEFAULT_SEASON === 'summer';
   return SUMMER_SLUGS.has(first);
 };
 
