@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
@@ -12,16 +12,19 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
 
-const contactSchema = z.object({
-  name: z.string().trim().min(1, 'Required').max(100),
-  email: z.string().trim().email('Invalid email').max(255),
-  phone: z.string().trim().max(30).optional().or(z.literal('')),
-  message: z.string().trim().min(1, 'Required').max(2000),
-});
-
 const Contact = () => {
   const { t } = useLanguage();
   const s = t.contactPage;
+  const contactSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().trim().min(1, s.formErrors.required).max(100),
+        email: z.string().trim().email(s.formErrors.invalidEmail).max(255),
+        phone: z.string().trim().max(30).optional().or(z.literal('')),
+        message: z.string().trim().min(1, s.formErrors.required).max(2000),
+      }),
+    [s.formErrors.required, s.formErrors.invalidEmail],
+  );
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
