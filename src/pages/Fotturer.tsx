@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import SubPage from '@/components/SubPage';
 import { usePageCopy } from '@/i18n/usePageCopy';
