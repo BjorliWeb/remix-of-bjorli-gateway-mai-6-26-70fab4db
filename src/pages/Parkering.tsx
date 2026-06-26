@@ -1,4 +1,3 @@
-import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
 import parkeringKart from '@/assets/parkering-kart-bjorli.png';
@@ -13,8 +12,6 @@ import { motion } from 'framer-motion';
  * practical parking rates and labelled as such.
  */
 const Parkering = () => {
-  const { t } = useLanguage();
-
   const areas = [
     {
       name: 'P1 – Hovedparkering',
