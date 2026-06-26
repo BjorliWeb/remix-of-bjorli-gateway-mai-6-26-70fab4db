@@ -2115,4 +2115,10 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/ski-holiday-norway"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/ski-holiday-norway"/>
   </url>
+  <url>
+    <loc>https://www.bjorli.no/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>
