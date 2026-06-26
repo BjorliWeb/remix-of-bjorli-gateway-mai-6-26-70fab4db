@@ -10,8 +10,8 @@ import { useLanguage } from '@/i18n/LanguageContext';
  * - Reopens when any element dispatches `bjorli:open-consent` on `window`
  *   (wired to the existing footer "Cookies" link without changing its
  *   layout).
- * - No third-party CMP. Norwegian / English copy only in this pass;
- *   other locales fall back to English.
+ * - No third-party CMP. Copy is provided for all supported locales
+ *   (no, en, de, nl, da, sv); unknown locales fall back to English.
  */
 const STORAGE_KEY = 'bjorli_consent_v1';
 
@@ -36,6 +36,38 @@ const COPY: Record<
     privacy: 'Privacy',
     accept: 'Accept analytics',
     decline: 'Decline analytics',
+  },
+  de: {
+    title: 'Wir verwenden Cookies',
+    body: 'Wir verwenden Cookies, um die Website zu verbessern und zu verstehen, wie sie genutzt wird. Analyse-Tools werden nur mit deiner Zustimmung aktiviert.',
+    later: 'Du kannst deine Wahl jederzeit über „Cookies“ in der Fußzeile ändern. Mehr dazu in ',
+    privacy: 'Datenschutz',
+    accept: 'Analyse akzeptieren',
+    decline: 'Analyse ablehnen',
+  },
+  nl: {
+    title: 'We gebruiken cookies',
+    body: 'We gebruiken cookies om de website te verbeteren en te begrijpen hoe deze wordt gebruikt. Analysetools worden alleen geactiveerd als je toestemming geeft.',
+    later: 'Je kunt je keuze altijd wijzigen via "Cookies" in de footer. Lees meer in ',
+    privacy: 'Privacy',
+    accept: 'Analyse accepteren',
+    decline: 'Analyse weigeren',
+  },
+  da: {
+    title: 'Vi bruger cookies',
+    body: 'Vi bruger cookies for at forbedre websitet og forstå, hvordan det bruges. Analyseværktøjer aktiveres kun, hvis du giver samtykke.',
+    later: 'Du kan ændre dit valg når som helst via "Cookies" i sidefoden. Læs mere i ',
+    privacy: 'Privatliv',
+    accept: 'Accepter analyse',
+    decline: 'Afvis analyse',
+  },
+  sv: {
+    title: 'Vi använder cookies',
+    body: 'Vi använder cookies för att förbättra webbplatsen och förstå hur den används. Analysverktyg aktiveras endast om du samtycker.',
+    later: 'Du kan ändra ditt val när som helst via "Cookies" i sidfoten. Läs mer i ',
+    privacy: 'Integritet',
+    accept: 'Acceptera analys',
+    decline: 'Avvisa analys',
   },
 };
 
