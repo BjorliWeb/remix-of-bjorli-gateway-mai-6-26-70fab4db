@@ -19,6 +19,7 @@ import Handel from "./pages/Handel";
 // reuse.
 import Parkering from "./pages/Parkering";
 import Contact from "./pages/Contact";
+import Personvern from "./pages/Personvern";
 import SEOHead from "./components/SEOHead";
 import NotFound from "./pages/NotFound";
 import Tips from "./pages/Tips";
@@ -107,6 +108,9 @@ const AppRoutes = () => (
     <Route path="/parkering" element={<Parkering />} />
     {/* Legacy alias for the previous English URL. */}
     <Route path="/parking" element={<Parkering />} />
+    {/* Norwegian privacy policy + English alias (same component). */}
+    <Route path="/personvern" element={<Personvern />} />
+    <Route path="/privacy" element={<Personvern />} />
     <Route path="/reisen-hit" element={<GettingHere />} />
     <Route path="/tips" element={<Tips />} />
     <Route path="/tips/:slug" element={<ContentDetailPage kind="tips" />} />
