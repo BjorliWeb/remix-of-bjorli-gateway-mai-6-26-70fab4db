@@ -222,7 +222,7 @@ const nl: Dictionary = {
       { label: 'Verblijf', href: '/overnatting' },
       { label: 'Reizen naar Bjorli', href: '/reisen-hit' },
       { label: 'Eten en drinken', href: '/mat-og-drikke' },
-      { label: 'Praktische info', href: '/praktisk-info' },
+      { label: 'Parkeren', href: '/parkering' },
       { label: 'Agenda', href: '/arrangementer' },
       { label: 'Inspiratie', href: '/tips' },
     ],

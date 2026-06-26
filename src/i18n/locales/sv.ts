@@ -215,7 +215,7 @@ const sv: Dictionary = {
       { label: 'Boende', href: '/overnatting' },
       { label: 'Hitta hit', href: '/reisen-hit' },
       { label: 'Mat och dryck', href: '/mat-og-drikke' },
-      { label: 'Praktisk info', href: '/praktisk-info' },
+      { label: 'Parkering', href: '/parkering' },
       { label: 'På gång', href: '/arrangementer' },
       { label: 'Inspiration', href: '/tips' },
     ],
