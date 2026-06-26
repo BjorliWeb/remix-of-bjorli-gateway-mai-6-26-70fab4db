@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getFooter, useCms } from '@/lib/cms';
@@ -74,8 +74,7 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               {[
                 { Icon: Facebook, href: 'https://www.facebook.com/bjorliskisenter', label: 'Facebook' },
-                { Icon: Instagram, href: 'https://www.instagram.com/bjorli', label: 'Instagram' },
-                { Icon: Youtube, href: 'https://www.youtube.com/@bjorli', label: 'YouTube' },
+                { Icon: Instagram, href: 'https://www.instagram.com/bjorliskisenter/?hl=en', label: 'Instagram' },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
