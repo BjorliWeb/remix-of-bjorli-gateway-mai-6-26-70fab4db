@@ -14,7 +14,9 @@ import SkiSchool from "./pages/SkiSchool";
 import SkiRental from "./pages/SkiRental";
 import FoodDrink from "./pages/FoodDrink";
 import Handel from "./pages/Handel";
-import PracticalInfo from "./pages/PracticalInfo";
+// PracticalInfo page is intentionally not imported — the /praktisk-info
+// route is unpublished. The component file is kept for possible future
+// reuse.
 import Parkering from "./pages/Parkering";
 import Contact from "./pages/Contact";
 import SEOHead from "./components/SEOHead";
