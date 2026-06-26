@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 import SubPage from '@/components/SubPage';
 import { usePageCopy } from '@/i18n/usePageCopy';
-import { useLanguage } from '@/i18n/LanguageContext';
 
 const OUTDOORACTIVE_URL = 'https://out.ac/snagt';
 
