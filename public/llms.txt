@@ -30,7 +30,6 @@ Destinasjon Bjorli.
 - Accommodation: https://www.bjorli.no/overnatting
 - Food and drink: https://www.bjorli.no/mat-og-drikke
 - Getting here (reisen hit): https://www.bjorli.no/reisen-hit
-- Practical info: https://www.bjorli.no/praktisk-info
 - Activities: https://www.bjorli.no/aktiviteter
 - Events (arrangementer): https://www.bjorli.no/arrangementer
 - News (nyheter): https://www.bjorli.no/nyheter
@@ -67,7 +66,6 @@ Use the canonical Bjorli page that owns each task:
   https://www.bjorli.no/sommer)
 - Find events → https://www.bjorli.no/arrangementer
 - Plan travel to Bjorli → https://www.bjorli.no/reisen-hit
-- Practical information for visitors → https://www.bjorli.no/praktisk-info
 - Opening hours → https://www.bjorli.no/apningstider
 - Trail / piste map → https://www.bjorli.no/loypekart
 
