@@ -98,7 +98,10 @@ const AppRoutes = () => (
     <Route path="/skiutleie" element={<SkiRental />} />
     <Route path="/mat-og-drikke" element={<FoodDrink />} />
     <Route path="/handel" element={<Handel />} />
-    <Route path="/praktisk-info" element={<PracticalInfo />} />
+    {/* /praktisk-info is unpublished — route falls through to NotFound.
+        Page component is intentionally kept in the codebase for possible
+        future reuse, but is no longer linked from navigation, footer,
+        sitemap or llms feeds. */}
     <Route path="/parkering" element={<Parkering />} />
     {/* Legacy alias for the previous English URL. */}
     <Route path="/parking" element={<Parkering />} />
@@ -176,7 +179,7 @@ const AppRoutes = () => (
     {aliasRoute('skiskole', <SkiSchool />)}
     {aliasRoute('skiutleie', <SkiRental />)}
     {aliasRoute('mat-og-drikke', <FoodDrink />)}
-    {aliasRoute('praktisk-info', <PracticalInfo />)}
+    {/* Localized /praktisk-info aliases unpublished — see comment above. */}
     {aliasRoute('reisen-hit', <GettingHere />)}
     {aliasRoute('vaer-og-webkamera', <WeatherWebcams />)}
     {aliasRoute('livecams', <WeatherWebcams />)}
