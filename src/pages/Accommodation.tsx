@@ -6,7 +6,16 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { useLanguage } from '@/i18n/LanguageContext';
 import type { Locale } from '@/i18n/locales/types';
+import imgNovasol from '@/assets/photos/accommodation/overnatting-novasol-bjorli-hytte.jpg';
+import imgBjorliheimen from '@/assets/photos/accommodation/overnatting-bjorliheimen-fjellhotell.jpg';
+import imgMountainLodge from '@/assets/photos/accommodation/overnatting-bjorli-mountain-lodge.jpg';
+import imgVintercamping from '@/assets/photos/accommodation/overnatting-bjorli-vintercamping.jpg';
+import imgAirbnb from '@/assets/photos/accommodation/overnatting-airbnb-bjorli.jpg';
+import imgFinn from '@/assets/photos/accommodation/overnatting-finn-bjorli.jpg';
+import imgBooking from '@/assets/photos/accommodation/overnatting-booking-bjorli.jpg';
+import imgFjellstuer from '@/assets/photos/accommodation/overnatting-bjorli-fjellstuer.jpg';
 
 /**
  * /overnatting — destination page listing accommodation providers on Bjorli.
@@ -16,6 +25,26 @@ import type { Locale } from '@/i18n/locales/types';
 
 const heroImg = images.summerValley.src;
 const editorialImg = images.accommodation.src;
+
+const PROVIDER_IMAGES: Record<ProviderKey, string> = {
+  novasol: imgNovasol,
+  bjorliheimen: imgBjorliheimen,
+  mountainLodge: imgMountainLodge,
+  vintercamping: imgVintercamping,
+  airbnb: imgAirbnb,
+  finn: imgFinn,
+  booking: imgBooking,
+  fjellstuer: imgFjellstuer,
+};
+
+const PROVIDER_ALT_TEMPLATE: Record<Locale, (name: string) => string> = {
+  no: (n) => `${n} — overnatting på Bjorli.`,
+  en: (n) => `${n} — accommodation in Bjorli.`,
+  de: (n) => `${n} — Unterkunft in Bjorli.`,
+  nl: (n) => `${n} — overnachten in Bjorli.`,
+  da: (n) => `${n} — overnatning på Bjorli.`,
+  sv: (n) => `${n} — boende på Bjorli.`,
+};
 
 type ProviderKey =
   | 'novasol'
@@ -290,6 +319,8 @@ const COPY: Record<Locale, Copy> = {
 const Accommodation = () => {
   const t = usePageCopy(COPY);
   const lp = useLocalizedPath();
+  const { locale } = useLanguage();
+  const altFor = PROVIDER_ALT_TEMPLATE[locale] ?? PROVIDER_ALT_TEMPLATE.no;
   return (
     <div>
       <PageHero
@@ -355,6 +386,14 @@ const Accommodation = () => {
                 transition={{ delay: i * 0.05 }}
                 className="bg-card rounded-2xl p-6 border border-border hover:border-secondary/40 hover:shadow-lg transition-all flex flex-col"
               >
+                <div className="-mx-6 -mt-6 mb-5 overflow-hidden rounded-t-2xl bg-muted">
+                  <img
+                    src={PROVIDER_IMAGES[p.key]}
+                    alt={altFor(p.name)}
+                    loading="lazy"
+                    className="w-full aspect-[16/10] object-cover"
+                  />
+                </div>
                 <Home className="h-5 w-5 mb-3 text-secondary" />
                 <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-2">
                   {pc.category}
