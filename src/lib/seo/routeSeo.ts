@@ -302,12 +302,87 @@ export const ROUTE_SEO: RouteSeoMap = {
   sv: { title: 'Integritet | Bjorli', description: 'Så behandlar Bjorli Skisenter AS personuppgifter, cookies och förfrågningar via bjorli.no.' },
 };
 
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).handel = {
+  no: { title: 'Butikker og handel på Bjorli', description: 'Hvor du handler mat, sportsutstyr og det praktiske på Bjorli — fra dagligvarer til skiservice og bensin.' },
+  en: { title: 'Shops and groceries in Bjorli, Norway', description: 'Where to shop on Bjorli — groceries, sports gear, ski service and fuel within easy reach of the resort.' },
+  de: { title: 'Geschäfte und Einkaufen in Bjorli', description: 'Wo man in Bjorli einkauft — Lebensmittel, Sportausrüstung, Skiservice und Tankstelle in der Nähe des Skigebiets.' },
+  nl: { title: 'Winkels en boodschappen in Bjorli', description: 'Waar je in Bjorli winkelt — supermarkt, sportzaak, skiservice en tankstation vlak bij het skigebied.' },
+  da: { title: 'Butikker og indkøb på Bjorli', description: 'Hvor du handler på Bjorli — dagligvarer, sportsudstyr, skiservice og tankstation tæt på skicentret.' },
+  sv: { title: 'Butiker och inköp på Bjorli', description: 'Var du handlar på Bjorli — livsmedel, sportutrustning, skidservice och bensinstation nära skidanläggningen.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).fiske = {
+  no: { title: 'Fiske på Bjorli og i Lesja – ørret og fluefiske', description: 'Fjellvann, klare elver og fluefiskesoner i Lesja. Slik finner du fiskekort, soner og praktisk info før du drar ut.' },
+  en: { title: 'Fishing in Bjorli, Norway – trout, mountain and fly fishing', description: 'Mountain lakes, clear rivers and fly-fishing zones in Lesja. Find fishing licences, zones and practical info before you head out.' },
+  de: { title: 'Angeln in Bjorli und Lesja – Forelle und Fliegenfischen', description: 'Bergseen, klare Flüsse und Fliegenfischzonen in Lesja. Angelkarten, Zonen und nützliche Hinweise für den Tag am Wasser.' },
+  nl: { title: 'Vissen op Bjorli en in Lesja – forel en vliegvissen', description: 'Bergmeren, heldere rivieren en vliegviszones in Lesja. Vergunningen, zones en praktische tips voor je visdag.' },
+  da: { title: 'Fiskeri på Bjorli og i Lesja – ørred og fluefiskeri', description: 'Fjeldsøer, klare elve og fluefiskezoner i Lesja. Find fiskekort, zoner og praktisk info før du tager ud.' },
+  sv: { title: 'Fiske på Bjorli och i Lesja – öring och flugfiske', description: 'Fjällsjöar, klara älvar och flugfiskezoner i Lesja. Hitta fiskekort, zoner och praktisk info inför fiskedagen.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).gardsbesok = {
+  no: { title: 'Gårdsbesøk i Lesja – dyr, kortreist mat og fjellgårder', description: 'Besøk en levende fjellgård i Lesja. Møt dyrene, smak lokal mat og lær hvordan landbruket fungerer høyt til fjells.' },
+  en: { title: 'Farm visits near Bjorli, Norway – animals, local food, mountain farms', description: 'Visit a working mountain farm in Lesja. Meet the animals, taste local food and see how farming works up in the highlands.' },
+  de: { title: 'Bauernhofbesuche bei Bjorli – Tiere, regionale Küche, Bergbauernhöfe', description: 'Besuchen Sie einen lebendigen Bergbauernhof in Lesja. Tiere erleben, regionale Produkte probieren und Landwirtschaft auf 700 Metern verstehen.' },
+  nl: { title: 'Boerderijbezoek bij Bjorli – dieren, streekproducten, bergboerderijen', description: 'Bezoek een werkende bergboerderij in Lesja. Ontmoet de dieren, proef streekproducten en zie hoe landbouw in het hoogland werkt.' },
+  da: { title: 'Gårdsbesøg ved Bjorli – dyr, lokal mad og fjeldgårde', description: 'Besøg en levende fjeldgård i Lesja. Mød dyrene, smag lokal mad og se, hvordan landbruget fungerer højt i fjeldet.' },
+  sv: { title: 'Gårdsbesök vid Bjorli – djur, närodlat och fjällgårdar', description: 'Besök en levande fjällgård i Lesja. Möt djuren, smaka närproducerat och se hur jordbruket fungerar uppe i fjällen.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['golden-train'] = {
+  no: { title: 'Golden Train – togtur over Dovrefjell og Raumabanen', description: 'Reis fra Oslo til Åndalsnes via Bjorli med Dovrebanen og Raumabanen. Vid utsikt, fjelltunneler og en av Europas mest dramatiske togstrekninger.' },
+  en: { title: 'Golden Train – Oslo to Åndalsnes via Bjorli and the Rauma Line', description: 'Travel from Oslo to Åndalsnes through Dovrefjell and down the Rauma Line, with a stop at Bjorli. One of Europe’s most dramatic rail journeys.' },
+  de: { title: 'Golden Train – mit der Bahn von Oslo nach Åndalsnes über Bjorli', description: 'Mit der Dovrebahn und der Raumabahn von Oslo nach Åndalsnes, mit Halt in Bjorli. Eine der spektakulärsten Bahnstrecken Europas.' },
+  nl: { title: 'Golden Train – met de trein van Oslo naar Åndalsnes via Bjorli', description: 'Reis met de Dovrebanen en Raumabanen van Oslo naar Åndalsnes, met stop in Bjorli. Een van de mooiste treinroutes van Europa.' },
+  da: { title: 'Golden Train – med toget fra Oslo til Åndalsnes via Bjorli', description: 'Rejs med Dovrebanen og Raumabanen fra Oslo til Åndalsnes med stop på Bjorli. En af Europas mest dramatiske togture.' },
+  sv: { title: 'Golden Train – med tåget från Oslo till Åndalsnes via Bjorli', description: 'Res med Dovrebanan och Raumabanan från Oslo till Åndalsnes med stopp på Bjorli. En av Europas mest dramatiska tågsträckor.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).romsdalsgondolen = {
+  no: { title: 'Romsdalsgondolen – fra Åndalsnes til Nesaksla', description: 'Ta gondolen fra Åndalsnes opp til Nesaksla på 708 meter. Utsikt over Romsdalsfjorden, Trollveggen og Romsdalshornet — kort vei fra Bjorli.' },
+  en: { title: 'Romsdalsgondolen – gondola from Åndalsnes to Nesaksla', description: 'Ride the gondola from Åndalsnes up to Nesaksla at 708 m. Views over the Romsdal fjord, Trollveggen and Romsdalshornet — a short drive from Bjorli.' },
+  de: { title: 'Romsdalsgondolen – Gondelbahn von Åndalsnes nach Nesaksla', description: 'Mit der Gondel von Åndalsnes auf den Nesaksla (708 m). Blick auf den Romsdalsfjord, die Trollwand und das Romsdalshorn — nahe Bjorli.' },
+  nl: { title: 'Romsdalsgondolen – gondel van Åndalsnes naar Nesaksla', description: 'Met de gondel van Åndalsnes naar Nesaksla op 708 m. Uitzicht over de Romsdalsfjord, Trollveggen en Romsdalshornet — kort rijden vanaf Bjorli.' },
+  da: { title: 'Romsdalsgondolen – gondol fra Åndalsnes til Nesaksla', description: 'Tag gondolen fra Åndalsnes op til Nesaksla i 708 meters højde. Udsigt over Romsdalsfjorden, Trollveggen og Romsdalshornet — tæt på Bjorli.' },
+  sv: { title: 'Romsdalsgondolen – gondol från Åndalsnes till Nesaksla', description: 'Åk gondolen från Åndalsnes upp till Nesaksla på 708 meter. Utsikt över Romsdalsfjorden, Trollveggen och Romsdalshornet — nära Bjorli.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).sagelva = {
+  no: { title: 'Sagelva – kort tur og badekulper nær Bjorli', description: 'Sagelva ligger like ved Bjorli — kort fottur, små fosser og fine kulper for å kjøle føttene en sommerdag.' },
+  en: { title: 'Sagelva – short walk and pools near Bjorli, Norway', description: 'Sagelva is right next to Bjorli — a short walk, small waterfalls and pools to cool off on a warm summer day.' },
+  de: { title: 'Sagelva – kurze Wanderung und Badegumpen bei Bjorli', description: 'Sagelva liegt direkt bei Bjorli — kurze Wanderung, kleine Wasserfälle und Gumpen für die Abkühlung an warmen Sommertagen.' },
+  nl: { title: 'Sagelva – korte wandeling en zwemkommen bij Bjorli', description: 'Sagelva ligt vlak bij Bjorli — korte wandeling, kleine watervallen en kommen om af te koelen op een warme zomerdag.' },
+  da: { title: 'Sagelva – kort tur og badehuller nær Bjorli', description: 'Sagelva ligger lige ved Bjorli — kort tur, små vandfald og gode huller til en svalende dukkert om sommeren.' },
+  sv: { title: 'Sagelva – kort promenad och badhöljor nära Bjorli', description: 'Sagelva ligger alldeles intill Bjorli — kort promenad, små vattenfall och höljor att svalka sig i en sommardag.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['sommer/klatring-og-buldring-romsdalen'] = {
+  no: { title: 'Klatring og buldring i Romsdalen – kort fra Bjorli', description: 'Romsdalen er et av Norges sterkeste klatreområder. Sportsklatring, buldring, via ferrata og Norsk Tindesenter — alt innen rimelig kjøreavstand fra Bjorli.' },
+  en: { title: 'Climbing and bouldering in Romsdalen, Norway – near Bjorli', description: 'Romsdalen is one of Norway’s strongest climbing regions. Sport climbing, bouldering, via ferrata and Norsk Tindesenter — all within easy reach of Bjorli.' },
+  de: { title: 'Klettern und Bouldern in Romsdal – nahe Bjorli', description: 'Romsdal ist eine der bekanntesten Klettergegenden Norwegens. Sportklettern, Bouldern, Klettersteig und das Norsk Tindesenter — alles in der Nähe von Bjorli.' },
+  nl: { title: 'Klimmen en boulderen in Romsdalen – vlak bij Bjorli', description: 'Romsdalen is een van Noorwegens bekendste klimgebieden. Sportklimmen, boulderen, via ferrata en Norsk Tindesenter — op korte rijafstand van Bjorli.' },
+  da: { title: 'Klatring og bouldering i Romsdalen – tæt på Bjorli', description: 'Romsdalen er et af Norges stærkeste klatreområder. Sportsklatring, bouldering, via ferrata og Norsk Tindesenter — alt i kort køreafstand fra Bjorli.' },
+  sv: { title: 'Klättring och bouldering i Romsdalen – nära Bjorli', description: 'Romsdalen är ett av Norges starkaste klätterområden. Sportklättring, bouldering, via ferrata och Norsk Tindesenter — på kort köravstånd från Bjorli.' },
+};
+
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['sommer/korte-turer'] = {
+  no: { title: '10 korte turer rundt Bjorli – familievennlige fotturer', description: 'Ti korte turer i Lesja og Rauma, henta fra heftet «Snartur i Rauma og Lesja». Kart, parkering og praktisk info for hver tur.' },
+  en: { title: '10 short walks around Bjorli, Norway – family-friendly hikes', description: 'Ten short walks in Lesja and Rauma, drawn from the «Snartur i Rauma og Lesja» booklet. Map, parking and practical info for each route.' },
+  de: { title: '10 kurze Wanderungen rund um Bjorli – familienfreundlich', description: 'Zehn kurze Wanderungen in Lesja und Rauma aus dem Heft «Snartur i Rauma og Lesja». Karte, Parken und praktische Tipps zu jeder Tour.' },
+  nl: { title: '10 korte wandelingen rond Bjorli – gezinsvriendelijk', description: 'Tien korte wandelingen in Lesja en Rauma uit het boekje «Snartur i Rauma og Lesja». Kaart, parkeren en praktische info per route.' },
+  da: { title: '10 korte ture rundt om Bjorli – familievenlige vandreture', description: 'Ti korte ture i Lesja og Rauma fra hæftet «Snartur i Rauma og Lesja». Kort, parkering og praktisk info til hver tur.' },
+  sv: { title: '10 korta turer runt Bjorli – familjevänliga vandringar', description: 'Tio korta turer i Lesja och Rauma från häftet «Snartur i Rauma og Lesja». Karta, parkering och praktisk info för varje tur.' },
+};
+
 /** Resolve canonical (NO) path → SEO entry for the requested locale. */
 export const seoForCanonicalPath = (
   canonicalPath: string,
   locale: Locale,
 ): RouteSeoEntry | null => {
-  const seg = canonicalPath === '/' ? 'home' : canonicalPath.replace(/^\//, '').split('/')[0];
-  const entry = (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)[seg];
-  return entry?.[locale] ?? null;
+  const map = ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>;
+  if (canonicalPath === '/') return map.home?.[locale] ?? null;
+  const trimmed = canonicalPath.replace(/^\//, '');
+  // Try the full canonical sub-path first (e.g. 'sommer/korte-turer'),
+  // then fall back to the top-level segment (e.g. 'sommer').
+  return map[trimmed]?.[locale] ?? map[trimmed.split('/')[0]]?.[locale] ?? null;
 };
