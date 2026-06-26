@@ -215,7 +215,7 @@ const no: Dictionary = {
       { label: 'Overnatting', href: '/overnatting' },
       { label: 'Reisen hit', href: '/reisen-hit' },
       { label: 'Mat og drikke', href: '/mat-og-drikke' },
-      { label: 'Praktisk info', href: '/praktisk-info' },
+      { label: 'Parkering', href: '/parkering' },
       { label: 'Hva skjer', href: '/arrangementer' },
       { label: 'Tips', href: '/tips' },
     ],

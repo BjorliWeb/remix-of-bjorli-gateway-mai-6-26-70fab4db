@@ -222,7 +222,7 @@ const da: Dictionary = {
       { label: 'Overnatning', href: '/overnatting' },
       { label: 'Sådan kommer du hertil', href: '/reisen-hit' },
       { label: 'Mad og drikke', href: '/mat-og-drikke' },
-      { label: 'Praktisk info', href: '/praktisk-info' },
+      { label: 'Parkering', href: '/parkering' },
       { label: 'Hvad sker der', href: '/arrangementer' },
       { label: 'Inspiration', href: '/tips' },
     ],

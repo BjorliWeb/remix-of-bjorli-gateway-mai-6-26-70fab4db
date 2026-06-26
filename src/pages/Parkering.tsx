@@ -1,11 +1,8 @@
-import { useLanguage } from '@/i18n/LanguageContext';
-import { Link } from 'react-router-dom';
-import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
 import parkeringKart from '@/assets/parkering-kart-bjorli.png';
 import betalingsautomatBilde from '@/assets/parkering-betalingsautomat.jpeg';
-import { Car, CreditCard, Info, ArrowLeft, Banknote, ExternalLink, LifeBuoy } from 'lucide-react';
+import { Car, CreditCard, Info, Banknote, ExternalLink, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 /**
@@ -15,9 +12,6 @@ import { motion } from 'framer-motion';
  * practical parking rates and labelled as such.
  */
 const Parkering = () => {
-  const { t } = useLanguage();
-  const lp = useLocalizedPath();
-
   const areas = [
     {
       name: 'P1 – Hovedparkering',
@@ -46,10 +40,9 @@ const Parkering = () => {
             className="space-y-4 text-foreground/85 leading-relaxed"
           >
             <p>
-              Parkering ved Bjorli Skisenter håndteres med elektronisk
-              parkering og skiltgjenkjenning. Det er ikke gratis å parkere,
-              og gjester må forholde seg til skilt og betalingsinstruksjoner
-              på stedet.
+              Parkering ved skisenteret administreres av Parkly. Parkeringen
+              håndteres med elektronisk parkering og skiltgjenkjenning, og
+              gjester følger skilt og betalingsinstruksjoner på stedet.
             </p>
             <p>
               Det finnes to parkeringsområder: <strong>P1 / Hovedparkering</strong>{' '}
@@ -102,6 +95,14 @@ const Parkering = () => {
                 kundeservice.
               </li>
             </ul>
+            <a
+              href="https://pay.parkly.no/"
+              target="_blank"
+              rel="noopener noreferrer external"
+              className="mt-4 inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline"
+            >
+              Betal parkering på nett <ExternalLink className="h-4 w-4" />
+            </a>
           </div>
 
           <div className="bg-card rounded-xl p-6 shadow-md border border-border space-y-4">
@@ -157,15 +158,6 @@ const Parkering = () => {
               og oppdaterte instruksjoner på parkeringsområdet før du forlater
               bilen.
             </p>
-          </div>
-
-          <div>
-            <Link
-              to={lp('/praktisk-info')}
-              className="inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline"
-            >
-              <ArrowLeft className="h-4 w-4" /> Tilbake til praktisk info
-            </Link>
           </div>
         </div>
       </section>

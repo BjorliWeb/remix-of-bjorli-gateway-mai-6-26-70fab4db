@@ -192,9 +192,6 @@ The contact page for Destinasjon Bjorli, with destination information
 enquiries, postal address and contact channels for the Bjorli
 destination team.
 
-## Practical information — https://www.bjorli.no/praktisk-info
-Parking, facilities, maps and useful tips for visitors.
-
 ## Related destinations and references
 - Visit Norway, Bjorli & Lesja: https://www.visitnorway.no/reisemal/ostlandet/bjorli-lesja/
 - Visit Norway, Bjorli Skisenter listing: https://www.visitnorway.com/listings/bjorli-ski-resort/222155/

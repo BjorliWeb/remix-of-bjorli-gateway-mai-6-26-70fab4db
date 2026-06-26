@@ -221,7 +221,7 @@ const de: Dictionary = {
       { label: 'Unterkunft', href: '/overnatting' },
       { label: 'Anreise', href: '/reisen-hit' },
       { label: 'Essen und Trinken', href: '/mat-og-drikke' },
-      { label: 'Praktische Infos', href: '/praktisk-info' },
+      { label: 'Parken', href: '/parkering' },
       { label: 'Veranstaltungen', href: '/arrangementer' },
       { label: 'Inspiration', href: '/tips' },
     ],
