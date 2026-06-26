@@ -137,8 +137,8 @@ const Footer = () => {
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-season/20 ring-1 ring-season/40 text-season shrink-0">
                   <Mail className="h-4 w-4" />
                 </span>
-                <a href="mailto:post@bjorli.no" className="hover:text-season transition-colors">
-                  post@bjorli.no
+                <a href="mailto:skisenter@bjorli.no" className="hover:text-season transition-colors">
+                  skisenter@bjorli.no
                 </a>
               </li>
             </ul>
