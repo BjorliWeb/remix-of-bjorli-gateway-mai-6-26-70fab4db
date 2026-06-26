@@ -102,16 +102,13 @@ const OutdooractiveMapSection = ({ t }: { t: Copy }) => {
 
 const Fotturer = () => {
   const t = usePageCopy(COPY);
-  const { locale } = useLanguage();
 
   return (
     <SubPage
       slug="fotturer"
       afterIntro={
         <>
-          {/* Snartur teaser links to a Norwegian-only page; only show on the NO source. */}
-          {locale === 'no' && (
-            <section className="pt-12 md:pt-16 pb-4 px-4">
+          <section className="pt-12 md:pt-16 pb-4 px-4">
               <div className="container mx-auto max-w-5xl">
                 <Link
                   to="/sommer/korte-turer"
@@ -126,8 +123,7 @@ const Fotturer = () => {
                   <p className="text-muted-foreground leading-relaxed max-w-2xl">{t.snarturDesc}</p>
                 </Link>
               </div>
-            </section>
-          )}
+          </section>
           <OutdooractiveMapSection t={t} />
         </>
       }
