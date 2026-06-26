@@ -281,6 +281,27 @@ export const ROUTE_SEO: RouteSeoMap = {
   },
 };
 
+// --- Added entries for pages without per-locale slug aliasing ------------
+// Parkering and Personvern share a single slug across locales (see
+// ROUTE_SLUGS). They still resolve through `seoForCanonicalPath` because
+// the lookup is by canonical key, not by localized slug.
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).parkering = {
+  no: { title: 'Parkering ved Bjorli Skisenter', description: 'Slik fungerer parkering og betaling på P1 og P2 ved Bjorli Skisenter — drevet av Parkly med skiltgjenkjenning.' },
+  en: { title: 'Parking at Bjorli Skisenter, Norway', description: 'How parking and payment work at P1 and P2 at Bjorli Skisenter — run by Parkly with number-plate recognition.' },
+  de: { title: 'Parken am Bjorli Skisenter, Norwegen', description: 'So funktionieren Parken und Bezahlen auf P1 und P2 am Bjorli Skisenter — betrieben von Parkly mit Kennzeichenerkennung.' },
+  nl: { title: 'Parkeren bij Bjorli Skisenter, Noorwegen', description: 'Zo werken parkeren en betalen op P1 en P2 bij Bjorli Skisenter — verzorgd door Parkly met kentekenherkenning.' },
+  da: { title: 'Parkering ved Bjorli Skisenter, Norge', description: 'Sådan fungerer parkering og betaling på P1 og P2 ved Bjorli Skisenter — drives af Parkly med nummerpladegenkendelse.' },
+  sv: { title: 'Parkering vid Bjorli Skisenter, Norge', description: 'Så fungerar parkering och betalning på P1 och P2 vid Bjorli Skisenter — sköts av Parkly med registreringsskyltigenkänning.' },
+};
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).personvern = {
+  no: { title: 'Personvern | Bjorli', description: 'Slik behandler Bjorli Skisenter AS personopplysninger, informasjonskapsler og henvendelser via bjorli.no.' },
+  en: { title: 'Privacy | Bjorli', description: 'How Bjorli Skisenter AS processes personal data, cookies and enquiries on bjorli.no.' },
+  de: { title: 'Datenschutz | Bjorli', description: 'Wie die Bjorli Skisenter AS personenbezogene Daten, Cookies und Anfragen über bjorli.no verarbeitet.' },
+  nl: { title: 'Privacy | Bjorli', description: 'Hoe Bjorli Skisenter AS persoonsgegevens, cookies en aanvragen via bjorli.no verwerkt.' },
+  da: { title: 'Privatliv | Bjorli', description: 'Sådan behandler Bjorli Skisenter AS personoplysninger, cookies og henvendelser via bjorli.no.' },
+  sv: { title: 'Integritet | Bjorli', description: 'Så behandlar Bjorli Skisenter AS personuppgifter, cookies och förfrågningar via bjorli.no.' },
+};
+
 /** Resolve canonical (NO) path → SEO entry for the requested locale. */
 export const seoForCanonicalPath = (
   canonicalPath: string,

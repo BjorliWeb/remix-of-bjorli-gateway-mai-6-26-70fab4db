@@ -25,7 +25,8 @@ dist-ssr
 
 # Environment files (keep .env.example tracked)
 .env
-.env.*.local
+.env.*
+!.env.example
 
 # Hosting / deploy tool caches
 .vercel/

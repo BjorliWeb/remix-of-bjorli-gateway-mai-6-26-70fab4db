@@ -55,7 +55,9 @@ export type CanonicalRoute =
   | 'familie'
   | 'live'
   | 'loypekart'
-  | 'vaer-og-webkamera';
+  | 'vaer-og-webkamera'
+  | 'parkering'
+  | 'personvern';
 
 /**
  * Slug per locale. The Norwegian column is the canonical slug.
@@ -107,6 +109,8 @@ export const ROUTE_SLUGS: Record<CanonicalRoute, Record<Locale, string>> = {
   familie:        { no: 'familie',           en: 'family',              de: 'familie',             nl: 'familie',             da: 'familie',             sv: 'familj' },
   live:           { no: 'live',              en: 'live',                de: 'live',                nl: 'live',                da: 'live',                sv: 'live' },
   loypekart:      { no: 'loypekart',         en: 'trail-map',           de: 'loipenplan',          nl: 'pistekaart',          da: 'loipekort',           sv: 'spårkarta' },
+  parkering:      { no: 'parkering',         en: 'parkering',           de: 'parkering',           nl: 'parkering',           da: 'parkering',           sv: 'parkering' },
+  personvern:     { no: 'personvern',        en: 'personvern',          de: 'personvern',          nl: 'personvern',          da: 'personvern',          sv: 'personvern' },
   // Combined weather + webcams page (replaces standalone "Livecams").
   // ASCII slug policy applies (see header note): `vaer-`, not `vær-`.
   // Legacy /livecams route is kept as an alias in App.tsx (no router-level
