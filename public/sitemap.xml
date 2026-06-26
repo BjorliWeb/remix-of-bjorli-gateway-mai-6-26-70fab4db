@@ -2108,6 +2108,162 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/trail-map"/>
   </url>
   <url>
+    <loc>https://www.bjorli.no/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/en/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/de/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/nl/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/da/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/sv/parkering</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/parkering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/parkering"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/parkering"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/parkering"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/parkering"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/parkering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/parkering"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/en/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/de/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/nl/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/da/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
+    <loc>https://www.bjorli.no/sv/personvern</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.bjorli.no/personvern"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bjorli.no/en/personvern"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.bjorli.no/de/personvern"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.bjorli.no/nl/personvern"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.bjorli.no/da/personvern"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.bjorli.no/sv/personvern"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bjorli.no/en/personvern"/>
+  </url>
+  <url>
     <loc>https://www.bjorli.no/vaer-og-webkamera</loc>
     <lastmod>2026-06-26</lastmod>
     <changefreq>daily</changefreq>
