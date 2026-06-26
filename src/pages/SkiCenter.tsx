@@ -1,6 +1,7 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import heroImage from '@/assets/hero-winter.jpg';
+import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 import { Mountain, ArrowUpRight, Snowflake } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { JsonLd } from '@/components/seo';
@@ -61,6 +62,28 @@ const SkiCenter = () => {
               {t.nav.buyLiftPass} <ArrowUpRight className="h-5 w-5" />
             </a>
           </div>
+          <figure className="mt-16 space-y-3">
+            <a
+              href={loypekartImage}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-xl overflow-hidden border border-border shadow-md bg-card"
+              aria-label="Åpne løypekart i full størrelse"
+            >
+              <img
+                src={loypekartImage}
+                alt="Løypekart for Bjorli Skisenter med alpinløyper, heiser, langrennsløyper og symbolforklaring."
+                className="w-full h-auto block"
+                loading="lazy"
+              />
+            </a>
+            <figcaption className="text-sm text-foreground/70 leading-relaxed">
+              Løypekart for Bjorli Skisenter. Kartet viser alpinløyper, heiser, nærområde, symboler og tilknyttede langrennsløyper.
+            </figcaption>
+            <p className="text-xs text-muted-foreground">
+              Se alltid skilt, vær- og føreforhold og oppdatert informasjon på bjorli.no for gjeldende drift.
+            </p>
+          </figure>
         </div>
       </section>
     </div>
