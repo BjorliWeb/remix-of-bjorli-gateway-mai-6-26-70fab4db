@@ -351,27 +351,27 @@ const WeatherWebcams = () => {
       {/* 4. Langrenn og løypekart */}
       <section className="py-12 px-4" aria-labelledby="loypekart-image-heading">
         <div className="container mx-auto max-w-5xl">
-          <h2 id="loypekart-image-heading" className="sr-only">Løypekart</h2>
+          <h2 id="loypekart-image-heading" className="sr-only">{copy.trailMapSrLabel}</h2>
           <figure className="space-y-3">
             <a
               href={loypekartImage}
               target="_blank"
               rel="noopener noreferrer"
               className="block rounded-xl overflow-hidden border border-border shadow-md bg-card"
-              aria-label="Åpne løypekart i full størrelse"
+              aria-label={copy.trailMapAriaOpen}
             >
               <img
                 src={loypekartImage}
-                alt="Løypekart for Bjorli Skisenter med alpinløyper, heiser, langrennsløyper og symbolforklaring."
+                alt={copy.trailMapAlt}
                 className="w-full h-auto block"
                 loading="lazy"
               />
             </a>
             <figcaption className="text-sm text-foreground/70 leading-relaxed">
-              Løypekart for Bjorli Skisenter. Kartet viser alpinløyper, heiser, nærområde, symboler og tilknyttede langrennsløyper.
+              {copy.trailMapCaption}
             </figcaption>
             <p className="text-xs text-muted-foreground">
-              Se alltid skilt, vær- og føreforhold og oppdatert informasjon på bjorli.no for gjeldende drift.
+              {copy.trailMapOperationalNote}
             </p>
           </figure>
         </div>
