@@ -126,7 +126,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="h-5 w-5 text-secondary shrink-0" />
-                  <a href="mailto:post@bjorliskisenter.no" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.email}</a>
+                  <a href="mailto:skisenter@bjorli.no" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.email}</a>
                 </div>
               </div>
             </motion.div>

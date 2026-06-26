@@ -67,7 +67,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'Salgsbetingelser',
@@ -225,7 +225,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'Terms of Sale',
@@ -382,7 +382,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'Salgsbetingelser',
@@ -539,7 +539,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'Verkoopvoorwaarden',
@@ -696,7 +696,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'AGB',
@@ -853,7 +853,7 @@ export const translations = {
     footer: {
       address: 'Bjorliveien 84, 2669 Bjorli',
       phone: '+47 48 15 22 00',
-      email: 'post@bjorliskisenter.no',
+      email: 'skisenter@bjorli.no',
       rights: '©2026 Bjorli Skisenter',
       company: 'Nye Bjorli Skisenter AS',
       terms: 'Köpvillkor',
