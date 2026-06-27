@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
+import { trackExternalPartnerClick } from '@/lib/analytics';
 
 type Copy = {
   introBefore: string;
@@ -427,6 +428,14 @@ const FoodDrink = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'Avdemsbue',
+                      partner_category: 'food_drink',
+                      link_url: 'https://www.avdem.no/avdemsbue/',
+                      link_text: c.avdemsbueLink,
+                    })
+                  }
                 >
                   {c.avdemsbueLink} <ExternalLink className="h-4 w-4" />
                 </a>
@@ -456,6 +465,14 @@ const FoodDrink = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'HILLS Bjorli',
+                      partner_category: 'food_drink',
+                      link_url: 'https://www.facebook.com/p/HILLS-Bjorli-100071004056072/',
+                      link_text: c.hillsLink,
+                    })
+                  }
                 >
                   {c.hillsLink} <ExternalLink className="h-4 w-4" />
                 </a>
@@ -480,6 +497,14 @@ const FoodDrink = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'YX Bjorli',
+                      partner_category: 'food_drink',
+                      link_url: 'https://www.facebook.com/profile.php?id=100057615902711',
+                      link_text: c.yxLink,
+                    })
+                  }
                 >
                   {c.yxLink} <ExternalLink className="h-4 w-4" />
                 </a>
