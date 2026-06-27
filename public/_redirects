@@ -1,1 +1,9 @@
+# Legacy 301s — keep above the SPA fallback.
+/parking         /parkering              301
+/parking/        /parkering              301
+/livecams        /vaer-og-webkamera      301
+/livecams/       /vaer-og-webkamera      301
+/hva-skjer       /arrangementer          301
+/hva-skjer/      /arrangementer          301
+
 /*    /index.html   200
