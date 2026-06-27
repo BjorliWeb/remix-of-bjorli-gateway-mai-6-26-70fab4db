@@ -3,7 +3,7 @@
  * current deploy environment.
  *
  * Production detection (in priority order):
- *   1. `SITE_URL === 'https://www.bjorli.no'`
+ *   1. `SITE_URL === 'https://bjorli.no'`
  *   2. `CF_PAGES_BRANCH === 'main'`  (Cloudflare Pages production branch)
  *
  * If neither is true the deploy is treated as Preview/staging and the
@@ -15,7 +15,7 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const PRODUCTION_SITE_URL = 'https://www.bjorli.no';
+const PRODUCTION_SITE_URL = 'https://bjorli.no';
 const PRODUCTION_BRANCH = 'main';
 
 const siteUrl = process.env.SITE_URL;

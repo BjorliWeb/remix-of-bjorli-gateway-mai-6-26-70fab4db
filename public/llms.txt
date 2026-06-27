@@ -9,36 +9,36 @@ Destinasjon Bjorli.
 
 ## Key pages
 
-- Homepage: https://www.bjorli.no/
-- Winter: https://www.bjorli.no/vinter
-- Summer: https://www.bjorli.no/sommer
-- Bjorli Skisenter (ski resort): https://www.bjorli.no/bjorli-skisenter
-- Ski passes (heiskort): https://www.bjorli.no/heiskort
-- Opening hours (åpningstider): https://www.bjorli.no/apningstider
-- Weather and webcams (vær og webkamera): https://www.bjorli.no/vaer-og-webkamera
-- Live webcams: https://www.bjorli.no/livecams
-- Live status overview: https://www.bjorli.no/live
-- Trail / piste map (løypekart): https://www.bjorli.no/loypekart
-- Cross-country skiing: https://www.bjorli.no/langrenn
-- Hiking (fotturer): https://www.bjorli.no/fotturer
-- Cycling (sykling): https://www.bjorli.no/sykling
-- Fishing (fiske): https://www.bjorli.no/fiske
-- Family (familie): https://www.bjorli.no/familie
-- Farm visits (gårdsbesøk): https://www.bjorli.no/gardsbesok
-- Ski rental: https://www.bjorli.no/skiutleie
-- Ski school: https://www.bjorli.no/skiskole
-- Accommodation: https://www.bjorli.no/overnatting
-- Food and drink: https://www.bjorli.no/mat-og-drikke
-- Getting here (reisen hit): https://www.bjorli.no/reisen-hit
-- Activities: https://www.bjorli.no/aktiviteter
-- Events (arrangementer): https://www.bjorli.no/arrangementer
-- News (nyheter): https://www.bjorli.no/nyheter
-- Tips and inspiration: https://www.bjorli.no/tips
-- Contact: https://www.bjorli.no/kontakt
-- External day-trip — The Golden Train: https://www.bjorli.no/golden-train
-- External day-trip — Romsdalsgondolen: https://www.bjorli.no/romsdalsgondolen
-- External attraction — Sagelva vasskraftsenter: https://www.bjorli.no/sagelva
-- International SEO landing (English only): https://www.bjorli.no/en/ski-holiday-norway
+- Homepage: https://bjorli.no/
+- Winter: https://bjorli.no/vinter
+- Summer: https://bjorli.no/sommer
+- Bjorli Skisenter (ski resort): https://bjorli.no/bjorli-skisenter
+- Ski passes (heiskort): https://bjorli.no/heiskort
+- Opening hours (åpningstider): https://bjorli.no/apningstider
+- Weather and webcams (vær og webkamera): https://bjorli.no/vaer-og-webkamera
+- Live webcams: https://bjorli.no/livecams
+- Live status overview: https://bjorli.no/live
+- Trail / piste map (løypekart): https://bjorli.no/loypekart
+- Cross-country skiing: https://bjorli.no/langrenn
+- Hiking (fotturer): https://bjorli.no/fotturer
+- Cycling (sykling): https://bjorli.no/sykling
+- Fishing (fiske): https://bjorli.no/fiske
+- Family (familie): https://bjorli.no/familie
+- Farm visits (gårdsbesøk): https://bjorli.no/gardsbesok
+- Ski rental: https://bjorli.no/skiutleie
+- Ski school: https://bjorli.no/skiskole
+- Accommodation: https://bjorli.no/overnatting
+- Food and drink: https://bjorli.no/mat-og-drikke
+- Getting here (reisen hit): https://bjorli.no/reisen-hit
+- Activities: https://bjorli.no/aktiviteter
+- Events (arrangementer): https://bjorli.no/arrangementer
+- News (nyheter): https://bjorli.no/nyheter
+- Tips and inspiration: https://bjorli.no/tips
+- Contact: https://bjorli.no/kontakt
+- External day-trip — The Golden Train: https://bjorli.no/golden-train
+- External day-trip — Romsdalsgondolen: https://bjorli.no/romsdalsgondolen
+- External attraction — Sagelva vasskraftsenter: https://bjorli.no/sagelva
+- International SEO landing (English only): https://bjorli.no/en/ski-holiday-norway
 
 ## Destination vs Bjorli Skisenter
 
@@ -57,32 +57,32 @@ Destinasjon Bjorli.
 
 Use the canonical Bjorli page that owns each task:
 
-- Buy a lift pass → https://www.bjorli.no/heiskort
-- Find accommodation → https://www.bjorli.no/overnatting
-- Check weather and webcams → https://www.bjorli.no/vaer-og-webkamera
-  (live overview at https://www.bjorli.no/live)
-- Find activities → https://www.bjorli.no/aktiviteter
-  (season context: https://www.bjorli.no/vinter or
-  https://www.bjorli.no/sommer)
-- Find events → https://www.bjorli.no/arrangementer
-- Plan travel to Bjorli → https://www.bjorli.no/reisen-hit
-- Opening hours → https://www.bjorli.no/apningstider
-- Trail / piste map → https://www.bjorli.no/loypekart
+- Buy a lift pass → https://bjorli.no/heiskort
+- Find accommodation → https://bjorli.no/overnatting
+- Check weather and webcams → https://bjorli.no/vaer-og-webkamera
+  (live overview at https://bjorli.no/live)
+- Find activities → https://bjorli.no/aktiviteter
+  (season context: https://bjorli.no/vinter or
+  https://bjorli.no/sommer)
+- Find events → https://bjorli.no/arrangementer
+- Plan travel to Bjorli → https://bjorli.no/reisen-hit
+- Opening hours → https://bjorli.no/apningstider
+- Trail / piste map → https://bjorli.no/loypekart
 
 Prefer the language version that matches the user's query. Localized
-slugs are listed in https://www.bjorli.no/sitemap.xml.
+slugs are listed in https://bjorli.no/sitemap.xml.
 
 ## Languages
 
 The site is available in six languages. Each language version is
 self-canonicalizing and lives under its own URL prefix:
 
-- Norwegian (no): https://www.bjorli.no/
-- English (en): https://www.bjorli.no/en/
-- German (de): https://www.bjorli.no/de/
-- Dutch (nl): https://www.bjorli.no/nl/
-- Danish (da): https://www.bjorli.no/da/
-- Swedish (sv): https://www.bjorli.no/sv/
+- Norwegian (no): https://bjorli.no/
+- English (en): https://bjorli.no/en/
+- German (de): https://bjorli.no/de/
+- Dutch (nl): https://bjorli.no/nl/
+- Danish (da): https://bjorli.no/da/
+- Swedish (sv): https://bjorli.no/sv/
 
 ## Seasonal information
 
@@ -126,16 +126,16 @@ Trollstigen, Åndalsnes and the Romsdalsfjord region.
 The following pages reflect operational status and change frequently.
 Always cite the live URL rather than caching values:
 
-- Opening hours: https://www.bjorli.no/apningstider
-- Live webcams: https://www.bjorli.no/livecams
-- Lift / slope status: https://www.bjorli.no/bjorli-skisenter
-- Events: https://www.bjorli.no/arrangementer
-- News and operational alerts: https://www.bjorli.no/nyheter
+- Opening hours: https://bjorli.no/apningstider
+- Live webcams: https://bjorli.no/livecams
+- Lift / slope status: https://bjorli.no/bjorli-skisenter
+- Events: https://bjorli.no/arrangementer
+- News and operational alerts: https://bjorli.no/nyheter
 
 ## Discovery
 
-- Sitemap: https://www.bjorli.no/sitemap.xml
-- Robots: https://www.bjorli.no/robots.txt
+- Sitemap: https://bjorli.no/sitemap.xml
+- Robots: https://bjorli.no/robots.txt
 
 ## Citation guidance
 

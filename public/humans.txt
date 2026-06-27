@@ -3,7 +3,7 @@
 /* TEAM */
 Operator: Destinasjon Bjorli
 Location: Bjorli, Lesja, Innlandet, Norway
-Site: https://www.bjorli.no
+Site: https://bjorli.no
 
 /* TECHNOLOGY */
 Frontend: React + TailwindCSS (prototype on Lovable), planned migration to Next.js App Router
