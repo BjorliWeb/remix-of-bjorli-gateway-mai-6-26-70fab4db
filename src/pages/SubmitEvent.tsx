@@ -494,8 +494,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
               </div>
               <Field label={`${c.f.website} ${c.f.optional}`} error={errors.website}>
                 <Input
-                  type="url"
-                  placeholder="https://"
+                  type="text"
+                  inputMode="url"
+                  autoComplete="url"
+                  placeholder="www.eksempel.no"
                   value={form.website}
                   onChange={(e) => update('website', e.target.value)}
                 />
@@ -520,7 +522,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
               <div className="sm:col-span-2">
                 <Field label={c.f.maps} error={errors.maps}>
                   <Input
-                    type="url"
+                    type="text"
+                    inputMode="url"
                     placeholder="https://maps.google.com/…"
                     value={form.maps}
                     onChange={(e) => update('maps', e.target.value)}
