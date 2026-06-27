@@ -23,7 +23,7 @@ const GTM_ID = env.VITE_GTM_ID;
 
 declare global {
   interface Window {
-    dataLayer?: Record<string, unknown>[];
+    dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -63,27 +63,47 @@ const isDebug = (): boolean => {
 };
 const dbg = (...args: unknown[]): void => {
   if (isDebug()) {
-     
     console.log('[ga4]', ...args);
   }
 };
 const maskedId = (): string => (GA4_ID ? `…${GA4_ID.slice(-4)}` : 'unset');
 
+const getPagePath = (): string => {
+  if (typeof window === 'undefined') return '';
+  return `${window.location.pathname}${window.location.search}`;
+};
+
+const getPageLocation = (): string => {
+  if (typeof window === 'undefined') return '';
+  return window.location.href;
+};
+
+const debugGtagState = (label: string): void => {
+  if (!isDebug() || typeof window === 'undefined') return;
+  dbg(label, {
+    ga4Id: maskedId(),
+    gtagExists: typeof window.gtag === 'function',
+    dataLayerExists: Array.isArray(window.dataLayer),
+    dataLayerLength: window.dataLayer?.length ?? 0,
+    dataLayer: window.dataLayer,
+  });
+};
+
 /**
  * Consent gate. Production should set this from a CMP (Cookiebot, Klaro,
  * OneTrust) or Google Consent Mode v2 BEFORE any tracking fires.
  *
- * In the current Vite prototype no consent UI is shipped, so events are
- * additionally gated on the env IDs being present — meaning nothing fires
- * until both an ID is configured AND consent is granted.
- * TODO(prod): wire CMP / Consent Mode v2 in the Next.js app.
+ * The in-house consent banner is authoritative: analytics events are never
+ * emitted until setAnalyticsConsent(true) runs after the user accepts.
  */
 export const setAnalyticsConsent = (granted: boolean): void => {
   consentGranted = granted;
   dbg('setAnalyticsConsent', { granted, gtagAvailable: typeof window !== 'undefined' && !!window.gtag, ga4Id: maskedId() });
   if (granted) {
     bootstrap();
-    // Consent Mode v2 — flip the relevant categories to "granted".
+    debugGtagState('after bootstrap before consent update');
+    // Consent Mode v2 — flip the relevant categories to "granted" before
+    // re-running config and sending the first manual page_view.
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('consent', 'update', {
         analytics_storage: 'granted',
@@ -91,6 +111,16 @@ export const setAnalyticsConsent = (granted: boolean): void => {
         ad_user_data: 'denied',
         ad_personalization: 'denied',
       });
+      debugGtagState('after consent update');
+      if (GA4_ID) {
+        window.gtag('config', GA4_ID, { send_page_view: false, anonymize_ip: true });
+        dbg('gtag config after consent grant', {
+          ga4Id: maskedId(),
+          send_page_view: false,
+          anonymize_ip: true,
+        });
+        debugGtagState('after config following consent');
+      }
     }
     // Immediately replay (or freshly send) a page_view for the current
     // page. Without this, the very first page after consent is missing
@@ -98,7 +128,7 @@ export const setAnalyticsConsent = (granted: boolean): void => {
     // was granted and was dropped by canFire().
     if (typeof window !== 'undefined') {
       const replay = lastPageViewParams ?? {
-        path: window.location.pathname,
+        path: getPagePath(),
         title: typeof document !== 'undefined' ? document.title : '',
         language: document?.documentElement?.lang || 'no',
       };
@@ -117,17 +147,8 @@ export const setAnalyticsConsent = (granted: boolean): void => {
 
 const canFire = (): boolean => {
   if (!GA4_ID && !GTM_ID) return false;
-  // If a consent flag has been explicitly granted, honour it. If no consent
-  // call has happened yet, allow events ONLY when no CMP integration is
-  // configured (the current prototype). Production must call
-  // setAnalyticsConsent(true) after a CMP "accept".
-  return consentGranted || !hasCmpFlag();
+  return consentGranted;
 };
-
-// In the prototype no CMP is wired; this returns false. Production should
-// flip this to true via window.__bjorliCmp = true once a CMP is loaded.
-const hasCmpFlag = (): boolean =>
-  typeof window !== 'undefined' && Boolean((window as unknown as { __bjorliCmp?: boolean }).__bjorliCmp);
 
 const bootstrap = (): void => {
   if (bootstrapped || typeof window === 'undefined') return;
@@ -143,8 +164,9 @@ const bootstrap = (): void => {
   window.dataLayer = window.dataLayer || [];
   // Consent Mode v2 default-deny — MUST be pushed before gtag.js loads.
   window.gtag = window.gtag || function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args as unknown as Record<string, unknown>);
+    window.dataLayer!.push(arguments);
   };
+  debugGtagState('official gtag queue ready');
   window.gtag('consent', 'default', {
     ad_storage: 'denied',
     analytics_storage: 'denied',
@@ -171,6 +193,13 @@ const bootstrap = (): void => {
     window.gtag('js', new Date());
     // anonymize_ip is enforced; SPA page_view is sent manually via trackPageView.
     window.gtag('config', GA4_ID, { send_page_view: false, anonymize_ip: true });
+    dbg('gtag config during bootstrap', {
+      ga4Id: maskedId(),
+      send_page_view: false,
+      anonymize_ip: true,
+      consentGranted,
+    });
+    debugGtagState('after bootstrap config');
   }
 };
 
@@ -249,33 +278,40 @@ const sendPageView = (
   opts: { force?: boolean } = {},
 ): void => {
   if (typeof window === 'undefined') return;
-  const safePath = params.path.split('?')[0];
-  const key = `${safePath}|${params.title}`;
+  const pathWithSearch = params.path || getPagePath();
+  const key = pathWithSearch;
   if (!opts.force && key === lastSentKey) {
     dbg('page_view skipped (dedupe)', key);
     return;
   }
   lastSentKey = key;
-  const page_location = window.location.origin + safePath;
+  const page_location = getPageLocation();
   const ambient = getAnalyticsContext();
   const season = ambient.season;
-  dbg('page_view ->', { path: safePath, title: params.title, language: params.language, season });
+  const eventParams = {
+    send_to: GA4_ID,
+    page_title: params.title,
+    page_location,
+    page_path: pathWithSearch,
+    language: params.language,
+    season,
+  };
+  debugGtagState('before manual page_view');
+  dbg('page_view ->', { ga4Id: maskedId(), ...eventParams, send_to: maskedId() });
   if (GA4_ID && window.gtag) {
-    window.gtag('event', 'page_view', {
-      page_location,
-      page_title: params.title,
-      language: params.language,
-      season,
-    });
+    window.gtag('event', 'page_view', eventParams);
+    dbg('gtag event page_view after config', { ga4Id: maskedId(), eventParams: { ...eventParams, send_to: maskedId() } });
   }
+  debugGtagState('after manual page_view');
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({
     event: 'page_view',
-    page_path: safePath,
+    page_path: pathWithSearch,
     page_title: params.title,
     language: params.language,
     season,
   });
+  debugGtagState('after dataLayer page_view marker');
 };
 
 /**
