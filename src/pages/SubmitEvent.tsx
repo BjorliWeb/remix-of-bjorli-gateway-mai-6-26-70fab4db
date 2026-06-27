@@ -671,6 +671,21 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
 
             {/* Submit */}
             <div className="pt-2 sticky bottom-4 z-10">
+              {TURNSTILE_SITE_KEY && (
+                <div className="mb-3">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    language={lang}
+                    onVerify={(t) => setTurnstileToken(t)}
+                    onExpire={() => {
+                      setTurnstileToken(null);
+                      toast({ title: TURNSTILE_ERRORS.expired, variant: 'destructive' });
+                    }}
+                    onError={() => setTurnstileToken(null)}
+                  />
+                </div>
+              )}
               <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto min-h-[52px] px-8">
                 {loading ? c.f.submitting : c.f.submit}
               </Button>
