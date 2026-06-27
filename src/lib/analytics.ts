@@ -93,10 +93,8 @@ const debugGtagState = (label: string): void => {
  * Consent gate. Production should set this from a CMP (Cookiebot, Klaro,
  * OneTrust) or Google Consent Mode v2 BEFORE any tracking fires.
  *
- * In the current Vite prototype no consent UI is shipped, so events are
- * additionally gated on the env IDs being present — meaning nothing fires
- * until both an ID is configured AND consent is granted.
- * TODO(prod): wire CMP / Consent Mode v2 in the Next.js app.
+ * The in-house consent banner is authoritative: analytics events are never
+ * emitted until setAnalyticsConsent(true) runs after the user accepts.
  */
 export const setAnalyticsConsent = (granted: boolean): void => {
   consentGranted = granted;
@@ -149,17 +147,8 @@ export const setAnalyticsConsent = (granted: boolean): void => {
 
 const canFire = (): boolean => {
   if (!GA4_ID && !GTM_ID) return false;
-  // If a consent flag has been explicitly granted, honour it. If no consent
-  // call has happened yet, allow events ONLY when no CMP integration is
-  // configured (the current prototype). Production must call
-  // setAnalyticsConsent(true) after a CMP "accept".
-  return consentGranted || !hasCmpFlag();
+  return consentGranted;
 };
-
-// In the prototype no CMP is wired; this returns false. Production should
-// flip this to true via window.__bjorliCmp = true once a CMP is loaded.
-const hasCmpFlag = (): boolean =>
-  typeof window !== 'undefined' && Boolean((window as unknown as { __bjorliCmp?: boolean }).__bjorliCmp);
 
 const bootstrap = (): void => {
   if (bootstrapped || typeof window === 'undefined') return;
