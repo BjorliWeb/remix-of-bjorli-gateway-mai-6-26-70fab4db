@@ -5,6 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { LOCALES, LOCALE_LABELS } from '@/i18n/translations';
 import { getNavigation, useCms } from '@/lib/cms';
+import { DEFAULT_SEASON } from '@/lib/season';
 import bjorliLogo from '@/assets/bjorli-logo.jpeg';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -36,7 +37,12 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
     }
     return location.pathname;
   })();
-  const isActive = (path: string) => (path === '/' ? stripped === '/' || stripped === '' : stripped === path);
+  // Root ("/") renders the current default-season homepage, so treat "/" as
+  // an alias for "/sommer" or "/vinter" when matching active nav links.
+  const seasonHomePath = DEFAULT_SEASON === 'summer' ? '/sommer' : '/vinter';
+  const normalizedPath = stripped === '/' || stripped === '' ? seasonHomePath : stripped;
+  const isActive = (path: string) =>
+    path === normalizedPath || (path === '/' && (stripped === '/' || stripped === ''));
 
   // Header CTA flips with the season:
   //   Winter → Kjøp heiskort (commercial driver for Bjorli Skisenter)
