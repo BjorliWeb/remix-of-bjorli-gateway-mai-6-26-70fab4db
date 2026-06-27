@@ -6,6 +6,7 @@ import { Car, CreditCard, Info, Banknote, ExternalLink, LifeBuoy } from 'lucide-
 import { motion } from 'framer-motion';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
+import { trackExternalPartnerClick } from '@/lib/analytics';
 
 /**
  * Dedicated parking page for Bjorli Skisenter.
@@ -329,6 +330,14 @@ const Parkering = () => {
               target="_blank"
               rel="noopener noreferrer external"
               className="mt-4 inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline"
+              onClick={() =>
+                trackExternalPartnerClick({
+                  partner_name: 'Parkly',
+                  partner_category: 'parking',
+                  link_url: 'https://pay.parkly.no/',
+                  link_text: t.paymentCta,
+                })
+              }
             >
               {t.paymentCta} <ExternalLink className="h-4 w-4" />
             </a>
@@ -364,6 +373,14 @@ const Parkering = () => {
               target="_blank"
               rel="noopener noreferrer external"
               className="inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline"
+              onClick={() =>
+                trackExternalPartnerClick({
+                  partner_name: 'Parkly',
+                  partner_category: 'parking',
+                  link_url: 'https://www.parkly.no/kundeservice/',
+                  link_text: t.supportCta,
+                })
+              }
             >
               {t.supportCta} <ExternalLink className="h-4 w-4" />
             </a>
