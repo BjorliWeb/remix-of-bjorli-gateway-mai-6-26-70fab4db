@@ -10,6 +10,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
+import { trackExternalPartnerClick } from '@/lib/analytics';
 
 /**
  * "Vær og webkamera" — combined live status, daily operational update,
