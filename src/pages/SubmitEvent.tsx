@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
 import {
   EVENT_CATEGORY_KEYS,
   CATEGORY_LABELS,
@@ -18,6 +19,12 @@ import {
 } from '@/lib/eventCategories';
 
 type Lang = 'no' | 'en';
+
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
+const TURNSTILE_ERRORS = {
+  invalid: 'Vi kunne ikke bekrefte at innsendingen er ekte. Prøv igjen.',
+  expired: 'Bekreftelsen utløp. Prøv igjen.',
+} as const;
 
 const COPY = {
   no: {
@@ -212,6 +219,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
   // Bot/abuse protection: honeypot + minimum render-to-submit time.
   const [hp, setHp] = useState('');
   const mountedAt = useRef<number>(Date.now());
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
   useEffect(() => {
     mountedAt.current = Date.now();
   }, []);
@@ -288,6 +297,13 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       return;
     }
 
+    // Turnstile must have produced a token before we hit the server.
+    if (!turnstileToken) {
+      toast({ title: TURNSTILE_ERRORS.invalid, variant: 'destructive' });
+      turnstileRef.current?.reset();
+      return;
+    }
+
     // Duplicate submission guard (same title+email within 10 min).
     try {
       const fingerprint = `${parsed.data.email}|${parsed.data.title}`.slice(0, 500);
@@ -305,39 +321,56 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
 
     setLoading(true);
     try {
-      // 1. Insert the submission row FIRST so storage uploads can be tied to a fresh row.
+      // 1. Validate Turnstile + insert the submission row via the secure edge
+      //    function. The server uses the service role to insert, so the anon
+      //    client can no longer bypass Turnstile.
       const uploadToken = crypto.randomUUID();
       const plannedPaths = images.map((file) => {
         const ext = file.name.split('.').pop() || 'jpg';
         return `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
       });
-      const { error: insertErr } = await supabase.from('event_submissions').insert({
-        title: parsed.data.title,
-        summary: parsed.data.summary || null,
-        description: parsed.data.description,
-        organizer: parsed.data.organizer,
-        contact_name: parsed.data.contactName,
-        email: parsed.data.email,
-        phone: parsed.data.phone || null,
-        website: normalizedWebsite || null,
-        start_date: parsed.data.startDate,
-        end_date: parsed.data.endDate || null,
-        time_text: parsed.data.time || null,
-        location: parsed.data.location,
-        maps_url: normalizedMaps || null,
-        category: parsed.data.category,
-        image_urls: plannedPaths,
-        upload_token: uploadToken,
-        language: lang,
-        consent_rights: consentRights,
-        consent_editing: consentEditing,
-        status: 'pending',
-      });
-
-      if (insertErr) throw insertErr;
+      const { data: fnData, error: fnError } = await supabase.functions.invoke(
+        'submit-event',
+        {
+          body: {
+            title: parsed.data.title,
+            summary: parsed.data.summary || null,
+            description: parsed.data.description,
+            organizer: parsed.data.organizer,
+            contactName: parsed.data.contactName,
+            email: parsed.data.email,
+            phone: parsed.data.phone || null,
+            website: normalizedWebsite || null,
+            startDate: parsed.data.startDate,
+            endDate: parsed.data.endDate || null,
+            time: parsed.data.time || null,
+            location: parsed.data.location,
+            maps: normalizedMaps || null,
+            category: parsed.data.category,
+            imagePaths: plannedPaths,
+            uploadToken,
+            language: lang,
+            consentRights,
+            consentEditing,
+            turnstileToken,
+          },
+        },
+      );
+      const ok = !fnError && (fnData as { ok?: boolean } | null)?.ok === true;
+      if (!ok) {
+        const code = (fnData as { error?: string } | null)?.error;
+        if (code === 'turnstile-failed') {
+          toast({ title: TURNSTILE_ERRORS.invalid, variant: 'destructive' });
+          setTurnstileToken(null);
+          turnstileRef.current?.reset();
+          return;
+        }
+        throw new Error(c.errors.generic);
+      }
 
       // 2. Upload images into the token-scoped folder. The storage RLS policy
-      // requires a fresh matching event_submissions row to exist.
+      // requires a fresh matching event_submissions row to exist, which the
+      // edge function above just created (after Turnstile verification).
       for (let i = 0; i < images.length; i++) {
         const file = images[i];
         const path = plannedPaths[i];
@@ -382,6 +415,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     } catch (err) {
       const msg = err instanceof Error ? err.message : c.errors.generic;
       toast({ title: msg, variant: 'destructive' });
+      setTurnstileToken(null);
+      turnstileRef.current?.reset();
     } finally {
       setLoading(false);
     }
