@@ -387,19 +387,9 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
         }
       }
 
-      // Fire-and-forget notification — must not block UX
-      supabase.functions
-        .invoke('notify-event-submission', {
-          body: {
-            title: parsed.data.title,
-            organizer: parsed.data.organizer,
-            email: parsed.data.email,
-            language: lang,
-          },
-        })
-        .catch(() => {
-          /* notification is best-effort */
-        });
+      // Editor notification is now dispatched server-side from `submit-event`
+      // using INTERNAL_FUNCTION_SECRET — the browser no longer calls
+      // `notify-event-submission` directly (would be public-abusable).
 
       try {
         window.localStorage.setItem(

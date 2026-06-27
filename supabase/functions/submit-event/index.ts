@@ -119,5 +119,31 @@ Deno.serve(async (req) => {
     return jsonResponse({ ok: false, error: 'insert-failed' }, 500);
   }
 
+  // Best-effort internal notification — must NOT block or fail the submission.
+  try {
+    const notifySecret = Deno.env.get('INTERNAL_FUNCTION_SECRET');
+    const supabaseUrl = Deno.env.get('SUPABASE_URL');
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (notifySecret && supabaseUrl && serviceKey) {
+      // Fire-and-forget: do not await, swallow errors.
+      fetch(`${supabaseUrl}/functions/v1/notify-event-submission`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${serviceKey}`,
+          'x-internal-function-secret': notifySecret,
+        },
+        body: JSON.stringify({
+          title: parsed.data.title,
+          organizer: parsed.data.organizer,
+          email: parsed.data.email,
+          language: parsed.data.language,
+        }),
+      }).catch((e) => console.error('[submit-event] notify failed', e));
+    }
+  } catch (e) {
+    console.error('[submit-event] notify dispatch error', e);
+  }
+
   return jsonResponse({ ok: true });
 });
