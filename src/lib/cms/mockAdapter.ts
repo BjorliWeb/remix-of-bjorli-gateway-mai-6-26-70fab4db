@@ -786,7 +786,7 @@ export const mockAdapter: CmsAdapter = {
     const nav: CmsNavigation = {
       language,
       primary: [
-        { label: d.nav.winter, href: '/' },
+        { label: d.nav.winter, href: '/vinter' },
         { label: d.nav.summer, href: '/sommer' },
         { label: d.nav.skiCenter, href: '/bjorli-skisenter' },
         // "Vær og webkamera" — combined live status + webcams (replaces Livecams).
