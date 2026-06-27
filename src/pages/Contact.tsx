@@ -11,6 +11,13 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
+import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
+
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
+const TURNSTILE_ERRORS = {
+  invalid: 'Vi kunne ikke bekrefte at innsendingen er ekte. Prøv igjen.',
+  expired: 'Bekreftelsen utløp. Prøv igjen.',
+} as const;
 
 const Contact = () => {
   const { t, d } = useLanguage();
@@ -29,6 +36,8 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
   // --- Bot / abuse protection ---------------------------------------------
   // Honeypot: real users never fill this hidden field; bots usually do.
   const [hp, setHp] = useState('');
@@ -66,6 +75,13 @@ const Contact = () => {
       return;
     }
 
+    // Turnstile must have produced a token before submitting.
+    if (!turnstileToken) {
+      toast({ title: TURNSTILE_ERRORS.invalid, variant: 'destructive' });
+      turnstileRef.current?.reset();
+      return;
+    }
+
     // Duplicate submission guard (same content within 5 min).
     try {
       const fingerprint = `${result.data.email}|${result.data.message}`.slice(0, 500);
@@ -82,17 +98,33 @@ const Contact = () => {
     }
 
     setLoading(true);
-    const { error } = await supabase.from('contact_messages').insert({
-      name: result.data.name,
-      email: result.data.email,
-      phone: result.data.phone || null,
-      message: result.data.message,
-    });
+    const { data: fnData, error: fnError } = await supabase.functions.invoke(
+      'submit-contact',
+      {
+        body: {
+          name: result.data.name,
+          email: result.data.email,
+          phone: result.data.phone || null,
+          message: result.data.message,
+          turnstileToken,
+        },
+      },
+    );
     setLoading(false);
 
-    if (error) {
-      toast({ title: s.errorTitle, description: s.errorDesc, variant: 'destructive' });
-    } else {
+    const ok = !fnError && (fnData as { ok?: boolean } | null)?.ok === true;
+    if (!ok) {
+      const code = (fnData as { error?: string } | null)?.error;
+      if (code === 'turnstile-failed') {
+        toast({ title: TURNSTILE_ERRORS.invalid, variant: 'destructive' });
+      } else {
+        toast({ title: s.errorTitle, description: s.errorDesc, variant: 'destructive' });
+      }
+      setTurnstileToken(null);
+      turnstileRef.current?.reset();
+      return;
+    }
+    {
       try {
         window.localStorage.setItem(
           DEDUPE_KEY,
@@ -106,6 +138,8 @@ const Contact = () => {
       }
       toast({ title: s.successTitle, description: s.successDesc });
       setForm({ name: '', email: '', phone: '', message: '' });
+      setTurnstileToken(null);
+      turnstileRef.current?.reset();
     }
   };
 
@@ -183,6 +217,20 @@ const Contact = () => {
                 <Textarea id="message" rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} maxLength={2000} />
                 {errors.message && <p className="text-destructive text-sm mt-1">{errors.message}</p>}
               </div>
+              {TURNSTILE_SITE_KEY && (
+                <div className="pt-1">
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    onVerify={(t) => setTurnstileToken(t)}
+                    onExpire={() => {
+                      setTurnstileToken(null);
+                      toast({ title: TURNSTILE_ERRORS.expired, variant: 'destructive' });
+                    }}
+                    onError={() => setTurnstileToken(null)}
+                  />
+                </div>
+              )}
               <Button type="submit" disabled={loading} className="w-full font-semibold" size="lg">
                 {loading ? '...' : s.submitBtn}
                 <Send className="ml-2 h-4 w-4" />
