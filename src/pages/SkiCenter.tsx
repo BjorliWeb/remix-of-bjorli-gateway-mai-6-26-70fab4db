@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
+import { trackSkiPassClick } from '@/lib/analytics';
 
 /**
  * Page-local copy. The SkiCenter hero, stats and short description still
