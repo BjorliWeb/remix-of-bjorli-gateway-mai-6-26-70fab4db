@@ -8,6 +8,7 @@ import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { useLanguage } from '@/i18n/LanguageContext';
 import type { Locale } from '@/i18n/locales/types';
+import { trackAccommodationLinkClick } from '@/lib/analytics';
 import imgNovasol from '@/assets/photos/accommodation/overnatting-novasol-bjorli-hytte.jpg';
 import imgBjorliheimen from '@/assets/photos/accommodation/overnatting-bjorliheimen-fjellhotell.jpg';
 import imgMountainLodge from '@/assets/photos/accommodation/overnatting-bjorli-mountain-lodge.jpg';
@@ -72,6 +73,17 @@ const providers: ProviderBase[] = [
   { key: 'booking', name: 'Booking.com', href: 'https://www.booking.com/city/no/bjorli.html' },
   { key: 'fjellstuer', name: 'Bjorli Fjellstuer', href: 'https://bjorlifjellstuer.no/' },
 ];
+
+const PROVIDER_CATEGORY: Record<ProviderKey, string> = {
+  novasol: 'agency',
+  bjorliheimen: 'hotel',
+  mountainLodge: 'apartment',
+  vintercamping: 'camping',
+  airbnb: 'agency',
+  finn: 'agency',
+  booking: 'agency',
+  fjellstuer: 'apartment',
+};
 
 type ProviderCopy = { category: string; desc: string; ctaLabel: string };
 
@@ -407,6 +419,14 @@ const Accommodation = () => {
                   target="_blank"
                   rel="noopener noreferrer nofollow"
                   className="mt-auto"
+                  onClick={() =>
+                    trackAccommodationLinkClick({
+                      provider_name: p.name,
+                      provider_category: PROVIDER_CATEGORY[p.key],
+                      link_url: p.href,
+                      link_text: pc.ctaLabel,
+                    })
+                  }
                 >
                   <Button variant="outline" className="w-full font-medium">
                     {pc.ctaLabel}
