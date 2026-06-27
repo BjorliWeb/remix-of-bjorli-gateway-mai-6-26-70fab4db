@@ -10,6 +10,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
+import { trackExternalPartnerClick } from '@/lib/analytics';
 
 /**
  * "Vær og webkamera" — combined live status, daily operational update,
@@ -302,6 +303,14 @@ const WeatherWebcams = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline inline-flex items-center gap-1"
+              onClick={() =>
+                trackExternalPartnerClick({
+                  partner_name: 'Fnugg',
+                  partner_category: 'weather',
+                  link_url: 'https://fnugg.no/bjorli/',
+                  link_text: 'fnugg.no/bjorli',
+                })
+              }
             >
               fnugg.no/bjorli <ExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
@@ -395,6 +404,14 @@ const WeatherWebcams = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
               aria-label={`${copy.langrennStatusCta} (${copy.externalNewTab})`}
+              onClick={() =>
+                trackExternalPartnerClick({
+                  partner_name: 'Loyper.net',
+                  partner_category: 'trail_map',
+                  link_url: 'https://www.loyper.net/no/sted/bjorli',
+                  link_text: copy.langrennStatusCta,
+                })
+              }
             >
               <Activity className="h-4 w-4 text-secondary" aria-hidden="true" />
               {copy.langrennStatusCta}
@@ -406,6 +423,14 @@ const WeatherWebcams = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
               aria-label={`${copy.langrennMapCta} (${copy.externalNewTab})`}
+              onClick={() =>
+                trackExternalPartnerClick({
+                  partner_name: 'Loyper.net',
+                  partner_category: 'trail_map',
+                  link_url: 'https://www.loyper.net/no/sted/bjorli/kart',
+                  link_text: copy.langrennMapCta,
+                })
+              }
             >
               <Map className="h-4 w-4 text-secondary" aria-hidden="true" />
               {copy.langrennMapCta}

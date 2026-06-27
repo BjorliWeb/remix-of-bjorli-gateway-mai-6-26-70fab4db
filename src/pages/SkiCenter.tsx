@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
+import { trackSkiPassClick } from '@/lib/analytics';
 
 /**
  * Page-local copy. The SkiCenter hero, stats and short description still
@@ -494,6 +495,14 @@ const SkiCenter = () => {
                 href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  trackSkiPassClick({
+                    link_url:
+                      'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+                    link_text: c.liftPassCta,
+                    cta_location: 'ski_center_page',
+                  })
+                }
               >
                 {c.liftPassCta} <ArrowUpRight className="h-5 w-5" />
               </a>

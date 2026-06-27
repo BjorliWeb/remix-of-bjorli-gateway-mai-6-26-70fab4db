@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
+import { trackEventSubmissionSubmit } from '@/lib/analytics';
 import {
   EVENT_CATEGORY_KEYS,
   CATEGORY_LABELS,
@@ -411,6 +412,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       } catch {
         /* ignore */
       }
+      trackEventSubmissionSubmit({
+        has_images: images.length > 0,
+        has_url: Boolean(normalizedWebsite),
+      });
       setDone(true);
     } catch (err) {
       const msg = err instanceof Error ? err.message : c.errors.generic;

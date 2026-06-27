@@ -12,6 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
 import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
+import { trackContactSubmit, trackPhoneClick, trackEmailClick } from '@/lib/analytics';
 
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 const TURNSTILE_ERRORS = {
@@ -140,6 +141,7 @@ const Contact = () => {
       setForm({ name: '', email: '', phone: '', message: '' });
       setTurnstileToken(null);
       turnstileRef.current?.reset();
+      trackContactSubmit();
     }
   };
 
@@ -159,11 +161,19 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-5 w-5 text-secondary shrink-0" />
-                  <a href="tel:+4748152200" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.phone}</a>
+                  <a
+                    href="tel:+4748152200"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    onClick={() => trackPhoneClick({ phone_label: 'main_phone' })}
+                  >{t.footer.phone}</a>
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="h-5 w-5 text-secondary shrink-0" />
-                  <a href="mailto:skisenter@bjorli.no" className="text-muted-foreground hover:text-foreground transition-colors">{t.footer.email}</a>
+                  <a
+                    href="mailto:skisenter@bjorli.no"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    onClick={() => trackEmailClick({ email_label: 'main_contact_email' })}
+                  >{t.footer.email}</a>
                 </div>
               </div>
             </motion.div>
