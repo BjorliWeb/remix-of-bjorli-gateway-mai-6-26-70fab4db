@@ -90,6 +90,14 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
+              onClick={() =>
+                trackSkiPassClick({
+                  link_url:
+                    'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+                  link_text: d.hero.ctaLiftPass,
+                  cta_location: 'hero',
+                })
+              }
             >
               <Button size="lg" className="font-medium w-full sm:w-auto h-12 px-6 text-base">
                 <Ticket className="mr-2 h-5 w-5" />
