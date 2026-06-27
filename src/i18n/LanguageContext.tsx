@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, ReactNode } from 'react';
 import { translations, dictionaries, Locale, LOCALES, LOCALE_PREFIX } from './translations';
 import { LanguageContext } from './languageContextCore';
 import { translatePath } from './routes';
+import { trackLanguageChange } from '@/lib/analytics';
 export { useLanguage } from './languageContextCore';
 
 /** Detects locale from the current URL pathname (works outside Router too). */
@@ -38,6 +39,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     const cleaned = translated === '/' ? '' : translated.replace(/\/$/, '');
     const newPath = (LOCALE_PREFIX[next] || '') + (cleaned || '/');
     window.history.pushState({}, '', newPath + search + hash);
+    if (currentLocale !== next) {
+      trackLanguageChange({ from_language: currentLocale, to_language: next });
+    }
     setLocaleState(next);
   };
 
