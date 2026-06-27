@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
+import { trackExternalPartnerClick } from '@/lib/analytics';
 
 const heroImg = images.resortEntrance.src;
 
@@ -209,6 +210,14 @@ const Handel = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'Intersport Bjorli',
+                      partner_category: 'shopping',
+                      link_url: 'https://intersportbjorli.no/',
+                      link_text: t.intersport.linkLabel,
+                    })
+                  }
                 >
                   {t.intersport.linkLabel} <ExternalLink className="h-4 w-4" />
                 </a>
@@ -250,6 +259,14 @@ const Handel = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                    onClick={() =>
+                      trackExternalPartnerClick({
+                        partner_name: 'Bunnpris Bjorli',
+                        partner_category: 'shopping',
+                        link_url: 'https://www.bunnpris.no/butikker/bunnpris-bjorli',
+                        link_text: t.bunnpris.bunnprisLink,
+                      })
+                    }
                   >
                     {t.bunnpris.bunnprisLink} <ExternalLink className="h-4 w-4" />
                   </a>
@@ -258,6 +275,14 @@ const Handel = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                    onClick={() =>
+                      trackExternalPartnerClick({
+                        partner_name: 'Eviny',
+                        partner_category: 'transport',
+                        link_url: 'https://share.google/UgR9PsUAMp5H1aIQO',
+                        link_text: t.bunnpris.evinyLink,
+                      })
+                    }
                   >
                     {t.bunnpris.evinyLink} <ExternalLink className="h-4 w-4" />
                   </a>
@@ -266,6 +291,14 @@ const Handel = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                    onClick={() =>
+                      trackExternalPartnerClick({
+                        partner_name: 'Tesla Supercharger',
+                        partner_category: 'transport',
+                        link_url: 'https://www.tesla.com/findus/location/supercharger/407723',
+                        link_text: t.bunnpris.teslaLink,
+                      })
+                    }
                   >
                     {t.bunnpris.teslaLink} <ExternalLink className="h-4 w-4" />
                   </a>
@@ -303,6 +336,14 @@ const Handel = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'Lunt Bjorli',
+                      partner_category: 'shopping',
+                      link_url: 'https://www.facebook.com/p/Lunt-Bjorli-100057398750786/',
+                      link_text: t.lunt.linkLabel,
+                    })
+                  }
                 >
                   {t.lunt.linkLabel} <ExternalLink className="h-4 w-4" />
                 </a>
@@ -339,6 +380,14 @@ const Handel = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm font-medium text-secondary hover:underline"
+                  onClick={() =>
+                    trackExternalPartnerClick({
+                      partner_name: 'XL-BYGG Bjorli',
+                      partner_category: 'shopping',
+                      link_url: 'https://xl-bygg.no/butikker/xl-bygg-bjorli',
+                      link_text: t.xlbygg.linkLabel,
+                    })
+                  }
                 >
                   {t.xlbygg.linkLabel} <ExternalLink className="h-4 w-4" />
                 </a>
