@@ -32,6 +32,44 @@ let bootstrapped = false;
 let consentGranted = false;
 
 /**
+ * Cached params from the most recent trackPageView() call. When the page
+ * mounts before the user has accepted analytics consent, the call is
+ * suppressed by canFire() — we stash the params here so we can replay
+ * exactly one page_view as soon as setAnalyticsConsent(true) runs,
+ * without waiting for the next SPA navigation.
+ */
+let lastPageViewParams: { path: string; title: string; language: string } | null = null;
+/**
+ * Dedupe guard. Stores the `${path}|${title}` of the most recently sent
+ * page_view so a replay-on-consent followed immediately by a route-change
+ * trackPageView for the same page doesn't double-count.
+ */
+let lastSentKey: string | null = null;
+
+// -------- debug ----------------------------------------------------------
+// Activated by appending ?debug_ga4=1 to any URL. Survives SPA navigation
+// for the lifetime of the tab. Never logs in production without the flag.
+const isDebug = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  try {
+    if (window.location.search.includes('debug_ga4=1')) {
+      window.sessionStorage.setItem('bjorli_debug_ga4', '1');
+      return true;
+    }
+    return window.sessionStorage.getItem('bjorli_debug_ga4') === '1';
+  } catch {
+    return window.location.search.includes('debug_ga4=1');
+  }
+};
+const dbg = (...args: unknown[]): void => {
+  if (isDebug()) {
+     
+    console.log('[ga4]', ...args);
+  }
+};
+const maskedId = (): string => (GA4_ID ? `…${GA4_ID.slice(-4)}` : 'unset');
+
+/**
  * Consent gate. Production should set this from a CMP (Cookiebot, Klaro,
  * OneTrust) or Google Consent Mode v2 BEFORE any tracking fires.
  *
@@ -42,6 +80,7 @@ let consentGranted = false;
  */
 export const setAnalyticsConsent = (granted: boolean): void => {
   consentGranted = granted;
+  dbg('setAnalyticsConsent', { granted, gtagAvailable: typeof window !== 'undefined' && !!window.gtag, ga4Id: maskedId() });
   if (granted) {
     bootstrap();
     // Consent Mode v2 — flip the relevant categories to "granted".
@@ -52,6 +91,19 @@ export const setAnalyticsConsent = (granted: boolean): void => {
         ad_user_data: 'denied',
         ad_personalization: 'denied',
       });
+    }
+    // Immediately replay (or freshly send) a page_view for the current
+    // page. Without this, the very first page after consent is missing
+    // from GA4 because the SEOHead trackPageView fired before consent
+    // was granted and was dropped by canFire().
+    if (typeof window !== 'undefined') {
+      const replay = lastPageViewParams ?? {
+        path: window.location.pathname,
+        title: typeof document !== 'undefined' ? document.title : '',
+        language: document?.documentElement?.lang || 'no',
+      };
+      dbg('replay page_view after consent', replay);
+      sendPageView(replay, { force: true });
     }
   } else if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('consent', 'update', {
@@ -82,8 +134,12 @@ const bootstrap = (): void => {
   // Production guard — never inject GA4/GTM scripts on Lovable preview,
   // staging, localhost, or any non-production origin, even if the env
   // var has accidentally been set.
-  if (!isProductionOrigin(window.location.origin)) return;
+  if (!isProductionOrigin(window.location.origin)) {
+    dbg('bootstrap skipped — non-production origin', window.location.origin);
+    return;
+  }
   bootstrapped = true;
+  dbg('bootstrap()', { ga4Id: maskedId(), gtmId: GTM_ID ? '(set)' : 'unset' });
   window.dataLayer = window.dataLayer || [];
   // Consent Mode v2 default-deny — MUST be pushed before gtag.js loads.
   window.gtag = window.gtag || function gtag(...args: unknown[]) {
@@ -183,21 +239,27 @@ export const track = (event: AnalyticsEventName, params: BaseEventParams = {}): 
   }
 };
 
-/** SPA page_view helper — call on every route change. */
-export const trackPageView = (params: {
-  path: string;
-  title: string;
-  language: string;
-}): void => {
-  if (!canFire()) return;
-  bootstrap();
+/**
+ * Internal helper that actually emits a page_view to GA4 + dataLayer.
+ * Centralises dedupe + debug logging so both route-change tracking and
+ * the consent-replay path go through the same code path.
+ */
+const sendPageView = (
+  params: { path: string; title: string; language: string },
+  opts: { force?: boolean } = {},
+): void => {
   if (typeof window === 'undefined') return;
-  // GA4 expects page_location + page_title; we strip query strings to avoid
-  // accidental PII leakage from search params or tokens.
   const safePath = params.path.split('?')[0];
+  const key = `${safePath}|${params.title}`;
+  if (!opts.force && key === lastSentKey) {
+    dbg('page_view skipped (dedupe)', key);
+    return;
+  }
+  lastSentKey = key;
   const page_location = window.location.origin + safePath;
   const ambient = getAnalyticsContext();
   const season = ambient.season;
+  dbg('page_view ->', { path: safePath, title: params.title, language: params.language, season });
   if (GA4_ID && window.gtag) {
     window.gtag('event', 'page_view', {
       page_location,
@@ -214,6 +276,26 @@ export const trackPageView = (params: {
     language: params.language,
     season,
   });
+};
+
+/**
+ * SPA page_view helper — call on every route change.
+ *
+ * Always caches the latest params so that, if the user accepts analytics
+ * consent AFTER this route has mounted, setAnalyticsConsent(true) can
+ * immediately replay the current page_view without waiting for the next
+ * navigation.
+ */
+export const trackPageView = (params: {
+  path: string;
+  title: string;
+  language: string;
+}): void => {
+  lastPageViewParams = params;
+  dbg('trackPageView()', { ...params, canFire: canFire(), consentGranted, prodOrigin: typeof window !== 'undefined' && isProductionOrigin(window.location.origin) });
+  if (!canFire()) return;
+  bootstrap();
+  sendPageView(params);
 };
 
 /** True only when a real measurement ID is configured at build time. */
