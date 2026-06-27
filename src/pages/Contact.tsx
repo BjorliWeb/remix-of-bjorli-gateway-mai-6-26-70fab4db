@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, d } = useLanguage();
   const s = t.contactPage;
   const contactSchema = useMemo(
     () =>
@@ -121,7 +121,7 @@ const Contact = () => {
               <div className="space-y-5">
                 <div className="flex items-start gap-4">
                   <MapPin className="h-5 w-5 text-secondary mt-1 shrink-0" />
-                  <span className="text-muted-foreground">{t.footer.address}</span>
+                  <span className="text-muted-foreground">{d.footer.address}</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-5 w-5 text-secondary shrink-0" />

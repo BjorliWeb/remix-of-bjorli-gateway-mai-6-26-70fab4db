@@ -191,7 +191,7 @@ const no: Dictionary = {
     summerTitle: 'Sommer',
     planTitle: 'Planlegg reisen',
     contactTitle: 'Kontakt',
-    address: 'Bjorliveien 84, 2669 Bjorli, Norway',
+    address: 'Bjorliveien 84, 2669 Bjorli',
     rights: '© 2026 Destinasjon Bjorli',
     company: 'Nye Bjorli Skisenter AS',
     privacy: 'Personvern',
