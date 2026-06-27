@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Facebook, Instagram } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getFooter, useCms } from '@/lib/cms';
+import { trackPhoneClick, trackEmailClick } from '@/lib/analytics';
 import bjorliLogo from '@/assets/bjorli-logo.jpeg';
 
 const Footer = () => {
@@ -129,7 +130,11 @@ const Footer = () => {
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-season/20 ring-1 ring-season/40 text-season shrink-0">
                   <Phone className="h-4 w-4" />
                 </span>
-                <a href="tel:+4748152200" className="hover:text-season transition-colors">
+                <a
+                  href="tel:+4748152200"
+                  className="hover:text-season transition-colors"
+                  onClick={() => trackPhoneClick({ phone_label: 'main_phone' })}
+                >
                   +47 48 15 22 00
                 </a>
               </li>
@@ -137,7 +142,11 @@ const Footer = () => {
                 <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-season/20 ring-1 ring-season/40 text-season shrink-0">
                   <Mail className="h-4 w-4" />
                 </span>
-                <a href="mailto:skisenter@bjorli.no" className="hover:text-season transition-colors">
+                <a
+                  href="mailto:skisenter@bjorli.no"
+                  className="hover:text-season transition-colors"
+                  onClick={() => trackEmailClick({ email_label: 'main_contact_email' })}
+                >
                   skisenter@bjorli.no
                 </a>
               </li>
