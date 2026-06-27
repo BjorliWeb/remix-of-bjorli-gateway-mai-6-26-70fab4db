@@ -81,7 +81,7 @@ Production origins are listed in `src/lib/seo/origin.ts`.
 
 ## 2. Google Search Console
 
-1. In Search Console, add `https://www.bjorli.no/` as a URL-prefix
+1. In Search Console, add `https://bjorli.no/` as a URL-prefix
    property (not a domain property — that would require DNS verification
    instead of a meta tag).
 2. Choose **HTML tag** verification. Copy the `content` value from the
@@ -99,7 +99,7 @@ Production origins are listed in `src/lib/seo/origin.ts`.
 6. Submit the sitemap once verification succeeds:
 
    ```
-   https://www.bjorli.no/sitemap.xml
+   https://bjorli.no/sitemap.xml
    ```
 
 ## 3. Sitemap
@@ -119,7 +119,7 @@ bun run scripts/build-sitemap.ts
 
 ### After every production deploy
 
-- Open `https://www.bjorli.no/sitemap.xml` and confirm it loads.
+- Open `https://bjorli.no/sitemap.xml` and confirm it loads.
 - Spot-check 2–3 localized URLs by clicking through.
 - In Search Console → Sitemaps, confirm the latest submission has
   `Status: Success` and a reasonable URL count.

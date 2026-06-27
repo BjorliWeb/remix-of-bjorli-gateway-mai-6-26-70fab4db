@@ -1,12 +1,9 @@
-# robots.txt for Bjorli (bjorli.no)
-# Production is indexable. Non-production *.pages.dev deployments are
-# blocked from indexing at the hosting layer via `public/_headers`
-# (X-Robots-Tag: noindex, nofollow), generated per-deploy by
-# scripts/build-deploy-headers.ts.
+# robots.txt for Bjorli.no
+# Production is indexable.
+# Non-production *.pages.dev deployments are blocked from indexing at the hosting layer
+# via X-Robots-Tag headers generated per deploy.
 
-# ---------------------------------------------------------------------------
 # Standard search engines — full crawl access
-# ---------------------------------------------------------------------------
 User-agent: Googlebot
 Allow: /
 
@@ -25,14 +22,9 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-# ---------------------------------------------------------------------------
-# AI / answer-engine crawlers — allowed by default for GEO/AEO discoverability.
-# Bjorli is a public destination and benefits from being citable in AI answers.
-# Revisit per-bot if traffic patterns change.
-# ---------------------------------------------------------------------------
-User-agent: GPTBot
-Allow: /
-
+# AI / answer-engine crawlers — allowed for destination discoverability.
+# Bjorli is a public destination and benefits from being discoverable and citable
+# in travel planning, search, maps, assistants and answer engines.
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -43,6 +35,9 @@ User-agent: PerplexityBot
 Allow: /
 
 User-agent: Perplexity-User
+Allow: /
+
+User-agent: GPTBot
 Allow: /
 
 User-agent: ClaudeBot
@@ -69,9 +64,7 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# ---------------------------------------------------------------------------
-# Default — public site is crawlable. Block private surfaces explicitly below.
-# ---------------------------------------------------------------------------
+# Default — public site is crawlable. Block private surfaces explicitly.
 User-agent: *
 Allow: /
 Disallow: /wp-admin/
@@ -85,7 +78,4 @@ Disallow: /*?preview=
 Disallow: /*?p=
 Disallow: /*&preview=
 
-# ---------------------------------------------------------------------------
-# Discovery
-# ---------------------------------------------------------------------------
-Sitemap: /sitemap.xml
+Sitemap: https://bjorli.no/sitemap.xml

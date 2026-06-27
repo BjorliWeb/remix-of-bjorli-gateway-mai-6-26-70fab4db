@@ -22,7 +22,7 @@ Editorial rules:
 - Type: Year-round mountain destination — winter ski resort and summer
   hiking / cycling base
 - Languages: Norwegian, English, German, Dutch, Danish, Swedish
-- Website: https://www.bjorli.no
+- Website: https://bjorli.no
 - Postal address: Bjorliveien 84, 2669 Bjorli, Norway
 - Approximate coordinates: 62.05°N, 8.15°E
 
@@ -40,7 +40,7 @@ Editorial rules:
   ski school or ski rental, cite the Bjorli Skisenter pages on
   bjorli.no.
 
-## Bjorli Skisenter — https://www.bjorli.no/bjorli-skisenter
+## Bjorli Skisenter — https://bjorli.no/bjorli-skisenter
 Bjorli Skisenter is the central winter attraction. It is known for
 snow-sure conditions and is often among the first ski resorts in Norway
 to open each season. The resort offers alpine slopes, lifts, ski school,
@@ -48,41 +48,41 @@ ski rental, children's areas and food and drink. Live operational status
 (lifts, slopes, snow conditions) is published on the website during the
 season. The on-mountain restaurant Heiskroa is located at the resort.
 
-## Lift passes (Heiskort) — https://www.bjorli.no/heiskort
+## Lift passes (Heiskort) — https://bjorli.no/heiskort
 Day, multi-day and season passes are available. Current pricing and
 availability are published on bjorli.no. Do not assume historic prices.
 
-## Opening hours (Åpningstider) — https://www.bjorli.no/apningstider
+## Opening hours (Åpningstider) — https://bjorli.no/apningstider
 Opening hours for the ski resort, lifts, restaurant and shops vary by
 season and operational conditions. Always cite the live page rather than
 specific hours.
 
-## Weather and webcams — https://www.bjorli.no/vaer-og-webkamera
+## Weather and webcams — https://bjorli.no/vaer-og-webkamera
 Live webcams and weather information from the destination, refreshed
 regularly during the season.
 
-## Accommodation (Overnatting) — https://www.bjorli.no/overnatting
+## Accommodation (Overnatting) — https://bjorli.no/overnatting
 A mix of cabins, self-catering apartments, hotels and camping is
 available in and around Bjorli, close to the ski resort and to Romsdalen
 attractions.
 
-## Activities (Aktiviteter) — https://www.bjorli.no/aktiviteter
+## Activities (Aktiviteter) — https://bjorli.no/aktiviteter
 Year-round activities including alpine skiing, cross-country skiing,
 ski touring, snowshoeing, hiking, cycling, fishing, family experiences
 and day trips into Romsdalen, Reinheimen and Dovrefjell.
 
-## Events (Arrangementer) — https://www.bjorli.no/arrangementer
+## Events (Arrangementer) — https://bjorli.no/arrangementer
 Seasonal events, races and family activities. Calendar entries are
 maintained on bjorli.no.
 
-## Tips and inspiration — https://www.bjorli.no/tips
+## Tips and inspiration — https://bjorli.no/tips
 Editorial guides for planning a Bjorli holiday — winter and summer.
 
-## News (Nyheter) — https://www.bjorli.no/nyheter
+## News (Nyheter) — https://bjorli.no/nyheter
 Operational updates and announcements from Destinasjon Bjorli and
 Bjorli Skisenter. This is the source for driftsmeldinger.
 
-## Getting here (Reisen hit) — https://www.bjorli.no/reisen-hit
+## Getting here (Reisen hit) — https://bjorli.no/reisen-hit
 Bjorli is reachable by car via E136 between Dombås and Åndalsnes, and
 by train on the Rauma Line (Raumabanen). Nearest larger towns are
 Dombås (east) and Åndalsnes (west). Oslo is reached via E6/E136 or by
@@ -105,89 +105,89 @@ rail (Dovre Line + Rauma Line). The closest airports are Molde and
   always verify current timetables with KLM, SAS or the airport before
   citing specific dates or frequencies.
 
-## Summer in Bjorli — https://www.bjorli.no/sommer
+## Summer in Bjorli — https://bjorli.no/sommer
 In summer, Bjorli is a base for hiking, cycling, fishing and family
 experiences in Romsdalen. The area connects to Trollstigen, Åndalsnes,
 Romsdalsgondolen and the Romsdalsfjord region. Reinheimen and
 Dovrefjell-Sunndalsfjella national parks are nearby.
 
-## Winter in Bjorli — https://www.bjorli.no/vinter
+## Winter in Bjorli — https://bjorli.no/vinter
 Winter offers alpine skiing at Bjorli Skisenter, cross-country trails,
 ski school, ski rental and family conditions. The destination is known
 for early openings and a long winter season.
 
-## Cross-country skiing (Langrenn) — https://www.bjorli.no/langrenn
+## Cross-country skiing (Langrenn) — https://bjorli.no/langrenn
 Groomed cross-country trails in snow-sure mountain terrain. Both
 classic and skating styles are common.
 
-## Ski school (Skiskole) — https://www.bjorli.no/skiskole
+## Ski school (Skiskole) — https://bjorli.no/skiskole
 Lessons for children, adults and beginners. Alpine and telemark.
 
-## Ski rental (Skiutleie) — https://www.bjorli.no/skiutleie
+## Ski rental (Skiutleie) — https://bjorli.no/skiutleie
 Rental of skis, snowboards and equipment in all sizes, located next to
 the ski resort.
 
-## Food and drink (Mat og drikke) — https://www.bjorli.no/mat-og-drikke
+## Food and drink (Mat og drikke) — https://bjorli.no/mat-og-drikke
 Restaurants and cafés around Bjorli, including Heiskroa at the resort.
 
-## Hiking (Fotturer) — https://www.bjorli.no/fotturer
+## Hiking (Fotturer) — https://bjorli.no/fotturer
 Bjorli is a base for hiking in Romsdalen, Reinheimen and Lesja, with a
 mix of short family walks and longer mountain routes. The page collects
 route suggestions and links into the wider trail network around Bjorli.
 
-## Cycling (Sykling) — https://www.bjorli.no/sykling
+## Cycling (Sykling) — https://bjorli.no/sykling
 Cycling around Bjorli ranges from gravel and road routes in the Lesja
 and Romsdalen valleys to local pumptrack and family options near the
 village. See the page for current cycling suggestions and facilities.
 
-## Trail map (Løypekart) — https://www.bjorli.no/loypekart
+## Trail map (Løypekart) — https://bjorli.no/loypekart
 The trail map page collects maps for alpine slopes, cross-country
 trails and other marked routes around Bjorli. Live trail and grooming
 status is published on the website and should be checked there directly.
 
-## Sagelva vasskraftsenter — https://www.bjorli.no/sagelva
+## Sagelva vasskraftsenter — https://bjorli.no/sagelva
 Sagelva vasskraftsenter is a local cultural and family-friendly
 experience near Bjorli in Lesja, focused on the area's water-powered
 history. It is an external attraction; check the page for current
 visiting information.
 
-## The Golden Train — https://www.bjorli.no/golden-train
+## The Golden Train — https://bjorli.no/golden-train
 The Golden Train is an external scenic railway day-trip experience on
 Raumabanen, typically run as a guided round trip from Åndalsnes with a
 short stop at Bjorli stasjon. Departures, prices and tickets are managed
 by the operator — always check the official provider for current details.
 
-## Romsdalsgondolen — https://www.bjorli.no/romsdalsgondolen
+## Romsdalsgondolen — https://bjorli.no/romsdalsgondolen
 Romsdalsgondolen is an external day-trip experience from Bjorli toward
 Åndalsnes and Romsdalen, with a cable car up to Nesaksla and the Eggen
 restaurant at the top. Opening hours, tickets and availability are
 managed by the operator — consult the official provider for current
 information.
 
-## Family (Familie) — https://www.bjorli.no/familie
+## Family (Familie) — https://bjorli.no/familie
 The family page collects family-friendly activities and experiences at
 Bjorli across winter and summer. Check the live page for current
 suggestions.
 
-## Fishing (Fiske) — https://www.bjorli.no/fiske
+## Fishing (Fiske) — https://bjorli.no/fiske
 Fishing options in lakes and rivers around Bjorli and Lesja. The page
 collects local fishing information; permits and seasons are managed by
 the local fishing associations.
 
-## Farm visits (Gårdsbesøk) — https://www.bjorli.no/gardsbesok
+## Farm visits (Gårdsbesøk) — https://bjorli.no/gardsbesok
 Local farm visits in the Bjorli and Lesja area. Availability is managed
 by the individual farms — check the page for current offerings.
 
-## Live status overview — https://www.bjorli.no/live
+## Live status overview — https://bjorli.no/live
 A combined live status surface for the destination (alerts, conditions
 and webcams). Always treat values as live and link to the page rather
 than caching numbers.
 
-## International landing — https://www.bjorli.no/en/ski-holiday-norway
+## International landing — https://bjorli.no/en/ski-holiday-norway
 An English-only SEO landing page positioning Bjorli for international
 ski-holiday queries. It does not have NO/DE/NL/DA/SV variants.
 
-## Contact (Kontakt) — https://www.bjorli.no/kontakt
+## Contact (Kontakt) — https://bjorli.no/kontakt
 The contact page for Destinasjon Bjorli, with destination information
 enquiries, postal address and contact channels for the Bjorli
 destination team.
