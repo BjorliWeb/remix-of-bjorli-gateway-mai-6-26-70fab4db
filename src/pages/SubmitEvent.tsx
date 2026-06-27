@@ -71,6 +71,9 @@ const COPY = {
       badImage: 'Kun JPG, PNG eller WebP er tillatt.',
       consent: 'Du må bekrefte begge samtykkene.',
       uploadFailed: 'Kunne ikke laste opp bilde.',
+      uploadFailedDetailed:
+        'Bildet kunne ikke lastes opp. Prøv et JPG-, PNG- eller WebP-bilde under maksgrensen.',
+      badUrl: 'Skriv inn en gyldig nettadresse (f.eks. www.eksempel.no).',
     },
   },
   en: {
@@ -124,6 +127,9 @@ const COPY = {
       badImage: 'Only JPG, PNG or WebP files are allowed.',
       consent: 'Please confirm both consents.',
       uploadFailed: 'Could not upload image.',
+      uploadFailedDetailed:
+        'The image could not be uploaded. Please try a JPG, PNG or WebP file below the size limit.',
+      badUrl: 'Please enter a valid web address (e.g. www.example.com).',
     },
   },
 } as const;
@@ -134,6 +140,24 @@ const MAX_FILE_BYTES = 8 * 1024 * 1024; // 8 MB per file (matches intended bucke
 const DEDUPE_KEY = 'bjorli_event_last_v1';
 const DEDUPE_WINDOW_MS = 10 * 60 * 1000;
 
+/**
+ * Normalize a user-entered URL. Returns the normalized https:// URL when
+ * possible, an empty string for empty input, or null when the value is not
+ * a plausible URL/domain.
+ */
+function normalizeUrl(raw: string): string | null {
+  const v = raw.trim();
+  if (!v) return '';
+  const withProto = /^https?:\/\//i.test(v) ? v : `https://${v}`;
+  try {
+    const u = new URL(withProto);
+    if (!u.hostname || !u.hostname.includes('.')) return null;
+    return u.toString();
+  } catch {
+    return null;
+  }
+}
+
 const schema = z.object({
   title: z.string().trim().min(3).max(160),
   summary: z.string().trim().max(280).optional().or(z.literal('')),
@@ -142,12 +166,12 @@ const schema = z.object({
   contactName: z.string().trim().min(2).max(160),
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(40).optional().or(z.literal('')),
-  website: z.string().trim().url().max(500).optional().or(z.literal('')),
+  website: z.string().trim().max(500).optional().or(z.literal('')),
   startDate: z.string().min(1),
   endDate: z.string().optional().or(z.literal('')),
   time: z.string().trim().max(120).optional().or(z.literal('')),
   location: z.string().trim().min(2).max(240),
-  maps: z.string().trim().url().max(500).optional().or(z.literal('')),
+  maps: z.string().trim().max(500).optional().or(z.literal('')),
   category: z.string().min(1),
 });
 
@@ -252,6 +276,18 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       return;
     }
 
+    // Normalize optional URL fields (accepts "www.x.com", "x.com", "https://x.com").
+    const normalizedWebsite = normalizeUrl(parsed.data.website || '');
+    const normalizedMaps = normalizeUrl(parsed.data.maps || '');
+    if (normalizedWebsite === null) {
+      setErrors((p) => ({ ...p, website: c.errors.badUrl }));
+      return;
+    }
+    if (normalizedMaps === null) {
+      setErrors((p) => ({ ...p, maps: c.errors.badUrl }));
+      return;
+    }
+
     // Duplicate submission guard (same title+email within 10 min).
     try {
       const fingerprint = `${parsed.data.email}|${parsed.data.title}`.slice(0, 500);
@@ -283,12 +319,12 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
         contact_name: parsed.data.contactName,
         email: parsed.data.email,
         phone: parsed.data.phone || null,
-        website: parsed.data.website || null,
+        website: normalizedWebsite || null,
         start_date: parsed.data.startDate,
         end_date: parsed.data.endDate || null,
         time_text: parsed.data.time || null,
         location: parsed.data.location,
-        maps_url: parsed.data.maps || null,
+        maps_url: normalizedMaps || null,
         category: parsed.data.category,
         image_urls: plannedPaths,
         upload_token: uploadToken,
@@ -309,7 +345,11 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
           .from('event-submissions')
           .upload(path, file, { contentType: file.type });
         if (upErr) {
-          throw new Error(c.errors.uploadFailed);
+          if (import.meta.env.DEV) {
+            // eslint-disable-next-line no-console
+            console.error('[event-submission] image upload failed', upErr);
+          }
+          throw new Error(c.errors.uploadFailedDetailed);
         }
       }
 
