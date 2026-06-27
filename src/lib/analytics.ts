@@ -207,6 +207,7 @@ export type AnalyticsEventName =
   // navigation / lifecycle
   | 'page_view'
   | 'change_language'
+  | 'language_change'
   | 'season_switch'
   // primary CTAs
   | 'click_buy_ski_pass'
@@ -220,6 +221,8 @@ export type AnalyticsEventName =
   // contact
   | 'click_phone'
   | 'click_email'
+  | 'phone_click'
+  | 'email_click'
   // content
   | 'click_event'
   | 'click_news'
@@ -227,6 +230,12 @@ export type AnalyticsEventName =
   | 'click_activity'
   // outbound + integrations
   | 'click_external_link'
+  | 'accommodation_link_click'
+  | 'ski_pass_click'
+  | 'external_partner_click'
+  // form successes
+  | 'contact_form_submit'
+  | 'event_submission_submit'
   | 'view_fnugg_status'
   | 'click_fnugg_source'
   // future
@@ -336,3 +345,174 @@ export const trackPageView = (params: {
 
 /** True only when a real measurement ID is configured at build time. */
 export const isAnalyticsEnabled = (): boolean => Boolean(GA4_ID || GTM_ID);
+
+// ---------------------------------------------------------------------------
+// Generic + convenience event helpers
+//
+// All helpers route through the existing consent gate (`canFire`) and the
+// production-origin guard inside `bootstrap()`. They are no-ops before
+// analytics consent has been granted. They never throw — gtag/dataLayer
+// failures are swallowed. No personally identifiable information is
+// accepted or forwarded: helpers only take the documented public params.
+// ---------------------------------------------------------------------------
+
+const safeDomain = (url: string): string | undefined => {
+  try {
+    return new URL(url, typeof window !== 'undefined' ? window.location.href : 'https://bjorli.no').hostname;
+  } catch {
+    return undefined;
+  }
+};
+
+const sourcePage = (): string =>
+  typeof window !== 'undefined' ? window.location.pathname : '';
+
+/**
+ * Generic GA4 event helper. Use this for anything not covered by the
+ * convenience helpers below. Stamps ambient `page_path`, `page_location`,
+ * `language`, `season` from `analyticsContext`. Strips empty values.
+ */
+export const trackEvent = (
+  name: string,
+  params: Record<string, unknown> = {},
+): void => {
+  const consentAllowed = canFire();
+  const gtagAvailable = typeof window !== 'undefined' && typeof window.gtag === 'function';
+  if (isDebug()) {
+    dbg(`event ${name}`, { params, consentAllowed, gtagAvailable, ga4Id: maskedId() });
+  }
+  if (!consentAllowed) return;
+  try {
+    bootstrap();
+    if (typeof window === 'undefined') return;
+    const ambient = getAnalyticsContext();
+    const merged: Record<string, unknown> = {
+      page_path: sourcePage(),
+      page_location: typeof window !== 'undefined' ? window.location.href : undefined,
+      ...ambient,
+      ...params,
+    };
+    const clean: Record<string, unknown> = {};
+    Object.entries(merged).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== '') clean[k] = v;
+    });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: name, ...clean });
+    if (GA4_ID && window.gtag) {
+      window.gtag('event', name, { send_to: GA4_ID, ...clean });
+    }
+  } catch {
+    /* never throw from analytics */
+  }
+};
+
+export const trackOutboundLinkClick = (params: {
+  link_url: string;
+  link_text?: string;
+  source_page?: string;
+}): void => {
+  trackEvent('outbound_link_click', {
+    link_url: params.link_url,
+    link_domain: safeDomain(params.link_url),
+    link_text: params.link_text,
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+export const trackAccommodationLinkClick = (params: {
+  provider_name: string;
+  provider_category?: string;
+  link_url: string;
+  link_text?: string;
+}): void => {
+  trackEvent('accommodation_link_click', {
+    provider_name: params.provider_name,
+    provider_category: params.provider_category,
+    link_url: params.link_url,
+    link_domain: safeDomain(params.link_url),
+    link_text: params.link_text,
+  });
+};
+
+export const trackSkiPassClick = (params: {
+  link_url: string;
+  link_text?: string;
+  cta_location?: string;
+  source_page?: string;
+}): void => {
+  trackEvent('ski_pass_click', {
+    link_url: params.link_url,
+    link_text: params.link_text,
+    cta_location: params.cta_location,
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+export const trackExternalPartnerClick = (params: {
+  partner_name?: string;
+  partner_category?: string;
+  link_url: string;
+  link_text?: string;
+  source_page?: string;
+}): void => {
+  trackEvent('external_partner_click', {
+    partner_name: params.partner_name,
+    partner_category: params.partner_category,
+    link_url: params.link_url,
+    link_domain: safeDomain(params.link_url),
+    link_text: params.link_text,
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+export const trackContactSubmit = (): void => {
+  trackEvent('contact_form_submit', { form_name: 'contact' });
+};
+
+export const trackEventSubmissionSubmit = (params: {
+  has_images: boolean;
+  has_url: boolean;
+}): void => {
+  trackEvent('event_submission_submit', {
+    form_name: 'event_submission',
+    has_images: params.has_images,
+    has_url: params.has_url,
+  });
+};
+
+/**
+ * Phone click. Use a label like `main_phone`; do NOT pass the raw number.
+ */
+export const trackPhoneClick = (params: {
+  phone_label?: string;
+  source_page?: string;
+} = {}): void => {
+  trackEvent('phone_click', {
+    phone_label: params.phone_label ?? 'main_phone',
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+/**
+ * Email click. Use a label like `main_contact_email`; do NOT pass the
+ * raw address.
+ */
+export const trackEmailClick = (params: {
+  email_label?: string;
+  source_page?: string;
+} = {}): void => {
+  trackEvent('email_click', {
+    email_label: params.email_label ?? 'main_contact_email',
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+export const trackLanguageChange = (params: {
+  from_language: string;
+  to_language: string;
+}): void => {
+  trackEvent('language_change', {
+    from_language: params.from_language,
+    to_language: params.to_language,
+  });
+};
