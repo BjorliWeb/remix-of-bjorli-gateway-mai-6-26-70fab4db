@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import Layout from "@/components/Layout";
@@ -120,6 +120,10 @@ const AppRoutes = () => (
     <Route path="/tips" element={<Tips />} />
     <Route path="/tips/:slug" element={<ContentDetailPage kind="tips" />} />
     <Route path="/arrangementer" element={<Events />} />
+    {/* Legacy/empty page removed — 301 to /sommer (CF _redirects handles direct hits;
+        this Navigate covers client-side navigation). Must be declared before the
+        generic :slug route so it wins the match. */}
+    <Route path="/arrangementer/sommeraktiviteter" element={<Navigate to="/sommer" replace />} />
     <Route path="/arrangementer/:slug" element={<ContentDetailPage kind="events" />} />
     <Route path="/nyheter" element={<News />} />
     <Route path="/nyheter/:slug" element={<ContentDetailPage kind="news" />} />
