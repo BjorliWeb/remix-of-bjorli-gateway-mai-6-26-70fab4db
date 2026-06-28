@@ -4,14 +4,15 @@ interface PageHeroProps {
   title: string;
   subtitle: string;
   image: string;
+  alt?: string;
 }
 
-const PageHero = ({ title, subtitle, image }: PageHeroProps) => {
+const PageHero = ({ title, subtitle, image, alt }: PageHeroProps) => {
   return (
     <section className="relative h-[68vh] min-h-[520px] flex items-end justify-center overflow-hidden">
       <img
         src={image}
-        alt={title}
+        alt={alt ?? title}
         className="absolute inset-0 w-full h-full object-cover"
         loading="lazy"
       />
