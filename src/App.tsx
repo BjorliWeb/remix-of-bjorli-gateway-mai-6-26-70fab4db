@@ -168,6 +168,20 @@ const AppRoutes = () => (
           element={<KlatringRomsdalen />}
         />
       ))}
+    {/* Localized aliases for /sommer/tafjordfjella. Same component;
+        only the parent /sommer slug is translated. Child slug
+        "tafjordfjella" stays as-is (proper noun). */}
+    {Array.from(new Set(
+      LOCALES.filter((l) => l !== 'no').map((l) => ROUTE_SLUGS.sommer[l])
+    ))
+      .filter((s) => s && s !== 'sommer')
+      .map((s) => (
+        <Route
+          key={`tafjordfjella-${s}`}
+          path={`/${s}/tafjordfjella`}
+          element={<Tafjordfjella />}
+        />
+      ))}
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
     <Route path="/loypekart" element={<Loypekart />} />
