@@ -8,6 +8,7 @@ import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import flyplassImg from '@/assets/photos/bjorli-flyplass-oversikt.png';
 import villeVermaImg from '@/assets/photos/villeverma-zipline-rauma.jpg';
+import tafjordfjellaImg from '@/assets/tafjordfjella-vakkerstoylen.jpg';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
