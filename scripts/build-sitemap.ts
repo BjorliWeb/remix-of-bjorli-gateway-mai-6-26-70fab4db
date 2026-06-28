@@ -144,6 +144,28 @@ for (const extra of EN_ONLY_EXTRAS) {
   });
 }
 
+/**
+ * Norwegian-only summer sub-pages that live under /sommer/* but are not
+ * part of the canonical route registry (no localized aliases). Listed
+ * here so they show up in the sitemap with correct lastmod/priority.
+ */
+const NO_ONLY_EXTRAS = [
+  { path: '/sommer/tafjordfjella', priority: 0.6, changefreq: 'monthly' },
+];
+for (const extra of NO_ONLY_EXTRAS) {
+  const href = ORIGIN + extra.path;
+  urls.push({
+    loc: href,
+    lastmod: LASTMOD,
+    changefreq: extra.changefreq,
+    priority: extra.priority,
+    alternates: [
+      { hreflang: 'no', href },
+      { hreflang: 'x-default', href },
+    ],
+  });
+}
+
 const xmlEscape = (s: string) =>
   s
     .replace(/&/g, '&amp;')
