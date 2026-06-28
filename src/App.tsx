@@ -102,7 +102,10 @@ const AppRoutes = () => (
         /livecams is kept as a legacy alias rendering the same component
         until a true 301 can be configured at the hosting layer. */}
     <Route path="/vaer-og-webkamera" element={<WeatherWebcams />} />
-    <Route path="/livecams" element={<WeatherWebcams />} />
+    {/* Legacy /livecams URL — client-side 301-equivalent redirect to the
+        canonical page. Production hosting also serves a real 301 via
+        public/_redirects so direct hits never render the SPA shell. */}
+    <Route path="/livecams" element={<Navigate to="/vaer-og-webkamera" replace />} />
     <Route path="/skiskole" element={<SkiSchool />} />
     <Route path="/skiutleie" element={<SkiRental />} />
     <Route path="/mat-og-drikke" element={<FoodDrink />} />
@@ -213,7 +216,8 @@ const AppRoutes = () => (
     {/* Localized /praktisk-info aliases unpublished — see comment above. */}
     {aliasRoute('reisen-hit', <GettingHere />)}
     {aliasRoute('vaer-og-webkamera', <WeatherWebcams />)}
-    {aliasRoute('livecams', <WeatherWebcams />)}
+    {/* Localized /livecams aliases also redirect to the canonical page. */}
+    {aliasRoute('livecams', <Navigate to="/vaer-og-webkamera" replace />)}
     {aliasRoute('tips', <Tips />)}
     {localizedAliases('tips').map((p) => (
       <Route key={`tips-detail-${p}`} path={`${p}/:slug`} element={<ContentDetailPage kind="tips" />} />
