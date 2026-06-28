@@ -5,5 +5,7 @@
 /livecams/       /vaer-og-webkamera      301
 /hva-skjer       /arrangementer          301
 /hva-skjer/      /arrangementer          301
+/arrangementer/sommeraktiviteter   /sommer   301
+/arrangementer/sommeraktiviteter/  /sommer   301
 
 /*    /index.html   200
