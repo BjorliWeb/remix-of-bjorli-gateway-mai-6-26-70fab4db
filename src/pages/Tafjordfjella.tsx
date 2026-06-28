@@ -9,6 +9,7 @@ import { trackExternalPartnerClick } from '@/lib/analytics';
 import { images } from '@/lib/images';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { TAFJORDFJELLA_COPY } from './tafjordfjellaCopy';
+import heroAsset from '@/assets/tafjordfjella-vakkerstoylen.jpg.asset.json';
 
 /**
  * /sommer/tafjordfjella — practical entry-point page for visitors who
@@ -17,7 +18,7 @@ import { TAFJORDFJELLA_COPY } from './tafjordfjellaCopy';
  * /sommer/korte-turer and /sommer/klatring-og-buldring-romsdalen).
  */
 
-const heroImg = images.summerAerialSkiCenterMountain.src;
+const heroImg = heroAsset.url;
 
 interface TourLink {
   href: string;
@@ -48,7 +49,13 @@ const Tafjordfjella = () => {
         title={t.heroTitle}
         subtitle={t.heroSubtitle}
         image={heroImg}
+        alt={t.heroAlt}
       />
+
+      {/* Photo credit – placed directly below the hero, visible on all viewports. */}
+      <div className="container mx-auto px-4 pt-3">
+        <p className="text-xs text-muted-foreground italic">{t.photoCredit}</p>
+      </div>
 
       {/* Breadcrumb */}
       <nav className="container mx-auto px-4 pt-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
