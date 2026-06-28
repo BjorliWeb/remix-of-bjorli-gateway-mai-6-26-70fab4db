@@ -7,8 +7,8 @@
 # for in-app navigations and any environment where this rule is inactive.
 /parking         /parkering              301
 /parking/        /parkering              301
-/livecams        /vaer-og-webkamera      301
-/livecams/       /vaer-og-webkamera      301
+/livecams        /vaer-og-webkamera?legacy=livecams      301
+/livecams/       /vaer-og-webkamera?legacy=livecams      301
 /hva-skjer       /arrangementer          301
 /hva-skjer/      /arrangementer          301
 /arrangementer/sommeraktiviteter   /sommer   301

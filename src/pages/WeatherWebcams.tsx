@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Map, Activity, ExternalLink } from 'lucide-react';
 import PageHero from '@/components/PageHero';
@@ -10,7 +11,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
-import { trackExternalPartnerClick } from '@/lib/analytics';
+import { trackExternalPartnerClick, track } from '@/lib/analytics';
 
 /**
  * "Vær og webkamera" — combined live status, daily operational update,
@@ -285,6 +286,30 @@ const WeatherWebcams = () => {
   const { locale } = useLanguage();
   const lp = useLocalizedPath();
   const copy = usePageCopy(COPY);
+
+  // Legacy /livecams/ tracking exists because this old URL has search and
+  // bookmark traffic. Total redirect volume should also be monitored in
+  // Cloudflare/Search Console because GA4 only tracks consented analytics
+  // traffic.
+  const { search, pathname } = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    if (params.get('legacy') !== 'livecams') return;
+    // track() is consent-gated — no-op when analytics consent is denied.
+    track('legacy_livecams_redirect', {
+      legacy_path: '/livecams/',
+      redirect_target: '/vaer-og-webkamera',
+      legacy_source: 'livecams',
+      page_type: 'weather_webcam',
+      redirect_type: 301,
+    });
+    // Clean the visible URL so ?legacy=livecams never gets indexed or
+    // bookmarked. Replace (not push) so Back still goes to the referrer.
+    params.delete('legacy');
+    const qs = params.toString();
+    navigate(pathname + (qs ? `?${qs}` : ''), { replace: true });
+  }, [search, pathname, navigate]);
 
   return (
     <div>
