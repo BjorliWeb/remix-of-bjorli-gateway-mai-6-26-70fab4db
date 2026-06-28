@@ -8,6 +8,7 @@ import farmHeroImg from '@/assets/farms/gardsbesok-lesja-kulturlandskap.avif';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 import flyplassImg from '@/assets/photos/bjorli-flyplass-oversikt.png';
 import villeVermaImg from '@/assets/photos/villeverma-zipline-rauma.jpg';
+import tafjordfjellaImg from '@/assets/tafjordfjella-vakkerstoylen.jpg.asset.json';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 
@@ -90,7 +91,7 @@ const buildSections = (
       // KorteTurer is Norwegian-only (no localised alias). Linked from NO source only via lp('/sommer/korte-turer') which stays at root.
       { key: 'korte', title: c.korteTurer.t, desc: c.korteTurer.d, href: '/sommer/korte-turer', image: images.summerValley.src, alt: images.summerValley.alt },
       { key: 'lengre', title: c.lengre.t, desc: c.lengre.d, href: lp('/fotturer'), image: images.summerAerialValleyRiver.src, alt: images.summerAerialValleyRiver.alt },
-      { key: 'tafjord', title: c.tafjord.t, desc: c.tafjord.d, href: '/sommer/tafjordfjella', image: images.summerAerialSkiCenterMountain.src, alt: images.summerAerialSkiCenterMountain.alt },
+      { key: 'tafjord', title: c.tafjord.t, desc: c.tafjord.d, href: '/sommer/tafjordfjella', image: tafjordfjellaImg.url, alt: 'Tafjordfjella med fjell, vann og høstfarger.' },
     ],
   },
   {
