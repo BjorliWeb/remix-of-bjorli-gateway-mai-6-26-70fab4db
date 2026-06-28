@@ -14,24 +14,21 @@
  *   In those cases we fire `legacy_livecams_redirect` and then 301-style
  *   navigate to the canonical /vaer-og-webkamera page.
  */
-import { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { track } from '@/lib/analytics';
+import { Navigate } from 'react-router-dom';
 
-const TARGET = '/vaer-og-webkamera';
-
-const LegacyLivecamsRedirect = () => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    // Respects cookie consent — track() is inert until consent is granted.
-    track('legacy_livecams_redirect', {
-      legacy_path: pathname.endsWith('/') ? pathname : pathname + '/',
-      redirect_target: TARGET,
-      page_type: 'legacy_redirect',
-      source: 'legacy_url',
-    });
-  }, [pathname]);
-  return <Navigate to={TARGET} replace />;
-};
+/**
+ * Client-side redirect for the legacy /livecams (and /livecams/) URL.
+ * Forwards to the canonical /vaer-og-webkamera page with a `legacy=livecams`
+ * query flag; the target page reads that flag, fires the
+ * `legacy_livecams_redirect` GA4 event (consent-gated), then strips the
+ * query from the visible URL so nothing duplicate gets indexed.
+ *
+ * The production 301 in `public/_redirects` carries the same query string,
+ * so direct CDN hits also land on /vaer-og-webkamera?legacy=livecams and
+ * trigger the same client-side tracking once the SPA boots.
+ */
+const LegacyLivecamsRedirect = () => (
+  <Navigate to="/vaer-og-webkamera?legacy=livecams" replace />
+);
 
 export default LegacyLivecamsRedirect;
