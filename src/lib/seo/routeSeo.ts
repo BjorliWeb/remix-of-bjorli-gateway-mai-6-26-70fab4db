@@ -374,6 +374,15 @@ export const ROUTE_SEO: RouteSeoMap = {
   sv: { title: '10 korta turer runt Bjorli – familjevänliga vandringar', description: 'Tio korta turer i Lesja och Rauma från häftet «Snartur i Rauma og Lesja». Karta, parkering och praktisk info för varje tur.' },
 };
 
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['sommer/tafjordfjella'] = {
+  no: { title: 'Tafjordfjella fra Bjorli | Turforslag og hytter', description: 'Bruk Bjorli og Brøstdalen som utgangspunkt for turer inn i Tafjordfjella, med ruter mot Vakkerstøylen, Pyttbua og flotte fjellområder.' },
+  en: { title: 'Tafjordfjella from Bjorli – hikes, ski tours and huts', description: 'Use Bjorli and Brøstdalen as your base for hikes and ski tours into Tafjordfjella, with routes to Vakkerstøylen, Pyttbua and surrounding mountains.' },
+  de: { title: 'Tafjordfjella ab Bjorli – Touren und Hütten', description: 'Bjorli und Brøstdalen als Ausgangspunkt für Wanderungen und Skitouren in das Tafjordfjella – mit Routen zur Vakkerstøylen und Pyttbua.' },
+  nl: { title: 'Tafjordfjella vanaf Bjorli – routes en hutten', description: 'Gebruik Bjorli en Brøstdalen als basis voor wandel- en skitochten in Tafjordfjella, met routes naar Vakkerstøylen, Pyttbua en omliggende bergen.' },
+  da: { title: 'Tafjordfjella fra Bjorli – ture og hytter', description: 'Brug Bjorli og Brøstdalen som udgangspunkt for ture ind i Tafjordfjella, med ruter mod Vakkerstøylen, Pyttbua og flotte fjeldområder.' },
+  sv: { title: 'Tafjordfjella från Bjorli – turförslag och stugor', description: 'Använd Bjorli och Brøstdalen som utgångspunkt för turer in i Tafjordfjella, med rutter mot Vakkerstøylen, Pyttbua och vidsträckta fjäll.' },
+};
+
 /** Resolve canonical (NO) path → SEO entry for the requested locale. */
 export const seoForCanonicalPath = (
   canonicalPath: string,
