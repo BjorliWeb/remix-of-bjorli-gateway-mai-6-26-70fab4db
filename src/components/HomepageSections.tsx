@@ -120,18 +120,6 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
   const lp = useLocalizedPath();
   const { locale } = useLanguage();
 
-  // Localized labels for the "Flere nyheter" follow-up row under the
-  // "Hva skjer på Bjorli" events block. Rewritten to sound natural in
-  // each language rather than literally translated.
-  const moreEventsCopy: Record<string, { heading: string; cta: string }> = {
-    no: { heading: 'Flere nyheter', cta: 'Se alle nyheter' },
-    en: { heading: 'More news', cta: 'See all news' },
-    de: { heading: 'Weitere Neuigkeiten', cta: 'Alle Neuigkeiten ansehen' },
-    nl: { heading: 'Meer nieuws', cta: 'Bekijk al het nieuws' },
-    da: { heading: 'Flere nyheder', cta: 'Se alle nyheder' },
-    sv: { heading: 'Fler nyheter', cta: 'Se alla nyheter' },
-  };
-  const moreCopy = moreEventsCopy[locale] ?? moreEventsCopy.no;
 
   return (
     <>
