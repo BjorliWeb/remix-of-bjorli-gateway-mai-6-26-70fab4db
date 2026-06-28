@@ -21,6 +21,7 @@ import Parkering from "./pages/Parkering";
 import Contact from "./pages/Contact";
 import Personvern from "./pages/Personvern";
 import SEOHead from "./components/SEOHead";
+import LegacyLivecamsRedirect from "./components/LegacyLivecamsRedirect";
 import NotFound from "./pages/NotFound";
 import Tips from "./pages/Tips";
 import Events from "./pages/Events";
@@ -104,8 +105,10 @@ const AppRoutes = () => (
     <Route path="/vaer-og-webkamera" element={<WeatherWebcams />} />
     {/* Legacy /livecams URL — client-side 301-equivalent redirect to the
         canonical page. Production hosting also serves a real 301 via
-        public/_redirects so direct hits never render the SPA shell. */}
-    <Route path="/livecams" element={<Navigate to="/vaer-og-webkamera" replace />} />
+        public/_redirects so direct hits never render the SPA shell
+        (and therefore never reach JS — see LegacyLivecamsRedirect for the
+        GA4 tracking caveat). */}
+    <Route path="/livecams" element={<LegacyLivecamsRedirect />} />
     <Route path="/skiskole" element={<SkiSchool />} />
     <Route path="/skiutleie" element={<SkiRental />} />
     <Route path="/mat-og-drikke" element={<FoodDrink />} />
@@ -217,7 +220,7 @@ const AppRoutes = () => (
     {aliasRoute('reisen-hit', <GettingHere />)}
     {aliasRoute('vaer-og-webkamera', <WeatherWebcams />)}
     {/* Localized /livecams aliases also redirect to the canonical page. */}
-    {aliasRoute('livecams', <Navigate to="/vaer-og-webkamera" replace />)}
+    {aliasRoute('livecams', <LegacyLivecamsRedirect />)}
     {aliasRoute('tips', <Tips />)}
     {localizedAliases('tips').map((p) => (
       <Route key={`tips-detail-${p}`} path={`${p}/:slug`} element={<ContentDetailPage kind="tips" />} />
