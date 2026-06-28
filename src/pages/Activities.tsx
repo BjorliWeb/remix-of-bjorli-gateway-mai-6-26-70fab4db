@@ -458,7 +458,7 @@ const Activities = () => {
       <PageHero
         title={t.heroTitle}
         subtitle={t.heroSubtitle}
-        image={tafjordfjellaImg.url}
+        image={tafjordfjellaImg}
         alt="Tafjordfjella med fjell, vann og høstfarger."
       />
 
