@@ -18,17 +18,17 @@ import { Navigate } from 'react-router-dom';
 
 /**
  * Client-side redirect for the legacy /livecams (and /livecams/) URL.
- * Forwards to the canonical /vaer-og-webkamera page with a `legacy=livecams`
+ * Forwards to the canonical /vaer-og-webkamera page with a `from=livecams`
  * query flag; the target page reads that flag, fires the
- * `legacy_livecams_redirect` GA4 event (consent-gated), then strips the
+ * `legacy_redirect_visit` GA4 event (consent-gated), then strips the
  * query from the visible URL so nothing duplicate gets indexed.
  *
  * The production 301 in `public/_redirects` carries the same query string,
- * so direct CDN hits also land on /vaer-og-webkamera?legacy=livecams and
+ * so direct CDN hits also land on /vaer-og-webkamera?from=livecams and
  * trigger the same client-side tracking once the SPA boots.
  */
 const LegacyLivecamsRedirect = () => (
-  <Navigate to="/vaer-og-webkamera?legacy=livecams" replace />
+  <Navigate to="/vaer-og-webkamera?from=livecams" replace />
 );
 
 export default LegacyLivecamsRedirect;
