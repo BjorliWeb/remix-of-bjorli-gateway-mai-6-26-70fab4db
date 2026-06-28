@@ -458,8 +458,8 @@ const Activities = () => {
       <PageHero
         title={t.heroTitle}
         subtitle={t.heroSubtitle}
-        image={tafjordfjellaImg}
-        alt="Tafjordfjella med fjell, vann og høstfarger."
+        image={images.summerAerialNature.src}
+        alt="Utsikt over Bjorli, dalen og fjellene rundt"
       />
 
       <section className="pt-16 md:pt-20 px-4">
