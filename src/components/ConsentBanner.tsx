@@ -22,7 +22,7 @@ const COPY: Record<
   {
     title: string;
     body: string;
-    later: string;
+    readMorePrefix: string;
     privacy: string;
     accept: string;
     decline: string;
@@ -39,7 +39,7 @@ const COPY: Record<
   no: {
     title: 'Vi bruker informasjonskapsler',
     body: 'Vi bruker nødvendige cookies for at nettsiden skal fungere. Med ditt samtykke bruker vi også cookies til statistikk og forbedring av bjorli.no. Du kan godta alle, avvise alle eller tilpasse valgene dine.',
-    later: 'Du kan endre valget når som helst via «Cookies» i bunnmenyen. Les mer i ',
+    readMorePrefix: 'Les mer i ',
     privacy: 'Personvern',
     accept: 'Godta alle',
     decline: 'Avvis alle',
@@ -55,7 +55,7 @@ const COPY: Record<
   en: {
     title: 'We use cookies',
     body: 'We use essential cookies so the site works. With your consent we also use cookies for analytics and to keep improving bjorli.no. Accept all, reject all, or tailor your choices.',
-    later: 'You can change your choice at any time via "Cookies" in the footer. Read more in ',
+    readMorePrefix: 'Read more in our ',
     privacy: 'Privacy',
     accept: 'Accept all',
     decline: 'Reject all',
@@ -87,7 +87,7 @@ const COPY: Record<
   nl: {
     title: 'We gebruiken cookies',
     body: 'We gebruiken noodzakelijke cookies zodat de site werkt. Met jouw toestemming gebruiken we ook cookies voor statistieken en om bjorli.no te verbeteren. Alles accepteren, weigeren of zelf instellen.',
-    later: 'Je kunt je keuze altijd wijzigen via "Cookies" in de footer. Lees meer in ',
+    readMorePrefix: 'Lees meer in ons ',
     privacy: 'Privacy',
     accept: 'Alles accepteren',
     decline: 'Alles weigeren',
@@ -103,7 +103,7 @@ const COPY: Record<
   da: {
     title: 'Vi bruger cookies',
     body: 'Vi bruger nødvendige cookies, så siden virker. Med dit samtykke bruger vi også cookies til statistik og til at forbedre bjorli.no. Accepter alle, afvis alle eller tilpas selv.',
-    later: 'Du kan ændre dit valg når som helst via "Cookies" i sidefoden. Læs mere i ',
+    readMorePrefix: 'Læs mere i vores ',
     privacy: 'Privatliv',
     accept: 'Accepter alle',
     decline: 'Afvis alle',
@@ -119,7 +119,7 @@ const COPY: Record<
   sv: {
     title: 'Vi använder cookies',
     body: 'Vi använder nödvändiga cookies för att sidan ska fungera. Med ditt samtycke använder vi också cookies för statistik och för att göra bjorli.no bättre. Acceptera alla, avvisa alla eller anpassa själv.',
-    later: 'Du kan ändra ditt val när som helst via "Cookies" i sidfoten. Läs mer i ',
+    readMorePrefix: 'Läs mer i vår ',
     privacy: 'Integritet',
     accept: 'Acceptera alla',
     decline: 'Avvisa alla',
@@ -219,12 +219,12 @@ const ConsentBanner = () => {
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-3">{copy.body}</p>
             <p className="text-xs text-muted-foreground leading-snug mb-5">
-              {copy.later}
+              {copy.readMorePrefix}
               <a
                 href={PRIVACY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline hover:text-foreground"
+                className="underline font-medium text-foreground hover:text-season"
               >
                 {copy.privacy}
               </a>
