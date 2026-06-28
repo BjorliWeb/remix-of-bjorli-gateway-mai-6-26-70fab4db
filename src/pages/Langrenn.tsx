@@ -1,4 +1,4 @@
-import { Activity, ExternalLink, Lightbulb, Mountain, Info } from 'lucide-react';
+import { Activity, ExternalLink, Lightbulb, Info } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import { Card, CardContent } from '@/components/ui/card';
 import { trackExternalPartnerClick } from '@/lib/analytics';
@@ -106,46 +106,8 @@ const Langrenn = () => {
         </div>
       </section>
 
-      {/* Fjelløyper */}
-      <section className="py-12 md:py-16 px-4" aria-labelledby="fjelloyper-heading">
-        <div className="container mx-auto max-w-6xl grid gap-8 md:gap-12 md:grid-cols-2 items-center">
-          <div className="md:order-2">
-            <figure className="rounded-2xl overflow-hidden border border-border shadow-sm">
-              <img
-                src={fjelloypeAsset.url}
-                alt="Preparert langrennsløype på snaufjellet over Bjorli med skilt mot Fjelløypa, 13 km."
-                className="w-full h-full object-cover aspect-[4/3]"
-                loading="lazy"
-              />
-            </figure>
-          </div>
-          <div className="md:order-1">
-            <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
-              <Mountain className="h-3.5 w-3.5" aria-hidden="true" />
-              Fjelløyper
-            </div>
-            <h2
-              id="fjelloyper-heading"
-              className="font-display text-2xl md:text-3xl font-bold mb-3"
-            >
-              Lange turer på snaufjellet
-            </h2>
-            <p className="text-foreground/80 leading-relaxed mb-4">
-              Fra Bjorlitoppen og innover åpner fjelløypene seg i et stort, åpent fjellandskap.
-              Her finner du strekk som <em>Fjelløypa</em> og forbindelser videre mot
-              Konglebrgrenda og nabofjellene – lange, sammenhengende turer for de som vil ha
-              ordentlig avstand under skiene.
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              På fjellet er vær og sikt det avgjørende. Planlegg etter forholdene, og snu i tide
-              hvis været slår om.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Practical info */}
-      <section className="py-12 md:py-16 px-4 bg-muted/40" aria-labelledby="praktisk-heading">
+      <section className="py-12 md:py-16 px-4" aria-labelledby="praktisk-heading">
         <div className="container mx-auto max-w-5xl">
           <header className="mb-8 max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
