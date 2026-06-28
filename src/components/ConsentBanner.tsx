@@ -71,7 +71,7 @@ const COPY: Record<
   de: {
     title: 'Wir verwenden Cookies',
     body: 'Wir nutzen notwendige Cookies, damit die Seite funktioniert. Mit deiner Zustimmung verwenden wir Cookies auch für Statistiken und um bjorli.no zu verbessern. Alles akzeptieren, ablehnen oder selbst anpassen.',
-    later: 'Du kannst deine Wahl jederzeit über „Cookies“ in der Fußzeile ändern. Mehr dazu in ',
+    readMorePrefix: 'Mehr dazu im ',
     privacy: 'Datenschutz',
     accept: 'Alle akzeptieren',
     decline: 'Alle ablehnen',
