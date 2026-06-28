@@ -11,7 +11,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
-import { trackExternalPartnerClick, track } from '@/lib/analytics';
+import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analytics';
 
 /**
  * "Vær og webkamera" — combined live status, daily operational update,
@@ -287,26 +287,23 @@ const WeatherWebcams = () => {
   const lp = useLocalizedPath();
   const copy = usePageCopy(COPY);
 
-  // Legacy /livecams/ tracking exists because this old URL has search and
-  // bookmark traffic. Total redirect volume should also be monitored in
-  // Cloudflare/Search Console because GA4 only tracks consented analytics
-  // traffic.
+  // Legacy /livecams tracking exists because this old URL still has search
+  // and bookmark traffic. Total redirect volume should also be monitored in
+  // Cloudflare / Google Search Console because GA4 only counts consented
+  // analytics traffic.
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     const params = new URLSearchParams(search);
-    if (params.get('legacy') !== 'livecams') return;
-    // track() is consent-gated — no-op when analytics consent is denied.
-    track('legacy_livecams_redirect', {
-      legacy_path: '/livecams/',
-      redirect_target: '/vaer-og-webkamera',
-      legacy_source: 'livecams',
-      page_type: 'weather_webcam',
-      redirect_type: 301,
+    if (params.get('from') !== 'livecams') return;
+    // trackLegacyRedirectVisit() is consent-gated — no-op when denied.
+    trackLegacyRedirectVisit({
+      legacy_path: '/livecams',
+      target_page: '/vaer-og-webkamera',
     });
-    // Clean the visible URL so ?legacy=livecams never gets indexed or
+    // Clean the visible URL so ?from=livecams never gets indexed or
     // bookmarked. Replace (not push) so Back still goes to the referrer.
-    params.delete('legacy');
+    params.delete('from');
     const qs = params.toString();
     navigate(pathname + (qs ? `?${qs}` : ''), { replace: true });
   }, [search, pathname, navigate]);
@@ -329,9 +326,8 @@ const WeatherWebcams = () => {
               rel="noopener noreferrer"
               className="hover:underline inline-flex items-center gap-1"
               onClick={() =>
-                trackExternalPartnerClick({
-                  partner_name: 'Fnugg',
-                  partner_category: 'weather',
+                trackWeatherWebcamClick({
+                  feature_type: 'weather',
                   link_url: 'https://fnugg.no/bjorli/',
                   link_text: 'fnugg.no/bjorli',
                 })
@@ -375,6 +371,13 @@ const WeatherWebcams = () => {
                 <WebcamEmbed
                   title={copy.webcamTitles[cam.titleKey]}
                   embedUrl={buildIpcamUrl(cam.alias)}
+                  onInteract={() =>
+                    trackWeatherWebcamClick({
+                      feature_type: 'webcam',
+                      link_url: buildIpcamUrl(cam.alias),
+                      link_text: copy.webcamTitles[cam.titleKey],
+                    })
+                  }
                 />
               </motion.div>
             ))}
@@ -393,6 +396,13 @@ const WeatherWebcams = () => {
               rel="noopener noreferrer"
               className="block rounded-xl overflow-hidden border border-border shadow-md bg-card"
               aria-label={copy.trailMapAriaOpen}
+              onClick={() =>
+                trackWeatherWebcamClick({
+                  feature_type: 'trail_map',
+                  link_url: loypekartImage,
+                  link_text: copy.trailMapSrLabel,
+                })
+              }
             >
               <img
                 src={loypekartImage}
@@ -430,9 +440,8 @@ const WeatherWebcams = () => {
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
               aria-label={`${copy.langrennStatusCta} (${copy.externalNewTab})`}
               onClick={() =>
-                trackExternalPartnerClick({
-                  partner_name: 'Loyper.net',
-                  partner_category: 'trail_map',
+                trackWeatherWebcamClick({
+                  feature_type: 'cross_country_status',
                   link_url: 'https://www.loyper.net/no/sted/bjorli',
                   link_text: copy.langrennStatusCta,
                 })
@@ -449,9 +458,8 @@ const WeatherWebcams = () => {
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
               aria-label={`${copy.langrennMapCta} (${copy.externalNewTab})`}
               onClick={() =>
-                trackExternalPartnerClick({
-                  partner_name: 'Loyper.net',
-                  partner_category: 'trail_map',
+                trackWeatherWebcamClick({
+                  feature_type: 'external_map',
                   link_url: 'https://www.loyper.net/no/sted/bjorli/kart',
                   link_text: copy.langrennMapCta,
                 })

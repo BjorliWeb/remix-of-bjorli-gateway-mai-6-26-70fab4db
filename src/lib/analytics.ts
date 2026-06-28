@@ -219,7 +219,9 @@ export type AnalyticsEventName =
   | 'click_directions'
   | 'click_train_info'
   // legacy redirects (kept for SEO traffic monitoring)
-  | 'legacy_livecams_redirect'
+  | 'legacy_redirect_visit'
+  // weather & webcams page
+  | 'weather_webcam_click'
   // contact
   | 'click_phone'
   | 'click_email'
@@ -516,5 +518,53 @@ export const trackLanguageChange = (params: {
   trackEvent('language_change', {
     from_language: params.from_language,
     to_language: params.to_language,
+  });
+};
+
+/**
+ * Weather & webcams page click tracking.
+ *
+ * `feature_type` is a closed enum so GA4 exploration stays clean. Prefer
+ * this helper over `trackExternalPartnerClick` for any link/button on the
+ * /vaer-og-webkamera page so the same click is never double-counted.
+ */
+export type WeatherWebcamFeatureType =
+  | 'webcam'
+  | 'weather'
+  | 'trail_map'
+  | 'cross_country_status'
+  | 'snow_report'
+  | 'external_weather'
+  | 'external_map'
+  | 'other';
+
+export const trackWeatherWebcamClick = (params: {
+  feature_type: WeatherWebcamFeatureType;
+  link_url?: string;
+  link_text?: string;
+  source_page?: string;
+}): void => {
+  trackEvent('weather_webcam_click', {
+    feature_type: params.feature_type,
+    link_url: params.link_url,
+    link_domain: params.link_url ? safeDomain(params.link_url) : undefined,
+    link_text: params.link_text,
+    source_page: params.source_page ?? sourcePage(),
+  });
+};
+
+/**
+ * Legacy redirect arrival. Fired when the SPA lands on a canonical page
+ * with a `from=<legacy>` query flag set by a 301 redirect rule.
+ * No personal data — only the static legacy/target path strings.
+ */
+export const trackLegacyRedirectVisit = (params: {
+  legacy_path: string;
+  target_page: string;
+}): void => {
+  trackEvent('legacy_redirect_visit', {
+    legacy_path: params.legacy_path,
+    target_page: params.target_page,
+    source_page: sourcePage(),
   });
 };
