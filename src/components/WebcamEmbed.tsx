@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Camera, ExternalLink } from 'lucide-react';
 
 /**
@@ -29,6 +29,12 @@ export interface WebcamEmbedProps {
   sourcePageUrl?: string;
   /** Tailwind aspect-ratio class — matches the original 800×350 player. */
   aspect?: string;
+  /**
+   * Fires the FIRST time the user interacts with this webcam tile
+   * (pointerdown on the iframe wrapper, or keyboard activation).
+   * Iframe load / auto-refresh / re-renders never trigger it.
+   */
+  onInteract?: () => void;
 }
 
 const WebcamEmbed = ({
@@ -37,15 +43,26 @@ const WebcamEmbed = ({
   caption,
   sourcePageUrl = 'https://bjorli.no/livecams/',
   aspect = 'aspect-[16/7]',
+  onInteract,
 }: WebcamEmbedProps) => {
   const [errored, setErrored] = useState(false);
+  const interactedRef = useRef(false);
+
+  const handleInteract = () => {
+    if (interactedRef.current || !onInteract) return;
+    interactedRef.current = true;
+    onInteract();
+  };
 
   return (
     <article
       className="bg-card rounded-2xl overflow-hidden border border-border shadow-md flex flex-col"
       aria-label={`Webkamera: ${title}`}
     >
-      <div className={`relative ${aspect} w-full bg-muted`}>
+      <div
+        className={`relative ${aspect} w-full bg-muted`}
+        onPointerDown={onInteract ? handleInteract : undefined}
+      >
         {errored ? (
           <div
             className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 text-muted-foreground"
