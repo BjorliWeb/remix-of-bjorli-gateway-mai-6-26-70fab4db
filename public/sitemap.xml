@@ -2349,4 +2349,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway"/>
   </url>
+  <url>
+    <loc>https://bjorli.no/sommer/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/sommer/tafjordfjella"/>
+  </url>
 </urlset>
