@@ -55,7 +55,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   no: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'Fra Bjorli og inn i et av Vestlandets villeste fjellandskap – via Brøstdalen.',
-    heroAlt: 'Sommerutsikt fra Bjorli mot fjellene innover Brøstdalen og Tafjordfjella.',
+    heroAlt: 'Tafjordfjella med fjell, vann og høstfarger.',
+    photoCredit: 'Foto: Ingvild Ukkelberg',
     crumbHome: 'Hjem',
     crumbSommer: 'Sommer',
     crumbHere: 'Tafjordfjella',
@@ -130,7 +131,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   en: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'From Bjorli into one of Vestlandet’s wildest mountain landscapes — via Brøstdalen.',
-    heroAlt: 'Summer view from Bjorli looking towards the mountains of Brøstdalen and Tafjordfjella.',
+    heroAlt: 'Tafjordfjella with mountains, a lake and autumn colours.',
+    photoCredit: 'Photo: Ingvild Ukkelberg',
     crumbHome: 'Home',
     crumbSommer: 'Summer',
     crumbHere: 'Tafjordfjella',
@@ -205,7 +207,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   de: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'Von Bjorli aus in eine der wildesten Berglandschaften Vestlandets – durch das Brøstdalen.',
-    heroAlt: 'Sommerblick von Bjorli auf die Berge von Brøstdalen und Tafjordfjella.',
+    heroAlt: 'Tafjordfjella mit Bergen, See und Herbstfarben.',
+    photoCredit: 'Foto: Ingvild Ukkelberg',
     crumbHome: 'Start',
     crumbSommer: 'Sommer',
     crumbHere: 'Tafjordfjella',
@@ -280,7 +283,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   nl: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'Vanaf Bjorli een van de meest ruige berglandschappen van Vestlandet in – via Brøstdalen.',
-    heroAlt: 'Zomers uitzicht vanaf Bjorli over de bergen van Brøstdalen en Tafjordfjella.',
+    heroAlt: 'Tafjordfjella met bergen, een meer en herfstkleuren.',
+    photoCredit: 'Foto: Ingvild Ukkelberg',
     crumbHome: 'Home',
     crumbSommer: 'Zomer',
     crumbHere: 'Tafjordfjella',
@@ -355,7 +359,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   da: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'Fra Bjorli og ind i et af Vestlandets vildeste fjeldlandskaber – via Brøstdalen.',
-    heroAlt: 'Sommerudsigt fra Bjorli mod fjeldene ind mod Brøstdalen og Tafjordfjella.',
+    heroAlt: 'Tafjordfjella med fjelde, sø og efterårsfarver.',
+    photoCredit: 'Foto: Ingvild Ukkelberg',
     crumbHome: 'Hjem',
     crumbSommer: 'Sommer',
     crumbHere: 'Tafjordfjella',
@@ -430,7 +435,8 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   sv: {
     heroTitle: 'Tafjordfjella',
     heroSubtitle: 'Från Bjorli in i ett av Vestlandets vildaste fjällandskap – via Brøstdalen.',
-    heroAlt: 'Sommarvy från Bjorli mot fjällen in mot Brøstdalen och Tafjordfjella.',
+    heroAlt: 'Tafjordfjella med fjäll, sjö och höstfärger.',
+    photoCredit: 'Foto: Ingvild Ukkelberg',
     crumbHome: 'Hem',
     crumbSommer: 'Sommar',
     crumbHere: 'Tafjordfjella',
