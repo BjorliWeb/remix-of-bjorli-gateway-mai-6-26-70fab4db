@@ -9,7 +9,7 @@ import { trackExternalPartnerClick } from '@/lib/analytics';
 import { images } from '@/lib/images';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { TAFJORDFJELLA_COPY } from './tafjordfjellaCopy';
-import heroAsset from '@/assets/tafjordfjella-vakkerstoylen.jpg.asset.json';
+import heroImg from '@/assets/tafjordfjella-vakkerstoylen.jpg';
 
 /**
  * /sommer/tafjordfjella — practical entry-point page for visitors who
@@ -17,8 +17,6 @@ import heroAsset from '@/assets/tafjordfjella-vakkerstoylen.jpg.asset.json';
  * into Tafjordfjella. Norwegian-only for now (matches the pattern of
  * /sommer/korte-turer and /sommer/klatring-og-buldring-romsdalen).
  */
-
-const heroImg = heroAsset.url;
 
 interface TourLink {
   href: string;

@@ -2355,6 +2355,76 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/en/summer/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/de/sommer/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/nl/zomer/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/da/sommer/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/sv/sommar/tafjordfjella</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/summer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/zomer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/sommer/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/sommar/tafjordfjella"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella"/>
   </url>
 </urlset>
