@@ -1,14 +1,16 @@
 # Legacy 301s — keep above the SPA fallback.
 # NOTE: These 301s are served by the host (Cloudflare Pages) BEFORE any JS
 # runs, so we cannot fire a GA4 event for hits to /livecams here. Monitor
-# legacy /livecams traffic via Google Search Console (redirect coverage)
-# and Cloudflare hosting analytics. The SPA also has a client-side
-# fallback (LegacyLivecamsRedirect) that emits `legacy_livecams_redirect`
-# for in-app navigations and any environment where this rule is inactive.
+# total legacy /livecams traffic via Google Search Console (redirect
+# coverage) and Cloudflare hosting analytics. The destination carries
+# `?from=livecams` so the SPA can fire `legacy_redirect_visit` (consent-
+# gated) once it boots. A client-side fallback (LegacyLivecamsRedirect)
+# handles in-app navigations and any environment where this rule is
+# inactive.
 /parking         /parkering              301
 /parking/        /parkering              301
-/livecams        /vaer-og-webkamera?legacy=livecams      301
-/livecams/       /vaer-og-webkamera?legacy=livecams      301
+/livecams        /vaer-og-webkamera?from=livecams      301
+/livecams/       /vaer-og-webkamera?from=livecams      301
 /hva-skjer       /arrangementer          301
 /hva-skjer/      /arrangementer          301
 /arrangementer/sommeraktiviteter   /sommer   301
