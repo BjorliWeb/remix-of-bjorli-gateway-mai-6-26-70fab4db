@@ -91,7 +91,6 @@ const buildSections = (
       { key: 'korte', title: c.korteTurer.t, desc: c.korteTurer.d, href: '/sommer/korte-turer', image: images.summerValley.src, alt: images.summerValley.alt },
       { key: 'lengre', title: c.lengre.t, desc: c.lengre.d, href: lp('/fotturer'), image: images.summerAerialValleyRiver.src, alt: images.summerAerialValleyRiver.alt },
       { key: 'tafjord', title: c.tafjord.t, desc: c.tafjord.d, href: '/sommer/tafjordfjella', image: images.summerAerialSkiCenterMountain.src, alt: images.summerAerialSkiCenterMountain.alt },
-      { key: 'natur', title: c.natur.t, desc: c.natur.d, href: lp('/sommer'), image: images.summerAerialNature.src, alt: images.summerAerialNature.alt },
     ],
   },
   {
@@ -458,7 +457,8 @@ const Activities = () => {
       <PageHero
         title={t.heroTitle}
         subtitle={t.heroSubtitle}
-        image={images.heroSummer.src}
+        image={images.summerAerialNature.src}
+        alt="Utsikt over Bjorli, dalen og fjellene rundt"
       />
 
       <section className="pt-16 md:pt-20 px-4">
