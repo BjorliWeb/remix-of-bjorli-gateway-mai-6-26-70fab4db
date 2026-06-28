@@ -16,6 +16,7 @@ export interface TafjordfjellaCopy {
   heroTitle: string;
   heroSubtitle: string;
   heroAlt: string;
+  photoCredit: string;
   crumbHome: string;
   crumbSommer: string;
   crumbHere: string;
