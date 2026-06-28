@@ -219,7 +219,9 @@ export type AnalyticsEventName =
   | 'click_directions'
   | 'click_train_info'
   // legacy redirects (kept for SEO traffic monitoring)
-  | 'legacy_livecams_redirect'
+  | 'legacy_redirect_visit'
+  // weather & webcams page
+  | 'weather_webcam_click'
   // contact
   | 'click_phone'
   | 'click_email'
