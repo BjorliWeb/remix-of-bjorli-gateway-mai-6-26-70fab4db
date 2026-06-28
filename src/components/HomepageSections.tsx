@@ -458,6 +458,11 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'events': {
             const [featured, ...rest] = section.items.slice(0, 3);
+            // Next-up items shown in the symmetrical "Flere nyheter" row
+            // below the 1+2 hero layout. Pulled from the same events
+            // collection — never duplicating the three above, capped at
+            // three so the grid stays balanced on every breakpoint.
+            const extra = section.items.slice(3, 6);
             return (
               <section key={section.id} className="py-28 md:py-36 px-4">
                 <div className="container mx-auto max-w-7xl">
@@ -511,6 +516,69 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       </Link>
                     </div>
                   </div>
+                  {extra.length > 0 && (
+                    <div className="mt-20 md:mt-24">
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-8 md:mb-10 tracking-tight">
+                        {moreCopy.heading}
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        {extra.map((ev, i) => (
+                          <Link
+                            key={ev.id}
+                            to={lp(`/arrangementer/${ev.slug}`)}
+                            className="group block"
+                          >
+                            <motion.article
+                              initial={{ opacity: 0, y: 16 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.4, delay: i * 0.08 }}
+                              className="bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors flex flex-col h-full"
+                            >
+                              {ev.heroImage && (
+                                <div className="aspect-[5/4] overflow-hidden">
+                                  <img
+                                    src={ev.heroImage.url}
+                                    alt={ev.heroImage.alt || ev.title}
+                                    loading="lazy"
+                                    className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+                                  />
+                                </div>
+                              )}
+                              <div className="p-6 flex flex-col flex-1">
+                                <div className="flex items-center gap-3 mb-2">
+                                  {ev.category && (
+                                    <span className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em]">
+                                      {ev.category}
+                                    </span>
+                                  )}
+                                  {ev.date && (
+                                    <span className="text-xs text-muted-foreground">{ev.date}</span>
+                                  )}
+                                </div>
+                                <h4 className="font-display text-lg md:text-xl font-semibold text-foreground leading-tight tracking-tight mb-2 group-hover:text-secondary transition-colors">
+                                  {ev.title}
+                                </h4>
+                                {ev.intro && (
+                                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                                    {ev.intro}
+                                  </p>
+                                )}
+                              </div>
+                            </motion.article>
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="mt-10">
+                        <Link
+                          to={lp(section.ctaHref)}
+                          className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all"
+                        >
+                          {moreCopy.cta} <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </section>
             );
