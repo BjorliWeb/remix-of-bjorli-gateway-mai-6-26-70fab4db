@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { trackExternalPartnerClick } from '@/lib/analytics';
 import { images } from '@/lib/images';
+import { usePageCopy } from '@/i18n/usePageCopy';
+import { TAFJORDFJELLA_COPY } from './tafjordfjellaCopy';
 
 /**
  * /sommer/tafjordfjella — practical entry-point page for visitors who
@@ -16,83 +18,58 @@ import { images } from '@/lib/images';
  */
 
 const heroImg = images.summerAerialSkiCenterMountain.src;
-const heroAlt = 'Sommerutsikt fra Bjorli mot fjellene innover Brøstdalen og Tafjordfjella.';
 
-interface TourCard {
-  title: string;
-  kind: string;
-  desc: string;
+interface TourLink {
   href: string;
   partner_name: string;
 }
 
-const TOURS: TourCard[] = [
-  {
-    title: 'Vakkerstøylen',
-    kind: 'Turisthytte',
-    desc: 'Liten, enkel selvbetjent hytte midt i hjertet av Tafjordfjella. Fin målhytte for en lang dagstur fra Brøstet, eller første natt på en hyttetur videre innover.',
-    href: 'https://www.ut.no/hytte/10549/vakkerstylen',
-    partner_name: 'UT.no – Vakkerstøylen',
-  },
-  {
-    title: 'Skitur til Vakkerstøylen fra Brøstet',
-    kind: 'Skitur',
-    desc: 'Klassisk skitur opp dalen og inn på fjellet. Lang dag, men jevn stigning og storslagent fjellandskap når du kommer opp på vidda.',
-    href: 'https://www.ut.no/turforslag/114669/skitur-til-vakkerstylen-fra-brstet',
-    partner_name: 'UT.no – Skitur Vakkerstøylen',
-  },
-  {
-    title: 'Pyttbua',
-    kind: 'Turisthytte',
-    desc: 'Større betjent hytte lenger inn i Tafjordfjella – populært knutepunkt for hytte-til-hytte-turer både sommer og vinter.',
-    href: 'https://www.ut.no/hytte/10546/pyttbua',
-    partner_name: 'UT.no – Pyttbua',
-  },
+const TOUR_LINKS: TourLink[] = [
+  { href: 'https://www.ut.no/hytte/10549/vakkerstylen', partner_name: 'UT.no – Vakkerstøylen' },
+  { href: 'https://www.ut.no/turforslag/114669/skitur-til-vakkerstylen-fra-brstet', partner_name: 'UT.no – Skitur Vakkerstøylen' },
+  { href: 'https://www.ut.no/hytte/10546/pyttbua', partner_name: 'UT.no – Pyttbua' },
 ];
 
 const Tafjordfjella = () => {
   const lp = useLocalizedPath();
+  const t = usePageCopy(TAFJORDFJELLA_COPY);
 
-  const trackUt = (t: TourCard) =>
+  const trackUt = (link: TourLink, title: string) =>
     trackExternalPartnerClick({
-      partner_name: t.partner_name,
+      partner_name: link.partner_name,
       partner_category: 'hiking_guide',
-      link_url: t.href,
-      link_text: t.title,
+      link_url: link.href,
+      link_text: title,
     });
 
   return (
     <div>
       <PageHero
-        title="Tafjordfjella"
-        subtitle="Fra Bjorli og inn i et av Vestlandets villeste fjellandskap – via Brøstdalen."
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
         image={heroImg}
       />
 
       {/* Breadcrumb */}
       <nav className="container mx-auto px-4 pt-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
         <ol className="flex items-center gap-1.5 flex-wrap">
-          <li><Link to={lp('/')} className="hover:text-secondary">Hjem</Link></li>
+          <li><Link to={lp('/')} className="hover:text-secondary">{t.crumbHome}</Link></li>
           <li><ChevronRight className="h-3.5 w-3.5" /></li>
-          <li><Link to={lp('/sommer')} className="hover:text-secondary">Sommer</Link></li>
+          <li><Link to={lp('/sommer')} className="hover:text-secondary">{t.crumbSommer}</Link></li>
           <li><ChevronRight className="h-3.5 w-3.5" /></li>
-          <li className="text-foreground font-medium">Tafjordfjella</li>
+          <li className="text-foreground font-medium">{t.crumbHere}</li>
         </ol>
       </nav>
 
       {/* Intro */}
       <section className="py-12 md:py-16 px-4">
         <div className="container mx-auto max-w-3xl">
-          <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Med Bjorli som utgangspunkt kjører du kort vei før <strong>Brøstdalen</strong> åpner
-            seg og tar deg innover mot Tafjordfjella. Få områder i Norge har samme kontrast på så
-            lite plass: dype daler, frodig vestlandsk fjellterreng og snødekte vidder som ligger
-            der året rundt.
-          </p>
+          <p
+            className="text-lg md:text-xl text-foreground/85 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t.introP1 }}
+          />
           <p className="mt-5 text-base md:text-lg text-foreground/75 leading-relaxed">
-            Området fungerer like godt til en luftig dagstur som til en lengre runde fra hytte til
-            hytte. Du velger selv om det skal være rolige timer langs et vann, en hard fjelltur
-            opp på første topp – eller flere dager med sekk og kart.
+            {t.introP2}
           </p>
         </div>
       </section>
@@ -102,23 +79,16 @@ const Tafjordfjella = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
             <Compass className="h-3.5 w-3.5" aria-hidden="true" />
-            Geografi
+            {t.geographyBadge}
           </div>
           <h2 id="kontrast-heading" className="font-display text-2xl md:text-3xl font-bold mb-4">
-            Fra Bjorli inn i villere fjell
+            {t.geographyTitle}
           </h2>
-          <p className="text-foreground/80 leading-relaxed mb-4">
-            Bjorli ligger lunt mellom Lesja og Romsdalen, med åpne fjell og bred dal rundt seg.
-            Kjører du innover Brøstdalen merker du raskt at landskapet skifter karakter –
-            sidedalene blir trangere, fossene tydeligere, og terrenget tipper over mot det
-            vestlandske.
-          </p>
-          <p className="text-foreground/80 leading-relaxed">
-            Innenfor venter selve <strong>Tafjordfjella</strong>: et stort, sammenhengende
-            fjellområde med høye topper, vann og lange vidder. Det er her ruter som
-            <em> Vakkerstøylen </em> og <em>Pyttbua </em> ligger – samme fjell som du ser
-            antydet fra fjellsiden over Bjorli, bare mye lenger inn.
-          </p>
+          <p className="text-foreground/80 leading-relaxed mb-4">{t.geographyP1}</p>
+          <p
+            className="text-foreground/80 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t.geographyP2 }}
+          />
         </div>
       </section>
 
@@ -128,47 +98,47 @@ const Tafjordfjella = () => {
           <header className="mb-8 max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
               <Mountain className="h-3.5 w-3.5" aria-hidden="true" />
-              Turforslag og hytter
+              {t.toursBadge}
             </div>
             <h2 id="turforslag-heading" className="font-display text-2xl md:text-3xl font-bold mb-2">
-              Konkrete turer å starte med
+              {t.toursTitle}
             </h2>
-            <p className="text-muted-foreground">
-              Tre gode innganger til Tafjordfjella – med fullstendig ruteinfo, kart og hytteinfo
-              hos UT.no.
-            </p>
+            <p className="text-muted-foreground">{t.toursIntro}</p>
           </header>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {TOURS.map((t, i) => (
-              <motion.a
-                key={t.href}
-                href={t.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackUt(t)}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group block"
-              >
-                <Card className="h-full bg-card/70 backdrop-blur border-border/60 hover:border-secondary/50 transition-colors">
-                  <CardContent className="p-6">
-                    <div className="text-xs font-medium uppercase tracking-wide text-secondary mb-2">
-                      {t.kind}
-                    </div>
-                    <h3 className="font-display text-lg font-semibold mb-2 flex items-center gap-2">
-                      {t.title}
-                      <ExternalLink className="h-4 w-4 opacity-60 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{t.desc}</p>
-                    <span className="inline-flex items-center gap-1 text-sm font-medium text-secondary">
-                      Se på UT.no <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-                    </span>
-                  </CardContent>
-                </Card>
-              </motion.a>
-            ))}
+            {TOUR_LINKS.map((link, i) => {
+              const tour = t.tours[i];
+              return (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackUt(link, tour.title)}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  className="group block"
+                >
+                  <Card className="h-full bg-card/70 backdrop-blur border-border/60 hover:border-secondary/50 transition-colors">
+                    <CardContent className="p-6">
+                      <div className="text-xs font-medium uppercase tracking-wide text-secondary mb-2">
+                        {tour.kind}
+                      </div>
+                      <h3 className="font-display text-lg font-semibold mb-2 flex items-center gap-2">
+                        {tour.title}
+                        <ExternalLink className="h-4 w-4 opacity-60 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{tour.desc}</p>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-secondary">
+                        {t.toursSeeOnUt} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </motion.a>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -179,38 +149,29 @@ const Tafjordfjella = () => {
           <header className="mb-8 max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
               <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-              Korte turer og lange turer
+              {t.lengthBadge}
             </div>
             <h2 id="lengder-heading" className="font-display text-2xl md:text-3xl font-bold mb-2">
-              Velg lengde etter dagsform og vær
+              {t.lengthTitle}
             </h2>
           </header>
           <div className="grid gap-5 md:grid-cols-3">
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Dagsturer</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Kjør inn Brøstdalen og finn en startpunkt – mange ruter holder fint som rundtur
-                  på en dag når du er tidlig ute.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.dayTrips.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.dayTrips.body}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Skiturer</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Sen vår og forsommer holder snøen seg lenge høyt oppe. Skitur til Vakkerstøylen
-                  fra Brøstet er en klassiker – lang, men gjennomførbar for trente turfolk.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.skiTours.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.skiTours.body}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Hytte til hytte</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Vakkerstøylen, Pyttbua og nabohyttene henger sammen i et rutenett som lar deg
-                  legge opp turer på flere dager. Planlegg etappene etter vær og snøforhold.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.hutToHut.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.hutToHut.body}</p>
               </CardContent>
             </Card>
           </div>
@@ -223,54 +184,45 @@ const Tafjordfjella = () => {
           <header className="mb-8 max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
               <Info className="h-3.5 w-3.5" aria-hidden="true" />
-              Praktisk info
+              {t.praktiskBadge}
             </div>
             <h2 id="praktisk-heading" className="font-display text-2xl md:text-3xl font-bold mb-2">
-              Før du legger ut
+              {t.praktiskTitle}
             </h2>
           </header>
           <div className="grid gap-5 sm:grid-cols-2">
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Sjekk vær og forhold</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Vind, sikt og snøforhold avgjør hvor langt du kommer. Les meldingen før
-                  avreise, og ha en plan B hvis været snur.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardWeather.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.cardWeather.body}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Værskifter går fort</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  På fjellet kan en grei dag bli krevende på minutter. Snu i tide hvis sikten
-                  forsvinner – fjellet står der i morgen også.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardShift.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.cardShift.body}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Pakk skikkelig</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Vindtett skall, ekstra lag, mat, drikke, kart og kompass – også på korte turer.
-                  Lader og pannelampe når du går mot kveld.
-                </p>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardPack.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t.cardPack.body}</p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Bruk UT.no og merkede ruter</h3>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardUt.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Detaljerte ruter, høydeprofiler og hytteinfo ligger på{' '}
+                  {t.cardUt.bodyBefore}
                   <a
                     href="https://www.ut.no/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-secondary hover:underline"
                   >
-                    ut.no
+                    {t.cardUt.linkText}
                   </a>
-                  . Hold deg til merkede stier og varder når du er ukjent i området.
+                  {t.cardUt.bodyAfter}
                 </p>
               </CardContent>
             </Card>
@@ -279,12 +231,12 @@ const Tafjordfjella = () => {
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild variant="outline">
               <Link to={lp('/fotturer')}>
-                Se alle fotturer rundt Bjorli
+                {t.ctaAllHikes}
               </Link>
             </Button>
             <Button asChild variant="ghost">
               <Link to={lp('/sommer')}>
-                Tilbake til sommer på Bjorli
+                {t.ctaBackSummer}
               </Link>
             </Button>
           </div>
@@ -292,7 +244,7 @@ const Tafjordfjella = () => {
       </section>
 
       {/* Hidden alt-bearing image for crawlers — uses same aerial as the entry card. */}
-      <img src={heroImg} alt={heroAlt} className="sr-only" loading="lazy" />
+      <img src={heroImg} alt={t.heroAlt} className="sr-only" loading="lazy" />
     </div>
   );
 };

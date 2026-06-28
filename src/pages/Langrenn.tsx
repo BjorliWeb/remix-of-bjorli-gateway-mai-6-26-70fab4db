@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { trackExternalPartnerClick } from '@/lib/analytics';
 import fjelloypeAsset from '@/assets/fjelloype-bjorli.jpg.asset.json';
 import lysloypeAsset from '@/assets/lysloype-bjorli.jpg.asset.json';
+import { usePageCopy } from '@/i18n/usePageCopy';
+import { LANGRENN_COPY } from './langrennCopy';
 
 const TRAIL_STATUS_URL = 'https://www.loyper.net/location/bjorli';
 
@@ -16,23 +18,22 @@ const trackLoyperClick = (linkText: string) =>
   });
 
 const Langrenn = () => {
+  const t = usePageCopy(LANGRENN_COPY);
   return (
     <div>
       <PageHero
-        title="Langrenn på Bjorli"
-        subtitle="Drøyt 80 km preparerte langrennsløyper – fra lysløype i bygda til åpne fjelløyper."
+        title={t.heroTitle}
+        subtitle={t.heroSubtitle}
         image={fjelloypeAsset.url}
       />
 
       {/* Intro */}
       <section className="py-12 md:py-16 px-4">
         <div className="container mx-auto max-w-3xl">
-          <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">
-            Bjorli har litt over <strong>80 km med oppkjørte langrennsløyper</strong>. Nettet
-            strekker seg fra skogsterreng nede i bygda og opp på snaufjellet, og inkluderer en
-            opplyst <strong>lysløype</strong> for kveldsøkter. Forholdene er stabile gjennom hele
-            sesongen, og du kan velge alt fra korte runder til lange dagsturer på fjellet.
-          </p>
+          <p
+            className="text-lg md:text-xl text-foreground/85 leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: t.intro }}
+          />
         </div>
       </section>
 
@@ -49,21 +50,20 @@ const Langrenn = () => {
                   id="loypestatus-heading"
                   className="font-display text-xl md:text-2xl font-semibold mb-1"
                 >
-                  Løypestatus akkurat nå
+                  {t.loypestatusTitle}
                 </h2>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                  Se hvilke løyper som er nylig preparert og hvilke som ikke er kjørt opp ennå.
-                  Oppdateres av løypelaget på Bjorli.
+                  {t.loypestatusBody}
                 </p>
               </div>
               <a
                 href={TRAIL_STATUS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackLoyperClick('Se løypestatus på løyper.net')}
+                onClick={() => trackLoyperClick(t.loypestatusCta)}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-3 text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap"
               >
-                Se løypestatus på løyper.net
+                {t.loypestatusCta}
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             </CardContent>
@@ -77,7 +77,7 @@ const Langrenn = () => {
           <figure className="rounded-2xl overflow-hidden border border-border shadow-sm">
             <img
               src={lysloypeAsset.url}
-              alt="Langrennsløper i Bjorli lysløype en mørk vinterkveld, med lyktestolper langs den preparerte løypa."
+              alt={t.lysloypeAlt}
               className="w-full h-full object-cover aspect-[4/3]"
               loading="lazy"
             />
@@ -85,22 +85,19 @@ const Langrenn = () => {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
               <Lightbulb className="h-3.5 w-3.5" aria-hidden="true" />
-              Lysløype
+              {t.lysloypeBadge}
             </div>
             <h2
               id="lysloype-heading"
               className="font-display text-2xl md:text-3xl font-bold mb-3"
             >
-              Gå på ski etter mørkets frembrudd
+              {t.lysloypeTitle}
             </h2>
             <p className="text-foreground/80 leading-relaxed mb-4">
-              Lysløypa på Bjorli gjør det mulig å trene og kose seg på ski lenge etter at sola
-              har gått ned. En fin rundløype som passer like godt til en rolig kveldstur som til
-              intervaller, og som ofte er det første som blir preparert tidlig i sesongen.
+              {t.lysloypeBody1}
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Sjekk gjeldende åpningstider og status før du drar – lyset styres lokalt og kan
-              variere gjennom sesongen.
+              {t.lysloypeBody2}
             </p>
           </div>
         </div>
@@ -112,21 +109,21 @@ const Langrenn = () => {
           <header className="mb-8 max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-secondary/15 text-secondary px-3 py-1 text-xs font-medium mb-3">
               <Info className="h-3.5 w-3.5" aria-hidden="true" />
-              Praktisk info
+              {t.praktiskBadge}
             </div>
             <h2
               id="praktisk-heading"
               className="font-display text-2xl md:text-3xl font-bold mb-2"
             >
-              Før du går ut i løypa
+              {t.praktiskTitle}
             </h2>
           </header>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Sjekk forholdene</h3>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardCheck.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Se{' '}
+                  {t.cardCheck.bodyBefore}
                   <a
                     href={TRAIL_STATUS_URL}
                     target="_blank"
@@ -134,27 +131,25 @@ const Langrenn = () => {
                     onClick={() => trackLoyperClick('løyper.net (praktisk info)')}
                     className="text-secondary hover:underline"
                   >
-                    løyper.net
-                  </a>{' '}
-                  for hva som er nylig preparert, og sjekk værmelding før du legger ut.
+                    {t.cardCheck.linkText}
+                  </a>
+                  {t.cardCheck.bodyAfter}
                 </p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Vær kan snu raskt</h3>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardWeather.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  På fjellet kan vinden friske til og sikten bli dårlig på kort tid. Ha med ekstra
-                  klær, mat og drikke – også på korte turer.
+                  {t.cardWeather.body}
                 </p>
               </CardContent>
             </Card>
             <Card className="bg-card/60 backdrop-blur border-border/60">
               <CardContent className="p-6">
-                <h3 className="font-display text-lg font-semibold mb-2">Vis hensyn</h3>
+                <h3 className="font-display text-lg font-semibold mb-2">{t.cardRespect.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Følg skilting og merking, ikke ødelegg sporene, og respekter private områder og
-                  hytter langs løypa.
+                  {t.cardRespect.body}
                 </p>
               </CardContent>
             </Card>
