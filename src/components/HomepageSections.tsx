@@ -25,6 +25,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { useLanguage } from '@/i18n/LanguageContext';
 import type { CmsHomepageSection } from '@/lib/cms';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import LiveStatusCards from '@/components/LiveStatusCards';
