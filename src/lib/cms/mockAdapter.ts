@@ -510,7 +510,7 @@ export const mockAdapter: CmsAdapter = {
         subtitle: d.events.subtitle,
         ctaLabel: d.events.cta,
         ctaHref: '/arrangementer',
-        items: events.map((e, i) => ({ ...e, date: d.events.items[i]?.date ?? '' })),
+        items: events.map((e) => ({ ...e, date: e.startsAt ?? '' })),
       },
       {
         id: 'accommodation',
