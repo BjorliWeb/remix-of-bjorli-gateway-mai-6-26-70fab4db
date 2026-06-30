@@ -121,7 +121,7 @@ const de: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Innenraum des Sommercafés in Lesjaverk mit Theke, Menütafel und Sitzplätzen.',
       },
-      { category: 'Sommer', date: 'Jul', title: 'Sommeraktivitäten', intro: 'Wandern, Radfahren und Bergerlebnisse.' },
+      
     ],
   },
   beyondAlpine: {

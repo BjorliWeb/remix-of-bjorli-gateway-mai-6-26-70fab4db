@@ -121,7 +121,7 @@ const en: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Interior of the summer café at Lesjaverk with counter, menu board and seating.',
       },
-      { category: 'Summer', date: 'Jul', title: 'Summer activities', intro: 'Hiking, cycling and mountain experiences.' },
+      
     ],
   },
   beyondAlpine: {

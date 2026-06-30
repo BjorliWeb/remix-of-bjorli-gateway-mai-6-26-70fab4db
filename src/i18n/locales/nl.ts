@@ -121,7 +121,7 @@ const nl: Dictionary = {
         image: sommerkafeenLesjaverkImg,
         imageAlt: 'Interieur van het zomercafé in Lesjaverk met toonbank, menubord en zitplaatsen.',
       },
-      { category: 'Zomer', date: 'Jul', title: 'Zomeractiviteiten', intro: 'Wandelen, fietsen en bergervaringen.' },
+      
     ],
   },
   beyondAlpine: {
