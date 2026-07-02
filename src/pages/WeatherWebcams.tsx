@@ -37,7 +37,7 @@ import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analyti
 interface WebcamDef {
   alias: string;
   /** Key into COPY[locale].webcamTitles */
-  titleKey: 'base' | 'cam2' | 'cam3' | 'cam4';
+  titleKey: 'base' | 'cam2' | 'cam3' | 'cam4' | 'cam5';
   needsLabelConfirmation?: boolean;
 }
 const WEBCAMS: WebcamDef[] = [
@@ -45,6 +45,7 @@ const WEBCAMS: WebcamDef[] = [
   { alias: '61c4bf99a3979', titleKey: 'cam2', needsLabelConfirmation: true },
   { alias: '61b717228326c', titleKey: 'cam3', needsLabelConfirmation: true },
   { alias: '61b702b231cf9', titleKey: 'cam4', needsLabelConfirmation: true },
+  { alias: '61b7179310bb3', titleKey: 'cam5', needsLabelConfirmation: true },
 ];
 
 /** Build the IPCamLive embed URL with the same player flags as the WP page. */
@@ -69,7 +70,7 @@ interface WeatherWebcamsCopy {
   webcamsTitle: string;
   webcamsIntro: string;
   webcamsFallback: string;
-  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string };
+  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string };
   langrennTitle: string;
   langrennBody: string;
   langrennStatusCta: string;
