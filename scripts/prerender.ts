@@ -28,7 +28,11 @@ import { seoForCanonicalPath } from '../src/lib/seo/routeSeo';
 const DIST = resolve(process.cwd(), 'dist');
 const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
 
-/** Wave 1 canonical routes only. */
+/**
+ * Wave 1 canonical routes. Note: `handel` is a Norwegian-only page and is
+ * NOT in the CanonicalRoute registry (src/i18n/routes.ts) — it is handled
+ * as a special case at the bottom of run().
+ */
 const WAVE1: CanonicalRoute[] = [
   'home',
   'sommer',
@@ -36,19 +40,10 @@ const WAVE1: CanonicalRoute[] = [
   'skisenter',
   'overnatting',
   'mat-og-drikke',
-  'handel',
   'vaer-og-webkamera',
   'arrangementer',
   'kontakt',
 ];
-
-/**
- * NOTE: `handel` is not in the CanonicalRoute registry (routes.ts).
- * We still emit a single /handel HTML (Norwegian only) below because it is
- * a Norwegian-only page in the current router. We handle it as a special
- * case at the bottom of the file.
- */
-const HAS_HANDEL_IN_REGISTRY = 'handel' in ROUTE_SLUGS;
 
 const escapeHtml = (s: string): string =>
   s
@@ -240,7 +235,6 @@ const run = () => {
   const skipped: string[] = [];
 
   for (const canonical of WAVE1) {
-    if (canonical === 'handel' && !HAS_HANDEL_IN_REGISTRY) continue;
     for (const locale of LOCALES) {
       const out = renderRoute(canonical, locale, base);
       if (!out) {
