@@ -74,6 +74,20 @@ const buildHreflangs = (canonical: CanonicalRoute): HreflangAlt[] => {
   return alts;
 };
 
+/**
+ * Human-readable nav labels for the prerender skeleton. Kept local to this
+ * script so we don't couple the build-time renderer to runtime i18n bundles.
+ * Only used for the tiny crawler-visible nav; React replaces this on mount.
+ */
+const NAV_LABELS: Record<Locale, Record<'home' | 'sommer' | 'vinter' | 'skisenter' | 'overnatting' | 'kontakt', string>> = {
+  no: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', skisenter: 'Bjorli Skisenter', overnatting: 'Overnatting', kontakt: 'Kontakt' },
+  en: { home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', skisenter: 'Bjorli Ski Resort', overnatting: 'Accommodation', kontakt: 'Contact' },
+  de: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Winter', skisenter: 'Bjorli Skigebiet', overnatting: 'Unterkunft', kontakt: 'Kontakt' },
+  nl: { home: 'Bjorli', sommer: 'Zomer', vinter: 'Winter', skisenter: 'Bjorli Skigebied', overnatting: 'Accommodatie', kontakt: 'Contact' },
+  da: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', skisenter: 'Bjorli Skicenter', overnatting: 'Overnatning', kontakt: 'Kontakt' },
+  sv: { home: 'Bjorli', sommer: 'Sommar', vinter: 'Vinter', skisenter: 'Bjorli Skidanläggning', overnatting: 'Boende', kontakt: 'Kontakt' },
+};
+
 /** Body skeleton (semantic, crawler-visible). Replaced by React on hydrate. */
 const bodySkeleton = (opts: {
   locale: Locale;
@@ -84,14 +98,15 @@ const bodySkeleton = (opts: {
   const { locale, title, description, canonical } = opts;
   const prefix = LOCALE_PREFIX[locale] || '';
   const homeHref = prefix || '/';
+  const labels = NAV_LABELS[locale];
   // Small human-visible skeleton. Kept minimal so React swap is instant.
   const nav = [
-    { label: 'Bjorli', href: homeHref },
-    { label: slugForCanonical('sommer', locale) || 'sommer', href: `${prefix}/${slugForCanonical('sommer', locale)}` },
-    { label: slugForCanonical('vinter', locale) || 'vinter', href: `${prefix}/${slugForCanonical('vinter', locale)}` },
-    { label: slugForCanonical('skisenter', locale) || 'bjorli-skisenter', href: `${prefix}/${slugForCanonical('skisenter', locale)}` },
-    { label: slugForCanonical('overnatting', locale) || 'overnatting', href: `${prefix}/${slugForCanonical('overnatting', locale)}` },
-    { label: slugForCanonical('kontakt', locale) || 'kontakt', href: `${prefix}/${slugForCanonical('kontakt', locale)}` },
+    { label: labels.home, href: homeHref },
+    { label: labels.sommer, href: `${prefix}/${slugForCanonical('sommer', locale)}` },
+    { label: labels.vinter, href: `${prefix}/${slugForCanonical('vinter', locale)}` },
+    { label: labels.skisenter, href: `${prefix}/${slugForCanonical('skisenter', locale)}` },
+    { label: labels.overnatting, href: `${prefix}/${slugForCanonical('overnatting', locale)}` },
+    { label: labels.kontakt, href: `${prefix}/${slugForCanonical('kontakt', locale)}` },
   ];
   const navHtml = nav
     .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
