@@ -37,7 +37,7 @@ import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analyti
 interface WebcamDef {
   alias: string;
   /** Key into COPY[locale].webcamTitles */
-  titleKey: 'base' | 'cam2' | 'cam3' | 'cam4';
+  titleKey: 'base' | 'cam2' | 'cam3' | 'cam4' | 'cam5';
   needsLabelConfirmation?: boolean;
 }
 const WEBCAMS: WebcamDef[] = [
@@ -45,6 +45,7 @@ const WEBCAMS: WebcamDef[] = [
   { alias: '61c4bf99a3979', titleKey: 'cam2', needsLabelConfirmation: true },
   { alias: '61b717228326c', titleKey: 'cam3', needsLabelConfirmation: true },
   { alias: '61b702b231cf9', titleKey: 'cam4', needsLabelConfirmation: true },
+  { alias: '61b7179310bb3', titleKey: 'cam5', needsLabelConfirmation: true },
 ];
 
 /** Build the IPCamLive embed URL with the same player flags as the WP page. */
@@ -69,7 +70,7 @@ interface WeatherWebcamsCopy {
   webcamsTitle: string;
   webcamsIntro: string;
   webcamsFallback: string;
-  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string };
+  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string };
   langrennTitle: string;
   langrennBody: string;
   langrennStatusCta: string;
@@ -104,7 +105,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkamera',
     webcamsIntro: 'Live bilder fra Bjorli Skisenter. Bildene oppdateres automatisk.',
     webcamsFallback: 'Webkamera er midlertidig utilgjengelig.',
-    webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4' },
+    webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5' },
     langrennTitle: 'Langrenn og løypekart',
     langrennBody:
       'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se live løypestatus og interaktivt løypekart for oppdatert informasjon.',
@@ -135,7 +136,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
     webcamsFallback: 'Webcam is temporarily unavailable.',
-    webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
     langrennTitle: 'Cross-country and trail map',
     langrennBody:
       'Bjorli has cross-country trails through varied mountain and forest terrain. See live trail status and the interactive trail map for the latest information.',
@@ -166,7 +167,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live-Bilder vom Bjorli Skisenter. Die Bilder werden automatisch aktualisiert.',
     webcamsFallback: 'Die Webcam ist vorübergehend nicht verfügbar.',
-    webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
     langrennTitle: 'Langlauf und Loipenkarte',
     langrennBody:
       'Bjorli bietet Langlaufloipen durch abwechslungsreiches Hochgebirgs- und Waldgelände. Sehen Sie den Live-Loipenstatus und die interaktive Loipenkarte für aktuelle Informationen.',
@@ -197,7 +198,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Livebeelden van Bjorli Skisenter. De beelden worden automatisch ververst.',
     webcamsFallback: 'De webcam is tijdelijk niet beschikbaar.',
-    webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4' },
+    webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
     langrennTitle: 'Langlaufen en loipekaart',
     langrennBody:
       'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de live loipestatus en de interactieve loipekaart voor actuele informatie.',
@@ -228,7 +229,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkameraer',
     webcamsIntro: 'Livebilleder fra Bjorli Skisenter. Billederne opdateres automatisk.',
     webcamsFallback: 'Webkameraet er midlertidigt utilgængeligt.',
-    webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4' },
+    webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5' },
     langrennTitle: 'Langrend og løjpekort',
     langrennBody:
       'Bjorli har langrendsspor gennem varieret højfjelds- og skovterræn. Se live løjpestatus og det interaktive løjpekort for opdateret information.',
@@ -259,7 +260,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webbkameror',
     webcamsIntro: 'Livebilder från Bjorli Skisenter. Bilderna uppdateras automatiskt.',
     webcamsFallback: 'Webbkameran är tillfälligt otillgänglig.',
-    webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4' },
+    webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5' },
     langrennTitle: 'Längdskidor och spårkarta',
     langrennBody:
       'Bjorli har längdspår genom varierande högfjälls- och skogsterräng. Se live spårstatus och den interaktiva spårkartan för aktuell information.',
@@ -359,7 +360,7 @@ const WeatherWebcams = () => {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">{copy.webcamsIntro}</p>
           </header>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {WEBCAMS.map((cam, i) => (
               <motion.div
                 key={cam.alias}
