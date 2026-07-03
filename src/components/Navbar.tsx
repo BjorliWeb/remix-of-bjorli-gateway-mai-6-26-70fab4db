@@ -117,12 +117,9 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
                     <DropdownMenuItem
                       key={loc}
                       onClick={() => {
-                        track('change_language', {
-                          page_path: location.pathname,
-                          language: loc,
-                          from: locale,
-                          to: loc,
-                        });
+                        // setLocale fires the canonical `language_change`
+                        // GA4 event via trackLanguageChange — do not emit
+                        // a second event here.
                         setLocale(loc);
                       }}
                       className="flex items-center gap-2 cursor-pointer"
