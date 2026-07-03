@@ -206,7 +206,6 @@ const bootstrap = (): void => {
 export type AnalyticsEventName =
   // navigation / lifecycle
   | 'page_view'
-  | 'change_language'
   | 'language_change'
   | 'season_switch'
   // primary CTAs
@@ -518,6 +517,7 @@ export const trackLanguageChange = (params: {
   trackEvent('language_change', {
     from_language: params.from_language,
     to_language: params.to_language,
+    page_title: typeof document !== 'undefined' ? document.title : undefined,
   });
 };
 
