@@ -23,7 +23,7 @@ raw query strings).
 | Event | Trigger | Key params | Business question | Implemented in |
 |---|---|---|---|---|
 | `page_view` | Every route change in SPA | `page_path`, `page_title`, `language` | What pages get traffic? | `SEOHead.tsx` via `trackPageView()` |
-| `change_language` | User selects new locale | `from`, `to`, `page_path` | Which markets convert per page? | ✅ `Navbar.tsx` language dropdown |
+| `language_change` | User selects new locale (any switcher) | `from_language`, `to_language`, `page_path`, `page_title` | Which markets convert per page? | ✅ `LanguageContext.setLocale` (single source; Navbar dropdown + mobile menu route through it) |
 | `season_switch` | Winter ↔ summer toggle | `to`, `page_path` | Seasonal interest split | `Layout.tsx` (TODO wire) |
 | `click_buy_ski_pass` | Any "Kjøp heiskort" / "Buy lift pass" CTA | `link_text`, `page_path`, `outbound` | CTA effectiveness | ✅ `Navbar.tsx` (winter CTA), ✅ `HomepageSections.tsx` (skiperformance links) |
 | `click_accommodation` | Accommodation card / CTA | `content_slug`, `link_text` | Which lodging gets clicks? | ✅ `Navbar.tsx` (summer CTA), ✅ `HomepageSections.tsx` (`/overnatting` links) |
