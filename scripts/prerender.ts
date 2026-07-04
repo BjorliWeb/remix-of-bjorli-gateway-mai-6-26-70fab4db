@@ -29,7 +29,7 @@ import { dirname, resolve } from 'node:path';
 
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
-import { seoForCanonicalPath } from '../src/lib/seo/routeSeo';
+import { ogImageForCanonicalPath, seoForCanonicalPath } from '../src/lib/seo/routeSeo';
 
 const DIST = resolve(process.cwd(), 'dist');
 const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
@@ -207,6 +207,8 @@ const renderRoute = (
   const hreflangs = buildHreflangs(canonical);
   const htmlLang = LOCALE_LABELS[locale].htmlLang;
   const ogLocale = LOCALE_LABELS[locale].ogLocale;
+  const ogImage =
+    ORIGIN + ogImageForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical);
 
   const hreflangTags = hreflangs
     .map(
@@ -240,9 +242,14 @@ const renderRoute = (
     <meta property="og:url" content="${escapeHtml(href)}" />
     <meta property="og:locale" content="${escapeHtml(ogLocale)}" />
     ${ogAlternates}
+    <meta property="og:image" content="${escapeHtml(ogImage)}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(seo.title)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
     <meta name="twitter:description" content="${escapeHtml(seo.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
     <meta name="twitter:site" content="@bjorli" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
@@ -324,9 +331,14 @@ const run = () => {
     <meta property="og:site_name" content="Bjorli" />
     <meta property="og:url" content="${escapeHtml(href)}" />
     <meta property="og:locale" content="nb_NO" />
+    <meta property="og:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(handelSeo.title)}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(handelSeo.title)}" />
     <meta name="twitter:description" content="${escapeHtml(handelSeo.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />

@@ -383,6 +383,32 @@ export const ROUTE_SEO: RouteSeoMap = {
   sv: { title: 'Tafjordfjella från Bjorli – turförslag och stugor', description: 'Använd Bjorli och Brøstdalen som utgångspunkt för turer in i Tafjordfjella, med rutter mot Vakkerstøylen, Pyttbua och vidsträckta fjäll.' },
 };
 
+/**
+ * Route-specific Open Graph / Twitter share images (1200x630, generated
+ * from the hero photo already used on each page — see public/og/).
+ * Everything not listed here falls back to DEFAULT_OG_IMAGE, a wide aerial
+ * shot of the whole destination (village, slopes, Rauma and mountains).
+ * Paths are origin-relative; callers prepend the site origin.
+ */
+export const DEFAULT_OG_IMAGE = '/og/default.jpg';
+
+const ROUTE_OG_IMAGES: Partial<Record<string, string>> = {
+  home: '/og/home.jpg',
+  sommer: '/og/sommer.jpg',
+  skisenter: '/og/skisenter.jpg',
+  overnatting: '/og/overnatting.jpg',
+  'vaer-og-webkamera': '/og/vaer-og-webkamera.jpg',
+};
+
+/** Resolve canonical (NO) path → OG image path (same lookup rules as SEO). */
+export const ogImageForCanonicalPath = (canonicalPath: string): string => {
+  if (canonicalPath === '/') return ROUTE_OG_IMAGES.home ?? DEFAULT_OG_IMAGE;
+  const trimmed = canonicalPath.replace(/^\//, '');
+  return (
+    ROUTE_OG_IMAGES[trimmed] ?? ROUTE_OG_IMAGES[trimmed.split('/')[0]] ?? DEFAULT_OG_IMAGE
+  );
+};
+
 /** Resolve canonical (NO) path → SEO entry for the requested locale. */
 export const seoForCanonicalPath = (
   canonicalPath: string,
