@@ -1,12 +1,14 @@
 /**
- * Static prerender — Wave 1 public routes.
+ * Static prerender — Wave 1 + Wave 2 public routes.
  *
  * Approach (see docs handoff):
  *  - This is a client-side React SPA (createRoot in src/main.tsx). React
  *    fully replaces the #root DOM on mount, so any prerendered body cannot
  *    cause a hydration mismatch. That makes template-based prerender the
  *    safest equivalent to StaticRouter for this specific codebase.
- *  - We generate one HTML file per (canonical Wave 1 route x locale) with:
+ *  - We generate one HTML file per (canonical route x locale) for the
+ *    routes listed in ROUTES below (Wave 1 hubs + Wave 2 static content,
+ *    hubs and summer sub-pages). Each emitted file contains:
  *      • correct <html lang>
  *      • localized <title>, <meta description>
  *      • self-referencing canonical
@@ -17,6 +19,10 @@
  *    preserved verbatim so client hydration/CSR takes over exactly as
  *    today. Runtime-only widgets (GA4/consent, Turnstile, contact form,
  *    event form, Fnugg, webcams, alerts) remain client-only.
+ *
+ * Detail routes (`/nyheter/:slug`, `/arrangementer/:slug`, `/tips/:slug`,
+ * `/aktiviteter/:slug`) are intentionally NOT prerendered here — they
+ * need CMS data at build time and land in Wave 3.
  */
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -29,11 +35,19 @@ const DIST = resolve(process.cwd(), 'dist');
 const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
 
 /**
- * Wave 1 canonical routes. Note: `handel` is a Norwegian-only page and is
- * NOT in the CanonicalRoute registry (src/i18n/routes.ts) — it is handled
- * as a special case at the bottom of run().
+ * Canonical routes that get a prerendered HTML file per locale.
+ *
+ * Wave 1: primary destination hubs. Wave 2: static content pages, listing
+ * hubs and summer sub-pages exposed in the audit report. Notes:
+ *  - `handel` is a Norwegian-only page and is NOT in the CanonicalRoute
+ *    registry — handled as a special case at the bottom of run().
+ *  - `livecams` is intentionally excluded (Cloudflare 301 → vaer-og-webkamera).
+ *  - `praktisk-info` is unpublished (see App.tsx) — do not prerender.
+ *  - `ski-holiday-norway` is a CMS-driven landing without a ROUTE_SEO
+ *    entry; skipped here, revisit when the CMS ships.
  */
-const WAVE1: CanonicalRoute[] = [
+const ROUTES: CanonicalRoute[] = [
+  // Wave 1
   'home',
   'sommer',
   'vinter',
@@ -43,6 +57,30 @@ const WAVE1: CanonicalRoute[] = [
   'vaer-og-webkamera',
   'arrangementer',
   'kontakt',
+  // Wave 2 — static content
+  'heiskort',
+  'apningstider',
+  'skiskole',
+  'skiutleie',
+  'reisen-hit',
+  'parkering',
+  'personvern',
+  'loypekart',
+  'live',
+  // Wave 2 — listing hubs (index only; detail :slug pages skipped)
+  'tips',
+  'nyheter',
+  'aktiviteter',
+  // Wave 2 — activity / summer sub-pages
+  'langrenn',
+  'fotturer',
+  'sykling',
+  'familie',
+  'fiske',
+  'gardsbesok',
+  'golden-train',
+  'romsdalsgondolen',
+  'sagelva',
 ];
 
 const escapeHtml = (s: string): string =>
@@ -111,7 +149,7 @@ const bodySkeleton = (opts: {
   const navHtml = nav
     .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
     .join(' · ');
-  return `<div id="root"><div data-prerender="wave1" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
+  return `<div id="root"><div data-prerender="wave2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
   <header style="max-width:960px;margin:0 auto 2rem"><a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a></header>
   <main style="max-width:960px;margin:0 auto">
     <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(title)}</h1>
@@ -249,7 +287,7 @@ const run = () => {
   const results: RouteOutput[] = [];
   const skipped: string[] = [];
 
-  for (const canonical of WAVE1) {
+  for (const canonical of ROUTES) {
     for (const locale of LOCALES) {
       const out = renderRoute(canonical, locale, base);
       if (!out) {
@@ -323,6 +361,29 @@ const run = () => {
   if (skipped.length) {
     // eslint-disable-next-line no-console
     console.warn(`[prerender] skipped (no SEO entry): ${skipped.join(', ')}`);
+  }
+
+  // ── Coverage check ────────────────────────────────────────────────
+  // Warn (do not fail the build) when a canonical route exists in the
+  // route registry but is not covered by prerender. This flags any new
+  // public page added after Wave 2 so it can be scheduled for a future
+  // wave. We deliberately skip routes we know are excluded on purpose.
+  const EXCLUDED_FROM_COVERAGE: ReadonlySet<CanonicalRoute> = new Set<CanonicalRoute>([
+    'livecams', // legacy alias; Cloudflare 301 → vaer-og-webkamera
+    'praktisk-info', // unpublished (see App.tsx)
+  ]);
+  const covered = new Set<string>(ROUTES);
+  const missing: CanonicalRoute[] = (Object.keys(ROUTE_SLUGS) as CanonicalRoute[]).filter(
+    (k) => !covered.has(k) && !EXCLUDED_FROM_COVERAGE.has(k),
+  );
+  if (missing.length) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[prerender] coverage: ${missing.length} canonical route(s) in registry but NOT prerendered — consider adding to ROUTES:\n  - ${missing.join('\n  - ')}`,
+    );
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('[prerender] coverage: all indexable canonical routes are prerendered.');
   }
 };
 
