@@ -1,7 +1,7 @@
 {
-  "name": "Bjorli Skisenter",
+  "name": "Bjorli",
   "short_name": "Bjorli",
-  "description": "Norges mest snøsikre skisenter",
+  "description": "Bjorli – helårsdestinasjon mellom Dombås og Åndalsnes. Snøsikkert skisenter om vinteren, fotturer, sykling og fiske om sommeren.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1a3a4a",

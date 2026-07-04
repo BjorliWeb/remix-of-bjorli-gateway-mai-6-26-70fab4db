@@ -44,7 +44,7 @@ export const buildOrganization = (siteUrl: string) =>
     '@type': 'Organization',
     name: 'Destinasjon Bjorli',
     url: siteUrl,
-    logo: `${siteUrl}/icon-512.png`,
+    logo: `${siteUrl}/apple-touch-icon.jpeg`,
     address: BJORLI_ADDRESS,
     sameAs: [
       'https://www.facebook.com/bjorliskisenter',
