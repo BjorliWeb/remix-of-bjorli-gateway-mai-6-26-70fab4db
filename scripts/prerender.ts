@@ -14,7 +14,11 @@
  *      • self-referencing canonical
  *      • full hreflang alternates + x-default
  *      • og:title/description/locale/url + twitter:*
- *      • meaningful semantic <body> skeleton (H1 + hero paragraph + nav)
+ *      • WebPage JSON-LD (+ TouristDestination on home, id="jsonld-org"
+ *        so runtime SEOHead takes it over instead of duplicating)
+ *      • meaningful semantic <body> skeleton: H1 + lead + supporting
+ *        paragraph (routeLeads.ts, distinct from title/description),
+ *        expanded crawlable nav and per-page related links
  *  - The Vite-generated bundle <script> tag from dist/index.html is
  *    preserved verbatim so client hydration/CSR takes over exactly as
  *    today. Runtime-only widgets (GA4/consent, Turnstile, contact form,
@@ -30,6 +34,8 @@ import { dirname, resolve } from 'node:path';
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { ogImageForCanonicalPath, seoForCanonicalPath } from '../src/lib/seo/routeSeo';
+import { leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
+import { buildWebPage } from '../src/lib/seo/schema';
 
 const DIST = resolve(process.cwd(), 'dist');
 const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
@@ -113,51 +119,192 @@ const buildHreflangs = (canonical: CanonicalRoute): HreflangAlt[] => {
 };
 
 /**
- * Human-readable nav labels for the prerender skeleton. Kept local to this
- * script so we don't couple the build-time renderer to runtime i18n bundles.
- * Only used for the tiny crawler-visible nav; React replaces this on mount.
+ * Link targets for the crawlable nav + related-links sections. `handel`
+ * is not a CanonicalRoute (Norwegian-only page outside the registry) so
+ * links model it explicitly; it is filtered out for non-NO locales.
  */
-const NAV_LABELS: Record<Locale, Record<'home' | 'sommer' | 'vinter' | 'skisenter' | 'overnatting' | 'kontakt', string>> = {
-  no: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', skisenter: 'Bjorli Skisenter', overnatting: 'Overnatting', kontakt: 'Kontakt' },
-  en: { home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', skisenter: 'Bjorli Ski Resort', overnatting: 'Accommodation', kontakt: 'Contact' },
-  de: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Winter', skisenter: 'Bjorli Skigebiet', overnatting: 'Unterkunft', kontakt: 'Kontakt' },
-  nl: { home: 'Bjorli', sommer: 'Zomer', vinter: 'Winter', skisenter: 'Bjorli Skigebied', overnatting: 'Accommodatie', kontakt: 'Contact' },
-  da: { home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', skisenter: 'Bjorli Skicenter', overnatting: 'Overnatning', kontakt: 'Kontakt' },
-  sv: { home: 'Bjorli', sommer: 'Sommar', vinter: 'Vinter', skisenter: 'Bjorli Skidanläggning', overnatting: 'Boende', kontakt: 'Kontakt' },
+type LinkTarget = CanonicalRoute | 'handel';
+
+/**
+ * Human-readable link labels for the prerender skeleton. Kept local to this
+ * script so we don't couple the build-time renderer to runtime i18n bundles.
+ * Only used for the crawler-visible nav/related links; React replaces this
+ * on mount. `handel` has a label only in Norwegian (page is NO-only).
+ */
+const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
+  no: {
+    home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
+    'vaer-og-webkamera': 'Vær og webkamera', arrangementer: 'Hva skjer',
+    skisenter: 'Bjorli Skisenter', overnatting: 'Overnatting', 'mat-og-drikke': 'Mat og drikke',
+    handel: 'Handel', kontakt: 'Kontakt', fotturer: 'Fotturer', sykling: 'Sykling',
+    fiske: 'Fiske', familie: 'Familie', gardsbesok: 'Gårdsbesøk', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Heiskort',
+    apningstider: 'Åpningstider', skiskole: 'Skiskole', skiutleie: 'Skiutleie',
+  },
+  en: {
+    home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', aktiviteter: 'Activities',
+    'vaer-og-webkamera': 'Weather and webcams', arrangementer: "What's on",
+    skisenter: 'Bjorli Ski Resort', overnatting: 'Accommodation', 'mat-og-drikke': 'Food and drink',
+    kontakt: 'Contact', fotturer: 'Hiking', sykling: 'Cycling',
+    fiske: 'Fishing', familie: 'Family', gardsbesok: 'Farm visits', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Ski passes',
+    apningstider: 'Opening hours', skiskole: 'Ski school', skiutleie: 'Ski rental',
+  },
+  de: {
+    home: 'Bjorli', sommer: 'Sommer', vinter: 'Winter', aktiviteter: 'Aktivitäten',
+    'vaer-og-webkamera': 'Wetter und Webcams', arrangementer: 'Veranstaltungen',
+    skisenter: 'Bjorli Skigebiet', overnatting: 'Unterkunft', 'mat-og-drikke': 'Essen und Trinken',
+    kontakt: 'Kontakt', fotturer: 'Wandern', sykling: 'Radfahren',
+    fiske: 'Angeln', familie: 'Familie', gardsbesok: 'Hofbesuche', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipässe',
+    apningstider: 'Öffnungszeiten', skiskole: 'Skischule', skiutleie: 'Skiverleih',
+  },
+  nl: {
+    home: 'Bjorli', sommer: 'Zomer', vinter: 'Winter', aktiviteter: 'Activiteiten',
+    'vaer-og-webkamera': 'Weer en webcams', arrangementer: 'Evenementen',
+    skisenter: 'Bjorli Skigebied', overnatting: 'Accommodatie', 'mat-og-drikke': 'Eten en drinken',
+    kontakt: 'Contact', fotturer: 'Wandelen', sykling: 'Fietsen',
+    fiske: 'Vissen', familie: 'Familie', gardsbesok: 'Boerderijbezoek', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipassen',
+    apningstider: 'Openingstijden', skiskole: 'Skischool', skiutleie: 'Skiverhuur',
+  },
+  da: {
+    home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
+    'vaer-og-webkamera': 'Vejr og webcams', arrangementer: 'Det sker',
+    skisenter: 'Bjorli Skicenter', overnatting: 'Overnatning', 'mat-og-drikke': 'Mad og drikke',
+    kontakt: 'Kontakt', fotturer: 'Vandring', sykling: 'Cykling',
+    fiske: 'Fiskeri', familie: 'Familie', gardsbesok: 'Gårdsbesøg', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
+    apningstider: 'Åbningstider', skiskole: 'Skiskole', skiutleie: 'Skiudlejning',
+  },
+  sv: {
+    home: 'Bjorli', sommer: 'Sommar', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
+    'vaer-og-webkamera': 'Väder och webbkameror', arrangementer: 'På gång',
+    skisenter: 'Bjorli Skidanläggning', overnatting: 'Boende', 'mat-og-drikke': 'Mat och dryck',
+    kontakt: 'Kontakt', fotturer: 'Vandring', sykling: 'Cykling',
+    fiske: 'Fiske', familie: 'Familj', gardsbesok: 'Gårdsbesök', 'golden-train': 'Golden Train',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
+    apningstider: 'Öppettider', skiskole: 'Skidskola', skiutleie: 'Skiduthyrning',
+  },
 };
+
+/** Crawlable primary nav — the main destination sections in site order. */
+const NAV_ROUTES: LinkTarget[] = [
+  'home', 'sommer', 'vinter', 'aktiviteter', 'vaer-og-webkamera', 'arrangementer',
+  'skisenter', 'overnatting', 'mat-og-drikke', 'handel', 'kontakt',
+];
+
+/**
+ * Page-specific related links ("Se også") for priority routes. Routes not
+ * listed here render no related section — just the primary nav.
+ */
+const RELATED_LINKS: Partial<Record<LinkTarget, LinkTarget[]>> = {
+  home: ['sommer', 'vinter', 'aktiviteter', 'vaer-og-webkamera', 'overnatting', 'arrangementer'],
+  sommer: ['fotturer', 'sykling', 'fiske', 'familie', 'overnatting', 'vaer-og-webkamera'],
+  vinter: ['skisenter', 'heiskort', 'apningstider', 'skiskole', 'skiutleie', 'vaer-og-webkamera'],
+  aktiviteter: ['fotturer', 'sykling', 'fiske', 'familie', 'gardsbesok', 'golden-train', 'romsdalsgondolen', 'sagelva'],
+  'vaer-og-webkamera': ['sommer', 'vinter', 'aktiviteter', 'skisenter', 'overnatting'],
+  overnatting: ['aktiviteter', 'vaer-og-webkamera', 'mat-og-drikke', 'skisenter'],
+  skisenter: ['heiskort', 'apningstider', 'skiskole', 'skiutleie', 'vaer-og-webkamera'],
+  'mat-og-drikke': ['overnatting', 'aktiviteter', 'handel'],
+  handel: ['mat-og-drikke', 'overnatting', 'aktiviteter'],
+  kontakt: ['overnatting', 'vaer-og-webkamera', 'aktiviteter'],
+  sykling: ['fotturer', 'fiske', 'sommer', 'aktiviteter', 'overnatting'],
+  fotturer: ['sykling', 'fiske', 'familie', 'sommer', 'overnatting'],
+  fiske: ['fotturer', 'sykling', 'sommer', 'overnatting'],
+  familie: ['aktiviteter', 'sommer', 'vinter', 'overnatting', 'arrangementer'],
+  arrangementer: ['aktiviteter', 'overnatting', 'vaer-og-webkamera', 'mat-og-drikke'],
+};
+
+const RELATED_HEADING: Record<Locale, string> = {
+  no: 'Se også', en: 'See also', de: 'Siehe auch', nl: 'Zie ook', da: 'Se også', sv: 'Se även',
+};
+
+/** Href for a link target in a given locale. `handel` exists only at /handel (NO). */
+const hrefForTarget = (target: LinkTarget, locale: Locale): string => {
+  const prefix = LOCALE_PREFIX[locale] || '';
+  if (target === 'handel') return '/handel';
+  if (target === 'home') return prefix || '/';
+  return `${prefix}/${slugForCanonical(target, locale)}`;
+};
+
+/** Localized nav/related link list; drops `handel` outside Norwegian. */
+const linksFor = (targets: LinkTarget[], locale: Locale): { label: string; href: string }[] =>
+  targets
+    .filter((t) => t !== 'handel' || locale === 'no')
+    .map((t) => ({ label: PAGE_LABELS[locale][t] ?? t, href: hrefForTarget(t, locale) }));
 
 /** Body skeleton (semantic, crawler-visible). Replaced by React on hydrate. */
 const bodySkeleton = (opts: {
   locale: Locale;
   title: string;
   description: string;
-  canonical: CanonicalRoute;
+  canonical: LinkTarget;
+  lead: RouteLeadEntry | null;
 }): string => {
-  const { locale, title, description, canonical } = opts;
+  const { locale, title, description, canonical, lead } = opts;
   const prefix = LOCALE_PREFIX[locale] || '';
   const homeHref = prefix || '/';
-  const labels = NAV_LABELS[locale];
-  // Small human-visible skeleton. Kept minimal so React swap is instant.
-  const nav = [
-    { label: labels.home, href: homeHref },
-    { label: labels.sommer, href: `${prefix}/${slugForCanonical('sommer', locale)}` },
-    { label: labels.vinter, href: `${prefix}/${slugForCanonical('vinter', locale)}` },
-    { label: labels.skisenter, href: `${prefix}/${slugForCanonical('skisenter', locale)}` },
-    { label: labels.overnatting, href: `${prefix}/${slugForCanonical('overnatting', locale)}` },
-    { label: labels.kontakt, href: `${prefix}/${slugForCanonical('kontakt', locale)}` },
-  ];
-  const navHtml = nav
+  // Crawler-visible skeleton: H1 distinct from <title>, lead distinct from
+  // meta description (both fall back to the old behaviour when no entry
+  // exists), expanded primary nav and per-page related links.
+  const navHtml = linksFor(NAV_ROUTES, locale)
     .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
     .join(' · ');
-  return `<div id="root"><div data-prerender="wave2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
-  <header style="max-width:960px;margin:0 auto 2rem"><a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a></header>
+  const h1 = lead?.h1 ?? title;
+  const leadText = lead?.lead ?? description;
+  const supportingHtml = lead?.supporting
+    ? `\n    <p style="font-size:1.05rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(lead.supporting)}</p>`
+    : '';
+  const related = RELATED_LINKS[canonical];
+  const relatedItems = related ? linksFor(related, locale) : [];
+  const relatedHtml = relatedItems.length
+    ? `\n    <section style="margin:0 0 1.5rem">
+      <h2 style="font-size:1.125rem;margin:0 0 0.5rem">${escapeHtml(RELATED_HEADING[locale])}</h2>
+      <ul style="margin:0;padding-left:1.25rem;line-height:1.7">
+        ${relatedItems.map((n) => `<li><a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a></li>`).join('\n        ')}
+      </ul>
+    </section>`
+    : '';
+  return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
+  <header style="max-width:960px;margin:0 auto 2rem">
+    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
+    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
+  </header>
   <main style="max-width:960px;margin:0 auto">
-    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(title)}</h1>
-    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(description)}</p>
-    <nav aria-label="Primary" style="font-size:0.95rem;color:#456">${navHtml}</nav>
+    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(h1)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(leadText)}</p>${supportingHtml}${relatedHtml}
   </main>
 </div></div>`;
 };
+
+/**
+ * Serialize a JSON-LD block for the static head. Escapes "<" as unicode
+ * u003c so content can never close the script tag early. The homepage
+ * TouristDestination reuses id="jsonld-org" so the runtime SEOHead takes
+ * over the same element on hydration instead of appending a duplicate.
+ */
+const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
+  `<script type="application/ld+json"${id ? ` id="${id}"` : ''}>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+
+/** TouristDestination for the homepage — same shape SEOHead writes at runtime. */
+const touristDestinationLd = (locale: Locale, description: string): Record<string, unknown> => ({
+  '@context': 'https://schema.org',
+  '@type': 'TouristDestination',
+  name: 'Bjorli',
+  description,
+  url: ORIGIN + (LOCALE_PREFIX[locale] || ''),
+  inLanguage: LOCALE_LABELS[locale].bcp47,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Bjorliveien 84',
+    addressLocality: 'Bjorli',
+    postalCode: '2669',
+    addressCountry: 'NO',
+  },
+  telephone: '+4748152200',
+  geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
+});
 
 /** Extract the Vite bundle <script> + preload <link>s from dist/index.html. */
 const readBaseTemplate = (): { scripts: string; preloads: string } => {
@@ -209,6 +356,23 @@ const renderRoute = (
   const ogLocale = LOCALE_LABELS[locale].ogLocale;
   const ogImage =
     ORIGIN + ogImageForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical);
+  const lead = leadForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical, locale);
+
+  // Static JSON-LD: WebPage on every route; TouristDestination on home
+  // (id matches SEOHead so hydration replaces rather than duplicates it).
+  const jsonLdTags = [
+    jsonLdScript(
+      buildWebPage({
+        url: href,
+        name: seo.title,
+        description: seo.description,
+        inLanguage: LOCALE_LABELS[locale].bcp47,
+      }),
+    ),
+    ...(canonical === 'home'
+      ? [jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org')]
+      : []),
+  ].join('\n    ');
 
   const hreflangTags = hreflangs
     .map(
@@ -257,10 +421,11 @@ const renderRoute = (
     <link rel="manifest" href="/manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    ${jsonLdTags}
     ${base.preloads}
   </head>
   <body>
-    ${bodySkeleton({ locale, title: seo.title, description: seo.description, canonical })}
+    ${bodySkeleton({ locale, title: seo.title, description: seo.description, canonical, lead })}
     ${base.scripts}
   </body>
 </html>
@@ -312,6 +477,15 @@ const run = () => {
   if (handelSeo) {
     const canonical = 'handel' as CanonicalRoute; // synthetic; only used for skeleton nav
     const href = ORIGIN + '/handel';
+    const handelLead = leadForCanonicalPath('/handel', 'no');
+    const handelJsonLd = jsonLdScript(
+      buildWebPage({
+        url: href,
+        name: handelSeo.title,
+        description: handelSeo.description,
+        inLanguage: LOCALE_LABELS.no.bcp47,
+      }),
+    );
     // Hreflang: self only (Norwegian-only page).
     const hreflangTags = `<link rel="alternate" hreflang="no" href="${escapeHtml(href)}" />\n    <link rel="alternate" hreflang="x-default" href="${escapeHtml(href)}" />`;
     const html = `<!doctype html>
@@ -345,10 +519,11 @@ const run = () => {
     <link rel="manifest" href="/manifest.json" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    ${handelJsonLd}
     ${base.preloads}
   </head>
   <body>
-    ${bodySkeleton({ locale: 'no', title: handelSeo.title, description: handelSeo.description, canonical })}
+    ${bodySkeleton({ locale: 'no', title: handelSeo.title, description: handelSeo.description, canonical, lead: handelLead })}
     ${base.scripts}
   </body>
 </html>
