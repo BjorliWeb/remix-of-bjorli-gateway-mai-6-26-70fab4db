@@ -1,12 +1,10 @@
-# Legacy 301s — keep above the SPA fallback.
-# NOTE: These 301s are served by the host (Cloudflare Pages) BEFORE any JS
-# runs, so we cannot fire a GA4 event for hits to /livecams here. Monitor
-# total legacy /livecams traffic via Google Search Console (redirect
-# coverage) and Cloudflare hosting analytics. The destination carries
-# `?from=livecams` so the SPA can fire `legacy_redirect_visit` (consent-
-# gated) once it boots. A client-side fallback (LegacyLivecamsRedirect)
-# handles in-app navigations and any environment where this rule is
-# inactive.
+# Legacy 301s — Cloudflare Pages serves these before any JS runs.
+# NOTE: We cannot fire a GA4 event here for /livecams hits. Monitor legacy
+# traffic via Google Search Console (redirect coverage) and Cloudflare
+# hosting analytics. The destination carries `?from=livecams` so the SPA
+# can fire `legacy_redirect_visit` (consent-gated) once it boots. A
+# client-side fallback (LegacyLivecamsRedirect) handles in-app navigations
+# and any environment where these rules are inactive.
 /parking         /parkering              301
 /parking/        /parkering              301
 /livecams        /vaer-og-webkamera?from=livecams      301
@@ -16,4 +14,35 @@
 /arrangementer/sommeraktiviteter   /sommer   301
 /arrangementer/sommeraktiviteter/  /sommer   301
 
-/*    /index.html   200
+# Localized livecams → weather-and-webcams (see docs/REDIRECTS.md).
+# Target slugs come from ROUTE_SLUGS in src/i18n/routes.ts.
+/en/livecams     /en/weather-and-webcams?from=livecams      301
+/en/livecams/    /en/weather-and-webcams?from=livecams      301
+/de/livecams     /de/wetter-und-webcams?from=livecams       301
+/de/livecams/    /de/wetter-und-webcams?from=livecams       301
+/nl/livecams     /nl/weer-en-webcams?from=livecams          301
+/nl/livecams/    /nl/weer-en-webcams?from=livecams          301
+/da/livecams     /da/vejr-og-webcams?from=livecams          301
+/da/livecams/    /da/vejr-og-webcams?from=livecams          301
+/sv/livecams     /sv/vader-och-webbkameror?from=livecams    301
+/sv/livecams/    /sv/vader-och-webbkameror?from=livecams    301
+
+# Legacy URLs from the old bjorli.no (WordPress).
+/utforsk-bjorli          /aktiviteter     301
+/utforsk-bjorli/         /aktiviteter     301
+/aktiviteter-tilbud      /aktiviteter     301
+/aktiviteter-tilbud/     /aktiviteter     301
+/vart-serveringstilbud   /mat-og-drikke   301
+/vart-serveringstilbud/  /mat-og-drikke   301
+/mountain-village        /overnatting     301
+/mountain-village/       /overnatting     301
+/bjorliledigstilling     /kontakt         301
+/bjorliledigstilling/    /kontakt         301
+/apning                  /apningstider    301
+/apning/                 /apningstider    301
+
+# No explicit SPA fallback rule: Cloudflare Pages serves index.html (200)
+# automatically for unmatched routes when the deploy has no top-level
+# 404.html. The previous `/* /index.html 200` rule triggered Pages'
+# infinite-loop detection (its target normalizes back to `/`) and was
+# ignored with a deploy warning — removing it changes nothing at runtime.
