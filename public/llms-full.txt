@@ -130,6 +130,16 @@ the ski resort.
 ## Food and drink (Mat og drikke) — https://bjorli.no/mat-og-drikke
 Restaurants and cafés around Bjorli, including Heiskroa at the resort.
 
+## Shopping (Handel) — https://bjorli.no/handel
+Groceries, a sports shop with ski service and a fuel station along the
+E136, close to both the ski resort and the cabin areas. This page exists
+in Norwegian only.
+
+## Parking (Parkering) — https://bjorli.no/parkering
+How parking and payment work at P1 and P2 at Bjorli Skisenter — run by
+Parkly with number-plate recognition. Check the live page for current
+practical details.
+
 ## Hiking (Fotturer) — https://bjorli.no/fotturer
 Bjorli is a base for hiking in Romsdalen, Reinheimen and Lesja, with a
 mix of short family walks and longer mountain routes. The page collects

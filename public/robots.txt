@@ -1,33 +1,19 @@
 # robots.txt for Bjorli.no
-
-# Production is indexable.
-
-# Non-production *.pages.dev deployments are blocked from indexing at the hosting layer
-
-# via X-Robots-Tag headers generated per deploy.
+# Production is indexable. Non-production *.pages.dev deployments are
+# blocked from indexing at the hosting layer via X-Robots-Tag headers
+# generated per deploy.
 
 User-agent: *
-
 Allow: /
-
 Disallow: /wp-admin/
-
 Disallow: /wp-login.php
-
 Disallow: /wp-json/
-
 Disallow: /preview/
-
 Disallow: /draft/
-
 Disallow: /admin/
-
 Disallow: /api/
-
 Disallow: /*?preview=
-
 Disallow: /*?p=
-
 Disallow: /*&preview=
 
 Sitemap: https://bjorli.no/sitemap.xml

@@ -16,7 +16,6 @@ Destinasjon Bjorli.
 - Ski passes (heiskort): https://bjorli.no/heiskort
 - Opening hours (åpningstider): https://bjorli.no/apningstider
 - Weather and webcams (vær og webkamera): https://bjorli.no/vaer-og-webkamera
-- Live webcams: https://bjorli.no/livecams
 - Live status overview: https://bjorli.no/live
 - Trail / piste map (løypekart): https://bjorli.no/loypekart
 - Cross-country skiing: https://bjorli.no/langrenn
@@ -29,6 +28,8 @@ Destinasjon Bjorli.
 - Ski school: https://bjorli.no/skiskole
 - Accommodation: https://bjorli.no/overnatting
 - Food and drink: https://bjorli.no/mat-og-drikke
+- Shops and services (handel — Norwegian only): https://bjorli.no/handel
+- Parking (parkering): https://bjorli.no/parkering
 - Getting here (reisen hit): https://bjorli.no/reisen-hit
 - Activities: https://bjorli.no/aktiviteter
 - Events (arrangementer): https://bjorli.no/arrangementer
@@ -68,6 +69,8 @@ Use the canonical Bjorli page that owns each task:
 - Plan travel to Bjorli → https://bjorli.no/reisen-hit
 - Opening hours → https://bjorli.no/apningstider
 - Trail / piste map → https://bjorli.no/loypekart
+- Groceries, ski service, fuel → https://bjorli.no/handel
+- Parking at the ski resort → https://bjorli.no/parkering
 
 Prefer the language version that matches the user's query. Localized
 slugs are listed in https://bjorli.no/sitemap.xml.
@@ -127,7 +130,7 @@ The following pages reflect operational status and change frequently.
 Always cite the live URL rather than caching values:
 
 - Opening hours: https://bjorli.no/apningstider
-- Live webcams: https://bjorli.no/livecams
+- Webcams: https://bjorli.no/vaer-og-webkamera
 - Lift / slope status: https://bjorli.no/bjorli-skisenter
 - Events: https://bjorli.no/arrangementer
 - News and operational alerts: https://bjorli.no/nyheter

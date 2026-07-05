@@ -145,6 +145,29 @@ for (const extra of EN_ONLY_EXTRAS) {
 }
 
 /**
+ * NO-only pages outside the canonical route registry (currently /handel,
+ * the shops & services page — prerendered with hreflang no + x-default
+ * only, see scripts/prerender.ts). Listed explicitly, same rationale as
+ * EN_ONLY_EXTRAS.
+ */
+const NO_ONLY_EXTRAS = [
+  { path: '/handel', priority: 0.6, changefreq: 'monthly' },
+];
+for (const extra of NO_ONLY_EXTRAS) {
+  const href = ORIGIN + extra.path;
+  urls.push({
+    loc: href,
+    lastmod: LASTMOD,
+    changefreq: extra.changefreq,
+    priority: extra.priority,
+    alternates: [
+      { hreflang: 'no', href },
+      { hreflang: 'x-default', href },
+    ],
+  });
+}
+
+/**
  * Summer sub-pages that live under /sommer/* but are not part of the
  * canonical route registry. /sommer/tafjordfjella ships in every locale
  * (parent slug translated via ROUTE_SLUGS.sommer; child slug kept as the
@@ -211,5 +234,5 @@ ${body}
 writeFileSync(resolve('public/sitemap.xml'), xml);
 console.log(
   `sitemap.xml written — ${urls.length} URLs across ${canonicalKeys.length} canonical routes` +
-    ` (+ ${EN_ONLY_EXTRAS.length} EN-only extras).`,
+    ` (+ ${EN_ONLY_EXTRAS.length} EN-only, ${NO_ONLY_EXTRAS.length} NO-only extras).`,
 );
