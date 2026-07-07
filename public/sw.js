@@ -15,8 +15,9 @@ function isCacheableRequest(request) {
   // Only same-origin. Blocks *.supabase.co, storage, edge functions, third parties.
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return false;
-  // Admin surface is never cached.
-  if (url.pathname.startsWith('/admin')) return false;
+  // Admin surface is never cached. Substring, case-insensitive: also excludes
+  // dev-server module URLs like /src/pages/AdminLogin.tsx.
+  if (/\/admin/i.test(url.pathname)) return false;
   // Signed / tokenized URLs are never cached.
   if (SIGNED_PARAM_RE.test(url.search)) return false;
   // Requests carrying credentials must not be cached.
