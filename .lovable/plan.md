@@ -1,49 +1,44 @@
-# Conversion-clarity pass — change plan
+## R-07 live verification plan
 
-**Status:** Ready for Cloudflare Pages staging deploy. Copy/CTA pass completed; no pending source changes. Last updated: 2026-06-15.
+No code changes. Goal: produce actual console output proving the `bjorli-v2` cache never absorbs Supabase / `/admin` / signed-URL responses, while still caching public assets.
 
-## Completed milestones
-- **Cloudflare Pages readiness** — SPA fallback (`public/_redirects`), `.nvmrc`, `.gitignore`, `DEPLOYMENT.md`, build scripts verified.
-- **GitHub sync safety** — working tree clean, `.env` untracked, required files present. Exact GitHub repo name must be verified in Lovable UI (sandbox remotes point to internal Lovable storage).
-- **Norwegian accommodation page (`/overnatting`)** — updated copy, provider sections, and external booking link; TypeScript check passed.
-- **Package lock integrity** — `package-lock.json` regenerated and present.
+### Steps
 
-## Remaining before first *.pages.dev deploy
-- Verify GitHub sync target in Lovable UI (expected: `remix-of-bjorli-gateway-mai-6-26-70fab4db`).
-- Configure Cloudflare Pages build settings per `DEPLOYMENT.md`.
-- Deploy to staging `*.pages.dev` and verify SPA routing.
+1. **Check auth injection.** Read `LOVABLE_BROWSER_AUTH_STATUS`. Must be `injected`; otherwise stop and ask you to re-sign in.
+2. **Playwright script** at `/tmp/browser/r07/verify.py`:
+   - Launch Chromium headless, viewport 1280×1800.
+   - Restore Supabase session: set `sb-*-auth-token` in `localStorage` at `http://localhost:8080`, plus `@supabase/ssr` cookies if present.
+   - Navigate `/` and wait for the service worker to control the page (`navigator.serviceWorker.ready`, then poll until `controller` is set — trigger a reload if needed, since network-first only populates on the second load).
+   - Reload `/` once more so `/`, `/index.html`, hashed `/assets/*`, and `/manifest.json` get fetched-through and cached.
+   - Navigate `/admin/innsendinger`. Wait for the list to render. Click into 2–3 submissions in turn so their Supabase REST GETs + signed storage thumbnail URLs fire.
+   - Sign out via the admin UI.
+   - In the page context, run:
+     ```js
+     const names = await caches.keys();
+     const c = await caches.open('bjorli-v2');
+     const urls = (await c.keys()).map(r => r.url);
+     const leaks = urls.filter(u =>
+       /supabase\.co|\/admin|[?&](token|sig|signature|X-Amz-|Expires|se)=/i.test(u)
+     );
+     const publicHits = {
+       root: urls.some(u => new URL(u).pathname === '/'),
+       indexHtml: urls.some(u => u.endsWith('/index.html')),
+       manifest: urls.some(u => u.endsWith('/manifest.json')),
+       hashedAssets: urls.filter(u => /\/assets\/.+\.[a-f0-9]{6,}\./.test(u)),
+     };
+     return { names, urlCount: urls.length, urls, leaks, publicHits };
+     ```
+   - Print the full JSON to stdout, redirected to `/tmp/browser/r07/out.json`.
+3. **Report to you verbatim:**
+   - `caches.keys()` result.
+   - Leak-filter output (must be `[]`).
+   - Public-asset presence booleans + the matched hashed-asset URLs.
+   - The full `urls` list so you can eyeball it.
+   - Screenshots at each major step (post-login admin list, post-submission-open, post-signout) under `/tmp/browser/r07/screenshots/`.
+4. **If leaks > 0** or public assets are missing: stop, show the offending URLs, and diagnose (likely `isCacheableRequest` or `isCacheableResponse` gap) — no fix applied in this pass, since you asked to pause after R-07.
 
-## Out of scope (preserved)
-Design, layout, routes, images, SEO metadata, schema, analytics, CMS logic, Supabase schema/RLS, domain settings, live bjorli.no, old WordPress site.
+### Risks / assumptions
 
-
-Scope: copy + CTA hierarchy only. No redesign, no new routes, no fake proof, no klatrepark. NO is primary; EN/DA/NL/DE/SV updated where the same string lives.
-
-## Pages & risk
-
-### 1. Homepage hero (`src/i18n/locales/no.ts` → `hero`) — LOW
-- H1 → "Snøsikre skidager for hele familien"
-- Subtitle → "Alpint, langrenn, hytter og enkle fjelldager på Bjorli – mellom Østlandet og fjordene på Vestlandet."
-- Keep primary CTA "Kjøp heiskort" and secondary "Finn overnatting" prominent in `src/pages/Index.tsx`; demote the "Åpningstider" link to a smaller inline link so only 2 strong CTAs are visible in the first viewport.
-- EN/DA/NL/DE/SV: refresh hero title + subtitle to match tone (no "rolig").
-
-### 2. Mobile hero typography (`src/pages/Index.tsx`) — LOW
-- Reduce H1 base size at 360–430px (`text-4xl sm:text-5xl md:text-8xl ...`) and tighten subtitle/CTA spacing so H1 + sub + primary CTA fit above the fold on iPhone SE → 14 Pro Max.
-
-### 3. `/overnatting` (`src/pages/Accommodation.tsx` + `accommodationPage` strings) — MEDIUM
-- New H1: "Overnatting på Bjorli – hytter, leiligheter og hotell".
-- Add 5 labelled sections: Hytter og leiligheter / Hotell / Familie og grupper / Nær skisenteret / Camping (still cards, same visual system).
-- Single primary CTA "Finn overnatting" pointing to existing `https://bjorli.no/overnatting/` link, clearly labelled as the booking source (flagged in QA report for later Mews move).
-
-### 4. Proof section "Hvorfor Bjorli?" (`whyBjorli` in all locales) — LOW
-- Replace generic items with the 5 factual points requested (snøsikker, familievennlig, Raumabanen, kort vei, basecamp mellom fjell og fjord). Title stays "Hvorfor Bjorli?".
-
-### 5. "Passer for" lines — LOW
-- Add a short "Passer for: barnefamilier · hyttegjester · vennegjenger · skiturister" line under `intro.body` (NO + parity locales). No layout change — rendered as a small muted paragraph already supported by `HomepageSections`. If the section component doesn't have a slot, append into the existing body string to avoid component changes.
-
-### 6. QA (no code) — LOW
-- Check homepage, /overnatting, /sommer, /vaer-og-webkamera, /heiskort on 375px + 1280px.
-- Report unclear CTA hierarchy, awkward wrap, external WP/Skiperformance links to migrate later, and confirm zero klatrepark references (already grepped — none in source).
-
-## Out of scope
-Sommer hero (just rewritten), KlatringRomsdalen (just rewritten), winter copy beyond the items above, navigation, footer, schema, sitemap, llms.
+- Assumes `LOVABLE_BROWSER_AUTH_STATUS=injected` and the signed-in user has admin role for `/admin/innsendinger`. If not, verification cannot complete and I'll say so instead of faking output.
+- Service worker registration in dev: Vite may serve `sw.js` but the new v2 must be active. Script will force `registration.update()` + `skipWaiting`/`clients.claim` (already in sw.js) and confirm `caches.keys()` shows only `['bjorli-v2']` before proceeding.
+- No files in the repo are modified.
