@@ -20,6 +20,20 @@ const BodySchema = z.object({
   maps: z.string().trim().max(500).optional().nullable(),
   category: z.string().min(1).max(80),
   imagePaths: z.array(z.string().max(300)).max(5).default([]),
+  // R-05b: client-declared metadata for each planned upload. Must align 1:1
+  // with imagePaths. The storage bucket (R-05a) is the ultimate enforcer,
+  // but validating here rejects obviously-bad submissions before the row
+  // is even created.
+  imageMeta: z
+    .array(
+      z.object({
+        mime: z.enum(['image/jpeg', 'image/png', 'image/webp']),
+        size: z.number().int().min(1).max(8 * 1024 * 1024),
+        name: z.string().max(200).optional(),
+      }),
+    )
+    .max(5)
+    .default([]),
   uploadToken: z.string().uuid(),
   language: z.enum(['no', 'en']).default('no'),
   consentRights: z.literal(true),
@@ -75,6 +89,17 @@ Deno.serve(async (req) => {
     if (!p.startsWith(tokenPrefix)) {
       return jsonResponse({ ok: false, error: 'invalid-image-path' }, 400);
     }
+  }
+
+  // R-05b: if imageMeta is provided it must align 1:1 with imagePaths.
+  // (Missing imageMeta is tolerated for backwards compatibility during the
+  // rollout — the bucket file_size_limit + allowed_mime_types still block
+  // bad uploads at the storage layer.)
+  if (
+    parsed.data.imageMeta.length > 0 &&
+    parsed.data.imageMeta.length !== parsed.data.imagePaths.length
+  ) {
+    return jsonResponse({ ok: false, error: 'image-meta-mismatch' }, 400);
   }
 
   const ip =

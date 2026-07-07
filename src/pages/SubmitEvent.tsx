@@ -330,6 +330,14 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
         const ext = file.name.split('.').pop() || 'jpg';
         return `uploads/${uploadToken}/${crypto.randomUUID()}.${ext}`;
       });
+      // R-05b: send per-file MIME + size so the edge function can reject
+      // obviously-bad submissions before the row is created. The storage
+      // bucket also enforces these limits (R-05a).
+      const imageMeta = images.map((file) => ({
+        mime: file.type,
+        size: file.size,
+        name: file.name.slice(0, 200),
+      }));
       const { data: fnData, error: fnError } = await supabase.functions.invoke(
         'submit-event',
         {
@@ -349,6 +357,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
             maps: normalizedMaps || null,
             category: parsed.data.category,
             imagePaths: plannedPaths,
+            imageMeta,
             uploadToken,
             language: lang,
             consentRights,
