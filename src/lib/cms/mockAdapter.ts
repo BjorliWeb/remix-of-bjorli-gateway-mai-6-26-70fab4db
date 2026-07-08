@@ -859,7 +859,13 @@ export const mockAdapter: CmsAdapter = {
   },
 
   async getNews(q) { return apply(buildNews(q.language), q); },
-  async getEvents(q) { return apply(buildEvents(q.language), q); },
+  async getEvents(q) {
+    const [live, mock] = await Promise.all([
+      fetchApprovedSubmissions(q.language),
+      Promise.resolve(buildEvents(q.language)),
+    ]);
+    return apply(mergeEvents(live, mock), q);
+  },
   async getTips(q) { return apply(buildTips(q.language), q); },
   async getActivities(q) { return apply(buildActivities(q.language), q); },
 
