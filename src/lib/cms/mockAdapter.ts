@@ -501,10 +501,14 @@ export const mockAdapter: CmsAdapter = {
     const tips = buildTips(language).slice(0, 4);
     const news = buildNews(language).slice(0, 4);
     // Homepage "Hva skjer på Bjorli" uses the same event source as
-    // /arrangementer (buildEvents → filters out archived). We surface up
-    // to 6 entries so the 1 + 2 + 3 layout can fill naturally, and fall
-    // back to fewer cards when there are fewer real events.
-    const events = buildEvents(language).slice(0, 6);
+    // /arrangementer (approved submissions + editorial mock events,
+    // merged and filtered to current/upcoming). We surface up to 6 so
+    // the 1 + 2 + 3 layout can fill naturally, and fall back to fewer
+    // cards when there are fewer real events.
+    const events = mergeEvents(
+      await fetchApprovedSubmissions(language),
+      buildEvents(language),
+    ).slice(0, 6);
 
     // ─── WINTER HOMEPAGE ─────────────────────────────────────────────
     // Section order matches the official Bjorli winter homepage spec:
