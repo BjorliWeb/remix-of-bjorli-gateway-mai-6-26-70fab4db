@@ -347,6 +347,97 @@ const buildEvents = (lang: Language): CmsEvent[] => {
   })).filter((ev) => ev.status !== 'archived');
 };
 
+/**
+ * Fetch approved user-submitted events from the public edge function
+ * `list-approved-events`. The function enforces a column allowlist and
+ * mints signed URLs for images against the private storage bucket, so
+ * this adapter never sees private fields or raw storage paths.
+ */
+const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => {
+  try {
+    const { data, error } = await supabase.functions.invoke('list-approved-events', {
+      body: { language: lang },
+    });
+    if (error) {
+      console.warn('[cms] list-approved-events failed', error);
+      return [];
+    }
+    const rows: Array<{
+      id: string;
+      slug: string;
+      title: string;
+      summary: string | null;
+      description: string | null;
+      organizer: string | null;
+      category: string | null;
+      language: string;
+      start_date: string;
+      end_date: string | null;
+      time_text: string | null;
+      location: string | null;
+      maps_url: string | null;
+      website: string | null;
+      image_signed_urls: string[];
+    }> = (data as { events?: unknown[] })?.events as never ?? [];
+
+    const fallback: CmsImage = {
+      url: EVENT_IMAGES[0],
+      alt: 'Arrangement på Bjorli',
+    };
+    return rows.map((r) => {
+      const heroUrl = r.image_signed_urls?.[0];
+      return {
+        id: `submission-${r.id}`,
+        slug: r.slug,
+        language: r.language as Language,
+        title: r.title,
+        intro: r.summary ?? '',
+        body: r.description ?? r.summary ?? '',
+        heroImage: heroUrl ? { url: heroUrl, alt: r.title } : fallback,
+        category: r.category ?? undefined,
+        season: 'all' as const,
+        publishedAt: r.start_date,
+        updatedAt: r.start_date,
+        startsAt: r.start_date,
+        endsAt: r.end_date ?? undefined,
+        bookingUrl: r.website ?? undefined,
+        ctaLabel: undefined,
+        ctaHref: r.website ?? undefined,
+        seoTitle: r.title,
+        seoDescription: r.summary ?? '',
+        status: 'published' as const,
+      } as CmsEvent;
+    });
+  } catch (e) {
+    console.warn('[cms] list-approved-events threw', e);
+    return [];
+  }
+};
+
+/**
+ * Public event feed = approved submissions + editorial mock events,
+ * deduped by slug, filtered to current/upcoming, sorted by start date.
+ */
+const mergeEvents = (live: CmsEvent[], mock: CmsEvent[]): CmsEvent[] => {
+  const seen = new Set<string>();
+  const merged: CmsEvent[] = [];
+  const today = new Date().toISOString().slice(0, 10);
+  const isActive = (e: CmsEvent) => {
+    const end = (e as CmsEvent & { endsAt?: string }).endsAt ?? e.startsAt;
+    return !end || end >= today;
+  };
+  for (const list of [live, mock]) {
+    for (const e of list) {
+      if (seen.has(e.slug)) continue;
+      if (!isActive(e)) continue;
+      seen.add(e.slug);
+      merged.push(e);
+    }
+  }
+  merged.sort((a, b) => (a.startsAt ?? '').localeCompare(b.startsAt ?? ''));
+  return merged;
+};
+
 const buildActivities = (lang: Language): CmsActivity[] => {
   const d = dict(lang);
   const winter = d.beyondAlpine.items.map((it, i) => ({
