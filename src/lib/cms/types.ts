@@ -163,6 +163,23 @@ export interface CmsEvent extends CmsEntryBase {
   bookingUrl?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /** Free-form time text ("10:00 – 14:00", "Alle dager kl 12"). */
+  timeText?: string;
+  /** Google Maps URL for the venue. */
+  mapsUrl?: string;
+  /** Public organiser website (external). */
+  website?: string;
+  /**
+   * Public contact email — ONLY populated when the submitter opted in
+   * via `show_email_public`. Never set from mock content.
+   */
+  contactEmail?: string;
+  /**
+   * True when this entry comes from a user submission (event_submissions
+   * table) rather than editorial mock content. Drives detail-page layout
+   * (organizer block, external website CTA, opt-in mailto).
+   */
+  isSubmission?: boolean;
   /**
    * Publication state. Defaults to `'published'` when missing.
    * Archived events stay in the data for future CMS/editor use but
