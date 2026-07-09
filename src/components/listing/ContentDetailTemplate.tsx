@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import type { ReactNode } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Breadcrumbs from './Breadcrumbs';
@@ -27,6 +28,8 @@ interface Props {
   faq?: FaqItem[];
   ctaLabel?: string;
   ctaHref?: string;
+  /** Optional block rendered after the body (used for organiser info on events). */
+  extraContent?: ReactNode;
   /** Pre-built JSON-LD payload (Article / NewsArticle / Event). Falls back to a WebPage stub. */
   jsonLd?: Record<string, unknown>;
   /**
@@ -48,6 +51,7 @@ const ContentDetailTemplate = ({
   faq,
   ctaLabel,
   ctaHref,
+  extraContent,
   jsonLd,
   translatedBody,
 }: Props) => {
@@ -127,6 +131,8 @@ const ContentDetailTemplate = ({
               </Button>
             </div>
           )}
+
+          {extraContent}
 
           <div className="mt-10">
             <Link to={lp(basePath)} className="inline-flex items-center gap-1.5 text-secondary font-semibold hover:underline">
