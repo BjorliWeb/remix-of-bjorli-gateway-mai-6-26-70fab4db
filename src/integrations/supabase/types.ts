@@ -119,6 +119,7 @@ export type Database = {
           phone: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          show_email_public: boolean
           start_date: string
           status: Database["public"]["Enums"]["event_submission_status"]
           summary: string | null
@@ -157,6 +158,7 @@ export type Database = {
           phone?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          show_email_public?: boolean
           start_date: string
           status?: Database["public"]["Enums"]["event_submission_status"]
           summary?: string | null
@@ -195,6 +197,7 @@ export type Database = {
           phone?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          show_email_public?: boolean
           start_date?: string
           status?: Database["public"]["Enums"]["event_submission_status"]
           summary?: string | null
