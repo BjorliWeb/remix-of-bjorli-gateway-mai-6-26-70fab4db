@@ -541,7 +541,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                                 </h3>
                               </div>
                             </motion.article>
-                          </Link>
+                          </EventLink>
                         ))}
                       </div>
                     </div>
