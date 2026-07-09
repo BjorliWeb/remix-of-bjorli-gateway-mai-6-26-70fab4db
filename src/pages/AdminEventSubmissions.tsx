@@ -393,7 +393,7 @@ const AdminEventSubmissions = () => {
 
 function DetailView({
   item, signedUrls, editorNotes, setEditorNotes, onBack, onSaveNotes, onSetStatus,
-  onAi, onSetEnglishApproval, aiBusy, actionBusy,
+  onAi, onSetEnglishApproval, onSetEmailVisibility, aiBusy, actionBusy,
 }: {
   item: Submission;
   signedUrls: Record<string, string>;
@@ -404,6 +404,7 @@ function DetailView({
   onSetStatus: (s: Status) => void;
   onAi: (m: AiMode) => void;
   onSetEnglishApproval: (approved: boolean) => void;
+  onSetEmailVisibility: (show: boolean) => void;
   aiBusy: boolean;
   actionBusy: boolean;
 }) {
@@ -633,6 +634,27 @@ function DetailView({
           <InfoRow icon={<Mail />} label="Kontakt">
             {item.contact_name}
             <a href={`mailto:${item.email}`} className="block text-xs text-muted-foreground underline mt-0.5">{item.email}</a>
+            <div className="mt-2 flex items-center gap-2">
+              <span
+                className={[
+                  'text-[11px] uppercase tracking-wider px-2 py-0.5 rounded-full',
+                  item.show_email_public
+                    ? 'bg-emerald-500/15 text-emerald-600'
+                    : 'bg-muted text-muted-foreground',
+                ].join(' ')}
+              >
+                {item.show_email_public ? 'Vist offentlig' : 'Skjult'}
+              </span>
+              <Button
+                size="sm"
+                variant="ghost"
+                disabled={actionBusy}
+                onClick={() => onSetEmailVisibility(!item.show_email_public)}
+                className="h-7 px-2 text-xs"
+              >
+                {item.show_email_public ? 'Skjul e-post' : 'Publiser e-post'}
+              </Button>
+            </div>
           </InfoRow>
           {item.phone && (
             <InfoRow icon={<Phone />} label="Telefon"><a href={`tel:${item.phone}`}>{item.phone}</a></InfoRow>
