@@ -38,6 +38,7 @@ const BodySchema = z.object({
   language: z.enum(['no', 'en']).default('no'),
   consentRights: z.literal(true),
   consentEditing: z.literal(true),
+  showEmailPublic: z.boolean().default(false),
   turnstileToken: z.string().min(1),
 });
 
@@ -136,6 +137,7 @@ Deno.serve(async (req) => {
     language: parsed.data.language,
     consent_rights: parsed.data.consentRights,
     consent_editing: parsed.data.consentEditing,
+    show_email_public: parsed.data.showEmailPublic,
     status: 'pending',
   });
 

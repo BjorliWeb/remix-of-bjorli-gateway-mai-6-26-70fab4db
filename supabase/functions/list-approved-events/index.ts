@@ -38,12 +38,10 @@ const PUBLIC_COLUMNS = [
   'maps_url',
   'website',
   'image_urls',
-  'ai_polished_summary',
-  'ai_polished_description',
-  'english_draft_title',
-  'english_draft_summary',
-  'english_draft_description',
-  'english_approved',
+  // Email gating: read email + flag from DB, then decide in the mapper
+  // whether email appears in the JSON response. Never spread the row.
+  'email',
+  'show_email_public',
 ] as const;
 
 type Row = Record<string, unknown> & {
@@ -53,6 +51,8 @@ type Row = Record<string, unknown> & {
   start_date: string;
   end_date: string | null;
   image_urls: string[] | null;
+  email: string | null;
+  show_email_public: boolean | null;
 };
 
 const CACHE_TTL_MS = 60_000;
@@ -109,10 +109,14 @@ Deno.serve(async (req) => {
   // Language param: accept via query string OR JSON body { language }.
   const url = new URL(req.url);
   let lang = url.searchParams.get('language') ?? '';
+  let slug = url.searchParams.get('slug') ?? '';
   if (!lang && req.method === 'POST') {
     try {
       const j = await req.json();
       if (j && typeof j.language === 'string') lang = j.language;
+      if (j && typeof (j as { slug?: unknown }).slug === 'string') {
+        slug = (j as { slug: string }).slug;
+      }
     } catch {
       /* ignore */
     }
@@ -120,6 +124,14 @@ Deno.serve(async (req) => {
   if (!lang) lang = 'no';
   if (!/^[a-z]{2}$/.test(lang)) {
     return new Response(JSON.stringify({ error: 'invalid language' }), {
+      status: 400,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+  // Slug format: slugify(title)-<8 hex chars of id>. Reject anything else
+  // to keep the cache key surface small and avoid oracle-y probes.
+  if (slug && !/^[a-z0-9-]{1,120}$/.test(slug)) {
+    return new Response(JSON.stringify({ error: 'invalid slug' }), {
       status: 400,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
@@ -140,7 +152,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  const cacheKey = lang;
+  const cacheKey = slug ? `${lang}|slug:${slug}` : `${lang}|list`;
   const cached = cache.get(cacheKey);
   const now = Date.now();
   if (cached && now - cached.at < CACHE_TTL_MS) {
@@ -173,9 +185,10 @@ Deno.serve(async (req) => {
     .limit(100);
 
   if (error) {
-    console.error('list-approved-events select failed', error);
+    // Log the error object only (no row data — rows contain email).
+    console.error('list-approved-events select failed', error.message);
     return new Response(
-      JSON.stringify({ error: 'query failed', details: error.message }),
+      JSON.stringify({ error: 'query failed' }),
       {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -185,8 +198,9 @@ Deno.serve(async (req) => {
 
   const rows = (data ?? []) as unknown as Row[];
 
-  const events = await Promise.all(
-    rows.map(async (r) => {
+  // Mapper is the ONLY exit path for row data. It never spreads the row and
+  // only sets `email` when show_email_public===true.
+  const toPublicEvent = async (r: Row) => {
       const paths = Array.isArray(r.image_urls) ? r.image_urls : [];
       let signed: string[] = [];
       if (paths.length > 0) {
@@ -198,13 +212,12 @@ Deno.serve(async (req) => {
           .filter((u): u is string => Boolean(u));
       }
       // Explicit whitelist of what leaves this function.
-      return {
+      const out: Record<string, unknown> = {
         id: r.id,
         slug: `${slugify(String(r.title))}-${String(r.id).slice(0, 8)}`,
         title: r.title,
-        summary: (r as Row).ai_polished_summary ?? (r as Row).summary ?? null,
-        description:
-          (r as Row).ai_polished_description ?? (r as Row).description ?? null,
+        summary: (r as Row).summary ?? null,
+        description: (r as Row).description ?? null,
         organizer: (r as Row).organizer ?? null,
         category: (r as Row).category ?? null,
         language: r.language,
@@ -216,14 +229,41 @@ Deno.serve(async (req) => {
         website: (r as Row).website ?? null,
         image_signed_urls: signed,
       };
-    }),
-  );
+      // Email gate — enforced in code, not just in the UI.
+      if (r.show_email_public === true && typeof r.email === 'string' && r.email.length > 0) {
+        out.email = r.email;
+      }
+      return out;
+  };
 
-  const body = JSON.stringify({ events });
+  let body: string;
+  let status = 200;
+  if (slug) {
+    // Single-event lookup: find the row whose derived slug matches.
+    const match = rows.find(
+      (r) => `${slugify(String(r.title))}-${String(r.id).slice(0, 8)}` === slug,
+    );
+    if (!match) {
+      // 404 is not cached (short-lived; slug typos shouldn't poison the cache).
+      return new Response(JSON.stringify({ error: 'not found' }), {
+        status: 404,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store',
+        },
+      });
+    }
+    const event = await toPublicEvent(match);
+    body = JSON.stringify({ event });
+  } else {
+    const events = await Promise.all(rows.map(toPublicEvent));
+    body = JSON.stringify({ events });
+  }
   cache.set(cacheKey, { at: now, body });
 
   return new Response(body, {
-    status: 200,
+    status,
     headers: {
       ...corsHeaders,
       'Content-Type': 'application/json',

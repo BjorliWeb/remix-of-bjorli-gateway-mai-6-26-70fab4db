@@ -3,6 +3,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import ContentDetailTemplate, {
   type DetailKind,
 } from '@/components/listing/ContentDetailTemplate';
+import EventOrganizerBlock from '@/components/listing/EventOrganizerBlock';
 import { toListingItem } from '@/components/listing/listingHelpers';
 import {
   getActivities,
@@ -11,6 +12,7 @@ import {
   getTips,
   useCms,
   type CmsEntryBase,
+  type CmsEvent,
 } from '@/lib/cms';
 import heroImg from '@/assets/hero-winter.jpg';
 
@@ -62,6 +64,12 @@ const ContentDetailPage = ({ kind }: Props) => {
     ? (fullEntry as { ctaLabel?: string; ctaHref?: string } | undefined)
     : undefined;
 
+  // Submissions get an organiser block instead of the external CTA button.
+  const submissionEvent =
+    kind === 'events' && (fullEntry as CmsEvent | undefined)?.isSubmission
+      ? (fullEntry as CmsEvent)
+      : null;
+
   return (
     <ContentDetailTemplate
       kind={cfg.detailKind}
@@ -71,8 +79,9 @@ const ContentDetailPage = ({ kind }: Props) => {
       related={related}
       body={fullEntry?.body ?? item?.intro}
       faq={faq}
-      ctaLabel={eventCta?.ctaLabel}
-      ctaHref={eventCta?.ctaHref}
+      ctaLabel={submissionEvent ? undefined : eventCta?.ctaLabel}
+      ctaHref={submissionEvent ? undefined : eventCta?.ctaHref}
+      extraContent={submissionEvent ? <EventOrganizerBlock event={submissionEvent} /> : undefined}
     />
   );
 };

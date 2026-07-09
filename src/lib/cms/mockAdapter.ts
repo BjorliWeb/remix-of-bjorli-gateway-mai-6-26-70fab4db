@@ -378,6 +378,8 @@ const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => 
       maps_url: string | null;
       website: string | null;
       image_signed_urls: string[];
+      /** Present only when submitter opted in via show_email_public. */
+      email?: string;
     }> = (data as { events?: unknown[] })?.events as never ?? [];
 
     const fallback: CmsImage = {
@@ -400,9 +402,18 @@ const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => 
         updatedAt: r.start_date,
         startsAt: r.start_date,
         endsAt: r.end_date ?? undefined,
-        bookingUrl: r.website ?? undefined,
+        // For submissions, external website lives on the DETAIL page's
+        // organizer block — not as the card CTA (cards route internally).
+        bookingUrl: undefined,
         ctaLabel: undefined,
-        ctaHref: r.website ?? undefined,
+        ctaHref: undefined,
+        organizer: r.organizer ?? undefined,
+        location: r.location ?? undefined,
+        timeText: r.time_text ?? undefined,
+        mapsUrl: r.maps_url ?? undefined,
+        website: r.website ?? undefined,
+        contactEmail: r.email,
+        isSubmission: true,
         seoTitle: r.title,
         seoDescription: r.summary ?? '',
         status: 'published' as const,

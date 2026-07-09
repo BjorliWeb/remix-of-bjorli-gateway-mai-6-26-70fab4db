@@ -21,11 +21,9 @@ export const resolveEventTarget = (
   ev: Pick<CmsEvent, 'id' | 'slug' | 'ctaHref' | 'bookingUrl'>,
   internalTo: string,
 ): EventLinkTarget => {
-  const isSubmission = typeof ev.id === 'string' && ev.id.startsWith('submission-');
-  if (isSubmission) {
-    const external = ev.ctaHref ?? ev.bookingUrl ?? undefined;
-    return external ? { kind: 'external', href: external } : { kind: 'none' };
-  }
+  // All approved events — editorial or submissions — now route to an
+  // internal detail page on bjorli.no. The external organiser website
+  // (submissions) is shown on that detail page.
   return { kind: 'internal', to: internalTo };
 };
 

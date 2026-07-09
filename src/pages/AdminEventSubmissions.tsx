@@ -61,6 +61,7 @@ interface Submission {
   english_draft_description: string | null;
   english_approved: boolean;
   english_approved_at: string | null;
+  show_email_public: boolean;
   created_at: string;
 }
 
@@ -246,6 +247,37 @@ const AdminEventSubmissions = () => {
     load();
   };
 
+  /**
+   * Toggle the submitter's opt-in for showing their email publicly on
+   * the event detail page. GDPR-relevant — must be a one-click action
+   * so we can revoke consent immediately when a submitter asks.
+   *
+   * Note: the public edge function caches responses for up to 60 seconds,
+   * so a change may take up to that long to reflect on the live page.
+   */
+  const setEmailVisibility = async (show: boolean) => {
+    if (!selected) return;
+    setActionBusy(true);
+    const { error } = await supabase
+      .from('event_submissions')
+      .update({ show_email_public: show })
+      .eq('id', selected.id);
+    setActionBusy(false);
+    if (error) {
+      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({
+      title: show
+        ? 'E-post publisert på arrangementssiden'
+        : 'E-post skjult fra arrangementssiden',
+      description: show
+        ? 'Kan ta inntil 60 sekunder før endringen vises offentlig.'
+        : 'Kan ta inntil 60 sekunder før endringen vises offentlig.',
+    });
+    load();
+  };
+
   if (!authChecked) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -312,6 +344,7 @@ const AdminEventSubmissions = () => {
           onSetStatus={setStatus}
           onAi={runAi}
           onSetEnglishApproval={setEnglishApproval}
+          onSetEmailVisibility={setEmailVisibility}
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
@@ -360,7 +393,7 @@ const AdminEventSubmissions = () => {
 
 function DetailView({
   item, signedUrls, editorNotes, setEditorNotes, onBack, onSaveNotes, onSetStatus,
-  onAi, onSetEnglishApproval, aiBusy, actionBusy,
+  onAi, onSetEnglishApproval, onSetEmailVisibility, aiBusy, actionBusy,
 }: {
   item: Submission;
   signedUrls: Record<string, string>;
@@ -371,6 +404,7 @@ function DetailView({
   onSetStatus: (s: Status) => void;
   onAi: (m: AiMode) => void;
   onSetEnglishApproval: (approved: boolean) => void;
+  onSetEmailVisibility: (show: boolean) => void;
   aiBusy: boolean;
   actionBusy: boolean;
 }) {
@@ -600,6 +634,27 @@ function DetailView({
           <InfoRow icon={<Mail />} label="Kontakt">
             {item.contact_name}
             <a href={`mailto:${item.email}`} className="block text-xs text-muted-foreground underline mt-0.5">{item.email}</a>
+            <div className="mt-2 flex items-center gap-2">
+              <span
+                className={[
+                  'text-[11px] uppercase tracking-wider px-2 py-0.5 rounded-full',
+                  item.show_email_public
+                    ? 'bg-emerald-500/15 text-emerald-600'
+                    : 'bg-muted text-muted-foreground',
+                ].join(' ')}
+              >
+                {item.show_email_public ? 'Vist offentlig' : 'Skjult'}
+              </span>
+              <Button
+                size="sm"
+                variant="ghost"
+                disabled={actionBusy}
+                onClick={() => onSetEmailVisibility(!item.show_email_public)}
+                className="h-7 px-2 text-xs"
+              >
+                {item.show_email_public ? 'Skjul e-post' : 'Publiser e-post'}
+              </Button>
+            </div>
           </InfoRow>
           {item.phone && (
             <InfoRow icon={<Phone />} label="Telefon"><a href={`tel:${item.phone}`}>{item.phone}</a></InfoRow>
