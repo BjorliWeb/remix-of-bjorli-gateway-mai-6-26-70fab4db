@@ -64,6 +64,10 @@ const COPY = {
       imagesLimit: 'Maks 5 bilder · JPG, PNG eller WebP',
       consentRights: 'Jeg bekrefter at jeg har rettigheter til tekst og bilder.',
       consentEditing: 'Jeg forstår at Bjorli.no kan redigere innhold før publisering.',
+      showEmailPublic:
+        'Vis e-postadressen min offentlig på arrangementssiden.',
+      showEmailPublicHelp:
+        'Valgfritt. Hvis du huker av, blir e-posten synlig som en «Kontakt arrangør»-lenke på arrangementssiden. Standard: skjult.',
       submit: 'Send inn arrangement',
       submitting: 'Sender inn …',
       optional: '(valgfritt)',
@@ -120,6 +124,10 @@ const COPY = {
       imagesLimit: 'Max 5 images · JPG, PNG or WebP',
       consentRights: 'I confirm that I hold the rights to the text and images.',
       consentEditing: 'I understand that Bjorli.no may edit the content before publication.',
+      showEmailPublic:
+        'Show my email address publicly on the event page.',
+      showEmailPublicHelp:
+        'Optional. If ticked, the email is shown as a "Contact organiser" link on the public event page. Default: hidden.',
       submit: 'Submit event',
       submitting: 'Submitting …',
       optional: '(optional)',
@@ -213,6 +221,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
   const [previews, setPreviews] = useState<string[]>([]);
   const [consentRights, setConsentRights] = useState(false);
   const [consentEditing, setConsentEditing] = useState(false);
+  const [showEmailPublic, setShowEmailPublic] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [done, setDone] = useState(false);
@@ -362,6 +371,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
             language: lang,
             consentRights,
             consentEditing,
+            showEmailPublic,
             turnstileToken,
           },
         },
@@ -445,7 +455,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   email: '', phone: '', website: '', startDate: '', endDate: '', time: '',
                   location: '', maps: '', category: '',
                 });
-                setImages([]); setPreviews([]); setConsentRights(false); setConsentEditing(false);
+                setImages([]); setPreviews([]); setConsentRights(false); setConsentEditing(false); setShowEmailPublic(false);
               }}
             >
               {c.success.again}
@@ -526,6 +536,18 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 </Field>
                 <Field label={c.f.email} error={errors.email}>
                   <Input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} required />
+                  <label className="mt-2 flex items-start gap-2 cursor-pointer">
+                    <Checkbox
+                      checked={showEmailPublic}
+                      onCheckedChange={(v) => setShowEmailPublic(v === true)}
+                      className="mt-0.5"
+                    />
+                    <span className="text-xs text-muted-foreground leading-snug">
+                      <span className="text-foreground">{c.f.showEmailPublic}</span>
+                      <br />
+                      {c.f.showEmailPublicHelp}
+                    </span>
+                  </label>
                 </Field>
                 <Field label={`${c.f.phone} ${c.f.optional}`} error={errors.phone}>
                   <Input type="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} />
