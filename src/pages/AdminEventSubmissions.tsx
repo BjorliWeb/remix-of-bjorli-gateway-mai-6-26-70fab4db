@@ -61,6 +61,7 @@ interface Submission {
   english_draft_description: string | null;
   english_approved: boolean;
   english_approved_at: string | null;
+  show_email_public: boolean;
   created_at: string;
 }
 
@@ -246,6 +247,37 @@ const AdminEventSubmissions = () => {
     load();
   };
 
+  /**
+   * Toggle the submitter's opt-in for showing their email publicly on
+   * the event detail page. GDPR-relevant — must be a one-click action
+   * so we can revoke consent immediately when a submitter asks.
+   *
+   * Note: the public edge function caches responses for up to 60 seconds,
+   * so a change may take up to that long to reflect on the live page.
+   */
+  const setEmailVisibility = async (show: boolean) => {
+    if (!selected) return;
+    setActionBusy(true);
+    const { error } = await supabase
+      .from('event_submissions')
+      .update({ show_email_public: show })
+      .eq('id', selected.id);
+    setActionBusy(false);
+    if (error) {
+      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({
+      title: show
+        ? 'E-post publisert på arrangementssiden'
+        : 'E-post skjult fra arrangementssiden',
+      description: show
+        ? 'Kan ta inntil 60 sekunder før endringen vises offentlig.'
+        : 'Kan ta inntil 60 sekunder før endringen vises offentlig.',
+    });
+    load();
+  };
+
   if (!authChecked) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
@@ -312,6 +344,7 @@ const AdminEventSubmissions = () => {
           onSetStatus={setStatus}
           onAi={runAi}
           onSetEnglishApproval={setEnglishApproval}
+          onSetEmailVisibility={setEmailVisibility}
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
