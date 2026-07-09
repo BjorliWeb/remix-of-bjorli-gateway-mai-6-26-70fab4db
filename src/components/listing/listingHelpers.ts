@@ -28,6 +28,9 @@ export const toListingItem = (entry: CmsEntryBase, fallbackImage: string): Listi
   title: entry.title,
   intro: entry.intro,
   image: entry.heroImage?.url ?? fallbackImage,
+  id: entry.id,
+  ctaHref: (entry as CmsEvent).ctaHref,
+  bookingUrl: (entry as CmsEvent).bookingUrl,
 });
 
 export const isWinter = (a: CmsActivity) => a.season === 'winter';
