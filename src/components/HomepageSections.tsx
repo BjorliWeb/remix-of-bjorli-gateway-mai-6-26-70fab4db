@@ -30,6 +30,7 @@ import type { CmsHomepageSection } from '@/lib/cms';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import LiveStatusCards from '@/components/LiveStatusCards';
 import { track, type AnalyticsEventName } from '@/lib/analytics';
+import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
 
 /**
  * Renders the composed homepage sections delivered by the CMS adapter.
