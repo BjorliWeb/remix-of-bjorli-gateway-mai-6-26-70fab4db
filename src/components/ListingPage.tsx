@@ -12,6 +12,12 @@ export interface ListingItem {
   title: string;
   intro?: string;
   image: string;
+  /** Original entry id — used to detect user-submitted events. */
+  id?: string;
+  /** External CTA URL (organiser website) for events. */
+  ctaHref?: string;
+  /** External booking/website URL for events. */
+  bookingUrl?: string;
 }
 
 interface ListingPageProps {
