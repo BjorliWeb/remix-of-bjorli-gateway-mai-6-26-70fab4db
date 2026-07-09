@@ -233,9 +233,6 @@ Deno.serve(async (req) => {
       if (r.show_email_public === true && typeof r.email === 'string' && r.email.length > 0) {
         out.email = r.email;
       }
-      // TEMP DEBUG: expose read-back values so we can diagnose the gate.
-      out.__debug_show_email_public = r.show_email_public;
-      out.__debug_has_email = typeof r.email === 'string';
       return out;
   };
 
