@@ -458,7 +458,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
-                      <Link to={lp(`/arrangementer/${featured.slug}`)} className="lg:col-span-8 group block">
+                      <EventLink
+                        target={resolveEventTarget(featured, lp(`/arrangementer/${featured.slug}`))}
+                        className="lg:col-span-8 group block"
+                      >
                         <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="relative overflow-hidden h-[520px]">
                           {featured.heroImage && (
                             <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
@@ -475,11 +478,15 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             <p className="text-primary-foreground/85 text-base leading-relaxed max-w-xl line-clamp-2">{featured.intro}</p>
                           </div>
                         </motion.article>
-                      </Link>
+                      </EventLink>
                     )}
                     <div className="lg:col-span-4 flex flex-col gap-6">
                       {rest.map((ev, i) => (
-                        <Link key={ev.id} to={lp(`/arrangementer/${ev.slug}`)} className="group block">
+                        <EventLink
+                          key={ev.id}
+                          target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
+                          className="group block"
+                        >
                           <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="relative overflow-hidden h-[248px]">
                             {ev.heroImage && (
                               <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
@@ -494,7 +501,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                               <h3 className="font-display font-bold text-primary-foreground text-lg leading-tight tracking-tight">{ev.title}</h3>
                             </div>
                           </motion.article>
-                        </Link>
+                        </EventLink>
                       ))}
                     </div>
                   </div>
@@ -502,7 +509,11 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     <div className="mt-8 md:mt-10">
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {extra.map((ev, i) => (
-                          <Link key={ev.id} to={lp(`/arrangementer/${ev.slug}`)} className="group block">
+                          <EventLink
+                            key={ev.id}
+                            target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
+                            className="group block"
+                          >
                             <motion.article
                               initial={{ opacity: 0, y: 16 }}
                               whileInView={{ opacity: 1, y: 0 }}
