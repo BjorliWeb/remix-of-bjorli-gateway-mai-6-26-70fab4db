@@ -13,7 +13,7 @@ import DateBadge from './DateBadge';
 import CategoryLabel from './CategoryLabel';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
-import { Link } from 'react-router-dom';
+import { EventLink, resolveEventTarget } from './eventLink';
 import { PAGE_SIZE, filterByCategory, filterByDate, uniqueCategories } from './listingHelpers';
 import type { ListingItem } from '@/components/ListingPage';
 
@@ -74,6 +74,7 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: Eve
             to={lp(`${basePath}/${featured.slug}`)}
             featuredLabel={d.listing.featured ?? 'Utvalgt'}
             ctaLabel={d.common.readMore}
+            eventMode
           />
         </section>
       )}
@@ -91,9 +92,20 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: Eve
             </>
           ) : (
             <ul className="divide-y divide-border border border-border rounded-2xl bg-card overflow-hidden">
-              {filtered.map((item) => (
+              {filtered.map((item) => {
+                const target = resolveEventTarget(
+                  { id: item.id, slug: item.slug, ctaHref: item.ctaHref, bookingUrl: item.bookingUrl },
+                  lp(`${basePath}/${item.slug}`),
+                );
+                const clickable = target.kind !== 'none';
+                return (
                 <li key={item.slug}>
-                  <Link to={lp(`${basePath}/${item.slug}`)} className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 p-4 md:p-5 hover:bg-muted/50 transition-colors">
+                  <EventLink
+                    target={target}
+                    className={`flex flex-col md:flex-row md:items-center gap-2 md:gap-4 p-4 md:p-5 transition-colors ${
+                      clickable ? 'hover:bg-muted/50' : ''
+                    }`}
+                  >
                     <div className="md:w-44 shrink-0">
                       <DateBadge date={item.date} locale={locale} />
                     </div>
@@ -104,9 +116,10 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: Eve
                       <h3 className="font-display text-lg font-semibold text-foreground">{item.title}</h3>
                       {item.intro && <p className="text-sm text-muted-foreground line-clamp-2">{item.intro}</p>}
                     </div>
-                  </Link>
+                  </EventLink>
                 </li>
-              ))}
+                );
+              })}
             </ul>
           )}
         </div>
