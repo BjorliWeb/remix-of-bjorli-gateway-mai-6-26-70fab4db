@@ -68,6 +68,8 @@ const COPY = {
         'Vis e-postadressen min offentlig på arrangementssiden.',
       showEmailPublicHelp:
         'Valgfritt. Hvis du huker av, blir e-posten synlig som en «Kontakt arrangør»-lenke på arrangementssiden. Standard: skjult.',
+      termsNotice:
+        'Ved innsending bekrefter du at du er ansvarlig for innholdet, at du eier eller har rettighetene til bildene og tillater at de brukes på bjorli.no, og at bjorli.no / Bjorli Skisenter kan gjenbruke mediefilene senere ved behov, for eksempel i markedsføring av destinasjonen. Ønsker du å trekke tillatelsen, kontakter du skisenter@bjorli.no.',
       submit: 'Send inn arrangement',
       submitting: 'Sender inn …',
       optional: '(valgfritt)',
