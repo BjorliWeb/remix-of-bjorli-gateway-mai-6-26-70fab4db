@@ -152,6 +152,7 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get('SUPABASE_URL');
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     if (notifySecret && supabaseUrl && serviceKey) {
+      console.log('[submit-event] notify dispatch attempted');
       // Fire-and-forget: do not await, swallow errors.
       fetch(`${supabaseUrl}/functions/v1/notify-event-submission`, {
         method: 'POST',
@@ -166,7 +167,15 @@ Deno.serve(async (req) => {
           email: parsed.data.email,
           language: parsed.data.language,
         }),
-      }).catch((e) => console.error('[submit-event] notify failed', e));
+      })
+        .then((r) => console.log('[submit-event] notify dispatched status', r.status))
+        .catch((e) => console.error('[submit-event] notify fetch failed', String(e)));
+    } else {
+      console.log('[submit-event] notify skipped', {
+        hasInternalSecret: !!notifySecret,
+        hasSupabaseUrl: !!supabaseUrl,
+        hasServiceKey: !!serviceKey,
+      });
     }
   } catch (e) {
     console.error('[submit-event] notify dispatch error', e);
