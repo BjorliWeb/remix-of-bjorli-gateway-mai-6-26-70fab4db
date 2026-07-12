@@ -130,6 +130,8 @@ const COPY = {
         'Show my email address publicly on the event page.',
       showEmailPublicHelp:
         'Optional. If ticked, the email is shown as a "Contact organiser" link on the public event page. Default: hidden.',
+      termsNotice:
+        'By submitting, you confirm that you are responsible for the content, that you own or hold the rights to the images and permit their use on bjorli.no, and that bjorli.no / Bjorli Skisenter may reuse the media files later if needed, for example in marketing of the destination. To withdraw this permission, contact skisenter@bjorli.no.',
       submit: 'Submit event',
       submitting: 'Submitting …',
       optional: '(optional)',
