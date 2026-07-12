@@ -685,6 +685,21 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 />
                 <span className="text-sm text-foreground leading-relaxed">{c.f.consentEditing}</span>
               </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <Checkbox
+                  checked={showEmailPublic}
+                  onCheckedChange={(v) => setShowEmailPublic(v === true)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm leading-relaxed">
+                  <span className="text-foreground">{c.f.showEmailPublic}</span>
+                  <span className="block text-xs text-muted-foreground">{c.f.showEmailPublicHelp}</span>
+                </span>
+              </label>
+            </div>
+
+            <div className="rounded-lg border border-border bg-accent/25 p-3 text-sm text-muted-foreground">
+              {c.f.termsNotice}
             </div>
 
             {/* Submit */}
