@@ -57,17 +57,28 @@ Deno.serve(async (req) => {
     const language = typeof body.language === 'string' ? body.language.slice(0, 10) : 'no';
 
     const apiKey = Deno.env.get('RESEND_API_KEY');
+    const editorEnv = Deno.env.get('EDITOR_NOTIFY_EMAIL');
+    const fromEnv = Deno.env.get('NOTIFY_FROM_EMAIL');
+    const to = editorEnv ?? 'skisenter@bjorli.no';
+    const from = fromEnv ?? 'Bjorli.no <varsling@bjorli.no>';
+    console.log('[notify-event-submission] debug', {
+      hasResendKey: !!apiKey,
+      hasEditorEnv: !!editorEnv,
+      to,
+      hasFromEnv: !!fromEnv,
+      from,
+      title,
+    });
     if (!apiKey) {
       // Same graceful behaviour as the original stub: log and report why.
       console.log('[notify-event-submission] new submission (email not configured):', { title, organizer, language });
+      console.log('[notify-event-submission] result', { queued: false, reason: 'email-not-configured' });
       return new Response(
         JSON.stringify({ ok: true, queued: false, reason: 'email-not-configured' }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
       );
     }
 
-    const to = Deno.env.get('EDITOR_NOTIFY_EMAIL') ?? 'skisenter@bjorli.no';
-    const from = Deno.env.get('NOTIFY_FROM_EMAIL') ?? 'Bjorli.no <varsling@bjorli.no>';
     const adminUrl = 'https://bjorli.no/admin/innsendinger';
 
     const subject = `Nytt arrangement til vurdering: ${title}`;
@@ -94,9 +105,11 @@ Deno.serve(async (req) => {
       body: JSON.stringify({ from, to: [to], subject, html }),
     });
 
+    console.log('[notify-event-submission] resend status', res.status);
     if (!res.ok) {
       const errText = (await res.text()).slice(0, 300);
       console.error('[notify-event-submission] resend error', res.status, errText);
+      console.log('[notify-event-submission] result', { queued: false, reason: `resend-${res.status}` });
       return new Response(
         JSON.stringify({ ok: true, queued: false, reason: `resend-${res.status}` }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
@@ -104,6 +117,7 @@ Deno.serve(async (req) => {
     }
 
     console.log('[notify-event-submission] notification sent for:', title);
+    console.log('[notify-event-submission] result', { queued: true });
     return new Response(JSON.stringify({ ok: true, queued: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
