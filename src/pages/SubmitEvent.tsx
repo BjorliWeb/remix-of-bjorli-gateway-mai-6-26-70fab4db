@@ -540,18 +540,6 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 </Field>
                 <Field label={c.f.email} error={errors.email}>
                   <Input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} required />
-                  <label className="mt-2 flex items-start gap-2 cursor-pointer">
-                    <Checkbox
-                      checked={showEmailPublic}
-                      onCheckedChange={(v) => setShowEmailPublic(v === true)}
-                      className="mt-0.5"
-                    />
-                    <span className="text-xs text-muted-foreground leading-snug">
-                      <span className="text-foreground">{c.f.showEmailPublic}</span>
-                      <br />
-                      {c.f.showEmailPublicHelp}
-                    </span>
-                  </label>
                 </Field>
                 <Field label={`${c.f.phone} ${c.f.optional}`} error={errors.phone}>
                   <Input type="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} />
