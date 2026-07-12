@@ -68,6 +68,8 @@ const COPY = {
         'Vis e-postadressen min offentlig på arrangementssiden.',
       showEmailPublicHelp:
         'Valgfritt. Hvis du huker av, blir e-posten synlig som en «Kontakt arrangør»-lenke på arrangementssiden. Standard: skjult.',
+      termsNotice:
+        'Ved innsending bekrefter du at du er ansvarlig for innholdet, at du eier eller har rettighetene til bildene og tillater at de brukes på bjorli.no, og at bjorli.no / Bjorli Skisenter kan gjenbruke mediefilene senere ved behov, for eksempel i markedsføring av destinasjonen. Ønsker du å trekke tillatelsen, kontakter du skisenter@bjorli.no.',
       submit: 'Send inn arrangement',
       submitting: 'Sender inn …',
       optional: '(valgfritt)',
@@ -128,6 +130,8 @@ const COPY = {
         'Show my email address publicly on the event page.',
       showEmailPublicHelp:
         'Optional. If ticked, the email is shown as a "Contact organiser" link on the public event page. Default: hidden.',
+      termsNotice:
+        'By submitting, you confirm that you are responsible for the content, that you own or hold the rights to the images and permit their use on bjorli.no, and that bjorli.no / Bjorli Skisenter may reuse the media files later if needed, for example in marketing of the destination. To withdraw this permission, contact skisenter@bjorli.no.',
       submit: 'Submit event',
       submitting: 'Submitting …',
       optional: '(optional)',
@@ -536,18 +540,6 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 </Field>
                 <Field label={c.f.email} error={errors.email}>
                   <Input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} required />
-                  <label className="mt-2 flex items-start gap-2 cursor-pointer">
-                    <Checkbox
-                      checked={showEmailPublic}
-                      onCheckedChange={(v) => setShowEmailPublic(v === true)}
-                      className="mt-0.5"
-                    />
-                    <span className="text-xs text-muted-foreground leading-snug">
-                      <span className="text-foreground">{c.f.showEmailPublic}</span>
-                      <br />
-                      {c.f.showEmailPublicHelp}
-                    </span>
-                  </label>
                 </Field>
                 <Field label={`${c.f.phone} ${c.f.optional}`} error={errors.phone}>
                   <Input type="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} />
@@ -693,6 +685,21 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 />
                 <span className="text-sm text-foreground leading-relaxed">{c.f.consentEditing}</span>
               </label>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <Checkbox
+                  checked={showEmailPublic}
+                  onCheckedChange={(v) => setShowEmailPublic(v === true)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm leading-relaxed">
+                  <span className="text-foreground">{c.f.showEmailPublic}</span>
+                  <span className="block text-xs text-muted-foreground">{c.f.showEmailPublicHelp}</span>
+                </span>
+              </label>
+            </div>
+
+            <div className="rounded-lg border border-border bg-accent/25 p-3 text-sm text-muted-foreground">
+              {c.f.termsNotice}
             </div>
 
             {/* Submit */}
