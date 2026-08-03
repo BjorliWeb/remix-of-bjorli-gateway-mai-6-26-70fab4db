@@ -3,6 +3,7 @@ import { translations, dictionaries, Locale, LOCALES, LOCALE_PREFIX } from './tr
 import { LanguageContext } from './languageContextCore';
 import { translatePath } from './routes';
 import { trackLanguageChange } from '@/lib/analytics';
+import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 export { useLanguage } from './languageContextCore';
 
 /** Detects locale from the current URL pathname (works outside Router too). */

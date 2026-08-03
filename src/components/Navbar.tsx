@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { track } from '@/lib/analytics';
+import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 
 interface NavbarProps {
   /** Current season — drives which header CTA is shown. */
