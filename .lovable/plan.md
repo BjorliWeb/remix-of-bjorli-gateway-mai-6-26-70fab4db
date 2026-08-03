@@ -207,13 +207,13 @@ Single focused PR on `fix/trailing-slash-url-normalization`. Rollback = revert t
 is additive, so making `withTrailingSlash` an identity function is a valid one-line hotfix without a
 full revert.
 
-## 9. Uncertainty requiring verification
+## 9. Remaining open items (not blockers)
 
-1. Whether Cloudflare Pages' trailing-slash canonicalization is configurable for this project — if the
-   strip-slash direction is preferred instead, the same helper flips with one constant.
+1. `www.bjorli.no` also answers 200 alongside the apex. Canonical tags on both already point at the
+   apex, so search consolidation is handled; a host-level `www -> apex` 301 in Cloudflare would be
+   tidier but is a hosting setting, out of scope unless asked.
 2. Whether any external campaign links to a dynamic detail route in the non-slash form; those keep
-   working via the 308, but worth confirming.
-3. The sitemap uses `https://bjorli.no` while live links resolve on `www`. Out of scope unless asked.
+   working (200 in both forms), so no action is required.
 
 ## Scope confirmation
 
