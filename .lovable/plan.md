@@ -125,29 +125,60 @@ ours to define in the URL builders — the router itself matches both forms.
 `src/lib/seo/schema.ts`, `public/_headers`, `public/robots.txt`, `public/sitemap.xml` (generated),
 `index.html`, and the 36 `lp()` consumer components.
 
-## 5. Proposed shared implementation
+## 5. Shared implementation (dependency-free module)
 
 ```ts
-// src/i18n/useLocalizedPath.ts
-const FILE_EXT = /\.[a-z0-9]{2,5}$/i;
+// src/lib/url/normalizeInternalPath.ts
+// Pure module. No React, no browser globals, no app imports.
 
-export const withTrailingSlash = (path: string): string => {
-  if (!path.startsWith('/')) return path;   // external / mailto / tel / relative
-  if (path.startsWith('//')) return path;   // protocol-relative
-  const m = path.match(/^([^?#]*)([?#].*)?$/);
+/** Extension of any length, e.g. .pdf .xml .webmanifest */
+const FILE_EXT = /\.[a-z0-9]+$/i;
+
+/** Path prefixes that must never be reformatted (bare form and subtree). */
+const EXCLUDED_PREFIXES = ['/api', '/assets', '/admin'] as const;
+
+const isExcludedPrefix = (base: string): boolean =>
+  EXCLUDED_PREFIXES.some((p) => base === p || base.startsWith(p + '/'));
+
+export const normalizeInternalPath = (path: string): string => {
+  if (!path || !path.startsWith('/')) return path;  // external / mailto / tel / relative / #hash
+  if (path.startsWith('//')) return path;           // protocol-relative
+
+  const m = /^([^?#]*)([?#].*)?$/.exec(path);
   const base = m?.[1] ?? path;
   const rest = m?.[2] ?? '';
-  if (base.endsWith('/')) return path;
-  if (FILE_EXT.test(base)) return path;     // .pdf .xml .jpg ...
-  if (base.startsWith('/api/') || base.startsWith('/assets/')) return path;
+
+  if (base === '/' || base.endsWith('/')) return path;  // root and already-normalized
+  if (FILE_EXT.test(base)) return path;                 // .pdf .xml .txt .webmanifest .jpg ...
+  if (isExcludedPrefix(base)) return path;              // /api, /assets, /admin (+ subtrees)
+
   return base + '/' + rest;
 };
+
+/** Absolute URL on the canonical production host. */
+export const CANONICAL_ORIGIN = 'https://bjorli.no';
+
+export const absoluteUrl = (path: string): string =>
+  CANONICAL_ORIGIN + normalizeInternalPath(path || '/');
 ```
 
-`lp()` returns `withTrailingSlash(...)`; the SEO/canonical/sitemap/prerender builders apply the same
-rule (the two Node scripts import the helper directly, since it is pure and dependency-free).
-Query strings and hashes are preserved: `/vaer-og-webkamera?from=livecams` becomes
-`/vaer-og-webkamera/?from=livecams`.
+Imported by `useLocalizedPath.ts`, `SEOHead.tsx`, `PageMeta.tsx`, `src/lib/seo/sitemap.ts`, and the two
+Node scripts `scripts/prerender.ts` and `scripts/build-sitemap.ts` (both already import from `src/`,
+e.g. `src/i18n/routes.ts`, so this adds no new build coupling).
+
+Behaviour examples:
+
+```text
+/                              -> /                              (unchanged)
+/sommer                        -> /sommer/
+/en/summer                     -> /en/summer/
+/vaer-og-webkamera?from=livecams -> /vaer-og-webkamera/?from=livecams
+/heiskort#priser               -> /heiskort/#priser
+/Snartur_2023_web.pdf          -> unchanged
+/site.webmanifest              -> unchanged
+/api, /api/x, /assets, /assets/x, /admin, /admin/login -> unchanged
+https://…, mailto:, tel:, #top -> unchanged
+```
 
 ## 6. Representative routes to test
 
