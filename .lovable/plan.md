@@ -1,44 +1,132 @@
-## R-07 live verification plan
+# Trailing-slash URL normalization (internal links, canonicals, hreflang, sitemap)
 
-No code changes. Goal: produce actual console output proving the `bjorli-v2` cache never absorbs Supabase / `/admin` / signed-URL responses, while still caching public assets.
+## 1. Verified root cause
 
-### Steps
+Production is Cloudflare Pages. The prerender step writes each route as a directory index
+(`dist/sommer/index.html`, `dist/en/summer/index.html`, ...). Cloudflare Pages canonicalizes
+directory paths with a **308 to the trailing-slash version**. Verified live:
 
-1. **Check auth injection.** Read `LOVABLE_BROWSER_AUTH_STATUS`. Must be `injected`; otherwise stop and ask you to re-sign in.
-2. **Playwright script** at `/tmp/browser/r07/verify.py`:
-   - Launch Chromium headless, viewport 1280×1800.
-   - Restore Supabase session: set `sb-*-auth-token` in `localStorage` at `http://localhost:8080`, plus `@supabase/ssr` cookies if present.
-   - Navigate `/` and wait for the service worker to control the page (`navigator.serviceWorker.ready`, then poll until `controller` is set — trigger a reload if needed, since network-first only populates on the second load).
-   - Reload `/` once more so `/`, `/index.html`, hashed `/assets/*`, and `/manifest.json` get fetched-through and cached.
-   - Navigate `/admin/innsendinger`. Wait for the list to render. Click into 2–3 submissions in turn so their Supabase REST GETs + signed storage thumbnail URLs fire.
-   - Sign out via the admin UI.
-   - In the page context, run:
-     ```js
-     const names = await caches.keys();
-     const c = await caches.open('bjorli-v2');
-     const urls = (await c.keys()).map(r => r.url);
-     const leaks = urls.filter(u =>
-       /supabase\.co|\/admin|[?&](token|sig|signature|X-Amz-|Expires|se)=/i.test(u)
-     );
-     const publicHits = {
-       root: urls.some(u => new URL(u).pathname === '/'),
-       indexHtml: urls.some(u => u.endsWith('/index.html')),
-       manifest: urls.some(u => u.endsWith('/manifest.json')),
-       hashedAssets: urls.filter(u => /\/assets\/.+\.[a-f0-9]{6,}\./.test(u)),
-     };
-     return { names, urlCount: urls.length, urls, leaks, publicHits };
-     ```
-   - Print the full JSON to stdout, redirected to `/tmp/browser/r07/out.json`.
-3. **Report to you verbatim:**
-   - `caches.keys()` result.
-   - Leak-filter output (must be `[]`).
-   - Public-asset presence booleans + the matched hashed-asset URLs.
-   - The full `urls` list so you can eyeball it.
-   - Screenshots at each major step (post-login admin list, post-submission-open, post-signout) under `/tmp/browser/r07/screenshots/`.
-4. **If leaks > 0** or public assets are missing: stop, show the offending URLs, and diagnose (likely `isCacheableRequest` or `isCacheableResponse` gap) — no fix applied in this pass, since you asked to pause after R-07.
+```text
+https://www.bjorli.no/sommer   -> 308 https://www.bjorli.no/sommer/
+https://bjorli.no/overnatting  -> 308 .../overnatting/
+https://bjorli.no/en           -> 308 .../en/
+https://bjorli.no/live         -> 308 .../live/
+https://bjorli.no/sommer/      -> 200
+```
 
-### Risks / assumptions
+Routes that are not prerendered (e.g. `/ski-holiday-norway`) return 200 without a slash, which is why
+the redirect count (198) tracks the prerendered set plus legacy rules rather than every route.
 
-- Assumes `LOVABLE_BROWSER_AUTH_STATUS=injected` and the signed-in user has admin role for `/admin/innsendinger`. If not, verification cannot complete and I'll say so instead of faking output.
-- Service worker registration in dev: Vite may serve `sw.js` but the new v2 must be active. Script will force `registration.update()` + `skipWaiting`/`clients.claim` (already in sw.js) and confirm `caches.keys()` shows only `['bjorli-v2']` before proceeding.
-- No files in the repo are modified.
+The app generates every internal URL **without** a trailing slash, so:
+
+- ~4,116 internal links point at the 308 URL (nav, footer, cards, CTAs, breadcrumbs, related links).
+- ~196 canonicals point at a 308 URL (`SEOHead`, `PageMeta`, prerendered `<link rel="canonical">`).
+- hreflang, `og:url`, JSON-LD `url` and `sitemap.xml` share the same non-slash form.
+
+Additional proven issue: the legacy rule `/parking -> /parkering` lands on a URL that then 308s to
+`/parkering/` — a two-hop chain ending on a non-200 destination.
+
+**Decision: normalize forward to trailing slash**, matching what production already serves. Do not
+fight Cloudflare's directory canonicalization.
+
+Exclusions honoured everywhere: external URLs, `mailto:`, `tel:`, `#hash`, API routes, asset paths and
+file extensions (`.pdf`, `.xml`, `.txt`, `.jpg`, `.png`, `.webp`, `.svg`) never get a slash appended.
+
+## 2. There is already a single chokepoint
+
+Almost all internal navigation goes through `useLocalizedPath()` (`lp()`), used in 36 files (Navbar,
+Footer, ContentCard, Breadcrumbs, CTA blocks, listing templates, RelatedLinksBlock, ...). There are
+only **4** hardcoded `to="/…"` literals in the whole `src` tree, and the only raw `href="/…"` values
+are the two `Snartur_2023_web.pdf` asset links (excluded by rule).
+
+So the fix is shared-logic-only. No repository-wide string replacement.
+
+Note: the stack is Vite + React Router (not TanStack Start), so trailing-slash behaviour is entirely
+ours to define in the URL builders — the router itself matches both forms.
+
+## 3. Files that would change
+
+| File | Change |
+| --- | --- |
+| `src/i18n/useLocalizedPath.ts` | Add exported `withTrailingSlash()` and apply it to `lp()`'s return value; `stripLocalePrefix()` tolerates a trailing slash on input so route matching is unchanged. |
+| `src/components/SEOHead.tsx` | Canonical, hreflang alternates, x-default and `og:url` use the same normalizer. |
+| `src/components/seo/PageMeta.tsx` | Same normalizer for its canonical override. |
+| `scripts/prerender.ts` | `buildHref()` plus crawlable nav/related-link hrefs emit trailing slashes, so prerendered HTML matches the served URL. |
+| `scripts/build-sitemap.ts` | `buildHref()` emits trailing slashes in `<loc>` and `xhtml:link` alternates. |
+| `src/lib/seo/sitemap.ts` | `buildLocalizedHref()` aligned with the same rule. |
+| `public/llms.txt`, `public/llms-full.txt` | Key-page URLs updated to the final 200 form. |
+| The 4 hardcoded `to="/…"` literals | Routed through `lp()` or given the slash (App.tsx, NotFound-style link, AdminLogin, LegacyLivecamsRedirect). |
+| `public/_redirects` | **Only** the proven-chain targets get a trailing slash (`/parking -> /parkering/`). No rule added, removed or repointed elsewhere. |
+
+`src/lib/seo/schema.ts` needs no change: it receives URLs from the callers above and inherits the fix.
+
+## 4. Files inspected, not changed
+
+`src/i18n/routes.ts` (slug registry — routes stay untouched), `src/App.tsx` route table,
+`src/components/NavLink.tsx`, `src/lib/seo/origin.ts`, `src/lib/seo/routeSeo.ts`,
+`src/lib/seo/schema.ts`, `public/_headers`, `public/robots.txt`, `public/sitemap.xml` (generated),
+`index.html`, and the 36 `lp()` consumer components.
+
+## 5. Proposed shared implementation
+
+```ts
+// src/i18n/useLocalizedPath.ts
+const FILE_EXT = /\.[a-z0-9]{2,5}$/i;
+
+export const withTrailingSlash = (path: string): string => {
+  if (!path.startsWith('/')) return path;   // external / mailto / tel / relative
+  if (path.startsWith('//')) return path;   // protocol-relative
+  const m = path.match(/^([^?#]*)([?#].*)?$/);
+  const base = m?.[1] ?? path;
+  const rest = m?.[2] ?? '';
+  if (base.endsWith('/')) return path;
+  if (FILE_EXT.test(base)) return path;     // .pdf .xml .jpg ...
+  if (base.startsWith('/api/') || base.startsWith('/assets/')) return path;
+  return base + '/' + rest;
+};
+```
+
+`lp()` returns `withTrailingSlash(...)`; the SEO/canonical/sitemap/prerender builders apply the same
+rule (the two Node scripts import the helper directly, since it is pure and dependency-free).
+Query strings and hashes are preserved: `/vaer-og-webkamera?from=livecams` becomes
+`/vaer-og-webkamera/?from=livecams`.
+
+## 6. Representative routes to test
+
+`/`, `/en/`, `/de/`, `/sommer/`, `/vinter/`, `/overnatting/`, `/en/summer/`, `/de/sommer/`,
+`/nl/accommodatie/`, `/heiskort/`, `/vaer-og-webkamera/`, `/arrangementer/` plus one event detail,
+`/nyheter/` plus one article, `/handel/`, `/live/`, `/admin/login` (behaviour unchanged), a 404 path,
+and the legacy hits `/parking`, `/livecams`, `/hva-skjer`.
+
+For each: rendered link `href`, canonical, hreflang set, `og:url`, sitemap entry, and `curl -I`
+showing **200 with no redirect**.
+
+## 7. Risks
+
+- **Router matching**: React Router must still match `/sommer/`. It does by default, but every route
+  and `stripLocalePrefix` normalization gets an explicit check.
+- **Active-state styling**: `NavLink` active matching compares pathnames; a slash mismatch could drop
+  the active highlight. Verify Navbar and Footer.
+- **GA4 `page_path`**: values now carry a trailing slash. Event names, parameters and consent logic are
+  untouched — a value-shape change only, worth flagging to report owners.
+- **Search Console**: a short re-crawl period while the slash form consolidates. No property changes.
+- **Sitemap churn**: one full-sitemap URL rewrite in a single deploy (expected).
+
+## 8. Rollback
+
+Single focused PR on `fix/trailing-slash-url-normalization`. Rollback = revert the PR. The normalizer
+is additive, so making `withTrailingSlash` an identity function is a valid one-line hotfix without a
+full revert.
+
+## 9. Uncertainty requiring verification
+
+1. Whether Cloudflare Pages' trailing-slash canonicalization is configurable for this project — if the
+   strip-slash direction is preferred instead, the same helper flips with one constant.
+2. Whether any external campaign links to a dynamic detail route in the non-slash form; those keep
+   working via the 308, but worth confirming.
+3. The sitemap uses `https://bjorli.no` while live links resolve on `www`. Out of scope unless asked.
+
+## Scope confirmation
+
+No copy, design, route names, packages, env vars, Supabase, GA4 config or Search Console changes.
+Legacy redirects are touched only where a chain to a non-200 destination was proven.
