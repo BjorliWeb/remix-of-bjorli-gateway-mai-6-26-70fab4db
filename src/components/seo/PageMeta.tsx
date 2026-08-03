@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LOCALE_PREFIX } from '@/i18n/translations';
 import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 
 /**
  * PageMeta — per-page metadata override placeholder.
@@ -63,8 +64,10 @@ const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, no
     const robotsValue = noindex ? 'noindex,follow' : robots;
     if (robotsValue) upsertMeta('robots', robotsValue);
 
-    const canonicalHref =
-      SITE_ORIGIN + (LOCALE_PREFIX[locale] || '') + (canonicalPath === '/' ? '/' : canonicalPath);
+    const canonicalHref = absoluteUrl(
+      (LOCALE_PREFIX[locale] || '') + (canonicalPath === '/' ? '/' : canonicalPath),
+      SITE_ORIGIN,
+    );
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -72,6 +75,7 @@ const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, no
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', canonicalHref);
+    upsertMeta('og:url', canonicalHref, true);
   }, [title, description, ogImage, ogType, twitterCard, robots, noindex, canonicalPath, locale]);
 
   return null;

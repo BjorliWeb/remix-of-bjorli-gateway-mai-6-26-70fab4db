@@ -24,6 +24,7 @@
  */
 import { LOCALE_PREFIX, LOCALES, type Locale } from '@/i18n/translations';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '@/i18n/routes';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 
 /** A canonical entry that can be turned into one or more localized URLs. */
 export interface SitemapEntry {
@@ -60,10 +61,10 @@ const buildLocalizedHref = (
   dynamicSlug?: string,
 ): string => {
   const prefix = LOCALE_PREFIX[locale];
-  if (canonical === 'home') return origin + (prefix || '/');
+  if (canonical === 'home') return absoluteUrl(prefix || '/', origin);
   const slug = slugForCanonical(canonical, locale);
   const tail = dynamicSlug ? '/' + dynamicSlug : '';
-  return origin + (prefix || '') + '/' + slug + tail;
+  return absoluteUrl((prefix || '') + '/' + slug + tail, origin);
 };
 
 /**

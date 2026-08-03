@@ -28,7 +28,7 @@ import { Navigate } from 'react-router-dom';
  * trigger the same client-side tracking once the SPA boots.
  */
 const LegacyLivecamsRedirect = () => (
-  <Navigate to="/vaer-og-webkamera?from=livecams" replace />
+  <Navigate to="/vaer-og-webkamera/?from=livecams" replace />
 );
 
 export default LegacyLivecamsRedirect;

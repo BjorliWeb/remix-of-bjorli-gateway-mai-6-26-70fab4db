@@ -1,6 +1,7 @@
 import { useLanguage } from './LanguageContext';
 import { LOCALE_PREFIX, LOCALES, type Locale } from './translations';
 import { canonicalForSlug, slugForCanonical } from './routes';
+import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 
 /**
  * Returns a function that prefixes an internal path with the active locale.
@@ -16,9 +17,13 @@ export const useLocalizedPath = () => {
   return (path: string): string => {
     if (!path.startsWith('/')) path = '/' + path;
     const prefix = LOCALE_PREFIX[locale];
-    if (path === '/') return prefix || '/';
+    if (path === '/') return normalizeInternalPath(prefix || '/');
+    // Split off query/hash so slug translation only sees the pathname.
+    const qh = /^([^?#]*)([?#].*)?$/.exec(path);
+    const pathname = qh?.[1] ?? path;
+    const suffix = qh?.[2] ?? '';
     // Translate first segment if we recognize it as a canonical NO slug.
-    const segs = path.split('/').filter(Boolean);
+    const segs = pathname.split('/').filter(Boolean);
     const [first, ...rest] = segs;
     const canonical = canonicalForSlug('no', first);
     let translatedFirst = first;
@@ -27,8 +32,7 @@ export const useLocalizedPath = () => {
     }
     const tail = rest.length ? '/' + rest.join('/') : '';
     const newPath = '/' + translatedFirst + tail;
-    if (!prefix) return newPath;
-    return prefix + newPath;
+    return normalizeInternalPath((prefix || '') + newPath + suffix);
   };
 };
 
@@ -38,7 +42,10 @@ export const useLocalizedPath = () => {
  * regardless of which language URL the user is on.
  */
 export const stripLocalePrefix = (pathname: string): { locale: Locale; path: string } => {
-  const segments = pathname.split('/').filter(Boolean);
+  // Tolerate a trailing slash (and any query/hash) on the input so route
+  // matching is identical for `/sommer` and `/sommer/`.
+  const cleanPath = (pathname.split(/[?#]/)[0] ?? pathname);
+  const segments = cleanPath.split('/').filter(Boolean);
   const first = segments[0];
   let locale: Locale = 'no';
   let rest = segments;

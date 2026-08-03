@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { track } from '@/lib/analytics';
+import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 
 interface NavbarProps {
   /** Current season — drives which header CTA is shown. */
@@ -40,9 +41,12 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
   // Root ("/") renders the current default-season homepage, so treat "/" as
   // an alias for "/sommer" or "/vinter" when matching active nav links.
   const seasonHomePath = DEFAULT_SEASON === 'summer' ? '/sommer' : '/vinter';
-  const normalizedPath = stripped === '/' || stripped === '' ? seasonHomePath : stripped;
+  const normalizedPath = normalizeInternalPath(
+    stripped === '/' || stripped === '' ? seasonHomePath : stripped,
+  );
   const isActive = (path: string) =>
-    path === normalizedPath || (path === '/' && (stripped === '/' || stripped === ''));
+    normalizeInternalPath(path) === normalizedPath ||
+    (path === '/' && (stripped === '/' || stripped === ''));
 
   // Header CTA flips with the season:
   //   Winter → Kjøp heiskort (commercial driver for Bjorli Skisenter)
