@@ -32,6 +32,63 @@ fight Cloudflare's directory canonicalization.
 Exclusions honoured everywhere: external URLs, `mailto:`, `tel:`, `#hash`, API routes, asset paths and
 file extensions (`.pdf`, `.xml`, `.txt`, `.jpg`, `.png`, `.webp`, `.svg`) never get a slash appended.
 
+## 1b. Resolved: canonical production host
+
+Both hosts serve the trailing-slash routes directly, with **no redirect in either direction**:
+
+```text
+https://bjorli.no/          200      https://www.bjorli.no/          200
+https://bjorli.no/sommer/   200      https://www.bjorli.no/sommer/   200
+https://bjorli.no/en/       200      https://www.bjorli.no/en/       200
+```
+
+Both hosts already emit the same apex canonical, and `robots.txt` advertises the apex sitemap:
+
+```text
+curl https://bjorli.no/sommer/      -> <link rel="canonical" href="https://bjorli.no/sommer" />
+curl https://www.bjorli.no/sommer/  -> <link rel="canonical" href="https://bjorli.no/sommer" />
+robots.txt                          -> Sitemap: https://bjorli.no/sitemap.xml
+```
+
+**Selected canonical host: `https://bjorli.no` (apex).** It resolves 200 directly, matches the existing
+canonical tags, the sitemap `ORIGIN` default and `robots.txt`. It is used consistently for canonical,
+hreflang, x-default, sitemap `<loc>` + alternates, `og:url`, JSON-LD `url`/`isPartOf`, and the
+`llms.txt` / `llms-full.txt` key-page URLs. No `www` absolute URLs are emitted anywhere.
+
+Noted, not in scope: `www` also answers 200, so the site is reachable on two hosts. The apex canonical
+tag on both already consolidates them for search engines. A host-level `www -> apex` 301 would be
+cleaner, but that is a Cloudflare setting and is out of scope unless requested.
+
+## 1c. Resolved: non-prerendered and private routes
+
+Direct runtime checks on the apex host (no redirects anywhere):
+
+```text
+/admin/login             200      /admin/login/             200
+/ski-holiday-norway      200      /ski-holiday-norway/      200
+/nyheter/test-artikkel   200      /nyheter/test-artikkel/   200   (news detail)
+/arrangementer/markens-grode 200  /arrangementer/markens-grode/ 200 (event detail)
+/finnesikke              200      /finnesikke/              200   (404 route, SPA shell)
+/robots.txt              200      /site.webmanifest         200
+```
+
+Non-prerendered paths fall through to the SPA shell with a 200 in **both** forms, so adding the slash
+never introduces a redirect or a route failure — including admin, detail routes and 404s.
+
+**Exclusions the shared helper still needs, and why:**
+
+| Pattern | Excluded? | Reason |
+| --- | --- | --- |
+| `/admin` and `/admin/...` | Yes | Verified to work with a slash, but it is a private, `noindex` surface with zero SEO benefit. Excluding it keeps admin URLs, bookmarks and auth redirects byte-identical to today. |
+| `/api`, `/api/...` | Yes | Endpoint paths; a slash can change server routing. Both the bare `/api` and the `/api/` prefix are excluded. |
+| `/assets`, `/assets/...` | Yes | Build output; must stay exact. Both bare and prefixed forms excluded. |
+| Any path with a file extension | Yes | `/Snartur_2023_web.pdf`, `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/site.webmanifest`, images. Extension matching allows long extensions so `.webmanifest` is covered. |
+| `/` (root) | Yes (no-op) | Already ends in a slash, returned unchanged. |
+| External, `//`, `mailto:`, `tel:`, bare `#hash` | Yes | Not internal paths. |
+| Public content routes, incl. detail routes and 404 paths | **No** | Verified 200 in slash form; these get normalized. |
+
+Query strings and fragments are always preserved and the slash is inserted before them.
+
 ## 2. There is already a single chokepoint
 
 Almost all internal navigation goes through `useLocalizedPath()` (`lp()`), used in 36 files (Navbar,
@@ -48,7 +105,8 @@ ours to define in the URL builders — the router itself matches both forms.
 
 | File | Change |
 | --- | --- |
-| `src/i18n/useLocalizedPath.ts` | Add exported `withTrailingSlash()` and apply it to `lp()`'s return value; `stripLocalePrefix()` tolerates a trailing slash on input so route matching is unchanged. |
+| `src/lib/url/normalizeInternalPath.ts` | **New.** Pure, dependency-free shared module. No React, no browser APIs, no app hooks — safe to import from both the app and the Node build scripts. |
+| `src/i18n/useLocalizedPath.ts` | Imports the shared helper and applies it to `lp()`'s return value; `stripLocalePrefix()` tolerates a trailing slash on input so route matching is unchanged. |
 | `src/components/SEOHead.tsx` | Canonical, hreflang alternates, x-default and `og:url` use the same normalizer. |
 | `src/components/seo/PageMeta.tsx` | Same normalizer for its canonical override. |
 | `scripts/prerender.ts` | `buildHref()` plus crawlable nav/related-link hrefs emit trailing slashes, so prerendered HTML matches the served URL. |
@@ -67,29 +125,60 @@ ours to define in the URL builders — the router itself matches both forms.
 `src/lib/seo/schema.ts`, `public/_headers`, `public/robots.txt`, `public/sitemap.xml` (generated),
 `index.html`, and the 36 `lp()` consumer components.
 
-## 5. Proposed shared implementation
+## 5. Shared implementation (dependency-free module)
 
 ```ts
-// src/i18n/useLocalizedPath.ts
-const FILE_EXT = /\.[a-z0-9]{2,5}$/i;
+// src/lib/url/normalizeInternalPath.ts
+// Pure module. No React, no browser globals, no app imports.
 
-export const withTrailingSlash = (path: string): string => {
-  if (!path.startsWith('/')) return path;   // external / mailto / tel / relative
-  if (path.startsWith('//')) return path;   // protocol-relative
-  const m = path.match(/^([^?#]*)([?#].*)?$/);
+/** Extension of any length, e.g. .pdf .xml .webmanifest */
+const FILE_EXT = /\.[a-z0-9]+$/i;
+
+/** Path prefixes that must never be reformatted (bare form and subtree). */
+const EXCLUDED_PREFIXES = ['/api', '/assets', '/admin'] as const;
+
+const isExcludedPrefix = (base: string): boolean =>
+  EXCLUDED_PREFIXES.some((p) => base === p || base.startsWith(p + '/'));
+
+export const normalizeInternalPath = (path: string): string => {
+  if (!path || !path.startsWith('/')) return path;  // external / mailto / tel / relative / #hash
+  if (path.startsWith('//')) return path;           // protocol-relative
+
+  const m = /^([^?#]*)([?#].*)?$/.exec(path);
   const base = m?.[1] ?? path;
   const rest = m?.[2] ?? '';
-  if (base.endsWith('/')) return path;
-  if (FILE_EXT.test(base)) return path;     // .pdf .xml .jpg ...
-  if (base.startsWith('/api/') || base.startsWith('/assets/')) return path;
+
+  if (base === '/' || base.endsWith('/')) return path;  // root and already-normalized
+  if (FILE_EXT.test(base)) return path;                 // .pdf .xml .txt .webmanifest .jpg ...
+  if (isExcludedPrefix(base)) return path;              // /api, /assets, /admin (+ subtrees)
+
   return base + '/' + rest;
 };
+
+/** Absolute URL on the canonical production host. */
+export const CANONICAL_ORIGIN = 'https://bjorli.no';
+
+export const absoluteUrl = (path: string): string =>
+  CANONICAL_ORIGIN + normalizeInternalPath(path || '/');
 ```
 
-`lp()` returns `withTrailingSlash(...)`; the SEO/canonical/sitemap/prerender builders apply the same
-rule (the two Node scripts import the helper directly, since it is pure and dependency-free).
-Query strings and hashes are preserved: `/vaer-og-webkamera?from=livecams` becomes
-`/vaer-og-webkamera/?from=livecams`.
+Imported by `useLocalizedPath.ts`, `SEOHead.tsx`, `PageMeta.tsx`, `src/lib/seo/sitemap.ts`, and the two
+Node scripts `scripts/prerender.ts` and `scripts/build-sitemap.ts` (both already import from `src/`,
+e.g. `src/i18n/routes.ts`, so this adds no new build coupling).
+
+Behaviour examples:
+
+```text
+/                              -> /                              (unchanged)
+/sommer                        -> /sommer/
+/en/summer                     -> /en/summer/
+/vaer-og-webkamera?from=livecams -> /vaer-og-webkamera/?from=livecams
+/heiskort#priser               -> /heiskort/#priser
+/Snartur_2023_web.pdf          -> unchanged
+/site.webmanifest              -> unchanged
+/api, /api/x, /assets, /assets/x, /admin, /admin/login -> unchanged
+https://…, mailto:, tel:, #top -> unchanged
+```
 
 ## 6. Representative routes to test
 
@@ -118,13 +207,13 @@ Single focused PR on `fix/trailing-slash-url-normalization`. Rollback = revert t
 is additive, so making `withTrailingSlash` an identity function is a valid one-line hotfix without a
 full revert.
 
-## 9. Uncertainty requiring verification
+## 9. Remaining open items (not blockers)
 
-1. Whether Cloudflare Pages' trailing-slash canonicalization is configurable for this project — if the
-   strip-slash direction is preferred instead, the same helper flips with one constant.
+1. `www.bjorli.no` also answers 200 alongside the apex. Canonical tags on both already point at the
+   apex, so search consolidation is handled; a host-level `www -> apex` 301 in Cloudflare would be
+   tidier but is a hosting setting, out of scope unless asked.
 2. Whether any external campaign links to a dynamic detail route in the non-slash form; those keep
-   working via the 308, but worth confirming.
-3. The sitemap uses `https://bjorli.no` while live links resolve on `www`. Out of scope unless asked.
+   working (200 in both forms), so no action is required.
 
 ## Scope confirmation
 
