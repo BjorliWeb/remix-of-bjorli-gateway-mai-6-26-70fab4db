@@ -14,6 +14,7 @@ import { images } from '@/lib/images';
 import { trackPageView } from '@/lib/analytics';
 import { getSeoLanding, useCms } from '@/lib/cms';
 import type { SeoLandingBodySection } from '@/lib/cms';
+import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
 
 const LOCALE = 'en';
 const SLUG = 'ski-holiday-norway';
@@ -126,7 +127,7 @@ const SkiHolidayNorway = () => {
   }
 
   const heroImageUrl = entry.heroImage?.url ?? images.heroWinter.src;
-  const heroImageAbsolute = heroImageUrl.startsWith('http') ? heroImageUrl : SITE_ORIGIN + heroImageUrl;
+  const heroImageAbsolute = heroImageUrl.startsWith('http') ? heroImageUrl : CANONICAL_ORIGIN + heroImageUrl;
 
   return (
     <>
@@ -138,7 +139,7 @@ const SkiHolidayNorway = () => {
       />
       <JsonLd
         data={buildBreadcrumb([
-          { label: 'Home', url: `${SITE_ORIGIN}/en` },
+          { label: 'Home', url: absoluteUrl('/en') },
           { label: entry.title, url: PAGE_URL },
         ])}
       />

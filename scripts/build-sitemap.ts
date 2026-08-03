@@ -24,7 +24,7 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
-import { absoluteUrl } from '../src/lib/url/normalizeInternalPath';
+import { absoluteUrl, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 
 /**
  * Base origin for absolute URLs in the sitemap.
