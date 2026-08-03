@@ -111,7 +111,7 @@ const Fotturer = () => {
           <section className="pt-12 md:pt-16 pb-4 px-4">
               <div className="container mx-auto max-w-5xl">
                 <Link
-                  to="/sommer/korte-turer"
+                  to="/sommer/korte-turer/"
                   className="group block rounded-2xl border border-border bg-card hover:bg-muted/50 transition-colors p-6 md:p-8"
                 >
                   <div className="text-secondary text-[11px] font-medium tracking-[0.22em] uppercase mb-3">

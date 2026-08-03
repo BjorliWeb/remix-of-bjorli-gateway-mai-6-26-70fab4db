@@ -477,7 +477,7 @@ const run = () => {
   const handelSeo = seoForCanonicalPath('/handel', 'no');
   if (handelSeo) {
     const canonical = 'handel' as CanonicalRoute; // synthetic; only used for skeleton nav
-    const href = ORIGIN + '/handel';
+    const href = absoluteUrl('/handel', ORIGIN);
     const handelLead = leadForCanonicalPath('/handel', 'no');
     const handelJsonLd = jsonLdScript(
       buildWebPage({

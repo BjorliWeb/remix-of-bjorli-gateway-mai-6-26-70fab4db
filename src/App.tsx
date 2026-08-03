@@ -130,7 +130,7 @@ const AppRoutes = () => (
     {/* Legacy/empty page removed — 301 to /sommer (CF _redirects handles direct hits;
         this Navigate covers client-side navigation). Must be declared before the
         generic :slug route so it wins the match. */}
-    <Route path="/arrangementer/sommeraktiviteter" element={<Navigate to="/sommer" replace />} />
+    <Route path="/arrangementer/sommeraktiviteter" element={<Navigate to="/sommer/" replace />} />
     <Route path="/arrangementer/:slug" element={<ContentDetailPage kind="events" />} />
     <Route path="/nyheter" element={<News />} />
     <Route path="/nyheter/:slug" element={<ContentDetailPage kind="news" />} />
