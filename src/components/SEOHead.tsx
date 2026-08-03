@@ -51,7 +51,14 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
   },
 };
 
-const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : '';
+/**
+ * Indexable URLs are ALWAYS built on the canonical production origin, never
+ * on `window.location.origin`. Otherwise a Cloudflare preview host, the www
+ * host, or localhost would overwrite the prerendered apex canonical /
+ * hreflang / og:url after hydration. Indexability itself is still decided by
+ * the real origin via `isProductionOrigin()` below.
+ */
+const SITE_ORIGIN = CANONICAL_ORIGIN;
 
 const SEOHead = () => {
   const location = useLocation();

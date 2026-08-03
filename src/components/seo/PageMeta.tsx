@@ -26,7 +26,8 @@ interface Props {
   noindex?: boolean;
 }
 
-const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : '';
+/** Canonical URLs always use the production origin — see SEOHead for why. */
+const SITE_ORIGIN = CANONICAL_ORIGIN;
 
 const upsertMeta = (key: string, content: string, isProperty = false) => {
   const attr = isProperty ? 'property' : 'name';
