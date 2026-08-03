@@ -32,6 +32,63 @@ fight Cloudflare's directory canonicalization.
 Exclusions honoured everywhere: external URLs, `mailto:`, `tel:`, `#hash`, API routes, asset paths and
 file extensions (`.pdf`, `.xml`, `.txt`, `.jpg`, `.png`, `.webp`, `.svg`) never get a slash appended.
 
+## 1b. Resolved: canonical production host
+
+Both hosts serve the trailing-slash routes directly, with **no redirect in either direction**:
+
+```text
+https://bjorli.no/          200      https://www.bjorli.no/          200
+https://bjorli.no/sommer/   200      https://www.bjorli.no/sommer/   200
+https://bjorli.no/en/       200      https://www.bjorli.no/en/       200
+```
+
+Both hosts already emit the same apex canonical, and `robots.txt` advertises the apex sitemap:
+
+```text
+curl https://bjorli.no/sommer/      -> <link rel="canonical" href="https://bjorli.no/sommer" />
+curl https://www.bjorli.no/sommer/  -> <link rel="canonical" href="https://bjorli.no/sommer" />
+robots.txt                          -> Sitemap: https://bjorli.no/sitemap.xml
+```
+
+**Selected canonical host: `https://bjorli.no` (apex).** It resolves 200 directly, matches the existing
+canonical tags, the sitemap `ORIGIN` default and `robots.txt`. It is used consistently for canonical,
+hreflang, x-default, sitemap `<loc>` + alternates, `og:url`, JSON-LD `url`/`isPartOf`, and the
+`llms.txt` / `llms-full.txt` key-page URLs. No `www` absolute URLs are emitted anywhere.
+
+Noted, not in scope: `www` also answers 200, so the site is reachable on two hosts. The apex canonical
+tag on both already consolidates them for search engines. A host-level `www -> apex` 301 would be
+cleaner, but that is a Cloudflare setting and is out of scope unless requested.
+
+## 1c. Resolved: non-prerendered and private routes
+
+Direct runtime checks on the apex host (no redirects anywhere):
+
+```text
+/admin/login             200      /admin/login/             200
+/ski-holiday-norway      200      /ski-holiday-norway/      200
+/nyheter/test-artikkel   200      /nyheter/test-artikkel/   200   (news detail)
+/arrangementer/markens-grode 200  /arrangementer/markens-grode/ 200 (event detail)
+/finnesikke              200      /finnesikke/              200   (404 route, SPA shell)
+/robots.txt              200      /site.webmanifest         200
+```
+
+Non-prerendered paths fall through to the SPA shell with a 200 in **both** forms, so adding the slash
+never introduces a redirect or a route failure — including admin, detail routes and 404s.
+
+**Exclusions the shared helper still needs, and why:**
+
+| Pattern | Excluded? | Reason |
+| --- | --- | --- |
+| `/admin` and `/admin/...` | Yes | Verified to work with a slash, but it is a private, `noindex` surface with zero SEO benefit. Excluding it keeps admin URLs, bookmarks and auth redirects byte-identical to today. |
+| `/api`, `/api/...` | Yes | Endpoint paths; a slash can change server routing. Both the bare `/api` and the `/api/` prefix are excluded. |
+| `/assets`, `/assets/...` | Yes | Build output; must stay exact. Both bare and prefixed forms excluded. |
+| Any path with a file extension | Yes | `/Snartur_2023_web.pdf`, `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/site.webmanifest`, images. Extension matching allows long extensions so `.webmanifest` is covered. |
+| `/` (root) | Yes (no-op) | Already ends in a slash, returned unchanged. |
+| External, `//`, `mailto:`, `tel:`, bare `#hash` | Yes | Not internal paths. |
+| Public content routes, incl. detail routes and 404 paths | **No** | Verified 200 in slash form; these get normalized. |
+
+Query strings and fragments are always preserved and the slash is inserted before them.
+
 ## 2. There is already a single chokepoint
 
 Almost all internal navigation goes through `useLocalizedPath()` (`lp()`), used in 36 files (Navbar,
