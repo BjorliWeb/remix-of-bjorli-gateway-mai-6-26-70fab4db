@@ -24,6 +24,7 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
+import { absoluteUrl } from '../src/lib/url/normalizeInternalPath';
 
 /**
  * Base origin for absolute URLs in the sitemap.
@@ -86,9 +87,9 @@ const allLocales: Locale[] = [...LOCALES];
 
 const buildHref = (locale: Locale, canonical: CanonicalRoute): string => {
   const prefix = LOCALE_PREFIX[locale];
-  if (canonical === 'home') return ORIGIN + (prefix || '/');
+  if (canonical === 'home') return absoluteUrl(prefix || '/', ORIGIN);
   const slug = slugForCanonical(canonical, locale);
-  return ORIGIN + (prefix || '') + '/' + slug;
+  return absoluteUrl((prefix || '') + '/' + slug, ORIGIN);
 };
 
 const canonicalKeys = (Object.keys(ROUTE_SLUGS) as CanonicalRoute[]).filter(
@@ -131,7 +132,7 @@ const EN_ONLY_EXTRAS = [
   { path: '/en/ski-holiday-norway', priority: 0.6, changefreq: 'monthly' },
 ];
 for (const extra of EN_ONLY_EXTRAS) {
-  const href = ORIGIN + extra.path;
+  const href = absoluteUrl(extra.path, ORIGIN);
   urls.push({
     loc: href,
     lastmod: LASTMOD,
@@ -154,7 +155,7 @@ const NO_ONLY_EXTRAS = [
   { path: '/handel', priority: 0.6, changefreq: 'monthly' },
 ];
 for (const extra of NO_ONLY_EXTRAS) {
-  const href = ORIGIN + extra.path;
+  const href = absoluteUrl(extra.path, ORIGIN);
   urls.push({
     loc: href,
     lastmod: LASTMOD,
@@ -177,7 +178,7 @@ for (const extra of NO_ONLY_EXTRAS) {
 const tafjordfjellaPath = (loc: Locale): string => {
   const prefix = LOCALE_PREFIX[loc];
   const sommerSlug = ROUTE_SLUGS.sommer[loc] || 'sommer';
-  return ORIGIN + (prefix || '') + '/' + sommerSlug + '/tafjordfjella';
+  return absoluteUrl((prefix || '') + '/' + sommerSlug + '/tafjordfjella', ORIGIN);
 };
 const tafjordfjellaAlternates = allLocales.map((loc) => ({
   hreflang: loc,
