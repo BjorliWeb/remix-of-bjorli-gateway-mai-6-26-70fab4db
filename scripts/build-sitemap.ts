@@ -24,7 +24,7 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
-import { absoluteUrl } from '../src/lib/url/normalizeInternalPath';
+import { absoluteUrl, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 
 /**
  * Base origin for absolute URLs in the sitemap.
@@ -35,7 +35,8 @@ import { absoluteUrl } from '../src/lib/url/normalizeInternalPath';
  * production hostname so local dev and the canonical production
  * build keep emitting the same URLs as before.
  */
-const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
+/** sitemap.xml always advertises the canonical apex origin. */
+const ORIGIN = CANONICAL_ORIGIN;
 const LASTMOD = new Date().toISOString().slice(0, 10);
 
 /**
