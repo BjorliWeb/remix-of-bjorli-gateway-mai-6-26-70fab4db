@@ -37,7 +37,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     // preserving any deeper segments (e.g. /nyheter/abc → /news/abc).
     const translated = translatePath(pathname, currentLocale, next);
     const cleaned = translated === '/' ? '' : translated.replace(/\/$/, '');
-    const newPath = (LOCALE_PREFIX[next] || '') + (cleaned || '/');
+    const newPath = normalizeInternalPath((LOCALE_PREFIX[next] || '') + (cleaned || '/'));
     window.history.pushState({}, '', newPath + search + hash);
     if (currentLocale !== next) {
       trackLanguageChange({ from_language: currentLocale, to_language: next });
