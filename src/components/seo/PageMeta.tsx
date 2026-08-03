@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LOCALE_PREFIX } from '@/i18n/translations';
 import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
-import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
+import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
 
 /**
  * PageMeta — per-page metadata override placeholder.

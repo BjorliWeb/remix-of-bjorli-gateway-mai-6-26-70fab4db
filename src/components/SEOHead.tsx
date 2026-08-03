@@ -9,7 +9,7 @@ import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
-import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
+import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
 
 interface SeoData {
   title: string;
