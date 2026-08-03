@@ -105,7 +105,8 @@ ours to define in the URL builders — the router itself matches both forms.
 
 | File | Change |
 | --- | --- |
-| `src/i18n/useLocalizedPath.ts` | Add exported `withTrailingSlash()` and apply it to `lp()`'s return value; `stripLocalePrefix()` tolerates a trailing slash on input so route matching is unchanged. |
+| `src/lib/url/normalizeInternalPath.ts` | **New.** Pure, dependency-free shared module. No React, no browser APIs, no app hooks — safe to import from both the app and the Node build scripts. |
+| `src/i18n/useLocalizedPath.ts` | Imports the shared helper and applies it to `lp()`'s return value; `stripLocalePrefix()` tolerates a trailing slash on input so route matching is unchanged. |
 | `src/components/SEOHead.tsx` | Canonical, hreflang alternates, x-default and `og:url` use the same normalizer. |
 | `src/components/seo/PageMeta.tsx` | Same normalizer for its canonical override. |
 | `scripts/prerender.ts` | `buildHref()` plus crawlable nav/related-link hrefs emit trailing slashes, so prerendered HTML matches the served URL. |
