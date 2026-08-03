@@ -39,7 +39,12 @@ import { buildWebPage } from '../src/lib/seo/schema';
 import { absoluteUrl, normalizeInternalPath } from '../src/lib/url/normalizeInternalPath';
 
 const DIST = resolve(process.cwd(), 'dist');
-const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
+/**
+ * Indexable URLs are pinned to the canonical apex origin regardless of the
+ * build environment: a preview build must never bake a *.pages.dev or www
+ * host into canonical / hreflang / og:url / JSON-LD.
+ */
+const ORIGIN = CANONICAL_ORIGIN;
 
 /**
  * Canonical routes that get a prerendered HTML file per locale.

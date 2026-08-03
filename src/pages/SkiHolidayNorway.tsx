@@ -15,10 +15,10 @@ import { trackPageView } from '@/lib/analytics';
 import { getSeoLanding, useCms } from '@/lib/cms';
 import type { SeoLandingBodySection } from '@/lib/cms';
 
-const SITE_ORIGIN = typeof window !== 'undefined' ? window.location.origin : 'https://www.bjorli.no';
 const LOCALE = 'en';
 const SLUG = 'ski-holiday-norway';
-const PAGE_URL = `${SITE_ORIGIN}/${LOCALE}/${SLUG}`;
+/** Canonical apex origin — never the www/preview/localhost host. */
+const PAGE_URL = absoluteUrl(`/${LOCALE}/${SLUG}`);
 
 const ctaClasses = (variant?: 'primary' | 'secondary' | 'outline') => {
   if (variant === 'secondary' || variant === 'outline') {

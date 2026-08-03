@@ -35,7 +35,8 @@ import { absoluteUrl } from '../src/lib/url/normalizeInternalPath';
  * production hostname so local dev and the canonical production
  * build keep emitting the same URLs as before.
  */
-const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
+/** sitemap.xml always advertises the canonical apex origin. */
+const ORIGIN = CANONICAL_ORIGIN;
 const LASTMOD = new Date().toISOString().slice(0, 10);
 
 /**
