@@ -9,6 +9,7 @@ import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 
 interface SeoData {
   title: string;
@@ -72,9 +73,11 @@ const SEOHead = () => {
       const fallback: SeoData = { ...seoByLocale[locale], og_image_url: null };
 
       // 1. CMS layer — per-route entry (news / tips / events / activities)
-      const absoluteUrl =
-        SITE_ORIGIN + (LOCALE_PREFIX[locale] || '') + (slug === '/' ? '/' : slug);
-      const cmsSeo = await resolveSeoForRoute(locale, slug, absoluteUrl);
+      const pageUrl = absoluteUrl(
+        (LOCALE_PREFIX[locale] || '') + (slug === '/' ? '/' : slug),
+        SITE_ORIGIN,
+      );
+      const cmsSeo = await resolveSeoForRoute(locale, slug, pageUrl);
       if (cancelled) return;
       if (cmsSeo) {
         setSeo({
@@ -207,7 +210,10 @@ const SEOHead = () => {
     const currentLocalized =
       canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', locale);
     const currentUrl =
-      SITE_ORIGIN + (LOCALE_PREFIX[locale] || '') + (currentLocalized === '/' ? '/' : currentLocalized);
+      absoluteUrl(
+        (LOCALE_PREFIX[locale] || '') + (currentLocalized === '/' ? '/' : currentLocalized),
+        SITE_ORIGIN,
+      );
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -215,6 +221,8 @@ const SEOHead = () => {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute('href', currentUrl);
+    // og:url always mirrors the canonical URL.
+    setMeta('og:url', currentUrl, true);
 
     // hreflang alternates – ONLY for locales that actually have a translation.
     // x-default points to English when available, else NO, else first available.
@@ -228,7 +236,7 @@ const SEOHead = () => {
       const localized = canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', loc);
       link.setAttribute(
         'href',
-        SITE_ORIGIN + (LOCALE_PREFIX[loc] || '') + (localized === '/' ? '/' : localized),
+        absoluteUrl((LOCALE_PREFIX[loc] || '') + (localized === '/' ? '/' : localized), SITE_ORIGIN),
       );
       document.head.appendChild(link);
     });
@@ -247,9 +255,10 @@ const SEOHead = () => {
       xd.setAttribute('data-hreflang', '1');
       xd.setAttribute(
         'href',
-        SITE_ORIGIN +
-          (LOCALE_PREFIX[xDefaultLocale] || '') +
-          (xdLocalized === '/' ? '/' : xdLocalized),
+        absoluteUrl(
+          (LOCALE_PREFIX[xDefaultLocale] || '') + (xdLocalized === '/' ? '/' : xdLocalized),
+          SITE_ORIGIN,
+        ),
       );
       document.head.appendChild(xd);
     }
@@ -272,7 +281,7 @@ const SEOHead = () => {
         '@type': 'TouristDestination',
         name: 'Bjorli',
         description: seo.description,
-        url: SITE_ORIGIN + (LOCALE_PREFIX[locale] || ''),
+        url: absoluteUrl(LOCALE_PREFIX[locale] || '/', SITE_ORIGIN),
         inLanguage: LOCALE_LABELS[locale].bcp47,
         address: {
           '@type': 'PostalAddress',
