@@ -36,6 +36,7 @@ import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/
 import { ogImageForCanonicalPath, seoForCanonicalPath } from '../src/lib/seo/routeSeo';
 import { leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
 import { buildWebPage } from '../src/lib/seo/schema';
+import { absoluteUrl, normalizeInternalPath } from '../src/lib/url/normalizeInternalPath';
 
 const DIST = resolve(process.cwd(), 'dist');
 const ORIGIN = (process.env.SITE_URL ?? 'https://bjorli.no').replace(/\/$/, '');
@@ -104,9 +105,9 @@ interface HreflangAlt {
 
 const buildHref = (locale: Locale, canonical: CanonicalRoute): string => {
   const prefix = LOCALE_PREFIX[locale];
-  if (canonical === 'home') return ORIGIN + (prefix || '/');
+  if (canonical === 'home') return absoluteUrl(prefix || '/', ORIGIN);
   const slug = slugForCanonical(canonical, locale);
-  return ORIGIN + (prefix || '') + '/' + slug;
+  return absoluteUrl((prefix || '') + '/' + slug, ORIGIN);
 };
 
 const buildHreflangs = (canonical: CanonicalRoute): HreflangAlt[] => {
@@ -223,9 +224,9 @@ const RELATED_HEADING: Record<Locale, string> = {
 /** Href for a link target in a given locale. `handel` exists only at /handel (NO). */
 const hrefForTarget = (target: LinkTarget, locale: Locale): string => {
   const prefix = LOCALE_PREFIX[locale] || '';
-  if (target === 'handel') return '/handel';
-  if (target === 'home') return prefix || '/';
-  return `${prefix}/${slugForCanonical(target, locale)}`;
+  if (target === 'handel') return normalizeInternalPath('/handel');
+  if (target === 'home') return normalizeInternalPath(prefix || '/');
+  return normalizeInternalPath(`${prefix}/${slugForCanonical(target, locale)}`);
 };
 
 /** Localized nav/related link list; drops `handel` outside Norwegian. */
@@ -244,7 +245,7 @@ const bodySkeleton = (opts: {
 }): string => {
   const { locale, title, description, canonical, lead } = opts;
   const prefix = LOCALE_PREFIX[locale] || '';
-  const homeHref = prefix || '/';
+  const homeHref = normalizeInternalPath(prefix || '/');
   // Crawler-visible skeleton: H1 distinct from <title>, lead distinct from
   // meta description (both fall back to the old behaviour when no entry
   // exists), expanded primary nav and per-page related links.
@@ -293,7 +294,7 @@ const touristDestinationLd = (locale: Locale, description: string): Record<strin
   '@type': 'TouristDestination',
   name: 'Bjorli',
   description,
-  url: ORIGIN + (LOCALE_PREFIX[locale] || ''),
+  url: absoluteUrl(LOCALE_PREFIX[locale] || '/', ORIGIN),
   inLanguage: LOCALE_LABELS[locale].bcp47,
   address: {
     '@type': 'PostalAddress',
