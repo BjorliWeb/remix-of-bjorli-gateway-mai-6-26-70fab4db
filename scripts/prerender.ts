@@ -250,7 +250,8 @@ const bodySkeleton = (opts: {
   locale: Locale;
   title: string;
   description: string;
-  canonical: LinkTarget;
+  /** Skeleton key used for nav/related links only — not an SEO canonical. */
+  canonical: LinkTarget | string;
   lead: RouteLeadEntry | null;
 }): string => {
   const { locale, title, description, canonical, lead } = opts;
@@ -267,7 +268,7 @@ const bodySkeleton = (opts: {
   const supportingHtml = lead?.supporting
     ? `\n    <p style="font-size:1.05rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(lead.supporting)}</p>`
     : '';
-  const related = RELATED_LINKS[canonical];
+  const related = RELATED_LINKS[canonical as LinkTarget];
   const relatedItems = related ? linksFor(related, locale) : [];
   const relatedHtml = relatedItems.length
     ? `\n    <section style="margin:0 0 1.5rem">
@@ -298,14 +299,17 @@ const bodySkeleton = (opts: {
 const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
   `<script type="application/ld+json"${id ? ` id="${id}"` : ''}>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
-/** TouristDestination for the homepage — same shape SEOHead writes at runtime. */
+/**
+ * TouristDestination for the homepage — same shape SEOHead writes at runtime.
+ * No `inLanguage`: TouristDestination is a Place subtype and schema.org does
+ * not define `inLanguage` on Place (it stays on WebPage, which is valid).
+ */
 const touristDestinationLd = (locale: Locale, description: string): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'TouristDestination',
   name: 'Bjorli',
   description,
   url: absoluteUrl(LOCALE_PREFIX[locale] || '/', ORIGIN),
-  inLanguage: LOCALE_LABELS[locale].bcp47,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Bjorliveien 84',
