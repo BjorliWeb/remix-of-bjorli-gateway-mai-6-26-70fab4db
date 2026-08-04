@@ -350,9 +350,152 @@ interface RouteOutput {
   filePath: string; // relative to dist
   html: string;
   locale: Locale;
-  canonical: CanonicalRoute;
+  /** Grouping key for the build log — canonical route or standalone key. */
+  canonical: string;
   title: string;
 }
+
+/**
+ * Shared head+body document template. Used by the per-locale canonical
+ * routes and by the standalone pages (handel, tafjordfjella, the EN-only
+ * ski-holiday landing) so every prerendered file has identical structure.
+ */
+const buildHtmlDocument = (o: {
+  htmlLang: string;
+  title: string;
+  description: string;
+  href: string;
+  hreflangTags: string;
+  ogLocale: string;
+  ogAlternates: string;
+  ogImage: string;
+  jsonLdTags: string;
+  bodyHtml: string;
+  base: { scripts: string; preloads: string };
+}): string => `<!doctype html>
+<html lang="${escapeHtml(o.htmlLang)}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(o.title)}</title>
+    <meta name="description" content="${escapeHtml(o.description)}" />
+    <meta name="author" content="Destinasjon Bjorli" />
+    <meta name="theme-color" content="#001d28" />
+    <link rel="canonical" href="${escapeHtml(o.href)}" />
+    ${o.hreflangTags}
+    <meta property="og:title" content="${escapeHtml(o.title)}" />
+    <meta property="og:description" content="${escapeHtml(o.description)}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bjorli" />
+    <meta property="og:url" content="${escapeHtml(o.href)}" />
+    <meta property="og:locale" content="${escapeHtml(o.ogLocale)}" />
+    ${o.ogAlternates}
+    <meta property="og:image" content="${escapeHtml(o.ogImage)}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(o.title)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(o.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(o.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(o.ogImage)}" />
+    <meta name="twitter:site" content="@bjorli" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    ${o.jsonLdTags}
+    ${o.base.preloads}
+  </head>
+  <body>
+    ${o.bodyHtml}
+    ${o.base.scripts}
+  </body>
+</html>
+`;
+
+/** `/sommer/tafjordfjella` and its localized siblings (parent slug translated). */
+const tafjordfjellaPath = (locale: Locale): string => {
+  const prefix = LOCALE_PREFIX[locale] || '';
+  return `${prefix}/${slugForCanonical('sommer', locale)}/tafjordfjella`;
+};
+
+/**
+ * A page rendered outside the (canonical route x locale) matrix: NO-only
+ * /handel, the Tafjordfjella family, and the EN-only ski-holiday landing.
+ */
+interface StandaloneSpec {
+  /** Path with leading slash, no trailing slash — e.g. `/en/summer/tafjordfjella`. */
+  path: string;
+  locale: Locale;
+  seo: RouteSeoEntry;
+  /** Canonical (NO) path used for the OG image + lead lookups. */
+  seoLookupPath: string;
+  hreflangs: HreflangAlt[];
+  /** Skeleton nav/related key. */
+  skeletonKey: LinkTarget | string;
+  /** Grouping key for the build log. */
+  groupKey: string;
+}
+
+const renderStandalone = (
+  spec: StandaloneSpec,
+  base: { scripts: string; preloads: string },
+): RouteOutput => {
+  const { locale, seo } = spec;
+  const href = absoluteUrl(spec.path, ORIGIN);
+  const hreflangTags = spec.hreflangs
+    .map(
+      (a) =>
+        `<link rel="alternate" hreflang="${escapeHtml(a.hreflang)}" href="${escapeHtml(a.href)}" />`,
+    )
+    .join('\n    ');
+  // Only advertise og:locale:alternate for locales this page actually has.
+  const ogAlternates = spec.hreflangs
+    .filter((a) => a.hreflang !== 'x-default')
+    .map((a) => LOCALES.find((l) => LOCALE_LABELS[l].htmlLang === a.hreflang))
+    .filter((l): l is Locale => !!l && l !== locale)
+    .map(
+      (l) =>
+        `<meta property="og:locale:alternate" content="${escapeHtml(LOCALE_LABELS[l].ogLocale)}" />`,
+    )
+    .join('\n    ');
+  const jsonLdTags = jsonLdScript(
+    buildWebPage({
+      url: href,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: LOCALE_LABELS[locale].bcp47,
+    }),
+  );
+  const html = buildHtmlDocument({
+    htmlLang: LOCALE_LABELS[locale].htmlLang,
+    title: seo.title,
+    description: seo.description,
+    href,
+    hreflangTags,
+    ogLocale: LOCALE_LABELS[locale].ogLocale,
+    ogAlternates,
+    ogImage: ORIGIN + ogImageForCanonicalPath(spec.seoLookupPath),
+    jsonLdTags,
+    bodyHtml: bodySkeleton({
+      locale,
+      title: seo.title,
+      description: seo.description,
+      canonical: spec.skeletonKey,
+      lead: leadForCanonicalPath(spec.seoLookupPath, locale),
+    }),
+    base,
+  });
+  return {
+    filePath: `${spec.path.replace(/^\//, '')}/index.html`,
+    html,
+    locale,
+    canonical: spec.groupKey,
+    title: seo.title,
+  };
+};
 
 const renderRoute = (
   canonical: CanonicalRoute,
