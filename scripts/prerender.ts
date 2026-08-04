@@ -432,6 +432,12 @@ interface StandaloneSpec {
   seo: RouteSeoEntry;
   /** Canonical (NO) path used for the OG image + lead lookups. */
   seoLookupPath: string;
+  /**
+   * Registry key for the crawler-visible H1/lead. Defaults to
+   * `seoLookupPath`; set explicitly when the OG-image lookup points at a
+   * different (parent) route, so the page never borrows that route's lead.
+   */
+  leadKey?: string;
   hreflangs: HreflangAlt[];
   /** Skeleton nav/related key. */
   skeletonKey: LinkTarget | string;
@@ -486,7 +492,7 @@ const renderStandalone = (
       canonical: spec.skeletonKey,
       // Exact lookup only: standalone pages must never inherit the parent
       // route's H1/lead (that is what made them look like the hub page).
-      lead: ROUTE_LEADS[spec.seoLookupPath.replace(/^\//, '')]?.[locale] ?? null,
+      lead: ROUTE_LEADS[(spec.leadKey ?? spec.seoLookupPath).replace(/^\//, '')]?.[locale] ?? null,
     }),
     base,
   });
@@ -731,6 +737,7 @@ const run = () => {
     locale: SKI_HOLIDAY_NORWAY_LOCALE,
     seo: { ...SKI_HOLIDAY_NORWAY_SEO },
     seoLookupPath: '/vinter',
+    leadKey: '/ski-holiday-norway',
     hreflangs: [
       { hreflang: 'en', href: skiHolidayHref },
       { hreflang: 'x-default', href: skiHolidayHref },
