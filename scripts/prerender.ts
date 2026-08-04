@@ -546,48 +546,25 @@ const renderRoute = (
     )
     .join('\n    ');
 
-  const head = `<!doctype html>
-<html lang="${escapeHtml(htmlLang)}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(seo.title)}</title>
-    <meta name="description" content="${escapeHtml(seo.description)}" />
-    <meta name="author" content="Destinasjon Bjorli" />
-    <meta name="theme-color" content="#001d28" />
-    <link rel="canonical" href="${escapeHtml(href)}" />
-    ${hreflangTags}
-    <meta property="og:title" content="${escapeHtml(seo.title)}" />
-    <meta property="og:description" content="${escapeHtml(seo.description)}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bjorli" />
-    <meta property="og:url" content="${escapeHtml(href)}" />
-    <meta property="og:locale" content="${escapeHtml(ogLocale)}" />
-    ${ogAlternates}
-    <meta property="og:image" content="${escapeHtml(ogImage)}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="${escapeHtml(seo.title)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(seo.description)}" />
-    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
-    <meta name="twitter:site" content="@bjorli" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    ${jsonLdTags}
-    ${base.preloads}
-  </head>
-  <body>
-    ${bodySkeleton({ locale, title: seo.title, description: seo.description, canonical, lead })}
-    ${base.scripts}
-  </body>
-</html>
-`;
+  const head = buildHtmlDocument({
+    htmlLang,
+    title: seo.title,
+    description: seo.description,
+    href,
+    hreflangTags,
+    ogLocale,
+    ogAlternates,
+    ogImage,
+    jsonLdTags,
+    bodyHtml: bodySkeleton({
+      locale,
+      title: seo.title,
+      description: seo.description,
+      canonical,
+      lead,
+    }),
+    base,
+  });
 
   // File path: dist/<locale-prefix>/<slug>/index.html
   //   / -> dist/index.html
