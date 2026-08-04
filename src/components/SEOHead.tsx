@@ -289,7 +289,6 @@ const SEOHead = () => {
         name: 'Bjorli',
         description: seo.description,
         url: absoluteUrl(LOCALE_PREFIX[locale] || '/', SITE_ORIGIN),
-        inLanguage: LOCALE_LABELS[locale].bcp47,
         address: {
           '@type': 'PostalAddress',
           streetAddress: 'Bjorliveien 84',

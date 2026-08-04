@@ -20,6 +20,10 @@
  */
 import type { CanonicalRoute } from '@/i18n/routes';
 import type { Locale } from '@/i18n/locales/types';
+import {
+  SKI_HOLIDAY_NORWAY_SEO,
+  SKI_HOLIDAY_NORWAY_SLUG,
+} from '@/lib/seo/skiHolidayNorwaySeo';
 
 export interface RouteSeoEntry {
   title: string;
@@ -381,6 +385,19 @@ export const ROUTE_SEO: RouteSeoMap = {
   nl: { title: 'Tafjordfjella vanaf Bjorli – routes en hutten', description: 'Gebruik Bjorli en Brøstdalen als basis voor wandel- en skitochten in Tafjordfjella, met routes naar Vakkerstøylen, Pyttbua en omliggende bergen.' },
   da: { title: 'Tafjordfjella fra Bjorli – ture og hytter', description: 'Brug Bjorli og Brøstdalen som udgangspunkt for ture ind i Tafjordfjella, med ruter mod Vakkerstøylen, Pyttbua og flotte fjeldområder.' },
   sv: { title: 'Tafjordfjella från Bjorli – turförslag och stugor', description: 'Använd Bjorli och Brøstdalen som utgångspunkt för turer in i Tafjordfjella, med rutter mot Vakkerstøylen, Pyttbua och vidsträckta fjäll.' },
+};
+
+/**
+ * EN-only landing at /ski-holiday-norway. Only the `en` locale is
+ * populated — there are no localized variants of this route, and
+ * `seoForCanonicalPath` returns null for the other locales so nothing
+ * localized is ever generated. Metadata comes from the shared module so
+ * the page, SEOHead/PageMeta, the CMS fixture and prerender never drift.
+ */
+(ROUTE_SEO as Record<string, Partial<Record<Locale, RouteSeoEntry>>>)[
+  SKI_HOLIDAY_NORWAY_SLUG
+] = {
+  en: { ...SKI_HOLIDAY_NORWAY_SEO },
 };
 
 /**

@@ -33,9 +33,14 @@ import { dirname, resolve } from 'node:path';
 
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
-import { ogImageForCanonicalPath, seoForCanonicalPath } from '../src/lib/seo/routeSeo';
-import { leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
+import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
+import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
 import { buildWebPage } from '../src/lib/seo/schema';
+import {
+  SKI_HOLIDAY_NORWAY_LOCALE,
+  SKI_HOLIDAY_NORWAY_PATH,
+  SKI_HOLIDAY_NORWAY_SEO,
+} from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 
 const DIST = resolve(process.cwd(), 'dist');
@@ -245,7 +250,8 @@ const bodySkeleton = (opts: {
   locale: Locale;
   title: string;
   description: string;
-  canonical: LinkTarget;
+  /** Skeleton key used for nav/related links only — not an SEO canonical. */
+  canonical: LinkTarget | string;
   lead: RouteLeadEntry | null;
 }): string => {
   const { locale, title, description, canonical, lead } = opts;
@@ -262,7 +268,7 @@ const bodySkeleton = (opts: {
   const supportingHtml = lead?.supporting
     ? `\n    <p style="font-size:1.05rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(lead.supporting)}</p>`
     : '';
-  const related = RELATED_LINKS[canonical];
+  const related = RELATED_LINKS[canonical as LinkTarget];
   const relatedItems = related ? linksFor(related, locale) : [];
   const relatedHtml = relatedItems.length
     ? `\n    <section style="margin:0 0 1.5rem">
@@ -293,14 +299,17 @@ const bodySkeleton = (opts: {
 const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
   `<script type="application/ld+json"${id ? ` id="${id}"` : ''}>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
-/** TouristDestination for the homepage — same shape SEOHead writes at runtime. */
+/**
+ * TouristDestination for the homepage — same shape SEOHead writes at runtime.
+ * No `inLanguage`: TouristDestination is a Place subtype and schema.org does
+ * not define `inLanguage` on Place (it stays on WebPage, which is valid).
+ */
 const touristDestinationLd = (locale: Locale, description: string): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'TouristDestination',
   name: 'Bjorli',
   description,
   url: absoluteUrl(LOCALE_PREFIX[locale] || '/', ORIGIN),
-  inLanguage: LOCALE_LABELS[locale].bcp47,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Bjorliveien 84',
@@ -341,9 +350,160 @@ interface RouteOutput {
   filePath: string; // relative to dist
   html: string;
   locale: Locale;
-  canonical: CanonicalRoute;
+  /** Grouping key for the build log — canonical route or standalone key. */
+  canonical: string;
   title: string;
 }
+
+/**
+ * Shared head+body document template. Used by the per-locale canonical
+ * routes and by the standalone pages (handel, tafjordfjella, the EN-only
+ * ski-holiday landing) so every prerendered file has identical structure.
+ */
+const buildHtmlDocument = (o: {
+  htmlLang: string;
+  title: string;
+  description: string;
+  href: string;
+  hreflangTags: string;
+  ogLocale: string;
+  ogAlternates: string;
+  ogImage: string;
+  jsonLdTags: string;
+  bodyHtml: string;
+  base: { scripts: string; preloads: string };
+}): string => `<!doctype html>
+<html lang="${escapeHtml(o.htmlLang)}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(o.title)}</title>
+    <meta name="description" content="${escapeHtml(o.description)}" />
+    <meta name="author" content="Destinasjon Bjorli" />
+    <meta name="theme-color" content="#001d28" />
+    <link rel="canonical" href="${escapeHtml(o.href)}" />
+    ${o.hreflangTags}
+    <meta property="og:title" content="${escapeHtml(o.title)}" />
+    <meta property="og:description" content="${escapeHtml(o.description)}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bjorli" />
+    <meta property="og:url" content="${escapeHtml(o.href)}" />
+    <meta property="og:locale" content="${escapeHtml(o.ogLocale)}" />
+    ${o.ogAlternates}
+    <meta property="og:image" content="${escapeHtml(o.ogImage)}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="${escapeHtml(o.title)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escapeHtml(o.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(o.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(o.ogImage)}" />
+    <meta name="twitter:site" content="@bjorli" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    ${o.jsonLdTags}
+    ${o.base.preloads}
+  </head>
+  <body>
+    ${o.bodyHtml}
+    ${o.base.scripts}
+  </body>
+</html>
+`;
+
+/** `/sommer/tafjordfjella` and its localized siblings (parent slug translated). */
+const tafjordfjellaPath = (locale: Locale): string => {
+  const prefix = LOCALE_PREFIX[locale] || '';
+  return `${prefix}/${slugForCanonical('sommer', locale)}/tafjordfjella`;
+};
+
+/**
+ * A page rendered outside the (canonical route x locale) matrix: NO-only
+ * /handel, the Tafjordfjella family, and the EN-only ski-holiday landing.
+ */
+interface StandaloneSpec {
+  /** Path with leading slash, no trailing slash — e.g. `/en/summer/tafjordfjella`. */
+  path: string;
+  locale: Locale;
+  seo: RouteSeoEntry;
+  /** Canonical (NO) path used for the OG image + lead lookups. */
+  seoLookupPath: string;
+  /**
+   * Registry key for the crawler-visible H1/lead. Defaults to
+   * `seoLookupPath`; set explicitly when the OG-image lookup points at a
+   * different (parent) route, so the page never borrows that route's lead.
+   */
+  leadKey?: string;
+  hreflangs: HreflangAlt[];
+  /** Skeleton nav/related key. */
+  skeletonKey: LinkTarget | string;
+  /** Grouping key for the build log. */
+  groupKey: string;
+}
+
+const renderStandalone = (
+  spec: StandaloneSpec,
+  base: { scripts: string; preloads: string },
+): RouteOutput => {
+  const { locale, seo } = spec;
+  const href = absoluteUrl(spec.path, ORIGIN);
+  const hreflangTags = spec.hreflangs
+    .map(
+      (a) =>
+        `<link rel="alternate" hreflang="${escapeHtml(a.hreflang)}" href="${escapeHtml(a.href)}" />`,
+    )
+    .join('\n    ');
+  // Only advertise og:locale:alternate for locales this page actually has.
+  const ogAlternates = spec.hreflangs
+    .filter((a) => a.hreflang !== 'x-default')
+    .map((a) => LOCALES.find((l) => LOCALE_LABELS[l].htmlLang === a.hreflang))
+    .filter((l): l is Locale => !!l && l !== locale)
+    .map(
+      (l) =>
+        `<meta property="og:locale:alternate" content="${escapeHtml(LOCALE_LABELS[l].ogLocale)}" />`,
+    )
+    .join('\n    ');
+  const jsonLdTags = jsonLdScript(
+    buildWebPage({
+      url: href,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: LOCALE_LABELS[locale].bcp47,
+    }),
+  );
+  const html = buildHtmlDocument({
+    htmlLang: LOCALE_LABELS[locale].htmlLang,
+    title: seo.title,
+    description: seo.description,
+    href,
+    hreflangTags,
+    ogLocale: LOCALE_LABELS[locale].ogLocale,
+    ogAlternates,
+    ogImage: ORIGIN + ogImageForCanonicalPath(spec.seoLookupPath),
+    jsonLdTags,
+    bodyHtml: bodySkeleton({
+      locale,
+      title: seo.title,
+      description: seo.description,
+      canonical: spec.skeletonKey,
+      // Exact lookup only: standalone pages must never inherit the parent
+      // route's H1/lead (that is what made them look like the hub page).
+      lead: ROUTE_LEADS[(spec.leadKey ?? spec.seoLookupPath).replace(/^\//, '')]?.[locale] ?? null,
+    }),
+    base,
+  });
+  return {
+    filePath: `${spec.path.replace(/^\//, '')}/index.html`,
+    html,
+    locale,
+    canonical: spec.groupKey,
+    title: seo.title,
+  };
+};
 
 const renderRoute = (
   canonical: CanonicalRoute,
@@ -394,48 +554,25 @@ const renderRoute = (
     )
     .join('\n    ');
 
-  const head = `<!doctype html>
-<html lang="${escapeHtml(htmlLang)}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(seo.title)}</title>
-    <meta name="description" content="${escapeHtml(seo.description)}" />
-    <meta name="author" content="Destinasjon Bjorli" />
-    <meta name="theme-color" content="#001d28" />
-    <link rel="canonical" href="${escapeHtml(href)}" />
-    ${hreflangTags}
-    <meta property="og:title" content="${escapeHtml(seo.title)}" />
-    <meta property="og:description" content="${escapeHtml(seo.description)}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bjorli" />
-    <meta property="og:url" content="${escapeHtml(href)}" />
-    <meta property="og:locale" content="${escapeHtml(ogLocale)}" />
-    ${ogAlternates}
-    <meta property="og:image" content="${escapeHtml(ogImage)}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="${escapeHtml(seo.title)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(seo.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(seo.description)}" />
-    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
-    <meta name="twitter:site" content="@bjorli" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    ${jsonLdTags}
-    ${base.preloads}
-  </head>
-  <body>
-    ${bodySkeleton({ locale, title: seo.title, description: seo.description, canonical, lead })}
-    ${base.scripts}
-  </body>
-</html>
-`;
+  const head = buildHtmlDocument({
+    htmlLang,
+    title: seo.title,
+    description: seo.description,
+    href,
+    hreflangTags,
+    ogLocale,
+    ogAlternates,
+    ogImage,
+    jsonLdTags,
+    bodyHtml: bodySkeleton({
+      locale,
+      title: seo.title,
+      description: seo.description,
+      canonical,
+      lead,
+    }),
+    base,
+  });
 
   // File path: dist/<locale-prefix>/<slug>/index.html
   //   / -> dist/index.html
@@ -460,7 +597,74 @@ const writeOutput = (out: RouteOutput): void => {
   writeFileSync(abs, out.html, 'utf8');
 };
 
+/**
+ * Build-time assertion: every HTML URL advertised in public/sitemap.xml
+ * must have a matching prerendered file in dist. Runs AFTER prerender so
+ * the dist output exists.
+ *
+ *   https://bjorli.no/                    -> dist/index.html
+ *   https://bjorli.no/sommer/             -> dist/sommer/index.html
+ *   https://bjorli.no/ski-holiday-norway/ -> dist/ski-holiday-norway/index.html
+ *
+ * Direction is one-way: a prerendered page that is not in the sitemap is
+ * fine; a sitemap URL without a prerendered page is a build failure.
+ * Non-HTML resources (sitemaps, feeds, files with an extension) are ignored.
+ */
+const assertSitemapCoverage = (): void => {
+  const sitemapPath = resolve(process.cwd(), 'public/sitemap.xml');
+  if (!existsSync(sitemapPath)) {
+    throw new Error('[prerender] public/sitemap.xml not found — run build-sitemap first.');
+  }
+  const xml = readFileSync(sitemapPath, 'utf8');
+  const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g)).map((m) =>
+    m[1].replace(/&amp;/g, '&').trim(),
+  );
+
+  const failures: { url: string; expected: string }[] = [];
+  let checked = 0;
+  for (const loc of locs) {
+    let pathname: string;
+    try {
+      pathname = new URL(loc).pathname;
+    } catch {
+      failures.push({ url: loc, expected: '(unparseable URL in sitemap)' });
+      continue;
+    }
+    // Sitemap <loc> values may be percent-encoded (non-ASCII slugs such as
+    // /sv/spårkarta/); dist paths are written with the raw characters.
+    let decoded = pathname;
+    try {
+      decoded = decodeURIComponent(pathname);
+    } catch {
+      /* keep the raw pathname if it is not valid percent-encoding */
+    }
+    const clean = decoded.replace(/\/+$/, '');
+    const lastSegment = clean.split('/').pop() ?? '';
+    // Skip non-HTML resources: sitemaps, feeds, anything with a file extension.
+    if (/\.[a-z0-9]{2,5}$/i.test(lastSegment)) continue;
+    checked += 1;
+    const rel = clean === '' ? 'index.html' : `${clean.replace(/^\//, '')}/index.html`;
+    if (!existsSync(resolve(DIST, rel))) {
+      failures.push({ url: loc, expected: `dist/${rel}` });
+    }
+  }
+
+  if (failures.length) {
+    const detail = failures
+      .map((f) => `  - ${f.url}\n      expected prerendered file: ${f.expected}`)
+      .join('\n');
+    throw new Error(
+      `[prerender] sitemap coverage FAILED — ${failures.length} of ${checked} sitemap HTML URL(s) have no prerendered page:\n${detail}`,
+    );
+  }
+  // eslint-disable-next-line no-console
+  console.log(
+    `[prerender] sitemap coverage: all ${checked} sitemap HTML URLs have a matching prerendered file.`,
+  );
+};
+
 const run = () => {
+  // (see assertSitemapCoverage below — it runs last, once dist is written)
   const base = readBaseTemplate();
   const results: RouteOutput[] = [];
   const skipped: string[] = [];
@@ -477,67 +681,75 @@ const run = () => {
     }
   }
 
-  // /handel — Norwegian-only page in the router. Emit a single Norwegian
-  // HTML at /handel/index.html using the ROUTE_SEO 'handel' entry.
+  // ── Standalone pages outside the (route x locale) matrix ─────────────
+  const standalones: StandaloneSpec[] = [];
+
+  // /handel — Norwegian-only page in the router; hreflang self only.
   const handelSeo = seoForCanonicalPath('/handel', 'no');
   if (handelSeo) {
-    const canonical = 'handel' as CanonicalRoute; // synthetic; only used for skeleton nav
-    const href = absoluteUrl('/handel', ORIGIN);
-    const handelLead = leadForCanonicalPath('/handel', 'no');
-    const handelJsonLd = jsonLdScript(
-      buildWebPage({
-        url: href,
-        name: handelSeo.title,
-        description: handelSeo.description,
-        inLanguage: LOCALE_LABELS.no.bcp47,
-      }),
-    );
-    // Hreflang: self only (Norwegian-only page).
-    const hreflangTags = `<link rel="alternate" hreflang="no" href="${escapeHtml(href)}" />\n    <link rel="alternate" hreflang="x-default" href="${escapeHtml(href)}" />`;
-    const html = `<!doctype html>
-<html lang="no">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(handelSeo.title)}</title>
-    <meta name="description" content="${escapeHtml(handelSeo.description)}" />
-    <meta name="author" content="Destinasjon Bjorli" />
-    <meta name="theme-color" content="#001d28" />
-    <link rel="canonical" href="${escapeHtml(href)}" />
-    ${hreflangTags}
-    <meta property="og:title" content="${escapeHtml(handelSeo.title)}" />
-    <meta property="og:description" content="${escapeHtml(handelSeo.description)}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bjorli" />
-    <meta property="og:url" content="${escapeHtml(href)}" />
-    <meta property="og:locale" content="nb_NO" />
-    <meta property="og:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="${escapeHtml(handelSeo.title)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(handelSeo.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(handelSeo.description)}" />
-    <meta name="twitter:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    ${handelJsonLd}
-    ${base.preloads}
-  </head>
-  <body>
-    ${bodySkeleton({ locale: 'no', title: handelSeo.title, description: handelSeo.description, canonical, lead: handelLead })}
-    ${base.scripts}
-  </body>
-</html>
-`;
-    const abs = resolve(DIST, 'handel/index.html');
-    mkdirSync(dirname(abs), { recursive: true });
-    writeFileSync(abs, html, 'utf8');
-    results.push({ filePath: 'handel/index.html', html, locale: 'no', canonical, title: handelSeo.title });
+    const handelHref = absoluteUrl('/handel', ORIGIN);
+    standalones.push({
+      path: '/handel',
+      locale: 'no',
+      seo: handelSeo,
+      seoLookupPath: '/handel',
+      hreflangs: [
+        { hreflang: 'no', href: handelHref },
+        { hreflang: 'x-default', href: handelHref },
+      ],
+      skeletonKey: 'handel',
+      groupKey: 'handel',
+    });
+  }
+
+  // /sommer/tafjordfjella + localized siblings — real routes in App.tsx
+  // with their own ROUTE_SEO entries, listed in sitemap.xml.
+  const tafjordHreflangs: HreflangAlt[] = LOCALES.map((l) => ({
+    hreflang: LOCALE_LABELS[l].htmlLang,
+    href: absoluteUrl(tafjordfjellaPath(l), ORIGIN),
+  }));
+  tafjordHreflangs.push({
+    hreflang: 'x-default',
+    href: absoluteUrl(tafjordfjellaPath('en'), ORIGIN),
+  });
+  for (const locale of LOCALES) {
+    const seo = seoForCanonicalPath('/sommer/tafjordfjella', locale);
+    if (!seo) {
+      skipped.push(`sommer/tafjordfjella@${locale}`);
+      continue;
+    }
+    standalones.push({
+      path: tafjordfjellaPath(locale),
+      locale,
+      seo,
+      seoLookupPath: '/sommer/tafjordfjella',
+      hreflangs: tafjordHreflangs,
+      skeletonKey: 'sommer',
+      groupKey: 'sommer/tafjordfjella',
+    });
+  }
+
+  // /ski-holiday-norway — EN-only landing, no locale prefix and no
+  // localized variants (see src/lib/seo/skiHolidayNorwaySeo.ts).
+  const skiHolidayHref = absoluteUrl(SKI_HOLIDAY_NORWAY_PATH, ORIGIN);
+  standalones.push({
+    path: SKI_HOLIDAY_NORWAY_PATH,
+    locale: SKI_HOLIDAY_NORWAY_LOCALE,
+    seo: { ...SKI_HOLIDAY_NORWAY_SEO },
+    seoLookupPath: '/vinter',
+    leadKey: '/ski-holiday-norway',
+    hreflangs: [
+      { hreflang: 'en', href: skiHolidayHref },
+      { hreflang: 'x-default', href: skiHolidayHref },
+    ],
+    skeletonKey: 'skisenter',
+    groupKey: 'ski-holiday-norway',
+  });
+
+  for (const spec of standalones) {
+    const out = renderStandalone(spec, base);
+    writeOutput(out);
+    results.push(out);
   }
 
   const grouped: Record<string, number> = {};
@@ -578,6 +790,8 @@ const run = () => {
     // eslint-disable-next-line no-console
     console.log('[prerender] coverage: all indexable canonical routes are prerendered.');
   }
+
+  assertSitemapCoverage();
 };
 
 run();

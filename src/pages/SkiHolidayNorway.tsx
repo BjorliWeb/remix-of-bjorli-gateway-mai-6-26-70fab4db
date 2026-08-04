@@ -15,11 +15,17 @@ import { trackPageView } from '@/lib/analytics';
 import { getSeoLanding, useCms } from '@/lib/cms';
 import type { SeoLandingBodySection } from '@/lib/cms';
 import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
+import {
+  SKI_HOLIDAY_NORWAY_LOCALE,
+  SKI_HOLIDAY_NORWAY_PATH,
+  SKI_HOLIDAY_NORWAY_SEO,
+  SKI_HOLIDAY_NORWAY_SLUG,
+} from '@/lib/seo/skiHolidayNorwaySeo';
 
-const LOCALE = 'en';
-const SLUG = 'ski-holiday-norway';
+const LOCALE = SKI_HOLIDAY_NORWAY_LOCALE;
+const SLUG = SKI_HOLIDAY_NORWAY_SLUG;
 /** Canonical apex origin — never the www/preview/localhost host. */
-const PAGE_URL = absoluteUrl(`/${LOCALE}/${SLUG}`);
+const PAGE_URL = absoluteUrl(SKI_HOLIDAY_NORWAY_PATH);
 
 const ctaClasses = (variant?: 'primary' | 'secondary' | 'outline') => {
   if (variant === 'secondary' || variant === 'outline') {
@@ -107,9 +113,9 @@ const renderSection = (section: SeoLandingBodySection) => {
 const SkiHolidayNorway = () => {
   useEffect(() => {
     trackPageView({
-      path: `/${LOCALE}/${SLUG}`,
+      path: SKI_HOLIDAY_NORWAY_PATH,
       language: LOCALE,
-      title: 'Ski Holiday in Norway | Discover Bjorli Skisenter',
+      title: SKI_HOLIDAY_NORWAY_SEO.title,
     });
   }, []);
 
@@ -120,8 +126,8 @@ const SkiHolidayNorway = () => {
     // connected and the CPT is missing. Render an empty shell to avoid layout shift.
     return (
       <PageMeta
-        title="Ski Holiday in Norway | Discover Bjorli Skisenter"
-        description="Plan a ski holiday in Norway at Bjorli."
+        title={SKI_HOLIDAY_NORWAY_SEO.title}
+        description={SKI_HOLIDAY_NORWAY_SEO.description}
       />
     );
   }
