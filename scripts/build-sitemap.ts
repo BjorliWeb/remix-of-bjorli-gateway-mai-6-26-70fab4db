@@ -25,6 +25,7 @@ import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { absoluteUrl, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
+import { SKI_HOLIDAY_NORWAY_PATH } from '../src/lib/seo/skiHolidayNorwaySeo';
 
 /**
  * Base origin for absolute URLs in the sitemap.
@@ -47,6 +48,9 @@ const LASTMOD = new Date().toISOString().slice(0, 10);
 const EXCLUDE_CANONICAL: ReadonlySet<CanonicalRoute> = new Set<CanonicalRoute>([
   'livecams',
   'live',
+  // Unpublished page (see src/App.tsx): the URL falls through to the SPA
+  // shell and renders homepage metadata, so it must never be advertised.
+  'praktisk-info',
 ]);
 
 /** Per-route priority + changefreq hints. */
@@ -124,13 +128,13 @@ for (const canonical of canonicalKeys) {
 }
 
 /**
- * EN-only landing pages that are not part of the canonical route registry
- * (currently the international SEO landing for /en/ski-holiday-norway).
- * Listed explicitly so they are discoverable without inventing localized
- * aliases that do not actually exist in the router.
+ * EN-only landing pages that are not part of the canonical route registry.
+ * The router exposes the ski-holiday landing at /ski-holiday-norway with
+ * no locale prefix (see src/App.tsx) — there is no /en variant, so none is
+ * advertised here.
  */
 const EN_ONLY_EXTRAS = [
-  { path: '/en/ski-holiday-norway', priority: 0.6, changefreq: 'monthly' },
+  { path: SKI_HOLIDAY_NORWAY_PATH, priority: 0.6, changefreq: 'monthly' },
 ];
 for (const extra of EN_ONLY_EXTRAS) {
   const href = absoluteUrl(extra.path, ORIGIN);
