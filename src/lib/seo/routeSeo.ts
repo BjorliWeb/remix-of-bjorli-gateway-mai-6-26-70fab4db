@@ -37,71 +37,71 @@ export const ROUTE_SEO: RouteSeoMap = {
     no: {
       // Summer-first while DEFAULT_SEASON === 'summer' (src/lib/season.ts).
       // Restore the winter-leaning copy when switching back in mid-September.
-      title: 'Bjorli | Sommer, fjell, sykkel, fiske og opplevelser',
+      title: 'Bjorli – sommer, vinter og fjellopplevelser',
       description:
-        'Opplev Bjorli om sommeren med fjellturer, sykling, fiske, familieaktiviteter, mat, overnatting og kort vei til Romsdalen og Dovrefjell.',
+        'Opplev Bjorli øverst i Gudbrandsdalen, ved grensen til Romsdalen. Finn alpint, langrenn, fotturer, sykling, fiske, overnatting og arrangementer.',
     },
     en: {
-      title: 'Bjorli, Norway – snow-sure mountain destination near Åndalsnes',
+      title: 'Bjorli – summer, winter and mountain experiences',
       description:
-        'Bjorli is a year-round mountain destination in Norway between Dombås and Åndalsnes, easy to reach by E136 or the Rauma Line. Snow-sure winters at Bjorli Skisenter and a calm base for hiking and cycling in summer.',
+        'Bjorli lies in the upper part of Gudbrandsdalen, right by the Romsdalen border. Skiing, hiking, cycling, fishing, places to stay and events all year.',
     },
     de: {
-      title: 'Bjorli, Norwegen – schneesicheres Bergziel an der Raumabahn',
+      title: 'Bjorli – Sommer, Winter und Bergerlebnisse',
       description:
-        'Bjorli ist ein ganzjähriges Bergreiseziel in Norwegen zwischen Dombås und Åndalsnes, gut erreichbar über die E136 und mit dem Zug auf der Raumabahn. Schneesichere Winter im Bjorli Skisenter und ruhige Sommertage in Romsdalen.',
+        'Bjorli liegt im oberen Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Ski, Langlauf, Wandern, Radfahren, Angeln, Unterkünfte und Veranstaltungen.',
     },
     nl: {
-      title: 'Bjorli, Noorwegen – sneeuwzekere bergbestemming bij Åndalsnes',
+      title: 'Bjorli – zomer, winter en bergbelevingen',
       description:
-        'Bjorli is een bergbestemming in Noorwegen tussen Dombås en Åndalsnes, makkelijk te bereiken via de E136 of met de trein op de Raumabanen. Sneeuwzekere winters bij Bjorli Skisenter en een rustige basis voor wandelen en fietsen in de zomer.',
+        'Bjorli ligt boven in Gudbrandsdalen, direct aan de grens met Romsdalen. Skiën, langlaufen, wandelen, fietsen, vissen, overnachten en evenementen.',
     },
     da: {
-      title: 'Bjorli, Norge – snøsikker fjelddestination ved Raumabanen',
+      title: 'Bjorli – sommer, vinter og fjeldoplevelser',
       description:
-        'Bjorli er en helårs fjelddestination i Norge mellem Dombås og Åndalsnes, nem at nå via E136 og med tog på Raumabanen. Snøsikre vintre på Bjorli Skisenter og en rolig fjeldbase om sommeren.',
+        'Oplev Bjorli øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Find alpint, langrend, vandreture, cykling, fiskeri, overnatning og arrangementer.',
     },
     sv: {
-      title: 'Bjorli, Norge – snösäker fjälldestination nära Åndalsnes',
+      title: 'Bjorli – sommar, vinter och fjällupplevelser',
       description:
-        'Bjorli är en åretrunt fjälldestination i Norge mellan Dombås och Åndalsnes, lätt att nå via E136 och med tåg på Raumabanen. Snösäkra vintrar på Bjorli Skisenter och en lugn fjällbas på sommaren.',
+        'Upplev Bjorli högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Alpint, längdåkning, vandring, cykling, fiske, boende och evenemang.',
     },
   },
 
   vinter: {
-    no: { title: 'Vinter på Bjorli – alpint, langrenn og snøsikre dager', description: 'Vinter på Bjorli betyr lang sesong, alpint i Bjorli Skisenter, langrennsløyper og familievennlige forhold mellom Dombås og Åndalsnes.' },
-    en: { title: 'Winter in Bjorli, Norway – alpine, cross-country and snow-sure days', description: 'Winter in Bjorli means a long season, alpine skiing at Bjorli Skisenter, cross-country trails and family-friendly conditions between Dombås and Åndalsnes.' },
-    de: { title: 'Winter in Bjorli – Alpin, Langlauf und schneesichere Tage', description: 'Der Winter in Bjorli bedeutet lange Saison, Alpinski im Bjorli Skisenter, Langlaufloipen und familienfreundliche Bedingungen in Norwegen.' },
-    nl: { title: 'Winter in Bjorli – alpineskiën, langlaufen en sneeuwzekere dagen', description: 'Winter in Bjorli: lang seizoen, alpineskiën in Bjorli Skisenter, langlaufloipes en familievriendelijke omstandigheden tussen Dombås en Åndalsnes.' },
-    da: { title: 'Vinter på Bjorli – alpint, langrend og snøsikre dage', description: 'Vinter på Bjorli betyder lang sæson, alpint i Bjorli Skisenter, langrendsspor og familievenlige forhold i Norge.' },
-    sv: { title: 'Vinter på Bjorli – alpint, längdåkning och snösäkra dagar', description: 'Vinter på Bjorli innebär lång säsong, alpint vid Bjorli Skisenter, längdspår och familjevänliga förhållanden i Norge.' },
+    no: { title: 'Vinter på Bjorli – alpint, langrenn og snøsikre dager', description: 'Planlegg vinterferien på Bjorli med alpint, langrenn, skiskole og skiutleie. Se heiskort, åpningstider, vær, webkamera, aktiviteter og overnatting.' },
+    en: { title: 'Winter in Bjorli – alpine, cross-country and snow-sure days', description: 'Plan your winter holiday in Bjorli with alpine skiing, cross-country, ski school and rental. Lift passes, opening hours, weather, webcams and places to stay.' },
+    de: { title: 'Winter in Bjorli – Alpin, Langlauf und schneesichere Tage', description: 'Planen Sie den Winterurlaub in Bjorli mit Alpinski, Langlauf, Skischule und Verleih. Skipässe, Öffnungszeiten, Wetter, Webcams, Aktivitäten und Unterkünfte.' },
+    nl: { title: 'Winter in Bjorli – alpineskiën, langlaufen en sneeuwzekere dagen', description: 'Plan je wintervakantie in Bjorli met alpineskiën, langlaufen, skischool en verhuur. Skipassen, openingstijden, weer, webcams, activiteiten en overnachten.' },
+    da: { title: 'Vinter på Bjorli – alpint, langrend og snesikre dage', description: 'Planlæg vinterferien på Bjorli med alpint, langrend, skiskole og skiudlejning. Se liftkort, åbningstider, vejr, webcam, aktiviteter og overnatning.' },
+    sv: { title: 'Vinter på Bjorli – alpint, längdåkning och snösäkra dagar', description: 'Planera vintersemestern på Bjorli med alpint, längdåkning, skidskola och uthyrning. Se liftkort, öppettider, väder, webbkamera, aktiviteter och boende.' },
   },
 
   sommer: {
-    no: { title: 'Sommer på Bjorli – fotturer, sykling og fjellopplevelser', description: 'Sommer på Bjorli – en rolig fjellbase for fotturer i Reinheimen og Dovrefjell, sykling, fiske og familieopplevelser i Romsdalen.' },
-    en: { title: 'Summer in Bjorli, Norway – hiking, cycling and mountain holidays', description: 'Summer in Bjorli is a calm mountain base for hiking near Reinheimen and Dovrefjell national parks, cycling, fishing and family days out in Romsdalen.' },
-    de: { title: 'Sommer in Bjorli – Wandern, Radfahren und Bergurlaub in Norwegen', description: 'Sommer in Bjorli: eine ruhige Bergbasis für Wanderungen rund um die Nationalparks Reinheimen und Dovrefjell, Radfahren, Angeln und Familienerlebnisse in Romsdal.' },
-    nl: { title: 'Zomer in Bjorli – wandelen, fietsen en bergvakanties in Noorwegen', description: 'Zomer in Bjorli is een rustige bergbasis voor wandelingen bij Reinheimen en Dovrefjell, fietsen, vissen en familiedagen in Romsdalen.' },
-    da: { title: 'Sommer på Bjorli – vandring, cykling og fjeldoplevelser', description: 'Sommer på Bjorli – en rolig fjeldbase for vandreture i Reinheimen og Dovrefjell, cykling, fiskeri og familieoplevelser i Romsdalen.' },
-    sv: { title: 'Sommar på Bjorli – vandring, cykling och fjällupplevelser', description: 'Sommar på Bjorli är en lugn fjällbas för vandring i Reinheimen och Dovrefjell, cykling, fiske och familjedagar i Romsdalen.' },
+    no: { title: 'Sommer på Bjorli – fotturer, sykling og fiske', description: 'Opplev sommeren på Bjorli med fotturer, sykling, fiske og familieaktiviteter. Finn turforslag, overnatting og utflukter i Gudbrandsdalen og Romsdalen.' },
+    en: { title: 'Summer in Bjorli – hiking, cycling and fishing', description: 'Spend summer in Bjorli with hiking, cycling, fishing and family days out. Route ideas, places to stay and trips into Gudbrandsdalen and Romsdalen.' },
+    de: { title: 'Sommer in Bjorli – Wandern, Radfahren und Angeln', description: 'Erleben Sie den Sommer in Bjorli mit Wandern, Radfahren, Angeln und Familienaktivitäten. Tourenideen, Unterkünfte und Ausflüge in Gudbrandsdalen und Romsdalen.' },
+    nl: { title: 'Zomer in Bjorli – wandelen, fietsen en vissen', description: 'Beleef de zomer in Bjorli met wandelen, fietsen, vissen en gezinsactiviteiten. Routetips, overnachtingen en uitstapjes in Gudbrandsdalen en Romsdalen.' },
+    da: { title: 'Sommer på Bjorli – vandreture, cykling og fiskeri', description: 'Oplev sommeren på Bjorli med vandreture, cykling, fiskeri og familieaktiviteter. Find turforslag, overnatning og udflugter i Gudbrandsdalen og Romsdalen.' },
+    sv: { title: 'Sommar på Bjorli – vandring, cykling och fiske', description: 'Upplev sommaren på Bjorli med vandring, cykling, fiske och familjeaktiviteter. Hitta turförslag, boende och utflykter i Gudbrandsdalen och Romsdalen.' },
   },
 
   skisenter: {
-    no: { title: 'Bjorli Skisenter – snøsikkert alpinanlegg i Romsdalen', description: 'Bjorli Skisenter er kjent for tidlige åpninger og snøsikre forhold. Heiser, nedfarter, skiskole, skiutleie og barneområder mellom Dombås og Åndalsnes.' },
-    en: { title: 'Bjorli Skisenter – snow-sure alpine skiing in Norway', description: 'Bjorli Skisenter is often among the first to open in Norway and is known for snow-sure conditions. Lifts, slopes, ski school, rental and children’s areas at the top of Romsdalen.' },
-    de: { title: 'Bjorli Skisenter – schneesicheres Alpinskifahren in Norwegen', description: 'Bjorli gehört oft zu den ersten geöffneten Skigebieten Norwegens und ist bekannt für schneesichere Bedingungen. Lifte, Pisten, Skischule, Verleih und Kinderbereiche.' },
-    nl: { title: 'Bjorli Skisenter – sneeuwzeker alpineskiën in Noorwegen', description: 'Bjorli Skisenter behoort vaak tot de eerste skigebieden in Noorwegen die opengaan en staat bekend om sneeuwzekere omstandigheden. Liften, pistes, skischool, verhuur en kinderzones.' },
-    da: { title: 'Bjorli Skisenter – snøsikkert alpinanlæg i Norge', description: 'Bjorli Skisenter er ofte blandt de første der åbner i Norge og kendt for snøsikre forhold. Lifte, pister, skiskole, udlejning og børneområder.' },
-    sv: { title: 'Bjorli Skisenter – snösäker alpin skidåkning i Norge', description: 'Bjorli Skisenter är ofta bland de första som öppnar i Norge och känt för snösäkra förhållanden. Liftar, backar, skidskola, uthyrning och barnområden.' },
+    no: { title: 'Bjorli Skisenter – alpint, heiskort og skiskole', description: 'Snøsikkert alpinanlegg øverst i Gudbrandsdalen, ved grensen til Romsdalen. Se bakker, barneområde, skiskole, skiutleie, åpningstider og heiskort.' },
+    en: { title: 'Bjorli Skisenter – alpine skiing, lift passes, ski school', description: 'A snow-sure ski area in the upper part of Gudbrandsdalen, by the Romsdalen border. Slopes, children’s area, ski school, rental, opening hours and lift passes.' },
+    de: { title: 'Bjorli Skisenter – Alpinski, Skipässe und Skischule', description: 'Schneesicheres Skigebiet im oberen Gudbrandsdalen, an der Grenze zum Romsdalen. Pisten, Kinderland, Skischule, Verleih, Öffnungszeiten und Skipässe.' },
+    nl: { title: 'Bjorli Skisenter – alpineskiën, skipassen en skischool', description: 'Sneeuwzeker skigebied boven in Gudbrandsdalen, aan de grens met Romsdalen. Pistes, kinderland, skischool, verhuur, openingstijden en skipassen.' },
+    da: { title: 'Bjorli Skisenter – alpint, liftkort og skiskole', description: 'Snesikkert alpinanlæg øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Se pister, børneområde, skiskole, skiudlejning, åbningstider og liftkort.' },
+    sv: { title: 'Bjorli Skisenter – alpint, liftkort och skidskola', description: 'Snösäker skidanläggning högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Backar, barnområde, skidskola, uthyrning, öppettider och liftkort.' },
   },
 
   heiskort: {
-    no: { title: 'Heiskort – Bjorli Skisenter', description: 'Heiskort til Bjorli Skisenter – dagskort, flerdagskort og sesongkort. Se gjeldende informasjon og kjøp på bjorli.no.' },
-    en: { title: 'Lift passes – Bjorli Skisenter, Norway', description: 'Lift passes for Bjorli Skisenter – day, multi-day and season passes. Check current information and buy on bjorli.no.' },
-    de: { title: 'Skipässe – Bjorli Skisenter, Norwegen', description: 'Skipässe für das Bjorli Skisenter – Tages-, Mehrtages- und Saisonpässe. Aktuelle Informationen und Kauf auf bjorli.no.' },
-    nl: { title: 'Skipassen – Bjorli Skisenter, Noorwegen', description: 'Skipassen voor Bjorli Skisenter – dag-, meerdaagse en seizoenpassen. Bekijk actuele informatie en koop op bjorli.no.' },
-    da: { title: 'Liftkort – Bjorli Skisenter, Norge', description: 'Liftkort til Bjorli Skisenter – dagskort, flerdagskort og sæsonkort. Se aktuel information og køb på bjorli.no.' },
-    sv: { title: 'Liftkort – Bjorli Skisenter, Norge', description: 'Liftkort till Bjorli Skisenter – dagskort, flerdagarskort och säsongskort. Se aktuell information och köp på bjorli.no.' },
+    no: { title: 'Heiskort til Bjorli Skisenter – priser og kjøp', description: 'Kjøp heiskort til Bjorli Skisenter. Finn dagskort, flerdagskort og sesongkort, se priser og praktisk informasjon, og gjør deg klar før dagen i bakken.' },
+    en: { title: 'Lift passes for Bjorli Skisenter – prices and purchase', description: 'Buy lift passes for Bjorli Skisenter. Day passes, multi-day and season passes, prices and practical details so you are ready before the day on the slopes.' },
+    de: { title: 'Skipässe für das Bjorli Skisenter – Preise und Kauf', description: 'Kaufen Sie Skipässe für das Bjorli Skisenter. Tages-, Mehrtages- und Saisonpässe, Preise und praktische Hinweise für einen reibungslosen Skitag.' },
+    nl: { title: 'Skipassen voor Bjorli Skisenter – prijzen en kopen', description: 'Koop skipassen voor Bjorli Skisenter. Dagpassen, meerdaagse passen en seizoenpassen, prijzen en praktische info zodat je klaar bent voor de piste.' },
+    da: { title: 'Liftkort til Bjorli Skisenter – priser og køb', description: 'Køb liftkort til Bjorli Skisenter. Find dagskort, flerdagskort og sæsonkort, se priser og praktisk information, og bliv klar før dagen i bakken.' },
+    sv: { title: 'Liftkort till Bjorli Skisenter – priser och köp', description: 'Köp liftkort till Bjorli Skisenter. Hitta dagskort, flerdagarskort och säsongskort, se priser och praktisk information inför dagen i backen.' },
   },
 
   apningstider: {
@@ -132,21 +132,21 @@ export const ROUTE_SEO: RouteSeoMap = {
   },
 
   overnatting: {
-    no: { title: 'Overnatting på Bjorli – hytter, leiligheter og hotell', description: 'Finn overnatting på Bjorli – fra hytter og selvhusholdsleiligheter til hotell og camping, nær Bjorli Skisenter og Romsdalen.' },
-    en: { title: 'Accommodation in Bjorli, Norway – cabins, apartments, hotels', description: 'Find accommodation in Bjorli – cabins, self-catering apartments, hotels and camping, close to Bjorli Skisenter and Romsdalen.' },
-    de: { title: 'Unterkunft in Bjorli, Norwegen – Hütten, Apartments, Hotels', description: 'Unterkünfte in Bjorli – Hütten, Ferienwohnungen, Hotels und Camping in der Nähe des Skigebiets Bjorli und Romsdal.' },
-    nl: { title: 'Accommodatie in Bjorli, Noorwegen – hutten, appartementen, hotels', description: 'Accommodatie in Bjorli – hutten, appartementen, hotels en camping dicht bij Bjorli Skisenter en Romsdalen.' },
-    da: { title: 'Overnatning på Bjorli – hytter, lejligheder og hoteller', description: 'Find overnatning på Bjorli – hytter, selvhusholdningslejligheder, hoteller og camping nær Bjorli Skisenter.' },
-    sv: { title: 'Boende på Bjorli – stugor, lägenheter och hotell', description: 'Hitta boende på Bjorli – stugor, självhushåll, hotell och camping nära Bjorli Skisenter.' },
+    no: { title: 'Overnatting på Bjorli – hytter, leiligheter og hotell', description: 'Finn overnatting på Bjorli nær skisenteret, langrennsløyper og fjell. Velg mellom hytter, leiligheter, hotell og camping for sommer- og vinterferie.' },
+    en: { title: 'Accommodation in Bjorli – cabins, apartments and hotels', description: 'Find somewhere to stay in Bjorli, close to the ski centre, the cross-country trails and the mountains. Cabins, apartments, hotels and camping, all year.' },
+    de: { title: 'Unterkunft in Bjorli – Hütten, Apartments und Hotels', description: 'Finden Sie eine Unterkunft in Bjorli, nahe Skizentrum, Langlaufloipen und Bergen. Hütten, Ferienwohnungen, Hotels und Camping für Sommer und Winter.' },
+    nl: { title: 'Overnachten in Bjorli – hutten, appartementen en hotels', description: 'Vind een plek om te slapen in Bjorli, dicht bij het skicentrum, de langlaufloipes en de bergen. Hutten, appartementen, hotels en camping, zomer en winter.' },
+    da: { title: 'Overnatning på Bjorli – hytter, lejligheder og hotel', description: 'Find overnatning på Bjorli nær skicentret, langrendsspor og fjeld. Vælg mellem hytter, lejligheder, hotel og camping til sommer- og vinterferie.' },
+    sv: { title: 'Boende på Bjorli – stugor, lägenheter och hotell', description: 'Hitta boende på Bjorli nära skidanläggningen, längdspåren och fjället. Välj mellan stugor, lägenheter, hotell och camping för sommar och vinter.' },
   },
 
   aktiviteter: {
-    no: { title: 'Aktiviteter på Bjorli – hele året', description: 'Aktiviteter på Bjorli og i Romsdalen – fra ski og langrenn om vinteren til fotturer, sykling og fiske om sommeren.' },
-    en: { title: 'Things to do in Bjorli, Norway – year-round', description: 'Things to do in Bjorli and Romsdalen – from skiing and cross-country in winter to hiking, cycling and fishing in summer.' },
-    de: { title: 'Aktivitäten in Bjorli – das ganze Jahr', description: 'Aktivitäten in Bjorli und Romsdal – von Ski und Langlauf im Winter bis Wandern, Radfahren und Angeln im Sommer.' },
-    nl: { title: 'Activiteiten in Bjorli – het hele jaar', description: 'Activiteiten in Bjorli en Romsdalen – van skiën en langlaufen in de winter tot wandelen, fietsen en vissen in de zomer.' },
-    da: { title: 'Aktiviteter på Bjorli – hele året', description: 'Aktiviteter på Bjorli og i Romsdalen – fra ski og langrend om vinteren til vandring, cykling og fiskeri om sommeren.' },
-    sv: { title: 'Aktiviteter på Bjorli – året om', description: 'Aktiviteter på Bjorli och i Romsdalen – från skidåkning och längdåkning på vintern till vandring, cykling och fiske på sommaren.' },
+    no: { title: 'Aktiviteter på Bjorli og i Lesja – hele året', description: 'Finn aktiviteter på Bjorli og i Lesja året rundt: alpint, langrenn, fotturer, sykling, fiske, gårdsbesøk og familievennlige utflukter i fjellet.' },
+    en: { title: 'Things to do in Bjorli and Lesja – all year round', description: 'Find things to do in Bjorli and Lesja year round: alpine and cross-country skiing, hiking, cycling, fishing, farm visits and family outings in the mountains.' },
+    de: { title: 'Aktivitäten in Bjorli und Lesja – das ganze Jahr', description: 'Aktivitäten in Bjorli und Lesja rund ums Jahr: Alpinski, Langlauf, Wandern, Radfahren, Angeln, Hofbesuche und familienfreundliche Ausflüge in den Bergen.' },
+    nl: { title: 'Activiteiten in Bjorli en Lesja – het hele jaar', description: 'Vind activiteiten in Bjorli en Lesja het hele jaar door: alpineskiën, langlaufen, wandelen, fietsen, vissen, boerderijbezoek en gezinsuitstapjes in de bergen.' },
+    da: { title: 'Aktiviteter på Bjorli og i Lesja – hele året', description: 'Find aktiviteter på Bjorli og i Lesja året rundt: alpint, langrend, vandreture, cykling, fiskeri, gårdsbesøg og familievenlige udflugter i fjeldet.' },
+    sv: { title: 'Aktiviteter på Bjorli och i Lesja – hela året', description: 'Hitta aktiviteter på Bjorli och i Lesja året runt: alpint, längdåkning, vandring, cykling, fiske, gårdsbesök och familjevänliga utflykter i fjället.' },
   },
 
   arrangementer: {
@@ -177,12 +177,12 @@ export const ROUTE_SEO: RouteSeoMap = {
   },
 
   'mat-og-drikke': {
-    no: { title: 'Mat og drikke på Bjorli', description: 'Restauranter, kafeer og spisesteder på Bjorli – fra fjellmat på Heiskroa til lokale opplevelser.' },
-    en: { title: 'Food and drink in Bjorli, Norway', description: 'Restaurants, cafés and places to eat in Bjorli – from mountain food at Heiskroa to local experiences.' },
-    de: { title: 'Essen und Trinken in Bjorli', description: 'Restaurants, Cafés und Lokale in Bjorli – von Bergküche im Heiskroa bis zu lokalen Erlebnissen.' },
-    nl: { title: 'Eten en drinken in Bjorli', description: 'Restaurants, cafés en eetgelegenheden in Bjorli – van bergkost bij Heiskroa tot lokale ervaringen.' },
-    da: { title: 'Mad og drikke på Bjorli', description: 'Restauranter, caféer og spisesteder på Bjorli – fra fjeldmad på Heiskroa til lokale oplevelser.' },
-    sv: { title: 'Mat och dryck på Bjorli', description: 'Restauranger, kaféer och matställen på Bjorli – från fjällmat på Heiskroa till lokala upplevelser.' },
+    no: { title: 'Mat og drikke på Bjorli – spisesteder og lokale smaker', description: 'Finn spisesteder, kafeer og lokale smaker på Bjorli og i Lesja. Se hvor du kan spise, handle dagligvarer og oppleve kortreist mat fra fjellbygdene.' },
+    en: { title: 'Food and drink in Bjorli – places to eat and local flavours', description: 'Find restaurants, cafés and local flavours in Bjorli and Lesja. See where to eat, shop for groceries and taste short-travelled food from the mountain villages.' },
+    de: { title: 'Essen und Trinken in Bjorli – Lokale und regionale Küche', description: 'Restaurants, Cafés und regionale Küche in Bjorli und Lesja. Sehen Sie, wo Sie essen und einkaufen können und wo es Produkte aus den Bergdörfern gibt.' },
+    nl: { title: 'Eten en drinken in Bjorli – restaurants en lokale smaken', description: 'Vind restaurants, cafés en lokale smaken in Bjorli en Lesja. Zie waar je kunt eten, boodschappen doen en streekproducten uit de bergdorpen kunt proeven.' },
+    da: { title: 'Mad og drikke på Bjorli – spisesteder og lokale smage', description: 'Find spisesteder, caféer og lokale smage på Bjorli og i Lesja. Se hvor du kan spise, købe dagligvarer og opleve lokal mad fra fjeldbygderne.' },
+    sv: { title: 'Mat och dryck på Bjorli – matställen och lokala smaker', description: 'Hitta matställen, kaféer och lokala smaker på Bjorli och i Lesja. Se var du kan äta, handla mat och uppleva närproducerat från fjällbygderna.' },
   },
 
   skiskole: {

@@ -20,33 +20,33 @@ interface SeoData {
 
 const seoByLocale: Record<Locale, { title: string; description: string; keywords: string }> = {
   no: {
-    title: 'Bjorli – Snøsikker vinterdestinasjon mellom Dombås og Åndalsnes',
-    description: 'Destinasjon Bjorli i Romsdalen – snøsikre fjelldager med alpint, langrenn, hytter og familievennlige opplevelser. Bjorli Skisenter er hjertet av vinteren.',
+    title: 'Bjorli – sommer, vinter og fjellopplevelser',
+    description: 'Opplev Bjorli øverst i Gudbrandsdalen, ved grensen til Romsdalen. Finn alpint, langrenn, fotturer, sykling, fiske, overnatting og arrangementer.',
     keywords: 'bjorli, destinasjon bjorli, snøsikre bjorli, bjorli skisenter, vinterferie norge, hytte bjorli, romsdalen, ski, langrenn',
   },
   en: {
-    title: 'Bjorli – Snow-sure winter destination in Norway',
-    description: 'Destination Bjorli in Romsdalen, Norway – snow-sure mountain days with alpine skiing, cross-country, cabins and family experiences. Bjorli Skisenter is the heart of winter.',
+    title: 'Bjorli – summer, winter and mountain experiences',
+    description: 'Bjorli lies in the upper part of Gudbrandsdalen, right by the Romsdalen border. Skiing, hiking, cycling, fishing, places to stay and events all year.',
     keywords: 'bjorli, bjorli norway, snow sure ski resort, ski holiday norway, romsdalen, alpine skiing, cross country skiing, family ski',
   },
   de: {
-    title: 'Bjorli – Schneesicheres Winterreiseziel in Norwegen',
-    description: 'Destination Bjorli im Romsdal, Norwegen – schneesichere Bergtage mit Alpin, Langlauf, Hütten und Familienerlebnissen. Bjorli Skisenter ist das Herz des Winters.',
+    title: 'Bjorli – Sommer, Winter und Bergerlebnisse',
+    description: 'Bjorli liegt im oberen Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Ski, Langlauf, Wandern, Radfahren, Angeln, Unterkünfte und Veranstaltungen.',
     keywords: 'bjorli, bjorli norwegen, schneesicheres skigebiet, skiurlaub norwegen, romsdal, alpinski, langlauf, familienurlaub norwegen',
   },
   nl: {
-    title: 'Bjorli – Sneeuwzekere winterbestemming in Noorwegen',
-    description: 'Destination Bjorli in Romsdalen, Noorwegen – sneeuwzekere bergdagen met alpineskiën, langlaufen, hutten en familie-ervaringen. Bjorli Skisenter is het hart van de winter.',
+    title: 'Bjorli – zomer, winter en bergbelevingen',
+    description: 'Bjorli ligt boven in Gudbrandsdalen, direct aan de grens met Romsdalen. Skiën, langlaufen, wandelen, fietsen, vissen, overnachten en evenementen.',
     keywords: 'bjorli, bjorli noorwegen, sneeuwzeker skigebied, skivakantie noorwegen, romsdalen, alpineskiën, langlaufen, gezinsvakantie noorwegen',
   },
   da: {
-    title: 'Bjorli – Snøsikker vinterdestination i Norge',
-    description: 'Destination Bjorli i Romsdalen, Norge – snøsikre fjelddage med alpint, langrend, hytter og familieoplevelser. Bjorli Skisenter er hjertet af vinteren.',
+    title: 'Bjorli – sommer, vinter og fjeldoplevelser',
+    description: 'Oplev Bjorli øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Find alpint, langrend, vandreture, cykling, fiskeri, overnatning og arrangementer.',
     keywords: 'bjorli, bjorli norge, snøsikker skicenter, skiferie norge, romsdalen, alpint, langrend, familieferie norge',
   },
   sv: {
-    title: 'Bjorli – Snösäker vinterdestination i Norge',
-    description: 'Destination Bjorli i Romsdalen, Norge – snösäkra fjälldagar med alpint, längdåkning, stugor och familjeupplevelser. Bjorli Skisenter är vinterns hjärta.',
+    title: 'Bjorli – sommar, vinter och fjällupplevelser',
+    description: 'Upplev Bjorli högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Alpint, längdåkning, vandring, cykling, fiske, boende och evenemang.',
     keywords: 'bjorli, bjorli norge, snösäker skidort, skidsemester norge, romsdalen, alpint, längdåkning, familjesemester norge',
   },
 };
