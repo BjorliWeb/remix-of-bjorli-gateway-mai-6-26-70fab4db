@@ -33,9 +33,14 @@ import { dirname, resolve } from 'node:path';
 
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
-import { ogImageForCanonicalPath, seoForCanonicalPath } from '../src/lib/seo/routeSeo';
+import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
 import { leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
 import { buildWebPage } from '../src/lib/seo/schema';
+import {
+  SKI_HOLIDAY_NORWAY_LOCALE,
+  SKI_HOLIDAY_NORWAY_PATH,
+  SKI_HOLIDAY_NORWAY_SEO,
+} from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 
 const DIST = resolve(process.cwd(), 'dist');
