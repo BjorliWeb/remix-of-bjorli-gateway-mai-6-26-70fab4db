@@ -606,67 +606,74 @@ const run = () => {
     }
   }
 
-  // /handel — Norwegian-only page in the router. Emit a single Norwegian
-  // HTML at /handel/index.html using the ROUTE_SEO 'handel' entry.
+  // ── Standalone pages outside the (route x locale) matrix ─────────────
+  const standalones: StandaloneSpec[] = [];
+
+  // /handel — Norwegian-only page in the router; hreflang self only.
   const handelSeo = seoForCanonicalPath('/handel', 'no');
   if (handelSeo) {
-    const canonical = 'handel' as CanonicalRoute; // synthetic; only used for skeleton nav
-    const href = absoluteUrl('/handel', ORIGIN);
-    const handelLead = leadForCanonicalPath('/handel', 'no');
-    const handelJsonLd = jsonLdScript(
-      buildWebPage({
-        url: href,
-        name: handelSeo.title,
-        description: handelSeo.description,
-        inLanguage: LOCALE_LABELS.no.bcp47,
-      }),
-    );
-    // Hreflang: self only (Norwegian-only page).
-    const hreflangTags = `<link rel="alternate" hreflang="no" href="${escapeHtml(href)}" />\n    <link rel="alternate" hreflang="x-default" href="${escapeHtml(href)}" />`;
-    const html = `<!doctype html>
-<html lang="no">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${escapeHtml(handelSeo.title)}</title>
-    <meta name="description" content="${escapeHtml(handelSeo.description)}" />
-    <meta name="author" content="Destinasjon Bjorli" />
-    <meta name="theme-color" content="#001d28" />
-    <link rel="canonical" href="${escapeHtml(href)}" />
-    ${hreflangTags}
-    <meta property="og:title" content="${escapeHtml(handelSeo.title)}" />
-    <meta property="og:description" content="${escapeHtml(handelSeo.description)}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Bjorli" />
-    <meta property="og:url" content="${escapeHtml(href)}" />
-    <meta property="og:locale" content="nb_NO" />
-    <meta property="og:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="${escapeHtml(handelSeo.title)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(handelSeo.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(handelSeo.description)}" />
-    <meta name="twitter:image" content="${escapeHtml(ORIGIN + ogImageForCanonicalPath('/handel'))}" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.jpeg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    ${handelJsonLd}
-    ${base.preloads}
-  </head>
-  <body>
-    ${bodySkeleton({ locale: 'no', title: handelSeo.title, description: handelSeo.description, canonical, lead: handelLead })}
-    ${base.scripts}
-  </body>
-</html>
-`;
-    const abs = resolve(DIST, 'handel/index.html');
-    mkdirSync(dirname(abs), { recursive: true });
-    writeFileSync(abs, html, 'utf8');
-    results.push({ filePath: 'handel/index.html', html, locale: 'no', canonical, title: handelSeo.title });
+    const handelHref = absoluteUrl('/handel', ORIGIN);
+    standalones.push({
+      path: '/handel',
+      locale: 'no',
+      seo: handelSeo,
+      seoLookupPath: '/handel',
+      hreflangs: [
+        { hreflang: 'no', href: handelHref },
+        { hreflang: 'x-default', href: handelHref },
+      ],
+      skeletonKey: 'handel',
+      groupKey: 'handel',
+    });
+  }
+
+  // /sommer/tafjordfjella + localized siblings — real routes in App.tsx
+  // with their own ROUTE_SEO entries, listed in sitemap.xml.
+  const tafjordHreflangs: HreflangAlt[] = LOCALES.map((l) => ({
+    hreflang: LOCALE_LABELS[l].htmlLang,
+    href: absoluteUrl(tafjordfjellaPath(l), ORIGIN),
+  }));
+  tafjordHreflangs.push({
+    hreflang: 'x-default',
+    href: absoluteUrl(tafjordfjellaPath('en'), ORIGIN),
+  });
+  for (const locale of LOCALES) {
+    const seo = seoForCanonicalPath('/sommer/tafjordfjella', locale);
+    if (!seo) {
+      skipped.push(`sommer/tafjordfjella@${locale}`);
+      continue;
+    }
+    standalones.push({
+      path: tafjordfjellaPath(locale),
+      locale,
+      seo,
+      seoLookupPath: '/sommer/tafjordfjella',
+      hreflangs: tafjordHreflangs,
+      skeletonKey: 'sommer',
+      groupKey: 'sommer/tafjordfjella',
+    });
+  }
+
+  // /ski-holiday-norway — EN-only landing, no locale prefix and no
+  // localized variants (see src/lib/seo/skiHolidayNorwaySeo.ts).
+  const skiHolidayHref = absoluteUrl(SKI_HOLIDAY_NORWAY_PATH, ORIGIN);
+  standalones.push({
+    path: SKI_HOLIDAY_NORWAY_PATH,
+    locale: SKI_HOLIDAY_NORWAY_LOCALE,
+    seo: { ...SKI_HOLIDAY_NORWAY_SEO },
+    seoLookupPath: '/vinter',
+    hreflangs: [
+      { hreflang: 'en', href: skiHolidayHref },
+      { hreflang: 'x-default', href: skiHolidayHref },
+    ],
+    skeletonKey: 'skisenter',
+    groupKey: 'ski-holiday-norway',
+  });
+
+  for (const spec of standalones) {
+    const out = renderStandalone(spec, base);
+    writeOutput(out);
+    results.push(out);
   }
 
   const grouped: Record<string, number> = {};
