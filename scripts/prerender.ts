@@ -714,6 +714,8 @@ const run = () => {
     // eslint-disable-next-line no-console
     console.log('[prerender] coverage: all indexable canonical routes are prerendered.');
   }
+
+  assertSitemapCoverage();
 };
 
 run();
