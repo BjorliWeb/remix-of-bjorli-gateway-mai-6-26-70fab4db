@@ -22,6 +22,15 @@ Verified live (all HTTP 200, no redirect, all returning the homepage document):
 ### Correct route for Ski Holiday Norway
 `https://bjorli.no/ski-holiday-norway/` — EN-only, no `/en` prefix, self-canonical once prerendered.
 
+### Ski Holiday Norway metadata: one source of truth (required)
+The title and description already exist in the CMS fixture `SEO_LANDING_FIXTURES['en/ski-holiday-norway']` (`src/lib/cms/mockAdapter.ts`, `seoTitle` / `seoDescription`). They will be **moved, not copied**, into a new dependency-free module `src/lib/seo/skiHolidayNorwaySeo.ts` exporting `SKI_HOLIDAY_NORWAY_PATH` and `SKI_HOLIDAY_NORWAY_SEO { title, description }`. Wording unchanged.
+
+Consumers all read that module:
+- `src/lib/cms/mockAdapter.ts` — fixture references the constants.
+- `src/lib/seo/routeSeo.ts` — EN-only entry `['ski-holiday-norway'].en` built from the constants, so `SEOHead` / `seoForCanonicalPath` resolve them.
+- `src/pages/SkiHolidayNorway.tsx` — `PAGE_URL` becomes `/ski-holiday-norway` (was `/en/ski-holiday-norway`) and the CMS-missing fallback `PageMeta` uses the constants.
+- `scripts/prerender.ts` — imports the same module (build-time safe: no React, no image imports).
+
 ### Files that should change
 - `scripts/prerender.ts` — add the two real pages so they emit self-canonical HTML.
 - `scripts/build-sitemap.ts` — remove `praktisk-info`, fix the ski-holiday path.
