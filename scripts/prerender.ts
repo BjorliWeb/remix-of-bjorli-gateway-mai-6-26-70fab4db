@@ -34,7 +34,7 @@ import { dirname, resolve } from 'node:path';
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
-import { leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
+import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
 import { buildWebPage } from '../src/lib/seo/schema';
 import {
   SKI_HOLIDAY_NORWAY_LOCALE,
@@ -484,7 +484,9 @@ const renderStandalone = (
       title: seo.title,
       description: seo.description,
       canonical: spec.skeletonKey,
-      lead: leadForCanonicalPath(spec.seoLookupPath, locale),
+      // Exact lookup only: standalone pages must never inherit the parent
+      // route's H1/lead (that is what made them look like the hub page).
+      lead: ROUTE_LEADS[spec.seoLookupPath.replace(/^\//, '')]?.[locale] ?? null,
     }),
     base,
   });
