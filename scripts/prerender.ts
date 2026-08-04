@@ -589,6 +589,64 @@ const writeOutput = (out: RouteOutput): void => {
   writeFileSync(abs, out.html, 'utf8');
 };
 
+/**
+ * Build-time assertion: every HTML URL advertised in public/sitemap.xml
+ * must have a matching prerendered file in dist. Runs AFTER prerender so
+ * the dist output exists.
+ *
+ *   https://bjorli.no/                    -> dist/index.html
+ *   https://bjorli.no/sommer/             -> dist/sommer/index.html
+ *   https://bjorli.no/ski-holiday-norway/ -> dist/ski-holiday-norway/index.html
+ *
+ * Direction is one-way: a prerendered page that is not in the sitemap is
+ * fine; a sitemap URL without a prerendered page is a build failure.
+ * Non-HTML resources (sitemaps, feeds, files with an extension) are ignored.
+ */
+const assertSitemapCoverage = (): void => {
+  const sitemapPath = resolve(process.cwd(), 'public/sitemap.xml');
+  if (!existsSync(sitemapPath)) {
+    throw new Error('[prerender] public/sitemap.xml not found — run build-sitemap first.');
+  }
+  const xml = readFileSync(sitemapPath, 'utf8');
+  const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g)).map((m) =>
+    m[1].replace(/&amp;/g, '&').trim(),
+  );
+
+  const failures: { url: string; expected: string }[] = [];
+  let checked = 0;
+  for (const loc of locs) {
+    let pathname: string;
+    try {
+      pathname = new URL(loc).pathname;
+    } catch {
+      failures.push({ url: loc, expected: '(unparseable URL in sitemap)' });
+      continue;
+    }
+    const clean = pathname.replace(/\/+$/, '');
+    const lastSegment = clean.split('/').pop() ?? '';
+    // Skip non-HTML resources: sitemaps, feeds, anything with a file extension.
+    if (/\.[a-z0-9]{2,5}$/i.test(lastSegment)) continue;
+    checked += 1;
+    const rel = clean === '' ? 'index.html' : `${clean.replace(/^\//, '')}/index.html`;
+    if (!existsSync(resolve(DIST, rel))) {
+      failures.push({ url: loc, expected: `dist/${rel}` });
+    }
+  }
+
+  if (failures.length) {
+    const detail = failures
+      .map((f) => `  - ${f.url}\n      expected prerendered file: ${f.expected}`)
+      .join('\n');
+    throw new Error(
+      `[prerender] sitemap coverage FAILED — ${failures.length} of ${checked} sitemap HTML URL(s) have no prerendered page:\n${detail}`,
+    );
+  }
+  // eslint-disable-next-line no-console
+  console.log(
+    `[prerender] sitemap coverage: all ${checked} sitemap HTML URLs have a matching prerendered file.`,
+  );
+};
+
 const run = () => {
   // (see assertSitemapCoverage below — it runs last, once dist is written)
   const base = readBaseTemplate();
