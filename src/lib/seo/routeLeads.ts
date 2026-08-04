@@ -39,33 +39,33 @@ type RouteLeadMap = Partial<Record<string, Partial<Record<Locale, RouteLeadEntry
 export const ROUTE_LEADS: RouteLeadMap = {
   home: {
     no: {
-      h1: 'Bjorli – helårsdestinasjon øverst i Romsdalen',
-      lead: 'Bjorli ligger 575 meter over havet øverst i Romsdalen, med Raumabanen og E136 rett forbi. Om vinteren er det snøen som trekker folk hit – Bjorli Skisenter åpner ofte før resten av landet. Om sommeren byttes skiene ut med tursko, sykkel og fiskestang.',
+      h1: 'Bjorli – helårsdestinasjon øverst i Gudbrandsdalen',
+      lead: 'Bjorli ligger 575 meter over havet øverst i Gudbrandsdalen, helt på grensen til Romsdalen, med Raumabanen og E136 rett forbi. Om vinteren er det snøen som trekker folk hit – Bjorli Skisenter åpner ofte før resten av landet. Om sommeren byttes skiene ut med tursko, sykkel og fiskestang.',
       supporting: 'Herfra når du Trollveggen, Romsdalsgondolen i Åndalsnes og Dovrefjell på under en time i bil. Sjekk hva som skjer, finn overnatting og se dagens forhold på webkamera før du drar.',
     },
     en: {
-      h1: 'Bjorli – a year-round mountain destination at the top of Romsdalen',
-      lead: 'Bjorli sits 575 metres above sea level at the top of the Romsdalen valley, with the Rauma Line and the E136 passing right through. In winter it is the snow that draws people here – Bjorli Skisenter often opens before the rest of Norway. Come summer, skis give way to hiking boots, bikes and fishing rods.',
+      h1: 'Bjorli – a year-round mountain destination at the top of Gudbrandsdalen',
+      lead: 'Bjorli sits 575 metres above sea level at the top of Gudbrandsdalen, right on the border of Romsdalen, with the Rauma Line and the E136 passing right through. In winter it is the snow that draws people here – Bjorli Skisenter often opens before the rest of Norway. Come summer, skis give way to hiking boots, bikes and fishing rods.',
       supporting: 'Trollveggen, the Romsdalsgondolen in Åndalsnes and Dovrefjell are all within an hour’s drive. Check what’s on, find a place to stay and have a look at the webcams before you set off.',
     },
     de: {
-      h1: 'Bjorli – Ganzjahresziel am oberen Ende des Romsdals',
-      lead: 'Bjorli liegt auf 575 Metern am oberen Ende des Romsdals, Raumabahn und E136 führen direkt vorbei. Im Winter ist es der Schnee, der die Leute herbringt – das Bjorli Skisenter öffnet oft früher als der Rest des Landes. Im Sommer werden die Ski gegen Wanderschuhe, Rad und Angelrute getauscht.',
+      h1: 'Bjorli – Ganzjahresziel am oberen Ende des Gudbrandsdalen',
+      lead: 'Bjorli liegt auf 575 Metern am oberen Ende des Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Raumabahn und E136 führen direkt vorbei. Im Winter ist es der Schnee, der die Leute herbringt – das Bjorli Skisenter öffnet oft früher als der Rest des Landes. Im Sommer werden die Ski gegen Wanderschuhe, Rad und Angelrute getauscht.',
       supporting: 'Trollveggen, die Romsdalsgondolen in Åndalsnes und das Dovrefjell erreichen Sie in unter einer Stunde mit dem Auto. Werfen Sie vor der Abfahrt einen Blick auf die Webcams, finden Sie eine Unterkunft und schauen Sie, was gerade los ist.',
     },
     nl: {
-      h1: 'Bjorli – het hele jaar een bergbestemming, boven in Romsdalen',
-      lead: 'Bjorli ligt op 575 meter hoogte boven in het dal van Romsdalen, met de Raumabanen en de E136 er vlak langs. In de winter komen mensen voor de sneeuw – Bjorli Skisenter gaat vaak eerder open dan de rest van Noorwegen. In de zomer maken de ski’s plaats voor wandelschoenen, fiets en hengel.',
+      h1: 'Bjorli – het hele jaar een bergbestemming, boven in Gudbrandsdalen',
+      lead: 'Bjorli ligt op 575 meter hoogte boven in Gudbrandsdalen, vlak aan de grens met Romsdalen, met de Raumabanen en de E136 er vlak langs. In de winter komen mensen voor de sneeuw – Bjorli Skisenter gaat vaak eerder open dan de rest van Noorwegen. In de zomer maken de ski’s plaats voor wandelschoenen, fiets en hengel.',
       supporting: 'Trollveggen, de Romsdalsgondolen in Åndalsnes en Dovrefjell liggen allemaal binnen een uur rijden. Bekijk wat er te doen is, zoek een overnachting en check de webcams voor je vertrekt.',
     },
     da: {
-      h1: 'Bjorli – helårsdestination øverst i Romsdalen',
-      lead: 'Bjorli ligger 575 meter over havet øverst i Romsdalen med Raumabanen og E136 lige forbi. Om vinteren er det sneen, der trækker folk hertil – Bjorli Skisenter åbner ofte før resten af Norge. Om sommeren byttes skiene ud med vandrestøvler, cykel og fiskestang.',
+      h1: 'Bjorli – helårsdestination øverst i Gudbrandsdalen',
+      lead: 'Bjorli ligger 575 meter over havet øverst i Gudbrandsdalen, helt på grænsen til Romsdalen, med Raumabanen og E136 lige forbi. Om vinteren er det sneen, der trækker folk hertil – Bjorli Skisenter åbner ofte før resten af Norge. Om sommeren byttes skiene ud med vandrestøvler, cykel og fiskestang.',
       supporting: 'Herfra når du Trollveggen, Romsdalsgondolen i Åndalsnes og Dovrefjell på under en time i bil. Tjek hvad der sker, find overnatning og se dagens forhold på webcam, før du kører.',
     },
     sv: {
-      h1: 'Bjorli – åretruntdestination överst i Romsdalen',
-      lead: 'Bjorli ligger 575 meter över havet överst i Romsdalen, med Raumabanan och E136 alldeles intill. På vintern är det snön som lockar – Bjorli Skisenter öppnar ofta före resten av Norge. På sommaren byts skidorna mot kängor, cykel och fiskespö.',
+      h1: 'Bjorli – åretruntdestination överst i Gudbrandsdalen',
+      lead: 'Bjorli ligger 575 meter över havet överst i Gudbrandsdalen, vid gränsen till Romsdalen, med Raumabanan och E136 alldeles intill. På vintern är det snön som lockar – Bjorli Skisenter öppnar ofta före resten av Norge. På sommaren byts skidorna mot kängor, cykel och fiskespö.',
       supporting: 'Härifrån når du Trollveggen, Romsdalsgondolen i Åndalsnes och Dovrefjell på under en timme med bil. Kolla vad som är på gång, hitta boende och se dagens förhållanden på webbkamera innan du åker.',
     },
   },
@@ -403,32 +403,32 @@ export const ROUTE_LEADS: RouteLeadMap = {
   skisenter: {
     no: {
       h1: 'Bjorli Skisenter',
-      lead: 'Bjorli Skisenter ligger værbeskyttet øverst i Romsdalen og er ofte blant de første alpinanleggene i Norge som åpner. Nedfarter for alle nivåer, eget barneområde, skiskole og skiutleie ved bunnstasjonen – og Heiskroa når beina trenger pause.',
+      lead: 'Bjorli Skisenter ligger værbeskyttet øverst i Gudbrandsdalen, på grensen til Romsdalen, og er ofte blant de første alpinanleggene i Norge som åpner. Nedfarter for alle nivåer, eget barneområde, skiskole og skiutleie ved bunnstasjonen – og Heiskroa når beina trenger pause.',
       supporting: 'Toget stopper på Bjorli stasjon, noen minutters gange fra bakken. Kjører du, ligger anlegget rett ved E136 med parkering på P1 og P2.',
     },
     en: {
       h1: 'Bjorli Skisenter – the ski resort',
-      lead: 'Bjorli Skisenter sits sheltered at the top of Romsdalen and is often among the first alpine resorts in Norway to open. Runs for every level, a dedicated children’s area, ski school and rental at the base station – and Heiskroa for when your legs need a break.',
+      lead: 'Bjorli Skisenter sits sheltered at the top of Gudbrandsdalen, on the border of Romsdalen, and is often among the first alpine resorts in Norway to open. Runs for every level, a dedicated children’s area, ski school and rental at the base station – and Heiskroa for when your legs need a break.',
       supporting: 'The train stops at Bjorli station, a few minutes’ walk from the slopes. Driving? The resort is right off the E136 with parking at P1 and P2.',
     },
     de: {
       h1: 'Bjorli Skisenter – das Skigebiet',
-      lead: 'Das Bjorli Skisenter liegt wettergeschützt am oberen Ende des Romsdals und gehört oft zu den ersten Alpingebieten Norwegens, die öffnen. Abfahrten für jedes Niveau, eigener Kinderbereich, Skischule und Verleih an der Talstation – und das Heiskroa, wenn die Beine eine Pause brauchen.',
+      lead: 'Das Bjorli Skisenter liegt wettergeschützt am oberen Ende des Gudbrandsdalen, an der Grenze zum Romsdalen, und gehört oft zu den ersten Alpingebieten Norwegens, die öffnen. Abfahrten für jedes Niveau, eigener Kinderbereich, Skischule und Verleih an der Talstation – und das Heiskroa, wenn die Beine eine Pause brauchen.',
       supporting: 'Der Zug hält am Bahnhof Bjorli, wenige Gehminuten von der Piste. Mit dem Auto: Das Gebiet liegt direkt an der E136, geparkt wird auf P1 und P2.',
     },
     nl: {
       h1: 'Bjorli Skisenter – het skigebied',
-      lead: 'Bjorli Skisenter ligt beschut boven in Romsdalen en is vaak een van de eerste skigebieden van Noorwegen die opengaan. Afdalingen voor elk niveau, een eigen kinderzone, skischool en verhuur bij het basisstation – en Heiskroa voor als je benen even rust nodig hebben.',
+      lead: 'Bjorli Skisenter ligt beschut boven in Gudbrandsdalen, aan de grens met Romsdalen, en is vaak een van de eerste skigebieden van Noorwegen die opengaan. Afdalingen voor elk niveau, een eigen kinderzone, skischool en verhuur bij het basisstation – en Heiskroa voor als je benen even rust nodig hebben.',
       supporting: 'De trein stopt op station Bjorli, een paar minuten lopen van de piste. Kom je met de auto? Het gebied ligt direct aan de E136, met parkeren op P1 en P2.',
     },
     da: {
       h1: 'Bjorli Skisenter – skicentret',
-      lead: 'Bjorli Skisenter ligger i læ øverst i Romsdalen og er ofte blandt de første alpinanlæg i Norge, der åbner. Pister til alle niveauer, eget børneområde, skiskole og skiudlejning ved bundstationen – og Heiskroa, når benene trænger til en pause.',
+      lead: 'Bjorli Skisenter ligger i læ øverst i Gudbrandsdalen, på grænsen til Romsdalen, og er ofte blandt de første alpinanlæg i Norge, der åbner. Pister til alle niveauer, eget børneområde, skiskole og skiudlejning ved bundstationen – og Heiskroa, når benene trænger til en pause.',
       supporting: 'Toget stopper på Bjorli station, få minutters gang fra bakken. Kører du selv, ligger anlægget lige ved E136 med parkering på P1 og P2.',
     },
     sv: {
       h1: 'Bjorli Skisenter – skidanläggningen',
-      lead: 'Bjorli Skisenter ligger skyddat överst i Romsdalen och är ofta bland de första alpinanläggningarna i Norge som öppnar. Nedfarter för alla nivåer, eget barnområde, skidskola och uthyrning vid bottenstationen – och Heiskroa när benen behöver en paus.',
+      lead: 'Bjorli Skisenter ligger skyddat överst i Gudbrandsdalen, vid gränsen till Romsdalen, och är ofta bland de första alpinanläggningarna i Norge som öppnar. Nedfarter för alla nivåer, eget barnområde, skidskola och uthyrning vid bottenstationen – och Heiskroa när benen behöver en paus.',
       supporting: 'Tåget stannar på Bjorli station, några minuters promenad från backen. Kör du bil ligger anläggningen precis vid E136 med parkering på P1 och P2.',
     },
   },
