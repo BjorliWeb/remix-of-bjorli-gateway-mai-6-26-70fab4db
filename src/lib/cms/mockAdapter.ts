@@ -17,6 +17,7 @@ import type {
 } from './types';
 
 import { dictionaries } from '@/i18n/translations';
+import { SKI_HOLIDAY_NORWAY_SEO } from '@/lib/seo/skiHolidayNorwaySeo';
 import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { supabase } from '@/integrations/supabase/client';
@@ -268,9 +269,9 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       { label: 'Weather & webcams', href: '/en/weather-and-webcams', description: 'Live cameras, weather and snow conditions.' },
       { label: 'Getting here', href: '/en/getting-here', description: 'By car, train and air to Bjorli.' },
     ],
-    seoTitle: 'Ski Holiday in Norway | Discover Bjorli Skisenter',
-    seoDescription:
-      'Plan a ski holiday in Norway at Bjorli, a family-friendly mountain destination with alpine skiing, cross-country trails, reliable winter conditions, accommodation, webcams and easy access by road and train.',
+    // Single source of truth — src/lib/seo/skiHolidayNorwaySeo.ts
+    seoTitle: SKI_HOLIDAY_NORWAY_SEO.title,
+    seoDescription: SKI_HOLIDAY_NORWAY_SEO.description,
     availableTranslations: ['en'],
     translatedBody: true,
     lastReviewedAt: '2026-05-25',
