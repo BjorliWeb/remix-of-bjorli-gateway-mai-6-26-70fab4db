@@ -181,7 +181,7 @@ const sv: Dictionary = {
       { q: 'Hur tar jag mig till Bjorli med tåg?', a: 'Bjorli ligger på Raumabanan, mellan Dombås och Åndalsnes. Bjorli station ligger nära anläggningen och boendena. Kolla www.entur.no för tidtabeller och biljettbokning för tåg och buss.' },
       { q: 'Finns skiduthyrning och skidskola?', a: 'Ja, du kan hyra skidor, snowboard och utrustning vid anläggningen och boka kurser hos Bjorli Skidskola.' },
       { q: 'Var kan jag bo på Bjorli?', a: 'Du kan välja mellan stugor, lägenheter och hotell. Många boenden ligger inom gångavstånd från fjället och spåren.' },
-      { q: 'Vad kan jag göra på Bjorli på sommaren?', a: 'Sommar på Bjorli innebär vandring, cykling, familjeaktiviteter och naturupplevelser i Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell inom räckhåll.' },
+      { q: 'Vad kan jag göra på Bjorli på sommaren?', a: 'Sommar på Bjorli innebär vandring, cykling, familjeaktiviteter och naturupplevelser i Gudbrandsdalen och Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell inom räckhåll.' },
     ],
   },
   footer: {
@@ -254,7 +254,7 @@ const sv: Dictionary = {
     loadMore: 'Visa fler',
     featured: 'Utvalt',
     seoPlaceholderTitle: 'Mer om Bjorli',
-    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination i Romsdalen, mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en naturlig utgångspunkt för både vinter- och sommarsemester.',
+    seoPlaceholderBody: 'Bjorli är en helårs fjälldestination högst upp i Gudbrandsdalen, vid gränsen till Romsdalen, mellan östra och nordvästra Norge. Med tre nationalparker, Raumabanan, snösäkra förhållanden och nära till Rauma-älven, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell är Bjorli en naturlig utgångspunkt för både vinter- och sommarsemester.',
     sectionWinter: 'Vinteraktiviteter',
     sectionSummer: 'Sommaraktiviteter',
     sectionFamily: 'Familjeaktiviteter',

@@ -260,7 +260,7 @@ const de: Dictionary = {
     loadMore: 'Mehr laden',
     featured: 'Hervorgehoben',
     seoPlaceholderTitle: 'Mehr über Bjorli',
-    seoPlaceholderBody: 'Bjorli ist eine ganzjährige Bergdestination im Romsdalen, zwischen Ost- und Nordwestnorwegen. Mit drei Nationalparks, der Rauma-Bahn, schneesicheren Bedingungen und kurzen Wegen zum Rauma-Fluss, Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell ist Bjorli ein besonderer Ausgangspunkt für Winter- und Sommerurlaub.',
+    seoPlaceholderBody: 'Bjorli ist eine ganzjährige Bergdestination im oberen Gudbrandsdalen, an der Grenze zum Romsdalen, zwischen Ost- und Nordwestnorwegen. Mit drei Nationalparks, der Rauma-Bahn, schneesicheren Bedingungen und kurzen Wegen zum Rauma-Fluss, Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell ist Bjorli ein besonderer Ausgangspunkt für Winter- und Sommerurlaub.',
     sectionWinter: 'Winteraktivitäten',
     sectionSummer: 'Sommeraktivitäten',
     sectionFamily: 'Familienaktivitäten',

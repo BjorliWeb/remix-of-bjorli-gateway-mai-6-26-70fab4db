@@ -181,7 +181,7 @@ const no: Dictionary = {
       { q: 'Hvordan kommer jeg til Bjorli med tog?', a: 'Bjorli ligger på Raumabanen, mellom Dombås og Åndalsnes. Bjorli stasjon ligger kort vei fra skisenteret og overnattingsstedene. Sjekk www.entur.no for rutetider og billettbestilling for tog og buss.' },
       { q: 'Finnes det skiutleie og skiskole?', a: 'Ja, du kan leie ski, snowboard og annet utstyr ved skisenteret, og melde deg på kurs i Bjorli Skiskole.' },
       { q: 'Hvor kan jeg bo på Bjorli?', a: 'Du kan velge mellom hytter, leiligheter og hoteller. Mange overnattingssteder ligger gangavstand fra fjellet og løypene.' },
-      { q: 'Hva kan jeg gjøre på Bjorli om sommeren?', a: 'Sommer på Bjorli betyr fotturer, sykling, familieaktiviteter og naturopplevelser i Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell innen kort rekkevidde.' },
+      { q: 'Hva kan jeg gjøre på Bjorli om sommeren?', a: 'Sommer på Bjorli betyr fotturer, sykling, familieaktiviteter og naturopplevelser i Gudbrandsdalen og Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell innen kort rekkevidde.' },
     ],
   },
   footer: {
@@ -254,7 +254,7 @@ const no: Dictionary = {
     loadMore: 'Vis flere',
     featured: 'Utvalgt',
     seoPlaceholderTitle: 'Mer om Bjorli',
-    seoPlaceholderBody: 'Bjorli er en helårs fjelldestinasjon i Romsdalen og porten mellom Østlandet og Nordvestlandet. Med tre nasjonalparker, Raumabanen, snøsikre forhold og kort vei til Rauma-elva, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell, er Bjorli et unikt utgangspunkt for både vinter- og sommerferie.',
+    seoPlaceholderBody: 'Bjorli er en helårs fjelldestinasjon øverst i Gudbrandsdalen, på grensen til Romsdalen, og porten mellom Østlandet og Nordvestlandet. Med tre nasjonalparker, Raumabanen, snøsikre forhold og kort vei til Rauma-elva, Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell, er Bjorli et unikt utgangspunkt for både vinter- og sommerferie.',
     sectionWinter: 'Vinteraktiviteter',
     sectionSummer: 'Sommeraktiviteter',
     sectionFamily: 'Familieaktiviteter'

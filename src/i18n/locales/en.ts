@@ -187,7 +187,7 @@ const en: Dictionary = {
       { q: 'How do I get to Bjorli by train?', a: 'Bjorli is on the Rauma Line, between Dombås and Åndalsnes. Bjorli station is a short distance from the resort and accommodation. Check www.entur.no for train and bus schedules and ticket booking.' },
       { q: 'Are there ski rental and ski school?', a: 'Yes, you can rent skis, snowboards and equipment at the resort and book lessons with Bjorli Ski School.' },
       { q: 'Where can I stay in Bjorli?', a: 'You can choose between cabins, apartments and hotels. Many stays are within walking distance of the mountain and trails.' },
-      { q: 'What can I do in Bjorli in summer?', a: 'Summer in Bjorli means hiking, cycling, family activities and nature experiences in Romsdalen – with Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell within easy reach.' },
+      { q: 'What can I do in Bjorli in summer?', a: 'Summer in Bjorli means hiking, cycling, family activities and nature experiences in Gudbrandsdalen and Romsdalen – with Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell within easy reach.' },
       { q: 'Can you fly to Bjorli from Amsterdam or Copenhagen?', a: 'The closest relevant airport is Ålesund Airport Vigra. Direct flights from Amsterdam and Copenhagen operate in relevant periods, and the drive from Vigra to Bjorli takes around 2.5 hours. Always check current airline schedules before booking.' },
     ],
   },
