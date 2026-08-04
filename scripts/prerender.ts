@@ -622,7 +622,15 @@ const assertSitemapCoverage = (): void => {
       failures.push({ url: loc, expected: '(unparseable URL in sitemap)' });
       continue;
     }
-    const clean = pathname.replace(/\/+$/, '');
+    // Sitemap <loc> values may be percent-encoded (non-ASCII slugs such as
+    // /sv/spårkarta/); dist paths are written with the raw characters.
+    let decoded = pathname;
+    try {
+      decoded = decodeURIComponent(pathname);
+    } catch {
+      /* keep the raw pathname if it is not valid percent-encoding */
+    }
+    const clean = decoded.replace(/\/+$/, '');
     const lastSegment = clean.split('/').pop() ?? '';
     // Skip non-HTML resources: sitemaps, feeds, anything with a file extension.
     if (/\.[a-z0-9]{2,5}$/i.test(lastSegment)) continue;
