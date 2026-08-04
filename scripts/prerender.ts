@@ -590,6 +590,7 @@ const writeOutput = (out: RouteOutput): void => {
 };
 
 const run = () => {
+  // (see assertSitemapCoverage below — it runs last, once dist is written)
   const base = readBaseTemplate();
   const results: RouteOutput[] = [];
   const skipped: string[] = [];
