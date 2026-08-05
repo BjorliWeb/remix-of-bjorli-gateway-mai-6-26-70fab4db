@@ -406,7 +406,7 @@ const buildHtmlDocument = (o: {
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <!-- Ahrefs Web Analytics — mirrors index.html so prerendered pages load it too. -->
-    <script src="https://analytics.ahrefs.com/analytics.js" data-key="4twwdoaL3CcWkMmkU6sfWQ" async></script>
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="4twwdoaL3CcwkMmkU6sfWQ" async></script>
     ${o.jsonLdTags}
     ${o.base.preloads}
   </head>
