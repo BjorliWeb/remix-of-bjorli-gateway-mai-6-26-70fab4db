@@ -306,6 +306,15 @@ export const ROUTE_SEO: RouteSeoMap = {
   sv: { title: 'Integritet | Bjorli', description: 'Så behandlar Bjorli Skisenter AS personuppgifter, cookies och förfrågningar via bjorli.no.' },
 };
 
+(ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).salgsbetingelser = {
+  no: { title: 'Salgsbetingelser | Bjorli', description: 'Generelle salgsbetingelser ved kjøp av heiskort og andre produkter på nett hos Bjorli Skisenter AS.' },
+  en: { title: 'Terms of Sale | Bjorli', description: 'General terms of sale for online purchases of lift passes and other products from Bjorli Skisenter AS.' },
+  de: { title: 'Verkaufsbedingungen | Bjorli', description: 'Allgemeine Verkaufsbedingungen für den Online-Kauf von Skipässen und anderen Produkten bei Bjorli Skisenter AS.' },
+  nl: { title: 'Verkoopvoorwaarden | Bjorli', description: 'Algemene verkoopvoorwaarden voor online aankopen van skipassen en andere producten bij Bjorli Skisenter AS.' },
+  da: { title: 'Salgsbetingelser | Bjorli', description: 'Generelle salgsbetingelser ved onlinekøb af liftkort og andre produkter hos Bjorli Skisenter AS.' },
+  sv: { title: 'Försäljningsvillkor | Bjorli', description: 'Allmänna försäljningsvillkor vid onlineköp av liftkort och andra produkter hos Bjorli Skisenter AS.' },
+};
+
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).handel = {
   no: { title: 'Butikker og handel på Bjorli', description: 'Hvor du handler mat, sportsutstyr og det praktiske på Bjorli — fra dagligvarer til skiservice og bensin.' },
   en: { title: 'Shops and groceries in Bjorli, Norway', description: 'Where to shop on Bjorli — groceries, sports gear, ski service and fuel within easy reach of the resort.' },

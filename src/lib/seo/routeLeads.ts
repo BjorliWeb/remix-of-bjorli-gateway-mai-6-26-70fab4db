@@ -37,6 +37,14 @@ export interface RouteLeadEntry {
 type RouteLeadMap = Partial<Record<string, Partial<Record<Locale, RouteLeadEntry>>>>;
 
 export const ROUTE_LEADS: RouteLeadMap = {
+  salgsbetingelser: {
+    no: { h1: 'Salgsbetingelser', lead: 'Generelle salgsbetingelser ved kjøp av heiskort, aktiviteter og andre produkter på nett hos Bjorli Skisenter AS.' },
+    en: { h1: 'Terms of Sale', lead: 'General terms of sale for online purchases of lift passes, activities and other products from Bjorli Skisenter AS. The Norwegian text is the authoritative version.' },
+    de: { h1: 'Verkaufsbedingungen', lead: 'Allgemeine Verkaufsbedingungen für den Online-Kauf von Skipässen, Aktivitäten und anderen Produkten bei Bjorli Skisenter AS. Maßgeblich ist der norwegische Text.' },
+    nl: { h1: 'Verkoopvoorwaarden', lead: 'Algemene verkoopvoorwaarden voor online aankopen van skipassen, activiteiten en andere producten bij Bjorli Skisenter AS. De Noorse tekst is leidend.' },
+    da: { h1: 'Salgsbetingelser', lead: 'Generelle salgsbetingelser ved onlinekøb af liftkort, aktiviteter og andre produkter hos Bjorli Skisenter AS. Den norske tekst er den gældende.' },
+    sv: { h1: 'Försäljningsvillkor', lead: 'Allmänna försäljningsvillkor vid onlineköp av liftkort, aktiviteter och andra produkter hos Bjorli Skisenter AS. Den norska texten gäller.' },
+  },
   home: {
     no: {
       h1: 'Bjorli – helårsdestinasjon øverst i Gudbrandsdalen',
