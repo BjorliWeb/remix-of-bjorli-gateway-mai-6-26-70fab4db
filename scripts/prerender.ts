@@ -25,8 +25,10 @@
  *    event form, Fnugg, webcams, alerts) remain client-only.
  *
  * Detail routes (`/nyheter/:slug`, `/arrangementer/:slug`, `/tips/:slug`,
- * `/aktiviteter/:slug`) are intentionally NOT prerendered here — they
- * need CMS data at build time and land in Wave 3.
+ * `/aktiviteter/:slug`) ARE prerendered, from the build-time CMS snapshot
+ * written by scripts/export-cms-content.ts. Only editorial content is in
+ * that snapshot: approved Supabase submissions stay runtime-only and are
+ * marked noindex at runtime instead of getting a static SEO URL.
  */
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
