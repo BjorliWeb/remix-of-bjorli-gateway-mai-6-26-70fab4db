@@ -11,7 +11,7 @@ import type { Locale } from '@/i18n/locales/types';
  * for en/de/nl/da/sv are informational only and carry a discrepancy
  * disclaimer at the top of the body.
  */
-type TermsCopy = {
+export type TermsCopy = {
   heading: string;
   lead: string;
   trigger: string;
