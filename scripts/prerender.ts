@@ -44,6 +44,17 @@ import {
   SKI_HOLIDAY_NORWAY_SEO,
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
+import {
+  DETAIL_KINDS,
+  KIND_ROUTE,
+  bodyText,
+  buildTranslationGroups,
+  detailPath,
+  isIsoDate,
+  loadSnapshot,
+  type DetailKind,
+  type SnapshotEntry,
+} from './lib/cmsSnapshot';
 
 const DIST = resolve(process.cwd(), 'dist');
 /**
