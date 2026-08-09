@@ -390,6 +390,8 @@ const buildHtmlDocument = (o: {
   ogImage: string;
   jsonLdTags: string;
   bodyHtml: string;
+  /** og:type — 'website' for hubs, 'article' for editorial detail pages. */
+  ogType?: string;
   base: { scripts: string; preloads: string };
 }): string => `<!doctype html>
 <html lang="${escapeHtml(o.htmlLang)}">
@@ -404,7 +406,7 @@ const buildHtmlDocument = (o: {
     ${o.hreflangTags}
     <meta property="og:title" content="${escapeHtml(o.title)}" />
     <meta property="og:description" content="${escapeHtml(o.description)}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="${escapeHtml(o.ogType ?? 'website')}" />
     <meta property="og:site_name" content="Bjorli" />
     <meta property="og:url" content="${escapeHtml(o.href)}" />
     <meta property="og:locale" content="${escapeHtml(o.ogLocale)}" />
@@ -778,6 +780,7 @@ const renderDetail = (opts: {
     // build time, so the section OG image is used — always a valid URL.
     ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
     jsonLdTags: jsonLdScript(detailJsonLd(kind, entry, locale, href), 'jsonld-route'),
+    ogType: kind === 'events' ? 'website' : 'article',
     bodyHtml: detailBodySkeleton({ locale, kind, entry, hubHref, hubLabel, siblings }),
     base,
   });
