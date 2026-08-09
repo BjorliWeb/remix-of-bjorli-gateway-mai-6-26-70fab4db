@@ -26,6 +26,13 @@ import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { absoluteUrl, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { SKI_HOLIDAY_NORWAY_PATH } from '../src/lib/seo/skiHolidayNorwaySeo';
+import {
+  DETAIL_KINDS,
+  buildTranslationGroups,
+  detailPath,
+  loadSnapshot,
+  type SnapshotEntry,
+} from './lib/cmsSnapshot';
 
 /**
  * Base origin for absolute URLs in the sitemap.
@@ -201,6 +208,50 @@ for (const loc of allLocales) {
     priority: 0.6,
     alternates: tafjordfjellaAlternates,
   });
+}
+
+/**
+ * Editorial detail pages (news / tips / events / activities) from the
+ * build-time CMS snapshot. Every URL listed here is also prerendered by
+ * scripts/prerender.ts — the prerenderer asserts that mapping, so the two
+ * can never drift. Runtime Supabase submissions are excluded from the
+ * snapshot on purpose and therefore never listed.
+ */
+const snapshot = loadSnapshot();
+if (!snapshot) {
+  throw new Error(
+    '[sitemap] .cache/cms-content.json not found — run `tsx scripts/export-cms-content.ts` first.',
+  );
+}
+let detailCount = 0;
+for (const kind of DETAIL_KINDS) {
+  for (const group of buildTranslationGroups(snapshot, kind)) {
+    const entries = Object.entries(group.byLocale) as [Locale, SnapshotEntry][];
+    const alternates = entries.map(([loc, entry]) => ({
+      hreflang: loc,
+      href: absoluteUrl(detailPath(kind, loc, entry.slug), ORIGIN),
+    }));
+    const xDefault = group.byLocale.en ?? group.byLocale.no;
+    if (xDefault) {
+      alternates.push({
+        hreflang: 'x-default',
+        href: absoluteUrl(
+          detailPath(kind, group.byLocale.en ? 'en' : 'no', xDefault.slug),
+          ORIGIN,
+        ),
+      });
+    }
+    for (const [loc, entry] of entries) {
+      urls.push({
+        loc: absoluteUrl(detailPath(kind, loc, entry.slug), ORIGIN),
+        lastmod: LASTMOD,
+        changefreq: kind === 'news' || kind === 'events' ? 'weekly' : 'monthly',
+        priority: 0.5,
+        alternates,
+      });
+      detailCount += 1;
+    }
+  }
 }
 
 const xmlEscape = (s: string) =>
