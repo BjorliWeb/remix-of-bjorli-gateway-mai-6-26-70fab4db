@@ -192,7 +192,11 @@ const SEOHead = () => {
     // noindex,nofollow so preview deployments cannot leak into search.
     // TODO(prod): hosting should ALSO send `X-Robots-Tag: noindex` for
     // non-production deployments as defence-in-depth.
-    const isProd = isProductionOrigin(SITE_ORIGIN);
+    // Indexability must reflect where the page is ACTUALLY served from, not
+    // the pinned canonical origin — otherwise preview deployments would
+    // advertise index,follow. Canonical/hreflang/og:url keep using
+    // CANONICAL_ORIGIN; only robots uses the runtime origin.
+    const isProd = isProductionOrigin();
     setMeta(
       'robots',
       isProd
