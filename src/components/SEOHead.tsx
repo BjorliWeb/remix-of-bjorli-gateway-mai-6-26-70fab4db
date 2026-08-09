@@ -199,7 +199,7 @@ const SEOHead = () => {
     const isProd = isProductionOrigin();
     setMeta(
       'robots',
-      isProd
+      isProd && !routeNoindex
         ? 'index,follow,max-image-preview:large,max-snippet:-1'
         : 'noindex,nofollow',
     );
