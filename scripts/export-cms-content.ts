@@ -67,6 +67,25 @@ const isEditorial = (e: ExportedEntry): boolean =>
   !!e.slug && !e.id.startsWith('submission-');
 
 const run = async () => {
+  // The Supabase browser client (imported transitively by the CMS adapter)
+  // touches `localStorage` at module scope. Provide an inert in-memory shim
+  // so the module can be evaluated in Node. No network call is made here:
+  // only editorial content is read, and any Supabase fetch failure is
+  // caught by the adapter itself.
+  if (typeof (globalThis as { localStorage?: unknown }).localStorage === 'undefined') {
+    const store = new Map<string, string>();
+    (globalThis as { localStorage?: unknown }).localStorage = {
+      getItem: (k: string) => store.get(k) ?? null,
+      setItem: (k: string, v: string) => void store.set(k, String(v)),
+      removeItem: (k: string) => void store.delete(k),
+      clear: () => store.clear(),
+      key: (i: number) => Array.from(store.keys())[i] ?? null,
+      get length() {
+        return store.size;
+      },
+    };
+  }
+
   const server = await createServer({
     configFile: resolve(process.cwd(), 'vite.config.ts'),
     server: { middlewareMode: true, hmr: false },
