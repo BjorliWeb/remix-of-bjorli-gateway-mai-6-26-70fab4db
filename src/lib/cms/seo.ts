@@ -32,6 +32,12 @@ export interface ResolvedSeo {
   availableTranslations?: Language[];
   /** Whether the body for the requested language is a real translation. */
   translatedBody?: boolean;
+  /**
+   * True for runtime-only entries (approved user submissions). These have no
+   * prerendered HTML and are not listed in sitemap.xml, so their detail URL
+   * must not be indexed.
+   */
+  noindex?: boolean;
 }
 
 /** Map listing base paths to a fetcher + JSON-LD type. */
@@ -136,6 +142,9 @@ export async function resolveSeoForRoute(
       availableTranslations:
         entry.availableTranslations ?? ['no', 'en', 'de', 'nl', 'da', 'sv'],
       translatedBody: entry.translatedBody ?? language === 'no',
+      // Runtime Supabase submissions (`submission-*`) are deliberately not
+      // prerendered or sitemapped — keep their detail URL out of the index.
+      noindex: String(entry.id).startsWith('submission-'),
       jsonLd: buildJsonLd(entry, route.schemaType, absoluteUrl),
     };
   }

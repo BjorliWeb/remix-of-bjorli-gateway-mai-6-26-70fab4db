@@ -25,8 +25,10 @@
  *    event form, Fnugg, webcams, alerts) remain client-only.
  *
  * Detail routes (`/nyheter/:slug`, `/arrangementer/:slug`, `/tips/:slug`,
- * `/aktiviteter/:slug`) are intentionally NOT prerendered here — they
- * need CMS data at build time and land in Wave 3.
+ * `/aktiviteter/:slug`) ARE prerendered, from the build-time CMS snapshot
+ * written by scripts/export-cms-content.ts. Only editorial content is in
+ * that snapshot: approved Supabase submissions stay runtime-only and are
+ * marked noindex at runtime instead of getting a static SEO URL.
  */
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -42,6 +44,17 @@ import {
   SKI_HOLIDAY_NORWAY_SEO,
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
+import {
+  DETAIL_KINDS,
+  KIND_ROUTE,
+  bodyText,
+  buildTranslationGroups,
+  detailPath,
+  isIsoDate,
+  loadSnapshot,
+  type DetailKind,
+  type SnapshotEntry,
+} from './lib/cmsSnapshot';
 
 const DIST = resolve(process.cwd(), 'dist');
 /**
@@ -151,6 +164,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiske', familie: 'Familie', gardsbesok: 'Gårdsbesøk', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Heiskort',
     apningstider: 'Åpningstider', skiskole: 'Skiskole', skiutleie: 'Skiutleie',
+    nyheter: 'Nyheter', tips: 'Tips',
   },
   en: {
     home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', aktiviteter: 'Activities',
@@ -160,6 +174,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fishing', familie: 'Family', gardsbesok: 'Farm visits', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Ski passes',
     apningstider: 'Opening hours', skiskole: 'Ski school', skiutleie: 'Ski rental',
+    nyheter: 'News', tips: 'Tips',
   },
   de: {
     home: 'Bjorli', sommer: 'Sommer', vinter: 'Winter', aktiviteter: 'Aktivitäten',
@@ -169,6 +184,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Angeln', familie: 'Familie', gardsbesok: 'Hofbesuche', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipässe',
     apningstider: 'Öffnungszeiten', skiskole: 'Skischule', skiutleie: 'Skiverleih',
+    nyheter: 'Neuigkeiten', tips: 'Tipps',
   },
   nl: {
     home: 'Bjorli', sommer: 'Zomer', vinter: 'Winter', aktiviteter: 'Activiteiten',
@@ -178,6 +194,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Vissen', familie: 'Familie', gardsbesok: 'Boerderijbezoek', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipassen',
     apningstider: 'Openingstijden', skiskole: 'Skischool', skiutleie: 'Skiverhuur',
+    nyheter: 'Nieuws', tips: 'Tips',
   },
   da: {
     home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
@@ -187,6 +204,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiskeri', familie: 'Familie', gardsbesok: 'Gårdsbesøg', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
     apningstider: 'Åbningstider', skiskole: 'Skiskole', skiutleie: 'Skiudlejning',
+    nyheter: 'Nyheder', tips: 'Tips',
   },
   sv: {
     home: 'Bjorli', sommer: 'Sommar', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
@@ -196,6 +214,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiske', familie: 'Familj', gardsbesok: 'Gårdsbesök', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
     apningstider: 'Öppettider', skiskole: 'Skidskola', skiutleie: 'Skiduthyrning',
+    nyheter: 'Nyheter', tips: 'Tips',
   },
 };
 
@@ -371,6 +390,8 @@ const buildHtmlDocument = (o: {
   ogImage: string;
   jsonLdTags: string;
   bodyHtml: string;
+  /** og:type — 'website' for hubs, 'article' for editorial detail pages. */
+  ogType?: string;
   base: { scripts: string; preloads: string };
 }): string => `<!doctype html>
 <html lang="${escapeHtml(o.htmlLang)}">
@@ -385,7 +406,7 @@ const buildHtmlDocument = (o: {
     ${o.hreflangTags}
     <meta property="og:title" content="${escapeHtml(o.title)}" />
     <meta property="og:description" content="${escapeHtml(o.description)}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="${escapeHtml(o.ogType ?? 'website')}" />
     <meta property="og:site_name" content="Bjorli" />
     <meta property="og:url" content="${escapeHtml(o.href)}" />
     <meta property="og:locale" content="${escapeHtml(o.ogLocale)}" />
@@ -593,6 +614,214 @@ const renderRoute = (
   return { filePath: relPath, html: head, locale, canonical, title: seo.title };
 };
 
+
+/* ── Detail pages (news / tips / events / activities) ─────────────────── */
+
+/** Localized heading for the "more from this section" link block. */
+const MORE_HEADING: Record<DetailKind, Record<Locale, string>> = {
+  news: { no: 'Flere nyheter', en: 'More news', de: 'Weitere Neuigkeiten', nl: 'Meer nieuws', da: 'Flere nyheder', sv: 'Fler nyheter' },
+  tips: { no: 'Flere tips', en: 'More tips', de: 'Weitere Tipps', nl: 'Meer tips', da: 'Flere tips', sv: 'Fler tips' },
+  events: { no: 'Flere arrangementer', en: 'More events', de: 'Weitere Veranstaltungen', nl: 'Meer evenementen', da: 'Flere arrangementer', sv: 'Fler evenemang' },
+  activities: { no: 'Flere aktiviteter', en: 'More activities', de: 'Weitere Aktivitäten', nl: 'Meer activiteiten', da: 'Flere aktiviteter', sv: 'Fler aktiviteter' },
+};
+
+/** Crawler-visible body for a detail page: H1, meta line, full safe body. */
+const detailBodySkeleton = (opts: {
+  locale: Locale;
+  kind: DetailKind;
+  entry: SnapshotEntry;
+  hubHref: string;
+  hubLabel: string;
+  siblings: { label: string; href: string }[];
+}): string => {
+  const { locale, kind, entry, hubHref, hubLabel, siblings } = opts;
+  const prefix = LOCALE_PREFIX[locale] || '';
+  const homeHref = normalizeInternalPath(prefix || '/');
+  const navHtml = linksFor(NAV_ROUTES, locale)
+    .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
+    .join(' · ');
+
+  const metaBits: string[] = [];
+  if (entry.category) metaBits.push(entry.category);
+  const dateLabel = entry.startsAt ?? entry.publishedAt;
+  if ((kind === 'news' || kind === 'events') && dateLabel) metaBits.push(dateLabel);
+  const metaHtml = metaBits.length
+    ? `\n    <p style="font-size:0.95rem;color:#567;margin:0 0 1rem">${escapeHtml(metaBits.join(' · '))}</p>`
+    : '';
+
+  const intro = (entry.intro ?? '').trim();
+  const introHtml = intro
+    ? `\n    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.25rem;color:#334">${escapeHtml(intro)}</p>`
+    : '';
+
+  // Full safe body text (capped at 600 words in bodyText); paragraph breaks
+  // are preserved so crawlers see real content, not a one-line excerpt.
+  const full = bodyText(entry);
+  const bodyHtml =
+    full && full !== intro
+      ? full
+          .split(/\n{2,}/)
+          .map(
+            (p) =>
+              `\n      <p style="line-height:1.6;max-width:65ch;margin:0 0 1rem;color:#223">${escapeHtml(p.trim())}</p>`,
+          )
+          .join('')
+      : '';
+
+  const siblingsHtml = siblings.length
+    ? `\n    <section style="margin:2rem 0 1.5rem">
+      <h2 style="font-size:1.125rem;margin:0 0 0.5rem">${escapeHtml(MORE_HEADING[kind][locale])}</h2>
+      <ul style="margin:0;padding-left:1.25rem;line-height:1.7">
+        ${siblings.map((s) => `<li><a href="${escapeHtml(s.href)}">${escapeHtml(s.label)}</a></li>`).join('\n        ')}
+      </ul>
+    </section>`
+    : '';
+
+  return `<div id="root"><div data-prerender="detail" data-kind="${escapeHtml(kind)}" data-canonical="${escapeHtml(entry.slug)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
+  <header style="max-width:960px;margin:0 auto 2rem">
+    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
+    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
+  </header>
+  <main style="max-width:960px;margin:0 auto">
+    <nav aria-label="Breadcrumb" style="font-size:0.9rem;color:#567;margin:0 0 1rem"><a href="${escapeHtml(homeHref)}">Bjorli</a> › <a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></nav>
+    <article>
+      <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(entry.title)}</h1>${metaHtml}${introHtml}${bodyHtml}
+    </article>${siblingsHtml}
+    <p style="margin:1.5rem 0 0"><a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></p>
+  </main>
+</div></div>`;
+};
+
+/** JSON-LD for a detail entry. Event only when a real ISO start date exists. */
+const detailJsonLd = (
+  kind: DetailKind,
+  entry: SnapshotEntry,
+  locale: Locale,
+  url: string,
+): Record<string, unknown> => {
+  const description = entry.seoDescription ?? entry.intro ?? '';
+  const isEvent = kind === 'events' && isIsoDate(entry.startsAt);
+  const base: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': isEvent ? 'Event' : kind === 'news' ? 'NewsArticle' : 'Article',
+    headline: entry.title,
+    name: entry.title,
+    description,
+    inLanguage: LOCALE_LABELS[locale].bcp47,
+    url,
+  };
+  if (isIsoDate(entry.publishedAt)) base.datePublished = entry.publishedAt;
+  if (isIsoDate(entry.updatedAt)) base.dateModified = entry.updatedAt;
+  if (isEvent) {
+    base.startDate = entry.startsAt;
+    if (isIsoDate(entry.endsAt)) base.endDate = entry.endsAt;
+    base.eventStatus = 'https://schema.org/EventScheduled';
+    base.eventAttendanceMode = 'https://schema.org/OfflineEventAttendanceMode';
+    base.location = {
+      '@type': 'Place',
+      name: entry.location ?? 'Bjorli',
+      address: { '@type': 'PostalAddress', addressLocality: 'Bjorli', addressCountry: 'NO' },
+    };
+  } else {
+    base.author = { '@type': 'Organization', name: 'Destinasjon Bjorli' };
+    base.publisher = { '@type': 'Organization', name: 'Destinasjon Bjorli' };
+  }
+  return base;
+};
+
+/**
+ * Render one detail page. `translations` maps every locale that has this
+ * entry to its localized path, so hreflang is emitted only where a real
+ * translation exists.
+ */
+const renderDetail = (opts: {
+  kind: DetailKind;
+  locale: Locale;
+  entry: SnapshotEntry;
+  translations: Partial<Record<Locale, string>>;
+  siblings: { label: string; href: string }[];
+  base: { scripts: string; preloads: string };
+}): RouteOutput => {
+  const { kind, locale, entry, translations, siblings, base } = opts;
+  const path = detailPath(kind, locale, entry.slug);
+  const href = absoluteUrl(path, ORIGIN);
+  const hubRoute = KIND_ROUTE[kind];
+  const hubHref = hrefForTarget(hubRoute, locale);
+  const hubLabel = PAGE_LABELS[locale][hubRoute] ?? String(hubRoute);
+
+  const title = entry.seoTitle ?? entry.title;
+  const description = entry.seoDescription ?? entry.intro ?? title;
+
+  const xDefaultPath = translations.en ?? translations.no;
+  const hreflangTags = [
+    ...(Object.entries(translations) as [Locale, string][]).map(
+      ([loc, p]) =>
+        `<link rel="alternate" hreflang="${escapeHtml(LOCALE_LABELS[loc].htmlLang)}" href="${escapeHtml(absoluteUrl(p, ORIGIN))}" />`,
+    ),
+    ...(xDefaultPath
+      ? [`<link rel="alternate" hreflang="x-default" href="${escapeHtml(absoluteUrl(xDefaultPath, ORIGIN))}" />`]
+      : []),
+  ].join('\n    ');
+
+  const ogAlternates = (Object.keys(translations) as Locale[])
+    .filter((l) => l !== locale)
+    .map((l) => `<meta property="og:locale:alternate" content="${escapeHtml(LOCALE_LABELS[l].ogLocale)}" />`)
+    .join('\n    ');
+
+  const html = buildHtmlDocument({
+    htmlLang: LOCALE_LABELS[locale].htmlLang,
+    title,
+    description,
+    href,
+    hreflangTags,
+    ogLocale: LOCALE_LABELS[locale].ogLocale,
+    ogAlternates,
+    // CMS hero images are bundled app assets with no stable public URL at
+    // build time, so the section OG image is used — always a valid URL.
+    ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
+    jsonLdTags: jsonLdScript(detailJsonLd(kind, entry, locale, href), 'jsonld-route'),
+    ogType: kind === 'events' ? 'website' : 'article',
+    bodyHtml: detailBodySkeleton({ locale, kind, entry, hubHref, hubLabel, siblings }),
+    base,
+  });
+
+  return {
+    filePath: `${path.replace(/^\//, '').replace(/\/$/, '')}/index.html`,
+    html,
+    locale,
+    canonical: `${kind}/:slug`,
+    title,
+  };
+};
+
+/** Prerender every editorial detail entry in the CMS snapshot. */
+const renderDetailPages = (base: { scripts: string; preloads: string }): RouteOutput[] => {
+  const snapshot = loadSnapshot();
+  if (!snapshot) {
+    throw new Error(
+      '[prerender] .cache/cms-content.json not found — run `tsx scripts/export-cms-content.ts` first.',
+    );
+  }
+  const out: RouteOutput[] = [];
+  for (const kind of DETAIL_KINDS) {
+    const groups = buildTranslationGroups(snapshot, kind);
+    for (const group of groups) {
+      const translations: Partial<Record<Locale, string>> = {};
+      for (const [loc, entry] of Object.entries(group.byLocale) as [Locale, SnapshotEntry][]) {
+        translations[loc] = detailPath(kind, loc, entry.slug);
+      }
+      for (const [locale, entry] of Object.entries(group.byLocale) as [Locale, SnapshotEntry][]) {
+        const siblings = (snapshot[kind][locale] ?? [])
+          .filter((e) => e.slug !== entry.slug)
+          .slice(0, 3)
+          .map((e) => ({ label: e.title, href: detailPath(kind, locale, e.slug) }));
+        out.push(renderDetail({ kind, locale, entry, translations, siblings, base }));
+      }
+    }
+  }
+  return out;
+};
+
 const writeOutput = (out: RouteOutput): void => {
   const abs = resolve(DIST, out.filePath);
   mkdirSync(dirname(abs), { recursive: true });
@@ -750,6 +979,12 @@ const run = () => {
 
   for (const spec of standalones) {
     const out = renderStandalone(spec, base);
+    writeOutput(out);
+    results.push(out);
+  }
+
+  // ── Detail pages from the build-time CMS snapshot ────────────────────
+  for (const out of renderDetailPages(base)) {
     writeOutput(out);
     results.push(out);
   }
