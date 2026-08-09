@@ -95,6 +95,7 @@ const ROUTES: CanonicalRoute[] = [
   'reisen-hit',
   'parkering',
   'personvern',
+  'salgsbetingelser',
   'loypekart',
   'live',
   // Wave 2 — listing hubs (index only; detail :slug pages skipped)

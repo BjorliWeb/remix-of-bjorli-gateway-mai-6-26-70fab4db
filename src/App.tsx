@@ -20,6 +20,7 @@ import Handel from "./pages/Handel";
 import Parkering from "./pages/Parkering";
 import Contact from "./pages/Contact";
 import Personvern from "./pages/Personvern";
+import Salgsbetingelser from "./pages/Salgsbetingelser";
 import SEOHead from "./components/SEOHead";
 import LegacyLivecamsRedirect from "./components/LegacyLivecamsRedirect";
 import NotFound from "./pages/NotFound";
@@ -123,6 +124,8 @@ const AppRoutes = () => (
     {/* Norwegian privacy policy + English alias (same component). */}
     <Route path="/personvern" element={<Personvern />} />
     <Route path="/privacy" element={<Personvern />} />
+    {/* Sales terms — separate legal page (shared slug in every locale). */}
+    <Route path="/salgsbetingelser" element={<Salgsbetingelser />} />
     <Route path="/reisen-hit" element={<GettingHere />} />
     <Route path="/tips" element={<Tips />} />
     <Route path="/tips/:slug" element={<ContentDetailPage kind="tips" />} />

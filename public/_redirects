@@ -43,16 +43,13 @@
 
 # Legacy WordPress system URLs (no equivalent in the new app).
 # Audited from Ahrefs/GSC legacy coverage:
-#  - /salgsbetingelser/ -> the only policy page that exists today. The old
-#    sales-terms copy is NOT in this repo; if the real text is still needed
-#    it should be added as a proper page and this rule removed.
+#  - /salgsbetingelser/ is a real public page again (see src/pages/
+#    Salgsbetingelser.tsx) — the old 301 to /personvern/ was removed.
 #  - author/tag/category/feed archives were Elementor/WP artefacts with no
 #    editorial value -> sent to the closest live hub.
 #  - /wp-content/uploads/*.pdf program files no longer exist. They are left
 #    to return 404 on purpose (a redirect to an HTML page would be a soft
 #    404) and are additionally noindexed via X-Robots-Tag + robots.txt.
-/salgsbetingelser        /personvern/      301
-/salgsbetingelser/       /personvern/      301
 /author/bjorli           /                 301
 /author/bjorli/          /                 301
 /author/*                /                 301
