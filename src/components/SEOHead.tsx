@@ -66,6 +66,8 @@ const SEOHead = () => {
   const defaultSeo: SeoData = { ...seoByLocale[locale], og_image_url: null };
   const [seo, setSeo] = useState<SeoData>(defaultSeo);
   const [routeJsonLd, setRouteJsonLd] = useState<Record<string, unknown> | null>(null);
+  /** True for runtime-only CMS entries (user submissions) — keep them out of the index. */
+  const [routeNoindex, setRouteNoindex] = useState(false);
   // Locales for which a real translation of the current route exists.
   // Defaults to all six (mock content); real CMS adapter narrows this.
   const [availableLocales, setAvailableLocales] = useState<Locale[]>([...LOCALES]);
@@ -94,6 +96,7 @@ const SEOHead = () => {
           keywords: fallback.keywords,
         });
         setRouteJsonLd(cmsSeo.jsonLd ?? null);
+        setRouteNoindex(cmsSeo.noindex === true);
         // Constrain hreflang emission to locales that actually have content.
         if (cmsSeo.availableTranslations && cmsSeo.availableTranslations.length > 0) {
           setAvailableLocales(cmsSeo.availableTranslations as Locale[]);
@@ -103,6 +106,7 @@ const SEOHead = () => {
         return;
       }
       setRouteJsonLd(null);
+      setRouteNoindex(false);
       // No CMS entry — the route is a static / locally-served page; assume all six.
       setAvailableLocales([...LOCALES]);
 
@@ -320,7 +324,7 @@ const SEOHead = () => {
     } else if (routeScript) {
       routeScript.remove();
     }
-  }, [seo, canonicalPath, locale, routeJsonLd, availableLocales]);
+  }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, availableLocales]);
 
   return null;
 };
