@@ -291,5 +291,6 @@ ${body}
 writeFileSync(resolve('public/sitemap.xml'), xml);
 console.log(
   `sitemap.xml written — ${urls.length} URLs across ${canonicalKeys.length} canonical routes` +
-    ` (+ ${EN_ONLY_EXTRAS.length} EN-only, ${NO_ONLY_EXTRAS.length} NO-only extras).`,
+    ` (+ ${EN_ONLY_EXTRAS.length} EN-only, ${NO_ONLY_EXTRAS.length} NO-only extras,` +
+    ` ${detailCount} editorial detail pages).`,
 );
