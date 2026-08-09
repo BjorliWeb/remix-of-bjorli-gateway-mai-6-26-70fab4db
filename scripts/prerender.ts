@@ -164,6 +164,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiske', familie: 'Familie', gardsbesok: 'Gårdsbesøk', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Heiskort',
     apningstider: 'Åpningstider', skiskole: 'Skiskole', skiutleie: 'Skiutleie',
+    nyheter: 'Nyheter', tips: 'Tips',
   },
   en: {
     home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', aktiviteter: 'Activities',
@@ -173,6 +174,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fishing', familie: 'Family', gardsbesok: 'Farm visits', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Ski passes',
     apningstider: 'Opening hours', skiskole: 'Ski school', skiutleie: 'Ski rental',
+    nyheter: 'News', tips: 'Tips',
   },
   de: {
     home: 'Bjorli', sommer: 'Sommer', vinter: 'Winter', aktiviteter: 'Aktivitäten',
@@ -182,6 +184,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Angeln', familie: 'Familie', gardsbesok: 'Hofbesuche', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipässe',
     apningstider: 'Öffnungszeiten', skiskole: 'Skischule', skiutleie: 'Skiverleih',
+    nyheter: 'Neuigkeiten', tips: 'Tipps',
   },
   nl: {
     home: 'Bjorli', sommer: 'Zomer', vinter: 'Winter', aktiviteter: 'Activiteiten',
@@ -191,6 +194,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Vissen', familie: 'Familie', gardsbesok: 'Boerderijbezoek', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Skipassen',
     apningstider: 'Openingstijden', skiskole: 'Skischool', skiutleie: 'Skiverhuur',
+    nyheter: 'Nieuws', tips: 'Tips',
   },
   da: {
     home: 'Bjorli', sommer: 'Sommer', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
@@ -200,6 +204,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiskeri', familie: 'Familie', gardsbesok: 'Gårdsbesøg', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
     apningstider: 'Åbningstider', skiskole: 'Skiskole', skiutleie: 'Skiudlejning',
+    nyheter: 'Nyheder', tips: 'Tips',
   },
   sv: {
     home: 'Bjorli', sommer: 'Sommar', vinter: 'Vinter', aktiviteter: 'Aktiviteter',
@@ -209,6 +214,7 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     fiske: 'Fiske', familie: 'Familj', gardsbesok: 'Gårdsbesök', 'golden-train': 'Golden Train',
     romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Liftkort',
     apningstider: 'Öppettider', skiskole: 'Skidskola', skiutleie: 'Skiduthyrning',
+    nyheter: 'Nyheter', tips: 'Tips',
   },
 };
 
