@@ -980,6 +980,12 @@ const run = () => {
     results.push(out);
   }
 
+  // ── Detail pages from the build-time CMS snapshot ────────────────────
+  for (const out of renderDetailPages(base)) {
+    writeOutput(out);
+    results.push(out);
+  }
+
   const grouped: Record<string, number> = {};
   for (const r of results) grouped[r.canonical] = (grouped[r.canonical] ?? 0) + 1;
 
