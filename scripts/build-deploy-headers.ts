@@ -31,6 +31,13 @@ const productionHeaders = `# Cloudflare Pages headers — production (indexable)
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Legacy WordPress asset paths: dead /wp-content/* files must never be
+# indexed even while they still return 404 or are served from cache.
+/wp-content/*
+  X-Robots-Tag: noindex, nofollow
+/wp-includes/*
+  X-Robots-Tag: noindex, nofollow
 `;
 
 const previewHeaders = `# Cloudflare Pages headers — preview/staging (NOT indexable).
