@@ -175,6 +175,12 @@ const Footer = () => {
               >
                 {d.footer.privacy}
               </Link>
+              <Link
+                to={lp('/salgsbetingelser')}
+                className="hover:text-season transition-colors"
+              >
+                {salesTerms.heading}
+              </Link>
               <a
                 href="https://bjorli.no/cookies/"
                 target="_blank"
