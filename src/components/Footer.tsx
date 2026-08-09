@@ -5,8 +5,11 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getFooter, useCms } from '@/lib/cms';
 import { trackPhoneClick, trackEmailClick } from '@/lib/analytics';
 import bjorliLogo from '@/assets/bjorli-logo.jpeg';
+import { usePageCopy } from '@/i18n/usePageCopy';
+import { SALES_TERMS_COPY } from '@/pages/salesTermsContent';
 
 const Footer = () => {
+  const salesTerms = usePageCopy(SALES_TERMS_COPY);
   const { d, locale } = useLanguage();
   const lp = useLocalizedPath();
   const footer = useCms(() => getFooter({ language: locale }), [locale]);
