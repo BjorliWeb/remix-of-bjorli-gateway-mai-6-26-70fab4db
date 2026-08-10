@@ -26,7 +26,7 @@ const alternates = () => Array.from(document.querySelectorAll('link[rel="alterna
 beforeEach(() => {
   document.head.innerHTML =
     // Simulated prerendered hreflang set (no data-hreflang marker).
-    '<link rel="alternate" hreflang="nb" href="https://bjorli.no/nyheter/norsk-slug/" />' +
+    '<link rel="alternate" hreflang="no" href="https://bjorli.no/nyheter/norsk-slug/" />' +
     '<link rel="alternate" hreflang="en" href="https://bjorli.no/en/news/english-slug/" />' +
     '<link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/news/english-slug/" />';
 });
@@ -55,7 +55,7 @@ describe('SEOHead detail hreflang', () => {
     const byLang = Object.fromEntries(
       alternates().map((l) => [l.getAttribute('hreflang'), l.getAttribute('href')]),
     );
-    expect(byLang['nb']).toBe('https://bjorli.no/nyheter/norsk-slug/');
+    expect(byLang['no']).toBe('https://bjorli.no/nyheter/norsk-slug/');
     expect(byLang['en']).toBe('https://bjorli.no/en/news/english-slug/');
     expect(byLang['x-default']).toBe('https://bjorli.no/en/news/english-slug/');
     // translatePath must not leak the Norwegian slug into the English URL.
