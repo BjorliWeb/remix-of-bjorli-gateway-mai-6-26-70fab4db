@@ -231,14 +231,29 @@ const SEOHead = () => {
       language: LOCALE_LABELS[locale].htmlLang,
     });
 
-    // Canonical for the current locale (uses the localized slug, not the NO one).
-    const currentLocalized =
-      canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', locale);
-    const currentUrl =
-      absoluteUrl(
-        (LOCALE_PREFIX[locale] || '') + (currentLocalized === '/' ? '/' : currentLocalized),
-        SITE_ORIGIN,
-      );
+    /**
+     * Exact localized path for `loc`.
+     *
+     * Detail routes have localized deep slugs, so their translated URLs come
+     * from the CMS (`alternatePaths`) — `translatePath()` only localizes the
+     * hub segment and would keep the source-language article slug. Static
+     * routes keep the existing translatePath behaviour.
+     */
+    const pathForLocale = (loc: Locale): string | null => {
+      const exact = alternatePaths?.[loc];
+      if (exact) return exact;
+      if (alternatePaths) return null; // detail route without this translation
+      const localized = canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', loc);
+      return (LOCALE_PREFIX[loc] || '') + (localized === '/' ? '/' : localized);
+    };
+
+    const currentPath = pathForLocale(locale);
+    const currentUrl = absoluteUrl(
+      currentPath ??
+        (LOCALE_PREFIX[locale] || '') +
+          (canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', locale)),
+      SITE_ORIGIN,
+    );
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -251,40 +266,35 @@ const SEOHead = () => {
 
     // hreflang alternates – ONLY for locales that actually have a translation.
     // x-default points to English when available, else NO, else first available.
-    document.querySelectorAll('link[rel="alternate"][data-hreflang]').forEach((el) => el.remove());
-    availableLocales.forEach((loc) => {
+    // Every existing alternate is removed first — including prerendered tags
+    // without the marker attribute — so the DOM never holds both sets.
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
+    const emitLocales = alternatePaths
+      ? (Object.keys(alternatePaths) as Locale[]).filter((l) => LOCALES.includes(l))
+      : availableLocales;
+    emitLocales.forEach((loc) => {
+      const p = pathForLocale(loc);
+      if (!p) return;
       const link = document.createElement('link');
       link.setAttribute('rel', 'alternate');
       link.setAttribute('hreflang', LOCALE_LABELS[loc].htmlLang);
       link.setAttribute('data-hreflang', '1');
-      // canonicalPath is already in NO slugs; translate it for `loc`.
-      const localized = canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', loc);
-      link.setAttribute(
-        'href',
-        absoluteUrl((LOCALE_PREFIX[loc] || '') + (localized === '/' ? '/' : localized), SITE_ORIGIN),
-      );
+      link.setAttribute('href', absoluteUrl(p, SITE_ORIGIN));
       document.head.appendChild(link);
     });
     // Choose x-default fallback: prefer EN, then NO, else the first available.
-    const xDefaultLocale: Locale | undefined = availableLocales.includes('en')
+    const xDefaultLocale: Locale | undefined = emitLocales.includes('en')
       ? 'en'
-      : availableLocales.includes('no')
+      : emitLocales.includes('no')
       ? 'no'
-      : availableLocales[0];
-    if (xDefaultLocale) {
-      const xdLocalized =
-        canonicalPath === '/' ? '/' : translatePath(canonicalPath, 'no', xDefaultLocale);
+      : emitLocales[0];
+    const xDefaultPath = xDefaultLocale ? pathForLocale(xDefaultLocale) : null;
+    if (xDefaultPath) {
       const xd = document.createElement('link');
       xd.setAttribute('rel', 'alternate');
       xd.setAttribute('hreflang', 'x-default');
       xd.setAttribute('data-hreflang', '1');
-      xd.setAttribute(
-        'href',
-        absoluteUrl(
-          (LOCALE_PREFIX[xDefaultLocale] || '') + (xdLocalized === '/' ? '/' : xdLocalized),
-          SITE_ORIGIN,
-        ),
-      );
+      xd.setAttribute('href', absoluteUrl(xDefaultPath, SITE_ORIGIN));
       document.head.appendChild(xd);
     }
 
