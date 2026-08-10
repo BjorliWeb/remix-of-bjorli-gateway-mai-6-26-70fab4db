@@ -1,106 +1,41 @@
-# Production fixes: detail-page prerender, legacy URLs, canonical consistency, robots check
+# Detail-page SEO correctness fixes
 
-No redesign, no hosting change, no CMS migration. Cloudflare Pages stays as-is.
+Four targeted fixes. No redesign, no hosting/CMS architecture change, no copy rewrites.
 
-## 1. Detail-page prerender (highest priority)
+## 1. Activity translation-group collisions
 
-Today `scripts/prerender.ts` explicitly skips `:slug` detail routes, so every
-event/news/tip/activity URL is served the SPA fallback — crawlers see homepage
-metadata. The blocker is that the CMS mock adapter cannot be imported by the
-Node build script: it pulls in `@/...` aliases, image assets (`.jpg`, `.avif`)
-and the Supabase client.
+`scripts/lib/cmsSnapshot.ts` derives the translation key from the trailing numeric id suffix only, so `activity-no-w-0` and `activity-no-s-0` both collapse to group `0` and summer activities overwrite winter ones.
 
-Fix in two steps:
+- Change `groupKeyOf()` to capture an optional season segment: match `-(w|s)-(\d+)$` first and return `w-0` / `s-0`; fall back to the existing `-(\d+)$` rule, then to the slug.
+- News, tips and events keep the current numeric keys — their ids have no season segment, so behaviour is unchanged by construction.
+- Regression test: build the snapshot shape for all six locales and assert `buildTranslationGroups(snapshot, 'activities')` yields one group per winter item plus one per summer item, each with all six locales present, and that no group mixes a winter and a summer entry. Add a control assertion that news grouping counts are unchanged.
+- Re-run sitemap + prerender and confirm every winter and summer activity detail URL appears.
 
-**a) Build-time CMS export.** New `scripts/export-cms-content.ts` starts an
-in-process Vite server (`createServer({ server: { middlewareMode: true } })`)
-and uses `ssrLoadModule` to load `src/lib/cms/mockAdapter.ts` through the same
-alias/asset pipeline the app uses. It writes a Node-safe JSON snapshot to
-`.cache/cms-content.json` containing, per locale, for news / tips / events /
-activities: `slug, title, intro, body excerpt, category, date, heroImage,
-seoTitle, seoDescription, availableTranslations`. Only static editorial content
-is exported; Supabase-backed approved events remain runtime-only (they are
-merged client-side and are not prerendered).
+## 2. Detail-page runtime hreflang
 
-**b) Detail renderer.** `scripts/prerender.ts` gains `renderDetail()` reusing
-the existing `buildHtmlDocument`, emitting per detail URL:
-`<html lang>`, title, meta description, self-referencing canonical (trailing
-slash, apex origin), hreflang only for locales present in
-`availableTranslations` + `x-default`, `og:*`/`twitter:*` incl. `og:locale`,
-and a body skeleton with H1, intro, body excerpt, date/category (news/events),
-and related internal links back to the listing hub and 3 sibling items.
-JSON-LD comes from the same shapes already used at runtime
-(`NewsArticle` / `Article` / `Event`, via `src/lib/cms/seo.ts` logic reused in
-a small shared builder) so runtime `SEOHead` replaces rather than duplicates it.
+Prerender emits per-locale detail URLs from the real translated slugs. `SEOHead` rebuilds them at runtime with `translatePath()`, which only localizes the hub segment and keeps the source slug — wrong whenever a translation has a different slug.
 
-**c) Sitemap.** `scripts/build-sitemap.ts` reads the same JSON snapshot and
-adds the detail URLs (trailing slash, only locales with a translation). The
-existing `assertSitemapCoverage()` then guarantees every listed detail URL has
-a prerendered file — build fails otherwise.
+- Extend `ResolvedSeo` in `src/lib/cms/seo.ts` with `alternates?: Partial<Record<Language, string>>` — exact localized detail paths taken from the CMS translation group (locale prefix + localized hub slug + that locale's own entry slug, normalized with `normalizeInternalPath`).
+- `SEOHead` uses `alternates` when present for canonical/hreflang/x-default on detail routes; static routes keep `translatePath()` exactly as today.
+- Duplicate control: keep clearing `link[rel=alternate][data-hreflang]` before re-emitting, and also remove prerendered alternates that lack the marker attribute so the prerendered set is replaced, never doubled.
+- Tests: a NO entry and its EN translation with deliberately different slugs; assert the emitted alternate hrefs use each locale's own slug and that exactly one link per locale plus one `x-default` exists after two consecutive renders.
 
-## 2. Legacy WordPress URLs
+## 3. Event JSON-LD consistency
 
-`public/_redirects` is extended (301, before JS runs). Proposed per-URL decisions:
+Prerender only emits `Event` when `startsAt` is a valid ISO date; runtime `src/lib/cms/seo.ts` always emits `Event` for the events route and falls back to `publishedAt`, which can be a display string like "31. juli – 7. august 2026".
 
-| Legacy URL | Decision |
-| --- | --- |
-| `/salgsbetingelser/` | 301 → `/personvern/` (sales terms are not migrated; if you want them as a real page, say so and I add a route instead) |
-| `/author/bjorli/`, `/author/*` | 301 → `/nyheter/` (WP author archives, no value) |
-| `/wp-content/uploads/**.pdf` (old program PDFs) | keep the files where they are; add `Disallow: /wp-content/` is already covered — instead add `X-Robots-Tag: noindex` for `/wp-content/*` in `public/_headers` so historical PDFs stay reachable but drop out of the index |
-| `/category/*`, `/tag/*`, `/?p=`, `/feed/` | 301 → closest hub (`/nyheter/`) |
+- Export the ISO check (reuse the same predicate as `scripts/lib/cmsSnapshot.ts` `isIsoDate`, moved to a shared module under `src/lib/` so both build and runtime import one implementation).
+- Runtime rule: emit `Event` only when `startsAt` is valid ISO; otherwise emit `Article`. Only set `datePublished` / `dateModified` / `startDate` / `endDate` when the underlying value is valid ISO.
+- Display dates stay untouched in the UI.
+- Test: one event with an ISO `startsAt` → `Event` with `startDate`; one with a display-string date → `Article`, no `startDate`.
 
-All redirect targets are final canonical slash URLs — no chains.
-`docs/REDIRECTS.md` gets the same table.
+## 4. Remove fake editorial freshness
 
-## 3. Internal canonical consistency
+`nowIso()` is used for `publishedAt` / `updatedAt` on static tips and activities (and the generic `getPage` stub), which makes every crawl report fresh content.
 
-Audit already shows navigation, footer and cards go through `useLocalizedPath`
-+ `normalizeInternalPath`, so they are correct. Remaining work:
-
-- Detail card links produced in the new prerender skeleton must use
-  `normalizeInternalPath` (trailing slash).
-- Verify no legacy `_redirects` source is itself linked internally
-  (`/livecams`, `/parking`, `/hva-skjer`) — replace any occurrence with the
-  final target.
-- Re-run the trailing-slash unit tests plus a `dist/` grep for
-  `href="/…"` without a trailing slash on non-file paths.
-
-## 4. SEOHead robots check
-
-`src/components/SEOHead.tsx:195` — change
-
-```ts
-const isProd = isProductionOrigin(SITE_ORIGIN);
-```
-
-to
-
-```ts
-const isProd = isProductionOrigin();
-```
-
-so indexability follows the real runtime origin (previews become `noindex`)
-while canonical / hreflang / og:url keep using `CANONICAL_ORIGIN`. Comment
-above `SITE_ORIGIN` updated to state the split explicitly.
-
-## 5. CMS boundary
-
-No change: the `CmsAdapter` abstraction stays, editorial content is not moved
-into Supabase. The build-time export in step 1 reads through the adapter, so
-swapping to the WordPress adapter later requires no prerender changes.
-
-## Files to change
-
-- `scripts/export-cms-content.ts` (new)
-- `scripts/prerender.ts` (detail renderer + registry)
-- `scripts/build-sitemap.ts` (detail URLs)
-- `src/lib/cms/seo.ts` or a small shared JSON-LD builder (reuse, no behaviour change)
-- `src/components/SEOHead.tsx` (one-line robots fix)
-- `public/_redirects`, `public/_headers`, `docs/REDIRECTS.md`
-- `package.json` (run the export before prerender/sitemap)
+- Replace those with a single stable editorial constant date in `src/lib/cms/mockAdapter.ts`, or omit the fields where the type allows, until real CMS dates exist.
+- Live/operational paths (approved Supabase event submissions, the "now" comparisons in event filtering) keep real current timestamps.
 
 ## Verification
 
-Typecheck, unit tests, full build; report new file count, sitemap `<loc>`
-count, and sample source for one detail URL per type showing title/H1/intro/
-canonical/hreflang/OG/JSON-LD.
+`tsgo` typecheck, `vitest run`, and a full production build. Report: total prerender file count, sitemap URL count, activity detail page count before/after, one NO/EN detail hreflang example, one event JSON-LD example.
