@@ -168,6 +168,12 @@ const EVENT_IMAGES = [pumpTrackImg, bjorliheimenBuffetImg, ls2026Img, hostmarked
 const WINTER_ACTIVITY_IMAGES = [skiSchoolImg, crossCountry, cabinEvening, heroWinter];
 const SUMMER_ACTIVITY_IMAGES = [hikingImg, bikingImg, familySummerImg, summerValleyImg];
 
+/**
+ * Current timestamp — OPERATIONAL data only (live alerts, runtime filtering).
+ * Never use it for editorial publishedAt/updatedAt: static content would then
+ * look freshly published on every build. Static editorial entries omit those
+ * fields until real CMS dates exist.
+ */
 const nowIso = () => new Date().toISOString();
 
 /* ------------------------------------------------------------------ */
