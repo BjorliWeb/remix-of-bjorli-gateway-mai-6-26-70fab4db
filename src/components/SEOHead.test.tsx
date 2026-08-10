@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { render } from '@testing-library/react';
+import { createRoot, type Root } from 'react-dom/client';
+import { act } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 vi.mock('@/integrations/supabase/client', () => ({
@@ -32,17 +33,23 @@ beforeEach(() => {
 
 describe('SEOHead detail hreflang', () => {
   it('emits exact localized detail URLs and no duplicates, even after a re-render', async () => {
-    const view = render(
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+    let root: Root;
+    const tree = (
       <MemoryRouter initialEntries={['/nyheter/norsk-slug/']}>
         <SEOHead />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
+    await act(async () => {
+      root = createRoot(container);
+      root.render(tree);
+    });
     await vi.waitFor(() => expect(alternates().length).toBe(3));
-    view.rerender(
-      <MemoryRouter initialEntries={['/nyheter/norsk-slug/']}>
-        <SEOHead />
-      </MemoryRouter>,
-    );
+    // Re-render: the runtime set must replace itself, not accumulate.
+    await act(async () => {
+      root!.render(tree);
+    });
     await vi.waitFor(() => expect(alternates().length).toBe(3));
 
     const byLang = Object.fromEntries(
