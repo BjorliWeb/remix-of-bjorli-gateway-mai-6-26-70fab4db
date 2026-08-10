@@ -9,6 +9,11 @@ import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../../src/i18n/locales/types';
 import { slugForCanonical, type CanonicalRoute } from '../../src/i18n/routes';
 import { normalizeInternalPath } from '../../src/lib/url/normalizeInternalPath';
+import { translationKeyOf } from '../../src/lib/cms/translationKey';
+import { isIsoDate } from '../../src/lib/date/isIsoDate';
+
+// Re-exported so build scripts keep a single import site for the shared rule.
+export { isIsoDate };
 
 export interface SnapshotEntry {
   id: string;
@@ -66,10 +71,7 @@ export interface TranslationGroup {
   byLocale: Partial<Record<Locale, SnapshotEntry>>;
 }
 
-const groupKeyOf = (entry: SnapshotEntry): string => {
-  const m = /-(\d+)$/.exec(entry.id);
-  return m ? m[1] : entry.slug;
-};
+const groupKeyOf = (entry: SnapshotEntry): string => translationKeyOf(entry);
 
 export const buildTranslationGroups = (
   snapshot: CmsSnapshot,
@@ -86,10 +88,6 @@ export const buildTranslationGroups = (
   }
   return [...groups.values()];
 };
-
-/** ISO-8601 date (or datetime) check — mock content carries display strings. */
-export const isIsoDate = (v?: string): boolean =>
-  !!v && /^\d{4}-\d{2}-\d{2}(T[\d:.+Z-]+)?$/.test(v);
 
 /**
  * Full safe body text where available, capped at ~600 words so a very long
