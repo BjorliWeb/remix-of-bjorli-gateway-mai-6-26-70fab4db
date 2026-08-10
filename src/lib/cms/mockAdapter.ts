@@ -298,8 +298,6 @@ const buildTips = (lang: Language): CmsTip[] => {
     heroImage: { url: TIP_IMAGES[i % TIP_IMAGES.length], alt: t.title },
     category: t.category,
     season: 'all',
-    publishedAt: nowIso(),
-    updatedAt: nowIso(),
     seoTitle: t.title,
     seoDescription: t.intro,
   }));
@@ -462,8 +460,6 @@ const buildActivities = (lang: Language): CmsActivity[] => {
     heroImage: { url: WINTER_ACTIVITY_IMAGES[i % WINTER_ACTIVITY_IMAGES.length], alt: it.title },
     category: d.nav.winter,
     season: 'winter' as const,
-    publishedAt: nowIso(),
-    updatedAt: nowIso(),
     seoTitle: it.title,
     seoDescription: it.desc,
   }));
@@ -477,8 +473,6 @@ const buildActivities = (lang: Language): CmsActivity[] => {
     heroImage: { url: SUMMER_ACTIVITY_IMAGES[i % SUMMER_ACTIVITY_IMAGES.length], alt: it.title },
     category: d.nav.summer,
     season: 'summer' as const,
-    publishedAt: nowIso(),
-    updatedAt: nowIso(),
     seoTitle: it.title,
     seoDescription: it.desc,
   }));
@@ -498,8 +492,6 @@ export const mockAdapter: CmsAdapter = {
       intro: d.meta.tagline,
       heroImage: { url: heroWinter, alt: d.meta.siteName },
       season: 'all',
-      publishedAt: nowIso(),
-      updatedAt: nowIso(),
       seoTitle: d.meta.siteName,
       seoDescription: d.meta.tagline,
     };
@@ -865,8 +857,6 @@ export const mockAdapter: CmsAdapter = {
       heroSubtitle: isSummer ? d.summer.subtitle : d.hero.subtitle,
       heroIntro: isSummer ? d.summer.intro : d.hero.intro,
       heroImage: { url: isSummer ? summerHero : heroWinter, alt: d.meta.siteName },
-      publishedAt: nowIso(),
-      updatedAt: nowIso(),
       seoTitle: isSummer ? d.summer.title : d.hero.title,
       seoDescription: isSummer ? d.summer.intro : d.hero.intro,
       sections: isSummer ? summerSections : winterSections,
