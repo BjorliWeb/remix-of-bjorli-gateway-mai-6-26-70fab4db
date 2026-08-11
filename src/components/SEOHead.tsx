@@ -9,6 +9,7 @@ import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
+import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
 import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
 
 interface SeoData {
@@ -78,6 +79,12 @@ const SEOHead = () => {
 
   // Canonical path is locale-stripped (e.g. /en/overnatting -> /overnatting)
   const { path: canonicalPath } = stripLocalePrefix(location.pathname);
+  /**
+   * Internal/admin/review routes (/admin/*, /hero-compare, /image-inventory)
+   * are never public SEO surfaces. Resolved centrally here so the final
+   * robots state cannot be overwritten with index,follow by another effect.
+   */
+  const internalNoindex = isInternalNoindexPath(location.pathname);
 
   useEffect(() => {
     let cancelled = false;
@@ -213,7 +220,7 @@ const SEOHead = () => {
     const isProd = isProductionOrigin();
     setMeta(
       'robots',
-      isProd && !routeNoindex
+      isProd && !routeNoindex && !internalNoindex
         ? 'index,follow,max-image-preview:large,max-snippet:-1'
         : 'noindex,nofollow',
     );
@@ -344,7 +351,7 @@ const SEOHead = () => {
     } else if (routeScript) {
       routeScript.remove();
     }
-  }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, availableLocales]);
+  }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, internalNoindex, availableLocales]);
 
   return null;
 };

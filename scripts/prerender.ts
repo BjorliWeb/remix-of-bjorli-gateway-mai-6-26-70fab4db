@@ -851,10 +851,34 @@ const assertSitemapCoverage = (): void => {
   const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g)).map((m) =>
     m[1].replace(/&amp;/g, '&').trim(),
   );
+  // Every hreflang alternate advertised in the sitemap must ALSO resolve to a
+  // prerendered page — an alternate pointing at a missing route or a redirect
+  // source is exactly the "hreflang to redirect or broken page" class of
+  // defect. Alternates are deduped: the same set repeats per sibling URL.
+  const alternateHrefs = Array.from(
+    new Set(
+      Array.from(xml.matchAll(/<xhtml:link[^>]*href="([^"]+)"/g)).map((m) =>
+        m[1].replace(/&amp;/g, '&').trim(),
+      ),
+    ),
+  );
+  // Redirect sources declared in public/_redirects must never be advertised
+  // as a canonical or hreflang URL.
+  const redirectSources = new Set<string>();
+  const redirectsPath = resolve(process.cwd(), 'public/_redirects');
+  if (existsSync(redirectsPath)) {
+    for (const line of readFileSync(redirectsPath, 'utf8').split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const source = trimmed.split(/\s+/)[0];
+      if (!source.startsWith('/') || source.includes('*') || source.includes(':')) continue;
+      redirectSources.add(source.replace(/\/+$/, '') || '/');
+    }
+  }
 
   const failures: { url: string; expected: string }[] = [];
   let checked = 0;
-  for (const loc of locs) {
+  for (const loc of [...locs, ...alternateHrefs]) {
     let pathname: string;
     try {
       pathname = new URL(loc).pathname;
@@ -875,6 +899,10 @@ const assertSitemapCoverage = (): void => {
     // Skip non-HTML resources: sitemaps, feeds, anything with a file extension.
     if (/\.[a-z0-9]{2,5}$/i.test(lastSegment)) continue;
     checked += 1;
+    if (redirectSources.has(clean === '' ? '/' : clean)) {
+      failures.push({ url: loc, expected: '(URL is a redirect source in public/_redirects)' });
+      continue;
+    }
     const rel = clean === '' ? 'index.html' : `${clean.replace(/^\//, '')}/index.html`;
     if (!existsSync(resolve(DIST, rel))) {
       failures.push({ url: loc, expected: `dist/${rel}` });
@@ -891,7 +919,7 @@ const assertSitemapCoverage = (): void => {
   }
   // eslint-disable-next-line no-console
   console.log(
-    `[prerender] sitemap coverage: all ${checked} sitemap HTML URLs have a matching prerendered file.`,
+    `[prerender] sitemap coverage: all ${checked} sitemap HTML URLs (${locs.length} <loc> + ${alternateHrefs.length} unique hreflang alternates) resolve to a prerendered file and none is a redirect source.`,
   );
 };
 
