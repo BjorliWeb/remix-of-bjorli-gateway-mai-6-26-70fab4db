@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
+import { canAccessEditor } from '@/lib/auth/roles';
 
 type Status = 'pending' | 'approved' | 'rejected';
 
@@ -75,7 +76,7 @@ const AdminEventSubmissions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [authChecked, setAuthChecked] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [canEdit, setCanEdit] = useState(false);
   const [items, setItems] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<Status>('pending');
@@ -85,7 +86,7 @@ const AdminEventSubmissions = () => {
   const [aiBusy, setAiBusy] = useState(false);
   const [actionBusy, setActionBusy] = useState(false);
 
-  // Auth + admin gate
+  // Auth + editor-role gate (admin or moderator — see src/lib/auth/roles.ts)
   useEffect(() => {
     (async () => {
       const { data } = await supabase.auth.getSession();
@@ -97,8 +98,7 @@ const AdminEventSubmissions = () => {
         .from('user_roles')
         .select('role')
         .eq('user_id', data.session.user.id);
-      const admin = !!roleRows?.some((r) => r.role === 'admin');
-      setIsAdmin(admin);
+      setCanEdit(canAccessEditor(roleRows?.map((r) => r.role)));
       setAuthChecked(true);
     })();
   }, [navigate]);
@@ -119,8 +119,8 @@ const AdminEventSubmissions = () => {
   };
 
   useEffect(() => {
-    if (isAdmin) load();
-  }, [isAdmin]);
+    if (canEdit) load();
+  }, [canEdit]);
 
   const filtered = useMemo(
     () => items.filter((i) => i.status === filter),
@@ -286,12 +286,12 @@ const AdminEventSubmissions = () => {
     );
   }
 
-  if (!isAdmin) {
+  if (!canEdit) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
         <h1 className="font-display text-2xl mb-2 text-foreground">Ingen tilgang</h1>
         <p className="text-muted-foreground mb-6 max-w-md">
-          Kontoen din har ikke redaktørtilgang. Kontakt en administrator for å få tildelt admin-rolle.
+          Kontoen din har ikke redaktørtilgang. Kontakt en administrator for å få redaktørtilgang.
         </p>
         <Button variant="outline" onClick={signOut}>Logg ut</Button>
       </div>

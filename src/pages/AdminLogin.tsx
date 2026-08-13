@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { canAccessEditor } from '@/lib/auth/roles';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -13,15 +14,14 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Hard admin-role gate: signed in is NOT enough — must have admin role.
-  const ensureAdminOrSignOut = async (userId: string): Promise<boolean> => {
+  // Hard editor-role gate: signed in is NOT enough — must have an editor role
+  // (admin or moderator). See src/lib/auth/roles.ts.
+  const ensureEditorOrSignOut = async (userId: string): Promise<boolean> => {
     const { data, error } = await supabase
       .from('user_roles')
       .select('role')
-      .eq('user_id', userId)
-      .eq('role', 'admin')
-      .limit(1);
-    if (error || !data || data.length === 0) {
+      .eq('user_id', userId);
+    if (error || !canAccessEditor(data?.map((r) => r.role))) {
       await supabase.auth.signOut();
       toast({
         title: 'Ingen tilgang',
@@ -37,7 +37,7 @@ const AdminLogin = () => {
     (async () => {
       const { data } = await supabase.auth.getSession();
       if (!data.session) return;
-      const ok = await ensureAdminOrSignOut(data.session.user.id);
+      const ok = await ensureEditorOrSignOut(data.session.user.id);
       if (ok) navigate('/admin/innsendinger', { replace: true });
     })();
   }, [navigate]);
@@ -55,7 +55,7 @@ const AdminLogin = () => {
       toast({ title: 'Innlogging feilet', variant: 'destructive' });
       return;
     }
-    const ok = await ensureAdminOrSignOut(data.user.id);
+    const ok = await ensureEditorOrSignOut(data.user.id);
     if (!ok) return;
     navigate('/admin/innsendinger', { replace: true });
   };
