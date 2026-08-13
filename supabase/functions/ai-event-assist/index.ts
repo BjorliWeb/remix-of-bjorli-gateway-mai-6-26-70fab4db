@@ -5,7 +5,7 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
-    // --- Auth gate: require signed-in admin -------------------------------
+    // --- Auth gate: require signed-in admin or moderator -------------------
     const authHeader = req.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -30,11 +30,16 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
     );
+    // Editor roles allowed to use the event AI assistant. Keep in sync with
+    // EDITOR_ROLES in src/lib/auth/roles.ts and with the event_submissions RLS
+    // policies. Resolved server-side from user_roles via the service client —
+    // never from a client-supplied role.
+    const EDITOR_ROLES = ['admin', 'moderator'];
     const { data: roleRows, error: roleErr } = await service
       .from('user_roles')
       .select('role')
       .eq('user_id', claims.claims.sub)
-      .eq('role', 'admin')
+      .in('role', EDITOR_ROLES)
       .limit(1);
     if (roleErr || !roleRows || roleRows.length === 0) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), {
