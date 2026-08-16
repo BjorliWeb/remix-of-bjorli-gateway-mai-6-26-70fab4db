@@ -1,9 +1,12 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 
-const { rpcMock } = vi.hoisted(() => ({ rpcMock: vi.fn() }));
-vi.mock('@/integrations/supabase/client', () => ({ supabase: { rpc: rpcMock } }));
+const { rpcMock, invokeMock } = vi.hoisted(() => ({ rpcMock: vi.fn(), invokeMock: vi.fn() }));
+vi.mock('@/integrations/supabase/client', () => ({
+  supabase: { rpc: rpcMock, functions: { invoke: invokeMock } },
+}));
 
-const { resolveTotpState, hasCurrentEditorMfa } = await import('./mfa');
+const { resolveTotpState, hasCurrentEditorMfa, sendEditorEmailCode, verifyEditorEmailCode } =
+  await import('./mfa');
 
 beforeEach(() => vi.clearAllMocks());
 
@@ -69,5 +72,83 @@ describe('hasCurrentEditorMfa', () => {
       rpcMock.mockResolvedValue({ data, error: null });
       await expect(hasCurrentEditorMfa()).resolves.toBe(false);
     }
+  });
+});
+
+describe('sendEditorEmailCode', () => {
+  it('returns the masked address and cooldown on success', async () => {
+    invokeMock.mockResolvedValue({
+      data: { masked_email: 'ma***@bjorli.no', cooldown_seconds: 60 },
+      error: null,
+    });
+    await expect(sendEditorEmailCode()).resolves.toEqual({
+      ok: true,
+      maskedEmail: 'ma***@bjorli.no',
+      cooldownSeconds: 60,
+    });
+  });
+
+  it('never exposes the code itself', async () => {
+    // The function returns only what the UI may show. If a code ever appears
+    // in this payload the email factor has stopped proving inbox control.
+    invokeMock.mockResolvedValue({
+      data: { masked_email: 'ma***@bjorli.no', cooldown_seconds: 60 },
+      error: null,
+    });
+    const result = await sendEditorEmailCode();
+    expect(JSON.stringify(result)).not.toMatch(/\d{6}/);
+  });
+
+  it('surfaces a cooldown with its retry window', async () => {
+    invokeMock.mockResolvedValue({
+      data: null,
+      error: { context: { json: async () => ({ error: 'cooldown', retry_after: 42 }) } },
+    });
+    await expect(sendEditorEmailCode()).resolves.toEqual({
+      ok: false,
+      reason: 'cooldown',
+      retryAfter: 42,
+    });
+  });
+
+  it('surfaces the hourly cap', async () => {
+    invokeMock.mockResolvedValue({
+      data: null,
+      error: { context: { json: async () => ({ error: 'rate_limited' }) } },
+    });
+    await expect(sendEditorEmailCode()).resolves.toMatchObject({ ok: false, reason: 'rate_limited' });
+  });
+
+  it('falls back to a generic failure when the body cannot be read', async () => {
+    invokeMock.mockResolvedValue({
+      data: null,
+      error: { context: { json: async () => { throw new Error('not json'); } } },
+    });
+    await expect(sendEditorEmailCode()).resolves.toMatchObject({ ok: false, reason: 'unavailable' });
+  });
+
+  it('falls back to a generic failure when there is no response context', async () => {
+    invokeMock.mockResolvedValue({ data: null, error: { message: 'network' } });
+    await expect(sendEditorEmailCode()).resolves.toMatchObject({ ok: false, reason: 'unavailable' });
+  });
+});
+
+describe('verifyEditorEmailCode', () => {
+  it('passes the code to the database function', async () => {
+    rpcMock.mockResolvedValue({ data: true, error: null });
+    await expect(verifyEditorEmailCode('123456')).resolves.toBe(true);
+    expect(rpcMock).toHaveBeenCalledWith('verify_editor_email_code', { _code: '123456' });
+  });
+
+  it('is false for a wrong, expired or replayed code', async () => {
+    rpcMock.mockResolvedValue({ data: false, error: null });
+    await expect(verifyEditorEmailCode('000000')).resolves.toBe(false);
+  });
+
+  it('fails closed on error and on anything that is not exactly true', async () => {
+    rpcMock.mockResolvedValue({ data: null, error: { message: 'boom' } });
+    await expect(verifyEditorEmailCode('123456')).resolves.toBe(false);
+    rpcMock.mockResolvedValue({ data: 'true', error: null });
+    await expect(verifyEditorEmailCode('123456')).resolves.toBe(false);
   });
 });

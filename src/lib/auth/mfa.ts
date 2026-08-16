@@ -65,3 +65,64 @@ export async function hasCurrentEditorMfa(): Promise<boolean> {
   if (error) return false;
   return data === true;
 }
+
+export type SendEmailCodeFailure = 'cooldown' | 'rate_limited' | 'forbidden' | 'unavailable';
+
+/**
+ * Flat rather than a discriminated union on purpose: this project compiles
+ * with `strict: false`, where narrowing on a literal boolean discriminant is
+ * unreliable. `ok` tells you which fields are meaningful.
+ */
+export type SendEmailCodeResult = {
+  ok: boolean;
+  maskedEmail?: string;
+  cooldownSeconds?: number;
+  reason?: SendEmailCodeFailure;
+  retryAfter?: number;
+};
+
+/**
+ * Ask the server to email a code to the signed-in editor's own address.
+ *
+ * The code is generated in the database and delivered by email only — nothing
+ * in the response reveals it, which is what makes reading the inbox a genuine
+ * second factor rather than a formality.
+ */
+export async function sendEditorEmailCode(): Promise<SendEmailCodeResult> {
+  const { data, error } = await supabase.functions.invoke('mfa-email-send', { body: {} });
+
+  if (error) {
+    // Non-2xx replies arrive as an error with the original Response attached.
+    let reason: SendEmailCodeFailure = 'unavailable';
+    let retryAfter = 60;
+    const context = (error as { context?: Response }).context;
+    if (context && typeof context.json === 'function') {
+      try {
+        const body = await context.json();
+        if (body?.error) reason = body.error;
+        if (typeof body?.retry_after === 'number') retryAfter = body.retry_after;
+      } catch {
+        // Keep the generic reason.
+      }
+    }
+    return { ok: false, reason, retryAfter };
+  }
+
+  const body = data as { masked_email?: string; cooldown_seconds?: number } | null;
+  return {
+    ok: true,
+    maskedEmail: body?.masked_email ?? '',
+    cooldownSeconds: body?.cooldown_seconds ?? 60,
+  };
+}
+
+/**
+ * Check an emailed code. The database consumes it on success and records the
+ * step-up for the current session; a wrong, expired or replayed code is simply
+ * `false`, with no detail about which.
+ */
+export async function verifyEditorEmailCode(code: string): Promise<boolean> {
+  const { data, error } = await supabase.rpc('verify_editor_email_code', { _code: code });
+  if (error) return false;
+  return data === true;
+}

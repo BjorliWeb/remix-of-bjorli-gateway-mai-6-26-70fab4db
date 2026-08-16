@@ -6,7 +6,12 @@ import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { canAccessEditor } from '@/lib/auth/roles';
-import { resolveTotpState, hasCurrentEditorMfa } from '@/lib/auth/mfa';
+import {
+  resolveTotpState,
+  hasCurrentEditorMfa,
+  sendEditorEmailCode,
+  verifyEditorEmailCode,
+} from '@/lib/auth/mfa';
 
 /**
  * Two-step verification for the editor login.
@@ -14,21 +19,30 @@ import { resolveTotpState, hasCurrentEditorMfa } from '@/lib/auth/mfa';
  * Reached only after a successful password sign-in. Accounts without an editor
  * role never get here — they are signed out, exactly as on the login page.
  *
- * Deliberately out of scope for this phase: email codes and the 30-day
- * "trust this device" option. Backend RLS enforcement is a later phase; until
- * it ships, this screen is the gate rather than the proof.
+ * Two factors are offered: an authenticator app (TOTP) and a code by email.
+ * Email is the weaker of the two — whoever controls the inbox can also reset
+ * the password — so it exists as an alternative for editors without an
+ * authenticator, not as the default.
+ *
+ * Still out of scope: the 30-day "trust this device" option, and the
+ * RESTRICTIVE RLS policies that make this enforceable server-side.
  */
 type Phase = 'loading' | 'enroll' | 'challenge' | 'unavailable';
+type Method = 'totp' | 'email';
 
 const AdminMfa = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [phase, setPhase] = useState<Phase>('loading');
+  const [method, setMethod] = useState<Method>('totp');
   const [factorId, setFactorId] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [secret, setSecret] = useState<string | null>(null);
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
+  const [maskedEmail, setMaskedEmail] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -94,24 +108,14 @@ const AdminMfa = () => {
     })();
   }, [navigate, toast]);
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!factorId) return;
-    setBusy(true);
-    const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code });
-    if (error) {
-      setBusy(false);
-      setCode('');
-      // One message for every failure mode — a wrong code, an expired code and
-      // a stale challenge must not be distinguishable.
-      toast({
-        title: 'Koden stemmer ikke',
-        description: 'Sjekk appen og prøv igjen.',
-        variant: 'destructive',
-      });
-      return;
-    }
+  // Resend countdown.
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((n) => n - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
 
+  const finish = async () => {
     // Verification only counts if the server agrees it is currently valid.
     const verified = await hasCurrentEditorMfa();
     setBusy(false);
@@ -127,17 +131,88 @@ const AdminMfa = () => {
     navigate('/admin/innsendinger', { replace: true });
   };
 
+  const sendCode = async () => {
+    setSending(true);
+    const result = await sendEditorEmailCode();
+    setSending(false);
+    if (!result.ok) {
+      setCooldown(result.reason === 'cooldown' ? (result.retryAfter ?? 60) : 0);
+      toast({
+        title:
+          result.reason === 'cooldown' || result.reason === 'rate_limited'
+            ? 'Vent litt før du prøver igjen'
+            : 'Vi fikk ikke sendt koden',
+        description:
+          result.reason === 'rate_limited'
+            ? 'Du har bedt om for mange koder. Prøv igjen om en stund.'
+            : result.reason === 'cooldown'
+              ? 'Vi har nettopp sendt deg en kode.'
+              : 'Prøv autentiseringsapp i stedet, eller forsøk igjen senere.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    setMaskedEmail(result.maskedEmail ?? '');
+    setCooldown(result.cooldownSeconds ?? 60);
+    setCode('');
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+
+    if (method === 'email') {
+      const ok = await verifyEditorEmailCode(code);
+      if (!ok) {
+        setBusy(false);
+        setCode('');
+        toast({
+          title: 'Koden stemmer ikke',
+          description: 'Sjekk e-posten og prøv igjen.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      await finish();
+      return;
+    }
+
+    if (!factorId) {
+      setBusy(false);
+      return;
+    }
+    const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId, code });
+    if (error) {
+      setBusy(false);
+      setCode('');
+      // One message for every failure mode — a wrong code, an expired code and
+      // a stale challenge must not be distinguishable.
+      toast({
+        title: 'Koden stemmer ikke',
+        description: 'Sjekk appen og prøv igjen.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    await finish();
+  };
+
+  const switchMethod = (next: Method) => {
+    setMethod(next);
+    setCode('');
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate('/admin/login', { replace: true });
   };
 
+  const showCodeForm = method === 'totp' || maskedEmail !== null;
+
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm bg-card border border-border rounded-xl p-8 shadow-sm">
-        {phase === 'loading' && (
-          <p className="text-sm text-muted-foreground">Laster …</p>
-        )}
+        {phase === 'loading' && <p className="text-sm text-muted-foreground">Laster …</p>}
 
         {phase === 'unavailable' && (
           <>
@@ -157,10 +232,14 @@ const AdminMfa = () => {
         {phase !== 'loading' && phase !== 'unavailable' && (
           <>
             <h1 className="font-display text-2xl font-semibold mb-1 text-foreground">
-              {phase === 'enroll' ? 'Sett opp to-trinns innlogging' : 'Bekreft at det er deg'}
+              {method === 'email'
+                ? 'Få kode på e-post'
+                : phase === 'enroll'
+                  ? 'Sett opp to-trinns innlogging'
+                  : 'Bekreft at det er deg'}
             </h1>
 
-            {phase === 'enroll' ? (
+            {method === 'totp' && phase === 'enroll' && (
               <>
                 <p className="text-sm text-muted-foreground mb-6">
                   Skann QR-koden med en autentiseringsapp, for eksempel Google Authenticator
@@ -184,36 +263,87 @@ const AdminMfa = () => {
                   </div>
                 )}
               </>
-            ) : (
+            )}
+
+            {method === 'totp' && phase === 'challenge' && (
               <p className="text-sm text-muted-foreground mb-6">
                 Åpne autentiseringsappen din og skriv inn den sekssifrede koden.
               </p>
             )}
 
-            <form onSubmit={submit} className="space-y-4">
-              <div>
-                <Label className="mb-1.5 block text-sm" htmlFor="mfa-code">
-                  Sekssifret kode
-                </Label>
-                <Input
-                  id="mfa-code"
-                  name="code"
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  pattern="[0-9]{6}"
-                  maxLength={6}
-                  required
-                  value={code}
-                  onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-                />
-              </div>
-              <Button type="submit" disabled={busy || code.length !== 6} className="w-full">
-                {busy ? 'Sjekker …' : 'Bekreft'}
-              </Button>
-            </form>
+            {method === 'email' && (
+              <p className="text-sm text-muted-foreground mb-6">
+                {maskedEmail
+                  ? `Vi har sendt en kode til ${maskedEmail}. Den er gyldig i fem minutter.`
+                  : 'Vi sender en sekssifret kode til e-postadressen som er registrert på kontoen din.'}
+              </p>
+            )}
 
-            {phase === 'enroll' && (
+            {method === 'email' && !maskedEmail && (
+              <Button onClick={sendCode} disabled={sending} className="w-full">
+                {sending ? 'Sender …' : 'Send kode'}
+              </Button>
+            )}
+
+            {showCodeForm && (
+              <form onSubmit={submit} className="space-y-4">
+                <div>
+                  <Label className="mb-1.5 block text-sm" htmlFor="mfa-code">
+                    Sekssifret kode
+                  </Label>
+                  <Input
+                    id="mfa-code"
+                    name="code"
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxLength={6}
+                    required
+                    value={code}
+                    onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+                  />
+                </div>
+                <Button type="submit" disabled={busy || code.length !== 6} className="w-full">
+                  {busy ? 'Sjekker …' : 'Bekreft'}
+                </Button>
+              </form>
+            )}
+
+            {method === 'email' && maskedEmail && (
+              <p className="text-xs text-muted-foreground mt-4">
+                <button
+                  type="button"
+                  onClick={sendCode}
+                  disabled={sending || cooldown > 0}
+                  className="underline underline-offset-2 hover:text-foreground disabled:no-underline disabled:opacity-60"
+                >
+                  {cooldown > 0 ? `Send ny kode om ${cooldown} s` : 'Send ny kode'}
+                </button>
+              </p>
+            )}
+
+            <p className="text-xs text-muted-foreground mt-4">
+              {method === 'totp' ? (
+                <button
+                  type="button"
+                  onClick={() => switchMethod('email')}
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  Send kode på e-post i stedet
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => switchMethod('totp')}
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  Bruk autentiseringsapp i stedet
+                </button>
+              )}
+            </p>
+
+            {method === 'totp' && phase === 'enroll' && (
               <p className="text-xs text-muted-foreground mt-4">
                 Mister du appen, må den som administrerer bjorli.no nullstille to-trinns
                 innloggingen for deg.
