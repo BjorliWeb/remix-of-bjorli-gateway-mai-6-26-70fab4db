@@ -346,6 +346,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      verify_editor_email_code: {
+        Args: { _code: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

@@ -2,22 +2,30 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-const { authMock, mfaMock, fromMock, rpcMock, toastMock, navigateMock } = vi.hoisted(() => ({
-  authMock: { getSession: vi.fn(), signOut: vi.fn() },
-  mfaMock: {
-    listFactors: vi.fn(),
-    enroll: vi.fn(),
-    unenroll: vi.fn(),
-    challengeAndVerify: vi.fn(),
-  },
-  fromMock: vi.fn(),
-  rpcMock: vi.fn(),
-  toastMock: vi.fn(),
-  navigateMock: vi.fn(),
-}));
+const { authMock, mfaMock, fromMock, rpcMock, invokeMock, toastMock, navigateMock } = vi.hoisted(
+  () => ({
+    authMock: { getSession: vi.fn(), signOut: vi.fn() },
+    mfaMock: {
+      listFactors: vi.fn(),
+      enroll: vi.fn(),
+      unenroll: vi.fn(),
+      challengeAndVerify: vi.fn(),
+    },
+    fromMock: vi.fn(),
+    rpcMock: vi.fn(),
+    invokeMock: vi.fn(),
+    toastMock: vi.fn(),
+    navigateMock: vi.fn(),
+  }),
+);
 
 vi.mock('@/integrations/supabase/client', () => ({
-  supabase: { auth: { ...authMock, mfa: mfaMock }, from: fromMock, rpc: rpcMock },
+  supabase: {
+    auth: { ...authMock, mfa: mfaMock },
+    from: fromMock,
+    rpc: rpcMock,
+    functions: { invoke: invokeMock },
+  },
 }));
 vi.mock('@/hooks/use-toast', () => ({ useToast: () => ({ toast: toastMock }) }));
 vi.mock('react-router-dom', async () => ({
@@ -47,6 +55,10 @@ beforeEach(() => {
   authMock.getSession.mockResolvedValue(session);
   authMock.signOut.mockResolvedValue({ error: null });
   rpcMock.mockResolvedValue({ data: false, error: null });
+  invokeMock.mockResolvedValue({
+    data: { masked_email: 'ma***@bjorli.no', cooldown_seconds: 60 },
+    error: null,
+  });
   mfaMock.listFactors.mockResolvedValue({ data: { all: [] }, error: null });
   mfaMock.unenroll.mockResolvedValue({ data: {}, error: null });
   mfaMock.enroll.mockResolvedValue({
@@ -191,5 +203,89 @@ describe('challenge', () => {
     fireEvent.change(input, { target: { value: '12a3' } });
     expect(input).toHaveValue('123');
     expect(screen.getByRole('button', { name: 'Bekreft' })).toBeDisabled();
+  });
+});
+
+describe('email code as an alternative factor', () => {
+  beforeEach(() => {
+    mfaMock.listFactors.mockResolvedValue({
+      data: { all: [{ id: 'f1', factor_type: 'totp', status: 'verified' }] },
+      error: null,
+    });
+  });
+
+  const switchToEmail = async () => {
+    renderPage();
+    await screen.findByText('Bekreft at det er deg');
+    fireEvent.click(screen.getByRole('button', { name: 'Send kode på e-post i stedet' }));
+  };
+
+  it('does not send anything until the editor asks for it', async () => {
+    await switchToEmail();
+    expect(invokeMock).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Send kode' })).toBeInTheDocument();
+  });
+
+  it('sends the code and shows only a masked address', async () => {
+    await switchToEmail();
+    fireEvent.click(screen.getByRole('button', { name: 'Send kode' }));
+    await waitFor(() => expect(invokeMock).toHaveBeenCalledWith('mfa-email-send', { body: {} }));
+    expect(await screen.findByText(/ma\*\*\*@bjorli\.no/)).toBeInTheDocument();
+  });
+
+  it('verifies through the database function, not the TOTP path', async () => {
+    rpcMock.mockImplementation((fn: string) =>
+      Promise.resolve({ data: fn === 'verify_editor_email_code', error: null }),
+    );
+    await switchToEmail();
+    fireEvent.click(screen.getByRole('button', { name: 'Send kode' }));
+    await screen.findByText(/ma\*\*\*@bjorli\.no/);
+
+    fireEvent.change(screen.getByLabelText('Sekssifret kode'), { target: { value: '123456' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Bekreft' }));
+
+    await waitFor(() =>
+      expect(rpcMock).toHaveBeenCalledWith('verify_editor_email_code', { _code: '123456' }),
+    );
+    expect(mfaMock.challengeAndVerify).not.toHaveBeenCalled();
+  });
+
+  it('shows one generic message for a bad email code', async () => {
+    rpcMock.mockResolvedValue({ data: false, error: null });
+    await switchToEmail();
+    fireEvent.click(screen.getByRole('button', { name: 'Send kode' }));
+    await screen.findByText(/ma\*\*\*@bjorli\.no/);
+
+    fireEvent.change(screen.getByLabelText('Sekssifret kode'), { target: { value: '000000' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Bekreft' }));
+
+    await waitFor(() =>
+      expect(toastMock).toHaveBeenCalledWith(
+        expect.objectContaining({ title: 'Koden stemmer ikke' }),
+      ),
+    );
+    expect(navigateMock).not.toHaveBeenCalledWith('/admin/innsendinger', { replace: true });
+  });
+
+  it('reports a rate limit without pretending the code was sent', async () => {
+    invokeMock.mockResolvedValue({
+      data: null,
+      error: { context: { json: async () => ({ error: 'rate_limited' }) } },
+    });
+    await switchToEmail();
+    fireEvent.click(screen.getByRole('button', { name: 'Send kode' }));
+
+    await waitFor(() =>
+      expect(toastMock).toHaveBeenCalledWith(
+        expect.objectContaining({ title: 'Vent litt før du prøver igjen' }),
+      ),
+    );
+    expect(screen.queryByText(/ma\*\*\*@bjorli\.no/)).not.toBeInTheDocument();
+  });
+
+  it('can switch back to the authenticator app', async () => {
+    await switchToEmail();
+    fireEvent.click(screen.getByRole('button', { name: 'Bruk autentiseringsapp i stedet' }));
+    expect(await screen.findByText('Bekreft at det er deg')).toBeInTheDocument();
   });
 });
