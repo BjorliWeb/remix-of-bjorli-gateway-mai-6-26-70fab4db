@@ -2,19 +2,21 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
-const { authMock, fromMock, toastMock } = vi.hoisted(() => ({
+const { authMock, mfaMock, rpcMock, fromMock, toastMock } = vi.hoisted(() => ({
   authMock: {
     getSession: vi.fn(),
     signInWithPassword: vi.fn(),
     resetPasswordForEmail: vi.fn(),
     signOut: vi.fn(),
   },
+  mfaMock: {},
+  rpcMock: vi.fn(),
   fromMock: vi.fn(),
   toastMock: vi.fn(),
 }));
 
 vi.mock('@/integrations/supabase/client', () => ({
-  supabase: { auth: authMock, from: fromMock },
+  supabase: { auth: { ...authMock, mfa: mfaMock }, from: fromMock, rpc: rpcMock },
 }));
 vi.mock('@/hooks/use-toast', () => ({ useToast: () => ({ toast: toastMock }) }));
 
@@ -33,6 +35,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   authMock.getSession.mockResolvedValue({ data: { session: null } });
   authMock.resetPasswordForEmail.mockResolvedValue({ data: {}, error: null });
+  rpcMock.mockResolvedValue({ data: false, error: null });
 });
 
 describe('login page', () => {

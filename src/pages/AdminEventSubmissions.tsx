@@ -12,6 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
 import { canAccessEditor } from '@/lib/auth/roles';
+import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
 
 type Status = 'pending' | 'approved' | 'rejected';
 
@@ -98,7 +99,15 @@ const AdminEventSubmissions = () => {
         .from('user_roles')
         .select('role')
         .eq('user_id', data.session.user.id);
-      setCanEdit(canAccessEditor(roleRows?.map((r) => r.role)));
+      const editor = canAccessEditor(roleRows?.map((r) => r.role));
+      // Editors must also have a currently-valid second factor. The server
+      // answers this, so an old aal2 session cannot walk past the 30-day or
+      // role-change floors.
+      if (editor && !(await hasCurrentEditorMfa())) {
+        navigate('/admin/mfa', { replace: true });
+        return;
+      }
+      setCanEdit(editor);
       setAuthChecked(true);
     })();
   }, [navigate]);

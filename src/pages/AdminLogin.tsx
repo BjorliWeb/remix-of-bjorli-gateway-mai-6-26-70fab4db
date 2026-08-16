@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { canAccessEditor } from '@/lib/auth/roles';
+import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
 
 /**
  * Where the recovery email sends the user back to. Must be allow-listed as a
@@ -48,12 +49,20 @@ const AdminLogin = () => {
     return true;
   };
 
+  // Editors must clear a second factor before the editor opens. The server
+  // decides whether that is still valid — see hasCurrentEditorMfa(), which
+  // also enforces the 30-day and role-change floors that aal2 alone misses.
+  const continueAfterPassword = async () => {
+    const verified = await hasCurrentEditorMfa();
+    navigate(verified ? '/admin/innsendinger' : '/admin/mfa', { replace: true });
+  };
+
   useEffect(() => {
     (async () => {
       const { data } = await supabase.auth.getSession();
       if (!data.session) return;
       const ok = await ensureEditorOrSignOut(data.session.user.id);
-      if (ok) navigate('/admin/innsendinger', { replace: true });
+      if (ok) await continueAfterPassword();
     })();
   }, [navigate]);
 
@@ -72,7 +81,7 @@ const AdminLogin = () => {
     }
     const ok = await ensureEditorOrSignOut(data.user.id);
     if (!ok) return;
-    navigate('/admin/innsendinger', { replace: true });
+    await continueAfterPassword();
   };
 
   const submitReset = async (e: React.FormEvent) => {

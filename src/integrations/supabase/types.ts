@@ -335,6 +335,10 @@ export type Database = {
         Args: { _path: string }
         Returns: boolean
       }
+      has_current_editor_mfa: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
