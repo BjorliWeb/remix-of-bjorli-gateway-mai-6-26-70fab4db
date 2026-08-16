@@ -55,6 +55,7 @@ import SubmitEvent from "./pages/SubmitEvent";
 import AdminLogin from "./pages/AdminLogin";
 import AdminResetPassword from "./pages/AdminResetPassword";
 import AdminEventSubmissions from "./pages/AdminEventSubmissions";
+import AdminMfa from "./pages/AdminMfa";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
 import { DEFAULT_SEASON } from "@/lib/season";
@@ -213,6 +214,8 @@ const AppRoutes = () => (
     <Route path="/admin/login" element={<AdminLogin />} />
     {/* Password recovery landing — no editor authorization, no editor content */}
     <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+    {/* Two-step verification — reached only after a password sign-in */}
+    <Route path="/admin/mfa" element={<AdminMfa />} />
     <Route path="/admin/innsendinger" element={<AdminEventSubmissions />} />
     {/* Localized aliases — same components, translated slugs. */}
     {aliasRoute('sommer', <Sommer />)}
