@@ -89,6 +89,84 @@ export type Database = {
         }
         Relationships: []
       }
+      editor_mfa_email_codes: {
+        Row: {
+          attempts: number
+          code_hmac: string
+          consumed_at: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          code_hmac: string
+          consumed_at?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          code_hmac?: string
+          consumed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      editor_mfa_verifications: {
+        Row: {
+          expires_at: string
+          id: string
+          method: string
+          revoked_at: string | null
+          session_id: string
+          user_id: string
+          verified_at: string
+        }
+        Insert: {
+          expires_at: string
+          id?: string
+          method: string
+          revoked_at?: string | null
+          session_id: string
+          user_id: string
+          verified_at?: string
+        }
+        Update: {
+          expires_at?: string
+          id?: string
+          method?: string
+          revoked_at?: string | null
+          session_id?: string
+          user_id?: string
+          verified_at?: string
+        }
+        Relationships: []
+      }
+      editor_privilege_state: {
+        Row: {
+          roles_changed_at: string
+          user_id: string
+        }
+        Insert: {
+          roles_changed_at?: string
+          user_id: string
+        }
+        Update: {
+          roles_changed_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       event_submissions: {
         Row: {
           ai_polished_description: string | null
@@ -308,6 +386,42 @@ export type Database = {
         }
         Relationships: []
       }
+      trusted_devices: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          issued_method: string
+          last_used_at: string | null
+          revoked_at: string | null
+          token_sha256: string
+          ua_digest: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          issued_method: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          token_sha256: string
+          ua_digest?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          issued_method?: string
+          last_used_at?: string | null
+          revoked_at?: string | null
+          token_sha256?: string
+          ua_digest?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
@@ -331,14 +445,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      editor_mfa_pepper: { Args: never; Returns: string }
       event_submission_path_declared: {
         Args: { _path: string }
         Returns: boolean
       }
-      has_current_editor_mfa: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      has_current_editor_mfa: { Args: never; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -346,6 +458,11 @@ export type Database = {
         }
         Returns: boolean
       }
+      issue_editor_email_code_for_delivery: {
+        Args: { _session_id: string; _user_id: string }
+        Returns: Json
+      }
+      verify_editor_email_code: { Args: { _code: string }; Returns: boolean }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
