@@ -35,38 +35,39 @@ type RouteSeoMap = Partial<Record<CanonicalRoute, Record<Locale, RouteSeoEntry>>
 export const ROUTE_SEO: RouteSeoMap = {
   home: {
     no: {
-      // Summer-first while DEFAULT_SEASON === 'summer' (src/lib/season.ts).
-      // Restore the winter-leaning copy when switching back in mid-September.
-      title: 'Bjorli – sommer, vinter og fjellopplevelser',
+      // Winter-first while DEFAULT_SEASON === 'winter' (src/lib/season.ts).
+      // Summer-leaning copy is kept in git history for the spring switch.
+      title: 'Bjorli – snøsikkert skisenter og fjellferie hele året',
       description:
-        'Opplev Bjorli øverst i Gudbrandsdalen, ved grensen til Romsdalen. Finn alpint, langrenn, fotturer, sykling, fiske, overnatting og arrangementer.',
+        'Bjorli ligger øverst i Gudbrandsdalen, ved grensen til Romsdalen. Se alpint, langrenn, heiskort, åpningstider, vær og webkamera, overnatting og arrangementer.',
     },
     en: {
-      title: 'Bjorli – summer, winter and mountain experiences',
+      title: 'Bjorli – snow-sure ski resort and year-round mountain holidays',
       description:
-        'Bjorli lies in the upper part of Gudbrandsdalen, right by the Romsdalen border. Skiing, hiking, cycling, fishing, places to stay and events all year.',
+        'Bjorli lies in the upper part of Gudbrandsdalen, right by the Romsdalen border. Alpine and cross-country skiing, lift passes, opening hours, weather, webcams and places to stay.',
     },
     de: {
-      title: 'Bjorli – Sommer, Winter und Bergerlebnisse',
+      title: 'Bjorli – schneesicheres Skigebiet und Bergurlaub das ganze Jahr',
       description:
-        'Bjorli liegt im oberen Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Ski, Langlauf, Wandern, Radfahren, Angeln, Unterkünfte und Veranstaltungen.',
+        'Bjorli liegt im oberen Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Alpinski, Langlauf, Skipässe, Öffnungszeiten, Wetter, Webcams und Unterkünfte.',
     },
     nl: {
-      title: 'Bjorli – zomer, winter en bergbelevingen',
+      title: 'Bjorli – sneeuwzeker skigebied en bergvakantie het hele jaar',
       description:
-        'Bjorli ligt boven in Gudbrandsdalen, direct aan de grens met Romsdalen. Skiën, langlaufen, wandelen, fietsen, vissen, overnachten en evenementen.',
+        'Bjorli ligt boven in Gudbrandsdalen, direct aan de grens met Romsdalen. Alpineskiën, langlaufen, skipassen, openingstijden, weer, webcams en overnachten.',
     },
     da: {
-      title: 'Bjorli – sommer, vinter og fjeldoplevelser',
+      title: 'Bjorli – snesikkert skisted og fjeldferie hele året',
       description:
-        'Oplev Bjorli øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Find alpint, langrend, vandreture, cykling, fiskeri, overnatning og arrangementer.',
+        'Bjorli ligger øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Se alpint, langrend, liftkort, åbningstider, vejr og webcam, overnatning og arrangementer.',
     },
     sv: {
-      title: 'Bjorli – sommar, vinter och fjällupplevelser',
+      title: 'Bjorli – snösäker skidanläggning och fjällsemester året om',
       description:
-        'Upplev Bjorli högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Alpint, längdåkning, vandring, cykling, fiske, boende och evenemang.',
+        'Bjorli ligger högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Alpint, längdåkning, liftkort, öppettider, väder och webbkamera, boende och evenemang.',
     },
   },
+
 
   vinter: {
     no: { title: 'Vinter på Bjorli – alpint, langrenn og snøsikre dager', description: 'Planlegg vinterferien på Bjorli med alpint, langrenn, skiskole og skiutleie. Se heiskort, åpningstider, vær, webkamera, aktiviteter og overnatting.' },
