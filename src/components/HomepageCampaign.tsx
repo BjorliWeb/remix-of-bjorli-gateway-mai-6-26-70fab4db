@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { Ticket } from 'lucide-react';
+import { Globe, Ticket } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { trackSkiPassClick } from '@/lib/analytics';
