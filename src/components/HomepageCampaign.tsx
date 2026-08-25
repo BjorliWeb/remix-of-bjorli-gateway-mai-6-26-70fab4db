@@ -71,12 +71,13 @@ const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
               {copy.headline}
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">{copy.body}</p>
-            <p className="border-l-4 border-season-deep bg-season-deep/10 px-4 py-3 text-base font-semibold leading-relaxed text-foreground">
-              {copy.onlineOnly}
+            <p className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+              <Globe className="mt-0.5 h-4 w-4 shrink-0 text-season-deep" aria-hidden />
+              <span>{copy.onlineOnly}</span>
             </p>
             <p className="text-base font-medium text-foreground">{copy.supportingLine}</p>
 
-            {showCta && (
+            {showCta ? (
               <div className="pt-2">
                 <a
                   href={active.ctaHref}
@@ -97,6 +98,8 @@ const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
                   </Button>
                 </a>
               </div>
+            ) : (
+              <p className="pt-1 text-sm font-medium text-season-deep">{copy.preCtaNote}</p>
             )}
           </div>
         </div>
