@@ -1,5 +1,5 @@
 import type { Language } from './types';
-import portraitAsset from '@/assets/early-bird-portrait.jpg.asset.json';
+import earlyBirdPortrait from '@/assets/photos/01_winter_ski_resort/bjorli-early-bird-2026-portrait.jpg';
 
 /**
  * Reusable homepage campaign configuration.
@@ -37,6 +37,7 @@ export interface CampaignCopy {
   headline: string;
   period: string;
   body: string;
+  onlineOnly: string;
   supportingLine: string;
   /** Shown only once `ctaFromDate` has passed. */
   ctaLabel: string;
@@ -73,18 +74,18 @@ export const EARLY_BIRD_2026: Campaign = {
   ctaFromDate: '2026-09-04',
   ctaHref: SKIPERFORMANCE_SHOP,
   image: {
-    // earlybird2 portrait is used on all breakpoints (web, tablet, mobile).
-    wide: { url: portraitAsset.url, width: 1350, height: 1688 },
-    portrait: { url: portraitAsset.url, width: 1350, height: 1688 },
+    // The same repository-hosted earlybird2 artwork is used at every breakpoint.
+    wide: { url: earlyBirdPortrait, width: 1350, height: 1688 },
+    portrait: { url: earlyBirdPortrait, width: 1350, height: 1688 },
     focalDesktop: '50% 45%',
     focalMobile: '50% 60%',
     alt: {
-      no: 'Skikjører i oransje dress svinger nedover en preparert bakke på Bjorli, med kampanjeteksten Early Bird 4.–20. september.',
-      en: 'A skier in an orange suit carving down a groomed slope at Bjorli, with the Early Bird 4–20 September campaign text.',
-      de: 'Skifahrer im orangefarbenen Anzug auf einer präparierten Piste in Bjorli, mit dem Kampagnentext Early Bird 4.–20. September.',
-      nl: 'Een skiër in een oranje pak op een geprepareerde piste in Bjorli, met de campagnetekst Early Bird 4–20 september.',
-      da: 'Skiløber i orange dragt på en præpareret bakke på Bjorli, med kampagneteksten Early Bird 4.–20. september.',
-      sv: 'Skidåkare i orange dress i en preparerad backe på Bjorli, med kampanjtexten Early Bird 4–20 september.',
+      no: 'Early Bird på Bjorli 4.–20. september, med skigjester og ansatte i bakken.',
+      en: 'Early Bird at Bjorli, 4–20 September, with skiers and staff in the ski area.',
+      de: 'Early Bird in Bjorli vom 4. bis 20. September, mit Skigästen und Mitarbeitenden im Skigebiet.',
+      nl: 'Early Bird in Bjorli van 4 tot 20 september, met skigasten en medewerkers in het skigebied.',
+      da: 'Early Bird på Bjorli 4.–20. september med skigæster og medarbejdere i skiområdet.',
+      sv: 'Early Bird på Bjorli 4–20 september, med skidgäster och personal i skidområdet.',
     },
   },
   copy: {
@@ -93,6 +94,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'Sesongens beste pris nærmer seg',
       period: '4.–20. september 2026',
       body: 'Fra 4.–20. september får du sesongens beste priser på sesongkort på Bjorli. Vet du allerede nå at du skal stå på ski hos oss i vinter, er dette tidspunktet å sikre seg sesongkortet før prisene går opp.',
+      onlineOnly: 'Early Bird er kun tilgjengelig ved online kjøp på bjorli.no.',
       supportingLine: 'Er du klar for en ny vinter?',
       ctaLabel: 'Kjøp sesongkort',
     },
@@ -101,6 +103,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'The best price of the season is almost here',
       period: '4–20 September 2026',
       body: 'Between 4 and 20 September the season passes for Bjorli go on sale at their lowest price of the year. If you already know you will be skiing with us this winter, this is the window to sort it out before prices go up.',
+      onlineOnly: 'Early Bird is available exclusively online at bjorli.no.',
       supportingLine: 'Ready for another winter?',
       ctaLabel: 'Buy your season pass',
     },
@@ -109,6 +112,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'Der beste Preis der Saison steht bevor',
       period: '4.–20. September 2026',
       body: 'Vom 4. bis 20. September gibt es die Saisonkarten für Bjorli zum günstigsten Preis des Jahres. Wenn Sie jetzt schon wissen, dass Sie diesen Winter bei uns Ski fahren, sollten Sie sich die Karte sichern, bevor die Preise steigen.',
+      onlineOnly: 'Early Bird ist ausschließlich online auf bjorli.no erhältlich.',
       supportingLine: 'Bereit für einen neuen Winter?',
       ctaLabel: 'Saisonkarte kaufen',
     },
@@ -117,6 +121,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'De beste prijs van het seizoen komt eraan',
       period: '4–20 september 2026',
       body: 'Van 4 tot en met 20 september koop je het seizoenskaart voor Bjorli tegen de laagste prijs van het jaar. Weet je nu al dat je deze winter bij ons skiet? Dan is dit hét moment, voordat de prijzen omhooggaan.',
+      onlineOnly: 'Early Bird is uitsluitend online verkrijgbaar via bjorli.no.',
       supportingLine: 'Klaar voor een nieuwe winter?',
       ctaLabel: 'Koop je seizoenskaart',
     },
@@ -125,6 +130,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'Sæsonens bedste pris nærmer sig',
       period: '4.–20. september 2026',
       body: 'Fra 4. til 20. september får du sæsonkortet til Bjorli til årets bedste pris. Ved du allerede nu, at du skal stå på ski hos os i vinter, er det nu, du skal sikre dig kortet – inden priserne stiger.',
+      onlineOnly: 'Early Bird kan kun købes online på bjorli.no.',
       supportingLine: 'Er du klar til en ny vinter?',
       ctaLabel: 'Køb sæsonkort',
     },
@@ -133,6 +139,7 @@ export const EARLY_BIRD_2026: Campaign = {
       headline: 'Säsongens bästa pris närmar sig',
       period: '4–20 september 2026',
       body: 'Mellan 4 och 20 september får du säsongskortet på Bjorli till årets bästa pris. Vet du redan nu att du ska åka skidor hos oss i vinter är det här läget att fixa kortet innan priserna går upp.',
+      onlineOnly: 'Early Bird kan endast köpas online på bjorli.no.',
       supportingLine: 'Redo för en ny vinter?',
       ctaLabel: 'Köp säsongskort',
     },
