@@ -58,7 +58,7 @@ export const isSummerRoute = (pathname: string): boolean => {
   const first = path.split('/').filter(Boolean)[0];
   // Root / locale-root URL: defer to DEFAULT_SEASON so the homepage theme
   // matches whichever homepage component is rendered at "/".
-  if (!first) return DEFAULT_SEASON === 'summer';
+  if (!first) return (DEFAULT_SEASON as Season) === 'summer';
   return SUMMER_SLUGS.has(first);
 };
 
