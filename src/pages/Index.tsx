@@ -6,6 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
+import HomepageCampaign from '@/components/HomepageCampaign';
 import { trackSkiPassClick } from '@/lib/analytics';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
@@ -135,6 +136,8 @@ const Index = () => {
         </div>
 
       </section>
+
+      <HomepageCampaign />
 
       {home.sections && <HomepageSections sections={home.sections} />}
     </div>
