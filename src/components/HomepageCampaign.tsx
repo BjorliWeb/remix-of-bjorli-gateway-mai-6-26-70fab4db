@@ -50,14 +50,14 @@ const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
         className="mx-auto max-w-6xl overflow-hidden rounded-[24px] bg-season-surface/40 ring-1 ring-season-deep/10 shadow-[0_24px_60px_-40px_hsl(var(--season-deep)/0.5)]"
       >
         <div className="grid md:grid-cols-2">
-          {/* Campaign artwork — portrait on mobile, wide on desktop. */}
+          {/* Campaign artwork — earlybird2 portrait used on all breakpoints. */}
           <div className="relative">
             <picture>
               <source
                 media="(min-width: 768px)"
-                srcSet={active.image.wide.url}
-                width={active.image.wide.width}
-                height={active.image.wide.height}
+                srcSet={active.image.portrait.url}
+                width={active.image.portrait.width}
+                height={active.image.portrait.height}
               />
               <img
                 src={active.image.portrait.url}

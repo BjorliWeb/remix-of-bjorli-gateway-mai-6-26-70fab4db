@@ -1,5 +1,4 @@
 import type { Language } from './types';
-import wideAsset from '@/assets/early-bird-wide.jpg.asset.json';
 import portraitAsset from '@/assets/early-bird-portrait.jpg.asset.json';
 
 /**
@@ -74,7 +73,8 @@ export const EARLY_BIRD_2026: Campaign = {
   ctaFromDate: '2026-09-04',
   ctaHref: SKIPERFORMANCE_SHOP,
   image: {
-    wide: { url: wideAsset.url, width: 1858, height: 624 },
+    // earlybird2 portrait is used on all breakpoints (web, tablet, mobile).
+    wide: { url: portraitAsset.url, width: 1350, height: 1688 },
     portrait: { url: portraitAsset.url, width: 1350, height: 1688 },
     focalDesktop: '50% 45%',
     focalMobile: '50% 60%',
