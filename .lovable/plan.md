@@ -47,7 +47,15 @@ Rendered from `src/pages/Index.tsx` between the hero and `HomepageSections`.
 
 ## Campaign image
 
-You are uploading the winter photo. I will register it through the project's asset pipeline, serve it as optimized WebP/AVIF with a fallback, and write descriptive Norwegian alt text based on what is actually visible in it. If the upload does not arrive, I will pause and ask rather than substitute another photo.
+You uploaded two finished Early Bird banners, both with baked-in text ("EARLY BIRD", "4. – 20. SEPTEMBER"):
+
+- `earlybird1.jpeg` — wide landscape banner (skier in orange, groomed slope). Used for desktop/tablet.
+- `earlybird2.jpg` — tall portrait banner (lift queue, Bjorli logo). Used for mobile.
+
+Both are registered through the project's CDN asset pipeline (`.asset.json` pointers in `src/assets/`, no binaries added to the repo) and served with `<picture>` + explicit aspect ratios so there is no layout shift or horizontal scroll.
+
+Because the label and campaign period are already printed in the artwork, the component does **not** repeat them as overlay text on the image. The band shows the banner as the visual, with the headline, body, supporting line and (from 4 Sep) the CTA rendered in a text column beside it on desktop and below it on mobile — real text, so it stays readable, translatable and accessible. Norwegian alt text describes what each image actually shows.
+
 
 ## Explicitly unchanged
 
