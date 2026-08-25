@@ -20,7 +20,7 @@ export type Season = 'winter' | 'summer';
  * Winter-first from mid-September. Switch to "summer" again when Bjorli
  * moves back to summer-first positioning in spring.
  */
-export const DEFAULT_SEASON: Season = 'winter';
+export const DEFAULT_SEASON = 'winter' as Season;
 
 /**
  * Canonical routes that should render with the summer theme.
