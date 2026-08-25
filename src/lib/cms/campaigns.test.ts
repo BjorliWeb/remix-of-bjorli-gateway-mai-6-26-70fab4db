@@ -17,7 +17,7 @@ describe('early bird schedule', () => {
       'Early Bird på Bjorli 4.–20. september, med skigjester og ansatte i bakken.',
     );
     expect(c.copy.no.onlineOnly).toBe(
-      'Early Bird er kun tilgjengelig ved online kjøp på bjorli.no.',
+      'Early Bird er kun tilgjengelig for online kjøp på bjorli.no i perioden 4.–20. september.',
     );
   });
 });
