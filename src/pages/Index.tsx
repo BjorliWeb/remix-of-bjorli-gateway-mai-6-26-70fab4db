@@ -137,6 +137,8 @@ const Index = () => {
 
       </section>
 
+      <HomepageCampaign />
+
       {home.sections && <HomepageSections sections={home.sections} />}
     </div>
   );
