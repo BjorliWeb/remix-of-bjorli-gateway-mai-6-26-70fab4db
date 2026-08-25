@@ -17,10 +17,10 @@ export type Season = 'winter' | 'summer';
  *   - which homepage component is rendered at "/" (see src/App.tsx)
  *   - which theme/tokens are applied at "/" (see isSummerRoute below)
  *
- * TODO: Switch DEFAULT_SEASON back to "winter" around mid-September when
- * Bjorli should return to winter-first homepage positioning.
+ * Winter-first from mid-September. Switch to "summer" again when Bjorli
+ * moves back to summer-first positioning in spring.
  */
-export const DEFAULT_SEASON: Season = 'summer';
+export const DEFAULT_SEASON: Season = 'winter';
 
 /**
  * Canonical routes that should render with the summer theme.
