@@ -16,9 +16,8 @@ import {
  * renders nothing at all (no wrapper, no spacing) outside the campaign
  * window or when disabled, so the homepage layout is unaffected.
  *
- * The campaign artwork already carries the label and the campaign period
- * as baked-in typography, so those are not repeated as overlay text — the
- * editorial copy sits in a real text column next to the image.
+ * The campaign artwork already carries the label and campaign period as
+ * baked-in typography, so those details are not repeated in the HTML copy.
  */
 const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
   const { locale } = useLanguage();
@@ -49,47 +48,32 @@ const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
         {...reveal}
         className="mx-auto max-w-6xl overflow-hidden rounded-[24px] bg-season-surface/40 ring-1 ring-season-deep/10 shadow-[0_24px_60px_-40px_hsl(var(--season-deep)/0.5)]"
       >
-        <div className="grid md:grid-cols-2">
-          {/* Campaign artwork — earlybird2 portrait used on all breakpoints. */}
-          <div className="relative">
-            <picture>
-              <source
-                media="(min-width: 768px)"
-                srcSet={active.image.portrait.url}
-                width={active.image.portrait.width}
-                height={active.image.portrait.height}
-              />
-              <img
-                src={active.image.portrait.url}
-                width={active.image.portrait.width}
-                height={active.image.portrait.height}
-                alt={alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover aspect-[4/5] md:aspect-auto md:min-h-[380px]"
-                style={{ objectPosition: active.image.focalMobile }}
-              />
-            </picture>
-            {/* Subtle readability wash toward the text column, desktop only. */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 hidden md:block bg-gradient-to-r from-transparent to-season-deep/15"
+        <div className="grid md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          {/* Complete earlybird2 portrait artwork at every breakpoint. */}
+          <div className="flex items-center justify-center bg-season-deep/5">
+            <img
+              src={active.image.portrait.url}
+              width={active.image.portrait.width}
+              height={active.image.portrait.height}
+              alt={alt}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[1350/1688] h-auto w-full object-contain"
             />
           </div>
 
           {/* Editorial column */}
           <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 md:p-10">
-            <span className="inline-flex w-fit items-center rounded-full border border-season-deep/25 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-season-deep">
-              {copy.eyebrow}
-            </span>
             <h2
               id={`campaign-${active.id}-heading`}
               className="font-display text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-foreground"
             >
               {copy.headline}
             </h2>
-            <p className="text-sm font-medium tracking-wide text-season-deep">{copy.period}</p>
             <p className="text-base leading-relaxed text-muted-foreground">{copy.body}</p>
+            <p className="border-l-4 border-season-deep bg-season-deep/10 px-4 py-3 text-base font-semibold leading-relaxed text-foreground">
+              {copy.onlineOnly}
+            </p>
             <p className="text-base font-medium text-foreground">{copy.supportingLine}</p>
 
             {showCta && (
