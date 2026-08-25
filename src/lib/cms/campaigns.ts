@@ -1,5 +1,4 @@
 import type { Language } from './types';
-import wideAsset from '@/assets/early-bird-wide.jpg.asset.json';
 import portraitAsset from '@/assets/early-bird-portrait.jpg.asset.json';
 
 /**
