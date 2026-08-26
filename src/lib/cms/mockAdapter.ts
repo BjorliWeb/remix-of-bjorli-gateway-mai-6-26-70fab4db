@@ -309,23 +309,46 @@ const buildTips = (lang: Language): CmsTip[] => {
   }));
 };
 
+/**
+ * News entries.
+ *
+ * `status: 'unpublished'` keeps the source copy in the dictionaries but
+ * removes the story everywhere it is consumed — listing, homepage, related
+ * content, sitemap and prerender — and its URL falls back to a normal 404.
+ *
+ * A CTA is only rendered once `ctaFromDate` has passed; before that the
+ * `preCtaNote` line is appended to the body instead.
+ */
 const buildNews = (lang: Language): CmsNews[] => {
   const d = dict(lang);
-  return d.news.items.map((n, i) => ({
-    id: `news-${lang}-${i}`,
-    slug: slugify(n.title),
-    language: lang,
-    title: n.title,
-    intro: n.intro,
-    body: n.intro,
-    heroImage: { url: NEWS_IMAGES[i % NEWS_IMAGES.length], alt: n.title },
-    category: n.category,
-    season: 'all',
-    publishedAt: n.date,
-    updatedAt: n.date,
-    seoTitle: n.title,
-    seoDescription: n.intro,
-  }));
+  const now = Date.now();
+  return d.news.items
+    .map((n, i) => {
+      const ctaOpen = !n.ctaFromDate || now >= Date.parse(`${n.ctaFromDate}T00:00:00Z`);
+      const body = [n.body ?? n.intro, !ctaOpen && n.preCtaNote ? n.preCtaNote : null]
+        .filter(Boolean)
+        .join('\n\n');
+      return {
+        id: `news-${lang}-${i}`,
+        slug: n.slug ?? slugify(n.title),
+        language: lang,
+        title: n.title,
+        intro: n.intro,
+        body,
+        heroImage: { url: n.image ?? NEWS_IMAGES[i % NEWS_IMAGES.length], alt: n.title },
+        category: n.category,
+        season: 'all' as const,
+        publishedAt: n.date,
+        updatedAt: n.date,
+        seoTitle: n.seoTitle ?? n.title,
+        seoDescription: n.seoDescription ?? n.intro,
+        ...(ctaOpen && n.ctaLabel && n.ctaHref
+          ? { ctaLabel: n.ctaLabel, ctaHref: n.ctaHref }
+          : {}),
+        status: n.status ?? 'published',
+      };
+    })
+    .filter((n) => n.status === 'published');
 };
 
 const buildEvents = (lang: Language): CmsEvent[] => {
