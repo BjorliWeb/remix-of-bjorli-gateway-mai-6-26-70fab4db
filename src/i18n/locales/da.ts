@@ -173,9 +173,25 @@ const da: Dictionary = {
     subtitle: 'Praktiske opdateringer og nyheder fra destinationen.',
     cta: 'Se alle nyheder',
     items: [
-      { category: 'Liftkort', date: 'Sep', title: 'Sæsonkortsalget er åbnet', intro: 'Sikr dig sæsonkortet til reduceret pris før vinteren.' },
-      { category: 'Drift', date: 'Okt', title: 'Nye åbningstider', intro: 'Forlængede åbningstider i weekenderne hele sæsonen.' },
-      { category: 'Sne', date: 'Nov', title: 'Sneproduktion i gang', intro: 'Snekanonerne kører – vi gør klar til en snesikker sæson.' },
+      {
+        category: 'Liftkort',
+        date: 'Sep',
+        slug: 'saesonkortsalget-er-abnet',
+        title: 'Early Bird på sæsonkort 4.–20. september',
+        intro: 'Fra 4. til 20. september får du sæsonkortet til Bjorli til årets bedste pris. Early Bird kan i kampagneperioden kun købes online på bjorli.no.',
+        body: 'Early Bird nærmer sig.\n\nFra 4. til 20. september får du årets bedste priser på sæsonkort til Bjorli. Ved du allerede nu, at du skal stå på ski hos os i vinter, er det nu, du skal sikre dig kortet – inden priserne stiger.\n\nEarly Bird kan kun købes online på bjorli.no i perioden 4.–20. september. Salget findes ikke i billetlugen før eller uden for kampagneperioden.',
+        image: earlyBirdImg,
+        seoTitle: 'Early Bird på sæsonkort 4.–20. september | Bjorli',
+        seoDescription: 'Fra 4. til 20. september får du sæsonkortet til Bjorli til årets bedste pris. Early Bird købes kun online på bjorli.no.',
+        ctaLabel: 'Køb Early Bird online',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaFromDate: '2026-09-04',
+        preCtaNote: 'Kom tilbage den 4. september for at købe Early Bird online.',
+      },
+      // Afpubliceret indtil videre – kildeindholdet bevares.
+      { category: 'Drift', date: 'Okt', title: 'Nye åbningstider', intro: 'Forlængede åbningstider i weekenderne hele sæsonen.', status: 'unpublished' },
+      // Afpubliceret indtil videre – kildeindholdet bevares.
+      { category: 'Sne', date: 'Nov', title: 'Sneproduktion i gang', intro: 'Snekanonerne kører – vi gør klar til en snesikker sæson.', status: 'unpublished' },
       { category: 'Sommer', date: 'Maj', title: 'Sommerprogram lanceret', intro: 'Se hvad du kan opleve på Bjorli i sommermånederne.' },
     ],
   },
