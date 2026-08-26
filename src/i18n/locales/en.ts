@@ -192,7 +192,7 @@ const en: Dictionary = {
       { category: 'Operations', date: 'Oct', title: 'New opening hours', intro: 'Extended weekend hours throughout the season.', status: 'unpublished' },
       // Unpublished for now – source copy kept for later republishing.
       { category: 'Snow', date: 'Nov', title: 'Snowmaking under way', intro: 'The snow guns are running – we are preparing a snow-sure season.', status: 'unpublished' },
-      { category: 'Summer', date: 'May', title: 'Summer programme launched', intro: 'See what you can experience in Bjorli during the summer months.' },
+      { category: 'Summer', date: 'May', title: 'Summer programme launched', intro: 'See what you can experience in Bjorli during the summer months.', status: 'unpublished' },
     ],
   },
   faq: {

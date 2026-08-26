@@ -192,7 +192,7 @@ const nl: Dictionary = {
       { category: 'Beheer', date: 'Okt', title: 'Nieuwe openingstijden', intro: 'Verlengde weekendtijden gedurende het hele seizoen.', status: 'unpublished' },
       // Voorlopig gedepubliceerd – bronmateriaal blijft bewaard.
       { category: 'Sneeuw', date: 'Nov', title: 'Sneeuwproductie van start', intro: 'De sneeuwkanonnen draaien – we maken een sneeuwzeker seizoen klaar.', status: 'unpublished' },
-      { category: 'Zomer', date: 'Mei', title: 'Zomerprogramma gelanceerd', intro: 'Bekijk wat je in Bjorli in de zomermaanden kunt beleven.' },
+      { category: 'Zomer', date: 'Mei', title: 'Zomerprogramma gelanceerd', intro: 'Bekijk wat je in Bjorli in de zomermaanden kunt beleven.', status: 'unpublished' },
     ],
   },
   faq: {
