@@ -60,7 +60,8 @@ const ContentDetailPage = ({ kind }: Props) => {
     ? d.faq.items.slice(0, 3)
     : undefined;
 
-  const eventCta = kind === 'events'
+  // Events and news can carry an editorial CTA (booking / purchase flow).
+  const eventCta = kind === 'events' || kind === 'news'
     ? (fullEntry as { ctaLabel?: string; ctaHref?: string } | undefined)
     : undefined;
 

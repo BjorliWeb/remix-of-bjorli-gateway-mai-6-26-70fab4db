@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import earlyBirdImg from '@/assets/photos/01_winter_ski_resort/bjorli-early-bird-2026-portrait.jpg';
 import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const no: Dictionary = {
@@ -166,9 +167,25 @@ const no: Dictionary = {
     subtitle: 'Praktiske oppdateringer og nyheter fra destinasjonen.',
     cta: 'Se alle nyheter',
     items: [
-      { category: 'Heiskort', date: 'Sep', title: 'Sesongkortsalget er åpnet', intro: 'Sikre deg sesongkort til redusert pris før vinteren.' },
-      { category: 'Drift', date: 'Okt', title: 'Nye åpningstider', intro: 'Vi forlenger åpningstidene i helgene gjennom hele sesongen.' },
-      { category: 'Snø', date: 'Nov', title: 'Snøproduksjon i gang', intro: 'Snøkanonene er i full drift – vi gjør klar til en snøsikker sesong.' },
+      {
+        category: 'Heiskort',
+        date: 'Sep',
+        slug: 'sesongkortsalget-er-apnet',
+        title: 'Early Bird på sesongkort 4.–20. september',
+        intro: 'Fra 4.–20. september får du sesongens beste priser på sesongkort på Bjorli. Early Bird er kun tilgjengelig for online kjøp på bjorli.no i kampanjeperioden.',
+        body: 'Early Bird nærmer seg.\n\nFra 4.–20. september får du sesongens beste priser på sesongkort på Bjorli. Vet du allerede nå at du skal stå på ski hos oss i vinter, er dette tidspunktet å sikre seg sesongkortet før prisene går opp.\n\nEarly Bird kan kun kjøpes online på bjorli.no i perioden 4.–20. september. Salget er ikke tilgjengelig i billettluken før eller utenom kampanjeperioden.',
+        image: earlyBirdImg,
+        seoTitle: 'Early Bird på sesongkort 4.–20. september | Bjorli',
+        seoDescription: 'Fra 4.–20. september får du sesongens beste priser på sesongkort på Bjorli. Early Bird kjøpes kun online på bjorli.no.',
+        ctaLabel: 'Kjøp Early Bird online',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaFromDate: '2026-09-04',
+        preCtaNote: 'Kom tilbake 4. september for å kjøpe Early Bird online.',
+      },
+      // Avpublisert inntil videre – innholdet beholdes for republisering.
+      { category: 'Drift', date: 'Okt', title: 'Nye åpningstider', intro: 'Vi forlenger åpningstidene i helgene gjennom hele sesongen.', status: 'unpublished' },
+      // Avpublisert inntil videre – innholdet beholdes for republisering.
+      { category: 'Snø', date: 'Nov', title: 'Snøproduksjon i gang', intro: 'Snøkanonene er i full drift – vi gjør klar til en snøsikker sesong.', status: 'unpublished' },
       { category: 'Sommer', date: 'Mai', title: 'Sommerprogram lansert', intro: 'Se hva du kan oppleve på Bjorli i sommermånedene.' },
     ],
   },

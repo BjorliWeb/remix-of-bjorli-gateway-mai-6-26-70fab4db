@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import earlyBirdImg from '@/assets/photos/01_winter_ski_resort/bjorli-early-bird-2026-portrait.jpg';
 import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const de: Dictionary = {
@@ -172,9 +173,25 @@ const de: Dictionary = {
     subtitle: 'Praktische Updates und Neuigkeiten aus der Destination.',
     cta: 'Alle Neuigkeiten',
     items: [
-      { category: 'Skipass', date: 'Sep', title: 'Saisonkartenverkauf hat begonnen', intro: 'Sichern Sie sich die Saisonkarte vor dem Winter zum reduzierten Preis.' },
-      { category: 'Betrieb', date: 'Okt', title: 'Neue Öffnungszeiten', intro: 'Verlängerte Öffnungszeiten an den Wochenenden in der gesamten Saison.' },
-      { category: 'Schnee', date: 'Nov', title: 'Schneeproduktion läuft', intro: 'Die Schneekanonen laufen – wir bereiten eine schneesichere Saison vor.' },
+      {
+        category: 'Skipass',
+        date: 'Sep',
+        slug: 'saisonkartenverkauf-hat-begonnen',
+        title: 'Early Bird für Saisonkarten, 4.–20. September',
+        intro: 'Vom 4. bis 20. September gibt es die Saisonkarten für Bjorli zum besten Preis des Jahres. Early Bird ist im Aktionszeitraum ausschließlich online auf bjorli.no erhältlich.',
+        body: 'Early Bird steht bevor.\n\nVom 4. bis 20. September bekommen Sie die Saisonkarte für Bjorli zum besten Preis der Saison. Wenn Sie jetzt schon wissen, dass Sie diesen Winter bei uns Ski fahren, sollten Sie die Karte sichern, bevor die Preise steigen.\n\nEarly Bird ist vom 4. bis 20. September nur online auf bjorli.no erhältlich. An der Kasse im Skigebiet ist die Aktion weder vorher noch außerhalb des Zeitraums buchbar.',
+        image: earlyBirdImg,
+        seoTitle: 'Early Bird Saisonkarten 4.–20. September | Bjorli',
+        seoDescription: 'Vom 4. bis 20. September gibt es die Saisonkarten für Bjorli zum besten Preis des Jahres – ausschließlich online auf bjorli.no.',
+        ctaLabel: 'Early Bird online kaufen',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaFromDate: '2026-09-04',
+        preCtaNote: 'Kommen Sie am 4. September wieder, um Early Bird online zu kaufen.',
+      },
+      // Vorerst unveröffentlicht – Inhalt bleibt für eine spätere Veröffentlichung erhalten.
+      { category: 'Betrieb', date: 'Okt', title: 'Neue Öffnungszeiten', intro: 'Verlängerte Öffnungszeiten an den Wochenenden in der gesamten Saison.', status: 'unpublished' },
+      // Vorerst unveröffentlicht – Inhalt bleibt für eine spätere Veröffentlichung erhalten.
+      { category: 'Schnee', date: 'Nov', title: 'Schneeproduktion läuft', intro: 'Die Schneekanonen laufen – wir bereiten eine schneesichere Saison vor.', status: 'unpublished' },
       { category: 'Sommer', date: 'Mai', title: 'Sommerprogramm gestartet', intro: 'Entdecken Sie, was Sie in Bjorli im Sommer erleben können.' },
     ],
   },
