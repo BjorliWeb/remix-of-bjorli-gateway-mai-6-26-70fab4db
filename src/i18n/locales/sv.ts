@@ -167,9 +167,25 @@ const sv: Dictionary = {
     subtitle: 'Praktiska uppdateringar och nyheter från destinationen.',
     cta: 'Se alla nyheter',
     items: [
-      { category: 'Liftkort', date: 'Sep', title: 'Säsongskortförsäljningen är öppen', intro: 'Säkra säsongskortet till förköpspris före vintern.' },
-      { category: 'Drift', date: 'Okt', title: 'Nya öppettider', intro: 'Förlängda helgöppettider hela säsongen.' },
-      { category: 'Snö', date: 'Nov', title: 'Snötillverkning igång', intro: 'Snökanonerna går för fullt – vi förbereder en snösäker säsong.' },
+      {
+        category: 'Liftkort',
+        date: 'Sep',
+        slug: 'sasongskortforsaljningen-ar-oppen',
+        title: 'Early Bird på säsongskort 4–20 september',
+        intro: 'Mellan 4 och 20 september får du säsongskortet på Bjorli till årets bästa pris. Under kampanjen säljs Early Bird bara online på bjorli.no.',
+        body: 'Early Bird närmar sig.\n\nMellan 4 och 20 september får du årets bästa priser på säsongskort på Bjorli. Vet du redan nu att du ska åka skidor hos oss i vinter är det här läget att fixa kortet innan priserna går upp.\n\nEarly Bird säljs endast online på bjorli.no 4–20 september. Kampanjen finns inte i biljettluckan, varken före eller utanför perioden.',
+        image: earlyBirdImg,
+        seoTitle: 'Early Bird på säsongskort 4–20 september | Bjorli',
+        seoDescription: 'Mellan 4 och 20 september får du säsongskortet på Bjorli till årets bästa pris. Early Bird köps bara online på bjorli.no.',
+        ctaLabel: 'Köp Early Bird online',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaFromDate: '2026-09-04',
+        preCtaNote: 'Kom tillbaka den 4 september för att köpa Early Bird online.',
+      },
+      // Avpublicerad tills vidare – källinnehållet behålls.
+      { category: 'Drift', date: 'Okt', title: 'Nya öppettider', intro: 'Förlängda helgöppettider hela säsongen.', status: 'unpublished' },
+      // Avpublicerad tills vidare – källinnehållet behålls.
+      { category: 'Snö', date: 'Nov', title: 'Snötillverkning igång', intro: 'Snökanonerna går för fullt – vi förbereder en snösäker säsong.', status: 'unpublished' },
       { category: 'Sommar', date: 'Maj', title: 'Sommarprogram lanserat', intro: 'Se vad du kan uppleva på Bjorli under sommarmånaderna.' },
     ],
   },
