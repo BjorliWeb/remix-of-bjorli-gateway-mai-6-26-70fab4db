@@ -173,9 +173,25 @@ const en: Dictionary = {
     subtitle: 'Practical updates and news from the destination.',
     cta: 'See all news',
     items: [
-      { category: 'Lift pass', date: 'Sep', title: 'Season pass sale is open', intro: 'Secure your season pass at a reduced price before winter.' },
-      { category: 'Operations', date: 'Oct', title: 'New opening hours', intro: 'Extended weekend hours throughout the season.' },
-      { category: 'Snow', date: 'Nov', title: 'Snowmaking under way', intro: 'The snow guns are running – we are preparing a snow-sure season.' },
+      {
+        category: 'Lift pass',
+        date: 'Sep',
+        slug: 'season-pass-sale-is-open',
+        title: 'Early Bird season passes, 4–20 September',
+        intro: 'From 4 to 20 September the season passes for Bjorli go on sale at the best price of the year. Early Bird is sold online at bjorli.no only, during the campaign period.',
+        body: 'Early Bird is almost here.\n\nFrom 4 to 20 September you get the best season pass prices of the year at Bjorli. If you already know you will be skiing with us this winter, this is the window to sort out the pass before prices go up.\n\nEarly Bird is sold online at bjorli.no only, from 4 to 20 September. It is not available at the ticket office before or outside the campaign period.',
+        image: earlyBirdImg,
+        seoTitle: 'Early Bird season passes 4–20 September | Bjorli',
+        seoDescription: 'From 4 to 20 September you get the best season pass prices of the year at Bjorli. Early Bird is sold online at bjorli.no only.',
+        ctaLabel: 'Buy Early Bird online',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaFromDate: '2026-09-04',
+        preCtaNote: 'Come back on 4 September to buy Early Bird online.',
+      },
+      // Unpublished for now – source copy kept for later republishing.
+      { category: 'Operations', date: 'Oct', title: 'New opening hours', intro: 'Extended weekend hours throughout the season.', status: 'unpublished' },
+      // Unpublished for now – source copy kept for later republishing.
+      { category: 'Snow', date: 'Nov', title: 'Snowmaking under way', intro: 'The snow guns are running – we are preparing a snow-sure season.', status: 'unpublished' },
       { category: 'Summer', date: 'May', title: 'Summer programme launched', intro: 'See what you can experience in Bjorli during the summer months.' },
     ],
   },
