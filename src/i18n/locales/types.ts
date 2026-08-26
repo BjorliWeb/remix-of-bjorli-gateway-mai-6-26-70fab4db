@@ -179,7 +179,29 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     cta: string;
-    items: { category: string; date: string; title: string; intro: string }[];
+    items: {
+      category: string;
+      date: string;
+      title: string;
+      intro: string;
+      /** Explicit slug — keeps a published URL stable when the title changes. */
+      slug?: string;
+      /** Full article body. Falls back to `intro` when omitted. */
+      body?: string;
+      /** Hero image override. Falls back to the rotating news images. */
+      image?: string;
+      /** `unpublished` keeps the source copy but hides the story everywhere. */
+      status?: 'published' | 'unpublished';
+      seoTitle?: string;
+      seoDescription?: string;
+      /** Optional CTA; only rendered while `ctaFromDate` (if set) has passed. */
+      ctaLabel?: string;
+      ctaHref?: string;
+      /** ISO date from which the CTA replaces `preCtaNote`. */
+      ctaFromDate?: string;
+      /** Shown instead of the CTA before `ctaFromDate`. */
+      preCtaNote?: string;
+    }[];
   };
   faq: {
     eyebrow: string;
