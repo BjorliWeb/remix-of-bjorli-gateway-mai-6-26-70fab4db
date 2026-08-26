@@ -186,7 +186,7 @@ const sv: Dictionary = {
       { category: 'Drift', date: 'Okt', title: 'Nya öppettider', intro: 'Förlängda helgöppettider hela säsongen.', status: 'unpublished' },
       // Avpublicerad tills vidare – källinnehållet behålls.
       { category: 'Snö', date: 'Nov', title: 'Snötillverkning igång', intro: 'Snökanonerna går för fullt – vi förbereder en snösäker säsong.', status: 'unpublished' },
-      { category: 'Sommar', date: 'Maj', title: 'Sommarprogram lanserat', intro: 'Se vad du kan uppleva på Bjorli under sommarmånaderna.' },
+      { category: 'Sommar', date: 'Maj', title: 'Sommarprogram lanserat', intro: 'Se vad du kan uppleva på Bjorli under sommarmånaderna.', status: 'unpublished' },
     ],
   },
   faq: {

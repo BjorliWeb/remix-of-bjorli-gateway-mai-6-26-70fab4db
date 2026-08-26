@@ -186,7 +186,7 @@ const no: Dictionary = {
       { category: 'Drift', date: 'Okt', title: 'Nye åpningstider', intro: 'Vi forlenger åpningstidene i helgene gjennom hele sesongen.', status: 'unpublished' },
       // Avpublisert inntil videre – innholdet beholdes for republisering.
       { category: 'Snø', date: 'Nov', title: 'Snøproduksjon i gang', intro: 'Snøkanonene er i full drift – vi gjør klar til en snøsikker sesong.', status: 'unpublished' },
-      { category: 'Sommer', date: 'Mai', title: 'Sommerprogram lansert', intro: 'Se hva du kan oppleve på Bjorli i sommermånedene.' },
+      { category: 'Sommer', date: 'Mai', title: 'Sommerprogram lansert', intro: 'Se hva du kan oppleve på Bjorli i sommermånedene.', status: 'unpublished' },
     ],
   },
   faq: {

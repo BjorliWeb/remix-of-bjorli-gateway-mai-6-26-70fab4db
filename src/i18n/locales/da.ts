@@ -192,7 +192,7 @@ const da: Dictionary = {
       { category: 'Drift', date: 'Okt', title: 'Nye åbningstider', intro: 'Forlængede åbningstider i weekenderne hele sæsonen.', status: 'unpublished' },
       // Afpubliceret indtil videre – kildeindholdet bevares.
       { category: 'Sne', date: 'Nov', title: 'Sneproduktion i gang', intro: 'Snekanonerne kører – vi gør klar til en snesikker sæson.', status: 'unpublished' },
-      { category: 'Sommer', date: 'Maj', title: 'Sommerprogram lanceret', intro: 'Se hvad du kan opleve på Bjorli i sommermånederne.' },
+      { category: 'Sommer', date: 'Maj', title: 'Sommerprogram lanceret', intro: 'Se hvad du kan opleve på Bjorli i sommermånederne.', status: 'unpublished' },
     ],
   },
   faq: {
