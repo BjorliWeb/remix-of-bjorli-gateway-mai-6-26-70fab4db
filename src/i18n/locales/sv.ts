@@ -1,4 +1,5 @@
 import type { Dictionary } from './types';
+import earlyBirdImg from '@/assets/photos/01_winter_ski_resort/bjorli-early-bird-2026-portrait.jpg';
 import sommerkafeenLesjaverkImg from '@/assets/photos/sommerkafeen-lesjaverk.jpg';
 
 const sv: Dictionary = {
