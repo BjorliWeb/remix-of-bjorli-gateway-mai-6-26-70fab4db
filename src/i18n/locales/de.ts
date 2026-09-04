@@ -184,7 +184,7 @@ const de: Dictionary = {
         seoTitle: 'Early Bird Saisonkarten 4.–20. September | Bjorli',
         seoDescription: 'Vom 4. bis 20. September gibt es die Saisonkarten für Bjorli zum besten Preis des Jahres – ausschließlich online auf bjorli.no.',
         ctaLabel: 'Early Bird online kaufen',
-        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4965',
         ctaFromDate: '2026-09-04',
         preCtaNote: 'Kommen Sie am 4. September wieder, um Early Bird online zu kaufen.',
       },

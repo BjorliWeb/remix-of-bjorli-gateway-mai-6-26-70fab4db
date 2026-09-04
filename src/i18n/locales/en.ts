@@ -184,7 +184,7 @@ const en: Dictionary = {
         seoTitle: 'Early Bird season passes 4–20 September | Bjorli',
         seoDescription: 'From 4 to 20 September you get the best season pass prices of the year at Bjorli. Early Bird is sold online at bjorli.no only.',
         ctaLabel: 'Buy Early Bird online',
-        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4965',
         ctaFromDate: '2026-09-04',
         preCtaNote: 'Come back on 4 September to buy Early Bird online.',
       },

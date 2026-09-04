@@ -65,7 +65,7 @@ export interface Campaign {
 }
 
 const SKIPERFORMANCE_SHOP =
-  'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862';
+  'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4965';
 
 export const EARLY_BIRD_2026: Campaign = {
   id: 'early-bird-2026',
