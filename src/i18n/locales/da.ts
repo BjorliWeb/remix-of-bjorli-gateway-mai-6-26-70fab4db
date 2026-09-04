@@ -184,7 +184,7 @@ const da: Dictionary = {
         seoTitle: 'Early Bird på sæsonkort 4.–20. september | Bjorli',
         seoDescription: 'Fra 4. til 20. september får du sæsonkortet til Bjorli til årets bedste pris. Early Bird købes kun online på bjorli.no.',
         ctaLabel: 'Køb Early Bird online',
-        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
+        ctaHref: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4965',
         ctaFromDate: '2026-09-04',
         preCtaNote: 'Kom tilbage den 4. september for at købe Early Bird online.',
       },
