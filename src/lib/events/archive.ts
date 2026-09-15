@@ -56,6 +56,13 @@ export const EVENTS_ARCHIVE_SLUG: Record<Locale, string> = {
   sv: 'arkiv',
 };
 
+/**
+ * Route path WITHOUT the locale prefix — App.tsx nests locale prefixes
+ * (`/en/*`) around the same route table, so routes are registered unprefixed.
+ */
+export const eventsArchiveRoutePath = (locale: Locale): string =>
+  `/${slugForCanonical('arrangementer', locale)}/${EVENTS_ARCHIVE_SLUG[locale]}`;
+
 /** `/arrangementer/arkiv`, `/en/events/archive`, … (trailing slash normalized). */
 export const eventsArchivePath = (locale: Locale): string =>
   normalizeInternalPath(

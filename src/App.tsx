@@ -59,7 +59,7 @@ import AdminEventSubmissions from "./pages/AdminEventSubmissions";
 import AdminMfa from "./pages/AdminMfa";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
-import { eventsArchivePath } from "@/lib/events/archive";
+import { eventsArchiveRoutePath } from "@/lib/events/archive";
 import { DEFAULT_SEASON } from "@/lib/season";
 
 const queryClient = new QueryClient();
@@ -142,7 +142,7 @@ const AppRoutes = () => (
     {LOCALES.map((loc) => (
       <Route
         key={`events-archive-${loc}`}
-        path={eventsArchivePath(loc).replace(/\/$/, '')}
+        path={eventsArchiveRoutePath(loc)}
         element={<EventsArchive />}
       />
     ))}
