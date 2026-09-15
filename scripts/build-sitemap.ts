@@ -227,6 +227,8 @@ let detailCount = 0;
 for (const kind of DETAIL_KINDS) {
   for (const group of buildTranslationGroups(snapshot, kind)) {
     const entries = Object.entries(group.byLocale) as [Locale, SnapshotEntry][];
+    // Archived events stay online but must not be advertised for indexing.
+    if (entries.some(([, entry]) => entry.archived)) continue;
     const alternates = entries.map(([loc, entry]) => ({
       hreflang: loc,
       href: absoluteUrl(detailPath(kind, loc, entry.slug), ORIGIN),

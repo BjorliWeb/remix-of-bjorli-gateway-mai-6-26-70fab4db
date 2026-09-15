@@ -21,6 +21,7 @@ import { SKI_HOLIDAY_NORWAY_SEO } from '@/lib/seo/skiHolidayNorwaySeo';
 import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { supabase } from '@/integrations/supabase/client';
+import { compareArchivedEvents, isEventArchived } from '@/lib/events/archive';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 
@@ -351,6 +352,14 @@ const buildNews = (lang: Language): CmsNews[] => {
     .filter((n) => n.status === 'published');
 };
 
+/**
+ * Editorial events.
+ *
+ * `status: 'unpublished'` hides an entry everywhere. Everything else is
+ * returned here — including finished events — and the public split between
+ * "current" and "archive" happens in `mergeEvents` / `mergeArchivedEvents`
+ * via the Europe/Oslo archiving rule.
+ */
 const buildEvents = (lang: Language): CmsEvent[] => {
   const d = dict(lang);
   return d.events.items.map((e, i) => ({
@@ -366,13 +375,14 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     publishedAt: e.date,
     updatedAt: e.date,
     startsAt: e.date,
+    endsAt: e.endDate,
     bookingUrl: e.ctaUrl,
     ctaLabel: e.ctaLabel,
     ctaHref: e.ctaUrl,
     seoTitle: e.title,
     seoDescription: e.intro,
     status: e.status ?? 'published',
-  })).filter((ev) => ev.status !== 'archived');
+  })).filter((ev) => ev.status !== 'unpublished');
 };
 
 /**
@@ -453,29 +463,34 @@ const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => 
   }
 };
 
-/**
- * Public event feed = approved submissions + editorial mock events,
- * deduped by slug, filtered to current/upcoming, sorted by start date.
- */
-const mergeEvents = (live: CmsEvent[], mock: CmsEvent[]): CmsEvent[] => {
+/** Approved submissions + editorial events, deduped by slug. */
+const allEvents = (live: CmsEvent[], mock: CmsEvent[]): CmsEvent[] => {
   const seen = new Set<string>();
   const merged: CmsEvent[] = [];
-  const today = new Date().toISOString().slice(0, 10);
-  const isActive = (e: CmsEvent) => {
-    const end = (e as CmsEvent & { endsAt?: string }).endsAt ?? e.startsAt;
-    return !end || end >= today;
-  };
   for (const list of [live, mock]) {
     for (const e of list) {
       if (seen.has(e.slug)) continue;
-      if (!isActive(e)) continue;
       seen.add(e.slug);
       merged.push(e);
     }
   }
-  merged.sort((a, b) => (a.startsAt ?? '').localeCompare(b.startsAt ?? ''));
   return merged;
 };
+
+/**
+ * Public event feed: everything that is NOT archived, sorted by start date.
+ * Archiving happens at 00:00 Europe/Oslo the day after the end date.
+ */
+const mergeEvents = (live: CmsEvent[], mock: CmsEvent[]): CmsEvent[] =>
+  allEvents(live, mock)
+    .filter((e) => !isEventArchived(e))
+    .sort((a, b) => (a.startsAt ?? '').localeCompare(b.startsAt ?? ''));
+
+/** Archive feed: finished events, most recently finished first. */
+const mergeArchivedEvents = (live: CmsEvent[], mock: CmsEvent[]): CmsEvent[] =>
+  allEvents(live, mock)
+    .filter((e) => isEventArchived(e))
+    .sort(compareArchivedEvents);
 
 const buildActivities = (lang: Language): CmsActivity[] => {
   const d = dict(lang);
@@ -900,6 +915,13 @@ export const mockAdapter: CmsAdapter = {
       Promise.resolve(buildEvents(q.language)),
     ]);
     return apply(mergeEvents(live, mock), q);
+  },
+  async getArchivedEvents(q) {
+    const [live, mock] = await Promise.all([
+      fetchApprovedSubmissions(q.language),
+      Promise.resolve(buildEvents(q.language)),
+    ]);
+    return apply(mergeArchivedEvents(live, mock), q);
   },
   async getTips(q) { return apply(buildTips(q.language), q); },
   async getActivities(q) { return apply(buildActivities(q.language), q); },

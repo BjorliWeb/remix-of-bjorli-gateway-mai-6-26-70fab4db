@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PageHero from '@/components/PageHero';
 import Breadcrumbs from './Breadcrumbs';
 import CategoryFilter from './CategoryFilter';
@@ -23,9 +24,12 @@ export interface EventsListingTemplateProps {
   heroImage: string;
   basePath: string;
   items: ListingItem[];
+  /** Optional link to the archive of finished events. */
+  archiveHref?: string;
+  archiveLabel?: string;
 }
 
-const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: EventsListingTemplateProps) => {
+const EventsListingTemplate = ({ title, intro, heroImage, basePath, items, archiveHref, archiveLabel }: EventsListingTemplateProps) => {
   const { d, locale } = useLanguage();
   const lp = useLocalizedPath();
   const [category, setCategory] = useState<string | null>(null);
@@ -124,6 +128,17 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items }: Eve
           )}
         </div>
       </section>
+
+      {archiveHref && archiveLabel && (
+        <section className="container mx-auto px-4 pb-4">
+          <Link
+            to={archiveHref}
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+          >
+            {archiveLabel}
+          </Link>
+        </section>
+      )}
 
       <SEOPlaceholderBlock title={d.listing.seoPlaceholderTitle ?? title} body={d.listing.seoPlaceholderBody} />
     </div>

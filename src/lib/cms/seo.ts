@@ -9,10 +9,21 @@
  */
 import {
   getActivities,
+  getArchivedEvents,
   getEvents,
   getNews,
   getTips,
 } from './index';
+import { isEventArchived } from '@/lib/events/archive';
+
+/** Current + archived events — archived detail pages must stay resolvable. */
+const loadAllEvents = async (language: Language): Promise<CmsEntryBase[]> => {
+  const [current, archived] = await Promise.all([
+    getEvents({ language }),
+    getArchivedEvents({ language }),
+  ]);
+  return [...current, ...archived];
+};
 import type { CmsEntryBase, CmsEvent, Language } from './types';
 import { getSubPage, isSubPageSlug } from './subpages';
 import { LOCALE_LABELS, LOCALES, LOCALE_PREFIX, type Locale } from '@/i18n/locales/types';
@@ -51,6 +62,11 @@ export interface ResolvedSeo {
    * must not be indexed.
    */
   noindex?: boolean;
+  /**
+   * True for archived events and the event archive hub: still reachable and
+   * still linked, but held out of the index (`noindex, follow`).
+   */
+  noindexFollow?: boolean;
 }
 
 /** Map listing base paths to a fetcher + JSON-LD type. */
@@ -62,7 +78,7 @@ const DETAIL_ROUTES: {
 }[] = [
   { match: /^\/nyheter\/([^/]+)$/,        load: (l) => getNews({ language: l }),       schemaType: 'NewsArticle', hub: 'nyheter' },
   { match: /^\/tips\/([^/]+)$/,           load: (l) => getTips({ language: l }),       schemaType: 'Article',     hub: 'tips' },
-  { match: /^\/arrangementer\/([^/]+)$/,  load: (l) => getEvents({ language: l }),     schemaType: 'Event',       hub: 'arrangementer' },
+  { match: /^\/arrangementer\/([^/]+)$/,  load: (l) => loadAllEvents(l),               schemaType: 'Event',       hub: 'arrangementer' },
   { match: /^\/aktiviteter\/([^/]+)$/,    load: (l) => getActivities({ language: l }), schemaType: 'Article',     hub: 'aktiviteter' },
 ];
 
@@ -200,6 +216,8 @@ export async function resolveSeoForRoute(
       // Runtime Supabase submissions (`submission-*`) are deliberately not
       // prerendered or sitemapped — keep their detail URL out of the index.
       noindex: String(entry.id).startsWith('submission-'),
+      noindexFollow:
+        route.hub === 'arrangementer' && isEventArchived(entry as CmsEvent),
       jsonLd: buildJsonLd(entry, route.schemaType, absoluteUrl),
     };
   }

@@ -30,6 +30,8 @@ export interface SnapshotEntry {
   image?: string;
   seoTitle?: string;
   seoDescription?: string;
+  /** Finished event: prerendered with `noindex, follow`, excluded from the sitemap. */
+  archived?: boolean;
 }
 
 export type DetailKind = 'news' | 'tips' | 'events' | 'activities';

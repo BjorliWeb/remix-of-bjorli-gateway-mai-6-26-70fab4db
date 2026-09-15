@@ -38,6 +38,8 @@ export interface ExportedEntry {
   image?: string;
   seoTitle?: string;
   seoDescription?: string;
+  /** Finished event: prerendered and linked, but never sitemapped. */
+  archived?: boolean;
 }
 
 export type ExportedKind = 'news' | 'tips' | 'events' | 'activities';
@@ -99,6 +101,7 @@ const run = async () => {
         getNews: (q: { language: string }) => Promise<Record<string, unknown>[]>;
         getTips: (q: { language: string }) => Promise<Record<string, unknown>[]>;
         getEvents: (q: { language: string }) => Promise<Record<string, unknown>[]>;
+        getArchivedEvents: (q: { language: string }) => Promise<Record<string, unknown>[]>;
         getActivities: (q: { language: string }) => Promise<Record<string, unknown>[]>;
       };
     };
@@ -114,15 +117,21 @@ const run = async () => {
     };
 
     for (const language of LOCALES) {
-      const [news, tips, events, activities] = await Promise.all([
+      const [news, tips, events, archivedEvents, activities] = await Promise.all([
         adapter.getNews({ language }),
         adapter.getTips({ language }),
         adapter.getEvents({ language }),
+        adapter.getArchivedEvents({ language }),
         adapter.getActivities({ language }),
       ]);
       snapshot.news[language] = news.map(pick).filter(isEditorial);
       snapshot.tips[language] = tips.map(pick).filter(isEditorial);
-      snapshot.events[language] = events.map(pick).filter(isEditorial);
+      // Archived events keep a prerendered page (old links must work) but are
+      // flagged so the sitemap generator can leave them out.
+      snapshot.events[language] = [
+        ...events.map(pick),
+        ...archivedEvents.map((e) => ({ ...pick(e), archived: true })),
+      ].filter(isEditorial);
       snapshot.activities[language] = activities.map(pick).filter(isEditorial);
     }
 

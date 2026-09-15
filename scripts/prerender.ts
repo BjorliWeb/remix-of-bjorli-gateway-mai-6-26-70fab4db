@@ -44,6 +44,7 @@ import {
   SKI_HOLIDAY_NORWAY_SEO,
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
+import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import {
   DETAIL_KINDS,
   KIND_ROUTE,
@@ -393,6 +394,8 @@ const buildHtmlDocument = (o: {
   bodyHtml: string;
   /** og:type — 'website' for hubs, 'article' for editorial detail pages. */
   ogType?: string;
+  /** Explicit robots directive. Omitted = default indexable behaviour. */
+  robots?: string;
   base: { scripts: string; preloads: string };
 }): string => `<!doctype html>
 <html lang="${escapeHtml(o.htmlLang)}">
@@ -404,6 +407,7 @@ const buildHtmlDocument = (o: {
     <meta name="author" content="Destinasjon Bjorli" />
     <meta name="theme-color" content="#001d28" />
     <link rel="canonical" href="${escapeHtml(o.href)}" />
+    ${o.robots ? `<meta name="robots" content="${escapeHtml(o.robots)}" />` : ''}
     ${o.hreflangTags}
     <meta property="og:title" content="${escapeHtml(o.title)}" />
     <meta property="og:description" content="${escapeHtml(o.description)}" />
@@ -626,6 +630,11 @@ const MORE_HEADING: Record<DetailKind, Record<Locale, string>> = {
   activities: { no: 'Flere aktiviteter', en: 'More activities', de: 'Weitere Aktivitäten', nl: 'Meer activiteiten', da: 'Flere aktiviteter', sv: 'Fler aktiviteter' },
 };
 
+/** Discreet "finished" marker on archived event pages. */
+const ENDED_LABEL: Record<Locale, string> = {
+  no: 'Avsluttet', en: 'Ended', de: 'Beendet', nl: 'Afgelopen', da: 'Afsluttet', sv: 'Avslutat',
+};
+
 /** Crawler-visible body for a detail page: H1, meta line, full safe body. */
 const detailBodySkeleton = (opts: {
   locale: Locale;
@@ -646,6 +655,7 @@ const detailBodySkeleton = (opts: {
   if (entry.category) metaBits.push(entry.category);
   const dateLabel = entry.startsAt ?? entry.publishedAt;
   if ((kind === 'news' || kind === 'events') && dateLabel) metaBits.push(dateLabel);
+  if (entry.archived) metaBits.push(ENDED_LABEL[locale]);
   const metaHtml = metaBits.length
     ? `\n    <p style="font-size:0.95rem;color:#567;margin:0 0 1rem">${escapeHtml(metaBits.join(' · '))}</p>`
     : '';
@@ -782,6 +792,8 @@ const renderDetail = (opts: {
     ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
     jsonLdTags: jsonLdScript(detailJsonLd(kind, entry, locale, href), 'jsonld-route'),
     ogType: kind === 'events' ? 'website' : 'article',
+    // Finished events stay online and linked, but out of the index.
+    robots: entry.archived ? 'noindex, follow' : undefined,
     bodyHtml: detailBodySkeleton({ locale, kind, entry, hubHref, hubLabel, siblings }),
     base,
   });
@@ -821,6 +833,90 @@ const renderDetailPages = (base: { scripts: string; preloads: string }): RouteOu
     }
   }
   return out;
+};
+
+/**
+ * Event archive hubs (one per locale).
+ *
+ * Linked from the events listing and prerendered so crawlers and readers can
+ * reach finished events, but `noindex, follow` and absent from the sitemap.
+ */
+const renderArchiveHubs = (base: { scripts: string; preloads: string }): RouteOutput[] => {
+  const snapshot = loadSnapshot();
+  if (!snapshot) return [];
+  const paths = Object.fromEntries(
+    LOCALES.map((loc) => [loc, eventsArchivePath(loc)]),
+  ) as Record<Locale, string>;
+
+  const hreflangTags = [
+    ...LOCALES.map(
+      (loc) =>
+        `<link rel="alternate" hreflang="${escapeHtml(LOCALE_LABELS[loc].htmlLang)}" href="${escapeHtml(absoluteUrl(paths[loc], ORIGIN))}" />`,
+    ),
+    `<link rel="alternate" hreflang="x-default" href="${escapeHtml(absoluteUrl(paths.en, ORIGIN))}" />`,
+  ].join('\n    ');
+
+  return LOCALES.map((locale) => {
+    const seo = EVENTS_ARCHIVE_SEO[locale];
+    const href = absoluteUrl(paths[locale], ORIGIN);
+    const hubHref = hrefForTarget('arrangementer', locale);
+    const hubLabel = PAGE_LABELS[locale].arrangementer ?? 'Arrangementer';
+    const prefix = LOCALE_PREFIX[locale] || '';
+    const homeHref = normalizeInternalPath(prefix || '/');
+    const navHtml = linksFor(NAV_ROUTES, locale)
+      .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
+      .join(' · ');
+    const archived = (snapshot.events[locale] ?? []).filter((e) => e.archived);
+    const listHtml = archived.length
+      ? `<ul style="margin:0;padding-left:1.25rem;line-height:1.8">
+        ${archived
+          .map(
+            (e) =>
+              `<li><a href="${escapeHtml(detailPath('events', locale, e.slug))}">${escapeHtml(e.title)}</a> — ${escapeHtml(ENDED_LABEL[locale])}</li>`,
+          )
+          .join('\n        ')}
+      </ul>`
+      : '<p style="color:#567">—</p>';
+
+    const bodyHtml = `<div id="root"><div data-prerender="events-archive" data-canonical="arrangementer/arkiv" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
+  <header style="max-width:960px;margin:0 auto 2rem">
+    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
+    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
+  </header>
+  <main style="max-width:960px;margin:0 auto">
+    <nav aria-label="Breadcrumb" style="font-size:0.9rem;color:#567;margin:0 0 1rem"><a href="${escapeHtml(homeHref)}">Bjorli</a> › <a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></nav>
+    <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(seo.title.split(' | ')[0])}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.25rem;color:#334">${escapeHtml(seo.description)}</p>
+    ${listHtml}
+    <p style="margin:1.5rem 0 0"><a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></p>
+  </main>
+</div></div>`;
+
+    const html = buildHtmlDocument({
+      htmlLang: LOCALE_LABELS[locale].htmlLang,
+      title: seo.title,
+      description: seo.description,
+      href,
+      hreflangTags,
+      ogLocale: LOCALE_LABELS[locale].ogLocale,
+      ogAlternates: LOCALES.filter((l) => l !== locale)
+        .map((l) => `<meta property="og:locale:alternate" content="${escapeHtml(LOCALE_LABELS[l].ogLocale)}" />`)
+        .join('\n    '),
+      ogImage: ORIGIN + ogImageForCanonicalPath('/arrangementer'),
+      jsonLdTags: '',
+      robots: 'noindex, follow',
+      bodyHtml,
+      base,
+    });
+
+    return {
+      filePath: `${paths[locale].replace(/^\//, '').replace(/\/$/, '')}/index.html`,
+      html,
+      locale,
+      canonical: 'arrangementer/arkiv',
+      title: seo.title,
+    };
+  });
 };
 
 const writeOutput = (out: RouteOutput): void => {
@@ -1008,6 +1104,12 @@ const run = () => {
 
   for (const spec of standalones) {
     const out = renderStandalone(spec, base);
+    writeOutput(out);
+    results.push(out);
+  }
+
+  // ── Event archive hubs (noindex, follow; not in the sitemap) ─────────
+  for (const out of renderArchiveHubs(base)) {
     writeOutput(out);
     results.push(out);
   }

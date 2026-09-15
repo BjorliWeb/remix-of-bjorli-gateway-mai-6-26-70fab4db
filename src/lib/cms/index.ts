@@ -26,6 +26,7 @@ export const getPage:         CmsAdapter['getPage']         = (q) => activeAdapt
 export const getHomepage:     CmsAdapter['getHomepage']     = (q) => activeAdapter.getHomepage(q);
 export const getNews:         CmsAdapter['getNews']         = (q) => activeAdapter.getNews(q);
 export const getEvents:       CmsAdapter['getEvents']       = (q) => activeAdapter.getEvents(q);
+export const getArchivedEvents: CmsAdapter['getArchivedEvents'] = (q) => activeAdapter.getArchivedEvents(q);
 export const getTips:         CmsAdapter['getTips']         = (q) => activeAdapter.getTips(q);
 export const getActivities:   CmsAdapter['getActivities']   = (q) => activeAdapter.getActivities(q);
 export const getAccommodations: CmsAdapter['getAccommodations'] = (q) => activeAdapter.getAccommodations(q);
