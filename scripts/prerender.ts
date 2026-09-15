@@ -44,6 +44,7 @@ import {
   SKI_HOLIDAY_NORWAY_SEO,
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
+import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import {
   DETAIL_KINDS,
   KIND_ROUTE,
