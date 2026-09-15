@@ -393,6 +393,8 @@ const buildHtmlDocument = (o: {
   bodyHtml: string;
   /** og:type — 'website' for hubs, 'article' for editorial detail pages. */
   ogType?: string;
+  /** Explicit robots directive. Omitted = default indexable behaviour. */
+  robots?: string;
   base: { scripts: string; preloads: string };
 }): string => `<!doctype html>
 <html lang="${escapeHtml(o.htmlLang)}">
@@ -404,6 +406,7 @@ const buildHtmlDocument = (o: {
     <meta name="author" content="Destinasjon Bjorli" />
     <meta name="theme-color" content="#001d28" />
     <link rel="canonical" href="${escapeHtml(o.href)}" />
+    ${o.robots ? `<meta name="robots" content="${escapeHtml(o.robots)}" />` : ''}
     ${o.hreflangTags}
     <meta property="og:title" content="${escapeHtml(o.title)}" />
     <meta property="og:description" content="${escapeHtml(o.description)}" />
@@ -626,6 +629,11 @@ const MORE_HEADING: Record<DetailKind, Record<Locale, string>> = {
   activities: { no: 'Flere aktiviteter', en: 'More activities', de: 'Weitere Aktivitäten', nl: 'Meer activiteiten', da: 'Flere aktiviteter', sv: 'Fler aktiviteter' },
 };
 
+/** Discreet "finished" marker on archived event pages. */
+const ENDED_LABEL: Record<Locale, string> = {
+  no: 'Avsluttet', en: 'Ended', de: 'Beendet', nl: 'Afgelopen', da: 'Afsluttet', sv: 'Avslutat',
+};
+
 /** Crawler-visible body for a detail page: H1, meta line, full safe body. */
 const detailBodySkeleton = (opts: {
   locale: Locale;
@@ -646,6 +654,7 @@ const detailBodySkeleton = (opts: {
   if (entry.category) metaBits.push(entry.category);
   const dateLabel = entry.startsAt ?? entry.publishedAt;
   if ((kind === 'news' || kind === 'events') && dateLabel) metaBits.push(dateLabel);
+  if (entry.archived) metaBits.push(ENDED_LABEL[locale]);
   const metaHtml = metaBits.length
     ? `\n    <p style="font-size:0.95rem;color:#567;margin:0 0 1rem">${escapeHtml(metaBits.join(' · '))}</p>`
     : '';
@@ -782,6 +791,8 @@ const renderDetail = (opts: {
     ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
     jsonLdTags: jsonLdScript(detailJsonLd(kind, entry, locale, href), 'jsonld-route'),
     ogType: kind === 'events' ? 'website' : 'article',
+    // Finished events stay online and linked, but out of the index.
+    robots: entry.archived ? 'noindex, follow' : undefined,
     bodyHtml: detailBodySkeleton({ locale, kind, entry, hubHref, hubLabel, siblings }),
     base,
   });

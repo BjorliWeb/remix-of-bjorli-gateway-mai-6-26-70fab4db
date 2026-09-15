@@ -31,6 +31,8 @@ export interface CmsAdapter {
 
   getNews(query: CmsListQuery): Promise<CmsNews[]>;
   getEvents(query: CmsListQuery): Promise<CmsEvent[]>;
+  /** Finished events, newest end date first. Never part of `getEvents`. */
+  getArchivedEvents(query: CmsListQuery): Promise<CmsEvent[]>;
   getTips(query: CmsListQuery): Promise<CmsTip[]>;
   getActivities(query: CmsListQuery): Promise<CmsActivity[]>;
   getAccommodations(query: CmsListQuery): Promise<CmsAccommodation[]>;

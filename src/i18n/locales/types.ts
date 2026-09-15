@@ -127,7 +127,14 @@ export interface Dictionary {
     cta: string;
     items: {
       category: string;
+      /** Human-readable display date ("5.–6. september 2026"). */
       date: string;
+      /**
+       * Machine-readable last day of the event (ISO `YYYY-MM-DD`).
+       * Drives automatic archiving at 00:00 Europe/Oslo the following day.
+       * Missing end date = never archived automatically.
+       */
+      endDate?: string;
       title: string;
       intro: string;
       image?: string;
@@ -136,10 +143,10 @@ export interface Dictionary {
       ctaUrl?: string;
       /**
        * Publication state. Defaults to `'published'` when missing.
-       * `'archived'` keeps the entry in the data (for future CMS/editor use)
-       * but hides it from all public rendering.
+       * `'unpublished'` keeps the source copy but hides the event everywhere.
+       * `'archived'` forces the event into the public event archive.
        */
-      status?: 'published' | 'archived';
+      status?: 'published' | 'unpublished' | 'archived';
     }[];
   };
   beyondAlpine: {
@@ -239,6 +246,12 @@ export interface Dictionary {
     pageTipsIntro: string;
     pageEventsTitle: string;
     pageEventsIntro: string;
+    /* Event archive (finished events). */
+    eventsArchiveTitle?: string;
+    eventsArchiveIntro?: string;
+    eventsArchiveLink?: string;
+    eventEndedLabel?: string;
+    eventsArchiveEmpty?: string;
     pageNewsTitle: string;
     pageNewsIntro: string;
     pageActivitiesTitle: string;

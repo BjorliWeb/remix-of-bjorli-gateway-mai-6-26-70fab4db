@@ -40,6 +40,8 @@ interface Props {
    * Used by future WordPress integration to signal untranslated CMS entries.
    */
   translatedBody?: boolean;
+  /** Discreet status chip, e.g. "Avsluttet" on an archived event. */
+  statusLabel?: string;
 }
 
 const ContentDetailTemplate = ({
@@ -55,6 +57,7 @@ const ContentDetailTemplate = ({
   extraContent,
   jsonLd,
   translatedBody,
+  statusLabel,
 }: Props) => {
   const { d, locale } = useLanguage();
   const lp = useLocalizedPath();
@@ -97,6 +100,11 @@ const ContentDetailTemplate = ({
             <div className="flex flex-wrap items-center gap-2 mb-4">
               {item.category && <CategoryLabel variant="solid">{item.category}</CategoryLabel>}
               {showDate && item.date && <DateBadge date={item.date} locale={locale} />}
+              {statusLabel && (
+                <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border">
+                  {statusLabel}
+                </span>
+              )}
             </div>
             <h1 className="font-display text-4xl md:text-6xl font-bold text-primary-foreground max-w-4xl leading-tight">
               {item.title}

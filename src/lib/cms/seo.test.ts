@@ -17,6 +17,7 @@ vi.mock('./index', () => ({
   getNews: async ({ language }: { language: Language }) => news[language] ?? [],
   getTips: async () => [],
   getEvents: async ({ language }: { language: Language }) => events[language] ?? [],
+  getArchivedEvents: async () => [],
   getActivities: async () => [],
 }));
 

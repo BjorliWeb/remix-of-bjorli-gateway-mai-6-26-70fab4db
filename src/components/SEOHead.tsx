@@ -11,6 +11,7 @@ import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
 import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
 import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
+import { EVENTS_ARCHIVE_SEO, isEventsArchivePath } from '@/lib/events/archive';
 
 interface SeoData {
   title: string;
@@ -69,6 +70,8 @@ const SEOHead = () => {
   const [routeJsonLd, setRouteJsonLd] = useState<Record<string, unknown> | null>(null);
   /** True for runtime-only CMS entries (user submissions) — keep them out of the index. */
   const [routeNoindex, setRouteNoindex] = useState(false);
+  /** Archive hub + archived event details: keep out of the index, keep links followed. */
+  const [routeNoindexFollow, setRouteNoindexFollow] = useState(false);
   /** Exact localized detail paths supplied by the CMS (detail routes only). */
   const [alternatePaths, setAlternatePaths] = useState<Partial<Record<Locale, string>> | null>(
     null,
@@ -92,6 +95,19 @@ const SEOHead = () => {
       const slug = canonicalPath === '/' ? '/' : canonicalPath;
       const fallback: SeoData = { ...seoByLocale[locale], og_image_url: null };
 
+      // Event archive hub — own metadata, noindex,follow, no CMS lookup.
+      if (isEventsArchivePath(location.pathname)) {
+        const archiveSeo = EVENTS_ARCHIVE_SEO[locale];
+        setSeo({ ...archiveSeo, og_image_url: null, keywords: fallback.keywords });
+        setRouteJsonLd(null);
+        setRouteNoindex(false);
+        setRouteNoindexFollow(true);
+        setAlternatePaths(null);
+        setAvailableLocales([...LOCALES]);
+        return;
+      }
+      setRouteNoindexFollow(false);
+
       // 1. CMS layer — per-route entry (news / tips / events / activities)
       const pageUrl = absoluteUrl(
         (LOCALE_PREFIX[locale] || '') + (slug === '/' ? '/' : slug),
@@ -108,6 +124,7 @@ const SEOHead = () => {
         });
         setRouteJsonLd(cmsSeo.jsonLd ?? null);
         setRouteNoindex(cmsSeo.noindex === true);
+        setRouteNoindexFollow(cmsSeo.noindexFollow === true);
         setAlternatePaths(
           cmsSeo.alternatePaths && Object.keys(cmsSeo.alternatePaths).length > 0
             ? (cmsSeo.alternatePaths as Partial<Record<Locale, string>>)
@@ -163,7 +180,7 @@ const SEOHead = () => {
     return () => {
       cancelled = true;
     };
-  }, [canonicalPath, locale]);
+  }, [canonicalPath, locale, location.pathname]);
 
   useEffect(() => {
     document.title = seo.title;
@@ -220,9 +237,11 @@ const SEOHead = () => {
     const isProd = isProductionOrigin();
     setMeta(
       'robots',
-      isProd && !routeNoindex && !internalNoindex
-        ? 'index,follow,max-image-preview:large,max-snippet:-1'
-        : 'noindex,nofollow',
+      !isProd || routeNoindex || internalNoindex
+        ? 'noindex,nofollow'
+        : routeNoindexFollow
+          ? 'noindex,follow'
+          : 'index,follow,max-image-preview:large,max-snippet:-1',
     );
 
     // Google Search Console verification (optional, env-driven).
@@ -351,7 +370,7 @@ const SEOHead = () => {
     } else if (routeScript) {
       routeScript.remove();
     }
-  }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, internalNoindex, availableLocales]);
+  }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, routeNoindexFollow, internalNoindex, availableLocales]);
 
   return null;
 };

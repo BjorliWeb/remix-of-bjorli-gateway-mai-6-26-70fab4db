@@ -7,6 +7,7 @@ import EventOrganizerBlock from '@/components/listing/EventOrganizerBlock';
 import { toListingItem } from '@/components/listing/listingHelpers';
 import {
   getActivities,
+  getArchivedEvents,
   getEvents,
   getNews,
   getTips,
@@ -14,6 +15,7 @@ import {
   type CmsEntryBase,
   type CmsEvent,
 } from '@/lib/cms';
+import { isEventArchived } from '@/lib/events/archive';
 import heroImg from '@/assets/hero-winter.jpg';
 
 type Kind = 'tips' | 'events' | 'news' | 'activities';
@@ -44,7 +46,13 @@ const ContentDetailPage = ({ kind }: Props) => {
   const entries = useCms<CmsEntryBase[]>(() => {
     const q = { language: locale };
     if (kind === 'tips') return getTips(q);
-    if (kind === 'events') return getEvents(q);
+    if (kind === 'events') {
+      // Archived events keep their URL — resolve both streams here.
+      return Promise.all([getEvents(q), getArchivedEvents(q)]).then(([cur, arc]) => [
+        ...cur,
+        ...arc,
+      ]);
+    }
     if (kind === 'news') return getNews(q);
     return getActivities(q);
   }, [locale, kind]) ?? [];
@@ -52,7 +60,16 @@ const ContentDetailPage = ({ kind }: Props) => {
   const items = entries.map((e) => toListingItem(e, heroImg));
   const item = items.find((it) => it.slug === slug) ?? null;
   const fullEntry = entries.find((e) => e.slug === slug);
-  const related = items.filter((it) => it.slug !== slug).slice(0, 3);
+  // Finished events stay online but are marked, and never suggested as related.
+  const archivedSlugs = new Set(
+    kind === 'events'
+      ? entries.filter((e) => isEventArchived(e as CmsEvent)).map((e) => e.slug)
+      : [],
+  );
+  const isArchived = slug ? archivedSlugs.has(slug) : false;
+  const related = items
+    .filter((it) => it.slug !== slug && !archivedSlugs.has(it.slug))
+    .slice(0, 3);
   const listingTitle = d.listing[cfg.titleKey];
 
   // FAQ placeholder — only surfaced for tips/activities by default.
@@ -83,6 +100,7 @@ const ContentDetailPage = ({ kind }: Props) => {
       ctaLabel={submissionEvent ? undefined : eventCta?.ctaLabel}
       ctaHref={submissionEvent ? undefined : eventCta?.ctaHref}
       extraContent={submissionEvent ? <EventOrganizerBlock event={submissionEvent} /> : undefined}
+      statusLabel={isArchived ? (d.listing.eventEndedLabel ?? 'Avsluttet') : undefined}
     />
   );
 };

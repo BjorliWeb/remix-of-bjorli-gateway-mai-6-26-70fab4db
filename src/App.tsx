@@ -26,6 +26,7 @@ import LegacyLivecamsRedirect from "./components/LegacyLivecamsRedirect";
 import NotFound from "./pages/NotFound";
 import Tips from "./pages/Tips";
 import Events from "./pages/Events";
+import EventsArchive from "./pages/EventsArchive";
 import News from "./pages/News";
 import Activities from "./pages/Activities";
 import GettingHere from "./pages/GettingHere";
@@ -58,6 +59,7 @@ import AdminEventSubmissions from "./pages/AdminEventSubmissions";
 import AdminMfa from "./pages/AdminMfa";
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
+import { eventsArchivePath } from "@/lib/events/archive";
 import { DEFAULT_SEASON } from "@/lib/season";
 
 const queryClient = new QueryClient();
@@ -136,6 +138,14 @@ const AppRoutes = () => (
         this Navigate covers client-side navigation). Must be declared before the
         generic :slug route so it wins the match. */}
     <Route path="/arrangementer/sommeraktiviteter" element={<Navigate to="/sommer/" replace />} />
+    {/* Event archive — must be declared before the generic :slug route. */}
+    {LOCALES.map((loc) => (
+      <Route
+        key={`events-archive-${loc}`}
+        path={eventsArchivePath(loc).replace(/\/$/, '')}
+        element={<EventsArchive />}
+      />
+    ))}
     <Route path="/arrangementer/:slug" element={<ContentDetailPage kind="events" />} />
     <Route path="/nyheter" element={<News />} />
     <Route path="/nyheter/:slug" element={<ContentDetailPage kind="news" />} />

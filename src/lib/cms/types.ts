@@ -182,10 +182,10 @@ export interface CmsEvent extends CmsEntryBase {
   isSubmission?: boolean;
   /**
    * Publication state. Defaults to `'published'` when missing.
-   * Archived events stay in the data for future CMS/editor use but
-   * MUST NOT be returned by the public adapter.
+   * `'unpublished'` hides the event everywhere. `'archived'` forces the
+   * event into the public event archive regardless of its end date.
    */
-  status?: 'published' | 'archived';
+  status?: 'published' | 'unpublished' | 'archived';
 }
 
 /* ------------------------------------------------------------------ */
