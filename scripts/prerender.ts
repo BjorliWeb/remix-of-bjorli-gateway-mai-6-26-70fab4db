@@ -758,6 +758,9 @@ const renderRoute = (
       extraJsonLd.push(jsonLdScript(buildFaqPage([...liftPassData.faq]), 'jsonld-faq'));
     }
   }
+  // Sub-pages have runtime JSON-LD from resolveSeoForRoute; use a shared id
+  // so React hydration updates the same script instead of duplicating it.
+  const webPageId = isSubPageSlug(canonical) ? 'jsonld-route' : undefined;
   const jsonLdTags = [
     jsonLdScript(
       buildWebPage({
@@ -766,6 +769,7 @@ const renderRoute = (
         description: seo.description,
         inLanguage: LOCALE_LABELS[locale].bcp47,
       }),
+      webPageId,
     ),
     ...extraJsonLd,
   ].join('\n    ');
