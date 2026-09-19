@@ -81,10 +81,45 @@ Early Bird 2026 exact window (Europe/Oslo, CEST = UTC+02:00):
 A rebuild + deploy must therefore run at **2026-09-20 22:00 UTC** (or any
 time shortly after). Options, smallest first:
 
-1. **Manual**: trigger a "Retry deployment" of production in the Cloudflare
-   Pages dashboard on 21 September. No new access needed.
-2. **Scheduled GitHub Actions workflow** (prepared below, intentionally NOT
-   added to `.github/workflows/` and NOT enabled):
+ 1. **Manual**: trigger a "Retry deployment" of production in the Cloudflare
+    Pages dashboard on 21 September. No new access needed.
+
+ 2. **Deploy hook (recommended — no new API access).** The existing Pages
+    project is Git-connected, which is the only prerequisite for Cloudflare
+    Pages *Deploy hooks*. A deploy hook is created in the dashboard under
+    Project → Settings → Builds & deployments → Deploy hooks, bound to the
+    production branch. It yields a single URL:
+
+    ```
+    POST https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/<hook-id>
+    ```
+
+    An unauthenticated `POST` (no token, no account ID, no wrangler) starts a
+    normal production build of the current branch — the same pipeline as a
+    push, so `prebuild` → `vite build` → `postbuild` prerender all run and the
+    expired campaign disappears from the static HTML.
+
+    The hook URL is itself the credential: anyone holding it can trigger
+    builds. Keep it out of the repo and out of `VITE_*` variables. It cannot
+    read data, change settings, or deploy foreign content.
+
+    Something still has to fire the POST at 2026-09-20 22:00 UTC. Cheapest
+    existing options, in order:
+
+    - **Cloudflare Cron Trigger + small Worker** in the same account — no
+      external service, no secret leaves Cloudflare.
+    - **Supabase `pg_cron` + `pg_net`** in the existing Lovable Cloud backend,
+      with the hook URL stored as a backend secret. Needs a one-line scheduled
+      job; no new third-party account.
+    - **External scheduler** (cron-job.org or similar) holding only the hook
+      URL. Simplest, but the URL then lives outside our systems.
+
+    Only one thing is missing to enable this: the deploy hook URL, created by
+    someone with access to the Cloudflare Pages dashboard. No API token and no
+    account ID are required.
+
+ 3. **Scheduled GitHub Actions workflow** (fallback only — needs new access;
+    intentionally NOT added to `.github/workflows/` and NOT enabled):
 
 ```yaml
 # .github/workflows/scheduled-rebuild.yml
@@ -111,7 +146,15 @@ jobs:
           command: pages deploy dist --project-name=<pages-project>
 ```
 
-Missing access before this can be enabled (none of it is available from
+(If GitHub Actions is used purely as the scheduler, it can also just
+`curl -X POST` the deploy hook with a single repo secret — no Cloudflare API
+token, account ID or project name needed.)
+
+Missing access before option 3 can be enabled (none of it is available from
 this repository workspace): GitHub Actions must be allowed for the repo, a
 Cloudflare API token with `Pages: Edit` and the account ID must be stored
 as repository secrets, and the exact Pages project name must be filled in.
+
+Nothing above is activated in this task. No Cloudflare, DNS, GitHub or
+deployment settings were changed, and no settings outside this repository
+were inspected.
