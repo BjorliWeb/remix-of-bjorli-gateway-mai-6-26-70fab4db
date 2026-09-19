@@ -49,7 +49,7 @@ import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
 import { getSkiSchoolData } from '../src/lib/cms/skiSchoolData';
-import { getSubPageData } from '../src/lib/cms/subpageData';
+import { getSubPageData, isSubPageSlug } from '../src/lib/cms/subpageData';
 import { getActiveHomepageCampaign, isCampaignCtaActive } from '../src/lib/cms/campaignData';
 import {
   DETAIL_KINDS,
