@@ -7,6 +7,11 @@ import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
 import { canonicalForSlug, translatePath } from '@/i18n/routes';
 import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
+import {
+  buildRouteSchemas,
+  MANAGED_SCHEMA_IDS,
+  SCHEMA_IDS,
+} from '@/lib/seo/routeSchema';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
 import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
