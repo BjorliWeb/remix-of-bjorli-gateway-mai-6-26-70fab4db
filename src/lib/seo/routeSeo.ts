@@ -307,14 +307,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Spårkarta – Bjorli Skisenter', description: 'Spår- och backkarta för Bjorli Skisenter – backar, liftar och barnområden.' },
   },
 
-  live: {
-    no: { title: 'Live status – Bjorli', description: 'Live oppdateringer fra Bjorli Skisenter – heiser, nedfarter og forhold.' },
-    en: { title: 'Live status – Bjorli, Norway', description: 'Live updates from Bjorli Skisenter – lifts, slopes and conditions.' },
-    de: { title: 'Live-Status – Bjorli', description: 'Live-Updates aus dem Bjorli Skisenter – Lifte, Pisten und Bedingungen.' },
-    nl: { title: 'Live status – Bjorli', description: 'Live updates van Bjorli Skisenter – liften, pistes en condities.' },
-    da: { title: 'Live status – Bjorli', description: 'Live opdateringer fra Bjorli Skisenter – lifte, pister og forhold.' },
-    sv: { title: 'Live status – Bjorli', description: 'Live uppdateringar från Bjorli Skisenter – liftar, backar och förhållanden.' },
-  },
 };
 
 // --- Added entries for pages without per-locale slug aliasing ------------
