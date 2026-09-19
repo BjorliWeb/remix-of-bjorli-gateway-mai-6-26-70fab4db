@@ -332,6 +332,18 @@ const SEOHead = () => {
     // Article, Event, ...) and should not be tagged as the destination
     // itself — that confused Google and AI crawlers about which page is
     // about Bjorli the place vs. Bjorli Skisenter the operator.
+    // Prerendered JSON-LD (WebPage / SkiResort / FAQPage) describes the page
+    // that was served from the server. As soon as the user client-side
+    // navigates away from that first page, those nodes are stale — drop them
+    // so no page/article node ever describes a page the visitor already left.
+    // On the initially loaded page they are kept untouched, which is what
+    // crawlers (direct request per URL) actually see.
+    if (INITIAL_PATH !== null && normalizeInternalPath(window.location.pathname) !== INITIAL_PATH) {
+      document
+        .querySelectorAll('script[data-prerender-schema]')
+        .forEach((el) => el.remove());
+    }
+
     const existingOrg = document.getElementById('jsonld-org');
     if (canonicalPath === '/') {
       const script = existingOrg ?? document.createElement('script');
