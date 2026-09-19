@@ -66,6 +66,14 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
  */
 const SITE_ORIGIN = CANONICAL_ORIGIN;
 
+/**
+ * Path of the document that was served by the server (prerendered HTML).
+ * Used to decide when prerendered JSON-LD has become stale after a
+ * client-side navigation. `null` outside the browser.
+ */
+const INITIAL_PATH: string | null =
+  typeof window === 'undefined' ? null : normalizeInternalPath(window.location.pathname);
+
 const SEOHead = () => {
   const location = useLocation();
   const { locale } = useLanguage();
