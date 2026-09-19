@@ -10,7 +10,11 @@ import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
 import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
-import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
+import {
+  absoluteUrl,
+  CANONICAL_ORIGIN,
+  normalizeInternalPath,
+} from '@/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, isEventsArchivePath } from '@/lib/events/archive';
 
 interface SeoData {
@@ -61,6 +65,14 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
  * the real origin via `isProductionOrigin()` below.
  */
 const SITE_ORIGIN = CANONICAL_ORIGIN;
+
+/**
+ * Path of the document that was served by the server (prerendered HTML).
+ * Used to decide when prerendered JSON-LD has become stale after a
+ * client-side navigation. `null` outside the browser.
+ */
+const INITIAL_PATH: string | null =
+  typeof window === 'undefined' ? null : normalizeInternalPath(window.location.pathname);
 
 const SEOHead = () => {
   const location = useLocation();
@@ -332,6 +344,18 @@ const SEOHead = () => {
     // Article, Event, ...) and should not be tagged as the destination
     // itself — that confused Google and AI crawlers about which page is
     // about Bjorli the place vs. Bjorli Skisenter the operator.
+    // Prerendered JSON-LD (WebPage / SkiResort / FAQPage) describes the page
+    // that was served from the server. As soon as the user client-side
+    // navigates away from that first page, those nodes are stale — drop them
+    // so no page/article node ever describes a page the visitor already left.
+    // On the initially loaded page they are kept untouched, which is what
+    // crawlers (direct request per URL) actually see.
+    if (INITIAL_PATH !== null && normalizeInternalPath(window.location.pathname) !== INITIAL_PATH) {
+      document
+        .querySelectorAll('script[data-prerender-schema]')
+        .forEach((el) => el.remove());
+    }
+
     const existingOrg = document.getElementById('jsonld-org');
     if (canonicalPath === '/') {
       const script = existingOrg ?? document.createElement('script');
