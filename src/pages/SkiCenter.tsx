@@ -4,8 +4,6 @@ import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { JsonLd } from '@/components/seo';
-import { buildSkiResort } from '@/lib/seo/schema';
 import { Button } from '@/components/ui/button';
 import {
   Accordion,
@@ -21,14 +19,8 @@ const SkiCenter = () => {
   const { locale } = useLanguage();
   const data = getSkiCenterData(locale);
 
-  const pageUrl =
-    typeof window !== 'undefined'
-      ? window.location.origin + window.location.pathname
-      : 'https://bjorli.no/bjorli-skisenter';
-
   return (
     <div>
-      <JsonLd id="jsonld-skiresort" data={buildSkiResort(pageUrl, data.description)} />
       <PageHero title={data.title} subtitle={data.subtitle} image={heroImage} />
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">

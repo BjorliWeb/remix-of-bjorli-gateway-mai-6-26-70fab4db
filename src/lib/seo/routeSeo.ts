@@ -23,7 +23,6 @@ import type { Locale } from '@/i18n/locales/types';
 import {
   SUBPAGE_SLUGS,
   SUBPAGES,
-  type SubPageSlug,
 } from '@/lib/cms/subpageData';
 import type { Language } from '@/lib/cms/types';
 import {
