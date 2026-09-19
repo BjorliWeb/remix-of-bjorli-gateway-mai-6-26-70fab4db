@@ -146,7 +146,10 @@ const SEOHead = () => {
 
       // 1b. Static per-route SEO registry (covers all canonical destination pages
       // in all six languages — invisible SEO layer, no visual change).
-      const staticEntry = seoForCanonicalPath(slug, locale);
+      const canonicalFirst = canonicalPath.replace(/^\//, '').split('/')[0];
+      const canonicalKey = canonicalFirst ? canonicalForSlug(locale, canonicalFirst) : 'home';
+      const canonicalSeoPath = canonicalKey === 'home' ? '/' : '/' + canonicalKey;
+      const staticEntry = canonicalKey ? seoForCanonicalPath(canonicalSeoPath, locale) : null;
       if (staticEntry) {
         setSeo({
           title: staticEntry.title,
