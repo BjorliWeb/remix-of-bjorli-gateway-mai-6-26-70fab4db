@@ -7,6 +7,11 @@ import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
 import { canonicalForSlug, translatePath } from '@/i18n/routes';
 import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
+import {
+  buildRouteSchemas,
+  MANAGED_SCHEMA_IDS,
+  SCHEMA_IDS,
+} from '@/lib/seo/routeSchema';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
 import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
@@ -339,64 +344,61 @@ const SEOHead = () => {
       document.head.appendChild(xd);
     }
 
-    // JSON-LD: emit the destination-level TouristDestination ONLY on the
-    // homepage. Inner pages describe more specific entities (SkiResort,
-    // Article, Event, ...) and should not be tagged as the destination
-    // itself — that confused Google and AI crawlers about which page is
-    // about Bjorli the place vs. Bjorli Skisenter the operator.
-    // Prerendered JSON-LD (WebPage / SkiResort / FAQPage) describes the page
-    // that was served from the server. As soon as the user client-side
-    // navigates away from that first page, those nodes are stale — drop them
-    // so no page/article node ever describes a page the visitor already left.
-    // On the initially loaded page they are kept untouched, which is what
-    // crawlers (direct request per URL) actually see.
+    // ── JSON-LD ────────────────────────────────────────────────────────
+    // Prerendered nodes describe the page the server delivered. After a
+    // client-side navigation they are stale, so drop every prerender node
+    // first and then rebuild the current route's schema from the SAME
+    // builder the prerenderer uses. On the initially loaded page the static
+    // nodes are simply adopted (same ids), which is what crawlers see.
     if (INITIAL_PATH !== null && normalizeInternalPath(window.location.pathname) !== INITIAL_PATH) {
       document
         .querySelectorAll('script[data-prerender-schema]')
         .forEach((el) => el.remove());
     }
 
-    const existingOrg = document.getElementById('jsonld-org');
-    if (canonicalPath === '/') {
-      const script = existingOrg ?? document.createElement('script');
-      if (!existingOrg) {
-        script.id = 'jsonld-org';
-        (script as HTMLScriptElement).setAttribute('type', 'application/ld+json');
-        document.head.appendChild(script);
-      }
-      script.textContent = JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'TouristDestination',
-        name: 'Bjorli',
-        description: seo.description,
-        url: absoluteUrl(LOCALE_PREFIX[locale] || '/', SITE_ORIGIN),
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: 'Bjorliveien 84',
-          addressLocality: 'Bjorli',
-          postalCode: '2669',
-          addressCountry: 'NO',
-        },
-        telephone: '+4748152200',
-        geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
-      });
-    } else if (existingOrg) {
-      existingOrg.remove();
-    }
+    // Canonical route key for the current path (top-level routes only —
+    // detail pages carry their own CMS entry schema instead).
+    const segments = canonicalPath.replace(/^\//, '').split('/').filter(Boolean);
+    const routeKey =
+      segments.length === 0
+        ? 'home'
+        : segments.length === 1
+          ? canonicalForSlug(locale, segments[0])
+          : null;
+    const staticSeo = routeKey
+      ? seoForCanonicalPath(routeKey === 'home' ? '/' : '/' + routeKey, locale)
+      : null;
+    const schemas = routeKey && staticSeo
+      ? buildRouteSchemas({
+          canonical: routeKey,
+          locale,
+          url: currentUrl,
+          title: seo.title,
+          description: seo.description ?? staticSeo.description,
+          inLanguage: LOCALE_LABELS[locale].bcp47,
+        })
+      : [];
+    const byId = new Map(schemas.map((s) => [s.id, s.data]));
+    // The CMS entry (Article / NewsArticle / Event / sub-page WebPage) owns
+    // the page-level node when present; otherwise the shared WebPage does.
+    if (routeJsonLd) byId.set(SCHEMA_IDS.webPage, routeJsonLd);
 
-    // Per-route JSON-LD (Article / NewsArticle / Event)
-    let routeScript = document.getElementById('jsonld-route');
-    if (routeJsonLd) {
-      if (!routeScript) {
-        routeScript = document.createElement('script');
-        routeScript.id = 'jsonld-route';
-        routeScript.setAttribute('type', 'application/ld+json');
-        document.head.appendChild(routeScript);
+    MANAGED_SCHEMA_IDS.forEach((id) => {
+      const data = byId.get(id) ?? null;
+      const existing = document.getElementById(id);
+      if (!data) {
+        existing?.remove();
+        return;
       }
-      routeScript.textContent = JSON.stringify(routeJsonLd);
-    } else if (routeScript) {
-      routeScript.remove();
-    }
+      const el = existing ?? document.createElement('script');
+      if (!existing) {
+        el.id = id;
+        el.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(el);
+      }
+      el.removeAttribute('data-prerender-schema');
+      el.textContent = JSON.stringify(data);
+    });
   }, [seo, canonicalPath, locale, routeJsonLd, routeNoindex, routeNoindexFollow, internalNoindex, availableLocales]);
 
   return null;

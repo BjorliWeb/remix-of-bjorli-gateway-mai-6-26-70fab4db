@@ -117,8 +117,18 @@ export const EARLY_BIRD_2026: CampaignData = {
 
 export const HOMEPAGE_CAMPAIGNS: CampaignData[] = [EARLY_BIRD_2026];
 
-/** Parse an ISO date (YYYY-MM-DD) as a UTC day boundary. */
-const day = (iso: string): number => Date.parse(`${iso}T00:00:00Z`);
+/**
+ * Campaign days are Norwegian calendar days.
+ *
+ * `startsAt` / `endsAt` are interpreted as midnight Europe/Oslo. Both Early
+ * Bird dates fall inside CEST (UTC+02:00), so the window is:
+ *   opens  2026-09-04T00:00:00+02:00 (2026-09-03T22:00Z)
+ *   closes 2026-09-21T00:00:00+02:00 (2026-09-20T22:00Z) — endsAt is inclusive.
+ * Prerender and runtime both call these helpers, so static HTML and the
+ * hydrated page always agree on whether the campaign is live.
+ */
+const OSLO_SUMMER_OFFSET = '+02:00';
+const day = (iso: string): number => Date.parse(`${iso}T00:00:00${OSLO_SUMMER_OFFSET}`);
 
 export const isCampaignVisible = (c: CampaignData, now: Date = new Date()): boolean => {
   if (!c.enabled) return false;

@@ -37,7 +37,8 @@ import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
 import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
-import { buildFaqPage, buildSkiResort, buildWebPage } from '../src/lib/seo/schema';
+import { buildWebPage } from '../src/lib/seo/schema';
+import { buildRouteSchemas } from '../src/lib/seo/routeSchema';
 import {
   SKI_HOLIDAY_NORWAY_LOCALE,
   SKI_HOLIDAY_NORWAY_PATH,
@@ -508,28 +509,6 @@ const bodySkeleton = (opts: {
 const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
   `<script type="application/ld+json"${id ? ` id="${id}"` : ''} data-prerender-schema="1">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
-/**
- * TouristDestination for the homepage — same shape SEOHead writes at runtime.
- * No `inLanguage`: TouristDestination is a Place subtype and schema.org does
- * not define `inLanguage` on Place (it stays on WebPage, which is valid).
- */
-const touristDestinationLd = (locale: Locale, description: string): Record<string, unknown> => ({
-  '@context': 'https://schema.org',
-  '@type': 'TouristDestination',
-  name: 'Bjorli',
-  description,
-  url: absoluteUrl(LOCALE_PREFIX[locale] || '/', ORIGIN),
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Bjorliveien 84',
-    addressLocality: 'Bjorli',
-    postalCode: '2669',
-    addressCountry: 'NO',
-  },
-  telephone: '+4748152200',
-  geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
-});
-
 /** Extract the Vite bundle <script> + preload <link>s from dist/index.html. */
 const readBaseTemplate = (): { scripts: string; preloads: string } => {
   const p = resolve(DIST, 'index.html');
@@ -740,39 +719,19 @@ const renderRoute = (
     ORIGIN + ogImageForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical);
   const lead = leadForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical, locale);
 
-  // Static JSON-LD: WebPage on every route; TouristDestination on home
-  // (id matches SEOHead so hydration replaces rather than duplicates it).
-  const extraJsonLd: string[] = [];
-  if (canonical === 'home') {
-    extraJsonLd.push(jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org'));
-  }
-  if (canonical === 'skisenter') {
-    const skiData = getSkiCenterData(locale);
-    extraJsonLd.push(
-      jsonLdScript(buildSkiResort(href, skiData.description), 'jsonld-ski-resort'),
-    );
-  }
-  if (canonical === 'heiskort') {
-    const liftPassData = getSubPageData(locale, 'heiskort');
-    if (liftPassData?.faq?.length) {
-      extraJsonLd.push(jsonLdScript(buildFaqPage([...liftPassData.faq]), 'jsonld-faq'));
-    }
-  }
-  // Sub-pages have runtime JSON-LD from resolveSeoForRoute; use a shared id
-  // so React hydration updates the same script instead of duplicating it.
-  const webPageId = isSubPageSlug(canonical) ? 'jsonld-route' : undefined;
-  const jsonLdTags = [
-    jsonLdScript(
-      buildWebPage({
-        url: href,
-        name: seo.title,
-        description: seo.description,
-        inLanguage: LOCALE_LABELS[locale].bcp47,
-      }),
-      webPageId,
-    ),
-    ...extraJsonLd,
-  ].join('\n    ');
+  // Static JSON-LD comes from the SAME builder the runtime uses
+  // (src/lib/seo/routeSchema.ts), with the same stable script ids — so a
+  // direct request and a client-side navigation yield identical nodes.
+  const jsonLdTags = buildRouteSchemas({
+    canonical,
+    locale,
+    url: href,
+    title: seo.title,
+    description: seo.description,
+    inLanguage: LOCALE_LABELS[locale].bcp47,
+  })
+    .map((s) => jsonLdScript(s.data, s.id))
+    .join('\n    ');
 
   const hreflangTags = hreflangs
     .map(
