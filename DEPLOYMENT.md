@@ -64,3 +64,54 @@ refreshes fall back to `index.html` on Cloudflare Pages.
 
 These happen later, after the staging `*.pages.dev` (or
 `staging.bjorli.no`) deployment has been QA'd.
+## Campaign end — scheduled rebuild (not activated)
+
+Homepage campaigns are baked into the prerendered HTML at build time, so a
+campaign that expires only disappears for crawlers and no-JS visitors after
+a new build is deployed. Hydrated pages hide it immediately, since runtime
+and prerender share `src/lib/cms/campaignData.ts`.
+
+Early Bird 2026 exact window (Europe/Oslo, CEST = UTC+02:00):
+
+| Boundary | Local (Europe/Oslo) | UTC |
+| --- | --- | --- |
+| CTA opens (`ctaFromDate`) | 2026-09-04 00:00 | 2026-09-03 22:00 |
+| Campaign hides (`endsAt` + 1 day) | 2026-09-21 00:00 | 2026-09-20 22:00 |
+
+A rebuild + deploy must therefore run at **2026-09-20 22:00 UTC** (or any
+time shortly after). Options, smallest first:
+
+1. **Manual**: trigger a "Retry deployment" of production in the Cloudflare
+   Pages dashboard on 21 September. No new access needed.
+2. **Scheduled GitHub Actions workflow** (prepared below, intentionally NOT
+   added to `.github/workflows/` and NOT enabled):
+
+```yaml
+# .github/workflows/scheduled-rebuild.yml
+name: Scheduled rebuild
+on:
+  schedule:
+    - cron: '5 22 20 9 *'   # 2026-09-20 22:05 UTC — Early Bird ends
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version-file: .nvmrc }
+      - run: npm ci
+      - run: npm run build
+        env:
+          SITE_URL: https://bjorli.no
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=<pages-project>
+```
+
+Missing access before this can be enabled (none of it is available from
+this repository workspace): GitHub Actions must be allowed for the repo, a
+Cloudflare API token with `Pages: Edit` and the account ID must be stored
+as repository secrets, and the exact Pages project name must be filled in.
