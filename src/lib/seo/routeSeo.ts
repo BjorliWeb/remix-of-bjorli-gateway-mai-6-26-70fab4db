@@ -262,14 +262,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Cykling på Bjorli och i Romsdalen', description: 'Cykling runt Bjorli – grusvägar, fjällrutter och dagsturer i Romsdalen, Reinheimen och Dovrefjell.' },
   },
 
-  familie: {
-    no: { title: 'Familieferie på Bjorli', description: 'Familieferie på Bjorli – barneområder, skiskole, korte avstander og rolige forhold gjør Bjorli til et godt valg for barnefamilier.' },
-    en: { title: 'Family ski holidays in Bjorli, Norway', description: 'Family ski holidays in Bjorli – children’s areas, ski school, short distances and a calm atmosphere make Bjorli a good choice for families.' },
-    de: { title: 'Familienurlaub in Bjorli, Norwegen', description: 'Familienurlaub in Bjorli – Kinderbereiche, Skischule, kurze Wege und ruhige Atmosphäre machen Bjorli ideal für Familien.' },
-    nl: { title: 'Gezinsvakantie in Bjorli, Noorwegen', description: 'Gezinsvakantie in Bjorli – kinderzones, skischool, korte afstanden en een rustige sfeer maken Bjorli geschikt voor families.' },
-    da: { title: 'Familieferie på Bjorli', description: 'Familieferie på Bjorli – børneområder, skiskole, korte afstande og rolige forhold gør Bjorli til et godt valg for familier.' },
-    sv: { title: 'Familjesemester på Bjorli', description: 'Familjesemester på Bjorli – barnområden, skidskola, korta avstånd och lugn miljö gör Bjorli till ett bra val för familjer.' },
-  },
 
   'reisen-hit': {
     no: { title: 'Reisen hit – slik kommer du til Bjorli', description: 'Bjorli er enkelt å nå med bil via E136 og med tog på Raumabanen, mellom Dombås og Åndalsnes.' },
