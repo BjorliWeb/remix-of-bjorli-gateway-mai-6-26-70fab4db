@@ -10,7 +10,11 @@ import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import { trackPageView } from '@/lib/analytics';
 import { isProductionOrigin } from '@/lib/seo/origin';
 import { isInternalNoindexPath } from '@/lib/seo/internalRoutes';
-import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
+import {
+  absoluteUrl,
+  CANONICAL_ORIGIN,
+  normalizeInternalPath,
+} from '@/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, isEventsArchivePath } from '@/lib/events/archive';
 
 interface SeoData {
