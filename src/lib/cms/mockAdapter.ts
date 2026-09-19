@@ -23,6 +23,7 @@ import { slugify } from '@/lib/slug';
 import { supabase } from '@/integrations/supabase/client';
 import { compareArchivedEvents, isEventArchived } from '@/lib/events/archive';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
+import { getHomepageData } from './homepageData';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
 
 /**
@@ -53,58 +54,19 @@ const SKISENTER_NEWS_TITLE: Record<Language, string> = {
 };
 
 /**
- * Editorial winter intro copy (split layout, Stayli-inspired pacing).
- * Falls back to the dictionary `intro.title/body` for any locale we
- * have not yet hand-translated.
+ * Editorial winter intro copy. Uses the shared homepage data module so
+ * the prerender script and the React runtime read the same source.
  */
-function buildWinterIntro(lang: Language, d: Dictionary) {
-  type Intro = { eyebrow: string; statement: string; supportingText: string; proofPoints: string[]; title: string; body: string };
-  const fallback = { title: d.intro.title, body: d.intro.body };
-  const map: Partial<Record<Language, Intro>> = {
-    no: {
-      eyebrow: 'Destinasjon Bjorli',
-      statement: 'Ekte vinter, korte avstander og rolige fjelldager mellom Østlandet og fjordene på Nordvestlandet.',
-      supportingText: 'Bjorli samler alpint, langrenn, hytter, servering og natur tett på hverandre. Her er det enkelt å planlegge en vinterhelg, en familieferie eller noen rolige dager på fjellet.',
-      proofPoints: ['Snøsikkert og familievennlig', 'Tog til fjellet med Raumabanen', 'Ski, hytter og natur tett på hverandre'],
-      ...fallback,
-    },
-    en: {
-      eyebrow: 'Destination Bjorli',
-      statement: 'Real winter, short distances and calm mountain days between eastern Norway and the western fjords.',
-      supportingText: 'Bjorli brings alpine skiing, cross-country, cabins, dining and nature close together. It is an easy place to plan a winter weekend, a family holiday or a few calm days on the mountain.',
-      proofPoints: ['Snow-sure and family-friendly', 'Train to the mountain via the Rauma Line', 'Ski, cabins and nature close together'],
-      ...fallback,
-    },
-    de: {
-      eyebrow: 'Destination Bjorli',
-      statement: 'Echter Winter, kurze Wege und ruhige Bergtage zwischen Ostnorwegen und den Westfjorden.',
-      supportingText: 'Bjorli vereint Alpinski, Langlauf, Hütten, Gastronomie und Natur dicht beieinander – ideal für ein Winterwochenende, einen Familienurlaub oder ein paar ruhige Bergtage.',
-      proofPoints: ['Schneesicher und familienfreundlich', 'Mit der Rauma-Bahn ins Gebirge', 'Ski, Hütten und Natur eng beisammen'],
-      ...fallback,
-    },
-    nl: {
-      eyebrow: 'Bestemming Bjorli',
-      statement: 'Echte winter, korte afstanden en rustige bergdagen tussen Oost-Noorwegen en de westelijke fjorden.',
-      supportingText: 'Op Bjorli liggen alpineskiën, langlauf, hutten, restaurants en natuur dicht bij elkaar. Ideaal voor een winterweekend, een gezinsvakantie of een paar rustige bergdagen.',
-      proofPoints: ['Sneeuwzeker en gezinsvriendelijk', 'Met de trein de bergen in via de Raumabanen', 'Ski, hutten en natuur dicht bij elkaar'],
-      ...fallback,
-    },
-    da: {
-      eyebrow: 'Destination Bjorli',
-      statement: 'Ægte vinter, korte afstande og rolige bjergdage mellem Østnorge og fjordene mod vest.',
-      supportingText: 'På Bjorli ligger alpinski, langrend, hytter, servering og natur tæt sammen. Det er nemt at planlægge en vinterweekend, en familieferie eller nogle rolige dage i fjeldet.',
-      proofPoints: ['Snesikkert og familievenligt', 'Tog til fjeldet med Raumabanen', 'Ski, hytter og natur tæt på'],
-      ...fallback,
-    },
-    sv: {
-      eyebrow: 'Destination Bjorli',
-      statement: 'Äkta vinter, korta avstånd och lugna fjälldagar mellan östra Norge och fjordarna i väst.',
-      supportingText: 'På Bjorli ligger alpint, längdåkning, stugor, servering och natur tätt ihop. Här är det enkelt att planera en vinterhelg, en familjesemester eller några lugna dagar i fjället.',
-      proofPoints: ['Snösäkert och familjevänligt', 'Tåg till fjället med Raumabanen', 'Skidor, stugor och natur tätt ihop'],
-      ...fallback,
-    },
+function buildWinterIntro(lang: Language, _d: Dictionary) {
+  const base = getHomepageData(lang).intro;
+  return {
+    eyebrow: base.eyebrow ?? 'Destination Bjorli',
+    statement: base.statement ?? '',
+    supportingText: base.supportingText ?? '',
+    proofPoints: base.proofPoints ? [...base.proofPoints] : [],
+    title: base.title,
+    body: base.body,
   };
-  return map[lang] ?? fallback;
 }
 
 /** Build a CmsImage from a registry entry, preserving alt/wpField/etc. */
@@ -567,66 +529,67 @@ export const mockAdapter: CmsAdapter = {
     //   16 Footer (Layout)
     // Status / Alert / Tips / Events / News are placeholders here and
     // will later be served by WordPress + a small ops backend.
-    const winterSections: any[] = [
-      {
-        id: 'status',
-        type: 'status',
-        heading: d.status.heading,
-        caption: d.status.caption,
-        cards: [
-          { icon: 'lifts', value: '4/6', label: d.status.liftsOpen },
-          { icon: 'slopes', value: '7/11', label: d.status.slopes },
-          { icon: 'snow', value: '80 cm', label: d.status.snowDepth },
-          { icon: 'temperature', value: '−12°C', label: d.status.temperature },
-        ],
-        links: [
-          { icon: 'clock', label: d.status.openToday, href: '/apningstider' },
-          // Homepage label stays short ("Livecams") for visual fit; the link
-          // resolves to the new combined "Vær og webkamera" page.
-          { icon: 'camera', label: d.status.livecams, href: '/vaer-og-webkamera' },
-        ],
-      },
-      {
-        id: 'alert',
-        type: 'alert',
-        label: d.alert.label,
-        message: d.alert.sample,
-        ctaLabel: d.alert.sampleCta,
-        ctaHref: '/apningstider',
-      },
-      { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
-      {
-        id: 'planning',
-        type: 'cardGrid',
-        title: d.planning.title,
-        subtitle: d.planning.subtitle,
-        items: d.planning.items.map((it, i) => ({
-          title: it.title,
-          desc: it.desc,
-          icon: ['mountain', 'ticket', 'clock', 'camera', 'map', 'home', 'activity', 'coffee'][i],
-          href: ['/bjorli-skisenter', 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862', '/apningstider', '/livecams', '/loypekart', '/overnatting', '/skiutleie', '/mat-og-drikke'][i],
-          external: i === 1,
-        })),
-      },
-      {
-        id: 'skiCenter',
-        type: 'feature',
-        eyebrow: d.skiCenter.eyebrow,
-        title: d.skiCenter.title,
-        body: d.skiCenter.body,
-        image: { url: heroWinter, alt: d.skiCenter.title },
-        imageSide: 'left',
-        ctas: [
-          { label: d.skiCenter.ctaPrimary, href: '/bjorli-skisenter', variant: 'primary' },
-          {
-            label: d.skiCenter.ctaSecondary,
-            href: 'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
-            variant: 'secondary',
-            external: true,
-            icon: 'ticket',
-          },
-        ],
-      },
+  const homepageData = getHomepageData(language);
+  const winterSections: any[] = [
+    {
+      id: 'status',
+      type: 'status',
+      heading: d.status.heading,
+      caption: d.status.caption,
+      cards: [
+        { icon: 'lifts', value: '4/6', label: d.status.liftsOpen },
+        { icon: 'slopes', value: '7/11', label: d.status.slopes },
+        { icon: 'snow', value: '80 cm', label: d.status.snowDepth },
+        { icon: 'temperature', value: '−12°C', label: d.status.temperature },
+      ],
+      links: [
+        { icon: 'clock', label: d.status.openToday, href: '/apningstider' },
+        // Homepage label stays short ("Livecams") for visual fit; the link
+        // resolves to the new combined "Vær og webkamera" page.
+        { icon: 'camera', label: d.status.livecams, href: '/vaer-og-webkamera' },
+      ],
+    },
+    {
+      id: 'alert',
+      type: 'alert',
+      label: d.alert.label,
+      message: d.alert.sample,
+      ctaLabel: d.alert.sampleCta,
+      ctaHref: '/apningstider',
+    },
+    { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
+    {
+      id: 'planning',
+      type: 'cardGrid',
+      title: homepageData.planning.title,
+      subtitle: homepageData.planning.subtitle,
+      items: homepageData.planning.cards.map((it, i) => ({
+        title: it.title,
+        desc: it.desc,
+        icon: ['mountain', 'ticket', 'clock', 'camera', 'map', 'home', 'activity', 'coffee'][i],
+        href: it.href,
+        external: it.external,
+      })),
+    },
+    {
+      id: 'skiCenter',
+      type: 'feature',
+      eyebrow: homepageData.skiCenter.eyebrow,
+      title: homepageData.skiCenter.title,
+      body: homepageData.skiCenter.body,
+      image: { url: heroWinter, alt: homepageData.skiCenter.title },
+      imageSide: 'left',
+      ctas: [
+        { label: homepageData.skiCenter.cta, href: '/bjorli-skisenter', variant: 'primary' },
+        {
+          label: d.hero.ctaLiftPass,
+          href: homepageData.hero.liftPassUrl,
+          variant: 'secondary',
+          external: true,
+          icon: 'ticket',
+        },
+      ],
+    },
       // Editorial role split (per spec):
       //   "Siste nytt fra Bjorli Skisenter" — official Skisenter
       //   updates (season opening, snow, lift pass, campaigns, slope &
@@ -897,12 +860,12 @@ export const mockAdapter: CmsAdapter = {
       title: d.meta.siteName,
       intro: d.meta.tagline,
       season,
-      heroTitle: isSummer ? d.summer.title : d.hero.title,
-      heroSubtitle: isSummer ? d.summer.subtitle : d.hero.subtitle,
-      heroIntro: isSummer ? d.summer.intro : d.hero.intro,
+      heroTitle: isSummer ? d.summer.title : homepageData.hero.title,
+      heroSubtitle: isSummer ? d.summer.subtitle : homepageData.hero.subtitle,
+      heroIntro: isSummer ? d.summer.intro : homepageData.hero.eyebrow,
       heroImage: { url: isSummer ? summerHero : heroWinter, alt: d.meta.siteName },
-      seoTitle: isSummer ? d.summer.title : d.hero.title,
-      seoDescription: isSummer ? d.summer.intro : d.hero.intro,
+      seoTitle: isSummer ? d.summer.title : homepageData.hero.title,
+      seoDescription: isSummer ? d.summer.intro : homepageData.hero.subtitle,
       sections: isSummer ? summerSections : winterSections,
     };
     return home;

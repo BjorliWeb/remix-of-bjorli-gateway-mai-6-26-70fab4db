@@ -11,8 +11,6 @@ import TranslationPendingNotice from '@/components/TranslationPendingNotice';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
-import { LOCALE_LABELS } from '@/i18n/locales/types';
-import { isIsoDate } from '@/lib/date/isIsoDate';
 import type { ListingItem } from '@/components/ListingPage';
 
 export type DetailKind = 'news' | 'event' | 'tip' | 'activity';
@@ -31,8 +29,6 @@ interface Props {
   ctaHref?: string;
   /** Optional block rendered after the body (used for organiser info on events). */
   extraContent?: ReactNode;
-  /** Pre-built JSON-LD payload (Article / NewsArticle / Event). Falls back to a WebPage stub. */
-  jsonLd?: Record<string, unknown>;
   /**
    * True when the displayed body is a real translation for the active locale.
    * When false (or undefined) and the active locale is not Norwegian, a small
@@ -55,7 +51,6 @@ const ContentDetailTemplate = ({
   ctaLabel,
   ctaHref,
   extraContent,
-  jsonLd,
   translatedBody,
   statusLabel,
 }: Props) => {
@@ -74,20 +69,6 @@ const ContentDetailTemplate = ({
   }
 
   const showDate = kind === 'news' || kind === 'event';
-  // Event schema needs a machine-readable start date. Entries that only carry
-  // a display date ("31. juli – 7. august 2026") are described as Article,
-  // matching the prerenderer and SEOHead.
-  const isEvent = kind === 'event' && isIsoDate(item.date);
-  const fallbackJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': isEvent ? 'Event' : kind === 'news' ? 'NewsArticle' : 'Article',
-    ...(isEvent ? { startDate: item.date } : {}),
-    headline: item.title,
-    description: item.intro,
-    image: item.image ? [item.image] : undefined,
-    inLanguage: (LOCALE_LABELS as Record<string, { bcp47: string }>)[locale]?.bcp47 ?? locale,
-  };
-  const ld = jsonLd ?? fallbackJsonLd;
 
   return (
     <article>
@@ -175,8 +156,6 @@ const ContentDetailTemplate = ({
       <RelatedContentSection title={d.listing.relatedTitle} items={related} basePath={basePath} />
 
       <SEOPlaceholderBlock title={d.listing.seoPlaceholderTitle ?? item.title} body={d.listing.seoPlaceholderBody} />
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
     </article>
   );
 };
