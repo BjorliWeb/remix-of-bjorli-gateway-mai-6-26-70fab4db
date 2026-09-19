@@ -742,6 +742,22 @@ const renderRoute = (
 
   // Static JSON-LD: WebPage on every route; TouristDestination on home
   // (id matches SEOHead so hydration replaces rather than duplicates it).
+  const extraJsonLd: string[] = [];
+  if (canonical === 'home') {
+    extraJsonLd.push(jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org'));
+  }
+  if (canonical === 'skisenter') {
+    const skiData = getSkiCenterData(locale);
+    extraJsonLd.push(
+      jsonLdScript(buildSkiResort(href, skiData.description), 'jsonld-ski-resort'),
+    );
+  }
+  if (canonical === 'heiskort') {
+    const liftPassData = getSubPageData(locale, 'heiskort');
+    if (liftPassData?.faq?.length) {
+      extraJsonLd.push(jsonLdScript(buildFaqPage([...liftPassData.faq]), 'jsonld-faq'));
+    }
+  }
   const jsonLdTags = [
     jsonLdScript(
       buildWebPage({
@@ -751,9 +767,7 @@ const renderRoute = (
         inLanguage: LOCALE_LABELS[locale].bcp47,
       }),
     ),
-    ...(canonical === 'home'
-      ? [jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org')]
-      : []),
+    ...extraJsonLd,
   ].join('\n    ');
 
   const hreflangTags = hreflangs
