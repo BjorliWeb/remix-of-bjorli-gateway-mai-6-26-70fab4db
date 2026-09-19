@@ -740,39 +740,19 @@ const renderRoute = (
     ORIGIN + ogImageForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical);
   const lead = leadForCanonicalPath(canonical === 'home' ? '/' : '/' + canonical, locale);
 
-  // Static JSON-LD: WebPage on every route; TouristDestination on home
-  // (id matches SEOHead so hydration replaces rather than duplicates it).
-  const extraJsonLd: string[] = [];
-  if (canonical === 'home') {
-    extraJsonLd.push(jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org'));
-  }
-  if (canonical === 'skisenter') {
-    const skiData = getSkiCenterData(locale);
-    extraJsonLd.push(
-      jsonLdScript(buildSkiResort(href, skiData.description), 'jsonld-ski-resort'),
-    );
-  }
-  if (canonical === 'heiskort') {
-    const liftPassData = getSubPageData(locale, 'heiskort');
-    if (liftPassData?.faq?.length) {
-      extraJsonLd.push(jsonLdScript(buildFaqPage([...liftPassData.faq]), 'jsonld-faq'));
-    }
-  }
-  // Sub-pages have runtime JSON-LD from resolveSeoForRoute; use a shared id
-  // so React hydration updates the same script instead of duplicating it.
-  const webPageId = isSubPageSlug(canonical) ? 'jsonld-route' : undefined;
-  const jsonLdTags = [
-    jsonLdScript(
-      buildWebPage({
-        url: href,
-        name: seo.title,
-        description: seo.description,
-        inLanguage: LOCALE_LABELS[locale].bcp47,
-      }),
-      webPageId,
-    ),
-    ...extraJsonLd,
-  ].join('\n    ');
+  // Static JSON-LD comes from the SAME builder the runtime uses
+  // (src/lib/seo/routeSchema.ts), with the same stable script ids — so a
+  // direct request and a client-side navigation yield identical nodes.
+  const jsonLdTags = buildRouteSchemas({
+    canonical,
+    locale,
+    url: href,
+    title: seo.title,
+    description: seo.description,
+    inLanguage: LOCALE_LABELS[locale].bcp47,
+  })
+    .map((s) => jsonLdScript(s.data, s.id))
+    .join('\n    ');
 
   const hreflangTags = hreflangs
     .map(
