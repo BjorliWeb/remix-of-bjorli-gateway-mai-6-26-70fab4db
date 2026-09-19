@@ -473,7 +473,7 @@ const skiSchoolBodySkeleton = (locale: Locale): string => {
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
     <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${offerings}
     </ul>
-    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.ctaLabel)}</a>`;
+    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.title)} →</a>`;
   return skeletonShell({ locale, canonical: 'skiskole', main });
 };
 
