@@ -423,7 +423,7 @@ const skiCenterBodySkeleton = (locale: Locale): string => {
 };
 
 const subPageBodySkeleton = (slug: 'heiskort', locale: Locale): string => {
-  const data = getSubPageData(slug, locale);
+  const data = getSubPageData(locale, slug);
   const highlights = data.highlights
     .map((h) => `      <li style="margin:0 0 0.5rem"><strong>${escapeHtml(h.title)}</strong> — ${escapeHtml(h.desc)}</li>`)
     .join('\n');
