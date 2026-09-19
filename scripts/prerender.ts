@@ -45,6 +45,12 @@ import {
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
+import { getHomepageData } from '../src/lib/cms/homepageData';
+import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
+import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
+import { getSkiSchoolData } from '../src/lib/cms/skiSchoolData';
+import { getSubPageData } from '../src/lib/cms/subpageData';
+import { getActiveHomepageCampaign, isCampaignCtaActive } from '../src/lib/cms/campaignData';
 import {
   DETAIL_KINDS,
   KIND_ROUTE,
@@ -266,24 +272,37 @@ const linksFor = (targets: LinkTarget[], locale: Locale): { label: string; href:
     .filter((t) => t !== 'handel' || locale === 'no')
     .map((t) => ({ label: PAGE_LABELS[locale][t] ?? t, href: hrefForTarget(t, locale) }));
 
-/** Body skeleton (semantic, crawler-visible). Replaced by React on hydrate. */
-const bodySkeleton = (opts: {
+/** Shared skeleton shell around a main content block. */
+const skeletonShell = (opts: {
+  locale: Locale;
+  canonical: LinkTarget | string;
+  main: string;
+}): string => {
+  const { locale, canonical, main } = opts;
+  const prefix = LOCALE_PREFIX[locale] || '';
+  const homeHref = normalizeInternalPath(prefix || '/');
+  const navHtml = linksFor(NAV_ROUTES, locale)
+    .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
+    .join(' · ');
+  return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
+  <header style="max-width:960px;margin:0 auto 2rem">
+    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
+    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
+  </header>
+  <main style="max-width:960px;margin:0 auto">
+${main}
+  </main>
+</div></div>`;
+};
+
+const fallbackBodySkeleton = (opts: {
   locale: Locale;
   title: string;
   description: string;
-  /** Skeleton key used for nav/related links only — not an SEO canonical. */
   canonical: LinkTarget | string;
   lead: RouteLeadEntry | null;
 }): string => {
   const { locale, title, description, canonical, lead } = opts;
-  const prefix = LOCALE_PREFIX[locale] || '';
-  const homeHref = normalizeInternalPath(prefix || '/');
-  // Crawler-visible skeleton: H1 distinct from <title>, lead distinct from
-  // meta description (both fall back to the old behaviour when no entry
-  // exists), expanded primary nav and per-page related links.
-  const navHtml = linksFor(NAV_ROUTES, locale)
-    .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
-    .join(' · ');
   const h1 = lead?.h1 ?? title;
   const leadText = lead?.lead ?? description;
   const supportingHtml = lead?.supporting
@@ -299,16 +318,178 @@ const bodySkeleton = (opts: {
       </ul>
     </section>`
     : '';
-  return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
-  <header style="max-width:960px;margin:0 auto 2rem">
-    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
-    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
-  </header>
-  <main style="max-width:960px;margin:0 auto">
-    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(h1)}</h1>
-    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(leadText)}</p>${supportingHtml}${relatedHtml}
-  </main>
-</div></div>`;
+  return `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(h1)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(leadText)}</p>${supportingHtml}${relatedHtml}`;
+};
+
+const campaignBlock = (locale: Locale): string => {
+  const campaign = getActiveHomepageCampaign();
+  if (!campaign) return '';
+  const copy = campaign.copy[locale] ?? campaign.copy.no;
+  const ctaActive = isCampaignCtaActive(campaign);
+  const cta = ctaActive
+    ? `\n    <p style="margin:1rem 0 0"><a href="${escapeHtml(campaign.ctaHref)}" style="display:inline-block;padding:0.75rem 1.25rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(copy.ctaLabel)}</a></p>`
+    : '';
+  const onlineOnly = ctaActive ? `\n    <p style="font-size:0.95rem;color:#567;margin:0.75rem 0 0">${escapeHtml(copy.onlineOnly)}</p>` : '';
+  return `\n    <section aria-label="${escapeHtml(copy.eyebrow)}" style="margin:2.5rem 0;padding:1.5rem;border:1px solid #003b4b33;border-radius:0.5rem;background:#fff">
+      <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(copy.eyebrow)}</p>
+      <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(copy.headline)}</h2>
+      <p style="font-size:1rem;color:#334;margin:0 0 0.75rem">${escapeHtml(copy.period)}</p>
+      <p style="line-height:1.6;max-width:65ch;color:#223;margin:0">${escapeHtml(copy.body)}</p>${cta}${onlineOnly}
+    </section>`;
+};
+
+const homeBodySkeleton = (locale: Locale): string => {
+  const data = getHomepageData(locale);
+  const cards = data.planning.cards
+    .map(
+      (c) =>
+        `    <li style="margin:0 0 0.75rem"><a href="${escapeHtml(c.href)}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(c.title)}</a> — ${escapeHtml(c.desc)}</li>`,
+    )
+    .join('\n');
+  const proofPoints = data.intro.proofPoints
+    ? `\n      <ul style="margin:0.75rem 0 0;padding-left:1.25rem;line-height:1.7">${data.intro.proofPoints.map((p) => `<li>${escapeHtml(p)}</li>`).join('')}</ul>`
+    : '';
+  const main = `    <section>
+      <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.hero.eyebrow)}</p>
+      <h1 style="font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:0 0 1rem">${escapeHtml(data.hero.title)}</h1>
+      <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.hero.subtitle)}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:0 0 1rem">
+        <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.75rem 1.25rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaLiftPass)}</a>
+        <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/overnatting`))}" style="display:inline-block;padding:0.75rem 1.25rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaStay)}</a>
+      </div>
+      <p style="margin:0"><a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/apningstider`))}">${escapeHtml(data.hero.ctaOpening)}</a></p>
+    </section>
+    <section style="margin:2.5rem 0">
+      <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.intro.title)}</h2>
+      <p style="font-size:1.05rem;line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.intro.body)}</p>
+      ${data.intro.statement ? `<p style="font-size:1.125rem;line-height:1.55;max-width:65ch;color:#003b4b;margin:0 0 0.75rem">${escapeHtml(data.intro.statement)}</p>` : ''}
+      ${data.intro.supportingText ? `<p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(data.intro.supportingText)}</p>` : ''}${proofPoints}
+    </section>
+    <section style="margin:2.5rem 0">
+      <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.planning.title)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.planning.subtitle)}</p>
+      <ul style="margin:0;padding-left:1.25rem;line-height:1.7">\n${cards}
+      </ul>
+    </section>
+    <section style="margin:2.5rem 0">
+      <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.skiCenter.eyebrow ?? '')}</p>
+      <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(data.skiCenter.title)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.skiCenter.body)}</p>
+      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}${data.skiCenter.href}`))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.skiCenter.cta)}</a>
+    </section>
+    <section style="margin:2.5rem 0">
+      <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.accommodation.eyebrow ?? '')}</p>
+      <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(data.accommodation.title)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.accommodation.body)}</p>
+      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}${data.accommodation.href}`))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
+    </section>${campaignBlock(locale)}`;
+  return skeletonShell({ locale, canonical: 'home', main });
+};
+
+const skiCenterBodySkeleton = (locale: Locale): string => {
+  const data = getSkiCenterData(locale);
+  const stats = data.stats
+    .map((s) => `      <li style="margin:0 0 0.5rem"><strong>${escapeHtml(s.value)}</strong> — ${escapeHtml(s.label)}</li>`)
+    .join('\n');
+  const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
+    <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
+    <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${stats}
+    </ul>
+    <section style="margin:0 0 2rem">
+      <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.liftPass.heading)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.liftPass.support)}</p>
+      <a href="${escapeHtml(data.liftPass.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.liftPass.cta)}</a>
+    </section>
+    <section style="margin:0 0 2rem">
+      <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.trailMap.caption)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(data.trailMap.note)}</p>
+      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/loypekart`))}" style="display:inline-block;padding:0.65rem 1rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.trailMap.ariaOpen)}</a>
+    </section>
+    <section style="margin:0 0 2rem">
+      <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.salesTerms.heading)}</h2>
+      <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.salesTerms.lead)}</p>
+      ${data.salesTerms.copy.items.map((it) => `<h3 style="font-size:1rem;margin:1rem 0 0.25rem">${escapeHtml(it.title)}</h3><p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(it.body)}</p>`).join('\n      ')}
+    </section>`;
+  return skeletonShell({ locale, canonical: 'skisenter', main });
+};
+
+const subPageBodySkeleton = (slug: 'heiskort', locale: Locale): string => {
+  const data = getSubPageData(slug, locale);
+  const highlights = data.highlights
+    .map((h) => `      <li style="margin:0 0 0.5rem"><strong>${escapeHtml(h.title)}</strong> — ${escapeHtml(h.desc)}</li>`)
+    .join('\n');
+  const ctas = data.ctas
+    .map(
+      (c) =>
+        `      <a href="${escapeHtml(c.href)}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''} style="display:inline-block;padding:0.65rem 1rem;margin:0 0.5rem 0.5rem 0;background:${c.variant === 'primary' ? '#003b4b;color:#fff' : 'transparent;color:#003b4b;border:1px solid #003b4b'};text-decoration:none;border-radius:0.375rem">${escapeHtml(c.label)}</a>`,
+    )
+    .join('\n');
+  const faq = data.faq?.length
+    ? `\n    <section style="margin:2rem 0 0">
+      <h2 style="font-size:1.25rem;margin:0 0 0.75rem">FAQ</h2>
+      ${data.faq.map((f) => `<details style="margin:0 0 0.75rem"><summary style="cursor:pointer;font-weight:600">${escapeHtml(f.q)}</summary><p style="line-height:1.6;max-width:65ch;color:#334;margin:0.5rem 0 0">${escapeHtml(f.a)}</p></details>`).join('\n      ')}
+    </section>`
+    : '';
+  const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.intro)}</p>
+    <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.body)}</p>
+    <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${highlights}
+    </ul>
+    <div style="margin:0 0 1.5rem">\n${ctas}
+    </div>${faq}`;
+  return skeletonShell({ locale, canonical: slug, main });
+};
+
+const openingHoursBodySkeleton = (locale: Locale): string => {
+  const data = getOpeningHoursData(locale);
+  const hours = data.hours
+    .map((h) => `      <li style="margin:0 0 0.5rem">${escapeHtml(h)}</li>`)
+    .join('\n');
+  const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
+    <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.statusNow)}</p>
+    <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${hours}
+    </ul>
+    <p style="line-height:1.6;max-width:65ch;color:#334;margin:0">${escapeHtml(data.note)}</p>`;
+  return skeletonShell({ locale, canonical: 'apningstider', main });
+};
+
+const skiSchoolBodySkeleton = (locale: Locale): string => {
+  const data = getSkiSchoolData(locale);
+  const offerings = data.offerings
+    .map((o) => `      <li style="margin:0 0 0.5rem">${escapeHtml(o)}</li>`)
+    .join('\n');
+  const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
+    <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
+    <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
+    <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${offerings}
+    </ul>
+    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.ctaLabel)}</a>`;
+  return skeletonShell({ locale, canonical: 'skiskole', main });
+};
+
+/** Body skeleton (semantic, crawler-visible). Replaced by React on hydrate. */
+const bodySkeleton = (opts: {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Skeleton key used for nav/related links only — not an SEO canonical. */
+  canonical: LinkTarget | string;
+  lead: RouteLeadEntry | null;
+}): string => {
+  const { locale, title, description, canonical, lead } = opts;
+  if (canonical === 'home') return homeBodySkeleton(locale);
+  if (canonical === 'skisenter') return skiCenterBodySkeleton(locale);
+  if (canonical === 'heiskort') return subPageBodySkeleton('heiskort', locale);
+  if (canonical === 'apningstider') return openingHoursBodySkeleton(locale);
+  if (canonical === 'skiskole') return skiSchoolBodySkeleton(locale);
+  return skeletonShell({
+    locale,
+    canonical,
+    main: fallbackBodySkeleton({ locale, title, description, canonical, lead }),
+  });
 };
 
 /**
@@ -688,6 +869,14 @@ const detailBodySkeleton = (opts: {
     </section>`
     : '';
 
+  const ctaHtml = entry.ctaLabel && entry.ctaHref
+    ? `\n    <p style="margin:1.25rem 0 0"><a href="${escapeHtml(entry.ctaHref)}"${entry.ctaHref.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''} style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(entry.ctaLabel)}</a></p>`
+    : '';
+
+  const imageHtml = entry.image
+    ? `\n    <figure style="margin:1.5rem 0 0"><img src="${escapeHtml(entry.image)}" alt="${escapeHtml(entry.title)}" style="max-width:100%;height:auto;border-radius:0.375rem" loading="lazy" /></figure>`
+    : '';
+
   return `<div id="root"><div data-prerender="detail" data-kind="${escapeHtml(kind)}" data-canonical="${escapeHtml(entry.slug)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
   <header style="max-width:960px;margin:0 auto 2rem">
     <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
@@ -696,7 +885,7 @@ const detailBodySkeleton = (opts: {
   <main style="max-width:960px;margin:0 auto">
     <nav aria-label="Breadcrumb" style="font-size:0.9rem;color:#567;margin:0 0 1rem"><a href="${escapeHtml(homeHref)}">Bjorli</a> › <a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></nav>
     <article>
-      <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(entry.title)}</h1>${metaHtml}${introHtml}${bodyHtml}
+      <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(entry.title)}</h1>${metaHtml}${introHtml}${bodyHtml}${ctaHtml}${imageHtml}
     </article>${siblingsHtml}
     <p style="margin:1.5rem 0 0"><a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></p>
   </main>

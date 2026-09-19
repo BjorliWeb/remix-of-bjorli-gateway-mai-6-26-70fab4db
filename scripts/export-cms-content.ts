@@ -38,6 +38,10 @@ export interface ExportedEntry {
   image?: string;
   seoTitle?: string;
   seoDescription?: string;
+  /** Editorial CTA label for detail pages (e.g. Early Bird purchase). */
+  ctaLabel?: string;
+  /** Editorial CTA href — may be internal or external. */
+  ctaHref?: string;
   /** Finished event: prerendered and linked, but never sitemapped. */
   archived?: boolean;
 }
@@ -62,6 +66,8 @@ const pick = (e: Record<string, unknown>): ExportedEntry => ({
   image: ((e.heroImage as { url?: string } | undefined)?.url) || undefined,
   seoTitle: (e.seoTitle as string) || undefined,
   seoDescription: (e.seoDescription as string) || undefined,
+  ctaLabel: (e.ctaLabel as string) || undefined,
+  ctaHref: (e.ctaHref as string) || undefined,
 });
 
 /** Editorial entries only — runtime Supabase submissions are excluded. */

@@ -5,20 +5,22 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { Button } from '@/components/ui/button';
 import { useCms, getHomepage } from '@/lib/cms';
+import { getHomepageData } from '@/lib/cms/homepageData';
 import HomepageSections from '@/components/HomepageSections';
 import HomepageCampaign from '@/components/HomepageCampaign';
 import { trackSkiPassClick } from '@/lib/analytics';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
- * Winter homepage. All editorial content is sourced from the CMS layer
- * (`getHomepage`) — no direct dictionary reads for content. The hero
- * stays inline because its CTA layout is page-specific.
+ * Winter homepage. Editorial content is sourced from the CMS layer
+ * (`getHomepage`) and the shared Node-safe `homepageData` module so the
+ * static prerender and the hydrated page use the same hero copy and CTAs.
  */
 const Index = () => {
   const { locale, d } = useLanguage();
   const lp = useLocalizedPath();
   const home = useCms(() => getHomepage({ language: locale, season: 'winter' }), [locale]);
+  const hero = getHomepageData(locale);
 
   if (!home) return null;
 
@@ -60,7 +62,7 @@ const Index = () => {
             transition={{ duration: 0.6 }}
             className="inline-block text-primary-foreground/80 text-xs md:text-sm font-medium tracking-[0.28em] uppercase mb-6 md:mb-8 px-4 py-1.5 border border-primary-foreground/25 rounded-full backdrop-blur-sm"
           >
-            {d.hero.eyebrow ?? home.intro}
+            {hero.hero.eyebrow ?? home.intro}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -88,22 +90,21 @@ const Index = () => {
           >
             {/* Primary — Kjøp heiskort */}
             <a
-              href="https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862"
+              href={hero.hero.liftPassUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto"
               onClick={() =>
                 trackSkiPassClick({
-                  link_url:
-                    'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4862',
-                  link_text: d.hero.ctaLiftPass,
+                  link_url: hero.hero.liftPassUrl,
+                  link_text: hero.hero.ctaLiftPass,
                   cta_location: 'hero',
                 })
               }
             >
               <Button size="lg" className="font-medium w-full sm:w-auto h-12 px-6 text-base">
                 <Ticket className="mr-2 h-5 w-5" />
-                {d.hero.ctaLiftPass}
+                {hero.hero.ctaLiftPass}
               </Button>
             </a>
             {/* Secondary — Finn overnatting */}
@@ -114,7 +115,7 @@ const Index = () => {
                 className="font-medium w-full sm:w-auto h-12 px-6 text-base bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
                 <HomeIcon className="mr-2 h-5 w-5" />
-                {d.hero.ctaStay}
+                {hero.hero.ctaStay}
               </Button>
             </Link>
           </motion.div>
@@ -130,7 +131,7 @@ const Index = () => {
               className="inline-flex items-center gap-1.5 text-primary-foreground/75 hover:text-primary-foreground text-sm font-medium tracking-wide transition-colors"
             >
               <Clock className="h-3.5 w-3.5" />
-              {d.hero.ctaOpening ?? d.status.openToday}
+              {hero.hero.ctaOpening}
             </Link>
           </motion.div>
         </div>

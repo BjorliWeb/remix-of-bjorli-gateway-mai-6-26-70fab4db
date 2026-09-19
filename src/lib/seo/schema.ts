@@ -67,8 +67,10 @@ export const buildTouristDestination = (siteUrl: string, description?: string) =
 export const buildSkiResort = (url: string, description?: string) =>
   strip({
     '@context': 'https://schema.org',
+    '@id': 'https://bjorli.no/#skiresort',
     '@type': ['SkiResort', 'LocalBusiness'],
     name: 'Bjorli Skisenter',
+    legalName: 'Nye Bjorli Skisenter AS',
     description,
     url,
     address: BJORLI_ADDRESS,
