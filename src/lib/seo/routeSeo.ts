@@ -244,14 +244,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Längdåkning på Bjorli', description: 'Längdåkning på Bjorli med preparerade spår i snösäkert högfjäll – bra utgångspunkt för klassiskt och skate.' },
   },
 
-  fotturer: {
-    no: { title: 'Fotturer på Bjorli – Reinheimen og Romsdalen', description: 'Fotturer på Bjorli – ut i Reinheimen og Romsdalen med turer for hele familien og lengre dagsturer i fjellet.' },
-    en: { title: 'Hiking in Bjorli, Norway – Reinheimen and Romsdalen', description: 'Hiking around Bjorli – into Reinheimen and Romsdalen, with easy family walks and longer mountain day hikes.' },
-    de: { title: 'Wandern in Bjorli, Norwegen – Reinheimen und Romsdal', description: 'Wandern rund um Bjorli – im Reinheimen und Romsdal, mit Familienrouten und längeren Bergtouren.' },
-    nl: { title: 'Wandelen in Bjorli, Noorwegen – Reinheimen en Romsdalen', description: 'Wandelen rond Bjorli – in Reinheimen en Romsdalen, met routes voor het hele gezin en langere dagtochten.' },
-    da: { title: 'Vandring på Bjorli – Reinheimen og Romsdalen', description: 'Vandreture på Bjorli – ud i Reinheimen og Romsdalen med ture for hele familien og længere dagsture.' },
-    sv: { title: 'Vandring på Bjorli – Reinheimen och Romsdalen', description: 'Vandring runt Bjorli – ut i Reinheimen och Romsdalen, för hela familjen och längre dagsturer.' },
-  },
 
 
 
