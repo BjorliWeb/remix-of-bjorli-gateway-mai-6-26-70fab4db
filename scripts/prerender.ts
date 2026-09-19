@@ -417,7 +417,7 @@ const skiCenterBodySkeleton = (locale: Locale): string => {
     <section style="margin:0 0 2rem">
       <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.salesTerms.heading)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.salesTerms.lead)}</p>
-      ${data.salesTerms.copy.items.map((it) => `<h3 style="font-size:1rem;margin:1rem 0 0.25rem">${escapeHtml(it.title)}</h3><p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(it.body)}</p>`).join('\n      ')}
+      <a href="${escapeHtml(pathFor('salgsbetingelser', locale))}" style="display:inline-block;padding:0.65rem 1rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.salesTerms.copy.trigger)}</a>
     </section>`;
   return skeletonShell({ locale, canonical: 'skisenter', main });
 };
