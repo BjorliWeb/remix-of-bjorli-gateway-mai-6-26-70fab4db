@@ -32,7 +32,7 @@ const Index = () => {
         {home.heroImage && (
           <img
             src={home.heroImage.url}
-            alt={home.heroImage.alt || home.heroTitle}
+            alt={home.heroImage.alt || hero.hero.title}
             className="md:hidden absolute inset-0 w-full h-full object-cover"
           />
         )}
@@ -62,7 +62,7 @@ const Index = () => {
             transition={{ duration: 0.6 }}
             className="inline-block text-primary-foreground/80 text-xs md:text-sm font-medium tracking-[0.28em] uppercase mb-6 md:mb-8 px-4 py-1.5 border border-primary-foreground/25 rounded-full backdrop-blur-sm"
           >
-            {hero.hero.eyebrow ?? home.intro}
+            {hero.hero.eyebrow}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -70,16 +70,16 @@ const Index = () => {
             transition={{ duration: 0.8, delay: 0.15 }}
             className="font-display text-[2.5rem] xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8.5rem] font-bold text-primary-foreground mb-5 md:mb-8 leading-[0.95] tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)]"
           >
-            {home.heroTitle}
+            {hero.hero.title}
           </motion.h1>
-          {home.heroSubtitle && (
+          {hero.hero.subtitle && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-primary-foreground/85 text-base sm:text-lg md:text-2xl mb-8 md:mb-12 font-light max-w-2xl mx-auto leading-relaxed"
             >
-              {home.heroSubtitle}
+              {hero.hero.subtitle}
             </motion.p>
           )}
           <motion.div
