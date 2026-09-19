@@ -71,6 +71,13 @@ const DIST = resolve(process.cwd(), 'dist');
  */
 const ORIGIN = CANONICAL_ORIGIN;
 
+/** Localized public path for a canonical route key. */
+const pathFor = (canonical: CanonicalRoute, locale: Locale): string => {
+  if (canonical === 'home') return normalizeInternalPath(LOCALE_PREFIX[locale] || '/');
+  const slug = slugForCanonical(canonical, locale);
+  return normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/${slug}`);
+};
+
 /**
  * Canonical routes that get a prerendered HTML file per locale.
  *
