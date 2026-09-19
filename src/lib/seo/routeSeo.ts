@@ -38,7 +38,32 @@ export interface RouteSeoEntry {
 
 type RouteSeoMap = Partial<Record<CanonicalRoute, Record<Locale, RouteSeoEntry>>>;
 
+/**
+ * Derive SEO metadata for CMS sub-pages from the shared Node-safe data module.
+ * This keeps `routeSeo.ts`, `SEOHead.tsx` and the prerender script aligned
+ * with the same source of truth used by `resolveSeoForRoute`.
+ */
+const buildSubpageRouteSeo = (): RouteSeoMap => {
+  const map: RouteSeoMap = {};
+  for (const slug of SUBPAGE_SLUGS) {
+    const entries: Partial<Record<Locale, RouteSeoEntry>> = {};
+    for (const lang of Object.keys(SUBPAGES) as Language[]) {
+      const page = SUBPAGES[lang][slug];
+      if (page) {
+        entries[lang as Locale] = {
+          title: page.seoTitle,
+          description: page.seoDescription,
+        };
+      }
+    }
+    map[slug as CanonicalRoute] = entries as Record<Locale, RouteSeoEntry>;
+  }
+  return map;
+};
+
 export const ROUTE_SEO: RouteSeoMap = {
+  ...buildSubpageRouteSeo(),
+
   home: {
     no: {
       // Winter-first while DEFAULT_SEASON === 'winter' (src/lib/season.ts).
