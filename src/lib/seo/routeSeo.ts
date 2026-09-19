@@ -298,14 +298,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Kontakt – Destination Bjorli', description: 'Kontakta Destination Bjorli och Bjorli Skisenter. Adress, telefon och e-post.' },
   },
 
-  loypekart: {
-    no: { title: 'Løypekart – Bjorli Skisenter', description: 'Løypekart for Bjorli Skisenter – nedfarter, heiser og barneområder.' },
-    en: { title: 'Trail map – Bjorli Skisenter, Norway', description: 'Trail and slope map for Bjorli Skisenter – runs, lifts and children’s areas.' },
-    de: { title: 'Pistenplan – Bjorli Skisenter', description: 'Pisten- und Loipenplan des Skigebiets Bjorli – Abfahrten, Lifte und Kinderbereiche.' },
-    nl: { title: 'Pistekaart – Bjorli Skisenter', description: 'Pistekaart voor Bjorli Skisenter – afdalingen, liften en kinderzones.' },
-    da: { title: 'Loipekort – Bjorli Skisenter', description: 'Loipe- og pistekort for Bjorli Skisenter – pister, lifte og børneområder.' },
-    sv: { title: 'Spårkarta – Bjorli Skisenter', description: 'Spår- och backkarta för Bjorli Skisenter – backar, liftar och barnområden.' },
-  },
 
 };
 
