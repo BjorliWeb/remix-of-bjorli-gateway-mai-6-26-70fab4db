@@ -37,7 +37,7 @@ import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
 import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
-import { buildWebPage } from '../src/lib/seo/schema';
+import { buildFaqPage, buildSkiResort, buildWebPage } from '../src/lib/seo/schema';
 import {
   SKI_HOLIDAY_NORWAY_LOCALE,
   SKI_HOLIDAY_NORWAY_PATH,
