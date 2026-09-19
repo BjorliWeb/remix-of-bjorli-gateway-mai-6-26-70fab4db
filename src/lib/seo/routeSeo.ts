@@ -21,6 +21,11 @@
 import type { CanonicalRoute } from '@/i18n/routes';
 import type { Locale } from '@/i18n/locales/types';
 import {
+  SUBPAGE_SLUGS,
+  SUBPAGES,
+} from '@/lib/cms/subpageData';
+import type { Language } from '@/lib/cms/types';
+import {
   SKI_HOLIDAY_NORWAY_SEO,
   SKI_HOLIDAY_NORWAY_SLUG,
 } from '@/lib/seo/skiHolidayNorwaySeo';
@@ -32,7 +37,32 @@ export interface RouteSeoEntry {
 
 type RouteSeoMap = Partial<Record<CanonicalRoute, Record<Locale, RouteSeoEntry>>>;
 
+/**
+ * Derive SEO metadata for CMS sub-pages from the shared Node-safe data module.
+ * This keeps `routeSeo.ts`, `SEOHead.tsx` and the prerender script aligned
+ * with the same source of truth used by `resolveSeoForRoute`.
+ */
+const buildSubpageRouteSeo = (): RouteSeoMap => {
+  const map: RouteSeoMap = {};
+  for (const slug of SUBPAGE_SLUGS) {
+    const entries: Partial<Record<Locale, RouteSeoEntry>> = {};
+    for (const lang of Object.keys(SUBPAGES) as Language[]) {
+      const page = SUBPAGES[lang][slug];
+      if (page) {
+        entries[lang as Locale] = {
+          title: page.seoTitle,
+          description: page.seoDescription,
+        };
+      }
+    }
+    map[slug as CanonicalRoute] = entries as Record<Locale, RouteSeoEntry>;
+  }
+  return map;
+};
+
 export const ROUTE_SEO: RouteSeoMap = {
+  ...buildSubpageRouteSeo(),
+
   home: {
     no: {
       // Winter-first while DEFAULT_SEASON === 'winter' (src/lib/season.ts).
@@ -69,14 +99,6 @@ export const ROUTE_SEO: RouteSeoMap = {
   },
 
 
-  vinter: {
-    no: { title: 'Vinter på Bjorli – alpint, langrenn og snøsikre dager', description: 'Planlegg vinterferien på Bjorli med alpint, langrenn, skiskole og skiutleie. Se heiskort, åpningstider, vær, webkamera, aktiviteter og overnatting.' },
-    en: { title: 'Winter in Bjorli – alpine, cross-country and snow-sure days', description: 'Plan your winter holiday in Bjorli with alpine skiing, cross-country, ski school and rental. Lift passes, opening hours, weather, webcams and places to stay.' },
-    de: { title: 'Winter in Bjorli – Alpin, Langlauf und schneesichere Tage', description: 'Planen Sie den Winterurlaub in Bjorli mit Alpinski, Langlauf, Skischule und Verleih. Skipässe, Öffnungszeiten, Wetter, Webcams, Aktivitäten und Unterkünfte.' },
-    nl: { title: 'Winter in Bjorli – alpineskiën, langlaufen en sneeuwzekere dagen', description: 'Plan je wintervakantie in Bjorli met alpineskiën, langlaufen, skischool en verhuur. Skipassen, openingstijden, weer, webcams, activiteiten en overnachten.' },
-    da: { title: 'Vinter på Bjorli – alpint, langrend og snesikre dage', description: 'Planlæg vinterferien på Bjorli med alpint, langrend, skiskole og skiudlejning. Se liftkort, åbningstider, vejr, webcam, aktiviteter og overnatning.' },
-    sv: { title: 'Vinter på Bjorli – alpint, längdåkning och snösäkra dagar', description: 'Planera vintersemestern på Bjorli med alpint, längdåkning, skidskola och uthyrning. Se liftkort, öppettider, väder, webbkamera, aktiviteter och boende.' },
-  },
 
   sommer: {
     no: { title: 'Sommer på Bjorli – fotturer, sykling og fiske', description: 'Opplev sommeren på Bjorli med fotturer, sykling, fiske og familieaktiviteter. Finn turforslag, overnatting og utflukter i Gudbrandsdalen og Romsdalen.' },
@@ -96,14 +118,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Bjorli Skisenter – alpint, liftkort och skidskola', description: 'Snösäker skidanläggning högst upp i Gudbrandsdalen, vid gränsen till Romsdalen. Backar, barnområde, skidskola, uthyrning, öppettider och liftkort.' },
   },
 
-  heiskort: {
-    no: { title: 'Heiskort til Bjorli Skisenter – priser og kjøp', description: 'Kjøp heiskort til Bjorli Skisenter. Finn dagskort, flerdagskort og sesongkort, se priser og praktisk informasjon, og gjør deg klar før dagen i bakken.' },
-    en: { title: 'Lift passes for Bjorli Skisenter – prices and purchase', description: 'Buy lift passes for Bjorli Skisenter. Day passes, multi-day and season passes, prices and practical details so you are ready before the day on the slopes.' },
-    de: { title: 'Skipässe für das Bjorli Skisenter – Preise und Kauf', description: 'Kaufen Sie Skipässe für das Bjorli Skisenter. Tages-, Mehrtages- und Saisonpässe, Preise und praktische Hinweise für einen reibungslosen Skitag.' },
-    nl: { title: 'Skipassen voor Bjorli Skisenter – prijzen en kopen', description: 'Koop skipassen voor Bjorli Skisenter. Dagpassen, meerdaagse passen en seizoenpassen, prijzen en praktische info zodat je klaar bent voor de piste.' },
-    da: { title: 'Liftkort til Bjorli Skisenter – priser og køb', description: 'Køb liftkort til Bjorli Skisenter. Find dagskort, flerdagskort og sæsonkort, se priser og praktisk information, og bliv klar før dagen i bakken.' },
-    sv: { title: 'Liftkort till Bjorli Skisenter – priser och köp', description: 'Köp liftkort till Bjorli Skisenter. Hitta dagskort, flerdagarskort och säsongskort, se priser och praktisk information inför dagen i backen.' },
-  },
 
   apningstider: {
     no: { title: 'Åpningstider – Bjorli', description: 'Åpningstider for Bjorli Skisenter, heiser, restaurant og butikker. Se siste oppdaterte informasjon på bjorli.no.' },
@@ -204,41 +218,9 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Skiduthyrning på Bjorli', description: 'Hyr skidor, snowboard och utrustning på Bjorli – modern utrustning intill skidcentret.' },
   },
 
-  langrenn: {
-    no: { title: 'Langrenn på Bjorli – preparerte løyper i høyfjellet', description: 'Langrenn på Bjorli med preparerte løyper i et snøsikkert høyfjellsterreng. Et godt utgangspunkt for klassisk og skøyting.' },
-    en: { title: 'Cross-country skiing in Bjorli, Norway', description: 'Cross-country skiing in Bjorli with groomed trails in snow-sure mountain terrain – a strong base for both classic and skating.' },
-    de: { title: 'Langlauf in Bjorli, Norwegen', description: 'Langlauf in Bjorli mit gespurten Loipen im schneesicheren Hochgebirge – guter Ausgangspunkt für Klassisch und Skating.' },
-    nl: { title: 'Langlaufen in Bjorli, Noorwegen', description: 'Langlaufen in Bjorli met geprepareerde loipes in sneeuwzeker berggebied – sterke basis voor klassiek en skating.' },
-    da: { title: 'Langrend på Bjorli', description: 'Langrend på Bjorli med præparerede spor i snøsikkert højfjeld – godt udgangspunkt for klassisk og skøjting.' },
-    sv: { title: 'Längdåkning på Bjorli', description: 'Längdåkning på Bjorli med preparerade spår i snösäkert högfjäll – bra utgångspunkt för klassiskt och skate.' },
-  },
 
-  fotturer: {
-    no: { title: 'Fotturer på Bjorli – Reinheimen og Romsdalen', description: 'Fotturer på Bjorli – ut i Reinheimen og Romsdalen med turer for hele familien og lengre dagsturer i fjellet.' },
-    en: { title: 'Hiking in Bjorli, Norway – Reinheimen and Romsdalen', description: 'Hiking around Bjorli – into Reinheimen and Romsdalen, with easy family walks and longer mountain day hikes.' },
-    de: { title: 'Wandern in Bjorli, Norwegen – Reinheimen und Romsdal', description: 'Wandern rund um Bjorli – im Reinheimen und Romsdal, mit Familienrouten und längeren Bergtouren.' },
-    nl: { title: 'Wandelen in Bjorli, Noorwegen – Reinheimen en Romsdalen', description: 'Wandelen rond Bjorli – in Reinheimen en Romsdalen, met routes voor het hele gezin en langere dagtochten.' },
-    da: { title: 'Vandring på Bjorli – Reinheimen og Romsdalen', description: 'Vandreture på Bjorli – ud i Reinheimen og Romsdalen med ture for hele familien og længere dagsture.' },
-    sv: { title: 'Vandring på Bjorli – Reinheimen och Romsdalen', description: 'Vandring runt Bjorli – ut i Reinheimen och Romsdalen, för hela familjen och längre dagsturer.' },
-  },
 
-  sykling: {
-    no: { title: 'Sykling på Bjorli og i Romsdalen', description: 'Sykling på Bjorli – grusveier, fjellruter og dagsturer i Romsdalen, Reinheimen og Dovrefjell.' },
-    en: { title: 'Cycling in Bjorli, Norway and Romsdalen', description: 'Cycling around Bjorli – gravel roads, mountain routes and day rides in Romsdalen, Reinheimen and Dovrefjell.' },
-    de: { title: 'Radfahren in Bjorli und Romsdal', description: 'Radfahren rund um Bjorli – Schotterstrassen, Bergrouten und Tagestouren in Romsdal, Reinheimen und Dovrefjell.' },
-    nl: { title: 'Fietsen in Bjorli en Romsdalen', description: 'Fietsen rond Bjorli – grindwegen, bergroutes en dagtochten in Romsdalen, Reinheimen en Dovrefjell.' },
-    da: { title: 'Cykling på Bjorli og i Romsdalen', description: 'Cykling på Bjorli – grusveje, fjeldruter og dagsture i Romsdalen, Reinheimen og Dovrefjell.' },
-    sv: { title: 'Cykling på Bjorli och i Romsdalen', description: 'Cykling runt Bjorli – grusvägar, fjällrutter och dagsturer i Romsdalen, Reinheimen och Dovrefjell.' },
-  },
 
-  familie: {
-    no: { title: 'Familieferie på Bjorli', description: 'Familieferie på Bjorli – barneområder, skiskole, korte avstander og rolige forhold gjør Bjorli til et godt valg for barnefamilier.' },
-    en: { title: 'Family ski holidays in Bjorli, Norway', description: 'Family ski holidays in Bjorli – children’s areas, ski school, short distances and a calm atmosphere make Bjorli a good choice for families.' },
-    de: { title: 'Familienurlaub in Bjorli, Norwegen', description: 'Familienurlaub in Bjorli – Kinderbereiche, Skischule, kurze Wege und ruhige Atmosphäre machen Bjorli ideal für Familien.' },
-    nl: { title: 'Gezinsvakantie in Bjorli, Noorwegen', description: 'Gezinsvakantie in Bjorli – kinderzones, skischool, korte afstanden en een rustige sfeer maken Bjorli geschikt voor families.' },
-    da: { title: 'Familieferie på Bjorli', description: 'Familieferie på Bjorli – børneområder, skiskole, korte afstande og rolige forhold gør Bjorli til et godt valg for familier.' },
-    sv: { title: 'Familjesemester på Bjorli', description: 'Familjesemester på Bjorli – barnområden, skidskola, korta avstånd och lugn miljö gör Bjorli till ett bra val för familjer.' },
-  },
 
   'reisen-hit': {
     no: { title: 'Reisen hit – slik kommer du til Bjorli', description: 'Bjorli er enkelt å nå med bil via E136 og med tog på Raumabanen, mellom Dombås og Åndalsnes.' },
@@ -267,23 +249,7 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Kontakt – Destination Bjorli', description: 'Kontakta Destination Bjorli och Bjorli Skisenter. Adress, telefon och e-post.' },
   },
 
-  loypekart: {
-    no: { title: 'Løypekart – Bjorli Skisenter', description: 'Løypekart for Bjorli Skisenter – nedfarter, heiser og barneområder.' },
-    en: { title: 'Trail map – Bjorli Skisenter, Norway', description: 'Trail and slope map for Bjorli Skisenter – runs, lifts and children’s areas.' },
-    de: { title: 'Pistenplan – Bjorli Skisenter', description: 'Pisten- und Loipenplan des Skigebiets Bjorli – Abfahrten, Lifte und Kinderbereiche.' },
-    nl: { title: 'Pistekaart – Bjorli Skisenter', description: 'Pistekaart voor Bjorli Skisenter – afdalingen, liften en kinderzones.' },
-    da: { title: 'Loipekort – Bjorli Skisenter', description: 'Loipe- og pistekort for Bjorli Skisenter – pister, lifte og børneområder.' },
-    sv: { title: 'Spårkarta – Bjorli Skisenter', description: 'Spår- och backkarta för Bjorli Skisenter – backar, liftar och barnområden.' },
-  },
 
-  live: {
-    no: { title: 'Live status – Bjorli', description: 'Live oppdateringer fra Bjorli Skisenter – heiser, nedfarter og forhold.' },
-    en: { title: 'Live status – Bjorli, Norway', description: 'Live updates from Bjorli Skisenter – lifts, slopes and conditions.' },
-    de: { title: 'Live-Status – Bjorli', description: 'Live-Updates aus dem Bjorli Skisenter – Lifte, Pisten und Bedingungen.' },
-    nl: { title: 'Live status – Bjorli', description: 'Live updates van Bjorli Skisenter – liften, pistes en condities.' },
-    da: { title: 'Live status – Bjorli', description: 'Live opdateringer fra Bjorli Skisenter – lifte, pister og forhold.' },
-    sv: { title: 'Live status – Bjorli', description: 'Live uppdateringar från Bjorli Skisenter – liftar, backar och förhållanden.' },
-  },
 };
 
 // --- Added entries for pages without per-locale slug aliasing ------------

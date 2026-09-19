@@ -37,7 +37,7 @@ import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
 import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
-import { buildWebPage } from '../src/lib/seo/schema';
+import { buildFaqPage, buildSkiResort, buildWebPage } from '../src/lib/seo/schema';
 import {
   SKI_HOLIDAY_NORWAY_LOCALE,
   SKI_HOLIDAY_NORWAY_PATH,
@@ -49,7 +49,7 @@ import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
 import { getSkiSchoolData } from '../src/lib/cms/skiSchoolData';
-import { getSubPageData } from '../src/lib/cms/subpageData';
+import { getSubPageData, isSubPageSlug } from '../src/lib/cms/subpageData';
 import { getActiveHomepageCampaign, isCampaignCtaActive } from '../src/lib/cms/campaignData';
 import {
   DETAIL_KINDS,
@@ -70,6 +70,13 @@ const DIST = resolve(process.cwd(), 'dist');
  * host into canonical / hreflang / og:url / JSON-LD.
  */
 const ORIGIN = CANONICAL_ORIGIN;
+
+/** Localized public path for a canonical route key. */
+const pathFor = (canonical: CanonicalRoute, locale: Locale): string => {
+  if (canonical === 'home') return normalizeInternalPath(LOCALE_PREFIX[locale] || '/');
+  const slug = slugForCanonical(canonical, locale);
+  return normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/${slug}`);
+};
 
 /**
  * Canonical routes that get a prerendered HTML file per locale.
@@ -410,13 +417,13 @@ const skiCenterBodySkeleton = (locale: Locale): string => {
     <section style="margin:0 0 2rem">
       <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.salesTerms.heading)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.salesTerms.lead)}</p>
-      ${data.salesTerms.copy.items.map((it) => `<h3 style="font-size:1rem;margin:1rem 0 0.25rem">${escapeHtml(it.title)}</h3><p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(it.body)}</p>`).join('\n      ')}
+      <a href="${escapeHtml(pathFor('salgsbetingelser', locale))}" style="display:inline-block;padding:0.65rem 1rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.salesTerms.copy.trigger)}</a>
     </section>`;
   return skeletonShell({ locale, canonical: 'skisenter', main });
 };
 
 const subPageBodySkeleton = (slug: 'heiskort', locale: Locale): string => {
-  const data = getSubPageData(slug, locale);
+  const data = getSubPageData(locale, slug);
   const highlights = data.highlights
     .map((h) => `      <li style="margin:0 0 0.5rem"><strong>${escapeHtml(h.title)}</strong> — ${escapeHtml(h.desc)}</li>`)
     .join('\n');
@@ -466,7 +473,7 @@ const skiSchoolBodySkeleton = (locale: Locale): string => {
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
     <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${offerings}
     </ul>
-    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.ctaLabel)}</a>`;
+    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.title)} →</a>`;
   return skeletonShell({ locale, canonical: 'skiskole', main });
 };
 
@@ -735,6 +742,25 @@ const renderRoute = (
 
   // Static JSON-LD: WebPage on every route; TouristDestination on home
   // (id matches SEOHead so hydration replaces rather than duplicates it).
+  const extraJsonLd: string[] = [];
+  if (canonical === 'home') {
+    extraJsonLd.push(jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org'));
+  }
+  if (canonical === 'skisenter') {
+    const skiData = getSkiCenterData(locale);
+    extraJsonLd.push(
+      jsonLdScript(buildSkiResort(href, skiData.description), 'jsonld-ski-resort'),
+    );
+  }
+  if (canonical === 'heiskort') {
+    const liftPassData = getSubPageData(locale, 'heiskort');
+    if (liftPassData?.faq?.length) {
+      extraJsonLd.push(jsonLdScript(buildFaqPage([...liftPassData.faq]), 'jsonld-faq'));
+    }
+  }
+  // Sub-pages have runtime JSON-LD from resolveSeoForRoute; use a shared id
+  // so React hydration updates the same script instead of duplicating it.
+  const webPageId = isSubPageSlug(canonical) ? 'jsonld-route' : undefined;
   const jsonLdTags = [
     jsonLdScript(
       buildWebPage({
@@ -743,10 +769,9 @@ const renderRoute = (
         description: seo.description,
         inLanguage: LOCALE_LABELS[locale].bcp47,
       }),
+      webPageId,
     ),
-    ...(canonical === 'home'
-      ? [jsonLdScript(touristDestinationLd(locale, seo.description), 'jsonld-org')]
-      : []),
+    ...extraJsonLd,
   ].join('\n    ');
 
   const hreflangTags = hreflangs
