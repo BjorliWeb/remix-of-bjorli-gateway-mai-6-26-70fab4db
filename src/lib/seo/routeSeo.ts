@@ -253,14 +253,6 @@ export const ROUTE_SEO: RouteSeoMap = {
     sv: { title: 'Vandring på Bjorli – Reinheimen och Romsdalen', description: 'Vandring runt Bjorli – ut i Reinheimen och Romsdalen, för hela familjen och längre dagsturer.' },
   },
 
-  sykling: {
-    no: { title: 'Sykling på Bjorli og i Romsdalen', description: 'Sykling på Bjorli – grusveier, fjellruter og dagsturer i Romsdalen, Reinheimen og Dovrefjell.' },
-    en: { title: 'Cycling in Bjorli, Norway and Romsdalen', description: 'Cycling around Bjorli – gravel roads, mountain routes and day rides in Romsdalen, Reinheimen and Dovrefjell.' },
-    de: { title: 'Radfahren in Bjorli und Romsdal', description: 'Radfahren rund um Bjorli – Schotterstrassen, Bergrouten und Tagestouren in Romsdal, Reinheimen und Dovrefjell.' },
-    nl: { title: 'Fietsen in Bjorli en Romsdalen', description: 'Fietsen rond Bjorli – grindwegen, bergroutes en dagtochten in Romsdalen, Reinheimen en Dovrefjell.' },
-    da: { title: 'Cykling på Bjorli og i Romsdalen', description: 'Cykling på Bjorli – grusveje, fjeldruter og dagsture i Romsdalen, Reinheimen og Dovrefjell.' },
-    sv: { title: 'Cykling på Bjorli och i Romsdalen', description: 'Cykling runt Bjorli – grusvägar, fjällrutter och dagsturer i Romsdalen, Reinheimen och Dovrefjell.' },
-  },
 
 
   'reisen-hit': {
