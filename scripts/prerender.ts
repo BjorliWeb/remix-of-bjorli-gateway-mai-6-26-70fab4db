@@ -506,7 +506,7 @@ const bodySkeleton = (opts: {
  * over the same element on hydration instead of appending a duplicate.
  */
 const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
-  `<script type="application/ld+json"${id ? ` id="${id}"` : ''}>${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+  `<script type="application/ld+json"${id ? ` id="${id}"` : ''} data-prerender-schema="1">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
 /**
  * TouristDestination for the homepage — same shape SEOHead writes at runtime.
