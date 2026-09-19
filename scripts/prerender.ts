@@ -509,28 +509,6 @@ const bodySkeleton = (opts: {
 const jsonLdScript = (data: Record<string, unknown>, id?: string): string =>
   `<script type="application/ld+json"${id ? ` id="${id}"` : ''} data-prerender-schema="1">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
-/**
- * TouristDestination for the homepage — same shape SEOHead writes at runtime.
- * No `inLanguage`: TouristDestination is a Place subtype and schema.org does
- * not define `inLanguage` on Place (it stays on WebPage, which is valid).
- */
-const touristDestinationLd = (locale: Locale, description: string): Record<string, unknown> => ({
-  '@context': 'https://schema.org',
-  '@type': 'TouristDestination',
-  name: 'Bjorli',
-  description,
-  url: absoluteUrl(LOCALE_PREFIX[locale] || '/', ORIGIN),
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Bjorliveien 84',
-    addressLocality: 'Bjorli',
-    postalCode: '2669',
-    addressCountry: 'NO',
-  },
-  telephone: '+4748152200',
-  geo: { '@type': 'GeoCoordinates', latitude: 62.05, longitude: 8.15 },
-});
-
 /** Extract the Vite bundle <script> + preload <link>s from dist/index.html. */
 const readBaseTemplate = (): { scripts: string; preloads: string } => {
   const p = resolve(DIST, 'index.html');
