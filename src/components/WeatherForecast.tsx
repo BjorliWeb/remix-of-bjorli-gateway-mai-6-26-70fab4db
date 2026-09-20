@@ -141,7 +141,11 @@ function hourSummary(h: WeatherHour, copy: ForecastCopy, locale: string) {
     locale,
     copy.symbols[weatherSymbolKind(h.conditionType)],
   );
-  const wind = `${formatWind(h.speedMs, null)} ${windFromWord(locale)} ${formatWindDirectionLong(h.windDirectionCardinal, h.windDirectionDegrees, locale)}`;
+  // Missing values render as an em dash — never as an assumed zero.
+  const direction = formatWindDirectionLong(h.windDirectionCardinal, h.windDirectionDegrees, locale);
+  const speed = formatWind(h.speedMs, null);
+  const wind =
+    direction === '—' ? speed : `${speed} ${windFromWord(locale)} ${direction}`;
   const gust = h.gustMs === null ? '—' : `${Math.round(h.gustMs)} m/s`;
   return `${condition}. ${copy.temperature}: ${formatTemperature(h.temperatureC)}. ${copy.precipitation}: ${formatPrecipitation(h.precipitationMm)}. ${copy.wind}: ${wind}. ${copy.gust}: ${gust}.`;
 }

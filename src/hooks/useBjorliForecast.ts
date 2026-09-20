@@ -13,11 +13,13 @@ export interface UseBjorliForecastResult {
   hasData: boolean;
 }
 
-/** Google's forecast updates far slower than this; 30 min is plenty. */
+/** Only reads stored data, so polling costs nothing at Google. */
 const DEFAULT_REFRESH_MS = 30 * 60 * 1000;
 
 /**
- * Loads the Bjorli base-point forecast from the `get-weather` Edge Function.
+ * Reads the shared Bjorli forecast from the read-only `get-weather` Edge
+ * Function. Page views and polling never trigger a Google request — only the
+ * scheduled `refresh-weather` job talks to Google.
  * Failures never throw into the tree — the caller renders an "unavailable"
  * state and the rest of the page keeps working.
  */
