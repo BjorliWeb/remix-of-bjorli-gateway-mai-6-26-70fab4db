@@ -8,7 +8,6 @@ import { useCms, getHomepage } from '@/lib/cms';
 import { getHomepageData } from '@/lib/cms/homepageData';
 import HomepageSections from '@/components/HomepageSections';
 import HomepageCampaign from '@/components/HomepageCampaign';
-import WeatherForecast from '@/components/WeatherForecast';
 import { trackSkiPassClick } from '@/lib/analytics';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
@@ -140,13 +139,6 @@ const Index = () => {
       </section>
 
       <HomepageCampaign />
-
-      {/* Kompakt værvarsel for baseområdet — supplerer Fnugg-statusen. */}
-      <section className="pt-10 md:pt-14">
-        <div className="container mx-auto max-w-4xl">
-          <WeatherForecast variant="compact" />
-        </div>
-      </section>
 
       {home.sections && <HomepageSections sections={home.sections} />}
     </div>
