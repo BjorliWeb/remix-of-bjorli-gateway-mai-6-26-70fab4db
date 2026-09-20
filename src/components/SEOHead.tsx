@@ -8,7 +8,9 @@ import { canonicalForSlug, translatePath } from '@/i18n/routes';
 import { resolveSeoForRoute } from '@/lib/cms';
 import { seoForCanonicalPath } from '@/lib/seo/routeSeo';
 import {
+  buildBusinessLd,
   buildRouteSchemas,
+  BUSINESS_ID,
   MANAGED_SCHEMA_IDS,
   SCHEMA_IDS,
 } from '@/lib/seo/routeSchema';
