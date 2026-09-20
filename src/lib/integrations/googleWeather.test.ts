@@ -9,6 +9,8 @@ import {
   formatHour,
   formatWeekday,
   currentHour,
+  weatherSymbolKind,
+  windTargetDegrees,
   EMPTY_FORECAST,
   type WeatherHour,
 } from './googleWeather';
@@ -21,7 +23,27 @@ const hour = (over: Partial<WeatherHour> = {}): WeatherHour => ({
   precipitationMm: null,
   precipitationProbability: null,
   condition: null,
+  conditionType: null,
+  conditionIconBaseUri: null,
+  isDaytime: null,
   ...over,
+});
+
+describe('visual weather helpers', () => {
+  it('maps Google conditions without inventing unknown weather', () => {
+    expect(weatherSymbolKind('CLEAR')).toBe('clear');
+    expect(weatherSymbolKind('PARTLY_CLOUDY')).toBe('partly-cloudy');
+    expect(weatherSymbolKind('HEAVY_RAIN')).toBe('rain');
+    expect(weatherSymbolKind('THUNDERSTORM')).toBe('storm');
+    expect(weatherSymbolKind(null)).toBe('unknown');
+    expect(weatherSymbolKind('UNRECOGNISED')).toBe('unknown');
+  });
+
+  it('points the arrow where wind blows while preserving valid north', () => {
+    expect(windTargetDegrees(0)).toBe(180);
+    expect(windTargetDegrees(270)).toBe(90);
+    expect(windTargetDegrees(null)).toBeNull();
+  });
 });
 
 describe('googleWeather formatting', () => {
