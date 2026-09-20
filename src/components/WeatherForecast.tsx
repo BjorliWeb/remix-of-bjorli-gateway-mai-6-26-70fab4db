@@ -10,7 +10,6 @@ import {
   formatPrecipitation,
   formatTemperature,
   formatWeekday,
-  formatWind,
   formatWindWithDirection,
 } from '@/lib/integrations/googleWeather';
 
@@ -304,7 +303,7 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
               {hours.map((h, i) => (
                 <li
                   key={h.startTime ?? i}
-                  className="w-[88px] shrink-0 rounded-lg border border-border/60 bg-muted/30 px-2 py-3 text-center"
+                  className="w-[104px] shrink-0 rounded-lg border border-border/60 bg-muted/30 px-2 py-3 text-center"
                 >
                   <span className="block text-xs text-muted-foreground mb-1">
                     {formatHour(h.startTime, locale)}
