@@ -1,8 +1,8 @@
-# Værvarsel: ryddig detaljfelt + faste oppdateringstider
+# Værvarsel: ryddig detaljfelt + planlagte oppdateringer
 
 ## 1. Detaljfeltet under timegrafen
 
-I dag viser feltet «Nøyaktige verdier, 17» og gjentar klokkeslett, vindretning og vindkast to ganger, med engelsk værbeskrivelse fra Google.
+I dag viser feltet «Nøyaktige verdier, 17» og gjentar klokkeslett, vindretning og vindkast, med engelsk værbeskrivelse fra Google.
 
 Ny visning (eksempel norsk, valgt time 17):
 
@@ -11,40 +11,39 @@ Værvarsel kl. 17.00
 Regnbyger. Temperatur: 6 °C. Nedbør: 0,9 mm. Vind: 3 m/s fra vest. Vindkast: 10 m/s.
 ```
 
-- Overskriften bruker klokkeslettet til den valgte timen.
-- Værbeskrivelsen oversettes til sidens språk ut fra Googles værkode (ikke Googles engelske tekst).
-- Klokkeslett, vindretning og vindkast fjernes fra selve setningen (vindretning står som «fra vest» i vindlinjen, vindkast på egen linje).
-- Skjermleser-teksten på hver time beholder samme innhold, slik at tastaturbruk fortsatt fungerer.
-- Alle 6 språk. Graf, layout, vindpiler og 7-dagersvarselet er uendret.
+- Overskriften bruker klokkeslettet til valgt time.
+- Værbeskrivelsen oversettes til sidens språk ut fra Googles værkode, ikke Googles engelske tekst.
+- Gjentatt klokkeslett og gjentatt vindretning/vindkast fjernes fra setningen.
+- Skjermleser-teksten per time har samme innhold, så tastaturbruk fungerer som før.
+- Alle 6 språk. Graf, layout, vindpiler og 7-dagersvarsel er uendret.
 
-## 2. Faste oppdateringer kl. 07.00, 12.00 og 19.00 (Europe/Oslo)
+## 2. Planlagte oppdateringer i stedet for henting ved besøk
 
-I dag henter vi fra Google når noen besøker siden (med 15 minutters mellomlagring i minnet). Ny løsning:
+- Timevarsel: hentes én gang hver hele time.
+- 7-dagersvarsel: hentes kl. 07.00, 12.00 og 19.00 i Europe/Oslo, med riktig sommer-/vintertid.
+- Time- og dagsdata lagres hver for seg, med egen hentetid og egen utløpstid.
+- Sidevisning, navigasjon og oppfriskning leser kun lagrede data og kan aldri utløse et Google-kall.
+- Lås før henting hindrer at to kjøringer henter samtidig.
+- Ved hentefeil: utløpte data slettes, og visningen merkes utilgjengelig. Gyldige data beholdes med «Sist oppdatert».
+- Kun fremtidige timer som finnes i prognosen vises; ingen antatte verdier.
+- Forventet normalforbruk: 24 timekall + 3 dagskall = **27 Google-kall per døgn**. Retries og eventuell ekstra paginering rapporteres separat.
 
-- En planlagt jobb i databasen kjører hver hele time og starter henting kun når klokken i Oslo er 07, 12 eller 19. Dette gir riktig tid både sommer og vinter.
-- Hentingen lagrer siste vellykkede prognose i databasen, felles for alle besøkende.
-- Sidevisning, navigasjon og automatisk oppfriskning leser kun lagret prognose og kan aldri utløse et Google-kall.
-- Ved feil beholdes forrige prognose, og visningen merkes tydelig som utdatert når en planlagt oppdatering er uteblitt. Ett kort nytt forsøk per planlagt kjøring, ingen løpende gjentak.
-- «Sist oppdatert» viser faktisk hentetid fra Google.
-- Kun fremtidige timer som finnes i prognosen vises. Ingen utfylling av manglende timer.
-- Antall Google-kall: 2 per oppdatering (time + dag) × 3 oppdateringer = **6 kall per døgn**, uavhengig av trafikk.
+### Googles vilkår (EØS, punkt 23.3)
+
+Mellomlagring er tillatt i inntil 1 time for Hourly Forecast-verdier og inntil 24 timer for Daily Forecast-verdier. Utløpstidene i løsningen settes nøyaktig etter dette, og utløpte verdier slettes.
 
 Fnugg-status, driftsmeldinger, webkameraer og dagens design beholdes uendret.
 
-### Googles vilkår
-
-Google tillater midlertidig mellomlagring av værinnhold (inntil 30 dager) så lenge kilde og tidspunkt oppgis. Lagring i inntil 12 timer er godt innenfor. Jeg kontrollerer gjeldende vilkårstekst før implementering og rapporterer konkret dersom noe hindrer løsningen.
-
 ## Teknisk
 
-- `src/components/WeatherForecast.tsx`: ny overskrift med klokkeslett, forenklet detalsetning, fjernet dobbel retning/kast.
-- `src/lib/integrations/googleWeather.ts` (+ test): lokalisert tabell fra Googles `conditionType`-koder til værtekst i 6 språk (f.eks. `RAIN_SHOWERS` → «Regnbyger» / «Rain showers» / «Regenschauer» / «Regenbuien» / «Regnbyger» / «Regnskurar»), med fallback til eksisterende symbolnavn.
-- Ny tabell `public.weather_snapshot` (én rad) med prognose-JSON, `fetched_at` og feiltellere. RLS med offentlig lese-tilgang og skrive kun fra serverfunksjon, inkludert nødvendige GRANTs.
-- Ny funksjon `refresh-weather`: henter fra Google og skriver snapshot; beskyttet med intern nøkkel, kalles kun av planleggeren.
-- `get-weather` endres til kun å lese snapshot fra databasen — ingen Google-kall. Svarer med `fetchedAt` og et flagg for utdatert data når snapshotet er eldre enn forventet.
-- Planlegging: aktiver `pg_cron` + `pg_net` og legg opp én timesjobb som kaller `refresh-weather` når Oslo-klokken er 07, 12 eller 19. Duplikater unngås ved at jobben ikke skriver på nytt dersom snapshotet allerede er hentet i samme tidsvindu.
-- `useBjorliForecast`: leser videre som i dag (ingen Google-kall), oppfriskning kan reduseres til å hente lagret data.
+- `src/components/WeatherForecast.tsx`: ny overskrift med klokkeslett, forenklet detaljsetning.
+- `src/lib/integrations/googleWeather.ts` (+ test): lokalisert tabell fra Googles `conditionType` til værtekst i 6 språk, med fallback til dagens symbolnavn.
+- Ny tabell `public.weather_snapshot` med separate rader/kolonner for `hourly` og `daily`: prognose-JSON, `fetched_at`, `expires_at`, feilteller og låsefelt. RLS: offentlig lesing, skriving kun via serverfunksjon; nødvendige GRANTs.
+- Ny funksjon `refresh-weather`: tar inn hvilken del som skal hentes, tar lås, kaller Google med eksplisitt `hours=24`/`pageSize=24` og `days=7`/`pageSize=7`, lagrer og setter utløpstid (1 t / 24 t). Ved feil: sletter utløpt data, øker teller, maks ett kort nytt forsøk.
+- `get-weather` leser kun snapshot, returnerer separate hentetider og et utilgjengelig-flagg når data er utløpt eller slettet.
+- Planlegging: `pg_cron` + `pg_net`. Én timesjobb henter timevarsel; samme jobb henter dagsvarsel kun når Oslo-klokken er 07, 12 eller 19.
+- `useBjorliForecast`: leser lagrede data som før, ingen Google-kall.
 
 ## Verifisering
 
-Typesjekk, eksisterende og utvidede tester, produksjonsbygg. Nettleserkontroll: gjentatte sidebesøk og navigasjon viser null Google-kall, detaljfeltet vises korrekt på mobil og desktop, og «Sist oppdatert» stemmer med lagret hentetid. Rapport med valgt planlegging, kall per døgn og resultat.
+Typesjekk, tester og produksjonsbygg. Antall Google-kall verifiseres med serverlogger og tellere i databasen, ikke nettleserens nettverksfane. Nettleserkontroll bekrefter kun at gjentatte besøk leser lagrede data, at detaljfeltet er riktig på mobil og desktop, og at «Sist oppdatert» stemmer. Kort rapport med planlegging, kall per døgn og resultat.
