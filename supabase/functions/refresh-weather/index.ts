@@ -302,8 +302,31 @@ Deno.serve(async (req) => {
     });
   }
 
+  // Access control: either the shared refresh token, or a one-time ticket that
+  // the scheduled database job rotates right before calling this function.
+  const presented = req.headers.get('x-weather-refresh-token') ?? '';
   const expected = Deno.env.get('WEATHER_REFRESH_TOKEN');
-  if (!expected || req.headers.get('x-weather-refresh-token') !== expected) {
+  let allowed = !!expected && presented === expected;
+  if (!allowed && presented) {
+    const db = admin();
+    const { data: ticket } = await db
+      .from('weather_refresh_ticket')
+      .select('token, created_at')
+      .eq('id', true)
+      .maybeSingle();
+    const fresh =
+      !!ticket?.created_at &&
+      Date.now() - new Date(ticket.created_at as string).getTime() < 120_000;
+    if (fresh && ticket?.token === presented) {
+      allowed = true;
+      // Consume the ticket so it cannot be replayed.
+      await db
+        .from('weather_refresh_ticket')
+        .update({ token: crypto.randomUUID(), created_at: new Date(0).toISOString() })
+        .eq('id', true);
+    }
+  }
+  if (!allowed) {
     return new Response(JSON.stringify({ error: 'forbidden' }), {
       status: 403,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
