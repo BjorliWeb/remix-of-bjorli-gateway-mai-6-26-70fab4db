@@ -11,7 +11,13 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
-export interface WeatherHour {
+/** Direction the wind comes FROM. 0 degrees is valid (northerly). */
+export interface WindDirection {
+  windDirectionDegrees?: number | null;
+  windDirectionCardinal?: string | null;
+}
+
+export interface WeatherHour extends WindDirection {
   startTime: string | null;
   temperatureC: number | null;
   speedMs: number | null;
@@ -21,7 +27,7 @@ export interface WeatherHour {
   condition: string | null;
 }
 
-export interface WeatherDay {
+export interface WeatherDay extends WindDirection {
   date: string | null;
   startTime: string | null;
   maxTemperatureC: number | null;
