@@ -100,7 +100,13 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
+const LiveStatusCards = ({
+  section,
+  overlapPrevious = false,
+}: {
+  section: CmsStatusSection;
+  overlapPrevious?: boolean;
+}) => {
   const { locale } = useLanguage();
   const language = locale;
   const lp = useLocalizedPath();
@@ -159,7 +165,11 @@ const LiveStatusCards = ({ section }: { section: CmsStatusSection }) => {
   // and ordering when Fnugg has no value for that icon.
 
   return (
-    <section className="relative -mt-10 md:-mt-16 z-20 px-4">
+    <section
+      className={`relative z-20 px-4 ${
+        overlapPrevious ? '-mt-10 md:-mt-16' : 'pt-10 md:pt-14'
+      }`}
+    >
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 max-w-4xl mx-auto">
           {cards.map((card, i) => {

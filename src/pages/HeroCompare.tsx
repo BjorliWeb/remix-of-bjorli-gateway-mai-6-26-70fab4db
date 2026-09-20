@@ -159,7 +159,7 @@ const HeroCompare = () => {
             </div>
           </section>
 
-          {statusSection && <LiveStatusCards section={statusSection} />}
+          {statusSection && <LiveStatusCards section={statusSection} overlapPrevious />}
         </div>
       ))}
     </div>
