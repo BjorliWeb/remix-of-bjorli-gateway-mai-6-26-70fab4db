@@ -15,6 +15,7 @@ import {
   getTips,
 } from './index';
 import { isEventArchived } from '@/lib/events/archive';
+import { businessRef } from '@/lib/seo/routeSchema';
 
 /** Current + archived events — archived detail pages must stay resolvable. */
 const loadAllEvents = async (language: Language): Promise<CmsEntryBase[]> => {
