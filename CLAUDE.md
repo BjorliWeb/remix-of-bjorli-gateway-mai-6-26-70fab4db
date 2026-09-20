@@ -400,3 +400,17 @@ When starting a new Claude Code session in this repo, first respond with:
 6. Ask for the task
 
 Do not begin editing before the task is given.
+
+---
+
+## Faktaregel for publisert innhold
+
+Alle publiserte faktapåstander om Bjorli skal kunne spores til en autoritativ kilde eller eksplisitt bekreftelse fra eier. Eksisterende nettstedstekst og tidligere AI-generert innhold er ikke i seg selv dokumentasjon. Manglende fakta skal utelates og rapporteres internt. Ingen antakelser, oppdiktede vilkår eller offentlige plassholdere. Oversettelser skal bevare betydningen uten å legge til opplysninger.
+
+### Bekreftede fakta
+
+Kilde: Eksplisitt bekreftet av eier 20.09.2026
+
+- Barn fra og med 0 til og med 6 år kjører gratis og trenger ikke eget Keycard.
+- Det finnes ingen egne familiepriser i høysesongen.
+- Gratis kjøring for barn forutsetter ikke en betalende voksen.
