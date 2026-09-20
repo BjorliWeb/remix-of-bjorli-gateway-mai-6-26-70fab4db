@@ -28,9 +28,12 @@ import {
   formatHour,
   formatPrecipitation,
   formatTemperature,
+  formatHourClock,
   formatWeekday,
-  formatWindDirection,
+  formatWind,
+  formatWindDirectionLong,
   formatWindWithDirection,
+  localizedCondition,
   weatherSymbolKind,
   windTargetDegrees,
   type WeatherDay,
@@ -55,7 +58,7 @@ interface ForecastCopy {
   windGustNote: string;
   windArrowNote: string;
   precipitation: string;
-  exactValues: string;
+  forecastAt: string;
   conditionUnavailable: string;
   symbols: Record<WeatherSymbolKind, string>;
 }
@@ -67,7 +70,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Viser sist hentede varsel – kan være utdatert.', loading: 'Henter værvarsel …', hourlyTitle: 'Neste 24 timer',
     dailyTitle: 'Neste 7 dager', temperature: 'Temperatur', wind: 'Vind', gust: 'Vindkast', windGustNote: 'Vind og vindkast i m/s',
     windArrowNote: 'Pilen viser hvor vinden blåser mot. Teksten viser hvor vinden kommer fra.', precipitation: 'Nedbør',
-    exactValues: 'Nøyaktige verdier', conditionUnavailable: 'Værtype ikke tilgjengelig',
+    forecastAt: 'Værvarsel kl.', conditionUnavailable: 'Værtype ikke tilgjengelig',
     symbols: { clear: 'Klart', 'partly-cloudy': 'Delvis skyet', cloudy: 'Skyet', fog: 'Tåke', rain: 'Regn', snow: 'Snø', storm: 'Tordenvær', unknown: 'Værtype ikke tilgjengelig' },
   },
   en: {
@@ -76,7 +79,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Showing the last retrieved forecast – it may be out of date.', loading: 'Loading forecast …', hourlyTitle: 'Next 24 hours',
     dailyTitle: 'Next 7 days', temperature: 'Temperature', wind: 'Wind', gust: 'Gusts', windGustNote: 'Wind and gusts in m/s',
     windArrowNote: 'The arrow shows where the wind is blowing towards. The text shows where it comes from.', precipitation: 'Precipitation',
-    exactValues: 'Exact values', conditionUnavailable: 'Weather condition unavailable',
+    forecastAt: 'Forecast at', conditionUnavailable: 'Weather condition unavailable',
     symbols: { clear: 'Clear', 'partly-cloudy': 'Partly cloudy', cloudy: 'Cloudy', fog: 'Fog', rain: 'Rain', snow: 'Snow', storm: 'Thunderstorm', unknown: 'Weather condition unavailable' },
   },
   de: {
@@ -85,7 +88,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Zeigt die zuletzt abgerufene Vorhersage – sie kann veraltet sein.', loading: 'Vorhersage wird geladen …', hourlyTitle: 'Nächste 24 Stunden',
     dailyTitle: 'Nächste 7 Tage', temperature: 'Temperatur', wind: 'Wind', gust: 'Böen', windGustNote: 'Wind und Böen in m/s',
     windArrowNote: 'Der Pfeil zeigt, wohin der Wind weht. Der Text zeigt, woher er kommt.', precipitation: 'Niederschlag',
-    exactValues: 'Genaue Werte', conditionUnavailable: 'Wetterlage nicht verfügbar',
+    forecastAt: 'Wettervorhersage um', conditionUnavailable: 'Wetterlage nicht verfügbar',
     symbols: { clear: 'Klar', 'partly-cloudy': 'Teilweise bewölkt', cloudy: 'Bewölkt', fog: 'Nebel', rain: 'Regen', snow: 'Schnee', storm: 'Gewitter', unknown: 'Wetterlage nicht verfügbar' },
   },
   nl: {
@@ -94,7 +97,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Toont de laatst opgehaalde verwachting – deze kan verouderd zijn.', loading: 'Verwachting laden …', hourlyTitle: 'Komende 24 uur',
     dailyTitle: 'Komende 7 dagen', temperature: 'Temperatuur', wind: 'Wind', gust: 'Windstoten', windGustNote: 'Wind en windstoten in m/s',
     windArrowNote: 'De pijl toont waarheen de wind waait. De tekst toont waar hij vandaan komt.', precipitation: 'Neerslag',
-    exactValues: 'Exacte waarden', conditionUnavailable: 'Weertype niet beschikbaar',
+    forecastAt: 'Weersverwachting om', conditionUnavailable: 'Weertype niet beschikbaar',
     symbols: { clear: 'Helder', 'partly-cloudy': 'Halfbewolkt', cloudy: 'Bewolkt', fog: 'Mist', rain: 'Regen', snow: 'Sneeuw', storm: 'Onweer', unknown: 'Weertype niet beschikbaar' },
   },
   da: {
@@ -103,7 +106,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Viser den senest hentede udsigt – den kan være forældet.', loading: 'Henter vejrudsigt …', hourlyTitle: 'De næste 24 timer',
     dailyTitle: 'De næste 7 dage', temperature: 'Temperatur', wind: 'Vind', gust: 'Vindstød', windGustNote: 'Vind og vindstød i m/s',
     windArrowNote: 'Pilen viser, hvor vinden blæser hen. Teksten viser, hvor den kommer fra.', precipitation: 'Nedbør',
-    exactValues: 'Nøjagtige værdier', conditionUnavailable: 'Vejrtype ikke tilgængelig',
+    forecastAt: 'Vejrudsigt kl.', conditionUnavailable: 'Vejrtype ikke tilgængelig',
     symbols: { clear: 'Klart', 'partly-cloudy': 'Delvist skyet', cloudy: 'Skyet', fog: 'Tåge', rain: 'Regn', snow: 'Sne', storm: 'Tordenvejr', unknown: 'Vejrtype ikke tilgængelig' },
   },
   sv: {
@@ -112,7 +115,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
     staleNote: 'Visar den senast hämtade prognosen – den kan vara inaktuell.', loading: 'Hämtar väderprognos …', hourlyTitle: 'Närmaste 24 timmarna',
     dailyTitle: 'Närmaste 7 dagarna', temperature: 'Temperatur', wind: 'Vind', gust: 'Vindbyar', windGustNote: 'Vind och vindbyar i m/s',
     windArrowNote: 'Pilen visar vart vinden blåser. Texten visar varifrån den kommer.', precipitation: 'Nederbörd',
-    exactValues: 'Exakta värden', conditionUnavailable: 'Vädertyp inte tillgänglig',
+    forecastAt: 'Väderprognos kl.', conditionUnavailable: 'Vädertyp inte tillgänglig',
     symbols: { clear: 'Klart', 'partly-cloudy': 'Delvis molnigt', cloudy: 'Molnigt', fog: 'Dimma', rain: 'Regn', snow: 'Snö', storm: 'Åskväder', unknown: 'Vädertyp inte tillgänglig' },
   },
 };
@@ -132,9 +135,18 @@ function WeatherIcon({ type, daytime, label, className = 'h-7 w-7' }: { type: st
 }
 
 function hourSummary(h: WeatherHour, copy: ForecastCopy, locale: string) {
-  const direction = formatWindDirection(h.windDirectionCardinal, h.windDirectionDegrees, locale);
-  const condition = h.condition ?? copy.symbols[weatherSymbolKind(h.conditionType)];
-  return `${formatHour(h.startTime, locale)}. ${condition}. ${copy.temperature}: ${formatTemperature(h.temperatureC)}. ${copy.precipitation}: ${formatPrecipitation(h.precipitationMm)}. ${copy.wind}: ${formatWindWithDirection(h.speedMs, h.gustMs, h.windDirectionCardinal, h.windDirectionDegrees, locale)}. ${copy.gust}: ${h.gustMs === null ? '—' : `${Math.round(h.gustMs)} m/s`}. ${direction}.`;
+  const condition = localizedCondition(
+    h.conditionType,
+    locale,
+    copy.symbols[weatherSymbolKind(h.conditionType)],
+  );
+  const wind = `${formatWind(h.speedMs, null)} ${windFrom(locale)} ${formatWindDirectionLong(h.windDirectionCardinal, h.windDirectionDegrees, locale)}`;
+  const gust = h.gustMs === null ? '—' : `${Math.round(h.gustMs)} m/s`;
+  return `${condition}. ${copy.temperature}: ${formatTemperature(h.temperatureC)}. ${copy.precipitation}: ${formatPrecipitation(h.precipitationMm)}. ${copy.wind}: ${wind}. ${copy.gust}: ${gust}.`;
+}
+
+function hourHeading(h: WeatherHour, copy: ForecastCopy, locale: string) {
+  return `${copy.forecastAt} ${formatHourClock(h.startTime, locale)}`;
 }
 
 const HourlyTimeline = ({ hours, copy, locale }: { hours: WeatherHour[]; copy: ForecastCopy; locale: string }) => {
@@ -157,7 +169,7 @@ const HourlyTimeline = ({ hours, copy, locale }: { hours: WeatherHour[]; copy: F
               const kind = weatherSymbolKind(h.conditionType);
               return <div key={h.startTime ?? i} className="flex flex-col items-center justify-center gap-1 border-r border-border/40 text-xs text-muted-foreground last:border-r-0">
                 <span>{formatHour(h.startTime, locale)}</span>
-                <WeatherIcon type={h.conditionType} daytime={h.isDaytime} label={h.condition ?? copy.symbols[kind]} />
+                <WeatherIcon type={h.conditionType} daytime={h.isDaytime} label={localizedCondition(h.conditionType, locale, copy.symbols[kind])} />
               </div>;
             })}
           </div>
@@ -194,12 +206,12 @@ const HourlyTimeline = ({ hours, copy, locale }: { hours: WeatherHour[]; copy: F
           </div>
 
           <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${hours.length}, 80px)` }}>
-            {hours.map((h, i) => <Button key={h.startTime ?? i} type="button" variant="ghost" className="h-full w-full rounded-none border-0 bg-transparent p-0 opacity-0 focus-visible:opacity-100 focus-visible:ring-inset" aria-label={hourSummary(h, copy, locale)} aria-pressed={selected === i} onFocus={() => setSelected(i)} onMouseEnter={() => setSelected(i)} onClick={() => setSelected(i)}><span className="sr-only">{hourSummary(h, copy, locale)}</span></Button>)}
+            {hours.map((h, i) => <Button key={h.startTime ?? i} type="button" variant="ghost" className="h-full w-full rounded-none border-0 bg-transparent p-0 opacity-0 focus-visible:opacity-100 focus-visible:ring-inset" aria-label={`${hourHeading(h, copy, locale)}. ${hourSummary(h, copy, locale)}`} aria-pressed={selected === i} onFocus={() => setSelected(i)} onMouseEnter={() => setSelected(i)} onClick={() => setSelected(i)}><span className="sr-only">{hourHeading(h, copy, locale)}. {hourSummary(h, copy, locale)}</span></Button>)}
           </div>
         </div>
       </div>
       <p className="mt-2 text-xs text-muted-foreground">{copy.windArrowNote}</p>
-      {active && <div className="mt-3 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm" aria-live="polite"><span className="font-semibold text-foreground">{copy.exactValues}, {formatHour(active.startTime, locale)}</span><span className="mt-1 block text-muted-foreground">{hourSummary(active, copy, locale)}</span></div>}
+      {active && <div className="mt-3 rounded-lg border border-border bg-muted/30 px-4 py-3 text-sm" aria-live="polite"><span className="font-semibold text-foreground">{hourHeading(active, copy, locale)}</span><span className="mt-1 block text-muted-foreground">{hourSummary(active, copy, locale)}</span></div>}
     </div>
   );
 };
@@ -210,7 +222,7 @@ const DailyRows = ({ days, copy, locale }: { days: WeatherDay[]; copy: ForecastC
       const kind = weatherSymbolKind(d.conditionType);
       return <li key={d.date ?? i} className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-3 px-4 py-4 sm:grid-cols-[1.2fr_auto_1fr_1fr_1.4fr] sm:items-center">
         <span className="font-semibold text-foreground">{formatWeekday(d.startTime ?? d.date, locale)}</span>
-        <WeatherIcon type={d.conditionType} daytime={d.isDaytime} label={d.condition ?? copy.symbols[kind]} className="h-8 w-8" />
+        <WeatherIcon type={d.conditionType} daytime={d.isDaytime} label={localizedCondition(d.conditionType, locale, copy.symbols[kind])} className="h-8 w-8" />
         <span className="text-sm font-medium text-foreground sm:text-center">{formatTemperature(d.minTemperatureC)} / {formatTemperature(d.maxTemperatureC)}</span>
         <span className="text-right text-sm text-muted-foreground sm:text-center">{formatPrecipitation(d.precipitationMm)}</span>
         <span className="col-span-2 flex items-center gap-2 text-sm text-muted-foreground sm:col-span-1 sm:justify-end">
