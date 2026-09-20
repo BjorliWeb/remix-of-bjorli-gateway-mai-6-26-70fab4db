@@ -11,6 +11,7 @@ import {
   formatTemperature,
   formatWeekday,
   formatWind,
+  formatWindWithDirection,
 } from '@/lib/integrations/googleWeather';
 
 /**
@@ -230,7 +231,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                 {copy.wind}
               </dt>
               <dd className="text-foreground font-medium">
-                {formatWind(nowHour.speedMs, nowHour.gustMs)}
+                {formatWindWithDirection(
+                  nowHour.speedMs,
+                  nowHour.gustMs,
+                  nowHour.windDirectionCardinal,
+                  nowHour.windDirectionDegrees,
+                  locale,
+                )}
               </dd>
             </div>
             <div>
@@ -306,7 +313,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                     {formatTemperature(h.temperatureC)}
                   </span>
                   <span className="block text-[11px] text-muted-foreground mt-1">
-                    {formatWind(h.speedMs, h.gustMs)}
+                    {formatWindWithDirection(
+                      h.speedMs,
+                      h.gustMs,
+                      h.windDirectionCardinal,
+                      h.windDirectionDegrees,
+                      locale,
+                    )}
                   </span>
                   <span className="block text-[11px] text-muted-foreground">
                     {formatPrecipitation(h.precipitationMm)}
@@ -341,7 +354,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                       {formatTemperature(d.maxTemperatureC)} / {formatTemperature(d.minTemperatureC)}
                     </td>
                     <td className="text-right text-muted-foreground py-2.5">
-                      {formatWind(d.speedMs, d.gustMs)}
+                      {formatWindWithDirection(
+                        d.speedMs,
+                        d.gustMs,
+                        d.windDirectionCardinal,
+                        d.windDirectionDegrees,
+                        locale,
+                      )}
                     </td>
                     <td className="text-right text-muted-foreground py-2.5">
                       {formatPrecipitation(d.precipitationMm)}
