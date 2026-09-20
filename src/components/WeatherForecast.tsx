@@ -1,5 +1,6 @@
 import { useState, type ComponentType } from 'react';
 import { motion } from 'framer-motion';
+import { Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import {
   ArrowUp,
   Cloud,
@@ -146,15 +147,7 @@ const HourlyTimeline = ({ hours, copy, locale }: { hours: WeatherHour[]; copy: F
   const maxTemp = temperatures.length ? Math.max(...temperatures) : 1;
   const tempRange = Math.max(maxTemp - minTemp, 1);
   const maxPrecip = Math.max(...hours.map((h) => h.precipitationMm ?? 0), 1);
-  const segments: string[] = [];
-  let segment = '';
-  hours.forEach((h, i) => {
-    if (h.temperatureC === null) { if (segment) segments.push(segment); segment = ''; return; }
-    const x = i * 80 + 40;
-    const y = 72 - ((h.temperatureC - minTemp) / tempRange) * 48;
-    segment += `${segment ? ' L' : 'M'} ${x} ${y}`;
-  });
-  if (segment) segments.push(segment);
+  const temperatureData = hours.map((h) => ({ temperature: h.temperatureC }));
 
   return (
     <div>
@@ -172,10 +165,14 @@ const HourlyTimeline = ({ hours, copy, locale }: { hours: WeatherHour[]; copy: F
 
           <div className="relative h-24 border-b border-border/60" aria-label={copy.temperature}>
             <span className="absolute left-2 top-2 z-10 text-[11px] font-medium uppercase text-muted-foreground">{copy.temperature} °C</span>
-            <svg className="absolute inset-0 h-full w-full text-secondary" viewBox={`0 0 ${width} 96`} preserveAspectRatio="none" aria-hidden="true">
-              {segments.map((d, i) => <path key={i} d={d} fill="none" stroke="currentColor" strokeWidth="3" vectorEffect="non-scaling-stroke" />)}
-              {hours.map((h, i) => h.temperatureC === null ? null : <circle key={h.startTime ?? i} cx={i * 80 + 40} cy={72 - ((h.temperatureC - minTemp) / tempRange) * 48} r="4" fill="currentColor" />)}
-            </svg>
+            <div className="absolute inset-0 text-secondary" aria-hidden="true">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={temperatureData} margin={{ top: 24, right: 40, bottom: 24, left: 40 }}>
+                  <YAxis hide domain={[minTemp, minTemp + tempRange]} />
+                  <Line type="linear" dataKey="temperature" stroke="currentColor" strokeWidth={3} dot={{ r: 4, fill: 'currentColor', strokeWidth: 0 }} activeDot={false} connectNulls={false} isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
             {hours.map((h, i) => h.temperatureC === null ? null : <span key={h.startTime ?? i} className="absolute top-1/2 -translate-x-1/2 text-[11px] font-semibold text-foreground" style={{ left: i * 80 + 40 }}>{formatTemperature(h.temperatureC)}</span>)}
           </div>
 
