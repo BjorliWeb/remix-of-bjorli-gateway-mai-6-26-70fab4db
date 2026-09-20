@@ -179,8 +179,15 @@ async function acquire(
     .from('weather_snapshot')
     .update({ locked_at: new Date(now).toISOString() })
     .eq('kind', kind)
-    .or(`fetched_at.is.null,fetched_at.lt.${staleBefore}`)
-    .or(`locked_at.is.null,locked_at.lt.${lockExpired}`)
+    // One combined OR expression: repeated .or() calls are not reliably ANDed.
+    .or(
+      [
+        `and(fetched_at.is.null,locked_at.is.null)`,
+        `and(fetched_at.is.null,locked_at.lt.${lockExpired})`,
+        `and(fetched_at.lt.${staleBefore},locked_at.is.null)`,
+        `and(fetched_at.lt.${staleBefore},locked_at.lt.${lockExpired})`,
+      ].join(','),
+    )
     .select('kind');
 
   if (error) throw new Error(`lock_failed: ${error.message}`);
