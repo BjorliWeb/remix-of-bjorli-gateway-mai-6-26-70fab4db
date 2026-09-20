@@ -50,9 +50,12 @@ export interface BjorliForecast {
   timeZone: string;
   /** When the server last retrieved data from Google (not forecast validity). */
   fetchedAt: string | null;
+  /** Separate retrieval times — hourly and daily data expire differently. */
+  hourlyFetchedAt: string | null;
+  dailyFetchedAt: string | null;
   hours: WeatherHour[];
   days: WeatherDay[];
-  /** True when the server had to serve a cached copy after an upstream error. */
+  /** True when a scheduled refresh was missed and part of the data expired. */
   stale: boolean;
 }
 
@@ -60,6 +63,8 @@ export const EMPTY_FORECAST: BjorliForecast = {
   source: 'Google Weather API',
   timeZone: 'Europe/Oslo',
   fetchedAt: null,
+  hourlyFetchedAt: null,
+  dailyFetchedAt: null,
   hours: [],
   days: [],
   stale: false,
