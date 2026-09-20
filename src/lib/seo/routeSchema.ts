@@ -11,7 +11,32 @@
 import { buildFaqPage, buildSkiResort, buildWebPage } from './schema';
 import { getSkiCenterData } from '../cms/skiCenterData';
 import { getSubPageData } from '../cms/subpageData';
-import type { Locale } from '../../i18n/locales/types';
+import { LOCALE_PREFIX, type Locale } from '../../i18n/locales/types';
+import { slugForCanonical } from '../../i18n/routes';
+import { absoluteUrl, CANONICAL_ORIGIN } from '../url/normalizeInternalPath';
+
+/**
+ * The business behind Bjorli Skisenter (legal name Nye Bjorli Skisenter AS).
+ * One business, one stable @id across every page and every language.
+ * The place "Bjorli" stays a separate concept (TouristDestination).
+ */
+export const BUSINESS_ID = 'https://bjorli.no/#skiresort';
+
+/** Reference used by other nodes (e.g. NewsArticle.publisher). */
+export const businessRef = (): Record<string, unknown> => ({ '@id': BUSINESS_ID });
+
+/** Canonical page of the business in the given locale. */
+const businessUrl = (locale: Locale): string =>
+  absoluteUrl(
+    (LOCALE_PREFIX[locale] || '') + '/' + slugForCanonical('skisenter', locale),
+    CANONICAL_ORIGIN,
+  );
+
+/** Full business node — identical @id in all locales. */
+export const buildBusinessLd = (locale: Locale): Record<string, unknown> => ({
+  ...buildSkiResort(businessUrl(locale), getSkiCenterData(locale).description),
+  logo: `${CANONICAL_ORIGIN}/apple-touch-icon.jpeg`,
+});
 
 /** Stable <script> ids — shared by prerender and runtime. */
 export const SCHEMA_IDS = {
@@ -91,11 +116,8 @@ export const buildRouteSchemas = (o: RouteSchemaInput): RouteSchema[] => {
     });
   }
 
-  if (o.canonical === 'skisenter') {
-    out.push({
-      id: SCHEMA_IDS.skiResort,
-      data: buildSkiResort(o.url, getSkiCenterData(o.locale).description),
-    });
+  if (o.canonical === 'home' || o.canonical === 'skisenter') {
+    out.push({ id: SCHEMA_IDS.skiResort, data: buildBusinessLd(o.locale) });
   }
 
   if (o.canonical === 'heiskort') {
