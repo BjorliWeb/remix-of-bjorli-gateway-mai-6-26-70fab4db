@@ -84,9 +84,18 @@ function mapWind(w: unknown) {
   const wind = obj(w);
   const speed = obj(wind.speed);
   const gust = obj(wind.gust);
+  const direction = obj(wind.direction);
+  const cardinal =
+    typeof direction.cardinal === 'string' && direction.cardinal.length > 0
+      ? direction.cardinal
+      : null;
   return {
     speedMs: toMetersPerSecond(speed.value, speed.unit),
     gustMs: toMetersPerSecond(gust.value, gust.unit),
+    // Direction the wind comes FROM. 0 is a valid (northerly) value, so this
+    // must stay `num()` — never a truthiness check.
+    windDirectionDegrees: num(direction.degrees),
+    windDirectionCardinal: cardinal,
   };
 }
 
