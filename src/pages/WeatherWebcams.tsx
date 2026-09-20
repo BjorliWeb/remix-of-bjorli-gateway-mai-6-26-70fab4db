@@ -9,6 +9,7 @@ import PageHero from '@/components/PageHero';
 import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
+import WeatherForecast from '@/components/WeatherForecast';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analytics';
@@ -337,6 +338,15 @@ const WeatherWebcams = () => {
               fnugg.no/bjorli <ExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
           </p>
+        </div>
+      </section>
+
+      {/* 1b. Værvarsel for baseområdet (Google Weather API). Separate from
+             the Fnugg live status above — this is a forecast, not measured
+             conditions, and no top-station values are derived. */}
+      <section className="pb-4 px-4" aria-label="Værvarsel">
+        <div className="container mx-auto max-w-5xl">
+          <WeatherForecast variant="full" />
         </div>
       </section>
 
