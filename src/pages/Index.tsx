@@ -142,7 +142,7 @@ const Index = () => {
       <HomepageCampaign />
 
       {/* Kompakt værvarsel for baseområdet — supplerer Fnugg-statusen. */}
-      <section className="px-4 pt-10 md:pt-14">
+      <section className="pt-10 md:pt-14">
         <div className="container mx-auto max-w-4xl">
           <WeatherForecast variant="compact" />
         </div>

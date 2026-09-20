@@ -214,7 +214,7 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
           )}
         </header>
         {nowHour && (
-          <dl className="grid grid-cols-3 gap-4 text-sm mb-4">
+          <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mb-4">
             <div>
               <dt className="text-xs uppercase tracking-wider text-muted-foreground mb-1 inline-flex items-center gap-1">
                 <Thermometer className="h-3.5 w-3.5 text-secondary" aria-hidden="true" />
@@ -251,7 +251,7 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
           </dl>
         )}
         {days.length > 0 && (
-          <ul className="grid grid-cols-3 gap-3 text-sm mb-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm mb-4">
             {days.map((d, i) => (
               <li key={d.date ?? i} className="rounded-lg bg-muted/40 px-3 py-2">
                 <span className="block text-xs text-muted-foreground">
