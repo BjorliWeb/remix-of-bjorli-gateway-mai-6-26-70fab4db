@@ -25,6 +25,9 @@ export interface WeatherHour extends WindDirection {
   precipitationMm: number | null;
   precipitationProbability: number | null;
   condition: string | null;
+  conditionType: string | null;
+  conditionIconBaseUri: string | null;
+  isDaytime: boolean | null;
 }
 
 export interface WeatherDay extends WindDirection {
@@ -37,6 +40,9 @@ export interface WeatherDay extends WindDirection {
   precipitationMm: number | null;
   precipitationProbability: number | null;
   condition: string | null;
+  conditionType: string | null;
+  conditionIconBaseUri: string | null;
+  isDaytime: boolean | null;
 }
 
 export interface BjorliForecast {
@@ -176,6 +182,36 @@ export function formatWindWithDirection(
 ): string {
   const from = FROM[locale] ?? FROM.no;
   return `${formatWind(speed, gust)} ${from} ${formatWindDirection(cardinal, degrees, locale)}`;
+}
+
+/** Direction the wind blows TO, for a visual arrow. Text still describes FROM. */
+export function windTargetDegrees(degrees: number | null | undefined): number | null {
+  if (typeof degrees !== 'number' || !Number.isFinite(degrees)) return null;
+  return (((degrees + 180) % 360) + 360) % 360;
+}
+
+export type WeatherSymbolKind =
+  | 'clear'
+  | 'partly-cloudy'
+  | 'cloudy'
+  | 'fog'
+  | 'rain'
+  | 'snow'
+  | 'storm'
+  | 'unknown';
+
+/** Stable Google Weather condition enum -> local icon family. */
+export function weatherSymbolKind(type: string | null | undefined): WeatherSymbolKind {
+  const value = type?.toUpperCase() ?? '';
+  if (!value || value === 'TYPE_UNSPECIFIED') return 'unknown';
+  if (value.includes('THUNDER')) return 'storm';
+  if (value.includes('SNOW') || value.includes('SLEET') || value.includes('ICE')) return 'snow';
+  if (value.includes('RAIN') || value.includes('DRIZZLE') || value.includes('SHOWERS')) return 'rain';
+  if (value.includes('FOG') || value.includes('HAZE') || value.includes('MIST')) return 'fog';
+  if (value.includes('PARTLY') || value.includes('MOSTLY_CLEAR')) return 'partly-cloudy';
+  if (value.includes('CLOUD') || value.includes('OVERCAST')) return 'cloudy';
+  if (value.includes('CLEAR') || value.includes('SUNNY')) return 'clear';
+  return 'unknown';
 }
 
 

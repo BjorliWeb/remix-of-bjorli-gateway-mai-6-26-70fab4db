@@ -109,10 +109,17 @@ function mapPrecip(p: unknown) {
   };
 }
 
-function conditionText(c: unknown): string | null {
+function mapCondition(c: unknown) {
   const cond = obj(c);
   const desc = obj(cond.description);
-  return typeof desc.text === 'string' && desc.text.length > 0 ? desc.text : null;
+  return {
+    condition: typeof desc.text === 'string' && desc.text.length > 0 ? desc.text : null,
+    conditionType: typeof cond.type === 'string' && cond.type.length > 0 ? cond.type : null,
+    conditionIconBaseUri:
+      typeof cond.iconBaseUri === 'string' && cond.iconBaseUri.length > 0
+        ? cond.iconBaseUri
+        : null,
+  };
 }
 
 function mapHour(h: unknown) {
@@ -124,7 +131,8 @@ function mapHour(h: unknown) {
     temperatureC: num(temp.degrees),
     ...mapWind(hour.wind),
     ...mapPrecip(hour.precipitation),
-    condition: conditionText(hour.weatherCondition),
+    ...mapCondition(hour.weatherCondition),
+    isDaytime: typeof hour.isDaytime === 'boolean' ? hour.isDaytime : null,
   };
 }
 
@@ -149,7 +157,8 @@ function mapDay(d: unknown) {
     minTemperatureC: num(minT.degrees),
     ...mapWind(daytime.wind),
     ...mapPrecip(daytime.precipitation),
-    condition: conditionText(daytime.weatherCondition),
+    ...mapCondition(daytime.weatherCondition),
+    isDaytime: typeof daytime.isDaytime === 'boolean' ? daytime.isDaytime : true,
   };
 }
 
