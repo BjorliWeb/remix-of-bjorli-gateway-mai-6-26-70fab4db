@@ -4,6 +4,8 @@ import {
   formatPrecipitation,
   formatTemperature,
   formatWind,
+  formatWindDirection,
+  formatWindWithDirection,
   formatHour,
   formatWeekday,
   currentHour,
