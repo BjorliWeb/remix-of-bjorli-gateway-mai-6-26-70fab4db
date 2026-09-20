@@ -15,6 +15,7 @@ import {
   getTips,
 } from './index';
 import { isEventArchived } from '@/lib/events/archive';
+import { businessRef } from '@/lib/seo/routeSchema';
 
 /** Current + archived events — archived detail pages must stay resolvable. */
 const loadAllEvents = async (language: Language): Promise<CmsEntryBase[]> => {
@@ -152,6 +153,10 @@ const buildJsonLd = (
     };
     base.eventStatus = 'https://schema.org/EventScheduled';
     base.eventAttendanceMode = 'https://schema.org/OfflineEventAttendanceMode';
+  } else {
+    // Same single business identity as the prerendered HTML.
+    base.author = businessRef();
+    base.publisher = businessRef();
   }
   // Strip undefined keys for cleaner output
   Object.keys(base).forEach((k) => base[k] === undefined && delete base[k]);
