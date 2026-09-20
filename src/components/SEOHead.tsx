@@ -383,7 +383,15 @@ const SEOHead = () => {
     const byId = new Map(schemas.map((s) => [s.id, s.data]));
     // The CMS entry (Article / NewsArticle / Event / sub-page WebPage) owns
     // the page-level node when present; otherwise the shared WebPage does.
-    if (routeJsonLd) byId.set(SCHEMA_IDS.webPage, routeJsonLd);
+    if (routeJsonLd) {
+      byId.set(SCHEMA_IDS.webPage, routeJsonLd);
+      // Detail entries that credit the business as publisher also carry the
+      // full business node, exactly like the prerendered HTML does.
+      const publisher = routeJsonLd.publisher as { '@id'?: string } | undefined;
+      if (publisher?.['@id'] === BUSINESS_ID) {
+        byId.set(SCHEMA_IDS.skiResort, buildBusinessLd(locale));
+      }
+    }
 
     MANAGED_SCHEMA_IDS.forEach((id) => {
       const data = byId.get(id) ?? null;
