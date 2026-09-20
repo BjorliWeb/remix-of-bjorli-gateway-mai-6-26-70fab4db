@@ -380,3 +380,8 @@ export function formatHourClock(iso: string | null, locale: string): string {
   const separator = locale === 'no' || locale === 'da' || locale === 'sv' ? '.' : ':';
   return `${hour}${separator}00`;
 }
+
+/** The "comes from" preposition for the current locale, e.g. "fra". */
+export function windFromWord(locale: string): string {
+  return FROM[locale] ?? FROM.no;
+}

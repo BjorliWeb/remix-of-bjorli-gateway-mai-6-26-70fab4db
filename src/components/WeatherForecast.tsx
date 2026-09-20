@@ -34,6 +34,7 @@ import {
   formatWindDirectionLong,
   formatWindWithDirection,
   localizedCondition,
+  windFromWord,
   weatherSymbolKind,
   windTargetDegrees,
   type WeatherDay,
@@ -140,7 +141,7 @@ function hourSummary(h: WeatherHour, copy: ForecastCopy, locale: string) {
     locale,
     copy.symbols[weatherSymbolKind(h.conditionType)],
   );
-  const wind = `${formatWind(h.speedMs, null)} ${windFrom(locale)} ${formatWindDirectionLong(h.windDirectionCardinal, h.windDirectionDegrees, locale)}`;
+  const wind = `${formatWind(h.speedMs, null)} ${windFromWord(locale)} ${formatWindDirectionLong(h.windDirectionCardinal, h.windDirectionDegrees, locale)}`;
   const gust = h.gustMs === null ? '—' : `${Math.round(h.gustMs)} m/s`;
   return `${condition}. ${copy.temperature}: ${formatTemperature(h.temperatureC)}. ${copy.precipitation}: ${formatPrecipitation(h.precipitationMm)}. ${copy.wind}: ${wind}. ${copy.gust}: ${gust}.`;
 }
