@@ -10,7 +10,7 @@ import {
   formatPrecipitation,
   formatTemperature,
   formatWeekday,
-  formatWind,
+  formatWindWithDirection,
 } from '@/lib/integrations/googleWeather';
 
 /**
@@ -230,7 +230,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                 {copy.wind}
               </dt>
               <dd className="text-foreground font-medium">
-                {formatWind(nowHour.speedMs, nowHour.gustMs)}
+                {formatWindWithDirection(
+                  nowHour.speedMs,
+                  nowHour.gustMs,
+                  nowHour.windDirectionCardinal,
+                  nowHour.windDirectionDegrees,
+                  locale,
+                )}
               </dd>
             </div>
             <div>
@@ -297,7 +303,7 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
               {hours.map((h, i) => (
                 <li
                   key={h.startTime ?? i}
-                  className="w-[88px] shrink-0 rounded-lg border border-border/60 bg-muted/30 px-2 py-3 text-center"
+                  className="w-[104px] shrink-0 rounded-lg border border-border/60 bg-muted/30 px-2 py-3 text-center"
                 >
                   <span className="block text-xs text-muted-foreground mb-1">
                     {formatHour(h.startTime, locale)}
@@ -306,7 +312,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                     {formatTemperature(h.temperatureC)}
                   </span>
                   <span className="block text-[11px] text-muted-foreground mt-1">
-                    {formatWind(h.speedMs, h.gustMs)}
+                    {formatWindWithDirection(
+                      h.speedMs,
+                      h.gustMs,
+                      h.windDirectionCardinal,
+                      h.windDirectionDegrees,
+                      locale,
+                    )}
                   </span>
                   <span className="block text-[11px] text-muted-foreground">
                     {formatPrecipitation(h.precipitationMm)}
@@ -341,7 +353,13 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
                       {formatTemperature(d.maxTemperatureC)} / {formatTemperature(d.minTemperatureC)}
                     </td>
                     <td className="text-right text-muted-foreground py-2.5">
-                      {formatWind(d.speedMs, d.gustMs)}
+                      {formatWindWithDirection(
+                        d.speedMs,
+                        d.gustMs,
+                        d.windDirectionCardinal,
+                        d.windDirectionDegrees,
+                        locale,
+                      )}
                     </td>
                     <td className="text-right text-muted-foreground py-2.5">
                       {formatPrecipitation(d.precipitationMm)}

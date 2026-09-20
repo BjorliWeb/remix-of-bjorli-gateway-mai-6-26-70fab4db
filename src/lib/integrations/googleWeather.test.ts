@@ -4,6 +4,8 @@ import {
   formatPrecipitation,
   formatTemperature,
   formatWind,
+  formatWindDirection,
+  formatWindWithDirection,
   formatHour,
   formatWeekday,
   currentHour,
@@ -49,5 +51,36 @@ describe('googleWeather formatting', () => {
     const future = hour({ startTime: new Date(Date.now() + 3_600_000).toISOString() });
     expect(currentHour({ ...EMPTY_FORECAST, hours: [past, future] })).toBe(future);
     expect(currentHour(EMPTY_FORECAST)).toBeNull();
+  });
+});
+
+describe('formatWindDirection', () => {
+  it('treats 0 degrees as valid northerly wind', () => {
+    expect(formatWindDirection(null, 0, 'no')).toBe('N');
+  });
+  it('localises the compass abbreviation', () => {
+    expect(formatWindDirection(null, 315, 'no')).toBe('NV');
+    expect(formatWindDirection(null, 315, 'en')).toBe('NW');
+    expect(formatWindDirection(null, 90, 'nl')).toBe('O');
+    expect(formatWindDirection(null, 135, 'nl')).toBe('ZO');
+    expect(formatWindDirection(null, 225, 'de')).toBe('SW');
+    expect(formatWindDirection(null, 90, 'sv')).toBe('O');
+  });
+  it('falls back to the Google cardinal enum', () => {
+    expect(formatWindDirection('NORTH_WEST', null, 'no')).toBe(EM_DASH);
+    expect(formatWindDirection('NORTHWEST', null, 'no')).toBe('NV');
+    expect(formatWindDirection('SOUTH_SOUTHEAST', null, 'en')).toBe('S');
+  });
+  it('renders missing direction as an em dash', () => {
+    expect(formatWindDirection(null, null, 'no')).toBe(EM_DASH);
+    expect(formatWindDirection('UNSPECIFIED', undefined, 'no')).toBe(EM_DASH);
+  });
+});
+
+describe('formatWindWithDirection', () => {
+  it('combines speed, gust and direction', () => {
+    expect(formatWindWithDirection(3, 7, null, 315, 'no')).toBe('3 (7) m/s fra NV');
+    expect(formatWindWithDirection(3, null, null, 0, 'en')).toBe('3 m/s from N');
+    expect(formatWindWithDirection(3, null, null, null, 'sv')).toBe(`3 m/s från ${EM_DASH}`);
   });
 });

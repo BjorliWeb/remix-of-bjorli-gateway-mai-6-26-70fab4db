@@ -11,7 +11,13 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
-export interface WeatherHour {
+/** Direction the wind comes FROM. 0 degrees is valid (northerly). */
+export interface WindDirection {
+  windDirectionDegrees?: number | null;
+  windDirectionCardinal?: string | null;
+}
+
+export interface WeatherHour extends WindDirection {
   startTime: string | null;
   temperatureC: number | null;
   speedMs: number | null;
@@ -21,7 +27,7 @@ export interface WeatherHour {
   condition: string | null;
 }
 
-export interface WeatherDay {
+export interface WeatherDay extends WindDirection {
   date: string | null;
   startTime: string | null;
   maxTemperatureC: number | null;
@@ -94,6 +100,85 @@ export function formatWind(speed: number | null, gust: number | null): string {
   if (gust === null) return `${s} m/s`;
   return `${s} (${Math.round(gust)}) m/s`;
 }
+
+// --------------------------------------------------------- wind direction
+
+/** 8-point compass abbreviations, localised. Index 0 = north, clockwise. */
+const COMPASS: Record<string, readonly string[]> = {
+  no: ['N', 'NØ', 'Ø', 'SØ', 'S', 'SV', 'V', 'NV'],
+  da: ['N', 'NØ', 'Ø', 'SØ', 'S', 'SV', 'V', 'NV'],
+  sv: ['N', 'NO', 'O', 'SO', 'S', 'SV', 'V', 'NV'],
+  en: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
+  de: ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW'],
+  nl: ['N', 'NO', 'O', 'ZO', 'Z', 'ZW', 'W', 'NW'],
+};
+
+/** "comes from" preposition per locale. */
+const FROM: Record<string, string> = {
+  no: 'fra',
+  da: 'fra',
+  sv: 'från',
+  en: 'from',
+  de: 'aus',
+  nl: 'uit',
+};
+
+/** Google cardinal enum -> degrees (16-point compass). */
+const CARDINAL_DEGREES: Record<string, number> = {
+  NORTH: 0,
+  NORTH_NORTHEAST: 22.5,
+  NORTHEAST: 45,
+  EAST_NORTHEAST: 67.5,
+  EAST: 90,
+  EAST_SOUTHEAST: 112.5,
+  SOUTHEAST: 135,
+  SOUTH_SOUTHEAST: 157.5,
+  SOUTH: 180,
+  SOUTH_SOUTHWEST: 202.5,
+  SOUTHWEST: 225,
+  WEST_SOUTHWEST: 247.5,
+  WEST: 270,
+  WEST_NORTHWEST: 292.5,
+  NORTHWEST: 315,
+  NORTH_NORTHWEST: 337.5,
+};
+
+/**
+ * Localised compass abbreviation for the direction the wind comes FROM.
+ * Degrees win when present (0 is valid); the Google cardinal enum is the
+ * fallback. Unknown / unspecified direction renders as an em dash.
+ */
+export function formatWindDirection(
+  cardinal: string | null | undefined,
+  degrees: number | null | undefined,
+  locale: string,
+): string {
+  const points = COMPASS[locale] ?? COMPASS.no;
+  let deg: number | null = null;
+  if (typeof degrees === 'number' && Number.isFinite(degrees)) {
+    deg = degrees;
+  } else if (typeof cardinal === 'string') {
+    const key = cardinal.toUpperCase();
+    if (key in CARDINAL_DEGREES) deg = CARDINAL_DEGREES[key];
+  }
+  if (deg === null) return EM_DASH;
+  const idx = Math.round((((deg % 360) + 360) % 360) / 45) % 8;
+  return points[idx];
+}
+
+/** e.g. "3 (7) m/s fra NV". Direction is where the wind comes from. */
+export function formatWindWithDirection(
+  speed: number | null,
+  gust: number | null,
+  cardinal: string | null | undefined,
+  degrees: number | null | undefined,
+  locale: string,
+): string {
+  const from = FROM[locale] ?? FROM.no;
+  return `${formatWind(speed, gust)} ${from} ${formatWindDirection(cardinal, degrees, locale)}`;
+}
+
+
 
 export function formatPrecipitation(v: number | null): string {
   if (v === null) return `${EM_DASH} mm`;
