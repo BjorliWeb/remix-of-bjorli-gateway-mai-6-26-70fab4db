@@ -440,6 +440,24 @@ export type Database = {
         }
         Relationships: []
       }
+      weather_refresh_ticket: {
+        Row: {
+          created_at: string
+          id: boolean
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          id?: boolean
+          token?: string
+        }
+        Update: {
+          created_at?: string
+          id?: boolean
+          token?: string
+        }
+        Relationships: []
+      }
       weather_snapshot: {
         Row: {
           error_count: number
