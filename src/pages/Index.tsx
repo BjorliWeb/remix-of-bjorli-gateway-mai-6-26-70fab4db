@@ -8,6 +8,7 @@ import { useCms, getHomepage } from '@/lib/cms';
 import { getHomepageData } from '@/lib/cms/homepageData';
 import HomepageSections from '@/components/HomepageSections';
 import HomepageCampaign from '@/components/HomepageCampaign';
+import WeatherForecast from '@/components/WeatherForecast';
 import { trackSkiPassClick } from '@/lib/analytics';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
