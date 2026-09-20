@@ -69,7 +69,7 @@ describe('formatWindDirection', () => {
   it('falls back to the Google cardinal enum', () => {
     expect(formatWindDirection('NORTH_WEST', null, 'no')).toBe(EM_DASH);
     expect(formatWindDirection('NORTHWEST', null, 'no')).toBe('NV');
-    expect(formatWindDirection('SOUTH_SOUTHEAST', null, 'en')).toBe('SE');
+    expect(formatWindDirection('SOUTH_SOUTHEAST', null, 'en')).toBe('S');
   });
   it('renders missing direction as an em dash', () => {
     expect(formatWindDirection(null, null, 'no')).toBe(EM_DASH);
