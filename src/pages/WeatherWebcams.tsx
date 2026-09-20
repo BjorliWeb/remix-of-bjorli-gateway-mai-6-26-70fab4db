@@ -388,6 +388,17 @@ const WeatherWebcams = () => {
         </div>
       </section>
 
+      {/* 3b. Værvarsel for baseområdet (Google Weather API). Separate from
+             the Fnugg live status above — this is a forecast, not measured
+             conditions, and no top-station values are derived. */}
+      <section className="pb-4 px-4" aria-label="Værvarsel">
+        <div className="container mx-auto max-w-5xl">
+          <WeatherForecast variant="full" />
+        </div>
+      </section>
+
+
+
       {/* 4. Langrenn og løypekart */}
       <section className="py-12 px-4" aria-labelledby="loypekart-image-heading">
         <div className="container mx-auto max-w-5xl">
