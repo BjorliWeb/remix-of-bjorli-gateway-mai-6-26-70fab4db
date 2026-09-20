@@ -38,7 +38,12 @@ import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/
 import { ogImageForCanonicalPath, seoForCanonicalPath, type RouteSeoEntry } from '../src/lib/seo/routeSeo';
 import { ROUTE_LEADS, leadForCanonicalPath, type RouteLeadEntry } from '../src/lib/seo/routeLeads';
 import { buildWebPage } from '../src/lib/seo/schema';
-import { buildRouteSchemas } from '../src/lib/seo/routeSchema';
+import {
+  buildBusinessLd,
+  buildRouteSchemas,
+  businessRef,
+  SCHEMA_IDS,
+} from '../src/lib/seo/routeSchema';
 import {
   SKI_HOLIDAY_NORWAY_LOCALE,
   SKI_HOLIDAY_NORWAY_PATH,
@@ -907,8 +912,10 @@ const detailJsonLd = (
       address: { '@type': 'PostalAddress', addressLocality: 'Bjorli', addressCountry: 'NO' },
     };
   } else {
-    base.author = { '@type': 'Organization', name: 'Destinasjon Bjorli' };
-    base.publisher = { '@type': 'Organization', name: 'Destinasjon Bjorli' };
+    // One business identity across the site — the full node is emitted
+    // alongside this article as `jsonld-ski-resort`.
+    base.author = businessRef();
+    base.publisher = businessRef();
   }
   return base;
 };
