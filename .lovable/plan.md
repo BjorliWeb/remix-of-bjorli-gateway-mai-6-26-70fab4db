@@ -1,58 +1,53 @@
-# Kontroll: OperStack-rapport vs. faktisk produksjon (bjorli.no)
+# Visuell værprognose på værsiden
 
-Kontrolltidspunkt: 20.09.2026 kl. 09:28–09:29 UTC. Alle svar hentet med direkte HTTP-henting uten JavaScript. Ingen kodeendringer gjort.
+## Mål
+Erstatt dagens timekort og dagtabell med en samlet, tilgjengelig værvisualisering under webkameraene. Forsiden, Fnugg, føremeldinger og webkameraer forblir uendret.
 
-## 1. Hentede sider
+## Filer som berøres
+- `supabase/functions/get-weather/index.ts`
+- `src/lib/integrations/googleWeather.ts`
+- `src/lib/integrations/googleWeather.test.ts`
+- `src/components/WeatherForecast.tsx`
+- Eventuelt én ny, liten værvisualiseringskomponent dersom dette holder hovedkomponenten enklere
 
-| Forespurt URL | Endelig URL | Status | Canonical | Robots |
-|---|---|---|---|---|
-| https://bjorli.no/ | samme | 200 | https://bjorli.no/ | ikke satt |
-| https://bjorli.no/bjorli-skisenter/ | samme | 200 | https://bjorli.no/bjorli-skisenter/ | ikke satt |
-| https://bjorli.no/heiskort/ | samme | 200 | https://bjorli.no/heiskort/ | ikke satt |
-| https://bjorli.no/nyheter/sesongkortsalget-er-apnet/ | samme | 200 | samme | ikke satt |
-| https://www.bjorli.no/heiskort/ | samme (ingen 301) | 200 | https://bjorli.no/heiskort/ | ikke satt |
+Ingen nye pakker er nødvendige: prosjektet har allerede Recharts og Lucide.
 
-Alle svar var `cf-cache-status: DYNAMIC`, altså ikke levert fra Cloudflare-cache.
+## Gjennomføring
+1. **Videreføre eksisterende Google-data**
+   - Utvide samme time- og dagskall med Googles stabile værtype/kode, ikonreferanse og dag/natt-felt der responsen tilbyr det.
+   - Beholde eksisterende tekst, temperatur, nedbør, vind/vindkast og vindretning.
+   - Ingen ekstra API-kall; manglende felt beholdes som `null`.
 
-## 2. Strukturerte data i produksjon
+2. **Felles værsymboler**
+   - Lage én avgrenset mapping fra Googles værtype til eksisterende Lucide-symboler.
+   - Bruke dag/natt-variant når datagrunnlaget støtter det; ellers et nøytralt symbol eller `—`, aldri en oppdiktet tilstand.
+   - Gi symbolene lokaliserte, tilgjengelige beskrivelser på NO, EN, DE, NL, DA og SV.
 
-| Side | Script-ID | @type | @id |
-|---|---|---|---|
-| / | jsonld-route | WebPage | mangler |
-| / | jsonld-org | TouristDestination | mangler |
-| /bjorli-skisenter/ | jsonld-route | WebPage | mangler |
-| /bjorli-skisenter/ | jsonld-ski-resort | ["SkiResort","LocalBusiness"] | https://bjorli.no/#skiresort |
-| /heiskort/ | jsonld-route | WebPage | mangler |
-| /heiskort/ | jsonld-faq | FAQPage (3 spørsmål) | mangler |
-| /nyheter/sesongkortsalget-er-apnet/ | jsonld-route | NewsArticle | mangler |
+3. **Sammenhengende 24-timers tidslinje**
+   - Bygge én felles timegrid der klokkeslett, symbol, temperaturkurve, nedbørssøyler og vind deler identiske kolonner.
+   - Temperaturkurven får brudd ved manglende målinger. Nedbør vises i et eget felt med mm, uten å gjøre manglende data til null.
+   - Nederst vises vindstyrke, tydelig vindkast og pil mot retningen vinden blåser. Teksten beholder retningen vinden kommer fra.
+   - Hele tidslinjen ruller samlet horisontalt på mobil.
+   - Hver time blir fokuserbar og viser samme nøyaktige verdier ved trykk, hover og tastaturfokus.
+   - Legge inn skjermlesertekst som forklarer forskjellen mellom pilens målretning og tekstens fra-retning.
 
-Alle nodene er merket `data-prerender-schema` og ligger i den første HTML-responsen. Ingen `@graph`, ingen duplikater, ingen motstridende verdier. FAQ-tekstene samsvarer med synlig innhold, inkludert den bekreftede formuleringen «Barn 0–6 år kjører gratis og trenger ikke eget Keycard».
+4. **Kompakt 7-dagersvisning**
+   - Erstatte tabellen med responsive dagsrader for ukedag, symbol, min./maks. temperatur, nedbør og vind.
+   - Stable eller omgruppere feltene på smale skjermer uten overlapping.
 
-## 3. Sammenligning med siste bygg
+5. **Beholde eksisterende rammer**
+   - Beholde plasseringen rett under webkameraene, dagens typografi, fargetokens, kilde, hentetid, laste-/feiltilstand og markering av utdaterte data.
+   - Ingen værseksjon eller værkall på forsiden.
 
-Produksjonsresponsene samsvarer nøyaktig med schema-byggeren i repoet (`src/lib/seo/routeSchema.ts`, script-ID-ene `jsonld-route`, `jsonld-org`, `jsonld-ski-resort`, `jsonld-faq`) og med siste commit `fcf9aea` (20.09.2026 08:45 UTC), inkludert den nye heiskort-teksten. Produksjon er altså oppdatert.
+## Verifisering
+- Utvide enhetstestene for nye værfelt, symbolmapping, dag/natt, manglende verdier og vindpilens motsatte retning.
+- Kjøre TypeScript-kontroll, relevante tester og produksjonsbygg.
+- Rulle ut kun den eksisterende `get-weather`-funksjonen, som godkjent; ikke publisere nettstedet.
+- Kontrollere ekte API-respons for nye felt uten å eksponere nøkkelen.
+- Kontrollere værsiden visuelt på 390 px og 1280 px med ferdig innlastede data, inkludert samlet mobilrulling, fokus/trykk, kilde/tidspunkt og manglende verdier.
+- Bekrefte at forsiden ikke viser prognosen og ikke utløser `get-weather`.
 
-Konklusjon på avviket: OperStack-rapporten beskriver ikke dagens produksjon. FAQPage, sidetyper og virksomhetsschema finnes. Bekreftet årsak: rapporten/søkeverktøyet bygger på eldre uttrekk. Hypotese, ikke bekreftet: verktøyet kan også ha kjørt mot www eller mot en ikke-oppdatert indekskopi.
-
-## 4. Reelle svakheter som rapporten delvis treffer
-
-Disse er bekreftet i dagens produksjonsrespons:
-
-1. Ingen virksomhetsnode (Organization/LocalBusiness) på forsiden — kun `TouristDestination` uten `@id`. Det finnes ingen felles, gjenbrukt virksomhets-`@id` på tvers av sidene.
-2. Nodene mangler `@id` (unntatt SkiResort), og sidene kobler ikke `WebPage` → virksomhet/`isPartOf`/`publisher` via `@id`.
-3. `NewsArticle` har `publisher` som løs Organization uten `@id` og uten logo.
-4. Ingen `BreadcrumbList` på undersider.
-5. `www.bjorli.no` svarer 200 i stedet for å 301-e til kanonisk domene (canonical peker riktig, så indekseringsrisikoen er lav, men duplikatlevering er reell).
-
-## 5. Minste nødvendige tiltak (til senere godkjenning, ikke utført nå)
-
-- Legg til én virksomhetsnode med fast `@id` (`https://bjorli.no/#organization`) i den delte schema-byggeren, og referer til den fra `WebPage`, `TouristDestination`, `SkiResort` og `NewsArticle.publisher`.
-- Gi alle noder stabile `@id`-verdier og koble `WebPage.isPartOf` til en `WebSite`-node med `@id`.
-- Vurder `BreadcrumbList` på undersider.
-- Vurder 301 fra `www` til apex i Cloudflare (utenfor repoet, krever eksplisitt godkjenning).
-- Send OperStack en ny kjøring mot kanonisk domene etter neste deploy.
-
-## Begrensninger
-
-- Ekstern schema-validator (validator.schema.org) er ikke kjørt i denne kontrollen.
-- Deploy-status er utledet fra innholdssammenligning med siste commit; selve Cloudflare-deployloggen er ikke inspisert.
+## Risiko og avgrensning
+- Googles faktiske felt for værtype, ikon og dag/natt må bekreftes i den levende responsen før mappingen ferdigstilles; planen antar ikke feltnavn som ikke er kontrollert.
+- Kun værfunksjonen rulles ut. Cloudflare-nettstedet og øvrige backend-funksjoner publiseres ikke.
+- Endringene holder seg til det eksisterende værtillegget og endrer ikke Fnugg, analyse, sikkerhet eller øvrig sideinnhold.
