@@ -970,7 +970,15 @@ const renderDetail = (opts: {
     // CMS hero images are bundled app assets with no stable public URL at
     // build time, so the section OG image is used — always a valid URL.
     ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
-    jsonLdTags: jsonLdScript(detailJsonLd(kind, entry, locale, href), 'jsonld-route'),
+    jsonLdTags: (() => {
+      const routeLd = detailJsonLd(kind, entry, locale, href);
+      const tags = [jsonLdScript(routeLd, SCHEMA_IDS.webPage)];
+      // Articles reference the business as publisher — emit the full node once.
+      if (routeLd.publisher) {
+        tags.push(jsonLdScript(buildBusinessLd(locale), SCHEMA_IDS.skiResort));
+      }
+      return tags.join('\n    ');
+    })(),
     ogType: kind === 'events' ? 'website' : 'article',
     // Finished events stay online and linked, but out of the index.
     robots: entry.archived ? 'noindex, follow' : undefined,
