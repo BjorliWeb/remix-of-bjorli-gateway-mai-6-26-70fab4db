@@ -85,6 +85,8 @@ export async function fetchBjorliForecast(): Promise<BjorliForecast> {
     source: typeof d.source === 'string' ? d.source : EMPTY_FORECAST.source,
     timeZone: typeof d.timeZone === 'string' ? d.timeZone : OSLO_TZ,
     fetchedAt: typeof d.fetchedAt === 'string' ? d.fetchedAt : null,
+    hourlyFetchedAt: typeof d.hourlyFetchedAt === 'string' ? d.hourlyFetchedAt : null,
+    dailyFetchedAt: typeof d.dailyFetchedAt === 'string' ? d.dailyFetchedAt : null,
     hours: Array.isArray(d.hours) ? d.hours : [],
     days: Array.isArray(d.days) ? d.days : [],
     stale: d.stale === true,
