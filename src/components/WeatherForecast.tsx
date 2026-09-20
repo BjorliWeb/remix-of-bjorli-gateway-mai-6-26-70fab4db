@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Line, LineChart, ResponsiveContainer, YAxis } from 'recharts';
 import {
@@ -16,6 +16,7 @@ import {
   Sun,
   Thermometer,
   Wind,
+  type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { usePageCopy } from '@/i18n/usePageCopy';
@@ -117,11 +118,9 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
 };
 
 interface Props { variant?: 'full' | 'compact' }
-type IconType = ComponentType<{ className?: string; 'aria-hidden'?: boolean }>;
-
 function WeatherIcon({ type, daytime, label, className = 'h-7 w-7' }: { type: string | null; daytime: boolean | null; label: string; className?: string }) {
   const kind = weatherSymbolKind(type);
-  let Icon: IconType;
+  let Icon: LucideIcon;
   if (kind === 'clear') Icon = daytime === false ? Moon : Sun;
   else if (kind === 'partly-cloudy') Icon = daytime === false ? CloudMoon : CloudSun;
   else if (kind === 'rain') Icon = daytime === false ? CloudMoonRain : CloudSunRain;
