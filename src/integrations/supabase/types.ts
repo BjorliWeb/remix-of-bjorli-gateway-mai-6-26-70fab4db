@@ -440,6 +440,57 @@ export type Database = {
         }
         Relationships: []
       }
+      weather_refresh_ticket: {
+        Row: {
+          created_at: string
+          id: boolean
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          id?: boolean
+          token?: string
+        }
+        Update: {
+          created_at?: string
+          id?: boolean
+          token?: string
+        }
+        Relationships: []
+      }
+      weather_snapshot: {
+        Row: {
+          error_count: number
+          expires_at: string | null
+          fetched_at: string | null
+          kind: string
+          last_error: string | null
+          locked_at: string | null
+          payload: Json | null
+          updated_at: string
+        }
+        Insert: {
+          error_count?: number
+          expires_at?: string | null
+          fetched_at?: string | null
+          kind: string
+          last_error?: string | null
+          locked_at?: string | null
+          payload?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          error_count?: number
+          expires_at?: string | null
+          fetched_at?: string | null
+          kind?: string
+          last_error?: string | null
+          locked_at?: string | null
+          payload?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
