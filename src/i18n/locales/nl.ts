@@ -177,6 +177,7 @@ const nl: Dictionary = {
       {
         category: 'Liftpas',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'verkoop-seizoenpassen-geopend',
         title: 'Early Bird op seizoenkaarten, 4–20 september',
         intro: 'Van 4 tot en met 20 september koop je de seizoenkaart voor Bjorli tegen de beste prijs van het jaar. Early Bird is in die periode alleen online verkrijgbaar via bjorli.no.',

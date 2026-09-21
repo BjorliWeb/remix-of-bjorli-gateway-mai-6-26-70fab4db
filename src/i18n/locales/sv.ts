@@ -171,6 +171,7 @@ const sv: Dictionary = {
       {
         category: 'Liftkort',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'sasongskortforsaljningen-ar-oppen',
         title: 'Early Bird på säsongskort 4–20 september',
         intro: 'Mellan 4 och 20 september får du säsongskortet på Bjorli till årets bästa pris. Under kampanjen säljs Early Bird bara online på bjorli.no.',

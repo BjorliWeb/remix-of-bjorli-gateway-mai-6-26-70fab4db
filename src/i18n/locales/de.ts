@@ -177,6 +177,7 @@ const de: Dictionary = {
       {
         category: 'Skipass',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'saisonkartenverkauf-hat-begonnen',
         title: 'Early Bird für Saisonkarten, 4.–20. September',
         intro: 'Vom 4. bis 20. September gibt es die Saisonkarten für Bjorli zum besten Preis des Jahres. Early Bird ist im Aktionszeitraum ausschließlich online auf bjorli.no erhältlich.',

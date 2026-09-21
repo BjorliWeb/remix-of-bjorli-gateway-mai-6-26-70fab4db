@@ -177,6 +177,7 @@ const da: Dictionary = {
       {
         category: 'Liftkort',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'saesonkortsalget-er-abnet',
         title: 'Early Bird på sæsonkort 4.–20. september',
         intro: 'Fra 4. til 20. september får du sæsonkortet til Bjorli til årets bedste pris. Early Bird kan i kampagneperioden kun købes online på bjorli.no.',
