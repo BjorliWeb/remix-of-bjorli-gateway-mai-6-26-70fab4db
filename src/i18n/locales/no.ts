@@ -171,6 +171,7 @@ const no: Dictionary = {
       {
         category: 'Heiskort',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'sesongkortsalget-er-apnet',
         title: 'Early Bird på sesongkort 4.–20. september',
         intro: 'Fra 4.–20. september får du sesongens beste priser på sesongkort på Bjorli. Early Bird er kun tilgjengelig for online kjøp på bjorli.no i kampanjeperioden.',

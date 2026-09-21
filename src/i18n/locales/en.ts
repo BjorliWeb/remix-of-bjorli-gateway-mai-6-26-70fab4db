@@ -177,6 +177,7 @@ const en: Dictionary = {
       {
         category: 'Lift pass',
         date: 'Sep',
+        status: 'unpublished',
         slug: 'season-pass-sale-is-open',
         title: 'Early Bird season passes, 4–20 September',
         intro: 'From 4 to 20 September the season passes for Bjorli go on sale at the best price of the year. Early Bird is sold online at bjorli.no only, during the campaign period.',
