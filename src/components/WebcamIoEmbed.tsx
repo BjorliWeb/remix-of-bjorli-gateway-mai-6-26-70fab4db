@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'lucide-react';
 
-const WIDGET_ID = 'JZt3I';
+const WIDGET_ID = 'NJn0t';
 const WEBCAM_ID = 'P4dKmP';
 const LOADER_URL = `https://webcam.io/s/widget-v1_03.load.js?i=${WIDGET_ID}`;
 const MAIN_SCRIPT_URL = 'https://webcam.io/s/widget-v1_03.js';
@@ -41,9 +41,7 @@ const WebcamIoEmbed = ({ title, unavailableLabel, onInteract }: WebcamIoEmbedPro
     widgetWindow.timelapseview_options = widgetWindow.timelapseview_options ?? {};
     widgetWindow.timelapseview_options[WIDGET_ID] = {
       e: WEBCAM_ID,
-      t: '1',
-      x: '680',
-      y: '620',
+      t: '2',
     };
 
     const loader = document.createElement('script');
@@ -75,7 +73,7 @@ const WebcamIoEmbed = ({ title, unavailableLabel, onInteract }: WebcamIoEmbedPro
       aria-label={`Webkamera: ${title}`}
     >
       <div
-        className="relative aspect-[68/62] w-full max-w-full overflow-hidden bg-muted"
+        className="relative aspect-[16/7] w-full max-w-full overflow-hidden bg-muted"
         onPointerDown={onInteract ? handleInteract : undefined}
       >
         {errored ? (
