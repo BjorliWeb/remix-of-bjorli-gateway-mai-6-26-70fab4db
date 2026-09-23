@@ -88,8 +88,8 @@ const WebcamIoEmbed = ({ title, unavailableLabel, onInteract }: WebcamIoEmbedPro
           />
         )}
       </div>
-      <div className="p-4 flex items-center justify-between gap-3">
-        <h3 className="font-display text-base font-semibold text-foreground">{title}</h3>
+      <div className="min-h-14 px-4 py-2 flex items-center justify-between gap-3">
+        <h3 className="font-display text-base font-semibold leading-5 text-foreground">{title}</h3>
         <span
           className="inline-flex shrink-0 items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-secondary"
           aria-label="Live"
