@@ -9,6 +9,7 @@ import PageHero from '@/components/PageHero';
 import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
+import WebcamIoEmbed from '@/components/WebcamIoEmbed';
 import WeatherForecast from '@/components/WeatherForecast';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
@@ -71,7 +72,7 @@ interface WeatherWebcamsCopy {
   webcamsTitle: string;
   webcamsIntro: string;
   webcamsFallback: string;
-  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string };
+  webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string; cam6: string };
   langrennTitle: string;
   langrennBody: string;
   langrennStatusCta: string;
@@ -106,7 +107,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkamera',
     webcamsIntro: 'Live bilder fra Bjorli Skisenter. Bildene oppdateres automatisk.',
     webcamsFallback: 'Webkamera er midlertidig utilgjengelig.',
-    webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5' },
+    webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stolheis toppstasjon' },
     langrennTitle: 'Langrenn og løypekart',
     langrennBody:
       'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se live løypestatus og interaktivt løypekart for oppdatert informasjon.',
@@ -137,7 +138,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
     webcamsFallback: 'Webcam is temporarily unavailable.',
-    webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
+    webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Chairlift top station' },
     langrennTitle: 'Cross-country and trail map',
     langrennBody:
       'Bjorli has cross-country trails through varied mountain and forest terrain. See live trail status and the interactive trail map for the latest information.',
@@ -168,7 +169,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live-Bilder vom Bjorli Skisenter. Die Bilder werden automatisch aktualisiert.',
     webcamsFallback: 'Die Webcam ist vorübergehend nicht verfügbar.',
-    webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
+    webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation Sessellift' },
     langrennTitle: 'Langlauf und Loipenkarte',
     langrennBody:
       'Bjorli bietet Langlaufloipen durch abwechslungsreiches Hochgebirgs- und Waldgelände. Sehen Sie den Live-Loipenstatus und die interaktive Loipenkarte für aktuelle Informationen.',
@@ -199,7 +200,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Livebeelden van Bjorli Skisenter. De beelden worden automatisch ververst.',
     webcamsFallback: 'De webcam is tijdelijk niet beschikbaar.',
-    webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5' },
+    webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation stoeltjeslift' },
     langrennTitle: 'Langlaufen en loipekaart',
     langrennBody:
       'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de live loipestatus en de interactieve loipekaart voor actuele informatie.',
@@ -230,7 +231,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkameraer',
     webcamsIntro: 'Livebilleder fra Bjorli Skisenter. Billederne opdateres automatisk.',
     webcamsFallback: 'Webkameraet er midlertidigt utilgængeligt.',
-    webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5' },
+    webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stoleliftens topstation' },
     langrennTitle: 'Langrend og løjpekort',
     langrennBody:
       'Bjorli har langrendsspor gennem varieret højfjelds- og skovterræn. Se live løjpestatus og det interaktive løjpekort for opdateret information.',
@@ -261,7 +262,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webbkameror',
     webcamsIntro: 'Livebilder från Bjorli Skisenter. Bilderna uppdateras automatiskt.',
     webcamsFallback: 'Webbkameran är tillfälligt otillgänglig.',
-    webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5' },
+    webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5', cam6: 'Webbkamera 6 Stolliftens toppstation' },
     langrennTitle: 'Längdskidor och spårkarta',
     langrennBody:
       'Bjorli har längdspår genom varierande högfjälls- och skogsterräng. Se live spårstatus och den interaktiva spårkartan för aktuell information.',
@@ -384,6 +385,24 @@ const WeatherWebcams = () => {
                 />
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: WEBCAMS.length * 0.05, duration: 0.4 }}
+            >
+              <WebcamIoEmbed
+                title={copy.webcamTitles.cam6}
+                unavailableLabel={copy.webcamsFallback}
+                onInteract={() =>
+                  trackWeatherWebcamClick({
+                    feature_type: 'webcam',
+                    link_url: 'https://webcam.io/webcams/P4dKmP',
+                    link_text: copy.webcamTitles.cam6,
+                  })
+                }
+              />
+            </motion.div>
           </div>
         </div>
       </section>
