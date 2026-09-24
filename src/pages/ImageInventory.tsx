@@ -1131,7 +1131,7 @@ interface ImageCardProps {
 
 const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFlag }: ImageCardProps) => {
   const [open, setOpen] = useState(false);
-  const isUsed = row.registryKeys.length > 0;
+  const isUsed = (row.registryKeys?.length ?? 0) > 0;
   const altMissing = !effectiveAlt(row, review).trim();
   // Rule 7: only show LOGO CROP when filename actually carries the marker
   // OR an editor manually flagged it (visible logo in image).
@@ -1183,7 +1183,7 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
           <span className="font-medium">{heroVerdict}</span>
           <span className="text-muted-foreground"> — {row.heroReason}</span>
         </div>
-        {row.editorialStatus.length > 0 && (
+        {(row.editorialStatus?.length ?? 0) > 0 && (
           <div className="flex flex-wrap gap-1">
             {row.editorialStatus.map((s) => (
               <span key={s} className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-muted text-foreground border border-border">
@@ -1202,7 +1202,7 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
             ? <span>{row.registryKeys.join(', ')}</span>
             : <span className="italic text-muted-foreground">unused</span>}
         </div>
-        {row.pageSuggestions.length > 0 && (
+        {(row.pageSuggestions?.length ?? 0) > 0 && (
           <div className="text-xs">
             <span className="text-muted-foreground">Suggested pages: </span>
             <span>{row.pageSuggestions.join(', ')}</span>
@@ -1214,7 +1214,7 @@ const ImageCard = ({ row, review, selected, onToggleSelect, onUpdate, onToggleFl
             ? <span>{effectiveAlt(row, review)}</span>
             : <span className="italic text-destructive">missing</span>}
         </div>
-        {row.autoWarnings.length > 0 && (
+        {(row.autoWarnings?.length ?? 0) > 0 && (
           <div className="text-[11px] text-muted-foreground">⚠ {row.autoWarnings.join(' · ')}</div>
         )}
 
