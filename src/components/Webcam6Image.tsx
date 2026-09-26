@@ -17,21 +17,10 @@ interface Meta {
 interface Webcam6ImageProps {
   title: string;
   unavailableLabel: string;
-  capturedLabel: string;
-  fetchedLabel: string;
   onInteract?: () => void;
 }
 
-const formatTime = (iso: string) =>
-  new Intl.DateTimeFormat('nb-NO', {
-    timeZone: 'Europe/Oslo',
-    day: '2-digit',
-    month: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(iso));
-
-const Webcam6Image = ({ title, unavailableLabel, capturedLabel, fetchedLabel, onInteract }: Webcam6ImageProps) => {
+const Webcam6Image = ({ title, unavailableLabel, onInteract }: Webcam6ImageProps) => {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [failed, setFailed] = useState(false);
   const interactedRef = useRef(false);
