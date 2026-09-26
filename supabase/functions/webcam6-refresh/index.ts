@@ -25,8 +25,8 @@ const LOCAL_RE = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
-const osloOffset = (d: Date) => {
-  // "+02:00" style offset string for Europe/Oslo at instant d
+const osloLocal = (d: Date) => {
+  // "yyyy-mm-dd hh:mm:ss" wall-clock time in Europe/Oslo at instant d
   const s = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Oslo',
     year: 'numeric', month: '2-digit', day: '2-digit',
@@ -44,10 +44,8 @@ interface SourceImage { url: string; key: string; localTime: string }
 /** Fetch the newest frame from webcam.io's image list. Throws on unknown format. */
 async function fetchNewestSource(): Promise<SourceImage> {
   const now = new Date();
-  const fmt = (d: Date) => `${osloOffset(d)} +0000`;
   // The API takes base64 timestamps; we send UTC to avoid DST ambiguity.
   const utc = (d: Date) => d.toISOString().replace('T', ' ').slice(0, 19) + ' +0000';
-  void fmt;
   const from = encodeURIComponent(b64(utc(new Date(now.getTime() - LOOKBACK_MS))));
   const to = encodeURIComponent(b64(utc(new Date(now.getTime() + 5 * 60_000))));
   const res = await fetch(
@@ -79,7 +77,7 @@ function captureTime(src: SourceImage): Date | null {
   const iso = `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}T${t.slice(0, 2)}:${t.slice(2, 4)}:${t.slice(4, 6)}Z`;
   const at = new Date(iso);
   if (Number.isNaN(at.getTime())) return null;
-  return osloOffset(at) === src.localTime ? at : null;
+  return osloLocal(at) === src.localTime ? at : null;
 }
 
 async function sha256Hex(buf: Uint8Array) {
