@@ -95,8 +95,7 @@ const Webcam6Image = ({ title, unavailableLabel, capturedLabel, fetchedLabel, on
             {timeLabel}
           </span>
         ) : null}
-        {showImage ? null
-        ) : meta ? (
+        {!showImage && meta ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-muted-foreground" role="status">
             <Camera className="mb-2 h-8 w-8 opacity-60" aria-hidden="true" />
             <p className="text-sm">{unavailableLabel}</p>
