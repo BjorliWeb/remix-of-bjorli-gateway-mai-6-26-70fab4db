@@ -491,6 +491,75 @@ export type Database = {
         }
         Relationships: []
       }
+      webcam6_state: {
+        Row: {
+          approvals_total: number
+          captured_at: string | null
+          checks_total: number
+          errors_total: number
+          id: boolean
+          last_checked_at: string | null
+          last_error: string | null
+          last_result: string | null
+          last_scores: Json | null
+          last_source_hash: string | null
+          last_source_url: string | null
+          locked_at: string | null
+          previous_path: string | null
+          published_at: string | null
+          published_hash: string | null
+          published_path: string | null
+          refresh_token: string
+          rejections_total: number
+          time_source: string | null
+          updated_at: string
+        }
+        Insert: {
+          approvals_total?: number
+          captured_at?: string | null
+          checks_total?: number
+          errors_total?: number
+          id?: boolean
+          last_checked_at?: string | null
+          last_error?: string | null
+          last_result?: string | null
+          last_scores?: Json | null
+          last_source_hash?: string | null
+          last_source_url?: string | null
+          locked_at?: string | null
+          previous_path?: string | null
+          published_at?: string | null
+          published_hash?: string | null
+          published_path?: string | null
+          refresh_token?: string
+          rejections_total?: number
+          time_source?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approvals_total?: number
+          captured_at?: string | null
+          checks_total?: number
+          errors_total?: number
+          id?: boolean
+          last_checked_at?: string | null
+          last_error?: string | null
+          last_result?: string | null
+          last_scores?: Json | null
+          last_source_hash?: string | null
+          last_source_url?: string | null
+          locked_at?: string | null
+          previous_path?: string | null
+          published_at?: string | null
+          published_hash?: string | null
+          published_path?: string | null
+          refresh_token?: string
+          rejections_total?: number
+          time_source?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
