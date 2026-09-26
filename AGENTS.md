@@ -1,0 +1,1 @@
+- Webcam 6 is served from the backend (`webcam6-refresh` every 5 min via pg_cron + read-only `webcam6-image`), never the webcam.io widget — only a deterministically approved left-lens frame may be published.
