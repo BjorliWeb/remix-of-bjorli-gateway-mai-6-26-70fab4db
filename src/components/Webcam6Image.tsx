@@ -89,6 +89,13 @@ const Webcam6Image = ({ title, unavailableLabel, capturedLabel, fetchedLabel, on
             decoding="async"
             onError={() => setFailed(true)}
           />
+        ) : null}
+        {showImage && timeLabel ? (
+          <span className="absolute bottom-2 right-2 rounded-md bg-background/80 px-2 py-0.5 text-[11px] font-medium text-foreground backdrop-blur-sm">
+            {timeLabel}
+          </span>
+        ) : null}
+        {showImage ? null
         ) : meta ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-muted-foreground" role="status">
             <Camera className="mb-2 h-8 w-8 opacity-60" aria-hidden="true" />
@@ -98,9 +105,6 @@ const Webcam6Image = ({ title, unavailableLabel, capturedLabel, fetchedLabel, on
       </div>
       <div className="min-h-14 px-4 py-2 flex items-center justify-between gap-3">
         <h3 className="font-display text-base font-semibold leading-5 text-foreground">{title}</h3>
-        {timeLabel && (
-          <span className="shrink-0 text-xs text-muted-foreground">{timeLabel}</span>
-        )}
       </div>
     </article>
   );
