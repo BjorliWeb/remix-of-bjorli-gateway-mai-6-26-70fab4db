@@ -9,7 +9,7 @@ import PageHero from '@/components/PageHero';
 import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
-import WebcamIoEmbed from '@/components/WebcamIoEmbed';
+import Webcam6Image from '@/components/Webcam6Image';
 import WeatherForecast from '@/components/WeatherForecast';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
@@ -72,6 +72,8 @@ interface WeatherWebcamsCopy {
   webcamsTitle: string;
   webcamsIntro: string;
   webcamsFallback: string;
+  cam6CapturedLabel: string;
+  cam6FetchedLabel: string;
   webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string; cam6: string };
   langrennTitle: string;
   langrennBody: string;
@@ -107,6 +109,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkamera',
     webcamsIntro: 'Live bilder fra Bjorli Skisenter. Bildene oppdateres automatisk.',
     webcamsFallback: 'Webkamera er midlertidig utilgjengelig.',
+    cam6CapturedLabel: 'Tatt kl.',
+    cam6FetchedLabel: 'Hentet kl.',
     webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stolheis toppstasjon' },
     langrennTitle: 'Langrenn og løypekart',
     langrennBody:
@@ -138,6 +142,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live views from Bjorli Skisenter. Streams refresh automatically.',
     webcamsFallback: 'Webcam is temporarily unavailable.',
+    cam6CapturedLabel: 'Taken at',
+    cam6FetchedLabel: 'Retrieved at',
     webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Chairlift top station' },
     langrennTitle: 'Cross-country and trail map',
     langrennBody:
@@ -169,6 +175,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Live-Bilder vom Bjorli Skisenter. Die Bilder werden automatisch aktualisiert.',
     webcamsFallback: 'Die Webcam ist vorübergehend nicht verfügbar.',
+    cam6CapturedLabel: 'Aufgenommen um',
+    cam6FetchedLabel: 'Abgerufen um',
     webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation Sessellift' },
     langrennTitle: 'Langlauf und Loipenkarte',
     langrennBody:
@@ -200,6 +208,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webcams',
     webcamsIntro: 'Livebeelden van Bjorli Skisenter. De beelden worden automatisch ververst.',
     webcamsFallback: 'De webcam is tijdelijk niet beschikbaar.',
+    cam6CapturedLabel: 'Opgenomen om',
+    cam6FetchedLabel: 'Opgehaald om',
     webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation stoeltjeslift' },
     langrennTitle: 'Langlaufen en loipekaart',
     langrennBody:
@@ -231,6 +241,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webkameraer',
     webcamsIntro: 'Livebilleder fra Bjorli Skisenter. Billederne opdateres automatisk.',
     webcamsFallback: 'Webkameraet er midlertidigt utilgængeligt.',
+    cam6CapturedLabel: 'Taget kl.',
+    cam6FetchedLabel: 'Hentet kl.',
     webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stoleliftens topstation' },
     langrennTitle: 'Langrend og løjpekort',
     langrennBody:
@@ -262,6 +274,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamsTitle: 'Webbkameror',
     webcamsIntro: 'Livebilder från Bjorli Skisenter. Bilderna uppdateras automatiskt.',
     webcamsFallback: 'Webbkameran är tillfälligt otillgänglig.',
+    cam6CapturedLabel: 'Tagen kl.',
+    cam6FetchedLabel: 'Hämtad kl.',
     webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5', cam6: 'Webbkamera 6 Stolliftens toppstation' },
     langrennTitle: 'Längdskidor och spårkarta',
     langrennBody:
@@ -391,9 +405,11 @@ const WeatherWebcams = () => {
               viewport={{ once: true }}
               transition={{ delay: WEBCAMS.length * 0.05, duration: 0.4 }}
             >
-              <WebcamIoEmbed
+              <Webcam6Image
                 title={copy.webcamTitles.cam6}
                 unavailableLabel={copy.webcamsFallback}
+                capturedLabel={copy.cam6CapturedLabel}
+                fetchedLabel={copy.cam6FetchedLabel}
                 onInteract={() =>
                   trackWeatherWebcamClick({
                     feature_type: 'webcam',
