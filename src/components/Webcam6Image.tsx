@@ -56,9 +56,6 @@ const Webcam6Image = ({ title, unavailableLabel, onInteract }: Webcam6ImageProps
   };
 
   const showImage = !!meta?.imageUrl && !failed;
-  const timeLabel = showImage && meta?.capturedAt
-    ? `${meta.timeSource === 'captured' ? capturedLabel : fetchedLabel} ${formatTime(meta.capturedAt)}`
-    : null;
 
   return (
     <article
@@ -70,19 +67,22 @@ const Webcam6Image = ({ title, unavailableLabel, onInteract }: Webcam6ImageProps
         onPointerDown={onInteract ? handleInteract : undefined}
       >
         {showImage ? (
-          <img
-            src={meta!.imageUrl!}
-            alt={title}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
-            onError={() => setFailed(true)}
-          />
-        ) : null}
-        {showImage && timeLabel ? (
-          <span className="absolute bottom-2 right-2 rounded-md bg-background/80 px-2 py-0.5 text-[11px] font-medium text-foreground backdrop-blur-sm">
-            {timeLabel}
-          </span>
+          <a
+            href={meta!.imageUrl!}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute inset-0 block"
+            aria-label={`Vis stor versjon: ${title}`}
+          >
+            <img
+              src={meta!.imageUrl!}
+              alt={title}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+              onError={() => setFailed(true)}
+            />
+          </a>
         ) : null}
         {!showImage && meta ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-muted-foreground" role="status">
