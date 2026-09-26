@@ -9,7 +9,7 @@ export const GRID_H = 18;
 export interface LensFeatures {
   descriptor: number[];
   roofRatio: number; // roof-box luminance / sky-box luminance (low = dark roof present)
-  mastContrast: number; // mast column darkness vs neighbours (high = mast present)
+  mastContrast: number; // diagnostic only: thin mast is too weak at coarse resolution to gate on
   meanLuma: number;
 }
 
@@ -23,10 +23,11 @@ export interface LensDecision {
 }
 
 export const THRESHOLDS = {
-  minScoreLeft: 0.55,
-  minMargin: 0.25,
-  maxRoofRatio: 0.7,
-  minMastContrast: 0.04,
+  // Tuned on labelled archive frames (see README in this folder). Strict: the
+  // closest right-lens frame scored margin -0.255 / roof ratio 0.689.
+  minScoreLeft: 0.5,
+  minMargin: 0.2,
+  maxRoofRatio: 0.66,
   minMeanLuma: 25, // too dark = no reliable structure
 };
 
@@ -127,6 +128,5 @@ export function classify(
   if (scoreLeft < th.minScoreLeft) return { approved: false, reason: 'low_left_score', ...base };
   if (scoreLeft - scoreRight < th.minMargin) return { approved: false, reason: 'low_margin', ...base };
   if (feat.roofRatio > th.maxRoofRatio) return { approved: false, reason: 'roof_not_found', ...base };
-  if (feat.mastContrast < th.minMastContrast) return { approved: false, reason: 'mast_not_found', ...base };
   return { approved: true, reason: 'left_lens', ...base };
 }
