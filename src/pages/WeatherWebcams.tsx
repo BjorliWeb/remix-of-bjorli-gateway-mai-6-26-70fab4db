@@ -408,8 +408,6 @@ const WeatherWebcams = () => {
               <Webcam6Image
                 title={copy.webcamTitles.cam6}
                 unavailableLabel={copy.webcamsFallback}
-                capturedLabel={copy.cam6CapturedLabel}
-                fetchedLabel={copy.cam6FetchedLabel}
                 onInteract={() =>
                   trackWeatherWebcamClick({
                     feature_type: 'webcam',
