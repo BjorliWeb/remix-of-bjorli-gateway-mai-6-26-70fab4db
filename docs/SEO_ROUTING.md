@@ -47,3 +47,10 @@ Status codes and Location headers must be checked on a Cloudflare Pages preview 
 (local `wrangler pages dev` did not answer in the sandbox). Check: the 19 audit URLs (301),
 `/nb/mountain-information/` (301), `/seo-test-side-finnes-ikke-20261001/` (404),
 `/nyheter/sesongkortsalget-er-apnet/` (404), `/admin/login/` (200), PDF 404.
+
+## Admin-approved events and rebuilds
+
+- Approved events (status `approved`) are read at build time through `list-approved-events` (scope=all) and prerendered + sitemapped like editorial events. Finished events get `noindex, follow` and stay out of the sitemap. Withdrawn/rejected events disappear from listing, HTML and sitemap.
+- If the approved feed cannot be read, `export-cms-content` fails the build so Cloudflare keeps the previous deployment (`ALLOW_MISSING_EVENTS=1` overrides locally only).
+- Admin publish / unpublish / edit of an approved event calls the `trigger-site-rebuild` function (editors only, 60 s throttle). It is inactive (`not_configured`) until the backend secret `CLOUDFLARE_DEPLOY_HOOK_URL` is added. Activation: create the Pages deploy hook for `main`, add the secret, approve a test event, check a new Cloudflare build starts and the page/sitemap appear; then unpublish and check removal.
+- Until the hook is active, a newly approved event has no static page (direct visits give 404) until the next build.
