@@ -30,7 +30,8 @@
  * that snapshot: approved Supabase submissions stay runtime-only and are
  * marked noindex at runtime instead of getting a static SEO URL.
  */
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { APP_SHELL_ROUTES, appShellHtml, notFoundHtml, parseRedirectSources, findLinkProblems } from './lib/linkCheck';
 import { dirname, resolve } from 'node:path';
 
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
@@ -1108,6 +1109,43 @@ const renderArchiveHubs = (base: { scripts: string; preloads: string }): RouteOu
   });
 };
 
+/**
+ * Build-time assertion: every internal <a>/<link> href in generated HTML
+ * must resolve to a generated page, a static file or a registered app
+ * route, and must point straight at the canonical target (no redirect
+ * sources, trailing-slash form). Query strings and fragments are ignored;
+ * URL-encoded paths are decoded. External, mailto: and tel: are skipped.
+ */
+const assertInternalLinks = (): void => {
+  const pages: { page: string; html: string }[] = [];
+  const walk = (dir: string) => {
+    for (const name of readdirSync(dir)) {
+      const abs = resolve(dir, name);
+      if (statSync(abs).isDirectory()) { if (name !== 'assets') walk(abs); }
+      else if (name.endsWith('.html')) pages.push({ page: abs.slice(DIST.length), html: readFileSync(abs, 'utf8') });
+    }
+  };
+  walk(DIST);
+  const redirectsPath = resolve(DIST, '_redirects');
+  const redirects = parseRedirectSources(existsSync(redirectsPath) ? readFileSync(redirectsPath, 'utf8') : '');
+  const shells = new Set(APP_SHELL_ROUTES);
+  const exists = (p: string): boolean => {
+    if (shells.has(p)) return true;
+    const rel = p.replace(/^\//, '');
+    if (!rel) return existsSync(resolve(DIST, 'index.html'));
+    const abs = resolve(DIST, rel);
+    if (p.endsWith('/')) return existsSync(resolve(abs, 'index.html'));
+    return existsSync(abs) && statSync(abs).isFile();
+  };
+  const problems = findLinkProblems(pages, exists, redirects);
+  if (problems.length) {
+    const sample = problems.slice(0, 40).map((x) => `  - ${x.page}: ${x.href} (${x.reason})`).join('\n');
+    throw new Error(`[prerender] internal link check failed: ${problems.length} problem(s)\n${sample}`);
+  }
+  // eslint-disable-next-line no-console
+  console.log(`[prerender] internal links: ${pages.length} HTML files checked, all internal links resolve to canonical targets.`);
+};
+
 const writeOutput = (out: RouteOutput): void => {
   const abs = resolve(DIST, out.filePath);
   mkdirSync(dirname(abs), { recursive: true });
@@ -1308,6 +1346,26 @@ const run = () => {
     writeOutput(out);
     results.push(out);
   }
+
+  // ── App-only routes (noindex shells) + 404 page ─────────────────────
+  // Cloudflare Pages returns HTTP 404 with dist/404.html for any path that
+  // has no file. Every public page is prerendered above; app-only routes
+  // (editor login, reset password, MFA, admin, submit forms) get a noindex
+  // shell so they keep working on direct load.
+  for (const route of APP_SHELL_ROUTES) {
+    writeOutput({ filePath: route.slice(1) + 'index.html', html: appShellHtml(base), locale: 'no', canonical: 'app-shell', title: 'Bjorli' });
+  }
+  const notFoundLinks = [
+    { label: 'Bjorli (norsk)', href: '/' },
+    ...(['vinter', 'sommer', 'vaer-og-webkamera', 'heiskort', 'overnatting', 'arrangementer'] as CanonicalRoute[]).map((r) => ({
+      label: PAGE_LABELS.no[r] ?? r,
+      href: normalizeInternalPath('/' + slugForCanonical(r, 'no')),
+    })),
+    ...(['en', 'de', 'nl', 'da', 'sv'] as Locale[]).map((l) => ({ label: `Bjorli (${LOCALE_LABELS[l].htmlLang})`, href: `/${l}/` })),
+  ];
+  writeFileSync(resolve(DIST, '404.html'), notFoundHtml({ ...base, links: notFoundLinks }), 'utf8');
+
+  assertInternalLinks();
 
   const grouped: Record<string, number> = {};
   for (const r of results) grouped[r.canonical] = (grouped[r.canonical] ?? 0) + 1;
