@@ -59,6 +59,53 @@
 /feed/                   /nyheter/         301
 /comments/feed/          /nyheter/         301
 
+
+# Wrong-language slugs (locale prefix + Norwegian slug) from the 1 Oct 2026
+# audit. Targets come from ROUTE_SLUGS in src/i18n/routes.ts.
+# Covered by src/test/redirects.test.ts.
+/en/overnatting   /en/accommodation/   301
+/en/overnatting/  /en/accommodation/   301
+/en/apningstider   /en/opening-hours/   301
+/en/apningstider/  /en/opening-hours/   301
+/en/bjorli-skisenter   /en/bjorli-ski-resort/   301
+/en/bjorli-skisenter/  /en/bjorli-ski-resort/   301
+/en/loypekart   /en/trail-map/   301
+/en/loypekart/  /en/trail-map/   301
+/de/overnatting   /de/unterkunft/   301
+/de/overnatting/  /de/unterkunft/   301
+/de/apningstider   /de/oeffnungszeiten/   301
+/de/apningstider/  /de/oeffnungszeiten/   301
+/de/bjorli-skisenter   /de/bjorli-skigebiet/   301
+/de/bjorli-skisenter/  /de/bjorli-skigebiet/   301
+/de/loypekart   /de/loipenplan/   301
+/de/loypekart/  /de/loipenplan/   301
+/nl/overnatting   /nl/accommodatie/   301
+/nl/overnatting/  /nl/accommodatie/   301
+/nl/apningstider   /nl/openingstijden/   301
+/nl/apningstider/  /nl/openingstijden/   301
+/nl/bjorli-skisenter   /nl/bjorli-skigebied/   301
+/nl/bjorli-skisenter/  /nl/bjorli-skigebied/   301
+/nl/loypekart   /nl/pistekaart/   301
+/nl/loypekart/  /nl/pistekaart/   301
+/da/overnatting   /da/overnatning/   301
+/da/overnatting/  /da/overnatning/   301
+/da/apningstider   /da/aabningstider/   301
+/da/apningstider/  /da/aabningstider/   301
+/da/loypekart   /da/loipekort/   301
+/da/loypekart/  /da/loipekort/   301
+/sv/overnatting   /sv/boende/   301
+/sv/overnatting/  /sv/boende/   301
+/sv/apningstider   /sv/oppettider/   301
+/sv/apningstider/  /sv/oppettider/   301
+/sv/bjorli-skisenter   /sv/bjorli-skidcenter/   301
+/sv/bjorli-skisenter/  /sv/bjorli-skidcenter/   301
+/sv/loypekart   /sv/sp%C3%A5rkarta/   301
+/sv/loypekart/  /sv/sp%C3%A5rkarta/   301
+
+# Old Strapi page 'Vær- og føreinformasjon' (weather, conditions, webcams).
+/nb/mountain-information   /vaer-og-webkamera/   301
+/nb/mountain-information/  /vaer-og-webkamera/   301
+
 # No explicit SPA fallback rule: Cloudflare Pages serves index.html (200)
 # automatically for unmatched routes when the deploy has no top-level
 # 404.html. The previous `/* /index.html 200` rule triggered Pages'
