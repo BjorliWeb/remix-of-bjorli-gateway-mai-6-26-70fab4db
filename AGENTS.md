@@ -2,3 +2,5 @@
 - Internal links are built only via `localizeHref` (shared by React and prerender) and validated at build time — one route map prevents wrong-language URLs.
 - `dist/404.html` + noindex app shells (`APP_SHELL_ROUTES`) replace the SPA fallback — unknown URLs must return HTTP 404 on Cloudflare Pages.
 - Admin-approved events share one publication rule with editorial events at build time (prerender + sitemap) and request rebuilds via a backend-held deploy hook — the static site must never drift from the live event list.
+- Rebuild requests are queued durably in `site_rebuild_state` (pending flag + atomic 60 s claim) — throttled or failed hook calls must never drop an editor change.
+- Editorial bodies use the shared `src/lib/content/richText.ts` markup (`## ` H2, `[text](/path/)`) rendered by both React and prerender — first HTML and hydrated view must stay identical.
