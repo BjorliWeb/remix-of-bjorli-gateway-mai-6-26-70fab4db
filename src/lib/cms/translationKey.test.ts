@@ -88,3 +88,13 @@ describe('buildTranslationGroups — news is unchanged', () => {
     expect(groups.every((g) => Object.keys(g.byLocale).length === 2)).toBe(true);
   });
 });
+
+import { describe as d2, it as i2, expect as e2 } from 'vitest';
+import { translationKeyOf as tk } from './translationKey';
+d2('admin submissions', () => {
+  i2('never group two submissions whose UUID tail is numeric', () => {
+    const a = tk({ id: 'submission-aaaa-111122223333', slug: 'a' });
+    const b = tk({ id: 'submission-bbbb-111122223333', slug: 'b' });
+    e2(a).not.toBe(b);
+  });
+});
