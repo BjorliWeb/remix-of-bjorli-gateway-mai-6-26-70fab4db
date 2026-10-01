@@ -1,3 +1,4 @@
+import { TIP_ARTICLES_NO } from './tipArticles';
 import type { CmsAdapter } from './adapter';
 import type {
   CmsActivity,

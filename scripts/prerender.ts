@@ -53,6 +53,7 @@ import {
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import { localizeHref } from '../src/i18n/localizeHref';
+import { hasRichMarkup, parseRichText } from '../src/lib/content/richText';
 import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
