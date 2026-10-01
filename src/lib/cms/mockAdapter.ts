@@ -257,19 +257,24 @@ const apply = <T>(items: T[], q: CmsListQuery): T[] => {
 
 const buildTips = (lang: Language): CmsTip[] => {
   const d = dict(lang);
-  return d.tips.items.map((t, i) => ({
-    id: `tip-${lang}-${i}`,
-    slug: slugify(t.title),
-    language: lang,
-    title: t.title,
-    intro: t.intro,
-    body: t.intro,
-    heroImage: { url: TIP_IMAGES[i % TIP_IMAGES.length], alt: t.title },
-    category: t.category,
-    season: 'all',
-    seoTitle: t.title,
-    seoDescription: t.intro,
-  }));
+  return d.tips.items.map((t, i) => {
+    // Full editorial copy currently exists in Norwegian only; other locales
+    // keep their existing short entries.
+    const art = lang === 'no' ? TIP_ARTICLES_NO[i] : undefined;
+    return {
+      id: `tip-${lang}-${i}`,
+      slug: slugify(t.title),
+      language: lang,
+      title: t.title,
+      intro: art?.intro ?? t.intro,
+      body: art?.body ?? t.intro,
+      heroImage: { url: TIP_IMAGES[i % TIP_IMAGES.length], alt: t.title },
+      category: t.category,
+      season: 'all',
+      seoTitle: art?.seoTitle ?? t.title,
+      seoDescription: art?.seoDescription ?? t.intro,
+    };
+  });
 };
 
 /**
