@@ -386,6 +386,39 @@ export type Database = {
         }
         Relationships: []
       }
+      site_rebuild_state: {
+        Row: {
+          failed_attempts: number
+          id: boolean
+          last_error: string | null
+          last_status: string | null
+          last_triggered_at: string | null
+          pending: boolean
+          requested_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          failed_attempts?: number
+          id?: boolean
+          last_error?: string | null
+          last_status?: string | null
+          last_triggered_at?: string | null
+          pending?: boolean
+          requested_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          failed_attempts?: number
+          id?: boolean
+          last_error?: string | null
+          last_status?: string | null
+          last_triggered_at?: string | null
+          pending?: boolean
+          requested_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       trusted_devices: {
         Row: {
           created_at: string
