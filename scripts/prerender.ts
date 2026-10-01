@@ -51,6 +51,7 @@ import {
 } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
+import { localizeHref } from '../src/i18n/localizeHref';
 import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
@@ -357,7 +358,7 @@ const homeBodySkeleton = (locale: Locale): string => {
   const cards = data.planning.cards
     .map(
       (c) =>
-        `    <li style="margin:0 0 0.75rem"><a href="${escapeHtml(c.href)}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(c.title)}</a> — ${escapeHtml(c.desc)}</li>`,
+        `    <li style="margin:0 0 0.75rem"><a href="${escapeHtml(c.external ? c.href : localizeHref(c.href, locale))}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(c.title)}</a> — ${escapeHtml(c.desc)}</li>`,
     )
     .join('\n');
   const proofPoints = data.intro.proofPoints
@@ -369,9 +370,9 @@ const homeBodySkeleton = (locale: Locale): string => {
       <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.hero.subtitle)}</p>
       <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:0 0 1rem">
         <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.75rem 1.25rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaLiftPass)}</a>
-        <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/overnatting`))}" style="display:inline-block;padding:0.75rem 1.25rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaStay)}</a>
+        <a href="${escapeHtml(localizeHref('/overnatting', locale))}" style="display:inline-block;padding:0.75rem 1.25rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaStay)}</a>
       </div>
-      <p style="margin:0"><a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/apningstider`))}">${escapeHtml(data.hero.ctaOpening)}</a></p>
+      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}">${escapeHtml(data.hero.ctaOpening)}</a></p>
     </section>
     <section style="margin:2.5rem 0">
       <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.intro.title)}</h2>
@@ -389,13 +390,13 @@ const homeBodySkeleton = (locale: Locale): string => {
       <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.skiCenter.eyebrow ?? '')}</p>
       <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(data.skiCenter.title)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.skiCenter.body)}</p>
-      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}${data.skiCenter.href}`))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.skiCenter.cta)}</a>
+      <a href="${escapeHtml(localizeHref(data.skiCenter.href, locale))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.skiCenter.cta)}</a>
     </section>
     <section style="margin:2.5rem 0">
       <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.accommodation.eyebrow ?? '')}</p>
       <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(data.accommodation.title)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.accommodation.body)}</p>
-      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}${data.accommodation.href}`))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
+      <a href="${escapeHtml(localizeHref(data.accommodation.href, locale))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
     </section>${campaignBlock(locale)}`;
   return skeletonShell({ locale, canonical: 'home', main });
 };
@@ -418,7 +419,7 @@ const skiCenterBodySkeleton = (locale: Locale): string => {
     <section style="margin:0 0 2rem">
       <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.trailMap.caption)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(data.trailMap.note)}</p>
-      <a href="${escapeHtml(normalizeInternalPath(`${LOCALE_PREFIX[locale] || ''}/loypekart`))}" style="display:inline-block;padding:0.65rem 1rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.trailMap.ariaOpen)}</a>
+      <a href="${escapeHtml(localizeHref('/loypekart', locale))}" style="display:inline-block;padding:0.65rem 1rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.trailMap.ariaOpen)}</a>
     </section>
     <section style="margin:0 0 2rem">
       <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.salesTerms.heading)}</h2>
@@ -436,7 +437,7 @@ const subPageBodySkeleton = (slug: 'heiskort', locale: Locale): string => {
   const ctas = data.ctas
     .map(
       (c) =>
-        `      <a href="${escapeHtml(c.href)}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''} style="display:inline-block;padding:0.65rem 1rem;margin:0 0.5rem 0.5rem 0;background:${c.variant === 'primary' ? '#003b4b;color:#fff' : 'transparent;color:#003b4b;border:1px solid #003b4b'};text-decoration:none;border-radius:0.375rem">${escapeHtml(c.label)}</a>`,
+        `      <a href="${escapeHtml(c.external ? c.href : localizeHref(c.href, locale))}"${c.external ? ' target="_blank" rel="noopener noreferrer"' : ''} style="display:inline-block;padding:0.65rem 1rem;margin:0 0.5rem 0.5rem 0;background:${c.variant === 'primary' ? '#003b4b;color:#fff' : 'transparent;color:#003b4b;border:1px solid #003b4b'};text-decoration:none;border-radius:0.375rem">${escapeHtml(c.label)}</a>`,
     )
     .join('\n');
   const faq = data.faq?.length
