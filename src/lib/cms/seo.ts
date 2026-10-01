@@ -218,9 +218,9 @@ export async function resolveSeoForRoute(
         entry.availableTranslations ?? (available.length ? available : [language]),
       alternatePaths,
       translatedBody: entry.translatedBody ?? language === 'no',
-      // Runtime Supabase submissions (`submission-*`) are deliberately not
-      // prerendered or sitemapped — keep their detail URL out of the index.
-      noindex: String(entry.id).startsWith('submission-'),
+      // Approved submissions are prerendered and sitemapped like editorial
+      // events (archived ones get noindexFollow below).
+      noindex: false,
       noindexFollow:
         route.hub === 'arrangementer' && isEventArchived(entry as CmsEvent),
       jsonLd: buildJsonLd(entry, route.schemaType, absoluteUrl),

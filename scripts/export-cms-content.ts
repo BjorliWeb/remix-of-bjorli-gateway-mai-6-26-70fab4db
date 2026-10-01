@@ -10,11 +10,14 @@
  *
  * Output: .cache/cms-content.json
  *
- * IMPORTANT (SEO contract): only editorial CMS content is exported. Approved
- * user submissions coming from Supabase at runtime (`submission-*` ids) are
- * deliberately excluded — they must never get a prerendered, sitemap-listed
- * detail URL. Their detail pages are marked noindex at runtime instead
- * (see src/lib/cms/seo.ts).
+ * SEO contract: editorial content AND admin-approved events
+ * (`submission-*`, status = approved, read via the public allowlisted
+ * `list-approved-events` function) are exported, so the listing, prerendered
+ * HTML and sitemap share one publication rule. Unapproved/withdrawn events
+ * are absent. Finished events are flagged `archived` (noindex, no sitemap).
+ * If the approved feed cannot be read the export FAILS, so Cloudflare keeps
+ * the previous deployment instead of publishing a build missing events.
+ * Signed image URLs (1 h) and submitter email are never written to HTML.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -70,9 +73,10 @@ const pick = (e: Record<string, unknown>): ExportedEntry => ({
   ctaHref: (e.ctaHref as string) || undefined,
 });
 
-/** Editorial entries only — runtime Supabase submissions are excluded. */
-const isEditorial = (e: ExportedEntry): boolean =>
-  !!e.slug && !e.id.startsWith('submission-');
+/** Any entry with a slug; signed (expiring) submission images are dropped. */
+const isEditorial = (e: ExportedEntry): boolean => !!e.slug;
+const stripVolatile = (e: ExportedEntry): ExportedEntry =>
+  e.id.startsWith('submission-') ? { ...e, image: undefined } : e;
 
 const run = async () => {
   // The Supabase browser client (imported transitively by the CMS adapter)
@@ -103,6 +107,7 @@ const run = async () => {
 
   try {
     const mod = (await server.ssrLoadModule('/src/lib/cms/mockAdapter.ts')) as {
+      submissionFetchStatus: { errors: number };
       mockAdapter: {
         getNews: (q: { language: string }) => Promise<Record<string, unknown>[]>;
         getTips: (q: { language: string }) => Promise<Record<string, unknown>[]>;
@@ -137,9 +142,20 @@ const run = async () => {
       snapshot.events[language] = [
         ...events.map(pick),
         ...archivedEvents.map((e) => ({ ...pick(e), archived: true })),
-      ].filter(isEditorial);
+      ].filter(isEditorial).map(stripVolatile);
       snapshot.activities[language] = activities.map(pick).filter(isEditorial);
     }
+
+    if (mod.submissionFetchStatus.errors > 0 && process.env.ALLOW_MISSING_EVENTS !== '1') {
+      throw new Error(
+        `approved events could not be read (${mod.submissionFetchStatus.errors} failed requests); ` +
+          'refusing to build without them (set ALLOW_MISSING_EVENTS=1 to override locally)',
+      );
+    }
+    const subs = LOCALES.reduce(
+      (n, l) => n + snapshot.events[l].filter((e) => e.id.startsWith('submission-')).length, 0);
+    // eslint-disable-next-line no-console
+    console.log(`[cms-export] approved admin events included: ${subs}`);
 
     mkdirSync(dirname(OUT), { recursive: true });
     writeFileSync(OUT, JSON.stringify(snapshot, null, 2), 'utf8');

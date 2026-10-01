@@ -26,9 +26,9 @@
  *
  * Detail routes (`/nyheter/:slug`, `/arrangementer/:slug`, `/tips/:slug`,
  * `/aktiviteter/:slug`) ARE prerendered, from the build-time CMS snapshot
- * written by scripts/export-cms-content.ts. Only editorial content is in
- * that snapshot: approved Supabase submissions stay runtime-only and are
- * marked noindex at runtime instead of getting a static SEO URL.
+ * written by scripts/export-cms-content.ts: editorial content plus
+ * that snapshot: approved admin events are included (archived ones noindex) and
+ * prerendered with the same status rule as the live listing.
  */
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { APP_SHELL_ROUTES, appShellHtml, notFoundHtml, parseRedirectSources, findLinkProblems } from './lib/linkCheck';

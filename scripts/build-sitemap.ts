@@ -214,8 +214,8 @@ for (const loc of allLocales) {
  * Editorial detail pages (news / tips / events / activities) from the
  * build-time CMS snapshot. Every URL listed here is also prerendered by
  * scripts/prerender.ts — the prerenderer asserts that mapping, so the two
- * can never drift. Runtime Supabase submissions are excluded from the
- * snapshot on purpose and therefore never listed.
+ * can never drift. Approved admin events are included; archived ones are
+ * flagged and left out of the sitemap.
  */
 const snapshot = loadSnapshot();
 if (!snapshot) {
