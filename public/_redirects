@@ -102,6 +102,12 @@
 /sv/loypekart   /sv/sp%C3%A5rkarta/   301
 /sv/loypekart/  /sv/sp%C3%A5rkarta/   301
 
+# SPA-only aliases → canonical pages (no static file of their own).
+/skisenter    /bjorli-skisenter/   301
+/skisenter/   /bjorli-skisenter/   301
+/privacy      /personvern/         301
+/privacy/     /personvern/         301
+
 # Old Strapi page 'Vær- og føreinformasjon' (weather, conditions, webcams).
 /nb/mountain-information   /vaer-og-webkamera/   301
 /nb/mountain-information/  /vaer-og-webkamera/   301
