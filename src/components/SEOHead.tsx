@@ -166,7 +166,11 @@ const SEOHead = () => {
       // 1b. Static per-route SEO registry (covers all canonical destination pages
       // in all six languages — invisible SEO layer, no visual change).
       const canonicalFirst = canonicalPath.replace(/^\//, '').split('/')[0];
-      const canonicalKey = canonicalFirst ? canonicalForSlug(locale, canonicalFirst) : 'home';
+      // canonicalPath is always the Norwegian path; resolve with NO slugs so
+      // every locale reads the same routeSeo entry as the prerendered HTML.
+      const canonicalKey = canonicalFirst
+        ? canonicalForSlug('no', canonicalFirst) ?? canonicalForSlug(locale, canonicalFirst)
+        : 'home';
       const canonicalSeoPath = canonicalKey === 'home' ? '/' : '/' + canonicalKey;
       const staticEntry = canonicalKey ? seoForCanonicalPath(canonicalSeoPath, locale) : null;
       if (staticEntry) {
