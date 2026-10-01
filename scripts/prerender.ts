@@ -27,7 +27,7 @@
  * Detail routes (`/nyheter/:slug`, `/arrangementer/:slug`, `/tips/:slug`,
  * `/aktiviteter/:slug`) ARE prerendered, from the build-time CMS snapshot
  * written by scripts/export-cms-content.ts. Only editorial content is in
- * that snapshot: approved Supabase submissions stay runtime-only and are
+ * that snapshot: approved admin events are included (archived ones noindex) and
  * marked noindex at runtime instead of getting a static SEO URL.
  */
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
