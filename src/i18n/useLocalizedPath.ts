@@ -1,7 +1,7 @@
 import { useLanguage } from './LanguageContext';
 import { LOCALE_PREFIX, LOCALES, type Locale } from './translations';
 import { canonicalForSlug, slugForCanonical } from './routes';
-import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
+import { localizeHref } from './localizeHref';
 
 /**
  * Returns a function that prefixes an internal path with the active locale.
@@ -14,26 +14,7 @@ import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
  */
 export const useLocalizedPath = () => {
   const { locale } = useLanguage();
-  return (path: string): string => {
-    if (!path.startsWith('/')) path = '/' + path;
-    const prefix = LOCALE_PREFIX[locale];
-    if (path === '/') return normalizeInternalPath(prefix || '/');
-    // Split off query/hash so slug translation only sees the pathname.
-    const qh = /^([^?#]*)([?#].*)?$/.exec(path);
-    const pathname = qh?.[1] ?? path;
-    const suffix = qh?.[2] ?? '';
-    // Translate first segment if we recognize it as a canonical NO slug.
-    const segs = pathname.split('/').filter(Boolean);
-    const [first, ...rest] = segs;
-    const canonical = canonicalForSlug('no', first);
-    let translatedFirst = first;
-    if (canonical && canonical !== 'home') {
-      translatedFirst = slugForCanonical(canonical, locale) || first;
-    }
-    const tail = rest.length ? '/' + rest.join('/') : '';
-    const newPath = '/' + translatedFirst + tail;
-    return normalizeInternalPath((prefix || '') + newPath + suffix);
-  };
+  return (path: string): string => localizeHref(path, locale);
 };
 
 /**
