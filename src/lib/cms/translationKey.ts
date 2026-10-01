@@ -17,6 +17,8 @@
  * current mock adapter's deterministic ids.
  */
 export const translationKeyOf = (entry: { id: string; slug: string }): string => {
+  // Admin-approved submissions are single-language; a UUID tail may look numeric.
+  if (entry.id.startsWith('submission-')) return entry.id;
   const seasoned = /-([ws])-(\d+)$/.exec(entry.id);
   if (seasoned) return `${seasoned[1]}-${seasoned[2]}`;
   const numeric = /-(\d+)$/.exec(entry.id);

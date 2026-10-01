@@ -353,12 +353,34 @@ const buildEvents = (lang: Language): CmsEvent[] => {
  * mints signed URLs for images against the private storage bucket, so
  * this adapter never sees private fields or raw storage paths.
  */
-const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => {
+/** Build scripts read this to fail the build instead of silently dropping events. */
+export const submissionFetchStatus = { errors: 0 };
+
+const SUBMISSION_TTL_MS = 60_000;
+const submissionCache = new Map<Language, { at: number; p: Promise<CmsEvent[]> }>();
+
+/**
+ * One request per language per minute: getEvents and getArchivedEvents share
+ * the same approved feed (scope=all) and split it with isEventArchived, so
+ * the listing, archive, detail page, prerender and sitemap all apply the
+ * exact same publication rule (status = approved).
+ */
+const fetchApprovedSubmissions = (lang: Language): Promise<CmsEvent[]> => {
+  const hit = submissionCache.get(lang);
+  if (hit && Date.now() - hit.at < SUBMISSION_TTL_MS) return hit.p;
+  const p = fetchApprovedSubmissionsUncached(lang);
+  submissionCache.set(lang, { at: Date.now(), p });
+  return p;
+};
+
+const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEvent[]> => {
   try {
     const { data, error } = await supabase.functions.invoke('list-approved-events', {
-      body: { language: lang },
+      body: { language: lang, scope: 'all' },
     });
     if (error) {
+      submissionFetchStatus.errors += 1;
+      submissionCache.delete(lang);
       console.warn('[cms] list-approved-events failed', error);
       return [];
     }
@@ -420,6 +442,8 @@ const fetchApprovedSubmissions = async (lang: Language): Promise<CmsEvent[]> => 
       } as CmsEvent;
     });
   } catch (e) {
+    submissionFetchStatus.errors += 1;
+    submissionCache.delete(lang);
     console.warn('[cms] list-approved-events threw', e);
     return [];
   }
