@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { ListingItem } from '@/components/ListingPage';
+import { hasRichMarkup, parseRichText } from '@/lib/content/richText';
 
 export type DetailKind = 'news' | 'event' | 'tip' | 'activity';
 
@@ -108,7 +109,26 @@ const ContentDetailTemplate = ({
           <TranslationPendingNotice translated={translatedBody} />
           {item.intro && <p className="text-xl text-foreground/90 leading-relaxed mb-6 font-medium">{item.intro}</p>}
           {body && body.trim() !== (item.intro ?? '').trim() && (
-            <div className="prose prose-neutral max-w-none text-muted-foreground text-lg leading-relaxed whitespace-pre-line">{body}</div>
+            hasRichMarkup(body) ? (
+              <div className="text-muted-foreground text-lg leading-relaxed">
+                {parseRichText(body).map((b, bi) => {
+                  const kids = b.inlines.map((i, ii) =>
+                    i.href ? (
+                      <Link key={ii} to={lp(i.href)} className="text-secondary underline underline-offset-2 hover:no-underline">{i.text}</Link>
+                    ) : (
+                      <span key={ii}>{i.text}</span>
+                    ),
+                  );
+                  return b.type === 'h2' ? (
+                    <h2 key={bi} className="font-display text-2xl md:text-3xl font-bold text-foreground mt-10 mb-4">{kids}</h2>
+                  ) : (
+                    <p key={bi} className="mb-5">{kids}</p>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="prose prose-neutral max-w-none text-muted-foreground text-lg leading-relaxed whitespace-pre-line">{body}</div>
+            )
           )}
 
           {(ctaLabel && ctaHref) && (

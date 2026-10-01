@@ -53,6 +53,7 @@ import {
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import { localizeHref } from '../src/i18n/localizeHref';
+import { hasRichMarkup, parseRichText } from '../src/lib/content/richText';
 import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
@@ -839,15 +840,24 @@ const detailBodySkeleton = (opts: {
 
   // Full safe body text (capped at 600 words in bodyText); paragraph breaks
   // are preserved so crawlers see real content, not a one-line excerpt.
+  const rawBody = (entry.body ?? '').trim();
   const full = bodyText(entry);
-  const bodyHtml =
-    full && full !== intro
+  const pStyle = 'line-height:1.6;max-width:65ch;margin:0 0 1rem;color:#223';
+  const bodyHtml = rawBody && rawBody !== intro && hasRichMarkup(rawBody)
+    ? parseRichText(rawBody)
+        .map((b) => {
+          const inner = b.inlines
+            .map((i) => (i.href ? `<a href="${escapeHtml(localizeHref(i.href, locale))}">${escapeHtml(i.text)}</a>` : escapeHtml(i.text)))
+            .join('');
+          return b.type === 'h2'
+            ? `\n      <h2 style="font-size:1.35rem;margin:1.75rem 0 0.75rem">${inner}</h2>`
+            : `\n      <p style="${pStyle}">${inner}</p>`;
+        })
+        .join('')
+    : full && full !== intro
       ? full
           .split(/\n{2,}/)
-          .map(
-            (p) =>
-              `\n      <p style="line-height:1.6;max-width:65ch;margin:0 0 1rem;color:#223">${escapeHtml(p.trim())}</p>`,
-          )
+          .map((p) => `\n      <p style="${pStyle}">${escapeHtml(p.trim())}</p>`)
           .join('')
       : '';
 
