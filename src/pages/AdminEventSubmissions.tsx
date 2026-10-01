@@ -175,8 +175,20 @@ const AdminEventSubmissions = () => {
     load();
   };
 
+  /**
+   * Ask the backend to rebuild the static site (prerender + sitemap) when a
+   * change affects public event pages. Inactive until the deploy hook secret
+   * exists; never blocks or fails the admin action.
+   */
+  const requestRebuild = (reason: 'publish' | 'update' | 'unpublish') => {
+    supabase.functions
+      .invoke('trigger-site-rebuild', { body: { reason } })
+      .catch(() => undefined);
+  };
+
   const setStatus = async (status: Status) => {
     if (!selected) return;
+    const wasApproved = selected.status === 'approved';
     setActionBusy(true);
     const { error } = await supabase
       .from('event_submissions')
@@ -192,6 +204,8 @@ const AdminEventSubmissions = () => {
       return;
     }
     toast({ title: `Status: ${STATUS_LABEL[status]}` });
+    if (status === 'approved') requestRebuild(wasApproved ? 'update' : 'publish');
+    else if (wasApproved) requestRebuild('unpublish');
     setSelectedId(null);
     load();
   };
@@ -276,6 +290,7 @@ const AdminEventSubmissions = () => {
       toast({ title: 'Feil', description: error.message, variant: 'destructive' });
       return;
     }
+    if (selected.status === 'approved') requestRebuild('update');
     toast({
       title: show
         ? 'E-post publisert på arrangementssiden'
