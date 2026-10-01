@@ -41,28 +41,9 @@
 /apning                  /apningstider/    301
 /apning/                 /apningstider/    301
 
-# Legacy WordPress system URLs (no equivalent in the new app).
-# Audited from Ahrefs/GSC legacy coverage:
-#  - /salgsbetingelser/ is a real public page again (see src/pages/
-#    Salgsbetingelser.tsx) — the old 301 to /personvern/ was removed.
-#  - author/tag/category/feed archives were Elementor/WP artefacts with no
-#    editorial value -> sent to the closest live hub.
-#  - /wp-content/uploads/*.pdf program files no longer exist. They are left
-#    to return 404 on purpose (a redirect to an HTML page would be a soft
-#    404) and are additionally noindexed via X-Robots-Tag + robots.txt.
-/author/bjorli           /                 301
-/author/bjorli/          /                 301
-/author/*                /                 301
-/category/*              /nyheter/         301
-/tag/*                   /nyheter/         301
-/feed                    /nyheter/         301
-/feed/                   /nyheter/         301
-/comments/feed/          /nyheter/         301
-
-
 # Wrong-language slugs (locale prefix + Norwegian slug) from the 1 Oct 2026
 # audit. Targets come from ROUTE_SLUGS in src/i18n/routes.ts.
-# Covered by src/test/redirects.test.ts.
+# Covered by src/test/seoRouting.test.ts.
 /en/overnatting   /en/accommodation/   301
 /en/overnatting/  /en/accommodation/   301
 /en/apningstider   /en/opening-hours/   301
@@ -112,8 +93,26 @@
 /nb/mountain-information   /vaer-og-webkamera/   301
 /nb/mountain-information/  /vaer-og-webkamera/   301
 
-# No explicit SPA fallback rule: Cloudflare Pages serves index.html (200)
-# automatically for unmatched routes when the deploy has no top-level
-# 404.html. The previous `/* /index.html 200` rule triggered Pages'
-# infinite-loop detection (its target normalizes back to `/`) and was
-# ignored with a deploy warning — removing it changes nothing at runtime.
+# Legacy WordPress system URLs (no equivalent in the new app).
+# Audited from Ahrefs/GSC legacy coverage:
+#  - /salgsbetingelser/ is a real public page again (see src/pages/
+#    Salgsbetingelser.tsx) — the old 301 to /personvern/ was removed.
+#  - author/tag/category/feed archives were Elementor/WP artefacts with no
+#    editorial value -> sent to the closest live hub.
+#  - /wp-content/uploads/*.pdf program files no longer exist. They are left
+#    to return 404 on purpose (a redirect to an HTML page would be a soft
+#    404) and are additionally noindexed via X-Robots-Tag + robots.txt.
+/author/bjorli           /                 301
+/author/bjorli/          /                 301
+/author/*                /                 301
+/category/*              /nyheter/         301
+/tag/*                   /nyheter/         301
+/feed                    /nyheter/         301
+/feed/                   /nyheter/         301
+/comments/feed/          /nyheter/         301
+
+
+# No SPA fallback rule. dist/404.html exists (written by scripts/prerender.ts),
+# so Cloudflare Pages answers unknown URLs with HTTP 404. Every public page
+# is prerendered and app-only routes (admin, reset password, MFA, submit
+# forms) get noindex shells — see APP_SHELL_ROUTES in scripts/lib/linkCheck.ts.
