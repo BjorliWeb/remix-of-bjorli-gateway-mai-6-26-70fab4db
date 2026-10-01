@@ -110,10 +110,14 @@ Deno.serve(async (req) => {
   const url = new URL(req.url);
   let lang = url.searchParams.get('language') ?? '';
   let slug = url.searchParams.get('slug') ?? '';
-  if (!lang && req.method === 'POST') {
+  // scope=all also returns finished (archived) approved events so archive
+  // pages keep resolving; default stays current-only for old clients.
+  let scope = url.searchParams.get('scope') === 'all' ? 'all' : 'current';
+  if (req.method === 'POST') {
     try {
       const j = await req.json();
-      if (j && typeof j.language === 'string') lang = j.language;
+      if (!lang && j && typeof j.language === 'string') lang = j.language;
+      if (j && (j as { scope?: unknown }).scope === 'all') scope = 'all';
       if (j && typeof (j as { slug?: unknown }).slug === 'string') {
         slug = (j as { slug: string }).slug;
       }
@@ -152,7 +156,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  const cacheKey = slug ? `${lang}|slug:${slug}` : `${lang}|list`;
+  const cacheKey = slug ? `${lang}|${scope}|slug:${slug}` : `${lang}|${scope}|list`;
   const cached = cache.get(cacheKey);
   const now = Date.now();
   if (cached && now - cached.at < CACHE_TTL_MS) {
@@ -174,15 +178,18 @@ Deno.serve(async (req) => {
   });
 
   const today = todayIso();
-  const { data, error } = await supabase
+  let query = supabase
     .from('event_submissions')
     .select(PUBLIC_COLUMNS.join(','))
     .eq('status', 'approved')
-    .eq('language', lang)
+    .eq('language', lang);
+  if (scope === 'current') {
     // Visible through end_date; when end_date null, visible through start_date.
-    .or(`end_date.gte.${today},and(end_date.is.null,start_date.gte.${today})`)
+    query = query.or(`end_date.gte.${today},and(end_date.is.null,start_date.gte.${today})`);
+  }
+  const { data, error } = await query
     .order('start_date', { ascending: true })
-    .limit(100);
+    .limit(scope === 'all' ? 300 : 100);
 
   if (error) {
     // Log the error object only (no row data — rows contain email).
