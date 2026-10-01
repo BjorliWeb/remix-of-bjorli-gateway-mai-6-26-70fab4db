@@ -39,7 +39,7 @@ describe('translationKeyOf', () => {
   });
 
   it('falls back to the slug when the id has no index suffix', () => {
-    expect(translationKeyOf(entry('submission-abc', 'my-slug'))).toBe('my-slug');
+    expect(translationKeyOf(entry('custom-abc', 'my-slug'))).toBe('my-slug');
   });
 });
 
