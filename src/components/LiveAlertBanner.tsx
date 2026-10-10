@@ -211,7 +211,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
       <section className="px-4 mt-8 mb-4" aria-label={locale === 'no' ? 'Siste driftsmelding' : 'Latest operational update'}>
         <article className="container mx-auto max-w-5xl border-y border-border/70 py-6 md:py-8">
           <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-6">
-            <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{label}</h2>
+            <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{locale === 'no' ? 'Siste nytt fra Bjorli Skisenter' : 'Latest news from Bjorli Ski Resort'}</h2>
             {dateLine && <time dateTime={fnuggPost.date ?? undefined} className="text-sm text-muted-foreground">{dateLine}</time>}
           </header>
           <div className={fnuggPost.imageUrl ? 'grid items-start gap-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-10' : ''}>
