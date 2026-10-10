@@ -6,7 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getAlerts, type CmsAlert, type Language } from '@/lib/cms';
 import { supabase } from '@/integrations/supabase/client';
 import { useBjorliFnuggPosts } from '@/hooks/useBjorliFnuggPosts';
-import { truncateExcerpt, type BjorliFnuggPost } from '@/lib/integrations/fnugg';
+import { type BjorliFnuggPost } from '@/lib/integrations/fnugg';
 
 /**
  * Live operational alert banner (Driftsmelding).
@@ -82,6 +82,12 @@ function isTitleEffectivelyDate(title: string | null, dateLabel: string | null):
   return Boolean(monthMatch && dayMatch && t.includes(dayMatch[0]) && t.includes(monthMatch[0]));
 }
 
+function PostImage({ src, alt }: { src: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+  return <img src={src} alt={alt} loading="lazy" decoding="async" className="w-full h-auto rounded-xl" onError={() => setFailed(true)} />;
+}
+
 const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
   const { locale } = useLanguage();
   const language = locale as Language;
@@ -146,7 +152,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     level = 'info';
     dateLine = formatNorwegianDate(fnuggPost.date);
     title = isTitleEffectivelyDate(fnuggPost.title, dateLine) ? null : fnuggPost.title;
-    message = truncateExcerpt(fnuggPost.descriptionText ?? '', 420);
+    message = fnuggPost.descriptionText ?? '';
     ctaLabel = locale === 'no' ? 'Se alle driftsmeldinger' : 'See all updates';
     ctaHref = ALL_ALERTS_URL;
     ctaExternal = true;
@@ -169,7 +175,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     return null;
   }
 
-  if (!message) return null;
+  if (!message && !fnuggPost?.title && !fnuggPost?.imageUrl) return null;
 
   const styles = LEVEL_STYLES[level];
   const Icon = styles.Icon;
@@ -199,6 +205,31 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
       </Link>
     )
   );
+
+  if (fnuggPost) {
+    return (
+      <section className="px-4 mt-8 mb-4" aria-label={locale === 'no' ? 'Siste driftsmelding' : 'Latest operational update'}>
+        <article className="container mx-auto max-w-5xl border-y border-border/70 py-6 md:py-8">
+          <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-6">
+            <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{label}</h2>
+            {dateLine && <time dateTime={fnuggPost.date ?? undefined} className="text-sm text-muted-foreground">{dateLine}</time>}
+          </header>
+          <div className={fnuggPost.imageUrl ? 'grid items-start gap-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-10' : ''}>
+            {fnuggPost.imageUrl && <PostImage key={fnuggPost.imageUrl} src={fnuggPost.imageUrl} alt={title ?? (locale === 'no' ? 'Bilde fra Bjorli Skisenter' : 'Photo from Bjorli ski resort')} />}
+            <div className="min-w-0 md:py-2" lang="nb">
+              {title && <h3 className="font-heading text-2xl md:text-3xl font-semibold leading-tight text-foreground mb-4 break-words">{title}</h3>}
+              {message && <div className="max-w-prose space-y-4 text-base md:text-lg leading-relaxed text-foreground/90 break-words">
+                {message.split(/\r?\n\s*\r?\n/).filter(Boolean).map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}
+              </div>}
+              <a href={ALL_ALERTS_URL} target="_blank" rel="noopener noreferrer" lang={locale === 'no' ? 'nb' : 'en'} className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-secondary underline underline-offset-4 decoration-secondary/40 hover:decoration-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded-sm">
+                {ctaLabel}<ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+              </a>
+            </div>
+          </div>
+        </article>
+      </section>
+    );
+  }
 
   if (compact) {
     // Build a tight, single-line guest message. Prefer date as the primary
