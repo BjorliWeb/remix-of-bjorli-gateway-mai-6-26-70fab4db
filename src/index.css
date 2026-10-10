@@ -1,4 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&family=Mulish:wght@300;400;500;600;700;800&display=swap');
+/* ─── Self-hosted brand fonts (OFL-1.1, see public/fonts/LICENSE-*) ──────
+ * Served from our own origin: no third-party request to Google on page
+ * load (EEA privacy) and no late @import chain before the hero headline
+ * can render. Browsers only download the faces a page actually uses. */
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 400; src: url('/fonts/jost-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 400; src: url('/fonts/jost-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 500; src: url('/fonts/jost-latin-ext-500-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 500; src: url('/fonts/jost-latin-500-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/jost-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/jost-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/jost-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/jost-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 800; src: url('/fonts/jost-latin-ext-800-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Jost'; font-style: normal; font-display: swap; font-weight: 800; src: url('/fonts/jost-latin-800-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 300; src: url('/fonts/mulish-latin-ext-300-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 300; src: url('/fonts/mulish-latin-300-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 400; src: url('/fonts/mulish-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 400; src: url('/fonts/mulish-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 500; src: url('/fonts/mulish-latin-ext-500-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 500; src: url('/fonts/mulish-latin-500-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/mulish-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/mulish-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/mulish-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/mulish-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 800; src: url('/fonts/mulish-latin-ext-800-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-display: swap; font-weight: 800; src: url('/fonts/mulish-latin-800-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
 
 @tailwind base;
 @tailwind components;
@@ -104,6 +129,20 @@
     --season-surface: var(--winter-pale);
     --season-deep: var(--winter-dark);
 
+    /* Seasonal INK — the accent hue deepened until it reads as text on
+       light surfaces (WCAG AA ≥ 4.5:1). The bright CTA blue #58C4E8 is a
+       fill colour; as text on warm snow it is only 1.9:1. Every eyebrow,
+       text link and line icon on a light background uses ink instead.
+         #1A6889 on #F9F8EB = 5.8:1 */
+    --season-ink: 198 68% 32%;
+    /* `text-secondary` resolves to this (tailwind.config.ts textColor).
+       Dark surfaces reset it to the bright accent — see .surface-dark. */
+    --secondary-ink: var(--season-ink);
+
+    /* Hero scrim density at the top (under the nav) and foot of the frame. */
+    --hero-scrim-top: 0.42;
+    --hero-scrim-bottom: 0.78;
+
     /* Legacy aliases kept so existing components keep compiling.
        These now follow the active season so summer pages don't bleed
        the winter dark navy through old `bg-deep-navy` usages. */
@@ -157,9 +196,14 @@
     --ice-blue: 173 54% 40%;
 
     --season-accent: var(--summer-turquoise);
-    --season-accent-foreground: 0 0% 100%;
+    /* Deep green on turquoise = 4.6:1 (AA). White on #2F9E8F was 3.3:1,
+       which fails for the 14–16px CTA labels it carried. */
+    --season-accent-foreground: 173 50% 11%;
     --season-surface: var(--summer-neutral);
     --season-deep: var(--summer-deep);
+    /* #1D726A on cream #F7F3EA = 5.2:1 */
+    --season-ink: 174 60% 28%;
+    --secondary-ink: var(--season-ink);
   }
 
   .dark {
@@ -200,6 +244,67 @@
     font-family: 'Jost', 'Futura', 'Trebuchet MS', sans-serif;
     font-weight: 700;
     letter-spacing: 0.01em;
+    /* Even line lengths in multi-line headlines — no single orphaned
+       word on the last line ("…og / Nordvestlandet."). */
+    text-wrap: balance;
+    font-kerning: normal;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: hsl(var(--season-accent) / 0.35);
+    color: hsl(var(--foreground));
+  }
+
+  /* One consistent, visible keyboard focus treatment for every link and
+     control. Mouse users never see it (focus-visible only). */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [role='button']:focus-visible {
+    outline: 2px solid hsl(var(--season-ink));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Dark surfaces: accent text goes back to the bright fill colour, and
+     focus rings switch to it so they stay visible. CSS variables inherit,
+     so every `text-secondary` descendant follows automatically. */
+  .surface-dark,
+  nav,
+  footer,
+  .bg-deep-navy,
+  .bg-primary,
+  .bg-nav,
+  .bg-season-deep,
+  .bg-winter-deep,
+  .bg-winter-dark,
+  .bg-summer-deep {
+    --secondary-ink: var(--season-accent);
+    --season-ink: var(--season-accent);
+  }
+}
+
+@layer components {
+  /* Section eyebrow — one size, weight and tracking site-wide (there were
+     five different tracking values). Colour comes from the season ink. */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[11px] md:text-xs font-semibold uppercase tracking-[0.22em];
+    color: hsl(var(--season-ink));
+  }
+  .eyebrow::before {
+    content: '';
+    @apply inline-block h-px w-6 shrink-0;
+    background: currentColor;
+    opacity: 0.6;
+  }
+  .eyebrow-plain::before {
+    display: none;
   }
 }
 
@@ -210,14 +315,36 @@
   .text-gradient-gold {
     @apply bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent;
   }
+  /* Hero scrim. The old version laid 25–92 % navy over the whole frame,
+     which flattened every photo into grey haze. This keeps the sky and
+     mid-ground vivid and concentrates density only where it is needed:
+     under the nav (top), behind the centred headline (soft radial), and
+     at the foot of the frame where the image meets the page. */
   .hero-gradient {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--hero-overlay) / 0.55) 0%,
-      hsl(var(--hero-overlay) / 0.25) 38%,
-      hsl(var(--hero-overlay) / 0.55) 70%,
-      hsl(var(--hero-overlay) / 0.92) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 64% 50% at 50% 54%,
+        hsl(var(--hero-overlay) / 0.5) 0%,
+        hsl(var(--hero-overlay) / 0.24) 55%,
+        transparent 100%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(var(--hero-overlay) / var(--hero-scrim-top)) 0%,
+        hsl(var(--hero-overlay) / 0.1) 26%,
+        hsl(var(--hero-overlay) / 0.1) 58%,
+        hsl(var(--hero-overlay) / var(--hero-scrim-bottom)) 100%
+      );
+  }
+  /* Readable white type on photography without a heavy overlay. */
+  .text-on-image {
+    text-shadow: 0 1px 2px hsl(var(--hero-overlay) / 0.35), 0 2px 28px hsl(var(--hero-overlay) / 0.35);
+  }
+  /* A hero sits flush under the fixed navigation instead of leaving a
+     strip of page background between them. Matches <main> padding in
+     Layout.tsx (pt-16 / lg:pt-24). */
+  .hero-bleed {
+    @apply -mt-16 lg:-mt-24;
   }
   .hero-vignette {
     background:

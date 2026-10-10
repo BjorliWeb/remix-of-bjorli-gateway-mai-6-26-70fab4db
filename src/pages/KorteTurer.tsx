@@ -122,7 +122,7 @@ const KorteTurer = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-[80vh] min-h-[520px] flex items-center justify-center overflow-hidden">
+      <section className="hero-bleed relative h-[80svh] min-h-[560px] flex items-center justify-center overflow-hidden bg-deep-navy">
         <img
           src={heroImg}
           alt={c.heroAlt}

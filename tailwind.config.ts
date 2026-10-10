@@ -102,7 +102,24 @@ export default {
           foreground: "hsl(var(--season-accent-foreground))",
           surface: "hsl(var(--season-surface))",
           deep: "hsl(var(--season-deep))",
+          // Accent deepened for text/icons on light surfaces (AA contrast).
+          ink: "hsl(var(--season-ink))",
         },
+      },
+      // `text-secondary` is used ~220 times as an accent TEXT colour on light
+      // backgrounds, where the bright CTA fill (#58C4E8) is only 1.9:1. Text
+      // utilities resolve to the readable ink instead; bg-/border-/ring-
+      // secondary keep the bright fill. Dark surfaces restore the bright
+      // tone via --secondary-ink (see .surface-dark in index.css).
+      textColor: {
+        secondary: {
+          DEFAULT: "hsl(var(--secondary-ink))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+      },
+      transitionTimingFunction: {
+        // One easing curve for reveals, hovers and image zooms.
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       borderRadius: {
         lg: "var(--radius)",

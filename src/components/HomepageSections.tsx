@@ -22,7 +22,7 @@ import {
   TreePine,
   Snowflake,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonProps } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -31,6 +31,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import LiveStatusCards from '@/components/LiveStatusCards';
 import { track, type AnalyticsEventName } from '@/lib/analytics';
 import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
+import { revealUp, REVEAL_VIEWPORT, EASE_OUT_EXPO } from '@/lib/motion';
 
 /**
  * Renders the composed homepage sections delivered by the CMS adapter.
@@ -60,10 +61,8 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   snowflake: Snowflake,
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
+// Shared reveal (src/lib/motion.ts): 16px travel, expo-out, light stagger.
+const fadeUp = revealUp;
 
 const ButtonLink = ({
   href,
@@ -83,7 +82,7 @@ const ButtonLink = ({
   lp: (p: string) => string;
 }) => {
   const Icon = icon ? ICONS[icon] : undefined;
-  const btnVariant = variant === 'primary' ? 'default' : variant;
+  const btnVariant: ButtonProps['variant'] = variant === 'primary' ? 'default' : variant;
   // Map common destinations to GA4 events. Inert when analytics not configured.
   const lower = href.toLowerCase();
   let evt: AnalyticsEventName = 'click_external_link';
@@ -100,21 +99,30 @@ const ButtonLink = ({
       link_text: typeof children === 'string' ? children : undefined,
       outbound: Boolean(external),
     });
-  const inner = (
-    <Button variant={btnVariant as any} size={size} className="font-semibold">
-      {Icon && <Icon className="mr-2 h-4 w-4" />}
+  // asChild: the link IS the button (previously <a><button>, which is
+  // invalid interactive nesting and gave keyboard users two tab stops).
+  const content = (
+    <>
+      {Icon && <Icon className="h-4 w-4" />}
       {children}
-      {variant === 'primary' && <ArrowRight className="ml-2 h-4 w-4" />}
+      {variant === 'primary' && (
+        <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/btn:translate-x-0.5" />
+      )}
+    </>
+  );
+  return (
+    <Button asChild variant={btnVariant} size={size} className="group/btn font-semibold">
+      {external ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
+          {content}
+        </a>
+      ) : (
+        <Link to={lp(href)} onClick={onClick}>
+          {content}
+        </Link>
+      )}
     </Button>
   );
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
-        {inner}
-      </a>
-    );
-  }
-  return <Link to={lp(href)} onClick={onClick}>{inner}</Link>;
 };
 
 export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] }) => {
@@ -149,7 +157,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <div className="container mx-auto max-w-6xl">
                     <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
                       <div className="lg:col-span-3">
-                        <div className="text-secondary text-xs font-semibold tracking-[0.24em] uppercase">
+                        <div className="eyebrow">
                           {section.eyebrow ?? section.title}
                         </div>
                       </div>
@@ -203,7 +211,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <div className="container mx-auto max-w-6xl">
                     <div className="max-w-2xl mb-12 md:mb-14">
                       {section.eyebrow && (
-                        <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                        <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
                       <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
                       {section.subtitle && (
@@ -213,39 +221,47 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-2 border-t border-border/80">
                       {section.items.map((item, i) => {
                         const Icon = (item.icon && ICONS[item.icon]) || Mountain;
-                        const inner = (
+                        const rowClass =
+                          'group flex gap-4 items-start py-6 -mx-3 px-3 rounded-lg transition-colors duration-300 ease-out-expo hover:bg-background/70';
+                        const body = (
+                          <>
+                            <span className="h-10 w-10 shrink-0 rounded-full bg-season/15 ring-1 ring-inset ring-season-ink/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-season/25">
+                              <Icon className="h-[18px] w-[18px] text-secondary" />
+                            </span>
+                            <div className="flex-1 min-w-0 pt-0.5">
+                              <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
+                              <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
+                            </div>
+                            {item.href && (
+                              <ArrowRight className="h-4 w-4 text-secondary mt-2 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 transition-all duration-300 ease-out-expo" />
+                            )}
+                          </>
+                        );
+                        return (
                           <motion.li
                             key={item.title}
                             custom={i}
                             initial="hidden"
                             whileInView="visible"
-                            viewport={{ once: true }}
+                            viewport={REVEAL_VIEWPORT}
                             variants={fadeUp}
-                            className="group border-b border-border/80 py-6 flex gap-4 items-start cursor-pointer focus-within:bg-background/60 hover:bg-background/60 -mx-3 px-3 rounded-sm transition-colors"
+                            className="border-b border-border/80"
                           >
-                            <Icon className="h-6 w-6 text-secondary mt-0.5 shrink-0 transition-colors" />
-                            <div className="flex-1 min-w-0">
-                              <div className="font-display text-base md:text-lg font-bold text-foreground tracking-tight leading-snug group-hover:text-secondary transition-colors">{item.title}</div>
-                              <div className="text-sm text-foreground/90 leading-relaxed mt-1">{item.desc}</div>
-                            </div>
-                            <ArrowRight className="h-4 w-4 text-foreground/40 mt-1 shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                            {item.href ? (
+                              item.external ? (
+                                <a href={item.href} target="_blank" rel="noopener noreferrer" className={rowClass}>
+                                  {body}
+                                </a>
+                              ) : (
+                                <Link to={lp(item.href)} className={rowClass}>
+                                  {body}
+                                </Link>
+                              )
+                            ) : (
+                              <div className={rowClass}>{body}</div>
+                            )}
                           </motion.li>
                         );
-                        if (item.href) {
-                          if (item.external) {
-                            return (
-                              <a key={item.title} href={item.href} target="_blank" rel="noopener noreferrer" className="block">
-                                {inner}
-                              </a>
-                            );
-                          }
-                          return (
-                            <Link key={item.title} to={lp(item.href)} className="block">
-                              {inner}
-                            </Link>
-                          );
-                        }
-                        return inner;
                       })}
                     </ul>
                   </div>
@@ -258,9 +274,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-28 md:py-40 px-4">
                 <div className="container mx-auto max-w-6xl">
                   <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-                    <div className="lg:col-span-5">
+                    {/* Headline stays in view while the list scrolls past it. */}
+                    <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
                       {section.eyebrow && (
-                        <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                        <div className="eyebrow mb-5">{section.eyebrow}</div>
                       )}
                       <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
                       {section.subtitle && (
@@ -277,7 +294,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                               custom={i}
                               initial="hidden"
                               whileInView="visible"
-                              viewport={{ once: true }}
+                              viewport={REVEAL_VIEWPORT}
                               variants={fadeUp}
                               className="py-7 first:pt-0 flex gap-6 items-start"
                             >
@@ -312,7 +329,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     )}
                     <div className={hasImage ? (imageLeft ? '' : 'order-2 lg:order-1') : ''}>
                       {section.eyebrow && (
-                        <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-4">{section.eyebrow}</div>
+                        <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
                       <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
                       <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10 max-w-xl">{section.body}</p>
@@ -347,10 +364,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             // require uniform visual weight across the 6 actions.
             return (
               <section key={section.id} className="py-28 md:py-36 px-4">
-                <div className="container mx-auto max-w-7xl">
+                <div className="container mx-auto max-w-6xl">
                   <div className="max-w-2xl mb-16">
                     {section.eyebrow && (
-                      <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                      <div className="eyebrow mb-5">{section.eyebrow}</div>
                     )}
                     {section.title && (
                       <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.02] tracking-tight">{section.title}</h2>
@@ -360,10 +377,10 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     {section.cards.map((card, i) => {
                       return (
                         <Link key={card.title} to={lp(card.href)}>
-                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl ring-1 ring-border/30 shadow-[0_8px_24px_-12px_hsl(var(--foreground)/0.25)] hover:shadow-[0_24px_50px_-20px_hsl(var(--foreground)/0.4)] transition-shadow duration-500">
+                          <motion.div custom={i} initial="hidden" whileInView="visible" viewport={REVEAL_VIEWPORT} variants={fadeUp} className="group relative overflow-hidden cursor-pointer aspect-[4/5] rounded-2xl ring-1 ring-border/30 shadow-[0_8px_24px_-12px_hsl(var(--foreground)/0.25)] hover:shadow-[0_24px_50px_-20px_hsl(var(--foreground)/0.4)] transition-shadow duration-500">
                             {card.image?.url ? (
                               <>
-                                <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                                <img src={card.image.url} alt={card.image.alt || card.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.04]" loading="lazy" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/10 to-transparent" />
                               </>
                             ) : (
@@ -394,24 +411,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'tips': {
             const [featured, ...rest] = section.items.slice(0, 3);
+            // Never ship a heading with nothing under it.
+            if (!featured) return null;
             return (
               <section key={section.id} className="py-28 md:py-36 px-4 bg-muted/30">
-                <div className="container mx-auto max-w-7xl">
+                <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
-                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <div className="eyebrow mb-4">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
                       <Link to={lp(`/tips/${featured.slug}`)} className="lg:col-span-7 group block">
-                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}>
                           {featured.heroImage && (
-                            <div className="aspect-[16/10] overflow-hidden mb-6">
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
+                            <div className="aspect-[16/10] overflow-hidden mb-6 rounded-2xl ring-1 ring-border/40">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
                             </div>
                           )}
-                          {featured.category && <div className="text-[11px] font-medium text-secondary uppercase tracking-[0.22em] mb-3">{featured.category}</div>}
+                          {featured.category && <div className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em] mb-3">{featured.category}</div>}
                           <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
                           <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
                         </motion.article>
@@ -420,22 +439,22 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     <div className="lg:col-span-5 flex flex-col divide-y divide-border/60">
                       {rest.map((tip, i) => (
                         <Link key={tip.id} to={lp(`/tips/${tip.slug}`)} className="group block py-7 first:pt-0">
-                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="flex gap-5 items-start">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="flex gap-5 items-start">
                             {tip.heroImage && (
-                              <div className="w-28 h-28 shrink-0 overflow-hidden">
+                              <div className="w-24 h-24 md:w-28 md:h-28 shrink-0 overflow-hidden rounded-xl">
                                 <img src={tip.heroImage.url} alt={tip.heroImage.alt || tip.title} className="w-full h-full object-cover" loading="lazy" />
                               </div>
                             )}
                             <div className="flex-1 min-w-0">
-                              {tip.category && <div className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em] mb-1.5">{tip.category}</div>}
+                              {tip.category && <div className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em] mb-1.5">{tip.category}</div>}
                               <h3 className="font-display text-lg font-semibold text-foreground leading-tight tracking-tight group-hover:text-secondary transition-colors">{tip.title}</h3>
                             </div>
                           </motion.article>
                         </Link>
                       ))}
                       <div className="pt-7">
-                        <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
-                          {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                        <Link to={lp(section.ctaHref)} className="group/more inline-flex items-center gap-2 text-secondary font-semibold text-sm underline-offset-4 hover:underline">
+                          {section.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
                         </Link>
                       </div>
                     </div>
@@ -448,11 +467,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           case 'events': {
             const [featured, ...rest] = section.items.slice(0, 3);
             const extra = section.items.slice(3, 6);
+            if (!featured) return null;
             return (
               <section key={section.id} className="py-28 md:py-36 px-4">
-                <div className="container mx-auto max-w-7xl">
+                <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
-                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <div className="eyebrow mb-4">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
@@ -460,15 +480,15 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     {featured && (
                       <EventLink
                         target={resolveEventTarget(featured, lp(`/arrangementer/${featured.slug}`))}
-                        className="lg:col-span-8 group block"
+                        className={`${rest.length ? 'lg:col-span-8' : 'lg:col-span-12'} group block`}
                       >
-                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="relative overflow-hidden h-[520px]">
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="relative overflow-hidden h-[420px] md:h-[520px] rounded-2xl">
                           {featured.heroImage && (
-                            <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
+                            <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
                           )}
                           <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
                           {featured.date && (
-                            <div className="absolute top-6 left-6 bg-background/90 backdrop-blur text-foreground px-3 py-1.5 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                            <div className="absolute top-6 left-6 bg-background/90 backdrop-blur text-foreground px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.16em] uppercase">
                               {featured.date}
                             </div>
                           )}
@@ -480,6 +500,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         </motion.article>
                       </EventLink>
                     )}
+                    {rest.length > 0 && (
                     <div className="lg:col-span-4 flex flex-col gap-6">
                       {rest.map((ev, i) => (
                         <EventLink
@@ -487,13 +508,13 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
                           className="group block"
                         >
-                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="relative overflow-hidden h-[248px]">
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="relative overflow-hidden h-[248px] rounded-2xl">
                             {ev.heroImage && (
-                              <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]" loading="lazy" />
+                              <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.04]" loading="lazy" />
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
                             {ev.date && (
-                              <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
+                              <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.16em] uppercase">
                                 {ev.date}
                               </div>
                             )}
@@ -504,6 +525,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         </EventLink>
                       ))}
                     </div>
+                    )}
                   </div>
                   {extra.length > 0 && (
                     <div className="mt-8 md:mt-10">
@@ -517,21 +539,21 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             <motion.article
                               initial={{ opacity: 0, y: 16 }}
                               whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.4, delay: i * 0.08 }}
-                              className="relative overflow-hidden h-[248px]"
+                              viewport={REVEAL_VIEWPORT}
+                              transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }}
+                              className="relative overflow-hidden h-[248px] rounded-2xl"
                             >
                               {ev.heroImage && (
                                 <img
                                   src={ev.heroImage.url}
                                   alt={ev.heroImage.alt || ev.title}
                                   loading="lazy"
-                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.04]"
+                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.04]"
                                 />
                               )}
                               <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
                               {ev.date && (
-                                <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
+                                <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.16em] uppercase">
                                   {ev.date}
                                 </div>
                               )}
@@ -547,8 +569,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     </div>
                   )}
                   <div className="mt-10">
-                    <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
-                      {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                    <Link to={lp(section.ctaHref)} className="group/more inline-flex items-center gap-2 text-secondary font-semibold text-sm underline-offset-4 hover:underline">
+                      {section.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -565,12 +587,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-16 lg:mb-20">
                     <div className="lg:col-span-7">
-                      <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-5">{section.eyebrow}</div>
+                      <div className="eyebrow mb-5">{section.eyebrow}</div>
                       <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
                       <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-xl">{section.body}</p>
                     </div>
                     {section.images?.[0] && (
-                      <div className="lg:col-span-5 relative h-72 md:h-96 lg:h-[420px] overflow-hidden rounded-sm">
+                      <div className="lg:col-span-5 relative h-72 md:h-96 lg:h-[420px] overflow-hidden rounded-2xl ring-1 ring-white/10">
                         <img
                           src={section.images[0].url}
                           alt={section.images[0].alt || ''}
@@ -590,7 +612,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           custom={i}
                           initial="hidden"
                           whileInView="visible"
-                          viewport={{ once: true }}
+                          viewport={REVEAL_VIEWPORT}
                           variants={fadeUp}
                           className="border-b border-primary-foreground/15 py-6 flex gap-4 items-start"
                         >
@@ -615,7 +637,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto max-w-6xl">
                   <div className="max-w-2xl mb-14 md:mb-16">
-                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <div className="eyebrow mb-4">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.body}</p>
                   </div>
@@ -626,7 +648,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         custom={i}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={REVEAL_VIEWPORT}
                         variants={fadeUp}
                       >
                         <div className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight leading-none">{c.km}</div>
@@ -650,7 +672,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             // so it sits cleanly within the column on every breakpoint, with
             // a stronger bottom gradient for guaranteed text contrast.
             return (
-              <section key={section.id} className="relative h-[80vh] min-h-[560px] flex items-end overflow-hidden">
+              <section key={section.id} className="surface-dark relative h-[80vh] min-h-[560px] flex items-end overflow-hidden bg-deep-navy">
                 <img
                   src={section.image.url}
                   alt={section.image.alt || section.title}
@@ -659,7 +681,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-deep-navy via-deep-navy/55 to-deep-navy/5" />
                 <div className="relative z-10 container mx-auto px-4 pb-16 md:pb-24 max-w-6xl">
-                  {section.eyebrow && <div className="text-secondary text-xs font-medium tracking-[0.28em] uppercase mb-5">{section.eyebrow}</div>}
+                  {section.eyebrow && <div className="eyebrow mb-5">{section.eyebrow}</div>}
                   <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-[1.0] tracking-tight max-w-4xl">
                     {section.title}
                   </h2>
@@ -679,25 +701,28 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
 
           case 'news': {
             const [featured, ...rest] = section.items.slice(0, 3);
+            // All NO news items are currently `unpublished`, which left an
+            // empty "Siste nytt" heading + link on the live homepage.
+            if (!featured) return null;
             return (
               <section key={section.id} className="py-28 md:py-36 px-4">
-                <div className="container mx-auto max-w-7xl">
+                <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
-                    <div className="text-secondary text-xs font-medium tracking-[0.22em] uppercase mb-4">{section.eyebrow}</div>
+                    <div className="eyebrow mb-4">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
                       <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
-                        <motion.article initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}>
                           {featured.heroImage && (
-                            <div className="aspect-[16/10] overflow-hidden mb-6">
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]" loading="lazy" />
+                            <div className="aspect-[16/10] overflow-hidden mb-6 rounded-2xl ring-1 ring-border/40">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
                             </div>
                           )}
                           <div className="flex items-center gap-3 mb-3">
-                            {featured.category && <span className="text-[11px] font-medium text-secondary uppercase tracking-[0.22em]">{featured.category}</span>}
+                            {featured.category && <span className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em]">{featured.category}</span>}
                             {featured.date && <span className="text-xs text-muted-foreground">{featured.date}</span>}
                           </div>
                           <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
@@ -708,9 +733,9 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     <div className="lg:col-span-5 flex flex-col divide-y divide-border/60">
                       {rest.map((n, i) => (
                         <Link key={n.id} to={lp(`/nyheter/${n.slug}`)} className="group block py-7 first:pt-0">
-                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }}>
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }}>
                             <div className="flex items-center gap-3 mb-2">
-                              {n.category && <span className="text-[10px] font-medium text-secondary uppercase tracking-[0.22em]">{n.category}</span>}
+                              {n.category && <span className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em]">{n.category}</span>}
                               {n.date && <span className="text-xs text-muted-foreground">{n.date}</span>}
                             </div>
                             <h3 className="font-display text-lg md:text-xl font-semibold text-foreground leading-tight tracking-tight group-hover:text-secondary transition-colors">{n.title}</h3>
@@ -718,8 +743,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         </Link>
                       ))}
                       <div className="pt-7">
-                        <Link to={lp(section.ctaHref)} className="inline-flex items-center gap-2 text-secondary font-medium text-sm hover:gap-3 transition-all">
-                          {section.ctaLabel} <ArrowRight className="h-4 w-4" />
+                        <Link to={lp(section.ctaHref)} className="group/more inline-flex items-center gap-2 text-secondary font-semibold text-sm underline-offset-4 hover:underline">
+                          {section.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
                         </Link>
                       </div>
                     </div>
@@ -734,7 +759,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto max-w-3xl">
                   <div className="text-center mb-14">
-                    <div className="text-secondary text-xs font-medium tracking-[0.18em] uppercase mb-3">{section.eyebrow}</div>
+                    <div className="eyebrow mb-3">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
@@ -762,7 +787,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.items.map((a, i) => {
                         const Icon = (a.icon && ICONS[a.icon]) || Mountain;
                         return (
-                          <motion.div key={a.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors">
+                          <motion.div key={a.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="bg-card rounded-2xl p-6 md:p-7 border border-border/70 hover:border-secondary/40 transition-colors">
                             <Icon className="h-6 w-6 text-secondary mb-4" />
                             <div className="font-display font-semibold text-foreground mb-1.5">{a.title}</div>
                             <div className="text-sm text-muted-foreground leading-relaxed">{a.desc}</div>
@@ -776,7 +801,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <section className="py-24 md:py-32 px-4">
                     <div className="container mx-auto grid md:grid-cols-2 gap-8 max-w-6xl">
                       {section.imageCards.map((c, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="relative rounded-2xl overflow-hidden h-[460px]">
+                        <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="relative rounded-2xl overflow-hidden h-[460px]">
                           <img src={c.image.url} alt={c.image.alt || c.title} className="w-full h-full object-cover" loading="lazy" />
                           <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/85 via-deep-navy/15 to-transparent" />
                           <div className="absolute bottom-0 left-0 right-0 p-8">

@@ -1,5 +1,6 @@
 import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ConsentBanner from './ConsentBanner';
@@ -29,6 +30,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
   }, [locale, season, pathname]);
 
   return (
+    // reducedMotion="user": every framer-motion reveal on public pages
+    // respects the OS "reduce motion" setting (only HomepageCampaign did).
+    <MotionConfig reducedMotion="user">
     <div
       className="min-h-screen flex flex-col"
       style={{
@@ -43,6 +47,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </div>
       <ConsentBanner />
     </div>
+    </MotionConfig>
   );
 };
 

@@ -41,6 +41,13 @@
     -->
     <!-- <meta name="google-site-verification" content="REPLACE_WITH_TOKEN" /> -->
 
+    <!-- Self-hosted brand fonts (see @font-face in src/index.css). Preload
+         the two faces every page paints first — headline and body — so the
+         hero renders in Jost/Mulish instead of swapping from a fallback.
+         scripts/prerender.ts copies rel="preload" links into every page. -->
+    <link rel="preload" href="/fonts/jost-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mulish-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />

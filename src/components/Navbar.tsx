@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { LOCALES, LOCALE_LABELS } from '@/i18n/translations';
@@ -108,10 +108,12 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
               <DropdownMenuTrigger asChild>
                 <button
                   aria-label={d.nav.language}
-                  className="text-nav-foreground/80 hover:text-nav-foreground text-lg px-2 py-1 rounded border border-nav-foreground/20 hover:border-nav-foreground/40 transition-colors flex items-center gap-1.5"
+                  className="h-9 text-nav-foreground/80 hover:text-nav-foreground px-3 rounded-full border border-nav-foreground/20 hover:border-nav-foreground/40 hover:bg-nav-foreground/[0.06] transition-colors flex items-center gap-1.5"
                 >
-                  <span>{current.flag}</span>
-                  <span className="text-xs font-semibold">{current.short}</span>
+                  {/* Globe + code reads cleaner than an emoji flag (and a
+                      language is not a country). Flags stay in the list. */}
+                  <Globe className="h-4 w-4" aria-hidden />
+                  <span className="text-xs font-semibold tracking-wide">{current.short}</span>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-[140px]">
