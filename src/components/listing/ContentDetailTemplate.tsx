@@ -74,8 +74,8 @@ const ContentDetailTemplate = ({
   return (
     <article>
       {/* Hero */}
-      <section className="relative h-[55vh] min-h-[420px] flex items-end overflow-hidden">
-        <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+      <section className="hero-bleed relative h-[60svh] min-h-[460px] flex items-end overflow-hidden bg-deep-navy">
+        <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
         <div className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 container mx-auto px-4 pb-12">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
