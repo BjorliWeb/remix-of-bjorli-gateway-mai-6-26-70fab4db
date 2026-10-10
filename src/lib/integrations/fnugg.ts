@@ -37,8 +37,7 @@ export const FNUGG_ENDPOINT = `https://api.fnugg.no/get/resort/${FNUGG_RESORT_ID
  * Result envelope: `{ hits: { total, hits: [{ _id, _source }] } }`.
  * Each `_source` has flat fields: title, description, images, date, modified,
  * type, site_id, id, author. `title` is a plain string (NOT `{ rendered }`),
- * `description` is the body HTML, and `images` is a nested object map (which
- * we intentionally ignore for the homepage Driftsmelding box).
+ * `description` is the body HTML, and `images` is a nested object map with original and resized post images.
  *
  * Single article (future use):
  *   /get/blog_post/{site_id}_{wordpress_post_id}     e.g. /get/blog_post/177_2244
@@ -228,7 +227,7 @@ export interface FnuggBlogPostSource {
   image?: string;
   featured_image?: string | { url?: string; source_url?: string };
   thumbnail?: string;
-  /** Nested map of image URLs by device + scale + crop — unused on homepage. */
+  /** Nested map of original and resized post images. */
   images?: Record<string, unknown>;
 }
 
@@ -308,9 +307,12 @@ export function normalizeFnuggPost(hit: FnuggSearchHit | null | undefined): Bjor
   const text = html ? htmlToText(html) : null;
   const date = src.date || src.created_at || null;
   const modified = src.modified || src.modified_at || null;
-  // Image intentionally not surfaced in homepage Driftsmelding box; keep field
-  // populated so a future article page can reuse the same normalized shape.
-  const imageUrl = pickString(src.featured_image) || src.image || src.thumbnail || null;
+  // Prefer the original image so the full photograph remains visible.
+  const imageCandidates = [src.images?.image_full, pickString(src.featured_image), src.image, src.images?.image_1_1_l, src.thumbnail];
+  const imageUrl = imageCandidates.find((value): value is string => {
+    if (typeof value !== 'string') return false;
+    try { return new URL(value).protocol === 'https:'; } catch { return false; }
+  }) ?? null;
   if (!id && !title && !text) return null;
   return {
     id: id || `${date ?? 'post'}-${(title ?? '').slice(0, 16)}`,
