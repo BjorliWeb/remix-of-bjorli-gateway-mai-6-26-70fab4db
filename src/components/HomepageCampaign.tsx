@@ -79,24 +79,23 @@ const HomepageCampaign = ({ campaign }: { campaign?: Campaign | null }) => {
 
             {showCta ? (
               <div className="pt-2">
-                <a
-                  href={active.ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block w-full sm:w-auto"
-                  onClick={() =>
-                    trackSkiPassClick({
-                      link_url: active.ctaHref,
-                      link_text: copy.ctaLabel,
-                      cta_location: `campaign_${active.id}`,
-                    })
-                  }
-                >
-                  <Button size="lg" className="h-12 w-full px-6 text-base font-medium sm:w-auto">
-                    <Ticket className="mr-2 h-5 w-5" />
+                <Button asChild size="xl" className="w-full font-semibold sm:w-auto">
+                  <a
+                    href={active.ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      trackSkiPassClick({
+                        link_url: active.ctaHref,
+                        link_text: copy.ctaLabel,
+                        cta_location: `campaign_${active.id}`,
+                      })
+                    }
+                  >
+                    <Ticket className="h-5 w-5" />
                     {copy.ctaLabel}
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               </div>
             ) : (
               <p className="pt-1 text-sm font-medium text-season-deep">{copy.preCtaNote}</p>

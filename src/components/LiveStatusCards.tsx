@@ -17,6 +17,7 @@ import { useBjorliStatus } from '@/hooks/useBjorliStatus';
 import type { BjorliFnuggStatus } from '@/lib/integrations/fnugg';
 import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import { track, type AnalyticsEventName } from '@/lib/analytics';
+import { revealUp, REVEAL_VIEWPORT } from '@/lib/motion';
 
 /**
  * Live operational status cards. Pulls from `operational_status` table
@@ -95,10 +96,7 @@ function liveValueFor(
   }
 }
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
-};
+const fadeUp = revealUp;
 
 const LiveStatusCards = ({
   section,
@@ -171,7 +169,10 @@ const LiveStatusCards = ({
       }`}
     >
       <div className="container mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 max-w-4xl mx-auto">
+        {/* One instrument panel instead of four floating tiles: hairline
+            dividers (gap-px over a border-coloured backing) keep the four
+            readings visually related. */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px max-w-4xl mx-auto rounded-2xl overflow-hidden bg-border/70 ring-1 ring-border/70 shadow-[0_18px_44px_-28px_hsl(var(--season-deep)/0.45)]">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
             const live = liveValueFor(card.icon, fnugg, locale);
@@ -183,15 +184,15 @@ const LiveStatusCards = ({
                 custom={i}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={REVEAL_VIEWPORT}
                 variants={fadeUp}
-                className="glass rounded-xl px-3 py-4 md:px-4 md:py-5 text-center border border-border/40"
+                className="bg-card px-3 py-5 md:px-4 md:py-6 text-center"
                 role="group"
                 aria-label={live.ariaLabel ?? card.label}
               >
                 <Icon className="h-4 w-4 md:h-5 md:w-5 mx-auto mb-2 text-secondary" />
                 <div
-                  className="font-display text-xl md:text-2xl font-bold text-foreground tracking-tight leading-none"
+                  className="font-display text-2xl md:text-[1.75rem] font-bold text-foreground tracking-tight leading-none tabular-nums"
                   aria-live="polite"
                 >
                   {isLoadingFirst ? (
@@ -200,7 +201,7 @@ const LiveStatusCards = ({
                     displayValue
                   )}
                 </div>
-                <div className="text-[10px] md:text-[11px] text-muted-foreground mt-1.5 tracking-[0.08em] uppercase">{card.label}</div>
+                <div className="text-[10px] md:text-[11px] font-semibold text-muted-foreground mt-2 tracking-[0.14em] uppercase">{card.label}</div>
               </motion.div>
             );
           })}

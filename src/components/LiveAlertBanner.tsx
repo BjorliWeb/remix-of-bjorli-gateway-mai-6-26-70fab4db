@@ -186,14 +186,14 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
         href={ctaHref}
         target="_blank"
         rel="noopener noreferrer"
-        className={`text-sm font-medium hover:underline shrink-0 inline-flex items-center gap-1 ${styles.icon}`}
+        className={`text-sm font-medium hover:underline shrink-0 inline-flex items-center gap-1 ml-auto sm:ml-0 ${styles.icon}`}
       >
         {ctaLabel} <ChevronRight className="h-4 w-4" />
       </a>
     ) : (
       <Link
         to={lp(ctaHref)}
-        className={`text-sm font-medium hover:underline shrink-0 inline-flex items-center gap-1 ${styles.icon}`}
+        className={`text-sm font-medium hover:underline shrink-0 inline-flex items-center gap-1 ml-auto sm:ml-0 ${styles.icon}`}
       >
         {ctaLabel} <ChevronRight className="h-4 w-4" />
       </Link>
@@ -214,14 +214,16 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     return (
       <section className="px-4 mt-5" aria-label="Latest operational update">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 text-sm text-foreground/80 border-y border-border/60 py-3">
+          {/* Mobile: the message drops to its own line (it was truncated to
+              a single character between the label and the CTA). */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-x-3 gap-y-1.5 text-sm text-foreground/80 border-y border-border/60 py-3">
             <Icon className={`h-4 w-4 shrink-0 ${styles.icon}`} />
             {label && (
               <span className={`text-[11px] font-semibold uppercase tracking-[0.18em] shrink-0 ${styles.icon}`}>
                 {label}
               </span>
             )}
-            <span className="flex-1 truncate">{oneLiner}</span>
+            <span className="order-last basis-full line-clamp-2 sm:order-none sm:basis-auto sm:flex-1 sm:truncate">{oneLiner}</span>
             {ctaContent}
           </div>
         </div>
