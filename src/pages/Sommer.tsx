@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { EASE_OUT_EXPO } from '@/lib/motion';
 import { ArrowRight, MapPin, Car } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
@@ -148,7 +149,7 @@ const Sommer = () => {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-[640px] h-[88vh] max-h-[920px] flex items-center justify-center overflow-hidden">
+      <section className="hero-bleed relative min-h-[640px] h-[92svh] max-h-[980px] flex items-center justify-center overflow-hidden bg-deep-navy">
         {home.heroImage && (
           <img
             src={home.heroImage.url}
@@ -158,21 +159,23 @@ const Sommer = () => {
             fetchPriority="high"
           />
         )}
-        <div className="absolute inset-0 hero-gradient" />
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto py-16 md:py-20">
+        <div aria-hidden className="absolute inset-0 hero-gradient" />
+        <div className="relative z-10 text-center px-5 max-w-5xl mx-auto pt-24 pb-16 md:pt-32 md:pb-20">
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block text-primary-foreground/80 text-xs md:text-sm font-medium tracking-[0.28em] uppercase mb-6 md:mb-8 px-4 py-1.5 border border-primary-foreground/25 rounded-full backdrop-blur-sm"
+            transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
+            className="inline-flex items-center gap-3 text-white/90 text-[11px] md:text-xs font-semibold tracking-[0.3em] uppercase mb-6 md:mb-8 text-on-image"
           >
+            <span aria-hidden className="h-px w-8 bg-white/60" />
             {heroEyebrow}
+            <span aria-hidden className="h-px w-8 bg-white/60" />
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-display font-bold text-primary-foreground mb-6 md:mb-8 tracking-tight drop-shadow-[0_2px_24px_hsl(var(--hero-overlay)/0.4)] mx-auto"
+            transition={{ duration: 1.1, delay: 0.1, ease: EASE_OUT_EXPO }}
+            className="font-display font-bold text-white mb-6 md:mb-8 tracking-[-0.02em] text-on-image mx-auto"
             style={{
               fontSize: 'clamp(2.75rem, 6.4vw, 6.5rem)',
               lineHeight: 0.95,
@@ -182,10 +185,10 @@ const Sommer = () => {
             {t.heroTitle}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-primary-foreground/85 mb-10 md:mb-12 font-light mx-auto leading-relaxed"
+            transition={{ duration: 1, delay: 0.22, ease: EASE_OUT_EXPO }}
+            className="text-white/90 mb-10 md:mb-12 mx-auto leading-relaxed text-on-image"
             style={{
               fontSize: 'clamp(1.05rem, 1.5vw, 1.5rem)',
               maxWidth: '850px',
@@ -194,30 +197,26 @@ const Sommer = () => {
             {t.heroSubtitle}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
+            transition={{ duration: 1, delay: 0.34, ease: EASE_OUT_EXPO }}
+            className="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap w-full max-w-sm sm:max-w-none mx-auto"
           >
-            {/* Primary — summer activities */}
-            <Link to={lp('/aktiviteter')}>
-              <Button size="lg" className="font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10">
-                <MapPin className="mr-2 h-5 w-5" />
+            {/* Primary — summer activities. Same seasonal pill as the header CTA. */}
+            <Button asChild variant="season" size="xl" className="w-full sm:w-auto">
+              <Link to={lp('/aktiviteter')}>
+                <MapPin className="h-5 w-5" />
                 {t.primaryCta}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </Button>
             {/* Secondary — getting here */}
-            <Link to={lp('/reisen-hit')}>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-transparent text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 hover:text-primary-foreground font-semibold w-full sm:w-auto text-base md:text-lg h-14 md:h-16 px-8 md:px-10"
-              >
-                <Car className="mr-2 h-5 w-5" />
+            <Button asChild variant="glass" size="xl" className="w-full sm:w-auto">
+              <Link to={lp('/reisen-hit')}>
+                <Car className="h-5 w-5" />
                 {t.secondaryCta}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>
