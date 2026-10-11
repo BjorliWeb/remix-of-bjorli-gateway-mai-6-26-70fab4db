@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { images } from '@/lib/images';
+import { consumePrerenderedBoot } from '@/lib/prerenderHandoff';
 import { Ticket, Home as HomeIcon, Clock } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
@@ -23,7 +26,14 @@ const Index = () => {
   const home = useCms(() => getHomepage({ language: locale, season: 'winter' }), [locale]);
   const hero = getHomepageData(locale);
 
-  if (!home) return null;
+  // Skip the hero entrance animation when React takes over from the
+  // prerendered skeleton, so the headline doesn't vanish and fade back in.
+  const [skipIntro] = useState(consumePrerenderedBoot);
+
+  // The hero renders immediately from static data. Only the sections
+  // below wait for the CMS (which includes a network call for events), so
+  // the footer never flashes at the top while the page is loading.
+  const heroImage = home?.heroImage ?? { url: images.heroWinter.src, alt: '' };
 
   return (
     <div>
@@ -39,8 +49,8 @@ const Index = () => {
         <picture>
           <source media="(min-width: 768px)" srcSet={desktopHero} />
           <img
-            src={home.heroImage?.url ?? desktopHero}
-            alt={home.heroImage?.alt || hero.hero.title}
+            src={heroImage.url}
+            alt={heroImage.alt || hero.hero.title}
             loading="eager"
             fetchPriority="high"
             decoding="async"
@@ -50,7 +60,7 @@ const Index = () => {
         <div aria-hidden className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 text-center px-5 max-w-6xl mx-auto pt-16 lg:pt-24">
           <motion.span
-            initial={{ opacity: 0, y: 12 }}
+            initial={skipIntro ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
             className="inline-flex items-center gap-3 text-white/90 text-[11px] md:text-xs font-semibold tracking-[0.3em] uppercase mb-6 md:mb-8 text-on-image"
@@ -60,7 +70,7 @@ const Index = () => {
             <span aria-hidden className="h-px w-8 bg-white/60" />
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 18 }}
+            initial={skipIntro ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.1, ease: EASE_OUT_EXPO }}
             className="font-display text-[clamp(2.6rem,7.4vw,7.25rem)] font-bold text-white mb-6 md:mb-8 leading-[0.95] tracking-[-0.02em] text-on-image"
@@ -69,7 +79,7 @@ const Index = () => {
           </motion.h1>
           {hero.hero.subtitle && (
             <motion.p
-              initial={{ opacity: 0, y: 12 }}
+              initial={skipIntro ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.22, ease: EASE_OUT_EXPO }}
               className="text-white/90 text-base sm:text-lg md:text-xl mb-9 md:mb-11 max-w-2xl mx-auto leading-relaxed text-on-image"
@@ -78,7 +88,7 @@ const Index = () => {
             </motion.p>
           )}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={skipIntro ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.34, ease: EASE_OUT_EXPO }}
             className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto"
@@ -111,7 +121,7 @@ const Index = () => {
           </motion.div>
           {/* Tertiary — small inline link to opening hours */}
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={skipIntro ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: EASE_OUT_EXPO }}
             className="mt-6"
@@ -129,7 +139,12 @@ const Index = () => {
 
       <HomepageCampaign />
 
-      {home.sections && <HomepageSections sections={home.sections} />}
+      {home ? (
+        home.sections && <HomepageSections sections={home.sections} />
+      ) : (
+        // Holds the space while the CMS loads so the footer stays below the fold.
+        <div aria-hidden className="min-h-[100svh]" />
+      )}
     </div>
   );
 };

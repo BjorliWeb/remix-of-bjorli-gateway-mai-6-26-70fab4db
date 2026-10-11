@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { images } from '@/lib/images';
+import { consumePrerenderedBoot } from '@/lib/prerenderHandoff';
 import { EASE_OUT_EXPO } from '@/lib/motion';
 import { ArrowRight, MapPin, Car } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -142,7 +145,14 @@ const Sommer = () => {
   const t = usePageCopy(COPY);
   const home = useCms(() => getHomepage({ language: locale, season: 'summer' }), [locale]);
 
-  if (!home) return null;
+  // Skip the hero entrance animation when React takes over from the
+  // prerendered skeleton, so the headline doesn't vanish and fade back in.
+  const [skipIntro] = useState(consumePrerenderedBoot);
+
+  // The hero renders immediately from static data. Only the sections
+  // below wait for the CMS (which includes a network call for events), so
+  // the footer never flashes at the top while the page is loading.
+  const heroImage = home?.heroImage ?? { url: images.heroSummer.src, alt: '' };
 
   const heroEyebrow = d.summer.eyebrow ?? d.summer.badge;
 
@@ -150,10 +160,10 @@ const Sommer = () => {
     <div>
       {/* Hero */}
       <section className="hero-bleed relative min-h-[640px] h-[92svh] max-h-[980px] flex items-center justify-center overflow-hidden bg-deep-navy">
-        {home.heroImage && (
+        {heroImage && (
           <img
-            src={home.heroImage.url}
-            alt={home.heroImage.alt || t.heroTitle}
+            src={heroImage.url}
+            alt={heroImage.alt || t.heroTitle}
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"
             fetchPriority="high"
@@ -162,7 +172,7 @@ const Sommer = () => {
         <div aria-hidden className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 text-center px-5 max-w-5xl mx-auto pt-24 pb-16 md:pt-32 md:pb-20">
           <motion.span
-            initial={{ opacity: 0, y: 12 }}
+            initial={skipIntro ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
             className="inline-flex items-center gap-3 text-white/90 text-[11px] md:text-xs font-semibold tracking-[0.3em] uppercase mb-6 md:mb-8 text-on-image"
@@ -172,7 +182,7 @@ const Sommer = () => {
             <span aria-hidden className="h-px w-8 bg-white/60" />
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 18 }}
+            initial={skipIntro ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.1, ease: EASE_OUT_EXPO }}
             className="font-display font-bold text-white mb-6 md:mb-8 tracking-[-0.02em] text-on-image mx-auto"
@@ -185,7 +195,7 @@ const Sommer = () => {
             {t.heroTitle}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={skipIntro ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.22, ease: EASE_OUT_EXPO }}
             className="text-white/90 mb-10 md:mb-12 mx-auto leading-relaxed text-on-image"
@@ -197,7 +207,7 @@ const Sommer = () => {
             {t.heroSubtitle}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={skipIntro ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.34, ease: EASE_OUT_EXPO }}
             className="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap w-full max-w-sm sm:max-w-none mx-auto"
@@ -225,7 +235,7 @@ const Sommer = () => {
       <div className="relative z-20 -mt-16 md:-mt-24 px-4">
         <div className="container mx-auto max-w-2xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={skipIntro ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
@@ -264,7 +274,12 @@ const Sommer = () => {
       </div>
 
       <div id="opplev-sommer">
-        {home.sections && <HomepageSections sections={home.sections} />}
+        {home ? (
+        home.sections && <HomepageSections sections={home.sections} />
+      ) : (
+        // Holds the space while the CMS loads so the footer stays below the fold.
+        <div aria-hidden className="min-h-[100svh]" />
+      )}
       </div>
 
       {/* 12 — Final CTA */}

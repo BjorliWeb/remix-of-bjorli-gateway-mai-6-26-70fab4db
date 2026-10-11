@@ -288,6 +288,65 @@ const linksFor = (targets: LinkTarget[], locale: Locale): { label: string; href:
     .filter((t) => t !== 'handel' || locale === 'no')
     .map((t) => ({ label: PAGE_LABELS[locale][t] ?? t, href: hrefForTarget(t, locale) }));
 
+
+/** Shared skeleton styling — mirrors the live site's tokens (Mulish body,
+ *  warm snow background, dark navy top bar). */
+const SKELETON_FONT = "Mulish,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif";
+const SKELETON_PAGE_STYLE = `min-height:100vh;font-family:${SKELETON_FONT};color:#0a2540;background:hsl(var(--background))`;
+const SKELETON_HEADER_STYLE =
+  'display:flex;align-items:center;padding:0 1rem';
+
+/** Hashed homepage hero images from dist/assets (same files the React hero
+ *  loads, so the skeleton and the live hero show the identical picture). */
+const HOME_HERO_SOURCES = {
+  mobile: 'bjorli-stolheis-fjellutsikt-vinter-',
+  desktop: 'bjorli-vinter-skisenter-toppstasjon-oversikt-mars-',
+} as const;
+let homeHeroCache: { mobile: string; desktop: string } | null | undefined;
+const homeHeroAssets = (): { mobile: string; desktop: string } | null => {
+  if (homeHeroCache !== undefined) return homeHeroCache;
+  const dir = resolve(DIST, 'assets');
+  const files = existsSync(dir) ? readdirSync(dir) : [];
+  const pick = (prefix: string) => {
+    const hits = files.filter((f) => f.startsWith(prefix) && /\.(jpe?g|webp|avif|png)$/.test(f));
+    return hits.length === 1 ? `/assets/${hits[0]}` : null;
+  };
+  const mobile = pick(HOME_HERO_SOURCES.mobile);
+  const desktop = pick(HOME_HERO_SOURCES.desktop);
+  homeHeroCache = mobile && desktop ? { mobile, desktop } : null;
+  if (!homeHeroCache) console.warn('[prerender] homepage hero assets not found — skeleton hero falls back to a plain dark block');
+  return homeHeroCache;
+};
+
+/** <head> preloads for the homepage hero: one image per viewport, fetched
+ *  in parallel with the JS bundle instead of after React has rendered. */
+const homeHeroPreloads = (): string => {
+  const hero = homeHeroAssets();
+  if (!hero) return '';
+  return [
+    `<link rel="preload" as="image" href="${hero.mobile}" media="(max-width: 767px)" fetchpriority="high" />`,
+    `<link rel="preload" as="image" href="${hero.desktop}" media="(min-width: 768px)" fetchpriority="high" />`,
+  ].join('\n    ');
+};
+
+
+/** The official wordmark, read from the same component the live navbar
+ *  renders, so the skeleton shows the real logo instead of plain text. */
+let wordmarkCache: string | null | undefined;
+const wordmarkSvg = (label: string): string | null => {
+  if (wordmarkCache === undefined) {
+    try {
+      const src = readFileSync(resolve(process.cwd(), 'src/components/BjorliWordmark.tsx'), 'utf8');
+      const viewBox = src.match(/viewBox="([^"]+)"/)?.[1];
+      const paths = Array.from(src.matchAll(/<path d="([^"]+)"/g)).map((m) => `<path d="${m[1]}"/>`);
+      wordmarkCache = viewBox && paths.length ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" fill="currentColor" role="img" aria-label="__LABEL__" class="h-8 lg:h-9 w-auto" height="32" style="display:block">${paths.join('')}</svg>` : null;
+    } catch {
+      wordmarkCache = null;
+    }
+  }
+  return wordmarkCache ? wordmarkCache.replace('__LABEL__', escapeHtml(label)) : null;
+};
+
 /** Shared skeleton shell around a main content block. */
 const skeletonShell = (opts: {
   locale: Locale;
@@ -300,14 +359,18 @@ const skeletonShell = (opts: {
   const navHtml = linksFor(NAV_ROUTES, locale)
     .map((n) => `<a href="${escapeHtml(n.href)}">${escapeHtml(n.label)}</a>`)
     .join(' · ');
-  return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
-  <header style="max-width:960px;margin:0 auto 2rem">
-    <a href="${escapeHtml(homeHref)}" style="font-weight:700;font-size:1.125rem;text-decoration:none;color:inherit">Bjorli</a>
-    <nav aria-label="Primary" style="font-size:0.95rem;color:#456;margin-top:0.5rem">${navHtml}</nav>
+  // Visual handoff: the skeleton mirrors the live layout (dark top bar,
+  // Mulish body text) so the switch to React is a calm swap, not a jump
+  // from an unstyled document. The crawlable nav sits below main: same
+  // links for crawlers and no-JS visitors, nothing loud above the fold.
+  return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="${SKELETON_PAGE_STYLE}">
+  <header class="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1440px] lg:w-[calc(100%-2rem)] bg-nav/85 backdrop-blur-xl lg:rounded-2xl h-14 lg:h-16" style="${SKELETON_HEADER_STYLE}">
+    <a class="lg:ml-2" href="${escapeHtml(homeHref)}" style="font-family:Jost,${SKELETON_FONT};font-weight:700;font-size:1.375rem;letter-spacing:-0.01em;text-decoration:none;color:#fff">${wordmarkSvg('Bjorli') ?? 'Bjorli'}</a>
   </header>
-  <main style="max-width:960px;margin:0 auto">
+  <main style="${canonical === 'home' ? '' : 'max-width:960px;margin:0 auto;padding:6rem 1.25rem 2rem'}">
 ${main}
   </main>
+  <nav aria-label="Primary" style="max-width:960px;margin:0 auto;padding:2rem 1.25rem 3rem;font-size:0.95rem;line-height:1.8;color:#456">${navHtml}</nav>
 </div></div>`;
 };
 
@@ -366,16 +429,25 @@ const homeBodySkeleton = (locale: Locale): string => {
   const proofPoints = data.intro.proofPoints
     ? `\n      <ul style="margin:0.75rem 0 0;padding-left:1.25rem;line-height:1.7">${data.intro.proofPoints.map((p) => `<li>${escapeHtml(p)}</li>`).join('')}</ul>`
     : '';
-  const main = `    <section>
-      <p style="font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:#003b4b;margin:0 0 0.5rem">${escapeHtml(data.hero.eyebrow)}</p>
-      <h1 style="font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:0 0 1rem">${escapeHtml(data.hero.title)}</h1>
-      <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.hero.subtitle)}</p>
-      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:0 0 1rem">
-        <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.75rem 1.25rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaLiftPass)}</a>
-        <a href="${escapeHtml(localizeHref('/overnatting', locale))}" style="display:inline-block;padding:0.75rem 1.25rem;background:transparent;color:#003b4b;border:1px solid #003b4b;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.hero.ctaStay)}</a>
+  const heroImg = homeHeroAssets();
+  const heroPicture = heroImg
+    ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover md:object-[48%_50%] md:scale-[1.12] md:origin-top-left" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
+    : '';
+  const main = `    <section style="position:relative;height:100svh;min-height:640px;max-height:1080px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:hsl(var(--deep-navy));text-align:center;color:#fff">
+      ${heroPicture}
+      <div aria-hidden="true" class="hero-gradient" style="position:absolute;inset:0"></div>
+      <div class="relative z-10 text-center px-5 max-w-6xl mx-auto pt-16 lg:pt-24" style="position:relative;z-index:1">
+      <p class="text-[11px] md:text-xs mb-6 md:mb-8 text-on-image" style="font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.9)">${escapeHtml(data.hero.eyebrow)}</p>
+      <h1 class="font-display text-[clamp(2.6rem,7.4vw,7.25rem)] font-bold text-white mb-6 md:mb-8 leading-[0.95] tracking-[-0.02em] text-on-image" style="font-family:Jost,${SKELETON_FONT}">${escapeHtml(data.hero.title)}</h1>
+      <p class="text-white/90 text-base sm:text-lg md:text-xl mb-9 md:mb-11 max-w-2xl mx-auto leading-relaxed text-on-image">${escapeHtml(data.hero.subtitle)}</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto" style="display:flex;gap:0.75rem;justify-content:center;margin:0 auto 1.5rem">
+        <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:hsl(var(--season-accent));color:hsl(var(--season-accent-foreground));font-weight:600;text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaLiftPass)}</a>
+        <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:rgba(255,255,255,0.12);color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.3);text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaStay)}</a>
       </div>
-      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}">${escapeHtml(data.hero.ctaOpening)}</a></p>
+      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}" style="color:rgba(255,255,255,0.8);font-size:0.875rem">${escapeHtml(data.hero.ctaOpening)}</a></p>
+      </div>
     </section>
+    <div style="max-width:960px;margin:0 auto;padding:0 1.25rem">
     <section style="margin:2.5rem 0">
       <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.intro.title)}</h2>
       <p style="font-size:1.05rem;line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.intro.body)}</p>
@@ -399,7 +471,8 @@ const homeBodySkeleton = (locale: Locale): string => {
       <h2 style="font-size:1.5rem;margin:0 0 0.5rem">${escapeHtml(data.accommodation.title)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.accommodation.body)}</p>
       <a href="${escapeHtml(localizeHref(data.accommodation.href, locale))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
-    </section>${campaignBlock(locale)}`;
+    </section>${campaignBlock(locale)}
+    </div>`;
   return skeletonShell({ locale, canonical: 'home', main });
 };
 
@@ -572,6 +645,8 @@ const buildHtmlDocument = (o: {
   /** Explicit robots directive. Omitted = default indexable behaviour. */
   robots?: string;
   base: { scripts: string; preloads: string };
+  /** Route-specific <head> additions (e.g. the homepage hero preload). */
+  extraHead?: string;
 }): string => `<!doctype html>
 <html lang="${escapeHtml(o.htmlLang)}">
   <head>
@@ -610,6 +685,7 @@ const buildHtmlDocument = (o: {
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="4twwdoaL3CcwkMmkU6sfWQ" async></script>
     ${o.jsonLdTags}
     ${o.base.preloads}
+    ${o.extraHead ?? ''}
   </head>
   <body>
     ${o.bodyHtml}
@@ -773,6 +849,7 @@ const renderRoute = (
       lead,
     }),
     base,
+    extraHead: canonical === 'home' ? homeHeroPreloads() : undefined,
   });
 
   // File path: dist/<locale-prefix>/<slug>/index.html
