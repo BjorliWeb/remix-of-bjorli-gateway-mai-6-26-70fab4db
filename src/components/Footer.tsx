@@ -4,7 +4,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getFooter, useCms } from '@/lib/cms';
 import { trackPhoneClick, trackEmailClick } from '@/lib/analytics';
-import bjorliLogo from '@/assets/bjorli-logo.jpeg';
+import BjorliWordmark from '@/components/BjorliWordmark';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { SALES_TERMS_COPY } from '@/pages/salesTermsContent';
 
@@ -59,18 +59,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1.3fr] gap-y-14 md:gap-x-10 lg:gap-x-16">
           {/* 1 — Brand block (editorial panel, visually distinct) */}
           <div className="md:col-span-2 lg:col-span-1 relative lg:pr-10 lg:border-r lg:border-nav-foreground/10">
-            <div className="flex items-center gap-4 mb-6">
-              <img
-                src={bjorliLogo}
-                alt="Bjorli logo"
-                className="h-14 w-14 rounded-full"
-              />
-              <div className="flex flex-col">
-                <span className="font-display text-[34px] leading-none font-bold tracking-tight">
-                  {d.meta.siteName}
-                </span>
-                <span className="mt-2 h-[3px] w-10 rounded-full bg-season" aria-hidden="true" />
-              </div>
+            <div className="mb-7">
+              <BjorliWordmark title={d.meta.siteName} className="h-14 w-auto text-nav-foreground" />
             </div>
             <p className="text-nav-foreground/75 text-[15px] leading-[1.7] max-w-[26rem] mb-7">
               {aboutBody}

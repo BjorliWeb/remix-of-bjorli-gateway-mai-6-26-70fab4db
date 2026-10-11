@@ -6,7 +6,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { LOCALES, LOCALE_LABELS } from '@/i18n/translations';
 import { getNavigation, useCms } from '@/lib/cms';
 import { DEFAULT_SEASON } from '@/lib/season';
-import bjorliLogo from '@/assets/bjorli-logo.jpeg';
+import BjorliWordmark from '@/components/BjorliWordmark';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -75,13 +75,10 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
-          <Link to={lp('/')} className="flex items-center gap-2">
-            <img src={bjorliLogo} alt="Bjorli logo" className="h-10 w-10 rounded-full" />
-            {/* Permanent destination brand. "Snøsikre Bjorli" is reserved
-                for winter campaign use only — not for the navbar identity. */}
-            <span className="text-nav-foreground font-display text-xl font-bold tracking-tight">
-              {d.meta.siteName}
-            </span>
+          <Link to={lp('/')} className="flex items-center text-nav-foreground" aria-label={d.meta.siteName}>
+            {/* Official wordmark. "Snøsikre Bjorli" is reserved for winter
+                campaign use only — not for the navbar identity. */}
+            <BjorliWordmark title={d.meta.siteName} className="h-8 lg:h-9 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
