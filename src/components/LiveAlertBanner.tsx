@@ -4,7 +4,7 @@ import { AlertCircle, AlertTriangle, ChevronRight, Info } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getAlerts, type CmsAlert, type Language } from '@/lib/cms';
-import { supabase } from '@/integrations/supabase/client';
+import { loadSupabase } from '@/integrations/supabase/lazy';
 import { useBjorliFnuggPosts } from '@/hooks/useBjorliFnuggPosts';
 import { type BjorliFnuggPost } from '@/lib/integrations/fnugg';
 
@@ -107,14 +107,19 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     load();
 
     // Realtime: refresh when admins change alerts.
-    const channel = supabase
-      .channel('alerts-public')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'alerts' }, () => load())
-      .subscribe();
+    let removeChannel: (() => void) | null = null;
+    loadSupabase().then((supabase) => {
+      if (cancelled) return;
+      const channel = supabase
+        .channel('alerts-public')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'alerts' }, () => load())
+        .subscribe();
+      removeChannel = () => supabase.removeChannel(channel);
+    });
 
     return () => {
       cancelled = true;
-      supabase.removeChannel(channel);
+      removeChannel?.();
     };
   }, [language]);
 

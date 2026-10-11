@@ -21,7 +21,7 @@ import { dictionaries } from '@/i18n/translations';
 import { SKI_HOLIDAY_NORWAY_SEO } from '@/lib/seo/skiHolidayNorwaySeo';
 import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
-import { supabase } from '@/integrations/supabase/client';
+import { loadSupabase } from '@/integrations/supabase/lazy';
 import { compareArchivedEvents, isEventArchived } from '@/lib/events/archive';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
 import { getHomepageData } from './homepageData';
@@ -381,6 +381,7 @@ const fetchApprovedSubmissions = (lang: Language): Promise<CmsEvent[]> => {
 
 const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEvent[]> => {
   try {
+    const supabase = await loadSupabase();
     const { data, error } = await supabase.functions.invoke('list-approved-events', {
       body: { language: lang, scope: 'all' },
     });
@@ -973,6 +974,7 @@ export const mockAdapter: CmsAdapter = {
     // against its own provider). Falls back to mock data if unavailable.
     try {
       const nowIsoStr = new Date().toISOString();
+      const supabase = await loadSupabase();
       const { data, error } = await supabase
         .from('alerts')
         .select('id, language, level, label, message, cta_label, cta_href, published_at, starts_at, ends_at')

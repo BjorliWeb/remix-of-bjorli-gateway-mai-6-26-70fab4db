@@ -9,7 +9,7 @@
  * em dash, never as 0.
  */
 
-import { supabase } from '@/integrations/supabase/client';
+import { loadSupabase } from '@/integrations/supabase/lazy';
 
 /** Direction the wind comes FROM. 0 degrees is valid (northerly). */
 export interface WindDirection {
@@ -76,6 +76,7 @@ export const OSLO_TZ = 'Europe/Oslo';
 export const BJORLI_BASE_POINT = { latitude: 62.2654301, longitude: 8.2129572 } as const;
 
 export async function fetchBjorliForecast(): Promise<BjorliForecast> {
+  const supabase = await loadSupabase();
   const { data, error } = await supabase.functions.invoke('get-weather', {
     method: 'GET',
   });

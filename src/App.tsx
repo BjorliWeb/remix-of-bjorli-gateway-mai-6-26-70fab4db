@@ -2,61 +2,92 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense, type ComponentType } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
-import SkiCenter from "./pages/SkiCenter";
-import Accommodation from "./pages/Accommodation";
-import OpeningHours from "./pages/OpeningHours";
-import SkiSchool from "./pages/SkiSchool";
-import SkiRental from "./pages/SkiRental";
-import FoodDrink from "./pages/FoodDrink";
-import Handel from "./pages/Handel";
+// After a new deploy, a tab still running the previous bundle asks for page
+// chunks whose hashed names no longer exist. Reload once to pick up the new
+// build instead of showing a blank page; a second failure is surfaced.
+const RELOAD_FLAG = 'bjorli:chunk-reload';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lazyPage = <T extends ComponentType<any>>(load: () => Promise<{ default: T }>) =>
+  lazy(() =>
+    load()
+      .then((mod) => {
+        try { sessionStorage.removeItem(RELOAD_FLAG); } catch { /* storage blocked */ }
+        return mod;
+      })
+      .catch((err) => {
+        let alreadyReloaded = true;
+        try {
+          alreadyReloaded = sessionStorage.getItem(RELOAD_FLAG) === '1';
+          if (!alreadyReloaded) sessionStorage.setItem(RELOAD_FLAG, '1');
+        } catch { /* storage blocked: don't risk a reload loop */ }
+        if (!alreadyReloaded) {
+          window.location.reload();
+          return new Promise<{ default: T }>(() => {});
+        }
+        throw err;
+      }),
+  );
+
+// Route-level code splitting: the homepages (winter Index, summer Sommer)
+// stay in the main bundle so "/" paints without an extra round trip. Every
+// other page — including admin, the event form and the chart-heavy pages —
+// loads as its own chunk only when a visitor opens it.
+const SkiCenter = lazyPage(() => import("./pages/SkiCenter"));
+const Accommodation = lazyPage(() => import("./pages/Accommodation"));
+const OpeningHours = lazyPage(() => import("./pages/OpeningHours"));
+const SkiSchool = lazyPage(() => import("./pages/SkiSchool"));
+const SkiRental = lazyPage(() => import("./pages/SkiRental"));
+const FoodDrink = lazyPage(() => import("./pages/FoodDrink"));
+const Handel = lazyPage(() => import("./pages/Handel"));
 // PracticalInfo page is intentionally not imported — the /praktisk-info
 // route is unpublished. The component file is kept for possible future
 // reuse.
-import Parkering from "./pages/Parkering";
-import Contact from "./pages/Contact";
-import Personvern from "./pages/Personvern";
-import Salgsbetingelser from "./pages/Salgsbetingelser";
+const Parkering = lazyPage(() => import("./pages/Parkering"));
+const Contact = lazyPage(() => import("./pages/Contact"));
+const Personvern = lazyPage(() => import("./pages/Personvern"));
+const Salgsbetingelser = lazyPage(() => import("./pages/Salgsbetingelser"));
 import SEOHead from "./components/SEOHead";
 import LegacyLivecamsRedirect from "./components/LegacyLivecamsRedirect";
-import NotFound from "./pages/NotFound";
-import Tips from "./pages/Tips";
-import Events from "./pages/Events";
-import EventsArchive from "./pages/EventsArchive";
-import News from "./pages/News";
-import Activities from "./pages/Activities";
-import GettingHere from "./pages/GettingHere";
+const NotFound = lazyPage(() => import("./pages/NotFound"));
+const Tips = lazyPage(() => import("./pages/Tips"));
+const Events = lazyPage(() => import("./pages/Events"));
+const EventsArchive = lazyPage(() => import("./pages/EventsArchive"));
+const News = lazyPage(() => import("./pages/News"));
+const Activities = lazyPage(() => import("./pages/Activities"));
+const GettingHere = lazyPage(() => import("./pages/GettingHere"));
 import Sommer from "./pages/Sommer";
-import ContentDetailPage from "./pages/ContentDetailPage";
-import Heiskort from "./pages/Heiskort";
-import Langrenn from "./pages/Langrenn";
-import Fotturer from "./pages/Fotturer";
-import Sykling from "./pages/Sykling";
-import KorteTurer from "./pages/KorteTurer";
-import KlatringRomsdalen from "./pages/KlatringRomsdalen";
-import Tafjordfjella from "./pages/Tafjordfjella";
-import Familie from "./pages/Familie";
-import Fiske from "./pages/Fiske";
-import Gardsbesok from "./pages/Gardsbesok";
-import GoldenTrain from "./pages/GoldenTrain";
-import Romsdalsgondolen from "./pages/Romsdalsgondolen";
-import Sagelva from "./pages/Sagelva";
-import Vinter from "./pages/Vinter";
-import Live from "./pages/Live";
-import Loypekart from "./pages/Loypekart";
-import WeatherWebcams from "./pages/WeatherWebcams";
-import SkiHolidayNorway from "./pages/SkiHolidayNorway";
-import ImageInventory from "./pages/ImageInventory";
-import HeroCompare from "./pages/HeroCompare";
-import SubmitEvent from "./pages/SubmitEvent";
-import AdminLogin from "./pages/AdminLogin";
-import AdminResetPassword from "./pages/AdminResetPassword";
-import AdminEventSubmissions from "./pages/AdminEventSubmissions";
-import AdminMfa from "./pages/AdminMfa";
+const ContentDetailPage = lazyPage(() => import("./pages/ContentDetailPage"));
+const Heiskort = lazyPage(() => import("./pages/Heiskort"));
+const Langrenn = lazyPage(() => import("./pages/Langrenn"));
+const Fotturer = lazyPage(() => import("./pages/Fotturer"));
+const Sykling = lazyPage(() => import("./pages/Sykling"));
+const KorteTurer = lazyPage(() => import("./pages/KorteTurer"));
+const KlatringRomsdalen = lazyPage(() => import("./pages/KlatringRomsdalen"));
+const Tafjordfjella = lazyPage(() => import("./pages/Tafjordfjella"));
+const Familie = lazyPage(() => import("./pages/Familie"));
+const Fiske = lazyPage(() => import("./pages/Fiske"));
+const Gardsbesok = lazyPage(() => import("./pages/Gardsbesok"));
+const GoldenTrain = lazyPage(() => import("./pages/GoldenTrain"));
+const Romsdalsgondolen = lazyPage(() => import("./pages/Romsdalsgondolen"));
+const Sagelva = lazyPage(() => import("./pages/Sagelva"));
+const Vinter = lazyPage(() => import("./pages/Vinter"));
+const Live = lazyPage(() => import("./pages/Live"));
+const Loypekart = lazyPage(() => import("./pages/Loypekart"));
+const WeatherWebcams = lazyPage(() => import("./pages/WeatherWebcams"));
+const SkiHolidayNorway = lazyPage(() => import("./pages/SkiHolidayNorway"));
+const ImageInventory = lazyPage(() => import("./pages/ImageInventory"));
+const HeroCompare = lazyPage(() => import("./pages/HeroCompare"));
+const SubmitEvent = lazyPage(() => import("./pages/SubmitEvent"));
+const AdminLogin = lazyPage(() => import("./pages/AdminLogin"));
+const AdminResetPassword = lazyPage(() => import("./pages/AdminResetPassword"));
+const AdminEventSubmissions = lazyPage(() => import("./pages/AdminEventSubmissions"));
+const AdminMfa = lazyPage(() => import("./pages/AdminMfa"));
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
 import { eventsArchiveRoutePath } from "@/lib/events/archive";
@@ -283,6 +314,9 @@ const App = () => (
         <LanguageProvider>
           <Layout>
             <SEOHead />
+            {/* Fallback holds the viewport so the footer never jumps to the
+                top while a page chunk loads. */}
+            <Suspense fallback={<div aria-hidden className="min-h-[100svh]" />}>
             <Routes>
               {/* Norwegian = root, no prefix */}
               <Route path="/*" element={<AppRoutes />} />
@@ -291,6 +325,7 @@ const App = () => (
                 <Route key={p} path={`${p}/*`} element={<AppRoutes />} />
               ))}
             </Routes>
+            </Suspense>
           </Layout>
         </LanguageProvider>
       </BrowserRouter>

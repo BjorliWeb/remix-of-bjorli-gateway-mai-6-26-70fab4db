@@ -9,7 +9,7 @@ import {
   Clock,
   Camera,
 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { loadSupabase } from '@/integrations/supabase/lazy';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { CmsStatusSection } from '@/lib/cms';
@@ -114,7 +114,10 @@ const LiveStatusCards = ({
   useEffect(() => {
     let active = true;
 
+    let removeChannel: (() => void) | null = null;
+
     const load = async () => {
+      const supabase = await loadSupabase();
       // Try the active language first, fall back to Norwegian.
       let { data } = await supabase
         .from('operational_status')
@@ -137,18 +140,22 @@ const LiveStatusCards = ({
 
     load();
 
-    const channel = supabase
-      .channel('operational_status_changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'operational_status' },
-        () => load(),
-      )
-      .subscribe();
+    loadSupabase().then((supabase) => {
+      if (!active) return;
+      const ch = supabase
+        .channel('operational_status_changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'operational_status' },
+          () => load(),
+        )
+        .subscribe();
+      removeChannel = () => supabase.removeChannel(ch);
+    });
 
     return () => {
       active = false;
-      supabase.removeChannel(channel);
+      removeChannel?.();
     };
   }, [language]);
 

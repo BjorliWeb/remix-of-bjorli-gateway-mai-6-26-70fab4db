@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { loadSupabase } from '@/integrations/supabase/lazy';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LOCALES, LOCALE_LABELS, LOCALE_PREFIX, type Locale } from '@/i18n/translations';
 import { stripLocalePrefix } from '@/i18n/useLocalizedPath';
@@ -185,6 +185,8 @@ const SEOHead = () => {
 
       // 2. Optional Supabase override (seo_meta table) — kept for editorial control
       try {
+        const supabase = await loadSupabase();
+        if (cancelled) return;
         const { data } = await supabase
           .from('seo_meta')
           .select('title, description, og_image_url, keywords')
