@@ -45,11 +45,7 @@ import {
   businessRef,
   SCHEMA_IDS,
 } from '../src/lib/seo/routeSchema';
-import {
-  SKI_HOLIDAY_NORWAY_LOCALE,
-  SKI_HOLIDAY_NORWAY_PATH,
-  SKI_HOLIDAY_NORWAY_SEO,
-} from '../src/lib/seo/skiHolidayNorwaySeo';
+import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from '../src/lib/seo/skiHolidayNorwaySeo';
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import { localizeHref } from '../src/i18n/localizeHref';
@@ -1399,23 +1395,30 @@ const run = () => {
     });
   }
 
-  // /en/ski-holiday-norway — EN-only landing with no localized variants
-  // (see src/lib/seo/skiHolidayNorwaySeo.ts). The old un-prefixed URL
-  // 301s here via public/_redirects.
-  const skiHolidayHref = absoluteUrl(SKI_HOLIDAY_NORWAY_PATH, ORIGIN);
-  standalones.push({
-    path: SKI_HOLIDAY_NORWAY_PATH,
-    locale: SKI_HOLIDAY_NORWAY_LOCALE,
-    seo: { ...SKI_HOLIDAY_NORWAY_SEO },
-    seoLookupPath: '/vinter',
-    leadKey: '/ski-holiday-norway',
-    hreflangs: [
-      { hreflang: 'en', href: skiHolidayHref },
-      { hreflang: 'x-default', href: skiHolidayHref },
-    ],
-    skeletonKey: 'skisenter',
-    groupKey: 'ski-holiday-norway',
-  });
+  // Ski-holiday landing — EN/DE/SV/DA/NL, own slug per language, no NO
+  // version (see src/lib/seo/skiHolidayNorwaySeo.ts). Every version links
+  // all five + x-default (EN). The old un-prefixed /ski-holiday-norway
+  // 301s to the EN page via public/_redirects.
+  const skiHolidayHreflangs = [
+    ...SKI_HOLIDAY_LOCALES.map((l) => ({
+      hreflang: l,
+      href: absoluteUrl(SKI_HOLIDAY_PAGES[l].path, ORIGIN),
+    })),
+    { hreflang: 'x-default', href: absoluteUrl(SKI_HOLIDAY_PAGES.en.path, ORIGIN) },
+  ];
+  for (const l of SKI_HOLIDAY_LOCALES) {
+    const page = SKI_HOLIDAY_PAGES[l];
+    standalones.push({
+      path: page.path,
+      locale: l,
+      seo: { title: page.title, description: page.description },
+      seoLookupPath: '/vinter',
+      leadKey: '/ski-holiday-norway',
+      hreflangs: skiHolidayHreflangs,
+      skeletonKey: 'skisenter',
+      groupKey: 'ski-holiday-norway',
+    });
+  }
 
   for (const spec of standalones) {
     const out = renderStandalone(spec, base);

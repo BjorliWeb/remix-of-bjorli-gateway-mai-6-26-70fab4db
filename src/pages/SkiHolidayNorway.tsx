@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageHero from '@/components/PageHero';
 import {
@@ -15,17 +15,17 @@ import { trackPageView } from '@/lib/analytics';
 import { getSeoLanding, useCms } from '@/lib/cms';
 import type { SeoLandingBodySection } from '@/lib/cms';
 import { absoluteUrl, CANONICAL_ORIGIN } from '@/lib/url/normalizeInternalPath';
-import {
-  SKI_HOLIDAY_NORWAY_LOCALE,
-  SKI_HOLIDAY_NORWAY_PATH,
-  SKI_HOLIDAY_NORWAY_SEO,
-  SKI_HOLIDAY_NORWAY_SLUG,
-} from '@/lib/seo/skiHolidayNorwaySeo';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { SKI_HOLIDAY_PAGES, type SkiHolidayLocale } from '@/lib/seo/skiHolidayNorwaySeo';
 
-const LOCALE = SKI_HOLIDAY_NORWAY_LOCALE;
-const SLUG = SKI_HOLIDAY_NORWAY_SLUG;
-/** Canonical apex origin — never the www/preview/localhost host. */
-const PAGE_URL = absoluteUrl(SKI_HOLIDAY_NORWAY_PATH);
+/** Page chrome per language. The body copy lives in the CMS fixtures. */
+const LABELS: Record<SkiHolidayLocale, { home: string; faq: string; related: string }> = {
+  en: { home: 'Home', faq: 'Frequently asked questions', related: 'Plan your Bjorli ski holiday' },
+  de: { home: 'Startseite', faq: 'Häufige Fragen', related: 'Ihren Skiurlaub in Bjorli planen' },
+  sv: { home: 'Startsida', faq: 'Vanliga frågor', related: 'Planera din skidsemester i Bjorli' },
+  da: { home: 'Forside', faq: 'Ofte stillede spørgsmål', related: 'Planlæg din skiferie i Bjorli' },
+  nl: { home: 'Home', faq: 'Veelgestelde vragen', related: 'Plan je wintersport in Bjorli' },
+};
 
 const ctaClasses = (variant?: 'primary' | 'secondary' | 'outline') => {
   if (variant === 'secondary' || variant === 'outline') {
@@ -146,25 +146,34 @@ const renderSection = (section: SeoLandingBodySection, photoIndex: number) => {
 };
 
 const SkiHolidayNorway = () => {
-  useEffect(() => {
-    trackPageView({
-      path: SKI_HOLIDAY_NORWAY_PATH,
-      language: LOCALE,
-      title: SKI_HOLIDAY_NORWAY_SEO.title,
-    });
-  }, []);
+  const { locale: currentLocale } = useLanguage();
+  // No version in this language (Norwegian): send the router to the
+  // homepage. The language switcher has already put "/" in the address bar,
+  // but the router can still hold the previous ski-holiday path.
+  const hasVersion = currentLocale in SKI_HOLIDAY_PAGES;
+  const locale: SkiHolidayLocale = hasVersion ? (currentLocale as SkiHolidayLocale) : 'en';
+  const page = SKI_HOLIDAY_PAGES[locale];
+  const labels = LABELS[locale];
+  /** Canonical apex origin — never the www/preview/localhost host. */
+  const pageUrl = absoluteUrl(page.path);
 
-  const entry = useCms(() => getSeoLanding({ locale: LOCALE, slug: SLUG }), [LOCALE, SLUG]);
+  useEffect(() => {
+    if (!hasVersion) return;
+    trackPageView({
+      path: page.path,
+      language: locale,
+      title: page.title,
+    });
+  }, [hasVersion, page, locale]);
+
+  const entry = useCms(() => getSeoLanding({ locale, slug: page.slug }), [locale, page.slug]);
+
+  if (!hasVersion) return <Navigate to="/" replace />;
 
   if (!entry) {
     // Mock fallback always returns this entry — null only if WordPress is
     // connected and the CPT is missing. Render an empty shell to avoid layout shift.
-    return (
-      <PageMeta
-        title={SKI_HOLIDAY_NORWAY_SEO.title}
-        description={SKI_HOLIDAY_NORWAY_SEO.description}
-      />
-    );
+    return <PageMeta title={page.title} description={page.description} canonicalPath={page.path} />;
   }
 
   const heroImageUrl = entry.heroImage?.url ?? images.heroWinter.src;
@@ -177,11 +186,12 @@ const SkiHolidayNorway = () => {
         description={entry.seoDescription ?? entry.intro ?? ''}
         ogImage={heroImageAbsolute}
         ogType="website"
+        canonicalPath={page.path}
       />
       <JsonLd
         data={buildBreadcrumb([
-          { label: 'Home', url: absoluteUrl('/en') },
-          { label: entry.title, url: PAGE_URL },
+          { label: labels.home, url: absoluteUrl(`/${locale}`) },
+          { label: entry.title, url: pageUrl },
         ])}
       />
 
@@ -204,11 +214,11 @@ const SkiHolidayNorway = () => {
       })()}
 
       {entry.faq && entry.faq.length > 0 && (
-        <FaqBlock title="Frequently asked questions" items={entry.faq} />
+        <FaqBlock title={labels.faq} items={entry.faq} />
       )}
 
       {entry.relatedLinks && entry.relatedLinks.length > 0 && (
-        <RelatedLinksBlock title="Plan your Bjorli ski holiday" links={entry.relatedLinks} />
+        <RelatedLinksBlock title={labels.related} links={entry.relatedLinks} />
       )}
     </>
   );

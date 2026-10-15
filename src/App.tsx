@@ -90,6 +90,7 @@ const AdminEventSubmissions = lazyPage(() => import("./pages/AdminEventSubmissio
 const AdminMfa = lazyPage(() => import("./pages/AdminMfa"));
 import { ROUTE_SLUGS, type CanonicalRoute } from "@/i18n/routes";
 import { LOCALES } from "@/i18n/translations";
+import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from "@/lib/seo/skiHolidayNorwaySeo";
 import { eventsArchiveRoutePath } from "@/lib/events/archive";
 import { DEFAULT_SEASON } from "@/lib/season";
 
@@ -237,8 +238,11 @@ const AppRoutes = () => (
     <Route path="/vinter" element={<Vinter />} />
     <Route path="/live" element={<Live />} />
     <Route path="/loypekart" element={<Loypekart />} />
-    {/* English-only international SEO landing page. No NO/DE/NL/DA/SV alias. */}
-    <Route path="/ski-holiday-norway" element={<SkiHolidayNorway />} />
+    {/* Ski-holiday landing for visitors from abroad: EN/DE/SV/DA/NL, each
+        with its own slug (src/lib/seo/skiHolidayNorwaySeo.ts). No NO version. */}
+    {SKI_HOLIDAY_LOCALES.map((l) => (
+      <Route key={`ski-holiday-${l}`} path={`/${SKI_HOLIDAY_PAGES[l].slug}`} element={<SkiHolidayNorway />} />
+    ))}
     {/* Internal review-only page. Not linked from navigation, not in sitemap. */}
     <Route path="/image-inventory" element={<ImageInventory />} />
     {/* Internal hero image comparison. Not linked, not in sitemap, not in SEO. */}

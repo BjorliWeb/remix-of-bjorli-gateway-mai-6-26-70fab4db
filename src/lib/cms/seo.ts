@@ -33,10 +33,9 @@ import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 import { translationKeyOf } from './translationKey';
 import { isIsoDate } from '@/lib/date/isIsoDate';
 import {
-  SKI_HOLIDAY_NORWAY_LOCALE,
-  SKI_HOLIDAY_NORWAY_PATH,
-  SKI_HOLIDAY_NORWAY_SEO,
-  SKI_HOLIDAY_NORWAY_SLUG,
+  SKI_HOLIDAY_LOCALES,
+  SKI_HOLIDAY_PAGES,
+  type SkiHolidayLocale,
 } from '@/lib/seo/skiHolidayNorwaySeo';
 
 /** Map an internal language code to a BCP-47 tag for JSON-LD `inLanguage`. */
@@ -178,19 +177,26 @@ export async function resolveSeoForRoute(
   canonicalPath: string,
   absoluteUrl: string,
 ): Promise<ResolvedSeo | null> {
-  // EN-only ski-holiday landing. Not in the route registry, so without this
-  // SEOHead would treat it as unknown and point canonical/hreflang at the
-  // homepages. Exact path + EN-only keeps canonical self-referencing.
-  if (
-    language === SKI_HOLIDAY_NORWAY_LOCALE &&
-    canonicalPath.replace(/\/$/, '') === `/${SKI_HOLIDAY_NORWAY_SLUG}`
-  ) {
+  // Ski-holiday landing (EN/DE/SV/DA/NL, each with its own slug). Not in
+  // the route registry, so without this SEOHead would treat it as unknown
+  // and point canonical/hreflang at the homepages. Exact per-locale paths
+  // keep canonical self-referencing and hreflang limited to real versions.
+  // Any of the five slugs matches and resolves to `language`'s version:
+  // after an in-app language switch the router can still hold the previous
+  // language's slug while `language` is already the new one.
+  const skiHoliday = (SKI_HOLIDAY_PAGES as Record<string, (typeof SKI_HOLIDAY_PAGES)[SkiHolidayLocale]>)[language];
+  const onSkiHolidaySlug = SKI_HOLIDAY_LOCALES.some(
+    (l) => canonicalPath.replace(/\/$/, '') === `/${SKI_HOLIDAY_PAGES[l].slug}`,
+  );
+  if (skiHoliday && onSkiHolidaySlug) {
     return {
-      title: SKI_HOLIDAY_NORWAY_SEO.title,
-      description: SKI_HOLIDAY_NORWAY_SEO.description,
+      title: skiHoliday.title,
+      description: skiHoliday.description,
       canonicalPath,
-      availableTranslations: [SKI_HOLIDAY_NORWAY_LOCALE],
-      alternatePaths: { [SKI_HOLIDAY_NORWAY_LOCALE]: normalizeInternalPath(SKI_HOLIDAY_NORWAY_PATH) },
+      availableTranslations: [...SKI_HOLIDAY_LOCALES],
+      alternatePaths: Object.fromEntries(
+        SKI_HOLIDAY_LOCALES.map((l) => [l, normalizeInternalPath(SKI_HOLIDAY_PAGES[l].path)]),
+      ),
       translatedBody: true,
     };
   }
