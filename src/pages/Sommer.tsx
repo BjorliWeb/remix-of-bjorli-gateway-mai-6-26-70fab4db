@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useCms, getHomepage } from '@/lib/cms';
 import HomepageSections from '@/components/HomepageSections';
+import ContentPlaceholder from '@/components/ContentPlaceholder';
 
 /**
  * Summer homepage. Editorial content delivered by the CMS layer
@@ -277,8 +278,8 @@ const Sommer = () => {
         {home ? (
         home.sections && <HomepageSections sections={home.sections} />
       ) : (
-        // Holds the space while the CMS loads so the footer stays below the fold.
-        <div aria-hidden className="min-h-[100svh]" />
+        // Holds the space and hides the footer while the CMS loads.
+        <ContentPlaceholder />
       )}
       </div>
 

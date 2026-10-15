@@ -13,6 +13,7 @@ import HomepageSections from '@/components/HomepageSections';
 import HomepageCampaign from '@/components/HomepageCampaign';
 import { trackSkiPassClick } from '@/lib/analytics';
 import { EASE_OUT_EXPO } from '@/lib/motion';
+import ContentPlaceholder from '@/components/ContentPlaceholder';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
@@ -142,8 +143,8 @@ const Index = () => {
       {home ? (
         home.sections && <HomepageSections sections={home.sections} />
       ) : (
-        // Holds the space while the CMS loads so the footer stays below the fold.
-        <div aria-hidden className="min-h-[100svh]" />
+        // Holds the space and hides the footer while the CMS loads.
+        <ContentPlaceholder />
       )}
     </div>
   );
