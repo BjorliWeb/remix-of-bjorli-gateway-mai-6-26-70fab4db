@@ -93,6 +93,7 @@ import { LOCALES } from "@/i18n/translations";
 import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from "@/lib/seo/skiHolidayNorwaySeo";
 import { eventsArchiveRoutePath } from "@/lib/events/archive";
 import { DEFAULT_SEASON } from "@/lib/season";
+import ContentPlaceholder from "@/components/ContentPlaceholder";
 
 const queryClient = new QueryClient();
 
@@ -318,9 +319,9 @@ const App = () => (
         <LanguageProvider>
           <Layout>
             <SEOHead />
-            {/* Fallback holds the viewport so the footer never jumps to the
-                top while a page chunk loads. */}
-            <Suspense fallback={<div aria-hidden className="min-h-[100svh]" />}>
+            {/* Fallback holds the viewport and hides the footer while a page
+                chunk loads, so the footer never jumps (layout shift). */}
+            <Suspense fallback={<ContentPlaceholder />}>
             <Routes>
               {/* Norwegian = root, no prefix */}
               <Route path="/*" element={<AppRoutes />} />
