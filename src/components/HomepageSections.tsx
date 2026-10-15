@@ -629,6 +629,37 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               </section>
             );
 
+          case 'photoStrip':
+            // Plain row of people-on-the-slopes photos: 2 per row on
+            // mobile, 4 on desktop. Square crops keep the row even.
+            return (
+              <section key={section.id} className="px-4 pb-16 md:pb-24">
+                <div className="container mx-auto max-w-6xl grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+                  {section.images.map((image, i) => (
+                    <motion.div
+                      key={image.url}
+                      custom={i}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={REVEAL_VIEWPORT}
+                      variants={fadeUp}
+                      className="relative aspect-square overflow-hidden rounded-2xl"
+                    >
+                      <img
+                        src={image.url}
+                        alt={image.alt || ''}
+                        width={800}
+                        height={800}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            );
+
           case 'gettingHere':
             // Premium travel-facts layout: each city is a small editorial
             // unit (km big, city label below, divider line) arranged in a

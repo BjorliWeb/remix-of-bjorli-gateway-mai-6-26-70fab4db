@@ -308,7 +308,8 @@ export type CmsHomepageSection =
   | CmsTeaserSection
   | CmsNewsSection
   | CmsFaqSection
-  | CmsActivitiesSection;
+  | CmsActivitiesSection
+  | CmsPhotoStripSection;
 
 interface CmsSectionBase {
   /** Stable id used as React key. */
@@ -405,6 +406,12 @@ export interface CmsBeyondSection extends CmsSectionBase {
   body: string;
   images: CmsImage[];
   items: { title: string; desc: string; icon?: string }[];
+}
+
+/** A plain row of photos (no text, no links) to bring people onto the page. */
+export interface CmsPhotoStripSection extends CmsSectionBase {
+  type: 'photoStrip';
+  images: CmsImage[];
 }
 
 export interface CmsGettingHereSection extends CmsSectionBase {
@@ -604,7 +611,7 @@ export interface SeoLandingFlightAccess {
 }
 
 export type SeoLandingBodySection =
-  | { type: 'rich_text'; id: string; heading?: string; body: string }
+  | { type: 'rich_text'; id: string; heading?: string; body: string; image?: CmsImage }
   | { type: 'cta_block'; id: string; label: string; href: string; variant?: 'primary' | 'secondary' | 'outline'; external?: boolean }
   | { type: 'flight_access_block'; id: string; heading?: string; items: SeoLandingFlightAccess[] };
 

@@ -156,7 +156,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
     title: 'Ski Holiday in Norway',
     intro:
       'A mountain village at the head of Romsdalen with alpine slopes, cross-country trails and cabins – a ski holiday in Norway that’s easy to plan with children.',
-    heroImage: img('heroWinter', 'Bjorli mountain panorama in winter'),
+    heroImage: img('heroGroupWide', 'A group of skiers stopping to take in the mountain view at Bjorli'),
     pageSummary:
       'Bjorli is a mountain village in Lesja, between Dombås and Åndalsnes on the E136, where Gudbrandsdalen meets Romsdalen. In winter you’ll find alpine and cross-country skiing and slopes for beginners. You can get here by car, by train on the Rauma Line, or by flying into Ålesund, Molde or Oslo.',
     pageSummaryFacts: [
@@ -172,6 +172,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         heading: 'Why choose Bjorli for a ski holiday in Norway',
         body:
           'Bjorli sits where Gudbrandsdalen meets Romsdalen, on the E136 road and the Rauma Line railway between Dombås and Åndalsnes. It’s a small mountain village rather than a big resort town. Romsdalen, Trollveggen, Åndalsnes and Dovrefjell are all within reach for a day out.',
+        image: img('eventEaster', 'Skiers and a snowboarder by the Nordløypa sign above Bjorli'),
       },
       {
         id: 'ski-center',
@@ -179,6 +180,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         heading: 'Bjorli Skisenter',
         body:
           'Bjorli Skisenter is the local ski centre, with lifts and slopes for different levels. Lift and slope status, snow depth and temperature are updated live through the season, so you can check conditions before you head up.',
+        image: img('kidsView', 'Two children on skis with the mountains behind them at Bjorli'),
       },
       {
         id: 'cta-ski-resort',
@@ -193,6 +195,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         heading: 'Family-friendly skiing',
         body:
           'Beginner slopes, a ski school and ski hire make Bjorli straightforward with children – you don’t need to bring all your own kit. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
+        image: img('skiSchool', 'Children at ski school on the beginner slope at Bjorli'),
       },
       {
         id: 'travel',
@@ -207,6 +210,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         heading: 'More than alpine skiing',
         body:
           'Bjorli is also a cross-country skiing destination, with groomed trails (langrennsløyper in Norwegian) linking the village with the surrounding fells. You can try ski touring and snowshoeing too, and in summer the same mountains are used for hiking and cycling.',
+        image: img('news', 'Skiers and snowboarders taking a break in the sun above Bjorli'),
       },
     ],
     faq: [
@@ -594,6 +598,18 @@ export const mockAdapter: CmsAdapter = {
     },
     { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
     {
+      // People on the slopes right under the intro, so the page doesn't
+      // open with text only. Alt text: Norwegian on NO, English elsewhere.
+      id: 'photoStrip',
+      type: 'photoStrip',
+      images: [
+        { url: images.happyKid.src, alt: language === 'no' ? images.happyKid.alt : 'A happy girl on skis with her arms in the air at Bjorli.' },
+        { url: images.kidSlalom.src, alt: language === 'no' ? images.kidSlalom.alt : 'A skier riding through an arch on the slope at Bjorli.' },
+        { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees at Bjorli.' },
+        { url: images.eveningLift.src, alt: language === 'no' ? 'Skiløpere i stolheisen med utsikt over dalen på Bjorli.' : 'Skiers on the chairlift above the valley at Bjorli.' },
+      ],
+    },
+    {
       id: 'planning',
       type: 'cardGrid',
       title: homepageData.planning.title,
@@ -612,7 +628,7 @@ export const mockAdapter: CmsAdapter = {
       eyebrow: homepageData.skiCenter.eyebrow,
       title: homepageData.skiCenter.title,
       body: homepageData.skiCenter.body,
-      image: { url: heroWinter, alt: homepageData.skiCenter.title },
+      image: { url: images.skiRental.src, alt: homepageData.skiCenter.title },
       imageSide: 'left',
       ctas: [
         { label: homepageData.skiCenter.cta, href: '/bjorli-skisenter', variant: 'primary' },
@@ -686,8 +702,9 @@ export const mockAdapter: CmsAdapter = {
         title: d.beyondAlpine.title,
         body: d.beyondAlpine.body,
         images: [
+          // Only images[0] is rendered — keep the people photo first.
+          { url: images.kidsFrame.src, alt: language === 'no' ? images.kidsFrame.alt : 'Children on skis in the #Bjorli frame with a mountain view.' },
           { url: cabinEvening, alt: 'Hytte i vinterkveld på Bjorli' },
-          { url: crossCountry, alt: 'Vinterlandskap rundt Bjorli' },
         ],
         items: d.beyondAlpine.items.map((it, i) => ({
           title: it.title,

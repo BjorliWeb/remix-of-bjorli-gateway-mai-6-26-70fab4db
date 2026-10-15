@@ -34,9 +34,44 @@ const ctaClasses = (variant?: 'primary' | 'secondary' | 'outline') => {
   return 'inline-flex items-center px-5 py-2.5 rounded-full bg-secondary text-secondary-foreground font-medium hover:opacity-90';
 };
 
-const renderSection = (section: SeoLandingBodySection) => {
+const renderSection = (section: SeoLandingBodySection, photoIndex: number) => {
   switch (section.type) {
     case 'rich_text':
+      if (section.image) {
+        // Text beside a photo on desktop, photo first on mobile. Alternates
+        // sides so the page doesn't read as one long column of text.
+        return (
+          <motion.section
+            key={section.id}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="py-12 px-4"
+          >
+            <div className="container mx-auto max-w-5xl grid gap-8 md:grid-cols-2 md:items-center">
+              <img
+                src={section.image.url}
+                alt={section.image.alt}
+                width={1200}
+                height={800}
+                loading="lazy"
+                decoding="async"
+                className={`w-full aspect-[3/2] object-cover rounded-2xl${photoIndex % 2 === 1 ? ' md:order-last' : ''}`}
+              />
+              <div>
+                {section.heading && (
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    {section.heading}
+                  </h2>
+                )}
+                <p className="text-muted-foreground text-lg leading-relaxed whitespace-pre-line">
+                  {section.body}
+                </p>
+              </div>
+            </div>
+          </motion.section>
+        );
+      }
       return (
         <motion.section
           key={section.id}
@@ -160,7 +195,13 @@ const SkiHolidayNorway = () => {
         <PageSummaryBlock summary={entry.pageSummary} facts={entry.pageSummaryFacts} />
       )}
 
-      {entry.bodySections?.map(renderSection)}
+      {(() => {
+        // Alternate photo sides by photo count, not section position.
+        let photoIndex = 0;
+        return entry.bodySections?.map((s) =>
+          renderSection(s, s.type === 'rich_text' && s.image ? photoIndex++ : 0),
+        );
+      })()}
 
       {entry.faq && entry.faq.length > 0 && (
         <FaqBlock title="Frequently asked questions" items={entry.faq} />

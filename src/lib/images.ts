@@ -78,6 +78,10 @@ import l_topStation   from '@/assets/photos/bank/05-heis/bjorli-toppstasjon-skih
 import l_liftValley   from '@/assets/photos/bank/05-heis/bjorli-stolheis-dalutsikt-vinter-underside.jpg';
 import l_chairView    from '@/assets/photos/bank/05-heis/bjorli-winter-chairlift-view-snowy-mountains.jpg';
 import l_liftAreaFam  from '@/assets/photos/bank/05-heis/bjorli-winter-lift-area-overview-family-slopes.jpg';
+import p_happyKid     from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-glad-emma-img-4203-scaled.jpg';
+import p_kidsFrame    from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-135.jpg';
+import p_kidSlalom    from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-6-februar-e1772556153886.jpg';
+import p_powder       from '@/assets/photos/bjorli-pudderkjoring-vinter.jpg';
 import l_fjellheis    from '@/assets/photos/bank/05-heis/bjorli-winter-fjellheis-mountain-lift-open-landscape.jpg';
 import l_chairOverview from '@/assets/photos/bank/05-heis/bjorli-winter-chairlift-slope-overview.jpg';
 
@@ -253,6 +257,11 @@ export const images = {
   carvingCloseAlt:  { src: s_carvingClose2,alt: 'Skiaction i oransje på Bjorli.',                           wpField: 'carving_close_alt_image',  placeholder: false },
   skiDescent:       { src: s_skiDescent,   alt: 'Ski-nedfart med fjellutsikt på Bjorli.',                   wpField: 'ski_descent_image',        placeholder: false },
   kidsView:         { src: f_kidView,      alt: 'Barn på ski med fjellutsikt på Bjorli.',                   wpField: 'kids_view_image',          placeholder: false },
+  // People on the slopes — homepage photo strip and "Mer enn alpint".
+  happyKid:         { src: p_happyKid,     alt: 'Blid jente på ski med armene i været i bakken på Bjorli.', wpField: 'happy_kid_image',          placeholder: false },
+  kidsFrame:        { src: p_kidsFrame,    alt: 'Barn på ski i #Bjorli-rammen med fjellutsikt.',            wpField: 'kids_frame_image',         placeholder: false },
+  kidSlalom:        { src: p_kidSlalom,    alt: 'Skiløper kjører gjennom en bue i bakken på Bjorli.', wpField: 'kid_slalom_image',     placeholder: false },
+  powderSkier:      { src: p_powder,       alt: 'Skiløper i dyp puddersnø mellom snødekte trær på Bjorli.',  wpField: 'powder_skier_image',       placeholder: false },
   summerWater:      { src: sm_water,       alt: 'Vannaktivitet i basseng på Bjorli om sommeren.',           wpField: 'summer_water_image',       placeholder: false },
   // SUMMER-SAFE / NATURE — calm fishing-lake landscape. Used on summer
   // pages as a nature/landscape stand-in when no dedicated hiking or
