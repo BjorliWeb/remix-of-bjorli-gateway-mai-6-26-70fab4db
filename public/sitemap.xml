@@ -2342,12 +2342,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/weather-and-webcams/"/>
   </url>
   <url>
-    <loc>https://bjorli.no/ski-holiday-norway/</loc>
+    <loc>https://bjorli.no/en/ski-holiday-norway/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/ski-holiday-norway/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
   </url>
   <url>
     <loc>https://bjorli.no/handel/</loc>

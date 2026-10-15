@@ -64,3 +64,17 @@ describe('event JSON-LD', () => {
     expect(ld.dateModified).toBeUndefined();
   });
 });
+
+describe('EN-only ski-holiday landing', () => {
+  it('self-references /en/ski-holiday-norway/ with en as the only translation', async () => {
+    const seo = await resolveSeoForRoute('en', '/ski-holiday-norway', 'https://bjorli.no/en/ski-holiday-norway/');
+    expect(seo?.alternatePaths).toEqual({ en: '/en/ski-holiday-norway/' });
+    expect(seo?.availableTranslations).toEqual(['en']);
+    expect(seo?.title).toContain('Ski Holiday in Norway');
+  });
+
+  it('is not resolved for other locales', async () => {
+    expect(await resolveSeoForRoute('no', '/ski-holiday-norway', 'https://bjorli.no/ski-holiday-norway/')).toBeNull();
+    expect(await resolveSeoForRoute('de', '/ski-holiday-norway', 'https://bjorli.no/de/ski-holiday-norway/')).toBeNull();
+  });
+});

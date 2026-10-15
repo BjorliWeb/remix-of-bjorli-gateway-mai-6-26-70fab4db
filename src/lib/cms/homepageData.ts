@@ -23,6 +23,17 @@ export interface HomepageHero {
   ctaStay: string;
   ctaOpening: string;
   liftPassUrl: string;
+  /**
+   * Optional travel line under the hero CTAs (EN only today, aimed at UK
+   * visitors). `journeyLabel` links to the localized getting-here page;
+   * `guideHref` is an absolute site path.
+   */
+  travelNote?: {
+    text: string;
+    journeyLabel: string;
+    guideLabel: string;
+    guideHref: string;
+  };
 }
 
 export interface HomepageIntro {
@@ -117,6 +128,12 @@ const PAGE_COPY: Record<Language, HomepageData> = {
       ctaStay: 'Find a stay',
       ctaOpening: 'Opening hours and conditions',
       liftPassUrl: LIFT_PASS_URL,
+      travelNote: {
+        text: 'Travelling from the UK? Ålesund Airport is around 2½ hours from Bjorli by car.',
+        journeyLabel: 'Plan your journey',
+        guideLabel: 'Ski holiday guide',
+        guideHref: '/en/ski-holiday-norway/',
+      },
     },
     intro: {
       title: 'Winter at Bjorli',

@@ -32,6 +32,12 @@ import { slugForCanonical, type CanonicalRoute } from '@/i18n/routes';
 import { normalizeInternalPath } from '@/lib/url/normalizeInternalPath';
 import { translationKeyOf } from './translationKey';
 import { isIsoDate } from '@/lib/date/isIsoDate';
+import {
+  SKI_HOLIDAY_NORWAY_LOCALE,
+  SKI_HOLIDAY_NORWAY_PATH,
+  SKI_HOLIDAY_NORWAY_SEO,
+  SKI_HOLIDAY_NORWAY_SLUG,
+} from '@/lib/seo/skiHolidayNorwaySeo';
 
 /** Map an internal language code to a BCP-47 tag for JSON-LD `inLanguage`. */
 const toBcp47 = (language: Language): string =>
@@ -172,6 +178,23 @@ export async function resolveSeoForRoute(
   canonicalPath: string,
   absoluteUrl: string,
 ): Promise<ResolvedSeo | null> {
+  // EN-only ski-holiday landing. Not in the route registry, so without this
+  // SEOHead would treat it as unknown and point canonical/hreflang at the
+  // homepages. Exact path + EN-only keeps canonical self-referencing.
+  if (
+    language === SKI_HOLIDAY_NORWAY_LOCALE &&
+    canonicalPath.replace(/\/$/, '') === `/${SKI_HOLIDAY_NORWAY_SLUG}`
+  ) {
+    return {
+      title: SKI_HOLIDAY_NORWAY_SEO.title,
+      description: SKI_HOLIDAY_NORWAY_SEO.description,
+      canonicalPath,
+      availableTranslations: [SKI_HOLIDAY_NORWAY_LOCALE],
+      alternatePaths: { [SKI_HOLIDAY_NORWAY_LOCALE]: normalizeInternalPath(SKI_HOLIDAY_NORWAY_PATH) },
+      translatedBody: true,
+    };
+  }
+
   // Top-level subpages: /heiskort, /langrenn, /fotturer, /sykling, /familie
   const topMatch = canonicalPath.match(/^\/([^/]+)$/);
   if (topMatch && isSubPageSlug(topMatch[1])) {

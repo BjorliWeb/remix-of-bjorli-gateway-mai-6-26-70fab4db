@@ -89,6 +89,10 @@
 /privacy      /personvern/         301
 /privacy/     /personvern/         301
 
+# EN-only ski-holiday landing moved under /en (see src/lib/seo/skiHolidayNorwaySeo.ts).
+/ski-holiday-norway    /en/ski-holiday-norway/   301
+/ski-holiday-norway/   /en/ski-holiday-norway/   301
+
 # Old Strapi page 'Vær- og føreinformasjon' (weather, conditions, webcams).
 /nb/mountain-information   /vaer-og-webkamera/   301
 /nb/mountain-information/  /vaer-og-webkamera/   301
