@@ -133,24 +133,6 @@ const Index = () => {
               <Clock className="h-3.5 w-3.5" />
               {hero.hero.ctaOpening}
             </Link>
-            {hero.hero.travelNote && (
-              <p className="mt-3 max-w-xl mx-auto text-white/80 text-sm leading-relaxed text-on-image">
-                {hero.hero.travelNote.text}{' '}
-                <Link
-                  to={lp('/reisen-hit')}
-                  className="font-medium text-white underline underline-offset-4 hover:text-white/90"
-                >
-                  {hero.hero.travelNote.journeyLabel}
-                </Link>
-                {' · '}
-                <Link
-                  to={hero.hero.travelNote.guideHref}
-                  className="font-medium text-white underline underline-offset-4 hover:text-white/90"
-                >
-                  {hero.hero.travelNote.guideLabel}
-                </Link>
-              </p>
-            )}
           </motion.div>
         </div>
       </section>

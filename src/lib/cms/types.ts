@@ -604,7 +604,7 @@ export interface SeoLandingFlightAccess {
 }
 
 export type SeoLandingBodySection =
-  | { type: 'rich_text'; id: string; heading?: string; body: string }
+  | { type: 'rich_text'; id: string; heading?: string; body: string; image?: CmsImage }
   | { type: 'cta_block'; id: string; label: string; href: string; variant?: 'primary' | 'secondary' | 'outline'; external?: boolean }
   | { type: 'flight_access_block'; id: string; heading?: string; items: SeoLandingFlightAccess[] };
 
