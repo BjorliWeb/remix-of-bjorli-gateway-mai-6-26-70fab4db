@@ -77,7 +77,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', ForecastCopy> = {
   en: {
     title: 'Weather forecast for Bjorli', compactTitle: 'Weather forecast', baseNote: 'The forecast applies to the base area at Bjorli.',
     sourceLabel: 'Source: Google Weather API', fetchedLabel: 'Retrieved', unavailable: 'The forecast is temporarily unavailable.',
-    staleNote: 'Showing the last retrieved forecast – it may be out of date.', loading: 'Loading forecast …', hourlyTitle: 'Next 24 hours',
+    staleNote: 'Showing the last forecast we retrieved. It may be out of date.', loading: 'Loading forecast …', hourlyTitle: 'Next 24 hours',
     dailyTitle: 'Next 7 days', temperature: 'Temperature', wind: 'Wind', gust: 'Gusts', windGustNote: 'Wind and gusts in m/s',
     windArrowNote: 'The arrow shows where the wind is blowing towards. The text shows where it comes from.', precipitation: 'Precipitation',
     forecastAt: 'Forecast at', conditionUnavailable: 'Weather condition unavailable',

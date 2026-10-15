@@ -60,29 +60,29 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
   en: {
     metaTitle: 'Romsdalsgondolen as a day trip from Bjorli | Views over Romsdalen',
     metaDesc:
-      'Romsdalsgondolen takes you from Åndalsnes up to Nesaksla, with views over Romsdalen. A natural day trip from Bjorli. Check opening hours and tickets with Romsdalsgondolen.',
+      'Romsdalsgondolen takes you from Åndalsnes up to Nesaksla, with views over Romsdalen. A good day trip from Bjorli. Check the opening times and tickets with Romsdalsgondolen.',
     heroTitle: 'Romsdalsgondolen',
-    heroSubtitle: 'A day trip from Bjorli to Åndalsnes — up by cable car to wide views over Romsdalen.',
+    heroSubtitle: 'A day trip from Bjorli to Åndalsnes, then up by gondola for wide views over Romsdalen.',
     intro1:
-      'Experience the wild Norwegian landscape and a sweeping view over Åndalsnes, the green valley sides, the emerald Rauma river and iconic peaks like Romsdalshorn and Vengetindene.',
+      'Take in the wild Norwegian landscape and a sweeping view over Åndalsnes, the green valley sides, the emerald Rauma river and well-known peaks such as Romsdalshorn and Vengetindene.',
     intro2:
-      'Romsdalsgondolen takes you from the centre of Åndalsnes up to Nesaksla in just a few minutes — accessible for everyone, and one of the most striking cable-car rides in Norway. From Bjorli it’s a natural day trip by train along Raumabanen or by car down through Romsdalen.',
+      'Romsdalsgondolen takes you from the centre of Åndalsnes up to Nesaksla in just a few minutes. From Bjorli it makes a good day trip, by train on the Rauma Line or by car down through Romsdalen.',
     intro3: 'Romsdalsgondolen is an external attraction and is not operated by Bjorli.',
     cards: [
-      { title: 'Eggen Restaurant at the top', body: 'At the top you’ll find Eggen Restaurant — traditional Norwegian food with a modern touch, built on local produce, in a relaxed setting with the Romsdalen mountains as a backdrop.' },
-      { title: 'Explore the summit', body: 'Gravelled paths and marked routes lead out to viewpoints and quiet resting spots in the mountains. Suitable for short walks as well as longer stays at the top.' },
-      { title: 'Walk down via Rampestreken', body: 'For a different experience you can walk back down to Åndalsnes along a steep path with stone steps, past the well-known Rampestreken viewpoint.' },
-      { title: 'Accessible for everyone', body: 'The cable-car ride itself is accessible for all, and works well for families, couples and groups looking for an easy way up into the Romsdalen mountains.' },
+      { title: 'Eggen Restaurant at the top', body: 'At the top you’ll find Eggen Restaurant, serving traditional Norwegian food with a modern touch and local produce, in a relaxed setting with the Romsdalen mountains as a backdrop.' },
+      { title: 'Explore the summit', body: 'Gravel paths and marked routes lead out to viewpoints and quiet places to rest. Good for a short walk or a longer stay at the top.' },
+      { title: 'Walk down via Rampestreken', body: 'For something different, you can walk back down to Åndalsnes on a steep path with stone steps, past the well-known Rampestreken viewpoint.' },
+      { title: 'An easy way up', body: 'The gondola ride is an easy way up into the Romsdalen mountains for families, couples and groups.' },
     ],
     figCaption: 'View from the summit area over Åndalsnes, the Rauma river and the Romsdalen mountains.',
     returnTitle: 'Return ticket',
     returnBody:
-      'The return ticket includes both the ride up and the ride down, and suits anyone planning to take the cable car both ways. Once activated, the return leg must be used on the same day.',
-    hoursTitle: 'Opening hours and tickets',
-    hoursBody1: 'Season, opening hours and prices may change. Always check current opening hours directly with Romsdalsgondolen before you plan your trip:',
+      'A return ticket covers the ride up and the ride down, and suits you if you plan to take the gondola both ways. Once activated, the return journey must be used on the same day.',
+    hoursTitle: 'Opening times and tickets',
+    hoursBody1: 'The season, opening times and prices may change. Always check the latest opening times directly with Romsdalsgondolen before you plan your trip:',
     hoursBody2: 'romsdalsgondolen.no',
-    ctaPrimary: 'See opening hours and tickets at Romsdalsgondolen',
-    ctaBack: 'Back to activities',
+    ctaPrimary: 'See opening times and tickets at Romsdalsgondolen',
+    ctaBack: 'Back to things to do',
   },
   de: {
     metaTitle: 'Romsdalsgondolen als Tagesausflug ab Bjorli | Aussicht über Romsdalen',

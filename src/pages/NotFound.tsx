@@ -5,7 +5,7 @@ import { useLocalizedPath } from "@/i18n/useLocalizedPath";
 
 const NOT_FOUND_COPY: Record<string, { title: string; message: string; cta: string }> = {
   no: { title: '404', message: 'Beklager! Siden finnes ikke', cta: 'Tilbake til forsiden' },
-  en: { title: '404', message: 'Oops! Page not found', cta: 'Return to home' },
+  en: { title: '404', message: 'Sorry, we can’t find that page', cta: 'Back to the homepage' },
   de: { title: '404', message: 'Hoppla! Seite nicht gefunden', cta: 'Zurück zur Startseite' },
   nl: { title: '404', message: 'Oeps! Pagina niet gevonden', cta: 'Terug naar de startpagina' },
   da: { title: '404', message: 'Ups! Siden blev ikke fundet', cta: 'Tilbage til forsiden' },

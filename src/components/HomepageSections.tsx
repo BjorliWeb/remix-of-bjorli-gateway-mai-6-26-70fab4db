@@ -165,11 +165,12 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-foreground leading-[1.08] tracking-tight">
                           {section.statement}
                         </h2>
-                        {section.supportingText && (
-                          <p className="mt-8 text-foreground/75 text-base md:text-lg leading-relaxed max-w-2xl">
-                            {section.supportingText}
+                        {/* A blank line in supportingText starts a new paragraph. */}
+                        {section.supportingText?.split(/\n\s*\n/).filter(Boolean).map((paragraph, i) => (
+                          <p key={i} className={`${i === 0 ? 'mt-8' : 'mt-4'} text-foreground/75 text-base md:text-lg leading-relaxed max-w-2xl`}>
+                            {paragraph}
                           </p>
-                        )}
+                        ))}
                       </div>
                     </div>
                     {section.proofPoints && section.proofPoints.length > 0 && (

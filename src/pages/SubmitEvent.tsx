@@ -93,24 +93,24 @@ const COPY = {
   en: {
     title: 'Submit an event on Bjorli',
     subtitle:
-      'Running an activity, event or experience on Bjorli? Send the details here and we will consider it for publication on bjorli.no.',
+      'Running an activity, event or experience in Bjorli? Send us the details and we’ll consider it for publication on bjorli.no.',
     intro: [
       'All submissions are reviewed by our editors before publication.',
       'We may shorten or adjust text to match the site’s tone.',
       'There is no cost to submit relevant local content.',
       'You can normally expect a reply within a few days.',
     ],
-    s1: '1 — Basic information',
-    s2: '2 — Date and location',
-    s3: '3 — Category',
-    s4: '4 — Images',
-    s5: '5 — Consent',
+    s1: '1. Basic information',
+    s2: '2. Date and location',
+    s3: '3. Category',
+    s4: '4. Images',
+    s5: '5. Consent',
     f: {
       title: 'Event title',
       summary: 'Short intro',
       summaryHelp: 'One sentence that describes what this is.',
       description: 'Full description',
-      organizer: 'Organizer name',
+      organizer: 'Organiser name',
       contactName: 'Contact person',
       email: 'Email',
       phone: 'Phone',
@@ -138,7 +138,7 @@ const COPY = {
     },
     success: {
       title: 'Thank you for your submission.',
-      body: 'Your event will be reviewed before any publication on bjorli.no. We will reach out by email if we need more information.',
+      body: 'Your event will be reviewed before any publication on bjorli.no. We’ll get in touch by email if we need more information.',
       again: 'Submit another event',
     },
     errors: {

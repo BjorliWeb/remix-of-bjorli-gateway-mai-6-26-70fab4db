@@ -187,13 +187,13 @@ const PAGE_LABELS: Record<Locale, Partial<Record<LinkTarget, string>>> = {
     nyheter: 'Nyheter', tips: 'Tips',
   },
   en: {
-    home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', aktiviteter: 'Activities',
-    'vaer-og-webkamera': 'Weather and webcams', arrangementer: "What's on",
-    skisenter: 'Bjorli Ski Resort', overnatting: 'Accommodation', 'mat-og-drikke': 'Food and drink',
+    home: 'Bjorli', sommer: 'Summer', vinter: 'Winter', aktiviteter: 'Things to do',
+    'vaer-og-webkamera': 'Weather & webcams', arrangementer: 'What’s on',
+    skisenter: 'Bjorli Ski Resort', overnatting: 'Where to stay', 'mat-og-drikke': 'Food & drink',
     kontakt: 'Contact', fotturer: 'Hiking', sykling: 'Cycling',
     fiske: 'Fishing', familie: 'Family', gardsbesok: 'Farm visits', 'golden-train': 'Golden Train',
-    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Ski passes',
-    apningstider: 'Opening hours', skiskole: 'Ski school', skiutleie: 'Ski rental',
+    romsdalsgondolen: 'Romsdalsgondolen', sagelva: 'Sagelva', heiskort: 'Lift passes',
+    apningstider: 'Opening times', skiskole: 'Ski school', skiutleie: 'Ski hire',
     nyheter: 'News', tips: 'Tips',
   },
   de: {
@@ -447,8 +447,8 @@ const homeBodySkeleton = (locale: Locale): string => {
     <section style="margin:2.5rem 0">
       <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.intro.title)}</h2>
       <p style="font-size:1.05rem;line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.intro.body)}</p>
-      ${data.intro.statement ? `<p style="font-size:1.125rem;line-height:1.55;max-width:65ch;color:#003b4b;margin:0 0 0.75rem">${escapeHtml(data.intro.statement)}</p>` : ''}
-      ${data.intro.supportingText ? `<p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(data.intro.supportingText)}</p>` : ''}${proofPoints}
+      ${data.intro.statement && data.intro.statement !== data.intro.title ? `<p style="font-size:1.125rem;line-height:1.55;max-width:65ch;color:#003b4b;margin:0 0 0.75rem">${escapeHtml(data.intro.statement)}</p>` : ''}
+      ${(data.intro.supportingText ?? '').split(/\n\s*\n/).filter((p) => p && p !== data.intro.body).map((p) => `<p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 0.75rem">${escapeHtml(p)}</p>`).join('')}${proofPoints}
     </section>
     <section style="margin:2.5rem 0">
       <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.planning.title)}</h2>

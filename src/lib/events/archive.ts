@@ -88,9 +88,9 @@ export const EVENTS_ARCHIVE_SEO: Record<Locale, { title: string; description: st
       'Arkiv over arrangementer på Bjorli, Lesja og i Romsdalen som er avsluttet. Sidene ligger åpne, så gamle lenker fortsatt virker.',
   },
   en: {
-    title: 'Past events at Bjorli | Archive',
+    title: 'Past events in Bjorli | Archive',
     description:
-      'Archive of finished events at Bjorli, Lesja and in Romsdalen. The pages stay online so older links keep working.',
+      'An archive of past events in Bjorli, Lesja and Romsdalen. The pages stay online so older links still work.',
   },
   de: {
     title: 'Vergangene Veranstaltungen in Bjorli | Archiv',

@@ -67,22 +67,22 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
   },
   en: {
     heroTitle: 'Cross-country skiing in Bjorli',
-    heroSubtitle: 'Just over 80 km of groomed trails — from a floodlit loop in the village to open mountain tracks.',
+    heroSubtitle: 'Just over 80 km of groomed trails, from a floodlit loop in the village to open mountain tracks.',
     intro:
-      'Bjorli has a little over <strong>80 km of groomed cross-country trails</strong>. The network runs from forest terrain down in the village all the way up onto the open fells, and includes a floodlit <strong>lysløype</strong> for evening sessions. Conditions hold up well through the season, so you can pick anything from a short loop to a full day out on the mountain.',
-    loypestatusTitle: 'Trail status right now',
+      'Bjorli has just over <strong>80 km of groomed cross-country ski trails</strong>. The network runs from the forest down in the village all the way up onto the open mountain, and includes a floodlit trail (<strong>lysløype</strong>) for evening skiing. Choose anything from a short loop to a whole day out on the mountain.',
+    loypestatusTitle: 'Trail status now',
     loypestatusBody:
-      'See which trails were just groomed and which ones haven’t been touched yet. Updated by the local trail crew in Bjorli.',
-    loypestatusCta: 'Check trail status on løyper.net',
+      'See which trails have just been groomed and which haven’t been done yet. Updated by the local trail team in Bjorli.',
+    loypestatusCta: 'Check the trail status on løyper.net',
     lysloypeBadge: 'Floodlit trail',
     lysloypeAlt:
-      'A skier on the Bjorli floodlit trail on a dark winter evening, with lamp posts lining the groomed track.',
-    lysloypeTitle: 'Ski long after the sun goes down',
+      'A skier on the floodlit trail in Bjorli on a dark winter evening, with lamp posts along the groomed track.',
+    lysloypeTitle: 'Ski after the sun goes down',
     lysloypeBody1:
-      'The floodlit loop in Bjorli lets you keep skiing well after sunset — whether you’re after a calm evening glide or a proper interval session. It’s also usually the first trail to be groomed at the start of the season.',
+      'The floodlit loop in Bjorli lets you keep skiing after sunset, whether you’d like a relaxed evening on skis or a proper training session.',
     lysloypeBody2:
-      'Check current opening hours and status before you head out — the lighting is run locally and varies through the season.',
-    praktiskBadge: 'Practical info',
+      'Check the opening times and status before you head out. The lighting is run locally and varies through the season.',
+    praktiskBadge: 'Practical information',
     praktiskTitle: 'Before you head out',
     cardCheck: {
       title: 'Check the conditions',
@@ -92,11 +92,11 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
     cardWeather: {
       title: 'Weather changes fast',
-      body: 'Up on the mountain the wind can pick up and visibility can drop quickly. Bring extra layers, food and water — even on short tours.',
+      body: 'Up on the mountain the wind can pick up and visibility can drop quickly. Bring extra layers, food and water, even on short trips.',
     },
     cardRespect: {
       title: 'Be considerate',
-      body: 'Follow signs and markings, don’t wreck the tracks, and respect private areas and the cabins along the trails.',
+      body: 'Follow the signs and markings, don’t walk in the ski tracks, and respect private land and the cabins along the trails.',
     },
   },
   de: {

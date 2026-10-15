@@ -58,7 +58,7 @@ export const CATEGORY_LABELS: Record<'no' | 'en', Record<EventCategoryKey, strin
     'mat-drikke': 'Food & drink',
     kurs: 'Courses',
     arrangement: 'Event',
-    barn: 'Kids',
+    barn: 'Children',
     klatring: 'Climbing',
     fiske: 'Fishing',
     sommer: 'Summer',

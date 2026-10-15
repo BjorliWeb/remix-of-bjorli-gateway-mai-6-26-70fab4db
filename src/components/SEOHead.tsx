@@ -38,8 +38,8 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
     keywords: 'bjorli, destinasjon bjorli, snøsikre bjorli, bjorli skisenter, vinterferie norge, hytte bjorli, romsdalen, ski, langrenn',
   },
   en: {
-    title: 'Bjorli – summer, winter and mountain experiences',
-    description: 'Bjorli lies in the upper part of Gudbrandsdalen, right by the Romsdalen border. Skiing, hiking, cycling, fishing, places to stay and events all year.',
+    title: 'Bjorli, Norway | Family Ski Holidays & Mountain Breaks',
+    description: 'Plan your holiday in Bjorli, Norway. Explore skiing, cross-country trails, cosy cabins and mountain activities, with practical information for your stay.',
     keywords: 'bjorli, bjorli norway, snow sure ski resort, ski holiday norway, romsdalen, alpine skiing, cross country skiing, family ski',
   },
   de: {

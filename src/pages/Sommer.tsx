@@ -56,19 +56,19 @@ const COPY: Record<Locale, SommerCopy> = {
   en: {
     heroTitle: 'Summer in Bjorli',
     heroSubtitle:
-      'Basecamp between mountains and fjords: hiking, cycling, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell and day trips westward.',
-    primaryCta: 'See summer activities',
+      'Your base between the mountains and the fjords: hiking, cycling, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell and day trips to the west.',
+    primaryCta: 'See things to do in summer',
     secondaryCta: 'Plan your journey',
     finalTitle: 'Plan an active summer in Bjorli',
-    finalPrimaryCta: 'See activities',
-    finalSecondaryCta: 'See accommodation',
+    finalPrimaryCta: 'See things to do',
+    finalSecondaryCta: 'See places to stay',
     stayWidgetTitle: 'Plan your summer stay in Bjorli',
     stayWidgetBody:
-      'Find a cabin, apartment or accommodation close to the mountains, activities and summer experiences.',
-    stayWidgetPrimaryCta: 'Find accommodation',
-    stayWidgetProof1: 'Short distance to hiking, cycling and mountains',
+      'Find a cabin, apartment or other place to stay near the mountains and the things you’d like to do.',
+    stayWidgetPrimaryCta: 'Find your accommodation',
+    stayWidgetProof1: 'Hiking, cycling and the mountains nearby',
     stayWidgetProof2: 'For families, couples and friends',
-    stayWidgetProof3: 'Base between Eastern and Northwestern Norway',
+    stayWidgetProof3: 'A base between eastern and north-western Norway',
   },
   de: {
     heroTitle: 'Sommer in Bjorli',

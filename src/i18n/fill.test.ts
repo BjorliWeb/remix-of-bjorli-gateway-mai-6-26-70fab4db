@@ -17,9 +17,10 @@ describe('live status dictionary', () => {
     }
   });
 
-  it('uses Bjorli Skisenter as a proper name in every language', () => {
-    for (const d of Object.values(dictionaries)) {
-      expect(d.live.latestNews).toContain('Bjorli Skisenter');
+  it('uses Bjorli Skisenter as a proper name, except the English display name', () => {
+    for (const l of ['no', 'de', 'nl', 'da', 'sv'] as const) {
+      expect(dictionaries[l].live.latestNews).toContain('Bjorli Skisenter');
     }
+    expect(dictionaries.en.live.latestNews).toContain('Bjorli Ski Resort');
   });
 });
