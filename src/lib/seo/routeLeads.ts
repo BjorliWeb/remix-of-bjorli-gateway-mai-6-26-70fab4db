@@ -39,7 +39,7 @@ type RouteLeadMap = Partial<Record<string, Partial<Record<Locale, RouteLeadEntry
 export const ROUTE_LEADS: RouteLeadMap = {
   salgsbetingelser: {
     no: { h1: 'Salgsbetingelser', lead: 'Generelle salgsbetingelser ved kjøp av heiskort, aktiviteter og andre produkter på nett hos Bjorli Skisenter AS.' },
-    en: { h1: 'Terms of Sale', lead: 'General terms of sale for online purchases of lift passes, activities and other products from Bjorli Skisenter AS. The Norwegian text is the authoritative version.' },
+    en: { h1: 'Terms of sale', lead: 'General terms of sale for online purchases of lift passes, activities and other products from Bjorli Skisenter AS. The Norwegian text is the authoritative version.' },
     de: { h1: 'Verkaufsbedingungen', lead: 'Allgemeine Verkaufsbedingungen für den Online-Kauf von Skipässen, Aktivitäten und anderen Produkten bei Bjorli Skisenter AS. Maßgeblich ist der norwegische Text.' },
     nl: { h1: 'Verkoopvoorwaarden', lead: 'Algemene verkoopvoorwaarden voor online aankopen van skipassen, activiteiten en andere producten bij Bjorli Skisenter AS. De Noorse tekst is leidend.' },
     da: { h1: 'Salgsbetingelser', lead: 'Generelle salgsbetingelser ved onlinekøb af liftkort, aktiviteter og andre produkter hos Bjorli Skisenter AS. Den norske tekst er den gældende.' },
@@ -52,9 +52,9 @@ export const ROUTE_LEADS: RouteLeadMap = {
       supporting: 'Herfra når du Trollveggen, Romsdalsgondolen i Åndalsnes og Dovrefjell på under en time i bil. Sjekk hva som skjer, finn overnatting og se dagens forhold på webkamera før du drar.',
     },
     en: {
-      h1: 'Bjorli – a year-round mountain destination at the top of Gudbrandsdalen',
-      lead: 'Bjorli sits 575 metres above sea level at the top of Gudbrandsdalen, right on the border of Romsdalen, with the Rauma Line and the E136 passing right through. In winter it is the snow that draws people here – Bjorli Skisenter often opens before the rest of Norway. Come summer, skis give way to hiking boots, bikes and fishing rods.',
-      supporting: 'Trollveggen, the Romsdalsgondolen in Åndalsnes and Dovrefjell are all within an hour’s drive. Check what’s on, find a place to stay and have a look at the webcams before you set off.',
+      h1: 'Bjorli, a mountain destination at the top of Gudbrandsdalen',
+      lead: 'Bjorli sits 575 metres above sea level at the top of Gudbrandsdalen, on the edge of Romsdalen, with the Rauma Line and the E136 running through the village. In winter you come for the skiing at Bjorli Ski Resort. In summer you swap your skis for walking boots, a bike or a fishing rod.',
+      supporting: 'Trollveggen, Romsdalsgondolen in Åndalsnes and Dovrefjell are all within an hour’s drive. Check what’s on, find your accommodation and look at the webcams before you set off.',
     },
     de: {
       h1: 'Bjorli – Ganzjahresziel am oberen Ende des Gudbrandsdalen',
@@ -86,8 +86,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Summer in Bjorli',
-      lead: 'Summer in Bjorli is about what lies right outside the door: trails into Reinheimen, gravel roads for cycling, fishing lakes in Lesja and the bathing pools at Sagelva. Lesjaskogsvatnet and the Rauma river offer some of the finest fishing in the valley.',
-      supporting: 'Bjorli also works well as a base for day trips – the Romsdalsgondolen, Trollveggen and Dovrefjell are all within reach.',
+      lead: 'Summer in Bjorli is all about what’s on your doorstep: trails into Reinheimen, gravel roads for cycling, fishing lakes in Lesja and the pools at Sagelva. Lesjaskogsvatnet and the Rauma river offer some of the best fishing in the valley.',
+      supporting: 'Bjorli also makes a good base for day trips. Romsdalsgondolen, Trollveggen and Dovrefjell are all within reach.',
     },
     de: {
       h1: 'Sommer in Bjorli',
@@ -119,8 +119,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Winter in Bjorli',
-      lead: 'Bjorli is one of the most snow-sure places in southern Norway, and the season often starts earlier here than anywhere else in the country. Alpine skiing at Bjorli Skisenter, groomed cross-country trails in the high mountains, and plenty of room for sledging and snow play for the youngest.',
-      supporting: 'Ski passes, opening hours, ski school and rental each have their own page – and the webcams show conditions on the slopes right now.',
+      lead: 'Winter in Bjorli means skiing at Bjorli Ski Resort, groomed cross-country ski trails in the mountains and plenty of room for the youngest to go sledging and play in the snow.',
+      supporting: 'Lift passes, opening times, ski school and ski hire each have their own page, and the webcams show the latest images from the slopes.',
     },
     de: {
       h1: 'Winter in Bjorli',
@@ -152,8 +152,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Things to do in Bjorli and Lesja',
-      lead: 'Activities in Bjorli follow the seasons. Winter means alpine skiing, cross-country and ski school at Bjorli Skisenter. Summer means hiking, cycling, fishing and farm visits in Lesja – plus outings like the Golden Train on the Rauma Line and the Romsdalsgondolen in Åndalsnes.',
-      supporting: 'The pages below gather what you need to plan: what suits children, where to park, and what is worth a full day.',
+      lead: 'What you can do in Bjorli depends on the season. In winter there’s skiing, cross-country skiing and ski school at Bjorli Ski Resort. In summer there’s hiking, cycling, fishing and farm visits in Lesja, plus days out on the Golden Train along the Rauma Line and Romsdalsgondolen in Åndalsnes.',
+      supporting: 'The pages below help you plan: what suits children, where to park and what’s worth a whole day.',
     },
     de: {
       h1: 'Aktivitäten in Bjorli und Lesja',
@@ -185,8 +185,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Weather, snow and webcams in Bjorli',
-      lead: 'See what Bjorli actually looks like right now. The webcams show the ski resort and the mountain in real time, and the forecast covers both the valley and the tops. Handy before you pack the car – whether you are going skiing or heading into the hills.',
-      supporting: 'Conditions look good? Find somewhere to stay, check lift passes or see what’s on in Bjorli this week.',
+      lead: 'See what Bjorli looks like today. The webcams show the ski resort and the mountain, and the forecast covers both the valley and the tops. It’s worth a look before you pack the car, whether you’re going skiing or heading for the hills.',
+      supporting: 'Conditions looking good? Find your accommodation, check lift passes or see what’s on in Bjorli this week.',
     },
     de: {
       h1: 'Wetter, Schnee und Webcams in Bjorli',
@@ -218,8 +218,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'What’s on in Bjorli',
-      lead: 'From ski festivals and races on the slopes to local food days and family events – more happens in Bjorli than many expect. The overview is updated through the season.',
-      supporting: 'Combine an event with an overnight stay, and check the webcams before you head out.',
+      lead: 'From ski festivals and races on the slopes to local food days and family events, there’s more going on in Bjorli than you might expect. We update the list through the season.',
+      supporting: 'Combine an event with a night or two in Bjorli, and check the webcams before you set off.',
     },
     de: {
       h1: 'Veranstaltungen in Bjorli',
@@ -251,8 +251,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Cycling in Bjorli and Romsdalen',
-      lead: 'Gravel roads across Lesjaskogen, trails through the mountain birch forest and tarmac descending Romsdalen – the riding around Bjorli is varied and mostly free of traffic. The Rauma Line makes it easy to take the train one way and ride the other.',
-      supporting: 'Combine it with a hike or some fishing, or point the bike towards Dovrefjell.',
+      lead: 'Gravel roads across Lesjaskogen, trails through the mountain birch woods and tarmac roads down Romsdalen: the cycling around Bjorli is varied, and most of it is away from heavy traffic. With the Rauma Line, you can take the train one way and ride back.',
+      supporting: 'Combine your ride with a hike or some fishing, or head towards Dovrefjell.',
     },
     de: {
       h1: 'Radfahren in Bjorli und Romsdal',
@@ -284,8 +284,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Hiking from Bjorli',
-      lead: 'From Bjorli the trails lead straight into Reinheimen – one of Norway’s largest wilderness areas. There is everything from short family walks to Sagelva and around Lesjaskogsvatnet, to long day hikes in the high mountains.',
-      supporting: 'Bring a fishing rod, or combine the hike with a bike ride. Route suggestions are on the activity pages.',
+      lead: 'From Bjorli, the trails lead straight into Reinheimen, one of Norway’s largest wilderness areas. Choose anything from short family walks to Sagelva and around Lesjaskogsvatnet to long day hikes in the mountains.',
+      supporting: 'Bring a fishing rod, or combine a hike with a bike ride. You’ll find route ideas on the activity pages.',
     },
     de: {
       h1: 'Wandern ab Bjorli',
@@ -317,8 +317,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Fishing in Bjorli and Lesja',
-      lead: 'Trout in mountain lakes, fly-fishing zones in the river and fishing licences that are easy to get hold of – Lesja is one of the most accessible fishing areas in the Norwegian mountains. Lesjaskogsvatnet and the Rauma are both a few minutes from Bjorli.',
-      supporting: 'Many combine the fishing with a hike or a bike ride – the lakes lie close together in the terrain around Bjorli.',
+      lead: 'Trout in mountain lakes, fly-fishing zones on the river and fishing licences that are easy to get hold of: Lesja is one of the most accessible fishing areas in the Norwegian mountains. Lesjaskogsvatnet and the Rauma are both a few minutes from Bjorli.',
+      supporting: 'Many people combine fishing with a hike or a bike ride, as the lakes are close together around Bjorli.',
     },
     de: {
       h1: 'Angeln in Bjorli und Lesja',
@@ -350,8 +350,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Family holidays in Bjorli',
-      lead: 'Bjorli is set up for families: a dedicated children’s area and ski school at the resort in winter, short walks, the bathing pools at Sagelva and farm visits in Lesja in summer. Distances are short, which keeps the days easy to plan.',
-      supporting: 'Browse the activities, find accommodation with room for the whole family, and see what’s on while you are here.',
+      lead: 'Bjorli works well for families. In winter there’s a children’s area and a ski school at the resort. In summer there are short walks, the pools at Sagelva and farm visits in Lesja.',
+      supporting: 'Browse things to do, find accommodation with room for the whole family and see what’s on while you’re here.',
     },
     de: {
       h1: 'Familienurlaub in Bjorli',
@@ -383,8 +383,8 @@ export const ROUTE_LEADS: RouteLeadMap = {
     },
     en: {
       h1: 'Where to stay in Bjorli',
-      lead: 'In Bjorli you stay close to both the ski resort and the mountains – in a cabin, apartment, hotel or at the campsite. Many cabins are ski in/ski out or a short way from the trail network, and in summer the same cabins become bases for hiking and fishing holidays.',
-      supporting: 'Have a look at the activities nearby and today’s conditions on the webcams while planning your stay.',
+      lead: 'In Bjorli you can stay in a cabin, an apartment, a hotel or at the campsite, near both the ski resort and the mountains. In summer, the same cabins make a good base for hiking and fishing holidays.',
+      supporting: 'While you plan, have a look at things to do nearby and today’s conditions on the webcams.',
     },
     de: {
       h1: 'Übernachten in Bjorli',
@@ -415,9 +415,9 @@ export const ROUTE_LEADS: RouteLeadMap = {
       supporting: 'Toget stopper på Bjorli stasjon, noen minutters gange fra bakken. Kjører du, ligger anlegget rett ved E136 med parkering på P1 og P2.',
     },
     en: {
-      h1: 'Bjorli Skisenter – the ski resort',
-      lead: 'Bjorli Skisenter sits sheltered at the top of Gudbrandsdalen, on the border of Romsdalen, and is often among the first alpine resorts in Norway to open. Runs for every level, a dedicated children’s area, ski school and rental at the base station – and Heiskroa for when your legs need a break.',
-      supporting: 'The train stops at Bjorli station, a few minutes’ walk from the slopes. Driving? The resort is right off the E136 with parking at P1 and P2.',
+      h1: 'Bjorli Ski Resort',
+      lead: 'Bjorli Ski Resort sits at the top of Gudbrandsdalen, on the edge of Romsdalen. You’ll find a children’s area, a ski school and ski hire at the base station, and Heiskroa when you need a break.',
+      supporting: 'The train stops at Bjorli station. If you’re driving, the resort is just off the E136, with parking at P1 and P2.',
     },
     de: {
       h1: 'Bjorli Skisenter – das Skigebiet',
@@ -448,9 +448,9 @@ export const ROUTE_LEADS: RouteLeadMap = {
       supporting: 'Skal du lage maten selv, finner du dagligvarer og det praktiske på handelssiden.',
     },
     en: {
-      h1: 'Food and drink in Bjorli',
-      lead: 'Heiskroa at the base station is the natural stop for mountain food and after-ski in winter. Beyond that there are cafés and places to eat in and around Bjorli – and in Lesja, local food from the mountain farms is part of the experience.',
-      supporting: 'Cooking for yourself? There are grocery shops and practical services close by.',
+      h1: 'Food & drink in Bjorli',
+      lead: 'In winter, Heiskroa at the base station is the place for lunch on the mountain and après-ski. There are also cafés and places to eat in and around Bjorli, and in Lesja you can try local food from the mountain farms.',
+      supporting: 'Self-catering? There are grocery shops and other useful services nearby.',
     },
     de: {
       h1: 'Essen und Trinken in Bjorli',
@@ -489,9 +489,9 @@ export const ROUTE_LEADS: RouteLeadMap = {
       supporting: 'Mye er allerede samlet på nettsidene: overnatting, aktiviteter og dagens forhold på webkamera.',
     },
     en: {
-      h1: 'Contact Destinasjon Bjorli',
-      lead: 'Questions about Bjorli Skisenter, events or the area? Here you’ll find phone, email and address for Destinasjon Bjorli – and answers to the most common practical questions.',
-      supporting: 'Much of it is already on the site: accommodation, activities and today’s conditions on the webcams.',
+      h1: 'Contact Destination Bjorli',
+      lead: 'Questions about Bjorli Ski Resort, events or the area? Here you’ll find the phone number, email and address for Destination Bjorli, plus answers to the most common practical questions.',
+      supporting: 'You’ll find a lot of it on the site already: accommodation, things to do and today’s conditions on the webcams.',
     },
     de: {
       h1: 'Kontakt zu Destinasjon Bjorli',

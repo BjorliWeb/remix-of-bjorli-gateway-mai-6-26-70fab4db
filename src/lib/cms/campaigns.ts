@@ -36,7 +36,7 @@ const EARLY_BIRD_IMAGE: CampaignImage = {
   focalMobile: '50% 60%',
   alt: {
     no: 'Early Bird på Bjorli 4.–20. september, med skigjester og ansatte i bakken.',
-    en: 'Early Bird at Bjorli, 4–20 September, with skiers and staff in the ski area.',
+    en: 'Early Bird in Bjorli, 4–20 September, with skiers and staff in the ski area.',
     de: 'Early Bird in Bjorli vom 4. bis 20. September, mit Skigästen und Mitarbeitenden im Skigebiet.',
     nl: 'Early Bird in Bjorli van 4 tot 20 september, met skigasten en medewerkers in het skigebied.',
     da: 'Early Bird på Bjorli 4.–20. september med skigæster og medarbejdere i skiområdet.',

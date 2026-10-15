@@ -24,7 +24,7 @@ export interface TranslationPendingNoticeProps {
 
 const DEFAULT_MESSAGES: Record<string, string> = {
   no: 'Oversettelse pågår – innholdet vil bli hentet fra WordPress.',
-  en: 'Translation pending — this content will be populated from WordPress.',
+  en: 'Translation pending. This content will be added from WordPress.',
   de: 'Übersetzung ausstehend – dieser Inhalt wird aus WordPress geladen.',
   nl: 'Vertaling in behandeling — deze inhoud wordt geladen vanuit WordPress.',
   da: 'Oversættelse afventer – dette indhold hentes fra WordPress.',

@@ -130,58 +130,58 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
   },
   en: {
     heroTitle: 'Tafjordfjella',
-    heroSubtitle: 'From Bjorli into one of Vestlandet’s wildest mountain landscapes — via Brøstdalen.',
+    heroSubtitle: 'From Bjorli, through Brøstdalen, into the wild mountains of western Norway.',
     heroAlt: 'Tafjordfjella with mountains, a lake and autumn colours.',
     photoCredit: 'Photo: Ingvild Ukkelberg',
     crumbHome: 'Home',
     crumbSommer: 'Summer',
     crumbHere: 'Tafjordfjella',
     introP1:
-      'With Bjorli as your starting point it’s a short drive before <strong>Brøstdalen</strong> opens up and pulls you in towards Tafjordfjella. Few corners of Norway pack this much contrast into such a small area: deep valleys, lush west-coast mountain terrain and snow-covered plateaus that stay white most of the year.',
+      'From Bjorli it’s a short drive before <strong>Brøstdalen</strong> opens up and leads you towards Tafjordfjella. You’ll find a lot of contrast in a small area: deep valleys, green west-coast mountainsides and snow-covered plateaus that stay white for much of the year.',
     introP2:
-      'It works equally well for an airy day hike and a longer hut-to-hut round. Up to you whether the day is calm hours by a mountain lake, a hard push up the first summit — or several days out with a pack and a map.',
+      'It works just as well for a day hike as for a longer trip from hut to hut. Spend a quiet few hours by a mountain lake, push hard up the first summit or head out for several days with a rucksack and a map.',
     geographyBadge: 'Geography',
     geographyTitle: 'From Bjorli into wilder mountains',
     geographyP1:
-      'Bjorli sits comfortably between Lesja and Romsdalen, surrounded by open fells and a broad valley. Drive up Brøstdalen and the landscape quickly shifts — side valleys tighten, waterfalls show up everywhere, and the terrain tips over into something more west-coast in character.',
+      'Bjorli sits between Lesja and Romsdalen, surrounded by open mountains and a broad valley. Drive up Brøstdalen and the landscape soon changes: the side valleys narrow, waterfalls appear all around and the terrain takes on more of a west-coast character.',
     geographyP2:
-      'Beyond that lies <strong>Tafjordfjella</strong> proper: a large, continuous mountain area with high peaks, lakes and long open plateaus. This is where routes like <em>Vakkerstøylen</em> and <em>Pyttbua</em> sit — the same mountains you glimpse from the hillside above Bjorli, just much further in.',
+      'Beyond that lies <strong>Tafjordfjella</strong> itself: a large, unbroken mountain area with high peaks, lakes and long open plateaus. This is where you’ll find <em>Vakkerstøylen</em> and <em>Pyttbua</em>, in the same mountains you can see from the hillside above Bjorli, just much further in.',
     toursBadge: 'Routes and huts',
-    toursTitle: 'Concrete trips to start with',
-    toursIntro: 'Three good ways into Tafjordfjella — with full route info, maps and hut details on UT.no.',
+    toursTitle: 'Trips to start with',
+    toursIntro: 'Three good ways into Tafjordfjella, with full route information, maps and hut details on UT.no.',
     toursSeeOnUt: 'View on UT.no',
     tours: [
       {
         title: 'Vakkerstøylen',
         kind: 'Mountain hut',
-        desc: 'Small, simple self-service hut right in the heart of Tafjordfjella. A great goal for a long day from Brøstet, or the first night of a hut-to-hut trip further in.',
+        desc: 'A small, simple self-service hut in the middle of Tafjordfjella. A good goal for a long day from Brøstet, or the first night of a hut-to-hut trip further in.',
       },
       {
         title: 'Ski tour to Vakkerstøylen from Brøstet',
         kind: 'Ski tour',
-        desc: 'A classic ski tour up the valley and onto the fells. Long day out, but the climb is steady and the high plateau is spectacular when you reach it.',
+        desc: 'A classic ski tour up the valley and onto the mountain. It’s a long day, but the climb is steady and the views from the high plateau are worth it.',
       },
       {
         title: 'Pyttbua',
         kind: 'Mountain hut',
-        desc: 'Larger staffed hut deeper inside Tafjordfjella — a popular hub for hut-to-hut trips in both summer and winter.',
+        desc: 'A larger staffed hut deeper into Tafjordfjella, and a popular stop on hut-to-hut trips in summer and winter.',
       },
     ],
     lengthBadge: 'Short trips and long trips',
-    lengthTitle: 'Pick the length to match the day and the weather',
+    lengthTitle: 'Choose a length to suit the day and the weather',
     dayTrips: {
       title: 'Day hikes',
-      body: 'Drive into Brøstdalen and pick a starting point — plenty of routes work nicely as a one-day round if you set off early.',
+      body: 'Drive into Brøstdalen and choose a starting point. Plenty of routes work well as a day trip if you set off early.',
     },
     skiTours: {
       title: 'Ski tours',
-      body: 'Late spring and early summer the snow lingers high up. The ski tour to Vakkerstøylen from Brøstet is a classic — long, but very doable for fit hikers.',
+      body: 'In late spring and early summer, the snow lingers higher up. The ski tour to Vakkerstøylen from Brøstet is a classic: long, but very manageable if you’re fit.',
     },
     hutToHut: {
       title: 'Hut to hut',
-      body: 'Vakkerstøylen, Pyttbua and the neighbouring huts link up into a route network that lets you plan multi-day trips. Plan stages around weather and snow conditions.',
+      body: 'Vakkerstøylen, Pyttbua and the neighbouring huts link up into a network of routes for trips over several days. Plan each stage around the weather and snow conditions.',
     },
-    praktiskBadge: 'Practical info',
+    praktiskBadge: 'Practical information',
     praktiskTitle: 'Before you head out',
     cardWeather: {
       title: 'Check the weather and conditions',
@@ -189,15 +189,15 @@ export const TAFJORDFJELLA_COPY: Record<Locale, TafjordfjellaCopy> = {
     },
     cardShift: {
       title: 'Weather shifts fast',
-      body: 'Up on the fells a fine day can turn demanding in minutes. Turn back in time if visibility drops — the mountain will still be there tomorrow.',
+      body: 'Up in the mountains, a fine day can become hard going in minutes. Turn back in good time if visibility drops. The mountain will still be there tomorrow.',
     },
     cardPack: {
       title: 'Pack properly',
-      body: 'Windproof shell, extra layers, food, water, map and compass — even on short trips. Throw in a power bank and head torch if you’re out into the evening.',
+      body: 'Bring a windproof jacket, extra layers, food, water, a map and a compass, even on short trips. Add a power bank and a head torch if you’ll be out into the evening.',
     },
     cardUt: {
       title: 'Use UT.no and marked routes',
-      bodyBefore: 'Detailed routes, elevation profiles and hut info live on ',
+      bodyBefore: 'You’ll find detailed routes, elevation profiles and hut information on ',
       linkText: 'ut.no',
       bodyAfter: '. Stick to marked paths and cairns when the area is new to you.',
     },

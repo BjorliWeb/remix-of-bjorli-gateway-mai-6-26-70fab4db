@@ -47,7 +47,7 @@ import type { CmsImage } from './types';
  */
 const SKISENTER_NEWS_TITLE: Record<Language, string> = {
   no: 'Siste nytt fra Bjorli Skisenter',
-  en: 'Latest from Bjorli Skisenter',
+  en: 'Latest from Bjorli Ski Resort',
   de: 'Aktuelles aus dem Bjorli Skisenter',
   nl: 'Laatste nieuws van Bjorli Skisenter',
   da: 'Sidste nyt fra Bjorli Skisenter',
@@ -155,8 +155,8 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
     slug: 'ski-holiday-norway',
     title: 'Ski Holiday in Norway',
     intro:
-      'A mountain village at the head of Romsdalen with alpine slopes, cross-country trails and cabins – a ski holiday in Norway that’s easy to plan with children.',
-    heroImage: img('heroGroupWide', 'A group of skiers stopping to take in the mountain view at Bjorli'),
+      'A mountain village at the head of Romsdalen, with slopes, cross-country ski trails and cabins. A ski holiday in Norway that’s easy to plan with children.',
+    heroImage: img('heroGroupWide', 'A group of skiers stopping to take in the mountain view in Bjorli'),
     pageSummary:
       'Bjorli is a mountain village in Lesja, between Dombås and Åndalsnes on the E136, where Gudbrandsdalen meets Romsdalen. In winter you’ll find alpine and cross-country skiing and slopes for beginners. You can get here by car, by train on the Rauma Line, or by flying into Ålesund, Molde or Oslo.',
     pageSummaryFacts: [
@@ -177,10 +177,10 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       {
         id: 'ski-center',
         type: 'rich_text',
-        heading: 'Bjorli Skisenter',
+        heading: 'Bjorli Ski Resort',
         body:
-          'Bjorli Skisenter is the local ski centre, with lifts and slopes for different levels. Lift and slope status, snow depth and temperature are updated live through the season, so you can check conditions before you head up.',
-        image: img('kidsView', 'Two children on skis with the mountains behind them at Bjorli'),
+          'Bjorli Ski Resort is the village’s ski area, with lifts and slopes for different levels. Lift and piste status, snow depth and temperature are updated through the season, so you can check conditions before you head up.',
+        image: img('kidsView', 'Two children on skis with the mountains behind them in Bjorli'),
       },
       {
         id: 'cta-ski-resort',
@@ -194,15 +194,15 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Family-friendly skiing',
         body:
-          'Beginner slopes, a ski school and ski hire make Bjorli straightforward with children – you don’t need to bring all your own kit. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
-        image: img('skiSchool', 'Children at ski school on the beginner slope at Bjorli'),
+          'Beginner slopes, a ski school and ski hire make Bjorli straightforward with children, so you don’t need to bring all your own kit. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
+        image: img('skiSchool', 'Children at ski school on the beginner slope in Bjorli'),
       },
       {
         id: 'travel',
         type: 'rich_text',
         heading: 'Getting here from the UK',
         body:
-          'From the UK, fly to Ålesund Airport (Vigra), Molde or Oslo. From Ålesund Airport it’s around 2½ hours to Bjorli by car (about 170 km) – allow extra time for collecting a hire car and for winter roads. From Oslo it’s around 5 hours by car: the E6 north to Dombås, then the E136 west. By train, take the Dovre Line to Dombås and change to the Rauma Line for Bjorli station. Flight routes change by season, so check current schedules before you book. For train and bus times, see www.entur.no.',
+          'From the UK, fly to Ålesund Airport (Vigra), Molde or Oslo. From Ålesund Airport it’s around 2½ hours to Bjorli by car (about 170 km). Allow extra time for collecting a hire car and for winter roads. From Oslo it’s around 5 hours by car: the E6 north to Dombås, then the E136 west. By train, take the Dovre Line to Dombås and change to the Rauma Line for Bjorli station. Flight routes change by season, so check current schedules before you book. For train and bus times, see www.entur.no.',
       },
       {
         id: 'beyond-alpine',
@@ -219,7 +219,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         a: 'Bjorli is a mountain village in Lesja, Innlandet county, between Dombås and Åndalsnes on the E136 road and the Rauma Line railway. It sits at the head of Romsdalen, in the mountains between eastern Norway and the west coast.',
       },
       {
-        q: 'When is the ski season at Bjorli?',
+        q: 'When is the ski season in Bjorli?',
         a: 'Season dates vary from year to year. Check the opening hours page and the live lift and snow status before you travel.',
       },
       {
@@ -232,18 +232,18 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'How do you get to Bjorli from Oslo?',
-        a: 'By car, take the E6 north to Dombås and the E136 west – around 5 hours from Oslo, depending on route and conditions. By train, take the Dovre Line to Dombås and change to the Rauma Line for Bjorli station. Check www.entur.no for train and bus times and tickets.',
+        a: 'By car, take the E6 north to Dombås and then the E136 west. It’s around 5 hours from Oslo, depending on your route and the conditions. By train, take the Dovre Line to Dombås and change to the Rauma Line for Bjorli station. Check www.entur.no for train and bus times and tickets.',
       },
       {
-        q: 'What is there to do at Bjorli besides alpine skiing?',
+        q: 'What is there to do in Bjorli besides alpine skiing?',
         a: 'Cross-country skiing on groomed trails, ski touring and snowshoeing. In summer, Bjorli is a base for hiking, cycling and trips to Åndalsnes and Romsdalen.',
       },
     ],
     relatedLinks: [
-      { label: 'Bjorli Skisenter', href: '/en/bjorli-ski-resort', description: 'Lifts, slopes and live status from the ski centre.' },
+      { label: 'Bjorli Ski Resort', href: '/en/bjorli-ski-resort', description: 'Lifts, slopes and the latest status from the ski resort.' },
       { label: 'Ski passes', href: '/en/ski-passes', description: 'Day passes and season passes.' },
-      { label: 'Opening hours', href: '/en/opening-hours', description: 'Current and seasonal opening times.' },
-      { label: 'Accommodation', href: '/en/accommodation', description: 'Cabins, apartments and hotels at Bjorli.' },
+      { label: 'Opening times', href: '/en/opening-hours', description: 'Current and seasonal opening times.' },
+      { label: 'Accommodation', href: '/en/accommodation', description: 'Cabins, apartments and hotels in Bjorli.' },
       { label: 'Weather & webcams', href: '/en/weather-and-webcams', description: 'Live cameras, weather and snow conditions.' },
       { label: 'Getting here', href: '/en/getting-here', description: 'By car, train and air to Bjorli.' },
     ],
@@ -1026,10 +1026,10 @@ export const mockAdapter: CmsAdapter = {
       id: 'photoStrip',
       type: 'photoStrip',
       images: [
-        { url: images.happyKid.src, alt: language === 'no' ? images.happyKid.alt : 'A happy girl on skis with her arms in the air at Bjorli.' },
-        { url: images.kidSlalom.src, alt: language === 'no' ? images.kidSlalom.alt : 'A skier riding through an arch on the slope at Bjorli.' },
-        { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees at Bjorli.' },
-        { url: images.eveningLift.src, alt: language === 'no' ? 'Skiløpere i stolheisen med utsikt over dalen på Bjorli.' : 'Skiers on the chairlift above the valley at Bjorli.' },
+        { url: images.happyKid.src, alt: language === 'no' ? images.happyKid.alt : 'A happy girl on skis with her arms in the air in Bjorli.' },
+        { url: images.kidSlalom.src, alt: language === 'no' ? images.kidSlalom.alt : 'A skier riding through an arch on the slope in Bjorli.' },
+        { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees in Bjorli.' },
+        { url: images.eveningLift.src, alt: language === 'no' ? 'Skiløpere i stolheisen med utsikt over dalen på Bjorli.' : 'Skiers on the chairlift above the valley in Bjorli.' },
       ],
     },
     {

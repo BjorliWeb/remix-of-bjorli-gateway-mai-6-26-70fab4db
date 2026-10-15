@@ -29,11 +29,11 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
     snarturEyebrow: 'Short walks in Rauma and Lesja',
     snarturTitle: '10 short walks around Bjorli',
     snarturDesc:
-      'Easy walks with maps, parking and elevation profiles — produced by Nordveggen, presented for Bjorli.',
-    mapTitle: 'Trail map for Bjorli and Lesja',
+      'Easy walks with maps, parking and elevation profiles, produced by Nordveggen and presented here for Bjorli.',
+    mapTitle: 'Walking map for Bjorli and Lesja',
     mapIntro:
-      'See route suggestions, maps and up-to-date trail information on Outdooractive.',
-    ctaLabel: 'Open trail map on Outdooractive',
+      'See route ideas, maps and the latest trail information on Outdooractive.',
+    ctaLabel: 'Open the map on Outdooractive',
   },
   de: {
     snarturEyebrow: 'Kurzwanderungen in Rauma und Lesja',

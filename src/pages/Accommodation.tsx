@@ -144,20 +144,20 @@ const COPY: Record<Locale, Copy> = {
   en: {
     heroTitle: 'Where to stay in Bjorli',
     heroSubtitle:
-      'Cabins, apartments, hotels, camping and private rentals in and around Bjorli — gathered in one place so it’s easier to find something that fits your trip.',
+      'Cabins, apartments, hotels, camping and private rentals in and around Bjorli, all in one place, so it’s easier to find the right fit for your trip.',
     ctaPrimary: 'See places to stay',
-    ctaSecondary: 'Plan your journey here',
-    editorialTitle: 'Stay close to the mountains',
+    ctaSecondary: 'Plan your journey',
+    editorialTitle: 'Make yourself at home in the mountains',
     editorialBody:
-      'Bjorli is a practical base whether you’re planning summer days in the hills or a week on the slopes. Choose freely between hotels, apartments, cabins, camping and private rentals.',
-    editorialImageAlt: 'Cabins in Bjorli with views toward the mountains.',
+      'Bjorli makes a practical base, whether you’re planning summer days in the hills or a week on the slopes. Choose from hotels, apartments, cabins, camping and private rentals.',
+    editorialImageAlt: 'Cabins in Bjorli with views of the mountains.',
     providerSectionTitle: 'Places to stay',
     tipsTitle: 'Before you book',
     tips: [
-      'Check prices, conditions and availability directly with each provider.',
-      'Some offers are seasonal.',
-      'Ski weekends and school holidays fill up fast — booking early helps.',
-      'Travelling without a car? Check transport and distance to what you plan to do.',
+      'Check prices, terms and availability directly with each provider.',
+      'Some places are only open in certain seasons.',
+      'Ski weekends and school holidays can get busy, so it helps to book early.',
+      'Travelling without a car? Check how you’ll get to the things you’d like to do.',
     ],
     relatedTitle: 'Keep exploring',
     related: [
@@ -169,7 +169,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     providers: {
       novasol: { category: 'Private rentals', desc: 'Private cabins and apartments in Bjorli and Lesja, rented through Novasol.', ctaLabel: 'Search Novasol' },
-      bjorliheimen: { category: 'Hotel & cabins', desc: 'Hotel rooms and cabins right in the heart of Bjorli.', ctaLabel: 'Search Bjorliheimen' },
+      bjorliheimen: { category: 'Hotel & cabins', desc: 'Hotel rooms and cabins in Bjorli.', ctaLabel: 'Search Bjorliheimen' },
       mountainLodge: { category: 'Apartments', desc: 'Apartments in Bjorli for short and longer stays.', ctaLabel: 'Search Bjorli Mountain Lodge' },
       vintercamping: { category: 'Cabins, camping, tents and motorhomes', desc: 'Cabins, pitches for tents and motorhomes, and simple stays.', ctaLabel: 'Search Bjorli Vintercamping' },
       airbnb: { category: 'Apartments & cabins', desc: 'Private apartments and cabins in Bjorli listed on Airbnb.', ctaLabel: 'Search on Airbnb' },

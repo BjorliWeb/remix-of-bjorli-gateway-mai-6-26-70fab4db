@@ -61,10 +61,10 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
   en: {
     metaTitle: 'The Golden Train from Bjorli | Scenic railway on the Rauma Line',
     metaDesc:
-      'The Golden Train is a guided round trip on the Rauma Line from Åndalsnes — past Trollveggen, Kyllingbrua and Vermafossen, with a short stop at Bjorli.',
+      'The Golden Train is a guided return trip on the Rauma Line from Åndalsnes, past Trollveggen, Kyllingbrua and Vermafossen, with a short stop at Bjorli.',
     heroTitle: 'The Golden Train',
     heroSubtitle:
-      'A guided round trip on the Rauma Line from Åndalsnes — twice named by Lonely Planet as one of Europe’s most scenic train journeys.',
+      'A guided return trip on the Rauma Line from Åndalsnes, a railway twice named by Lonely Planet as one of Europe’s most scenic train journeys.',
     intro1: (
       <>
         The trip starts at <strong>Åndalsnes station</strong>, where an on-board host welcomes you to The Golden Train. The train moves at an unhurried pace through deep valleys, alongside rivers and waterfalls, past the sheer face of Trollveggen, the elegant Kyllingbrua bridge and Vermafossen.
@@ -72,7 +72,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
     ),
     intro2: (
       <>
-        Along the way you’ll hear stories from life along Raumabanen and the line’s role during the Second World War — including the secret gold transports that gave the train its name. The train makes a short stop at <strong>Bjorli station</strong>, where you can stretch your legs and breathe in mountain air before heading back to Åndalsnes.
+        Along the way you’ll hear stories about life along the Rauma Line and its role in the Second World War, including the secret gold transports that gave the train its name. The train makes a short stop at <strong>Bjorli station</strong>, where you can stretch your legs and enjoy the mountain air before heading back to Åndalsnes.
       </>
     ),
     departuresTitle: 'Departures and tickets',
@@ -80,14 +80,14 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
       'All departures start and end at Åndalsnes train station. Check current times and tickets with The Golden Train before you plan your trip.',
     includedTitle: 'Included',
     includedItems: [
-      'Return ticket Åndalsnes – Bjorli – Åndalsnes',
+      'Return ticket Åndalsnes–Bjorli–Åndalsnes',
       'English-speaking guide on board',
     ],
     baseTitle: 'Bjorli as your base',
     baseBody:
-      'If you’re staying at Bjorli, take a regular train down to Åndalsnes in the morning, board The Golden Train there and return the same day. Always check current times, prices and availability directly with the operator.',
+      'If you’re staying in Bjorli, take a regular train down to Åndalsnes in the morning, board The Golden Train there and come back the same day. Always check the latest times, prices and availability directly with the operator.',
     ctaPrimary: 'See times and tickets at The Golden Train',
-    ctaBack: 'Back to activities',
+    ctaBack: 'Back to things to do',
   },
   de: {
     metaTitle: 'The Golden Train ab Bjorli | Landschaftliche Bahnfahrt auf der Raumabahn',
