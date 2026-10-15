@@ -158,7 +158,7 @@ const en: Dictionary = {
     flightAccess: {
       eyebrow: 'International flights',
       title: 'Direct flights to Ålesund Airport Vigra',
-      body: 'For Danish and Dutch visitors, Bjorli is easier to reach than many people expect. With direct flights to Ålesund Airport Vigra from Copenhagen and Amsterdam in relevant periods, Bjorli can be combined with a scenic drive through Northwest Norway. The drive from Ålesund Airport Vigra to Bjorli takes around 2.5 hours.',
+      body: 'Ålesund Airport Vigra has direct flights from Copenhagen and Amsterdam in relevant periods. Coming from the UK? Flight routes change by season, so check what’s running when you travel – Molde and Oslo are other options. From Ålesund Airport Vigra it’s around 2½ hours to Bjorli by car.',
       note: 'According to Travel Trade Møre & Romsdal, KLM operates direct Amsterdam–Ålesund flights with services scheduled across 2026, and SAS operates direct Copenhagen–Ålesund flights from 29 March 2026 including winter 2026/2027. Always check current airline schedules before booking.',
     },
   },

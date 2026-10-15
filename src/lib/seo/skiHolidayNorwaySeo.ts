@@ -15,14 +15,19 @@
 /** Bare slug, no locale prefix. */
 export const SKI_HOLIDAY_NORWAY_SLUG = 'ski-holiday-norway';
 
-/** The one real route for this page — EN-only, NOT under /en. */
-export const SKI_HOLIDAY_NORWAY_PATH = '/ski-holiday-norway';
+/**
+ * The one real URL for this page — EN-only, under /en like every other
+ * English page so the language context, navigation and html lang are
+ * English. The old un-prefixed /ski-holiday-norway 301s here
+ * (public/_redirects).
+ */
+export const SKI_HOLIDAY_NORWAY_PATH = '/en/ski-holiday-norway';
 
 /** The only locale this landing page ships in. */
 export const SKI_HOLIDAY_NORWAY_LOCALE = 'en' as const;
 
 export const SKI_HOLIDAY_NORWAY_SEO = {
-  title: 'Ski Holiday in Norway | Discover Bjorli Skisenter',
+  title: 'Ski Holiday in Norway at Bjorli | Family Skiing & Cabins',
   description:
-    'Plan a ski holiday in Norway at Bjorli, a family-friendly mountain destination with alpine skiing, cross-country trails, reliable winter conditions, accommodation, webcams and easy access by road and train.',
+    'Plan a family ski holiday in Norway at Bjorli: alpine and cross-country skiing, ski school, ski hire and cabins. Ålesund Airport is around 2½ hours away by car.',
 } as const;

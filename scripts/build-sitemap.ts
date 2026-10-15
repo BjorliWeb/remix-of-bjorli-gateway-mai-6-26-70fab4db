@@ -136,9 +136,9 @@ for (const canonical of canonicalKeys) {
 
 /**
  * EN-only landing pages that are not part of the canonical route registry.
- * The router exposes the ski-holiday landing at /ski-holiday-norway with
- * no locale prefix (see src/App.tsx) — there is no /en variant, so none is
- * advertised here.
+ * The ski-holiday landing lives at /en/ski-holiday-norway only — it has no
+ * NO/DE/NL/DA/SV variants, so only en + x-default are advertised here. The
+ * old un-prefixed URL 301s to it (public/_redirects).
  */
 const EN_ONLY_EXTRAS = [
   { path: SKI_HOLIDAY_NORWAY_PATH, priority: 0.6, changefreq: 'monthly' },
