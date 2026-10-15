@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AlertCircle, AlertTriangle, ChevronRight, Info } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { LOCALE_LABELS, type Locale } from '@/i18n/translations';
 import { getAlerts, type CmsAlert, type Language } from '@/lib/cms';
 import { loadSupabase } from '@/integrations/supabase/lazy';
 import { useBjorliFnuggPosts } from '@/hooks/useBjorliFnuggPosts';
@@ -52,12 +53,13 @@ const LEVEL_STYLES: Record<CmsAlert['level'], { wrap: string; icon: string; Icon
 /** External "see all driftsmeldinger" target until we have an internal page. */
 const ALL_ALERTS_URL = 'https://fnugg.no/bjorli/';
 
-function formatNorwegianDate(iso: string | null): string | null {
+/** Long weekday + date in the given BCP-47 language (e.g. 'nb-NO', 'de-DE'). */
+function formatPostDate(iso: string | null, bcp47 = 'nb-NO'): string | null {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
   try {
-    return new Intl.DateTimeFormat('nb-NO', {
+    return new Intl.DateTimeFormat(bcp47, {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -89,7 +91,8 @@ function PostImage({ src, alt }: { src: string; alt: string }) {
 }
 
 const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
-  const { locale } = useLanguage();
+  const { locale, d } = useLanguage();
+  const live = d.live;
   const language = locale as Language;
   const lp = useLocalizedPath();
   const [alert, setAlert] = useState<CmsAlert | null>(null);
@@ -139,7 +142,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
 
   // Resolve display content based on priority.
   let level: CmsAlert['level'] = 'info';
-  let label: string | undefined = fallback.label ?? 'Driftsmelding';
+  let label: string | undefined = fallback.label ?? d.alert.label;
   let dateLine: string | null = null;
   let title: string | null = null;
   let message: string = '';
@@ -155,10 +158,11 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     ctaHref = criticalAlert.ctaHref;
   } else if (fnuggPost) {
     level = 'info';
-    dateLine = formatNorwegianDate(fnuggPost.date);
-    title = isTitleEffectivelyDate(fnuggPost.title, dateLine) ? null : fnuggPost.title;
+    dateLine = formatPostDate(fnuggPost.date, LOCALE_LABELS[locale as Locale]?.bcp47);
+    // Fnugg titles are Norwegian, so compare against the Norwegian date.
+    title = isTitleEffectivelyDate(fnuggPost.title, formatPostDate(fnuggPost.date)) ? null : fnuggPost.title;
     message = fnuggPost.descriptionText ?? '';
-    ctaLabel = locale === 'no' ? 'Se alle driftsmeldinger' : 'See all updates';
+    ctaLabel = live.seeAllUpdates;
     ctaHref = ALL_ALERTS_URL;
     ctaExternal = true;
   } else if (nonCriticalAlert) {
@@ -169,11 +173,8 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     ctaHref = nonCriticalAlert.ctaHref;
   } else if (loaded && postsLoaded) {
     // Safe fallback — do NOT echo old hardcoded seasonal text.
-    message =
-      locale === 'no'
-        ? 'Ingen ny driftsmelding tilgjengelig akkurat nå.'
-        : 'No operational update available right now.';
-    ctaLabel = locale === 'no' ? 'Se åpningstider' : 'See opening hours';
+    message = live.noUpdate;
+    ctaLabel = live.seeOpeningHours;
     ctaHref = '/apningstider';
   } else {
     // Still loading — render nothing to avoid a flash of fallback text.
@@ -213,20 +214,26 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
 
   if (fnuggPost) {
     return (
-      <section className="px-4 mt-8 mb-4" aria-label={locale === 'no' ? 'Siste driftsmelding' : 'Latest operational update'}>
+      <section className="px-4 mt-8 mb-4" aria-label={live.latestUpdateAria}>
         <article className="container mx-auto max-w-5xl border-y border-border/70 py-6 md:py-8">
           <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-6">
-            <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{locale === 'no' ? 'Siste nytt fra Bjorli Skisenter' : 'Latest news from Bjorli Ski Resort'}</h2>
+            <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground">{live.latestNews}</h2>
             {dateLine && <time dateTime={fnuggPost.date ?? undefined} className="text-sm text-muted-foreground">{dateLine}</time>}
           </header>
           <div className={fnuggPost.imageUrl ? 'grid items-start gap-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-10' : ''}>
-            {fnuggPost.imageUrl && <PostImage key={fnuggPost.imageUrl} src={fnuggPost.imageUrl} alt={title ?? (locale === 'no' ? 'Bilde fra Bjorli Skisenter' : 'Photo from Bjorli ski resort')} />}
-            <div className="min-w-0 md:py-2" lang="nb">
-              {title && <h3 className="font-heading text-2xl md:text-3xl font-semibold leading-tight text-foreground mb-4 break-words">{title}</h3>}
-              {message && <div className="max-w-prose space-y-4 text-base md:text-lg leading-relaxed text-foreground/90 break-words">
+            {fnuggPost.imageUrl && <PostImage key={fnuggPost.imageUrl} src={fnuggPost.imageUrl} alt={title ?? live.photoAlt} />}
+            <div className="min-w-0 md:py-2">
+              {/* The update itself is written in Norwegian by the ski centre and
+                  shown as the original (marked lang="nb"); other languages get
+                  a short note instead of a machine translation. */}
+              {live.originalNorwegian && (
+                <p className="text-sm text-muted-foreground italic mb-3">{live.originalNorwegian}</p>
+              )}
+              {title && <h3 lang="nb" className="font-heading text-2xl md:text-3xl font-semibold leading-tight text-foreground mb-4 break-words">{title}</h3>}
+              {message && <div lang="nb" className="max-w-prose space-y-4 text-base md:text-lg leading-relaxed text-foreground/90 break-words">
                 {message.split(/\r?\n\s*\r?\n/).filter(Boolean).map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}
               </div>}
-              <a href={ALL_ALERTS_URL} target="_blank" rel="noopener noreferrer" lang={locale === 'no' ? 'nb' : 'en'} className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-secondary underline underline-offset-4 decoration-secondary/40 hover:decoration-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded-sm">
+              <a href={ALL_ALERTS_URL} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-secondary underline underline-offset-4 decoration-secondary/40 hover:decoration-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 rounded-sm">
                 {ctaLabel}<ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0" />
               </a>
             </div>
@@ -248,7 +255,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
       return parts.join(' · ');
     })();
     return (
-      <section className="px-4 mt-5" aria-label="Latest operational update">
+      <section className="px-4 mt-5" aria-label={live.latestUpdateAria}>
         <div className="container mx-auto max-w-5xl">
           {/* Mobile: the message drops to its own line (it was truncated to
               a single character between the label and the CTA). */}
@@ -268,7 +275,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
   }
 
   return (
-    <section className="px-4 mt-8" aria-label="Latest operational update">
+    <section className="px-4 mt-8" aria-label={live.latestUpdateAria}>
       <div className="container mx-auto max-w-5xl">
         <div className={`rounded-xl border p-4 md:p-5 flex items-start gap-3 ${styles.wrap}`}>
           <Icon className={`h-5 w-5 mt-0.5 shrink-0 ${styles.icon}`} />

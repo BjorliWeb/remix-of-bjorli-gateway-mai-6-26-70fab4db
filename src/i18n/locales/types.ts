@@ -87,6 +87,41 @@ export interface Dictionary {
     sample: string;
     sampleCta: string;
   };
+  /**
+   * Live status (Fnugg) and operational updates — LiveFnuggStatus,
+   * LiveStatusCards (screen-reader text) and LiveAlertBanner. Templates use
+   * {state}, {open}, {total}, {cm} and {deg}.
+   */
+  live: {
+    today: string;
+    open: string;
+    closed: string;
+    unavailable: string;
+    ariaToday: string;
+    lastUpdated: string;
+    liveSource: string;
+    liftsOpen: string;
+    slopesOpen: string;
+    blockAria: string;
+    blockNote: string;
+    ariaLifts: string;
+    ariaLiftsNA: string;
+    ariaSlopes: string;
+    ariaSlopesNA: string;
+    ariaSnow: string;
+    ariaSnowNA: string;
+    ariaTemp: string;
+    ariaTempNA: string;
+    minus: string;
+    latestNews: string;
+    latestUpdateAria: string;
+    seeAllUpdates: string;
+    noUpdate: string;
+    seeOpeningHours: string;
+    photoAlt: string;
+    /** Shown on non-Norwegian pages above an update written in Norwegian. Empty on NO. */
+    originalNorwegian: string;
+  };
   intro: {
     title: string;
     body: string;

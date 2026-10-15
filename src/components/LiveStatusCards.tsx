@@ -12,6 +12,8 @@ import {
 import { loadSupabase } from '@/integrations/supabase/lazy';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import type { Dictionary } from '@/i18n/locales/types';
+import { fill } from '@/i18n/fill';
 import type { CmsStatusSection } from '@/lib/cms';
 import { useBjorliStatus } from '@/hooks/useBjorliStatus';
 import type { BjorliFnuggStatus } from '@/lib/integrations/fnugg';
@@ -52,7 +54,7 @@ const EM_DASH = '—';
 function liveValueFor(
   icon: string,
   s: BjorliFnuggStatus,
-  locale: string,
+  live: Dictionary['live'],
 ): { value: string | null; ariaLabel: string | null } {
   const fmtRatio = (open: number | null, total: number | null) =>
     open === null && total === null ? null : `${open ?? EM_DASH}/${total ?? EM_DASH}`;
@@ -63,8 +65,8 @@ function liveValueFor(
         value: fmtRatio(s.liftsOpen, s.liftsTotal) ?? `${EM_DASH}/${EM_DASH}`,
         ariaLabel:
           s.liftsOpen !== null && s.liftsTotal !== null
-            ? `Open lifts: ${s.liftsOpen} of ${s.liftsTotal}`
-            : 'Open lifts: not available',
+            ? fill(live.ariaLifts, { open: s.liftsOpen, total: s.liftsTotal })
+            : live.ariaLiftsNA,
       };
     }
     case 'slopes': {
@@ -72,24 +74,23 @@ function liveValueFor(
         value: fmtRatio(s.slopesOpen, s.slopesTotal) ?? `${EM_DASH}/${EM_DASH}`,
         ariaLabel:
           s.slopesOpen !== null && s.slopesTotal !== null
-            ? `Open alpine slopes: ${s.slopesOpen} of ${s.slopesTotal}`
-            : 'Open alpine slopes: not available',
+            ? fill(live.ariaSlopes, { open: s.slopesOpen, total: s.slopesTotal })
+            : live.ariaSlopesNA,
       };
     }
     case 'snow': {
       const v = s.snowDepthCm;
       return {
         value: v === null ? `${EM_DASH} cm` : `${Math.round(v)} cm`,
-        ariaLabel:
-          v === null ? 'Snow depth: not available' : `Snow depth: ${Math.round(v)} centimeters`,
+        ariaLabel: v === null ? live.ariaSnowNA : fill(live.ariaSnow, { cm: Math.round(v) }),
       };
     }
     case 'temperature': {
       const v = s.temperatureC;
-      if (v === null) return { value: `${EM_DASH}°C`, ariaLabel: 'Temperature: not available' };
+      if (v === null) return { value: `${EM_DASH}°C`, ariaLabel: live.ariaTempNA };
       const rounded = Math.round(v);
-      const spoken = rounded < 0 ? `minus ${Math.abs(rounded)}` : `${rounded}`;
-      return { value: `${rounded}°C`, ariaLabel: `Temperature: ${spoken} degrees Celsius` };
+      const spoken = rounded < 0 ? `${live.minus} ${Math.abs(rounded)}` : `${rounded}`;
+      return { value: `${rounded}°C`, ariaLabel: fill(live.ariaTemp, { deg: spoken }) };
     }
     default:
       return { value: null, ariaLabel: null };
@@ -105,7 +106,7 @@ const LiveStatusCards = ({
   section: CmsStatusSection;
   overlapPrevious?: boolean;
 }) => {
-  const { locale } = useLanguage();
+  const { locale, d } = useLanguage();
   const language = locale;
   const lp = useLocalizedPath();
   const [rows, setRows] = useState<StatusRow[] | null>(null);
@@ -182,7 +183,7 @@ const LiveStatusCards = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px max-w-4xl mx-auto rounded-2xl overflow-hidden bg-border/70 ring-1 ring-border/70 shadow-[0_18px_44px_-28px_hsl(var(--season-deep)/0.45)]">
           {cards.map((card, i) => {
             const Icon = ICONS[card.icon] || Mountain;
-            const live = liveValueFor(card.icon, fnugg, locale);
+            const live = liveValueFor(card.icon, fnugg, d.live);
             const displayValue = live.value ?? card.value;
             const isLoadingFirst = fnuggState === 'loading' && !hasLiveData && live.value !== null;
             return (
