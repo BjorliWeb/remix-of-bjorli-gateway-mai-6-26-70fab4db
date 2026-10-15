@@ -72,7 +72,7 @@ export const ROUTE_SEO: RouteSeoMap = {
         'Bjorli ligger øverst i Gudbrandsdalen, ved grensen til Romsdalen. Se alpint, langrenn, heiskort, åpningstider, vær og webkamera, overnatting og arrangementer.',
     },
     en: {
-      title: 'Bjorli, Norway | Family Ski Holidays & Mountain Breaks',
+      title: 'Bjorli | Family Ski Holidays in Norway',
       description:
         'Plan your holiday in Bjorli, Norway. Explore skiing, cross-country trails, cosy cabins and mountain activities, with practical information for your stay.',
     },
@@ -111,7 +111,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   skisenter: {
     no: { title: 'Bjorli Skisenter – alpint, heiskort og skiskole', description: 'Snøsikkert alpinanlegg øverst i Gudbrandsdalen, ved grensen til Romsdalen. Se bakker, barneområde, skiskole, skiutleie, åpningstider og heiskort.' },
-    en: { title: 'Bjorli Ski Resort, Norway | Skiing, lift passes and ski school', description: 'Bjorli Ski Resort sits at the top of Gudbrandsdalen, by Romsdalen. See the slopes, children’s area, ski school, ski hire, opening times and lift passes.' },
+    en: { title: 'Bjorli Ski Resort | Skiing in Norway', description: 'A family-friendly ski resort at the top of Gudbrandsdalen, where children aged 0 to 6 ski free. See the slopes, ski school, ski hire, opening times and lift passes.' },
     de: { title: 'Bjorli Skisenter – Alpinski, Skipässe und Skischule', description: 'Schneesicheres Skigebiet im oberen Gudbrandsdalen, an der Grenze zum Romsdalen. Pisten, Kinderland, Skischule, Verleih, Öffnungszeiten und Skipässe.' },
     nl: { title: 'Bjorli Skisenter – alpineskiën, skipassen en skischool', description: 'Sneeuwzeker skigebied boven in Gudbrandsdalen, aan de grens met Romsdalen. Pistes, kinderland, skischool, verhuur, openingstijden en skipassen.' },
     da: { title: 'Bjorli Skisenter – alpint, liftkort og skiskole', description: 'Snesikkert alpinanlæg øverst i Gudbrandsdalen, ved grænsen til Romsdalen. Se pister, børneområde, skiskole, skiudlejning, åbningstider og liftkort.' },
@@ -130,7 +130,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   'vaer-og-webkamera': {
     no: { title: 'Vær og webkamera – Bjorli', description: 'Se vær, snøforhold og live webkameraer fra Bjorli Skisenter og destinasjonen.' },
-    en: { title: 'Weather & webcams | Bjorli, Norway', description: 'Check the weather, snow conditions and webcams at Bjorli Ski Resort and around the village.' },
+    en: { title: 'Weather & webcams | Bjorli, Norway', description: 'Check the weather forecast, snow depth, lift status and webcams in Bjorli before you head out, and see the piste map for Bjorli Ski Resort.' },
     de: { title: 'Wetter und Webcams – Bjorli, Norwegen', description: 'Wetter, Schneebedingungen und Live-Webcams aus dem Bjorli Skisenter und der Region.' },
     nl: { title: 'Weer en webcams – Bjorli, Noorwegen', description: 'Bekijk weer, sneeuwcondities en live webcams van Bjorli Skisenter en de bestemming.' },
     da: { title: 'Vejr og webcams – Bjorli, Norge', description: 'Se vejr, sneforhold og live webcams fra Bjorli Skisenter og destinationen.' },
@@ -148,7 +148,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   overnatting: {
     no: { title: 'Overnatting på Bjorli – hytter, leiligheter og hotell', description: 'Finn overnatting på Bjorli nær skisenteret, langrennsløyper og fjell. Velg mellom hytter, leiligheter, hotell og camping for sommer- og vinterferie.' },
-    en: { title: 'Where to stay in Bjorli | Cabins, apartments and hotels', description: 'Find somewhere to stay in Bjorli, near the ski resort, the cross-country ski trails and the mountains. Cabins, apartments, hotels and camping for summer and winter holidays.' },
+    en: { title: 'Where to Stay in Bjorli | Cabins & Apartments', description: 'Find somewhere to stay in Bjorli, from cabins and apartments to hotels and camping, near the ski resort, the cross-country ski trails and the mountains.' },
     de: { title: 'Unterkunft in Bjorli – Hütten, Apartments und Hotels', description: 'Finden Sie eine Unterkunft in Bjorli, nahe Skizentrum, Langlaufloipen und Bergen. Hütten, Ferienwohnungen, Hotels und Camping für Sommer und Winter.' },
     nl: { title: 'Overnachten in Bjorli – hutten, appartementen en hotels', description: 'Vind een plek om te slapen in Bjorli, dicht bij het skicentrum, de langlaufloipes en de bergen. Hutten, appartementen, hotels en camping, zomer en winter.' },
     da: { title: 'Overnatning på Bjorli – hytter, lejligheder og hotel', description: 'Find overnatning på Bjorli nær skicentret, langrendsspor og fjeld. Vælg mellem hytter, lejligheder, hotel og camping til sommer- og vinterferie.' },
@@ -157,7 +157,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   aktiviteter: {
     no: { title: 'Aktiviteter på Bjorli og i Lesja – hele året', description: 'Finn aktiviteter på Bjorli og i Lesja året rundt: alpint, langrenn, fotturer, sykling, fiske, gårdsbesøk og familievennlige utflukter i fjellet.' },
-    en: { title: 'Things to do in Bjorli and Lesja | All year round', description: 'Find things to do in Bjorli and Lesja through the year: skiing, cross-country skiing, hiking, cycling, fishing, farm visits and family days out in the mountains.' },
+    en: { title: 'Things to do in Bjorli | Hiking, fishing and day trips', description: 'Things to do in and around Bjorli: hiking, cycling, fishing, farm visits and family days out, plus day trips on the Golden Train and Romsdalsgondolen.' },
     de: { title: 'Aktivitäten in Bjorli und Lesja – das ganze Jahr', description: 'Aktivitäten in Bjorli und Lesja rund ums Jahr: Alpinski, Langlauf, Wandern, Radfahren, Angeln, Hofbesuche und familienfreundliche Ausflüge in den Bergen.' },
     nl: { title: 'Activiteiten in Bjorli en Lesja – het hele jaar', description: 'Vind activiteiten in Bjorli en Lesja het hele jaar door: alpineskiën, langlaufen, wandelen, fietsen, vissen, boerderijbezoek en gezinsuitstapjes in de bergen.' },
     da: { title: 'Aktiviteter på Bjorli og i Lesja – hele året', description: 'Find aktiviteter på Bjorli og i Lesja året rundt: alpint, langrend, vandreture, cykling, fiskeri, gårdsbesøg og familievenlige udflugter i fjeldet.' },
@@ -166,7 +166,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   arrangementer: {
     no: { title: 'Arrangementer på Bjorli', description: 'Arrangementer, konkurranser og opplevelser på Bjorli gjennom året.' },
-    en: { title: 'What’s on in Bjorli, Norway | Events', description: 'Events, races and things to do in Bjorli through the year.' },
+    en: { title: 'What’s on in Bjorli, Norway | Events', description: 'See what’s on in Bjorli and the surrounding area, from markets and races to family events. Check the date, place and details for each event before you go.' },
     de: { title: 'Veranstaltungen in Bjorli, Norwegen', description: 'Veranstaltungen, Rennen und Erlebnisse in Bjorli das ganze Jahr über.' },
     nl: { title: 'Evenementen in Bjorli, Noorwegen', description: 'Evenementen, wedstrijden en belevenissen in Bjorli het hele jaar door.' },
     da: { title: 'Arrangementer på Bjorli', description: 'Arrangementer, konkurrencer og oplevelser på Bjorli året rundt.' },
@@ -184,7 +184,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   nyheter: {
     no: { title: 'Nyheter – Bjorli', description: 'Nyheter, driftsmeldinger og oppdateringer fra Bjorli og Bjorli Skisenter.' },
-    en: { title: 'News | Bjorli, Norway', description: 'News and updates from Bjorli and Bjorli Ski Resort.' },
+    en: { title: 'News from Bjorli, Norway', description: 'News and updates from Bjorli and Bjorli Ski Resort: season news, offers and what’s new in the village and the mountains around it.' },
     de: { title: 'Neuigkeiten – Bjorli, Norwegen', description: 'Aktuelles und Betriebsmeldungen aus Bjorli und dem Bjorli Skisenter.' },
     nl: { title: 'Nieuws – Bjorli, Noorwegen', description: 'Nieuws en updates van Bjorli en Bjorli Skisenter.' },
     da: { title: 'Nyheder – Bjorli', description: 'Nyheder og driftsmeldinger fra Bjorli og Bjorli Skisenter.' },
@@ -211,7 +211,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   skiutleie: {
     no: { title: 'Skiutleie på Bjorli', description: 'Lei ski, snowboard og utstyr på Bjorli – moderne utstyr i alle størrelser, rett ved skisenteret.' },
-    en: { title: 'Ski hire in Bjorli, Norway', description: 'Hire skis, snowboards and ski equipment in Bjorli, right next to the ski resort.' },
+    en: { title: 'Ski Hire in Bjorli | Skis & Snowboards', description: 'Hire skis, snowboards and ski equipment in Bjorli, right next to the ski resort. Sort out your equipment and get ready for your days on the slopes.' },
     de: { title: 'Skiverleih in Bjorli, Norwegen', description: 'Ski, Snowboard und Ausrüstung in Bjorli mieten – moderne Ausrüstung direkt am Skigebiet.' },
     nl: { title: 'Skiverhuur in Bjorli, Noorwegen', description: 'Huur ski’s, snowboards en uitrusting in Bjorli – moderne uitrusting direct naast het skigebied.' },
     da: { title: 'Skiudlejning på Bjorli', description: 'Lej ski, snowboard og udstyr på Bjorli – moderne udstyr lige ved skicentret.' },
@@ -224,7 +224,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   'reisen-hit': {
     no: { title: 'Reisen hit – slik kommer du til Bjorli', description: 'Bjorli er enkelt å nå med bil via E136 og med tog på Raumabanen, mellom Dombås og Åndalsnes.' },
-    en: { title: 'Getting to Bjorli, Norway | By car or train', description: 'Bjorli is on the E136 road and the Rauma Line railway, between Dombås and Åndalsnes. Plan your journey by car or train.' },
+    en: { title: 'Getting to Bjorli, Norway | Train, car and flights', description: 'Bjorli has its own station on the Rauma Line and sits on the E136 between Dombås and Åndalsnes. Plan your journey by train or car, or fly to Ålesund.' },
     de: { title: 'Anreise nach Bjorli – mit Auto oder Zug', description: 'Bjorli ist mit dem Auto über die E136 und mit dem Zug auf der Raumabahn zwischen Dombås und Åndalsnes leicht erreichbar.' },
     nl: { title: 'Reizen naar Bjorli – met auto of trein', description: 'Bjorli is makkelijk te bereiken met de auto via de E136 en met de trein op de Raumabanen, tussen Dombås en Åndalsnes.' },
     da: { title: 'Rejsen til Bjorli – bil eller tog', description: 'Bjorli er let at nå med bil ad E136 og med tog på Raumabanen, mellem Dombås og Åndalsnes.' },
@@ -242,7 +242,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
   kontakt: {
     no: { title: 'Kontakt – Destinasjon Bjorli', description: 'Kontakt Destinasjon Bjorli og Bjorli Skisenter. Adresse, telefon og e-post.' },
-    en: { title: 'Contact | Destination Bjorli, Norway', description: 'Contact Destination Bjorli and Bjorli Ski Resort. Address, phone number and email.' },
+    en: { title: 'Contact | Destination Bjorli, Norway', description: 'Contact Destination Bjorli and Bjorli Ski Resort. Find the address, phone number and email, or send a message about your visit to Bjorli.' },
     de: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt zu Destination Bjorli und dem Bjorli Skisenter. Adresse, Telefon und E-Mail.' },
     nl: { title: 'Contact – Destination Bjorli', description: 'Contact met Destination Bjorli en Bjorli Skisenter. Adres, telefoon en e-mail.' },
     da: { title: 'Kontakt – Destination Bjorli', description: 'Kontakt Destination Bjorli og Bjorli Skisenter. Adresse, telefon og e-mail.' },
@@ -293,7 +293,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).fiske = {
   no: { title: 'Fiske på Bjorli og i Lesja – ørret og fluefiske', description: 'Fjellvann, klare elver og fluefiskesoner i Lesja. Slik finner du fiskekort, soner og praktisk info før du drar ut.' },
-  en: { title: 'Fishing in Bjorli, Norway | Trout, mountain lakes and fly fishing', description: 'Mountain lakes, clear rivers and fly-fishing zones in Lesja. Find fishing licences, zones and practical information before you head out.' },
+  en: { title: 'Fishing in Bjorli | Trout, mountain lakes and fly fishing', description: 'Fishing in Bjorli and Lesja: mountain lakes, rivers, fly-fishing zones and Lesjaskogsvatnet. Find fishing licences, zones and useful links.' },
   de: { title: 'Angeln in Bjorli und Lesja – Forelle und Fliegenfischen', description: 'Bergseen, klare Flüsse und Fliegenfischzonen in Lesja. Angelkarten, Zonen und nützliche Hinweise für den Tag am Wasser.' },
   nl: { title: 'Vissen op Bjorli en in Lesja – forel en vliegvissen', description: 'Bergmeren, heldere rivieren en vliegviszones in Lesja. Vergunningen, zones en praktische tips voor je visdag.' },
   da: { title: 'Fiskeri på Bjorli og i Lesja – ørred og fluefiskeri', description: 'Fjeldsøer, klare elve og fluefiskezoner i Lesja. Find fiskekort, zoner og praktisk info før du tager ud.' },
@@ -302,7 +302,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).gardsbesok = {
   no: { title: 'Gårdsbesøk i Lesja – dyr, kortreist mat og fjellgårder', description: 'Besøk en levende fjellgård i Lesja. Møt dyrene, smak lokal mat og lær hvordan landbruket fungerer høyt til fjells.' },
-  en: { title: 'Farm visits near Bjorli, Norway | Animals and local food', description: 'Visit a working mountain farm in Lesja. Meet the animals, try local food and see how farming works in the mountains.' },
+  en: { title: 'Farm visits near Bjorli | Farms and animals in Lesja', description: 'Farm visits around Bjorli and Lesja: Brendjordsbyen, Bjøkne/Ljosbakken gard and Kolstad Gård, with farm life, places to stay and local food.' },
   de: { title: 'Bauernhofbesuche bei Bjorli – Tiere, regionale Küche, Bergbauernhöfe', description: 'Besuchen Sie einen lebendigen Bergbauernhof in Lesja. Tiere erleben, regionale Produkte probieren und Landwirtschaft auf 700 Metern verstehen.' },
   nl: { title: 'Boerderijbezoek bij Bjorli – dieren, streekproducten, bergboerderijen', description: 'Bezoek een werkende bergboerderij in Lesja. Ontmoet de dieren, proef streekproducten en zie hoe landbouw in het hoogland werkt.' },
   da: { title: 'Gårdsbesøg ved Bjorli – dyr, lokal mad og fjeldgårde', description: 'Besøg en levende fjeldgård i Lesja. Mød dyrene, smag lokal mad og se, hvordan landbruget fungerer højt i fjeldet.' },
@@ -311,7 +311,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['golden-train'] = {
   no: { title: 'Golden Train – togtur over Dovrefjell og Raumabanen', description: 'Reis fra Oslo til Åndalsnes via Bjorli med Dovrebanen og Raumabanen. Vid utsikt, fjelltunneler og en av Europas mest dramatiske togstrekninger.' },
-  en: { title: 'Golden Train | Oslo to Åndalsnes via Bjorli and the Rauma Line', description: 'Travel from Oslo to Åndalsnes over Dovrefjell and down the Rauma Line, with a stop at Bjorli. A scenic rail journey through the mountains and Romsdalen.' },
+  en: { title: 'The Golden Train | Guided trip on the Rauma Line', description: 'The Golden Train is a guided return trip on the Rauma Line from Åndalsnes, past Trollveggen, Kyllingbrua and Vermafossen, with a short stop at Bjorli.' },
   de: { title: 'Golden Train – mit der Bahn von Oslo nach Åndalsnes über Bjorli', description: 'Mit der Dovrebahn und der Raumabahn von Oslo nach Åndalsnes, mit Halt in Bjorli. Eine der spektakulärsten Bahnstrecken Europas.' },
   nl: { title: 'Golden Train – met de trein van Oslo naar Åndalsnes via Bjorli', description: 'Reis met de Dovrebanen en Raumabanen van Oslo naar Åndalsnes, met stop in Bjorli. Een van de mooiste treinroutes van Europa.' },
   da: { title: 'Golden Train – med toget fra Oslo til Åndalsnes via Bjorli', description: 'Rejs med Dovrebanen og Raumabanen fra Oslo til Åndalsnes med stop på Bjorli. En af Europas mest dramatiske togture.' },
@@ -320,7 +320,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).romsdalsgondolen = {
   no: { title: 'Romsdalsgondolen – fra Åndalsnes til Nesaksla', description: 'Ta gondolen fra Åndalsnes opp til Nesaksla på 708 meter. Utsikt over Romsdalsfjorden, Trollveggen og Romsdalshornet — kort vei fra Bjorli.' },
-  en: { title: 'Romsdalsgondolen | Gondola from Åndalsnes to Nesaksla', description: 'Ride the gondola from Åndalsnes up to Nesaksla at 708 metres, with views over the Romsdalsfjord, Trollveggen and Romsdalshornet. A day trip from Bjorli.' },
+  en: { title: 'Romsdalsgondolen | A day trip from Bjorli', description: 'Romsdalsgondolen takes you from Åndalsnes up to Nesaksla, with views over Romsdalen. A good day trip from Bjorli: check opening times and tickets first.' },
   de: { title: 'Romsdalsgondolen – Gondelbahn von Åndalsnes nach Nesaksla', description: 'Mit der Gondel von Åndalsnes auf den Nesaksla (708 m). Blick auf den Romsdalsfjord, die Trollwand und das Romsdalshorn — nahe Bjorli.' },
   nl: { title: 'Romsdalsgondolen – gondel van Åndalsnes naar Nesaksla', description: 'Met de gondel van Åndalsnes naar Nesaksla op 708 m. Uitzicht over de Romsdalsfjord, Trollveggen en Romsdalshornet — kort rijden vanaf Bjorli.' },
   da: { title: 'Romsdalsgondolen – gondol fra Åndalsnes til Nesaksla', description: 'Tag gondolen fra Åndalsnes op til Nesaksla i 708 meters højde. Udsigt over Romsdalsfjorden, Trollveggen og Romsdalshornet — tæt på Bjorli.' },
@@ -329,7 +329,7 @@ export const ROUTE_SEO: RouteSeoMap = {
 
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).sagelva = {
   no: { title: 'Sagelva – kort tur og badekulper nær Bjorli', description: 'Sagelva ligger like ved Bjorli — kort fottur, små fosser og fine kulper for å kjøle føttene en sommerdag.' },
-  en: { title: 'Sagelva | Short walk and pools near Bjorli, Norway', description: 'Sagelva is right next to Bjorli, with a short walk, small waterfalls and pools to cool off in on a warm summer’s day.' },
+  en: { title: 'Sagelva vasskraftsenter | A summer day out near Bjorli', description: 'Visit Sagelva vasskraftsenter in Lesja for hydropower, local history, guided tours and summer days out with the family near Bjorli.' },
   de: { title: 'Sagelva – kurze Wanderung und Badegumpen bei Bjorli', description: 'Sagelva liegt direkt bei Bjorli — kurze Wanderung, kleine Wasserfälle und Gumpen für die Abkühlung an warmen Sommertagen.' },
   nl: { title: 'Sagelva – korte wandeling en zwemkommen bij Bjorli', description: 'Sagelva ligt vlak bij Bjorli — korte wandeling, kleine watervallen en kommen om af te koelen op een warme zomerdag.' },
   da: { title: 'Sagelva – kort tur og badehuller nær Bjorli', description: 'Sagelva ligger lige ved Bjorli — kort tur, små vandfald og gode huller til en svalende dukkert om sommeren.' },

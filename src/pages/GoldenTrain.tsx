@@ -59,7 +59,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
     ctaBack: 'Tilbake til aktiviteter',
   },
   en: {
-    metaTitle: 'The Golden Train from Bjorli | Scenic railway on the Rauma Line',
+    metaTitle: 'The Golden Train | Guided trip on the Rauma Line',
     metaDesc:
       'The Golden Train is a guided return trip on the Rauma Line from Åndalsnes, past Trollveggen, Kyllingbrua and Vermafossen, with a short stop at Bjorli.',
     heroTitle: 'The Golden Train',

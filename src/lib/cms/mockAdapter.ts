@@ -153,7 +153,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
     id: 'seo-landing-en-ski-holiday-norway',
     locale: 'en',
     slug: 'ski-holiday-norway',
-    title: 'Ski Holiday in Norway',
+    title: 'Ski holiday in Norway',
     intro:
       'A mountain village at the head of Romsdalen, with slopes, cross-country ski trails and cabins. A ski holiday in Norway that’s easy to plan with children.',
     heroImage: img('heroGroupWide', 'A group of skiers stopping to take in the mountain view in Bjorli'),

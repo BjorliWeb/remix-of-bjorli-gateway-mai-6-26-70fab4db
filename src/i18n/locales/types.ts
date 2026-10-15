@@ -198,6 +198,10 @@ export interface Dictionary {
     seeMap: string;
     cities: { city: string; km: string }[];
     enturNote: string;
+    /** Optional card-specific text on the getting-here page; falls back to `body`. */
+    carBody?: string;
+    trainTitle?: string;
+    trainBody?: string;
     /**
      * International flight access positioning. Optional — only DA / NL / EN
      * are populated today. Renders on the Getting Here page. Use careful

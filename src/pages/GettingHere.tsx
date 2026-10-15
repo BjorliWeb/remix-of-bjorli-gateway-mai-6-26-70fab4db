@@ -18,13 +18,13 @@ const GettingHere = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl p-6 border border-border shadow-sm">
               <Car className="h-8 w-8 text-secondary mb-3" />
               <h3 className="font-display text-xl font-bold text-foreground mb-2">E136</h3>
-              <p className="text-muted-foreground">{d.gettingHere.body}</p>
+              <p className="text-muted-foreground">{d.gettingHere.carBody ?? d.gettingHere.body}</p>
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-card rounded-2xl p-6 border border-border shadow-sm">
               <Train className="h-8 w-8 text-secondary mb-3" />
-              <h3 className="font-display text-xl font-bold text-foreground mb-2">Raumabanen</h3>
+              <h3 className="font-display text-xl font-bold text-foreground mb-2">{d.gettingHere.trainTitle ?? 'Raumabanen'}</h3>
               <p className="text-muted-foreground">
-                {d.gettingHere.body}{' '}
+                {d.gettingHere.trainBody ?? d.gettingHere.body}{' '}
                 <a
                   href="https://www.entur.no"
                   target="_blank"
@@ -42,7 +42,7 @@ const GettingHere = () => {
                 >
                   www.entur.no
                 </a>
-                {' '}— {d.gettingHere.enturNote}
+                {d.gettingHere.trainBody ? '.' : <>{' '}— {d.gettingHere.enturNote}</>}
               </p>
             </motion.div>
           </div>

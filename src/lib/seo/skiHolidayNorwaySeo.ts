@@ -27,7 +27,7 @@ export const SKI_HOLIDAY_PAGES: Record<SkiHolidayLocale, SkiHolidayPage> = {
   en: {
     slug: 'ski-holiday-norway',
     path: '/en/ski-holiday-norway',
-    title: 'Ski Holiday in Norway at Bjorli | Family Skiing & Cabins',
+    title: 'Ski Holiday in Norway | Plan Your Trip to Bjorli',
     description:
       'Plan a family ski holiday in Norway at Bjorli: alpine and cross-country skiing, ski school, ski hire and cabins. Ålesund Airport is around 2½ hours away by car.',
   },

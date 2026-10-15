@@ -114,7 +114,20 @@ Confirmed facts in use (see also `CLAUDE.md`):
 
 ## Navigation labels (EN)
 
-Winter · Summer · Bjorli Ski Resort · Weather & webcams · Where to stay · Things to do · What's on · Inspiration · Getting here. Footer and other labels use the same terms (Food & drink, Contact, Lift passes, Opening times, Ski hire, Ski school).
+Desktop menu: Winter · Summer · Bjorli Ski Resort · Weather & webcams · Stay · Things to do · What’s on · Inspiration · Travel, plus the seasonal button (Buy lift passes in winter, Where to stay in summer).
+
+"Stay" and "Travel" are deliberate short forms: with "Where to stay" and "Getting here" the menu wrapped onto two lines at 1280 px (measured 15 October 2026). Page headings, footer and links use the full terms (Where to stay, Getting here, Food & drink, Contact, Lift passes, Opening times, Ski hire, Ski school).
+
+## Titles and search themes
+
+- Format: `Topic | Qualifier`. Avoid a double brand name (no "Bjorli … | Bjorli").
+- Fixed titles (brief, 15 October 2026): homepage "Bjorli | Family Ski Holidays in Norway"; winter "Winter Holidays in Norway | Discover Bjorli"; ski resort "Bjorli Ski Resort | Skiing in Norway"; ski hire "Ski Hire in Bjorli | Skis & Snowboards"; accommodation "Where to Stay in Bjorli | Cabins & Apartments". Other titles use sentence case.
+- Working targets: about 50–60 characters for titles and 140–160 for descriptions. These are guides, not rules.
+- Each page has one job. The homepage is the entry point, `/en/winter/` covers winter holidays in Norway, `/en/ski-holiday-norway/` is the UK planning guide and `/en/family/` covers families across both seasons.
+- "Gateway to winter" is used only on the winter page. It is an editorial line, and its search volume has not been verified.
+- Use "snow-sure", "Easter ski holidays" and "ski cabins in Norway" only when the facts back them up.
+- Keep the H1 in the first HTML (`src/lib/seo/routeLeads.ts`) identical to the H1 on the hydrated page.
+- Search Console baseline: `docs/content/uk-search-console-baseline-2026-10-15.md`. Page matrix: `docs/content/en-page-matrix.md`.
 
 ## Technical notes
 

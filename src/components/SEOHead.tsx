@@ -38,7 +38,7 @@ const seoByLocale: Record<Locale, { title: string; description: string; keywords
     keywords: 'bjorli, destinasjon bjorli, snøsikre bjorli, bjorli skisenter, vinterferie norge, hytte bjorli, romsdalen, ski, langrenn',
   },
   en: {
-    title: 'Bjorli, Norway | Family Ski Holidays & Mountain Breaks',
+    title: 'Bjorli | Family Ski Holidays in Norway',
     description: 'Plan your holiday in Bjorli, Norway. Explore skiing, cross-country trails, cosy cabins and mountain activities, with practical information for your stay.',
     keywords: 'bjorli, bjorli norway, snow sure ski resort, ski holiday norway, romsdalen, alpine skiing, cross country skiing, family ski',
   },
@@ -371,7 +371,8 @@ const SEOHead = () => {
       segments.length === 0
         ? 'home'
         : segments.length === 1
-          ? canonicalForSlug(locale, segments[0])
+          ? // canonicalPath is the Norwegian path (see the routeSeo lookup above).
+            canonicalForSlug('no', segments[0]) ?? canonicalForSlug(locale, segments[0])
           : null;
     const staticSeo = routeKey
       ? seoForCanonicalPath(routeKey === 'home' ? '/' : '/' + routeKey, locale)

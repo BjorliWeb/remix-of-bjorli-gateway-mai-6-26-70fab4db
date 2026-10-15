@@ -343,8 +343,8 @@ const EN: Record<SubPageSlug, SubPageContent> = {
       { label: 'Bjorli Ski Resort', href: '/bjorli-skisenter', variant: 'primary' },
       { label: 'Lift passes', href: '/heiskort', variant: 'secondary' },
     ],
-    seoTitle: 'Winter in Bjorli, Norway | Ski holidays and cabin life',
-    seoDescription: 'Winter in Bjorli, with skiing, cross-country ski trails and cabin life between Dombås and Åndalsnes. Plan your winter holiday in the Norwegian mountains.',
+    seoTitle: 'Winter Holidays in Norway | Discover Bjorli',
+    seoDescription: 'Discover Bjorli, your gateway to winter in Norway. Plan a family holiday with skiing, cross-country trails, cosy cabins and time together in the mountains.',
   },
   live: {
     slug: 'live', language: 'en',

@@ -164,8 +164,8 @@ const COPY_RAW = {
     },
   },
   en: {
-    metaTitle: 'Things to do in Bjorli | Hiking, cycling, fishing, farm visits and day trips',
-    metaDesc: 'Things to do in and around Bjorli: hiking, cycling, fishing, family activities, farm visits, day trips such as The Golden Train and Romsdalsgondolen, plus walks and viewpoints.',
+    metaTitle: 'Things to do in Bjorli | Hiking, fishing and day trips',
+    metaDesc: 'Things to do in and around Bjorli: hiking, cycling, fishing, farm visits and family days out, plus day trips on the Golden Train and Romsdalsgondolen.',
     heroTitle: 'Things to do in Bjorli',
     heroSubtitle: 'Find hiking, cycling, fishing, family activities and day trips, with Bjorli as your base.',
     intro: 'There’s plenty to do on your doorstep in Bjorli, with bigger days out a drive or train ride away. Choose from hiking, cycling, fishing, family activities, local history and day trips towards Romsdalen, the mountains and the fjords.',
