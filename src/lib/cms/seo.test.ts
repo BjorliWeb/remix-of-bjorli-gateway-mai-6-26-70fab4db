@@ -65,16 +65,38 @@ describe('event JSON-LD', () => {
   });
 });
 
-describe('EN-only ski-holiday landing', () => {
-  it('self-references /en/ski-holiday-norway/ with en as the only translation', async () => {
-    const seo = await resolveSeoForRoute('en', '/ski-holiday-norway', 'https://bjorli.no/en/ski-holiday-norway/');
-    expect(seo?.alternatePaths).toEqual({ en: '/en/ski-holiday-norway/' });
-    expect(seo?.availableTranslations).toEqual(['en']);
-    expect(seo?.title).toContain('Ski Holiday in Norway');
+describe('ski-holiday landing (EN/DE/SV/DA/NL)', () => {
+  const ALL = {
+    en: '/en/ski-holiday-norway/',
+    de: '/de/skiurlaub-norwegen/',
+    sv: '/sv/skidsemester-norge/',
+    da: '/da/skiferie-norge/',
+    nl: '/nl/wintersport-noorwegen/',
+  };
+
+  it.each([
+    ['en', '/ski-holiday-norway', 'Ski Holiday in Norway'],
+    ['de', '/skiurlaub-norwegen', 'Skiurlaub in Norwegen'],
+    ['sv', '/skidsemester-norge', 'Skidsemester i Norge'],
+    ['da', '/skiferie-norge', 'Skiferie i Norge'],
+    ['nl', '/wintersport-noorwegen', 'Wintersport in Noorwegen'],
+  ] as const)('%s links every real version and nothing else', async (lang, path, title) => {
+    const seo = await resolveSeoForRoute(lang, path, `https://bjorli.no${ALL[lang]}`);
+    expect(seo?.alternatePaths).toEqual(ALL);
+    expect(seo?.availableTranslations?.slice().sort()).toEqual(['da', 'de', 'en', 'nl', 'sv']);
+    expect(seo?.title).toContain(title);
   });
 
-  it('is not resolved for other locales', async () => {
+  it('resolves to the active language’s version from any of the five slugs', async () => {
+    // After an in-app switch DE → EN the router can still hold the DE slug.
+    const seo = await resolveSeoForRoute('en', '/skiurlaub-norwegen', 'https://bjorli.no/en/ski-holiday-norway/');
+    expect(seo?.title).toContain('Ski Holiday in Norway');
+    expect(seo?.alternatePaths).toEqual(ALL);
+  });
+
+  it('is never resolved for Norwegian or unrelated paths', async () => {
     expect(await resolveSeoForRoute('no', '/ski-holiday-norway', 'https://bjorli.no/ski-holiday-norway/')).toBeNull();
-    expect(await resolveSeoForRoute('de', '/ski-holiday-norway', 'https://bjorli.no/de/ski-holiday-norway/')).toBeNull();
+    expect(await resolveSeoForRoute('no', '/skiurlaub-norwegen', 'https://bjorli.no/skiurlaub-norwegen/')).toBeNull();
+    expect(await resolveSeoForRoute('de', '/ski-holiday', 'https://bjorli.no/de/ski-holiday/')).toBeNull();
   });
 });

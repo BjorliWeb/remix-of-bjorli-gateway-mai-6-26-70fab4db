@@ -2343,10 +2343,62 @@
   </url>
   <url>
     <loc>https://bjorli.no/en/ski-holiday-norway/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/skiurlaub-norwegen/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/skidsemester-norge/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/skiferie-norge/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/wintersport-noorwegen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/de/skiurlaub-norwegen/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/skiurlaub-norwegen/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/skidsemester-norge/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/skiferie-norge/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/wintersport-noorwegen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/sv/skidsemester-norge/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/skiurlaub-norwegen/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/skidsemester-norge/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/skiferie-norge/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/wintersport-noorwegen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/da/skiferie-norge/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/skiurlaub-norwegen/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/skidsemester-norge/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/skiferie-norge/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/wintersport-noorwegen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/nl/wintersport-noorwegen/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/ski-holiday-norway/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/skiurlaub-norwegen/"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://bjorli.no/sv/skidsemester-norge/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://bjorli.no/da/skiferie-norge/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://bjorli.no/nl/wintersport-noorwegen/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/ski-holiday-norway/"/>
   </url>
   <url>

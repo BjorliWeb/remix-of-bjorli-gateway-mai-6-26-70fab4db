@@ -25,7 +25,7 @@ import { resolve } from 'node:path';
 import { LOCALES, LOCALE_PREFIX, type Locale } from '../src/i18n/locales/types';
 import { ROUTE_SLUGS, slugForCanonical, type CanonicalRoute } from '../src/i18n/routes';
 import { absoluteUrl, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
-import { SKI_HOLIDAY_NORWAY_PATH } from '../src/lib/seo/skiHolidayNorwaySeo';
+import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from '../src/lib/seo/skiHolidayNorwaySeo';
 import {
   DETAIL_KINDS,
   buildTranslationGroups,
@@ -135,25 +135,25 @@ for (const canonical of canonicalKeys) {
 }
 
 /**
- * EN-only landing pages that are not part of the canonical route registry.
- * The ski-holiday landing lives at /en/ski-holiday-norway only — it has no
- * NO/DE/NL/DA/SV variants, so only en + x-default are advertised here. The
- * old un-prefixed URL 301s to it (public/_redirects).
+ * Ski-holiday landing — outside the canonical route registry. It ships in
+ * EN/DE/SV/DA/NL with a different slug per language (no NO version), so
+ * every entry advertises all five versions + x-default (English). The old
+ * un-prefixed /ski-holiday-norway 301s to the EN page (public/_redirects).
  */
-const EN_ONLY_EXTRAS = [
-  { path: SKI_HOLIDAY_NORWAY_PATH, priority: 0.6, changefreq: 'monthly' },
+const skiHolidayAlternates = [
+  ...SKI_HOLIDAY_LOCALES.map((l) => ({
+    hreflang: l,
+    href: absoluteUrl(SKI_HOLIDAY_PAGES[l].path, ORIGIN),
+  })),
+  { hreflang: 'x-default', href: absoluteUrl(SKI_HOLIDAY_PAGES.en.path, ORIGIN) },
 ];
-for (const extra of EN_ONLY_EXTRAS) {
-  const href = absoluteUrl(extra.path, ORIGIN);
+for (const l of SKI_HOLIDAY_LOCALES) {
   urls.push({
-    loc: href,
+    loc: absoluteUrl(SKI_HOLIDAY_PAGES[l].path, ORIGIN),
     lastmod: LASTMOD,
-    changefreq: extra.changefreq,
-    priority: extra.priority,
-    alternates: [
-      { hreflang: 'en', href },
-      { hreflang: 'x-default', href },
-    ],
+    changefreq: 'monthly',
+    priority: 0.6,
+    alternates: skiHolidayAlternates,
   });
 }
 
@@ -161,7 +161,7 @@ for (const extra of EN_ONLY_EXTRAS) {
  * NO-only pages outside the canonical route registry (currently /handel,
  * the shops & services page — prerendered with hreflang no + x-default
  * only, see scripts/prerender.ts). Listed explicitly, same rationale as
- * EN_ONLY_EXTRAS.
+ * the ski-holiday entries above.
  */
 const NO_ONLY_EXTRAS = [
   { path: '/handel', priority: 0.6, changefreq: 'monthly' },
@@ -293,6 +293,6 @@ ${body}
 writeFileSync(resolve('public/sitemap.xml'), xml);
 console.log(
   `sitemap.xml written — ${urls.length} URLs across ${canonicalKeys.length} canonical routes` +
-    ` (+ ${EN_ONLY_EXTRAS.length} EN-only, ${NO_ONLY_EXTRAS.length} NO-only extras,` +
+    ` (+ ${SKI_HOLIDAY_LOCALES.length} ski-holiday, ${NO_ONLY_EXTRAS.length} NO-only extras,` +
     ` ${detailCount} editorial detail pages).`,
 );

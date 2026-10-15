@@ -24,6 +24,12 @@ interface Props {
   robots?: string;
   /** When true, force noindex,follow regardless of `robots`. */
   noindex?: boolean;
+  /**
+   * Exact path (with locale prefix) to use for canonical/og:url instead of
+   * deriving it from the router location. For pages whose slug differs per
+   * language and is not in the route registry.
+   */
+  canonicalPath?: string;
 }
 
 /** Canonical URLs always use the production origin — see SEOHead for why. */
@@ -40,7 +46,7 @@ const upsertMeta = (key: string, content: string, isProperty = false) => {
   el.setAttribute('content', content);
 };
 
-const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, noindex }: Props) => {
+const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, noindex, canonicalPath: canonicalOverride }: Props) => {
   const location = useLocation();
   const { locale } = useLanguage();
   const { path: canonicalPath } = stripLocalePrefix(location.pathname);
@@ -66,7 +72,8 @@ const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, no
     if (robotsValue) upsertMeta('robots', robotsValue);
 
     const canonicalHref = absoluteUrl(
-      (LOCALE_PREFIX[locale] || '') + (canonicalPath === '/' ? '/' : canonicalPath),
+      canonicalOverride ??
+        (LOCALE_PREFIX[locale] || '') + (canonicalPath === '/' ? '/' : canonicalPath),
       SITE_ORIGIN,
     );
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -77,7 +84,7 @@ const PageMeta = ({ title, description, ogImage, ogType, twitterCard, robots, no
     }
     canonical.setAttribute('href', canonicalHref);
     upsertMeta('og:url', canonicalHref, true);
-  }, [title, description, ogImage, ogType, twitterCard, robots, noindex, canonicalPath, locale]);
+  }, [title, description, ogImage, ogType, twitterCard, robots, noindex, canonicalPath, canonicalOverride, locale]);
 
   return null;
 };

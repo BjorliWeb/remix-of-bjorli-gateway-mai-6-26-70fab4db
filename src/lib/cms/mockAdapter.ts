@@ -18,7 +18,7 @@ import type {
 } from './types';
 
 import { dictionaries } from '@/i18n/translations';
-import { SKI_HOLIDAY_NORWAY_SEO } from '@/lib/seo/skiHolidayNorwaySeo';
+import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from '@/lib/seo/skiHolidayNorwaySeo';
 import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { loadSupabase } from '@/integrations/supabase/lazy';
@@ -248,9 +248,432 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       { label: 'Getting here', href: '/en/getting-here', description: 'By car, train and air to Bjorli.' },
     ],
     // Single source of truth — src/lib/seo/skiHolidayNorwaySeo.ts
-    seoTitle: SKI_HOLIDAY_NORWAY_SEO.title,
-    seoDescription: SKI_HOLIDAY_NORWAY_SEO.description,
-    availableTranslations: ['en'],
+    seoTitle: SKI_HOLIDAY_PAGES.en.title,
+    seoDescription: SKI_HOLIDAY_PAGES.en.description,
+    availableTranslations: [...SKI_HOLIDAY_LOCALES],
+    translatedBody: true,
+    lastReviewedAt: '2026-10-15',
+  },
+
+  /* DE/SV/DA/NL: translated from the EN entry above — same facts, same
+     photos, no market-specific claims added (see CLAUDE.md fact rule). */
+
+  'de/skiurlaub-norwegen': {
+    id: 'seo-landing-de-skiurlaub-norwegen',
+    locale: 'de',
+    slug: SKI_HOLIDAY_PAGES.de.slug,
+    title: 'Skiurlaub in Norwegen',
+    intro:
+      'Ein Bergdorf am oberen Ende des Romsdals mit Pisten, Langlaufloipen und Hütten – ein Skiurlaub in Norwegen, der sich mit Kindern leicht planen lässt.',
+    heroImage: img('heroGroupWide', 'Eine Gruppe Skifahrer genießt die Bergaussicht in Bjorli'),
+    pageSummary:
+      'Bjorli ist ein Bergdorf in Lesja, zwischen Dombås und Åndalsnes an der E136, dort wo das Gudbrandsdal auf das Romsdal trifft. Im Winter gibt es Alpinski, Langlauf und Pisten für Anfänger. Anreisen können Sie mit dem Auto, mit dem Zug auf der Rauma-Bahn oder per Flug nach Ålesund, Molde oder Oslo.',
+    pageSummaryFacts: [
+      { label: 'Region', value: 'Lesja, Innlandet, Norwegen (am oberen Ende des Romsdals)' },
+      { label: 'Flughäfen', value: 'Ålesund, Molde und Oslo' },
+      { label: 'Zug', value: 'Rauma-Bahn über Dombås' },
+      { label: 'Ideal für', value: 'Familien-Skiurlaub, Anfänger, Langlauf' },
+    ],
+    bodySections: [
+      {
+        id: 'why-bjorli',
+        type: 'rich_text',
+        heading: 'Warum Bjorli für einen Skiurlaub in Norwegen',
+        body:
+          'Bjorli liegt dort, wo das Gudbrandsdal auf das Romsdal trifft – an der E136 und an der Rauma-Bahn zwischen Dombås und Åndalsnes. Es ist ein kleines Bergdorf und kein großer Skiort. Das Romsdal, die Trollwand (Trollveggen), Åndalsnes und das Dovrefjell erreichen Sie gut bei einem Tagesausflug.',
+        image: img('eventEaster', 'Skifahrer und ein Snowboarder am Nordløypa-Schild oberhalb von Bjorli'),
+      },
+      {
+        id: 'ski-center',
+        type: 'rich_text',
+        heading: 'Bjorli Skisenter',
+        body:
+          'Bjorli Skisenter ist das Skigebiet vor Ort, mit Liften und Pisten für verschiedene Könnerstufen. Lift- und Pistenstatus, Schneehöhe und Temperatur werden während der Saison live aktualisiert – so können Sie die Bedingungen prüfen, bevor Sie losfahren.',
+        image: img('kidsView', 'Zwei Kinder auf Skiern vor der Bergkulisse in Bjorli'),
+      },
+      {
+        id: 'cta-ski-resort',
+        type: 'cta_block',
+        label: 'Zum Skigebiet',
+        href: '/de/bjorli-skigebiet',
+        variant: 'primary',
+      },
+      {
+        id: 'family',
+        type: 'rich_text',
+        heading: 'Skifahren mit Kindern',
+        body:
+          'Anfängerpisten, eine Skischule und ein Skiverleih machen Bjorli mit Kindern unkompliziert – Sie müssen nicht die ganze Ausrüstung selbst mitbringen. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
+        image: img('skiSchool', 'Kinder in der Skischule am Anfängerhang in Bjorli'),
+      },
+      {
+        id: 'travel',
+        type: 'rich_text',
+        heading: 'Anreise aus dem Ausland',
+        body:
+          'Fliegen Sie nach Ålesund (Flughafen Vigra), Molde oder Oslo. Vom Flughafen Ålesund sind es rund 2½ Stunden mit dem Auto nach Bjorli (etwa 170 km) – planen Sie zusätzlich Zeit für die Mietwagenübernahme und für winterliche Straßen ein. Von Oslo sind es rund 5 Stunden mit dem Auto: auf der E6 nach Norden bis Dombås, dann auf der E136 nach Westen. Mit dem Zug fahren Sie auf der Dovrebahn bis Dombås und steigen dort in die Rauma-Bahn zum Bahnhof Bjorli um. Flugverbindungen ändern sich je nach Saison – prüfen Sie vor der Buchung die aktuellen Flugpläne. Zug- und Busverbindungen finden Sie auf www.entur.no.',
+      },
+      {
+        id: 'beyond-alpine',
+        type: 'rich_text',
+        heading: 'Mehr als Alpinski',
+        body:
+          'Bjorli ist auch ein Langlaufziel: Gespurte Loipen (auf Norwegisch langrennsløyper) verbinden das Dorf mit dem umliegenden Fjell. Skitouren und Schneeschuhwandern sind ebenfalls möglich, und im Sommer werden dieselben Berge zum Wandern und Radfahren genutzt.',
+        image: img('news', 'Skifahrer und Snowboarder machen Pause in der Sonne oberhalb von Bjorli'),
+      },
+    ],
+    faq: [
+      {
+        q: 'Wo liegt Bjorli in Norwegen?',
+        a: 'Bjorli ist ein Bergdorf in Lesja in der Provinz Innlandet, zwischen Dombås und Åndalsnes an der E136 und an der Rauma-Bahn. Es liegt am oberen Ende des Romsdals, im Gebirge zwischen Ostnorwegen und der Westküste.',
+      },
+      {
+        q: 'Wann ist in Bjorli Skisaison?',
+        a: 'Die Saisondaten ändern sich von Jahr zu Jahr. Prüfen Sie vor der Reise die Öffnungszeiten und den Live-Status von Liften und Schnee.',
+      },
+      {
+        q: 'Eignet sich Bjorli für einen Skiurlaub mit der Familie?',
+        a: 'Ja. Bjorli hat Anfängerpisten, eine Skischule und einen Skiverleih, und Sie können in Hütten, Ferienwohnungen oder einem Hotel übernachten. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
+      },
+      {
+        q: 'Wie komme ich aus dem Ausland nach Bjorli?',
+        a: 'Fliegen Sie nach Ålesund (Flughafen Vigra), Molde oder Oslo und fahren Sie dann mit dem Mietwagen oder dem Zug weiter. Vom Flughafen Ålesund sind es rund 2½ Stunden mit dem Auto nach Bjorli. Flugverbindungen ändern sich je nach Saison – prüfen Sie vor der Buchung die aktuellen Flugpläne.',
+      },
+      {
+        q: 'Wie komme ich von Oslo nach Bjorli?',
+        a: 'Mit dem Auto auf der E6 nach Norden bis Dombås und dann auf der E136 nach Westen – je nach Strecke und Bedingungen rund 5 Stunden ab Oslo. Mit dem Zug auf der Dovrebahn bis Dombås und dort in die Rauma-Bahn zum Bahnhof Bjorli umsteigen. Zug- und Busverbindungen sowie Tickets finden Sie auf www.entur.no.',
+      },
+      {
+        q: 'Was kann man in Bjorli außer Alpinski machen?',
+        a: 'Langlauf auf gespurten Loipen, Skitouren und Schneeschuhwandern. Im Sommer ist Bjorli ein Ausgangspunkt zum Wandern, Radfahren und für Ausflüge nach Åndalsnes und ins Romsdal.',
+      },
+    ],
+    relatedLinks: [
+      { label: 'Bjorli Skisenter', href: '/de/bjorli-skigebiet', description: 'Lifte, Pisten und Live-Status aus dem Skigebiet.' },
+      { label: 'Skipass', href: '/de/skipass', description: 'Tageskarten und Saisonkarten.' },
+      { label: 'Öffnungszeiten', href: '/de/oeffnungszeiten', description: 'Aktuelle und saisonale Öffnungszeiten.' },
+      { label: 'Unterkunft', href: '/de/unterkunft', description: 'Hütten, Ferienwohnungen und Hotels in Bjorli.' },
+      { label: 'Wetter & Webcams', href: '/de/wetter-und-webcams', description: 'Live-Kameras, Wetter und Schneebedingungen.' },
+      { label: 'Anreise', href: '/de/anreise', description: 'Mit Auto, Zug und Flugzeug nach Bjorli.' },
+    ],
+    seoTitle: SKI_HOLIDAY_PAGES.de.title,
+    seoDescription: SKI_HOLIDAY_PAGES.de.description,
+    availableTranslations: [...SKI_HOLIDAY_LOCALES],
+    translatedBody: true,
+    lastReviewedAt: '2026-10-15',
+  },
+
+  'sv/skidsemester-norge': {
+    id: 'seo-landing-sv-skidsemester-norge',
+    locale: 'sv',
+    slug: SKI_HOLIDAY_PAGES.sv.slug,
+    title: 'Skidsemester i Norge',
+    intro:
+      'En fjällby längst upp i Romsdalen med nedfarter, längdspår och stugor – en skidsemester i Norge som är lätt att planera med barn.',
+    heroImage: img('heroGroupWide', 'En grupp skidåkare stannar och njuter av fjällutsikten i Bjorli'),
+    pageSummary:
+      'Bjorli är en fjällby i Lesja, mellan Dombås och Åndalsnes längs E136, där Gudbrandsdalen möter Romsdalen. På vintern finns utförsåkning, längdåkning och backar för nybörjare. Du tar dig hit med bil, med tåg på Raumabanan eller med flyg till Ålesund, Molde eller Oslo.',
+    pageSummaryFacts: [
+      { label: 'Region', value: 'Lesja, Innlandet, Norge (längst upp i Romsdalen)' },
+      { label: 'Flygplatser', value: 'Ålesund, Molde och Oslo' },
+      { label: 'Tåg', value: 'Raumabanan via Dombås' },
+      { label: 'Passar för', value: 'Familjeskidåkning, nybörjare, längdåkning' },
+    ],
+    bodySections: [
+      {
+        id: 'why-bjorli',
+        type: 'rich_text',
+        heading: 'Varför välja Bjorli för en skidsemester i Norge',
+        body:
+          'Bjorli ligger där Gudbrandsdalen möter Romsdalen, längs väg E136 och Raumabanan mellan Dombås och Åndalsnes. Det är en liten fjällby snarare än en stor skidort. Romsdalen, Trollveggen, Åndalsnes och Dovrefjell ligger inom räckhåll för en dagsutflykt.',
+        image: img('eventEaster', 'Skidåkare och en snowboardåkare vid Nordløypa-skylten ovanför Bjorli'),
+      },
+      {
+        id: 'ski-center',
+        type: 'rich_text',
+        heading: 'Bjorli Skisenter',
+        body:
+          'Bjorli Skisenter är den lokala skidanläggningen, med liftar och backar för olika nivåer. Status för liftar och backar, snödjup och temperatur uppdateras live under säsongen, så att du kan kolla förhållandena innan du åker upp.',
+        image: img('kidsView', 'Två barn på skidor med fjällen bakom sig i Bjorli'),
+      },
+      {
+        id: 'cta-ski-resort',
+        type: 'cta_block',
+        label: 'Till skidanläggningen',
+        href: '/sv/bjorli-skidcenter',
+        variant: 'primary',
+      },
+      {
+        id: 'family',
+        type: 'rich_text',
+        heading: 'Skidåkning för hela familjen',
+        body:
+          'Nybörjarbackar, skidskola och skiduthyrning gör Bjorli enkelt med barn – du behöver inte ta med all utrustning själv. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
+        image: img('skiSchool', 'Barn i skidskolan i nybörjarbacken i Bjorli'),
+      },
+      {
+        id: 'travel',
+        type: 'rich_text',
+        heading: 'Resa hit från utlandet',
+        body:
+          'Flyg till Ålesund (Vigra flygplats), Molde eller Oslo. Från Ålesunds flygplats tar det cirka 2,5 timmar med bil till Bjorli (ungefär 170 km) – räkna med extra tid för att hämta hyrbil och för vinterväglag. Från Oslo tar det cirka 5 timmar med bil: E6 norrut till Dombås och sedan E136 västerut. Med tåg tar du Dovrebanan till Dombås och byter till Raumabanan till Bjorli station. Flyglinjerna varierar med säsongen, så kolla aktuella tidtabeller innan du bokar. Tåg- och busstider hittar du på www.entur.no.',
+      },
+      {
+        id: 'beyond-alpine',
+        type: 'rich_text',
+        heading: 'Mer än utförsåkning',
+        body:
+          'Bjorli är också ett resmål för längdåkning, med preparerade spår (langrennsløyper på norska) som förbinder byn med fjällen runt omkring. Du kan även prova turskidåkning och snöskovandring, och på sommaren används samma fjäll för vandring och cykling.',
+        image: img('news', 'Skidåkare och snowboardåkare tar en paus i solen ovanför Bjorli'),
+      },
+    ],
+    faq: [
+      {
+        q: 'Var ligger Bjorli i Norge?',
+        a: 'Bjorli är en fjällby i Lesja i Innlandet fylke, mellan Dombås och Åndalsnes längs väg E136 och Raumabanan. Byn ligger längst upp i Romsdalen, i fjällen mellan Östnorge och västkusten.',
+      },
+      {
+        q: 'När är skidsäsongen i Bjorli?',
+        a: 'Säsongens datum varierar från år till år. Kolla öppettiderna och liftarnas och snöns livestatus innan du reser.',
+      },
+      {
+        q: 'Passar Bjorli för en skidsemester med familjen?',
+        a: 'Ja. Bjorli har nybörjarbackar, skidskola och skiduthyrning, och du kan bo i stuga, lägenhet eller på hotell. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
+      },
+      {
+        q: 'Hur tar jag mig till Bjorli från utlandet?',
+        a: 'Flyg till Ålesund (Vigra flygplats), Molde eller Oslo och fortsätt sedan med hyrbil eller tåg. Från Ålesunds flygplats tar det cirka 2,5 timmar med bil till Bjorli. Flyglinjerna varierar med säsongen, så kolla aktuella tidtabeller innan du bokar.',
+      },
+      {
+        q: 'Hur tar jag mig till Bjorli från Oslo?',
+        a: 'Med bil tar du E6 norrut till Dombås och sedan E136 västerut – cirka 5 timmar från Oslo, beroende på väg och väglag. Med tåg tar du Dovrebanan till Dombås och byter till Raumabanan till Bjorli station. Tåg- och busstider och biljetter hittar du på www.entur.no.',
+      },
+      {
+        q: 'Vad finns det att göra i Bjorli förutom utförsåkning?',
+        a: 'Längdåkning i preparerade spår, turskidåkning och snöskovandring. På sommaren är Bjorli en bas för vandring, cykling och utflykter till Åndalsnes och Romsdalen.',
+      },
+    ],
+    relatedLinks: [
+      { label: 'Bjorli Skisenter', href: '/sv/bjorli-skidcenter', description: 'Liftar, backar och livestatus från skidanläggningen.' },
+      { label: 'Liftkort', href: '/sv/liftkort', description: 'Dagkort och säsongskort.' },
+      { label: 'Öppettider', href: '/sv/oppettider', description: 'Aktuella och säsongsbundna öppettider.' },
+      { label: 'Boende', href: '/sv/boende', description: 'Stugor, lägenheter och hotell i Bjorli.' },
+      { label: 'Väder & webbkameror', href: '/sv/vader-och-webbkameror', description: 'Livekameror, väder och snöförhållanden.' },
+      { label: 'Resa hit', href: '/sv/resa-hit', description: 'Med bil, tåg och flyg till Bjorli.' },
+    ],
+    seoTitle: SKI_HOLIDAY_PAGES.sv.title,
+    seoDescription: SKI_HOLIDAY_PAGES.sv.description,
+    availableTranslations: [...SKI_HOLIDAY_LOCALES],
+    translatedBody: true,
+    lastReviewedAt: '2026-10-15',
+  },
+
+  'da/skiferie-norge': {
+    id: 'seo-landing-da-skiferie-norge',
+    locale: 'da',
+    slug: SKI_HOLIDAY_PAGES.da.slug,
+    title: 'Skiferie i Norge',
+    intro:
+      'En fjeldby øverst i Romsdalen med pister, langrendsspor og hytter – en skiferie i Norge, der er nem at planlægge med børn.',
+    heroImage: img('heroGroupWide', 'En gruppe skiløbere nyder udsigten over fjeldene i Bjorli'),
+    pageSummary:
+      'Bjorli er en fjeldby i Lesja, mellem Dombås og Åndalsnes ved E136, hvor Gudbrandsdalen møder Romsdalen. Om vinteren er der alpint, langrend og pister for begyndere. Du kommer hertil i bil, med tog på Raumabanen eller ved at flyve til Ålesund, Molde eller Oslo.',
+    pageSummaryFacts: [
+      { label: 'Region', value: 'Lesja, Innlandet, Norge (øverst i Romsdalen)' },
+      { label: 'Lufthavne', value: 'Ålesund, Molde og Oslo' },
+      { label: 'Tog', value: 'Raumabanen via Dombås' },
+      { label: 'Bedst til', value: 'Familieskiferie, begyndere, langrend' },
+    ],
+    bodySections: [
+      {
+        id: 'why-bjorli',
+        type: 'rich_text',
+        heading: 'Hvorfor vælge Bjorli til en skiferie i Norge',
+        body:
+          'Bjorli ligger, hvor Gudbrandsdalen møder Romsdalen, ved vej E136 og Raumabanen mellem Dombås og Åndalsnes. Det er en lille fjeldby og ikke en stor skiby. Romsdalen, Trollveggen, Åndalsnes og Dovrefjell ligger inden for rækkevidde til en dagstur.',
+        image: img('eventEaster', 'Skiløbere og en snowboarder ved Nordløypa-skiltet over Bjorli'),
+      },
+      {
+        id: 'ski-center',
+        type: 'rich_text',
+        heading: 'Bjorli Skisenter',
+        body:
+          'Bjorli Skisenter er det lokale skisportssted med lifte og pister til forskellige niveauer. Status for lifte og pister, snedybde og temperatur opdateres live gennem sæsonen, så du kan tjekke forholdene, før du tager op.',
+        image: img('kidsView', 'To børn på ski med fjeldene i baggrunden i Bjorli'),
+      },
+      {
+        id: 'cta-ski-resort',
+        type: 'cta_block',
+        label: 'Se skisportsstedet',
+        href: '/da/bjorli-skisenter',
+        variant: 'primary',
+      },
+      {
+        id: 'family',
+        type: 'rich_text',
+        heading: 'Skiløb for hele familien',
+        body:
+          'Begynderpister, skiskole og skiudlejning gør Bjorli nemt med børn – du behøver ikke at tage alt udstyret med selv. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
+        image: img('skiSchool', 'Børn på skiskole i begynderbakken i Bjorli'),
+      },
+      {
+        id: 'travel',
+        type: 'rich_text',
+        heading: 'Rejsen hertil fra udlandet',
+        body:
+          'Flyv til Ålesund (Vigra lufthavn), Molde eller Oslo. Fra Ålesund Lufthavn tager det omkring 2½ time i bil til Bjorli (ca. 170 km) – beregn ekstra tid til at hente lejebil og til vinterveje. Fra Oslo tager det omkring 5 timer i bil: E6 mod nord til Dombås og derefter E136 mod vest. Med tog tager du Dovrebanen til Dombås og skifter til Raumabanen til Bjorli station. Flyruterne skifter med sæsonen, så tjek de aktuelle køreplaner, før du bestiller. Tog- og bustider finder du på www.entur.no.',
+      },
+      {
+        id: 'beyond-alpine',
+        type: 'rich_text',
+        heading: 'Mere end alpint',
+        body:
+          'Bjorli er også et sted for langrend med præparerede spor (langrennsløyper på norsk), der forbinder byen med fjeldet omkring. Du kan også prøve topture på ski og vandring på snesko, og om sommeren bruges de samme fjelde til vandring og cykling.',
+        image: img('news', 'Skiløbere og snowboardere holder pause i solen over Bjorli'),
+      },
+    ],
+    faq: [
+      {
+        q: 'Hvor ligger Bjorli i Norge?',
+        a: 'Bjorli er en fjeldby i Lesja i Innlandet fylke, mellem Dombås og Åndalsnes ved vej E136 og Raumabanen. Byen ligger øverst i Romsdalen, i fjeldene mellem Østnorge og vestkysten.',
+      },
+      {
+        q: 'Hvornår er der skisæson i Bjorli?',
+        a: 'Sæsonens datoer varierer fra år til år. Tjek åbningstiderne og live-status for lifte og sne, før du rejser.',
+      },
+      {
+        q: 'Er Bjorli godt til en skiferie med familien?',
+        a: 'Ja. Bjorli har begynderpister, skiskole og skiudlejning, og du kan bo i hytte, lejlighed eller på hotel. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
+      },
+      {
+        q: 'Hvordan kommer jeg til Bjorli fra udlandet?',
+        a: 'Flyv til Ålesund (Vigra lufthavn), Molde eller Oslo, og fortsæt derefter i lejebil eller med tog. Fra Ålesund Lufthavn tager det omkring 2½ time i bil til Bjorli. Flyruterne skifter med sæsonen, så tjek de aktuelle køreplaner, før du bestiller.',
+      },
+      {
+        q: 'Hvordan kommer jeg til Bjorli fra Oslo?',
+        a: 'I bil tager du E6 mod nord til Dombås og E136 mod vest – omkring 5 timer fra Oslo afhængigt af rute og føre. Med tog tager du Dovrebanen til Dombås og skifter til Raumabanen til Bjorli station. Tog- og bustider og billetter finder du på www.entur.no.',
+      },
+      {
+        q: 'Hvad kan man lave i Bjorli ud over alpint?',
+        a: 'Langrend i præparerede spor, topture på ski og vandring på snesko. Om sommeren er Bjorli et udgangspunkt for vandring, cykling og ture til Åndalsnes og Romsdalen.',
+      },
+    ],
+    relatedLinks: [
+      { label: 'Bjorli Skisenter', href: '/da/bjorli-skisenter', description: 'Lifte, pister og live-status fra skisportsstedet.' },
+      { label: 'Liftkort', href: '/da/liftkort', description: 'Dagskort og sæsonkort.' },
+      { label: 'Åbningstider', href: '/da/aabningstider', description: 'Aktuelle åbningstider og sæsonens åbningstider.' },
+      { label: 'Overnatning', href: '/da/overnatning', description: 'Hytter, lejligheder og hoteller i Bjorli.' },
+      { label: 'Vejr & webcams', href: '/da/vejr-og-webcams', description: 'Livekameraer, vejr og sneforhold.' },
+      { label: 'Rejsen hertil', href: '/da/rejsen-hertil', description: 'I bil, med tog og fly til Bjorli.' },
+    ],
+    seoTitle: SKI_HOLIDAY_PAGES.da.title,
+    seoDescription: SKI_HOLIDAY_PAGES.da.description,
+    availableTranslations: [...SKI_HOLIDAY_LOCALES],
+    translatedBody: true,
+    lastReviewedAt: '2026-10-15',
+  },
+
+  'nl/wintersport-noorwegen': {
+    id: 'seo-landing-nl-wintersport-noorwegen',
+    locale: 'nl',
+    slug: SKI_HOLIDAY_PAGES.nl.slug,
+    title: 'Wintersport in Noorwegen',
+    intro:
+      'Een bergdorp bovenaan Romsdalen met pistes, langlaufloipes en vakantiehuisjes – wintersport in Noorwegen die je makkelijk plant met kinderen.',
+    heroImage: img('heroGroupWide', 'Een groep skiërs geniet van het uitzicht over de bergen in Bjorli'),
+    pageSummary:
+      'Bjorli is een bergdorp in Lesja, tussen Dombås en Åndalsnes aan de E136, waar Gudbrandsdalen overgaat in Romsdalen. In de winter kun je hier alpineskiën en langlaufen, en er zijn pistes voor beginners. Je komt hier met de auto, met de trein over de Raumabanen of door te vliegen naar Ålesund, Molde of Oslo.',
+    pageSummaryFacts: [
+      { label: 'Regio', value: 'Lesja, Innlandet, Noorwegen (bovenaan Romsdalen)' },
+      { label: 'Luchthavens', value: 'Ålesund, Molde en Oslo' },
+      { label: 'Trein', value: 'Raumabanen via Dombås' },
+      { label: 'Ideaal voor', value: 'Wintersport met het gezin, beginners, langlaufen' },
+    ],
+    bodySections: [
+      {
+        id: 'why-bjorli',
+        type: 'rich_text',
+        heading: 'Waarom Bjorli voor je wintersport in Noorwegen',
+        body:
+          'Bjorli ligt waar Gudbrandsdalen overgaat in Romsdalen, aan de E136 en aan de spoorlijn Raumabanen tussen Dombås en Åndalsnes. Het is een klein bergdorp, geen groot skioord. Romsdalen, Trollveggen, Åndalsnes en Dovrefjell liggen binnen bereik voor een dagtrip.',
+        image: img('eventEaster', 'Skiërs en een snowboarder bij het Nordløypa-bord boven Bjorli'),
+      },
+      {
+        id: 'ski-center',
+        type: 'rich_text',
+        heading: 'Bjorli Skisenter',
+        body:
+          'Bjorli Skisenter is het skigebied van het dorp, met liften en pistes voor verschillende niveaus. De status van liften en pistes, de sneeuwhoogte en de temperatuur worden het hele seizoen live bijgewerkt, zodat je de omstandigheden kunt checken voordat je de berg op gaat.',
+        image: img('kidsView', 'Twee kinderen op ski’s met de bergen op de achtergrond in Bjorli'),
+      },
+      {
+        id: 'cta-ski-resort',
+        type: 'cta_block',
+        label: 'Naar het skigebied',
+        href: '/nl/bjorli-skigebied',
+        variant: 'primary',
+      },
+      {
+        id: 'family',
+        type: 'rich_text',
+        heading: 'Skiën met kinderen',
+        body:
+          'Beginnerspistes, een skischool en skiverhuur maken Bjorli makkelijk met kinderen – je hoeft niet al je eigen spullen mee te nemen. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
+        image: img('skiSchool', 'Kinderen op skischool op de beginnerspiste in Bjorli'),
+      },
+      {
+        id: 'travel',
+        type: 'rich_text',
+        heading: 'Hierheen reizen vanuit het buitenland',
+        body:
+          'Vlieg naar Ålesund (luchthaven Vigra), Molde of Oslo. Vanaf de luchthaven van Ålesund is het zo’n 2,5 uur rijden naar Bjorli (ongeveer 170 km) – reken op extra tijd voor het ophalen van een huurauto en voor winterse wegen. Vanaf Oslo is het zo’n 5 uur rijden: de E6 naar het noorden tot Dombås en dan de E136 naar het westen. Met de trein neem je de Dovrebanen naar Dombås en stap je over op de Raumabanen naar station Bjorli. Vliegroutes wisselen per seizoen, dus check de actuele dienstregelingen voordat je boekt. Trein- en bustijden vind je op www.entur.no.',
+      },
+      {
+        id: 'beyond-alpine',
+        type: 'rich_text',
+        heading: 'Meer dan alpineskiën',
+        body:
+          'Bjorli is ook een langlaufbestemming, met geprepareerde loipes (langrennsløyper in het Noors) die het dorp verbinden met het fjell eromheen. Je kunt ook toerskiën en sneeuwschoenwandelen, en in de zomer worden dezelfde bergen gebruikt om te wandelen en te fietsen.',
+        image: img('news', 'Skiërs en snowboarders pauzeren in de zon boven Bjorli'),
+      },
+    ],
+    faq: [
+      {
+        q: 'Waar ligt Bjorli in Noorwegen?',
+        a: 'Bjorli is een bergdorp in Lesja, in de provincie Innlandet, tussen Dombås en Åndalsnes aan de E136 en de Raumabanen. Het ligt bovenaan Romsdalen, in de bergen tussen Oost-Noorwegen en de westkust.',
+      },
+      {
+        q: 'Wanneer is het skiseizoen in Bjorli?',
+        a: 'De seizoensdata verschillen per jaar. Check de openingstijden en de live status van liften en sneeuw voordat je vertrekt.',
+      },
+      {
+        q: 'Is Bjorli geschikt voor wintersport met het gezin?',
+        a: 'Ja. Bjorli heeft beginnerspistes, een skischool en skiverhuur, en je kunt overnachten in een vakantiehuis, appartement of hotel. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
+      },
+      {
+        q: 'Hoe kom ik vanuit het buitenland in Bjorli?',
+        a: 'Vlieg naar Ålesund (luchthaven Vigra), Molde of Oslo en reis verder met een huurauto of de trein. Vanaf de luchthaven van Ålesund is het zo’n 2,5 uur rijden naar Bjorli. Vliegroutes wisselen per seizoen, dus check de actuele dienstregelingen voordat je boekt.',
+      },
+      {
+        q: 'Hoe kom ik vanuit Oslo in Bjorli?',
+        a: 'Met de auto neem je de E6 naar het noorden tot Dombås en dan de E136 naar het westen – zo’n 5 uur vanaf Oslo, afhankelijk van de route en de omstandigheden. Met de trein neem je de Dovrebanen naar Dombås en stap je over op de Raumabanen naar station Bjorli. Trein- en bustijden en kaartjes vind je op www.entur.no.',
+      },
+      {
+        q: 'Wat kun je in Bjorli doen naast alpineskiën?',
+        a: 'Langlaufen op geprepareerde loipes, toerskiën en sneeuwschoenwandelen. In de zomer is Bjorli een uitvalsbasis voor wandelen, fietsen en uitstapjes naar Åndalsnes en Romsdalen.',
+      },
+    ],
+    relatedLinks: [
+      { label: 'Bjorli Skisenter', href: '/nl/bjorli-skigebied', description: 'Liften, pistes en live status van het skigebied.' },
+      { label: 'Skipassen', href: '/nl/skipassen', description: 'Dagpassen en seizoenspassen.' },
+      { label: 'Openingstijden', href: '/nl/openingstijden', description: 'Actuele en seizoensgebonden openingstijden.' },
+      { label: 'Accommodatie', href: '/nl/accommodatie', description: 'Vakantiehuizen, appartementen en hotels in Bjorli.' },
+      { label: 'Weer & webcams', href: '/nl/weer-en-webcams', description: 'Livecamera’s, weer en sneeuwcondities.' },
+      { label: 'Reizen naar Bjorli', href: '/nl/reizen-naar-bjorli', description: 'Met de auto, de trein en het vliegtuig naar Bjorli.' },
+    ],
+    seoTitle: SKI_HOLIDAY_PAGES.nl.title,
+    seoDescription: SKI_HOLIDAY_PAGES.nl.description,
+    availableTranslations: [...SKI_HOLIDAY_LOCALES],
     translatedBody: true,
     lastReviewedAt: '2026-10-15',
   },
