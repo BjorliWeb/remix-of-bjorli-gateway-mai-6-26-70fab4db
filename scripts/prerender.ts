@@ -429,10 +429,6 @@ const homeBodySkeleton = (locale: Locale): string => {
   const proofPoints = data.intro.proofPoints
     ? `\n      <ul style="margin:0.75rem 0 0;padding-left:1.25rem;line-height:1.7">${data.intro.proofPoints.map((p) => `<li>${escapeHtml(p)}</li>`).join('')}</ul>`
     : '';
-  const note = data.hero.travelNote;
-  const travelNote = note
-    ? `\n      <p style="margin:0.75rem auto 0;max-width:36rem;color:rgba(255,255,255,0.8);font-size:0.875rem;line-height:1.6">${escapeHtml(note.text)} <a href="${escapeHtml(localizeHref('/reisen-hit', locale))}" style="color:#fff;font-weight:500">${escapeHtml(note.journeyLabel)}</a> · <a href="${escapeHtml(note.guideHref)}" style="color:#fff;font-weight:500">${escapeHtml(note.guideLabel)}</a></p>`
-    : '';
   const heroImg = homeHeroAssets();
   const heroPicture = heroImg
     ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover md:object-[48%_50%] md:scale-[1.12] md:origin-top-left" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
@@ -448,7 +444,7 @@ const homeBodySkeleton = (locale: Locale): string => {
         <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:hsl(var(--season-accent));color:hsl(var(--season-accent-foreground));font-weight:600;text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaLiftPass)}</a>
         <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:rgba(255,255,255,0.12);color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.3);text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaStay)}</a>
       </div>
-      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}" style="color:rgba(255,255,255,0.8);font-size:0.875rem">${escapeHtml(data.hero.ctaOpening)}</a></p>${travelNote}
+      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}" style="color:rgba(255,255,255,0.8);font-size:0.875rem">${escapeHtml(data.hero.ctaOpening)}</a></p>
       </div>
     </section>
     <div style="max-width:960px;margin:0 auto;padding:0 1.25rem">
