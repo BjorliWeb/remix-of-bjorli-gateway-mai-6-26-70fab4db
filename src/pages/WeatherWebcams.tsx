@@ -454,6 +454,8 @@ const WeatherWebcams = () => {
               <img
                 src={loypekartImage}
                 alt={copy.trailMapAlt}
+                width={1024}
+                height={761}
                 className="w-full h-auto block"
                 loading="lazy"
               />

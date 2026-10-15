@@ -247,7 +247,10 @@ const WeatherForecast = ({ variant = 'full' }: Props) => {
   const meta = <p className="text-xs text-muted-foreground">{copy.baseNote} {copy.sourceLabel}{fetched && <>{' · '}{copy.fetchedLabel}: {fetched}</>}</p>;
 
   if (state === 'error' && !hasData) return <div className="rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground"><span className="font-medium text-foreground">{variant === 'compact' ? copy.compactTitle : copy.title}</span><span className="mx-2 opacity-60">·</span>{copy.unavailable}</div>;
-  if (!hasData) return <div className="rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground" aria-live="polite">{copy.loading}</div>;
+  // Full variant: reserve roughly the loaded forecast's height (measured
+  // Oct 2026: ~1718px under 640px wide, ~1242px at 640, ~1202px from 768) so
+  // everything below doesn't jump down when the data arrives (layout shift).
+  if (!hasData) return <div className={`rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground${variant === 'full' ? ' min-h-[1700px] sm:min-h-[1240px] md:min-h-[1200px]' : ''}`} aria-live="polite">{copy.loading}</div>;
 
   if (variant === 'compact') {
     const nowHour = currentHour(forecast);

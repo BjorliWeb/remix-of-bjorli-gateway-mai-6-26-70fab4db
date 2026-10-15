@@ -97,7 +97,7 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
   const lp = useLocalizedPath();
   const [alert, setAlert] = useState<CmsAlert | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const { latest: latestPost, hasLoaded: postsLoaded } = useBjorliFnuggPosts(3);
+  const { latest: latestPost, hasLoaded: postsLoaded, state: postsState } = useBjorliFnuggPosts(3);
 
   useEffect(() => {
     let cancelled = false;
@@ -165,6 +165,18 @@ const LiveAlertBanner = ({ fallback }: { fallback: FallbackProps }) => {
     ctaLabel = live.seeAllUpdates;
     ctaHref = ALL_ALERTS_URL;
     ctaExternal = true;
+  } else if (!postsLoaded && postsState !== 'error') {
+    // Fnugg posts still loading: hold the space of the usual "latest news"
+    // article (measured Oct 2026: ~649px mobile, ~742px at 640, ~400px from
+    // 768) instead of rendering nothing, so content below doesn't jump down
+    // when it arrives. Also avoids briefly showing a CMS line that the Fnugg
+    // post then replaces. Critical alerts still render immediately (above);
+    // on a fetch error this falls through to the existing behaviour.
+    return (
+      <section aria-hidden className="px-4 mt-8 mb-4">
+        <div className="container mx-auto max-w-5xl border-y border-border/70 min-h-[620px] sm:min-h-[720px] md:min-h-[390px]" />
+      </section>
+    );
   } else if (nonCriticalAlert) {
     level = nonCriticalAlert.level;
     label = nonCriticalAlert.label ?? label;
