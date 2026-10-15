@@ -598,6 +598,18 @@ export const mockAdapter: CmsAdapter = {
     },
     { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
     {
+      // People on the slopes right under the intro, so the page doesn't
+      // open with text only. Alt text: Norwegian on NO, English elsewhere.
+      id: 'photoStrip',
+      type: 'photoStrip',
+      images: [
+        { url: images.happyKid.src, alt: language === 'no' ? images.happyKid.alt : 'A happy girl on skis with her arms in the air at Bjorli.' },
+        { url: images.kidSlalom.src, alt: language === 'no' ? images.kidSlalom.alt : 'A skier riding through an arch on the slope at Bjorli.' },
+        { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees at Bjorli.' },
+        { url: images.eveningLift.src, alt: language === 'no' ? 'Skiløpere i stolheisen med utsikt over dalen på Bjorli.' : 'Skiers on the chairlift above the valley at Bjorli.' },
+      ],
+    },
+    {
       id: 'planning',
       type: 'cardGrid',
       title: homepageData.planning.title,
@@ -616,7 +628,7 @@ export const mockAdapter: CmsAdapter = {
       eyebrow: homepageData.skiCenter.eyebrow,
       title: homepageData.skiCenter.title,
       body: homepageData.skiCenter.body,
-      image: { url: heroWinter, alt: homepageData.skiCenter.title },
+      image: { url: images.skiRental.src, alt: homepageData.skiCenter.title },
       imageSide: 'left',
       ctas: [
         { label: homepageData.skiCenter.cta, href: '/bjorli-skisenter', variant: 'primary' },
@@ -690,8 +702,9 @@ export const mockAdapter: CmsAdapter = {
         title: d.beyondAlpine.title,
         body: d.beyondAlpine.body,
         images: [
+          // Only images[0] is rendered — keep the people photo first.
+          { url: images.kidsFrame.src, alt: language === 'no' ? images.kidsFrame.alt : 'Children on skis in the #Bjorli frame with a mountain view.' },
           { url: cabinEvening, alt: 'Hytte i vinterkveld på Bjorli' },
-          { url: crossCountry, alt: 'Vinterlandskap rundt Bjorli' },
         ],
         items: d.beyondAlpine.items.map((it, i) => ({
           title: it.title,
