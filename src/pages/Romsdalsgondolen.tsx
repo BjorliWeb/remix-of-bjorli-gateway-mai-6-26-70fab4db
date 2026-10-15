@@ -58,9 +58,9 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
     ctaBack: 'Tilbake til aktiviteter',
   },
   en: {
-    metaTitle: 'Romsdalsgondolen as a day trip from Bjorli | Views over Romsdalen',
+    metaTitle: 'Romsdalsgondolen | A day trip from Bjorli',
     metaDesc:
-      'Romsdalsgondolen takes you from Åndalsnes up to Nesaksla, with views over Romsdalen. A good day trip from Bjorli. Check the opening times and tickets with Romsdalsgondolen.',
+      'Romsdalsgondolen takes you from Åndalsnes up to Nesaksla, with views over Romsdalen. A good day trip from Bjorli: check opening times and tickets first.',
     heroTitle: 'Romsdalsgondolen',
     heroSubtitle: 'A day trip from Bjorli to Åndalsnes, then up by gondola for wide views over Romsdalen.',
     intro1:

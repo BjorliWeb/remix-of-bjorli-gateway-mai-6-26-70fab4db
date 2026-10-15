@@ -5,5 +5,5 @@
 // cards, accommodation, family, planning, etc. — regardless of
 // whether the site root is currently themed for summer or winter.
 import Index from './Index';
-const Vinter = () => <Index />;
+const Vinter = () => <Index page="winter" />;
 export default Vinter;

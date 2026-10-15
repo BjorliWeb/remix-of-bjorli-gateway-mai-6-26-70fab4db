@@ -133,7 +133,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     ],
   },
   en: {
-    heroTitle: 'Weather & webcams',
+    heroTitle: 'Weather & webcams in Bjorli',
     heroSubtitle: 'Check today’s conditions, the lift status and the webcams in Bjorli.',
     statusTitle: 'Current status',
     statusSourceNote: 'Data from Fnugg',

@@ -276,7 +276,6 @@ const Sagelva = () => {
     setMeta('og:title', t.metaTitle, 'property');
     setMeta('og:description', t.metaDesc, 'property');
     setMeta('og:type', 'article', 'property');
-    setMeta('og:url', '/sagelva', 'property');
 
     const ld = document.createElement('script');
     ld.type = 'application/ld+json';

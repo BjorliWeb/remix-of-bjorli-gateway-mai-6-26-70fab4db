@@ -45,6 +45,11 @@ export interface HomepageSectionCard {
 export interface HomepageData {
   language: Language;
   hero: HomepageHero;
+  /**
+   * Optional hero text for the /vinter route, which renders the same
+   * component as the homepage. Without it both URLs show the same H1.
+   */
+  winterPageHero?: Pick<HomepageHero, 'eyebrow' | 'title' | 'subtitle'>;
   intro: HomepageIntro;
   planning: {
     title: string;
@@ -117,6 +122,11 @@ const PAGE_COPY: Record<Language, HomepageData> = {
       ctaStay: 'Find your accommodation',
       ctaOpening: 'Opening times & snow conditions',
       liftPassUrl: LIFT_PASS_URL,
+    },
+    winterPageHero: {
+      eyebrow: 'Winter holidays',
+      title: 'Your gateway to winter in Norway',
+      subtitle: 'Discover Bjorli on your next winter holiday in Norway. Bring the family for skiing, explore the cross-country trails and settle into a cosy cabin after a day in the mountains.',
     },
     intro: {
       title: 'Find your winter in Bjorli',

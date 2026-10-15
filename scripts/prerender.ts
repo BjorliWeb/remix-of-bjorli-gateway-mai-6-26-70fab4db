@@ -1415,7 +1415,9 @@ const run = () => {
       seoLookupPath: '/vinter',
       leadKey: '/ski-holiday-norway',
       hreflangs: skiHolidayHreflangs,
-      skeletonKey: 'skisenter',
+      // Generic skeleton with the page's own H1/lead; the ski-centre
+      // skeleton showed the ski resort's H1 instead of this page's.
+      skeletonKey: 'vinter',
       groupKey: 'ski-holiday-norway',
     });
   }

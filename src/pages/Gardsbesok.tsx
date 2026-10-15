@@ -14,6 +14,7 @@ import kolstadImg from '@/assets/farms/gardsbesok-kolstad-gard.avif';
 import kolstadMiljoImg from '@/assets/farms/gardsbesok-kolstad-gard-miljo.avif';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 
 type Cta = { label: string; href: string };
 type FarmText = { title: string; alt: string; text: string };
@@ -61,8 +62,8 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', Copy> = {
     altKolstadMiljo: 'Gårdsmiljø ved Kolstad Gård i Lesja',
   },
   en: {
-    metaTitle: 'Farm visits near Bjorli | Farms, animals and local culture in Lesja',
-    metaDesc: 'Farm visits around Bjorli and Lesja. Visit Brendjordsbyen, Bjøkne/Ljosbakken gard and Kolstad Gård for farm life, places to stay, local food and the farmed landscape.',
+    metaTitle: 'Farm visits near Bjorli | Farms and animals in Lesja',
+    metaDesc: 'Farm visits around Bjorli and Lesja: Brendjordsbyen, Bjøkne/Ljosbakken gard and Kolstad Gård, with farm life, places to stay and local food.',
     heroTitle: 'Farm visits near Bjorli',
     heroSubtitle: 'Around Bjorli there are several farms with plenty of character that welcome visitors for tours, meals and overnight stays.',
     bcHome: 'Bjorli', bcSummer: 'Summer', bcActivities: 'Things to do', bcSelf: 'Farm visits',
@@ -232,6 +233,9 @@ const Gardsbesok = () => {
     },
   ];
 
+  const crumbUrls = [lp('/'), lp('/aktiviteter'), lp('/gardsbesok')].map((p) => absoluteUrl(p));
+  const crumbKey = crumbUrls.join(' ');
+
   useEffect(() => {
     const prevTitle = document.title;
     document.title = t.metaTitle;
@@ -239,7 +243,6 @@ const Gardsbesok = () => {
     setMeta('og:title', t.metaTitle, 'property');
     setMeta('og:description', t.metaDesc, 'property');
     setMeta('og:type', 'article', 'property');
-    setMeta('og:url', '/gardsbesok', 'property');
 
     const ld = document.createElement('script');
     ld.type = 'application/ld+json';
@@ -248,9 +251,9 @@ const Gardsbesok = () => {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t.bcHome, item: '/' },
-          { '@type': 'ListItem', position: 2, name: t.bcActivities, item: '/aktiviteter' },
-          { '@type': 'ListItem', position: 3, name: t.bcSelf, item: '/gardsbesok' },
+          { '@type': 'ListItem', position: 1, name: t.bcHome, item: crumbUrls[0] },
+          { '@type': 'ListItem', position: 2, name: t.bcActivities, item: crumbUrls[1] },
+          { '@type': 'ListItem', position: 3, name: t.bcSelf, item: crumbUrls[2] },
         ],
       },
     ]);
@@ -259,7 +262,8 @@ const Gardsbesok = () => {
       document.title = prevTitle;
       document.head.removeChild(ld);
     };
-  }, [t.metaTitle, t.metaDesc, t.bcHome, t.bcActivities, t.bcSelf]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- crumbKey stands in for crumbUrls
+  }, [t.metaTitle, t.metaDesc, t.bcHome, t.bcActivities, t.bcSelf, crumbKey]);
 
   return (
     <div>

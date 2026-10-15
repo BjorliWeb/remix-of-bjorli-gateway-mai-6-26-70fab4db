@@ -269,12 +269,12 @@ export const translations = {
       offerings: ['Lessons for children', 'Lessons for adults', 'Private lessons', 'Telemark'],
     },
     skiRentalPage: {
-      title: 'Ski hire',
+      title: 'Ski hire in Bjorli',
       subtitle: 'Equipment for your days on the slopes',
       desc: 'Intersport Bjorli hires out skis, snowboards and other equipment, right next to the ski resort.',
     },
     foodDrinkPage: {
-      title: 'Food & drink',
+      title: 'Food & drink in Bjorli',
       subtitle: 'Food on the mountain',
       intro: 'At the ski resort you’ll find both Heiskroa and T-Kroken. Between them, you can stop for a quick break, a warm drink, lunch, a relaxed lounge or après-ski after the last run.\n\nBoth are run together, with a focus on good service, a warm atmosphere and food made with care. Local ingredients are used where possible.',
       venuesSectionTitle: 'Heiskroa and T-Kroken',
@@ -304,7 +304,7 @@ export const translations = {
       dogsText: 'Dogs must be kept on a lead on the ski trails. If you’re skiing with a dog, please pick up after it, take the bags with you and dispose of them properly. Please be considerate of everyone using the cross-country ski trails.',
     },
     contactPage: {
-      title: 'Contact us',
+      title: 'Contact Destination Bjorli',
       subtitle: 'We’d love to hear from you',
       infoTitle: 'Contact details',
       nameLabel: 'Name',

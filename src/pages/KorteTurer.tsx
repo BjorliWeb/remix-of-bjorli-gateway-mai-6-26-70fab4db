@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { KORTE_TURER_COPY, type WalkId, type TagId } from './korteTurerCopy';
 
@@ -96,9 +97,9 @@ const KorteTurer = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Bjorli',  item: '/' },
-      { '@type': 'ListItem', position: 2, name: c.crumbSommer,  item: '/sommer' },
-      { '@type': 'ListItem', position: 3, name: c.crumbHere, item: '/sommer/korte-turer' },
+      { '@type': 'ListItem', position: 1, name: 'Bjorli',  item: absoluteUrl(lp('/')) },
+      { '@type': 'ListItem', position: 2, name: c.crumbSommer,  item: absoluteUrl(lp('/sommer')) },
+      { '@type': 'ListItem', position: 3, name: c.crumbHere, item: absoluteUrl(lp('/sommer/korte-turer')) },
     ],
   };
 

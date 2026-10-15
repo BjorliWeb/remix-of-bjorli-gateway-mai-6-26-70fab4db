@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { images } from '@/lib/images';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
+import { absoluteUrl } from '@/lib/url/normalizeInternalPath';
 import type { Locale } from '@/i18n/locales/types';
 
 const INATUR_VANNSKILLET = 'https://www.inatur.no/fiske/50f405d8e4b0e07d03ec36f9';
@@ -131,7 +132,7 @@ const COPY: Record<Locale, Copy> = {
     ],
   },
   en: {
-    metaTitle: 'Fishing in Bjorli | Trout, mountain fishing and fly fishing',
+    metaTitle: 'Fishing in Bjorli | Trout, mountain lakes and fly fishing',
     metaDesc: 'Fishing in Bjorli and Lesja: mountain lakes, rivers, fly-fishing zones and Lesjaskogsvatnet. Find fishing licences, zones and useful links.',
     schemaName: 'Fishing in Bjorli',
     heroTitle: 'Fishing in Bjorli',
@@ -457,6 +458,8 @@ const ZONE_HREFS = [INATUR_VANNSKILLET, LESJA_FJELLSTYRE, INATUR_SONE7];
 const Fiske = () => {
   const t = usePageCopy(COPY);
   const lp = useLocalizedPath();
+  const crumbUrls = [lp('/'), lp('/sommer'), lp('/fiske')].map((p) => absoluteUrl(p));
+  const crumbKey = crumbUrls.join(' ');
 
   useEffect(() => {
     const prevTitle = document.title;
@@ -465,7 +468,6 @@ const Fiske = () => {
     setMeta('og:title', t.metaTitle, 'property');
     setMeta('og:description', t.metaDesc, 'property');
     setMeta('og:type', 'article', 'property');
-    setMeta('og:url', '/fiske', 'property');
 
     const ld = document.createElement('script');
     ld.type = 'application/ld+json';
@@ -483,9 +485,9 @@ const Fiske = () => {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t.crumbHome, item: '/' },
-          { '@type': 'ListItem', position: 2, name: t.crumbSummer, item: '/sommer' },
-          { '@type': 'ListItem', position: 3, name: t.crumbFishing, item: '/fiske' },
+          { '@type': 'ListItem', position: 1, name: t.crumbHome, item: crumbUrls[0] },
+          { '@type': 'ListItem', position: 2, name: t.crumbSummer, item: crumbUrls[1] },
+          { '@type': 'ListItem', position: 3, name: t.crumbFishing, item: crumbUrls[2] },
         ],
       },
       {
@@ -503,7 +505,8 @@ const Fiske = () => {
       document.title = prevTitle;
       document.head.removeChild(ld);
     };
-  }, [t]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- crumbKey stands in for crumbUrls
+  }, [t, crumbKey]);
 
   return (
     <div>

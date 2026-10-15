@@ -21,11 +21,16 @@ import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skis
  * (`getHomepage`) and the shared Node-safe `homepageData` module so the
  * static prerender and the hydrated page use the same hero copy and CTAs.
  */
-const Index = () => {
+const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
   const { locale, d } = useLanguage();
   const lp = useLocalizedPath();
   const home = useCms(() => getHomepage({ language: locale, season: 'winter' }), [locale]);
-  const hero = getHomepageData(locale);
+  const data = getHomepageData(locale);
+  // /vinter reuses this page; give it its own hero text where one exists.
+  const hero =
+    page === 'winter' && data.winterPageHero
+      ? { ...data, hero: { ...data.hero, ...data.winterPageHero } }
+      : data;
 
   // Skip the hero entrance animation when React takes over from the
   // prerendered skeleton, so the headline doesn't vanish and fade back in.

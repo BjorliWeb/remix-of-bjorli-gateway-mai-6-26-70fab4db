@@ -70,6 +70,7 @@ export const buildSkiResort = (url: string, description?: string) =>
     '@id': 'https://bjorli.no/#skiresort',
     '@type': ['SkiResort', 'LocalBusiness'],
     name: 'Bjorli Skisenter',
+    alternateName: 'Bjorli Ski Resort',
     legalName: 'Nye Bjorli Skisenter AS',
     description,
     url,

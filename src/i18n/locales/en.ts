@@ -193,6 +193,9 @@ const en: Dictionary = {
       { city: 'Åndalsnes', km: '60 km' },
     ],
     enturNote: 'check timetables and book train and bus tickets.',
+    carBody: 'Bjorli is on the E136, the main road between Dombås and Åndalsnes. From Oslo, take the E6 north to Dombås, then the E136 west. Parking at the ski resort is in the P1 and P2 car parks.',
+    trainTitle: 'The Rauma Line',
+    trainBody: 'Bjorli has its own station on the Rauma Line, the railway between Dombås and Åndalsnes. From Oslo, the Dovre Line runs north to Dombås, where the Rauma Line continues to Bjorli. Times and changes vary, so check your journey and book tickets at',
     flightAccess: {
       eyebrow: 'International flights',
       title: 'Direct flights to Ålesund Airport Vigra',
