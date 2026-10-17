@@ -41,8 +41,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <PendingContentContext.Provider value={registerPending}>
-    // reducedMotion="user": every framer-motion reveal on public pages
-    // respects the OS "reduce motion" setting (only HomepageCampaign did).
+    {/* reducedMotion="user": every framer-motion reveal on public pages
+        respects the OS "reduce motion" setting (only HomepageCampaign did). */}
     <MotionConfig reducedMotion="user">
     <div
       className="min-h-screen flex flex-col"
