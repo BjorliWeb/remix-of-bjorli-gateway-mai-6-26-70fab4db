@@ -106,6 +106,7 @@ export const translations = {
       subtitle: 'Lær å stå på ski med våre profesjonelle instruktører',
       desc: 'Bjorli Skiskole tilbyr kurs for alle aldre og nivåer. Enten du er nybegynner eller ønsker å forbedre teknikken, har vi det rette kurset for deg.',
       offerings: ['Barnekurs', 'Voksenkurs', 'Privattimer', 'Telemark'],
+      contactCta: 'Spør om skiskole på e-post',
     },
     skiRentalPage: {
       title: 'Skiutleie',
@@ -267,6 +268,7 @@ export const translations = {
       subtitle: 'Learn to ski with our instructors',
       desc: 'Bjorli Ski School offers lessons for children and adults. Whether you’re a beginner or want to improve your technique, you can find a lesson that suits you.',
       offerings: ['Lessons for children', 'Lessons for adults', 'Private lessons', 'Telemark'],
+      contactCta: 'Email us about ski school',
     },
     skiRentalPage: {
       title: 'Ski hire in Bjorli',
@@ -428,6 +430,7 @@ export const translations = {
       subtitle: 'Lær at stå på ski med vores professionelle instruktører',
       desc: 'Bjorli Skiskole tilbyder kurser for alle aldre og niveauer. Uanset om du er nybegynder eller ønsker at forbedre din teknik, har vi det rette kursus til dig.',
       offerings: ['Børnekurser', 'Voksenkurser', 'Privattimer', 'Telemark'],
+      contactCta: 'Spørg om skiskole på e-mail',
     },
     skiRentalPage: {
       title: 'Skiudlejning',
@@ -589,6 +592,7 @@ export const translations = {
       subtitle: 'Leer skiën met onze professionele instructeurs',
       desc: 'Bjorli Skischool biedt cursussen voor alle leeftijden en niveaus. Of je nu beginner bent of je techniek wilt verbeteren, wij hebben de juiste cursus voor jou.',
       offerings: ['Kindercursussen', 'Volwassenencursussen', 'Privélessen', 'Telemark'],
+      contactCta: 'Mail ons over de skischool',
     },
     skiRentalPage: {
       title: 'Skiverhuur',
@@ -750,6 +754,7 @@ export const translations = {
       subtitle: 'Skifahren lernen mit erfahrenen Lehrern',
       desc: 'Die Bjorli Skischule bietet Kurse für jedes Alter und Niveau – ob Anfänger oder Technikfeinschliff.',
       offerings: ['Kinderkurse', 'Erwachsenenkurse', 'Privatstunden', 'Telemark'],
+      contactCta: 'Fragen zur Skischule per E-Mail',
     },
     skiRentalPage: {
       title: 'Skiverleih',
@@ -911,6 +916,7 @@ export const translations = {
       subtitle: 'Lär dig åka skidor med erfarna instruktörer',
       desc: 'Bjorli skidskola erbjuder kurser för alla åldrar och nivåer – från nybörjare till teknikträning.',
       offerings: ['Barnkurser', 'Vuxenkurser', 'Privatlektioner', 'Telemark'],
+      contactCta: 'Fråga om skidskolan via e-post',
     },
     skiRentalPage: {
       title: 'Skiduthyrning',

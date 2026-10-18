@@ -2,7 +2,7 @@
  * Node-safe page data for /skiskole.
  *
  * Shared between the React page and the prerender script so the static
- * HTML contains the same title, description, offerings and external link
+ * HTML contains the same title, description, offerings and contact CTA
  * as the live page.
  */
 import type { Locale } from '@/i18n/locales/types';
@@ -14,10 +14,13 @@ export interface SkiSchoolPageData {
   subtitle: string;
   description: string;
   offerings: readonly string[];
-  externalUrl: string;
+  /** No confirmed online booking address exists, so the CTA is a contact
+   *  request by email (the old intersportbjorli.no/skiskole link is 404). */
+  contactLabel: string;
+  contactEmail: string;
 }
 
-const SKI_SCHOOL_URL = 'https://intersportbjorli.no/skiskole';
+const SKI_SCHOOL_EMAIL = 'skisenter@bjorli.no';
 
 export const getSkiSchoolData = (language: Locale): SkiSchoolPageData => {
   const locale = language ?? 'no';
@@ -28,6 +31,7 @@ export const getSkiSchoolData = (language: Locale): SkiSchoolPageData => {
     subtitle: page.subtitle,
     description: page.desc,
     offerings: page.offerings,
-    externalUrl: SKI_SCHOOL_URL,
+    contactLabel: page.contactCta,
+    contactEmail: SKI_SCHOOL_EMAIL,
   };
 };

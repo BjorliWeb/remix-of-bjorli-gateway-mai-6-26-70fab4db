@@ -314,6 +314,29 @@ const homeHeroAssets = (): { mobile: string; desktop: string } | null => {
   return homeHeroCache;
 };
 
+/** The CMS snapshot is exported through Vite's dev SSR loader, so bundled
+ *  image imports arrive as source URLs (`/src/assets/photos/x.jpg`) that do
+ *  not exist in production. Map each to the hashed file `vite build` emitted
+ *  for the same import (`/assets/x-<hash>.jpg`), so first HTML shows the
+ *  picture React loads after hydration. No unique match fails the build. */
+let distAssetFiles: string[] | undefined;
+const builtAssetUrl = (src: string): string => {
+  if (!src.startsWith('/src/assets/')) return src;
+  const dir = resolve(DIST, 'assets');
+  distAssetFiles ??= existsSync(dir) ? readdirSync(dir) : [];
+  const file = src.slice(src.lastIndexOf('/') + 1);
+  const dot = file.lastIndexOf('.');
+  const stem = file.slice(0, dot);
+  const ext = file.slice(dot);
+  const hits = distAssetFiles.filter(
+    (f) => f.startsWith(`${stem}-`) && f.endsWith(ext) && /^[\w-]{8}$/.test(f.slice(stem.length + 1, -ext.length)),
+  );
+  if (hits.length !== 1) {
+    throw new Error(`[prerender] ${src}: expected one built file in dist/assets, found ${hits.length}`);
+  }
+  return `/assets/${hits[0]}`;
+};
+
 /** <head> preloads for the homepage hero: one image per viewport, fetched
  *  in parallel with the JS bundle instead of after React has rendered. */
 const homeHeroPreloads = (): string => {
@@ -551,7 +574,7 @@ const skiSchoolBodySkeleton = (locale: Locale): string => {
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
     <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${offerings}
     </ul>
-    <a href="${escapeHtml(data.externalUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.title)} →</a>`;
+    <a href="mailto:${escapeHtml(data.contactEmail)}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.contactLabel)}: ${escapeHtml(data.contactEmail)}</a>`;
   return skeletonShell({ locale, canonical: 'skiskole', main });
 };
 
@@ -948,7 +971,7 @@ const detailBodySkeleton = (opts: {
     : '';
 
   const imageHtml = entry.image
-    ? `\n    <figure style="margin:1.5rem 0 0"><img src="${escapeHtml(entry.image)}" alt="${escapeHtml(entry.title)}" style="max-width:100%;height:auto;border-radius:0.375rem" loading="lazy" /></figure>`
+    ? `\n    <figure style="margin:1.5rem 0 0"><img src="${escapeHtml(builtAssetUrl(entry.image))}" alt="${escapeHtml(entry.title)}" style="max-width:100%;height:auto;border-radius:0.375rem" loading="lazy" /></figure>`
     : '';
 
   return `<div id="root"><div data-prerender="detail" data-kind="${escapeHtml(kind)}" data-canonical="${escapeHtml(entry.slug)}" data-locale="${escapeHtml(locale)}" style="min-height:100vh;padding:2rem 1.25rem;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#0a2540;background:#f7f6f2">
@@ -1220,6 +1243,11 @@ const assertInternalLinks = (): void => {
     if (p.endsWith('/')) return existsSync(resolve(abs, 'index.html'));
     return existsSync(abs) && statSync(abs).isFile();
   };
+  // Source asset paths only exist on the dev server; in production they 404.
+  const leaked = pages.filter((p) => p.html.includes('/src/assets/'));
+  if (leaked.length) {
+    throw new Error(`[prerender] /src/assets/ found in ${leaked.length} HTML file(s), e.g. ${leaked.slice(0, 5).map((p) => p.page).join(', ')}`);
+  }
   const problems = findLinkProblems(pages, exists, redirects);
   if (problems.length) {
     const sample = problems.slice(0, 40).map((x) => `  - ${x.page}: ${x.href} (${x.reason})`).join('\n');
