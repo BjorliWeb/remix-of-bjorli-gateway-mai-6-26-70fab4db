@@ -41,12 +41,10 @@ const SkiSchool = () => {
           </div>
           <div className="text-center mt-10">
             <a
-              href={data.externalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`mailto:${data.contactEmail}`}
               className="text-secondary font-semibold hover:underline text-lg"
             >
-              {data.title} →
+              {data.contactLabel}: {data.contactEmail}
             </a>
           </div>
         </div>
