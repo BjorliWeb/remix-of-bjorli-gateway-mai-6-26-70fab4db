@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { clearRecoveryTokenHash, getRecoveryTokenHash } from '@/lib/auth/recoveryLink';
+import { resolveTotpState } from '@/lib/auth/mfa';
 
 /**
  * Password recovery landing page for the editor login.
@@ -48,7 +49,18 @@ const RECOVERY_CALLBACK_IN_URL: boolean = (() => {
  * policy itself is enforced server-side by Auth — this only phrases the
  * outcome, it does not define or duplicate the rules.
  */
-const norwegianAuthError = (message: string): string => {
+const norwegianAuthError = (message: string, code?: string): string => {
+  // Auth's error code is authoritative; the message matching below is only a
+  // fallback. Without this, insufficient_aal ("AAL2 session is required …")
+  // matched 'session' and was shown as an expired link.
+  if (code === 'insufficient_aal') {
+    return 'Skriv inn koden fra autentiseringsappen for å lagre det nye passordet.';
+  }
+  if (code === 'same_password') return 'Det nye passordet må være forskjellig fra det gamle.';
+  if (code === 'weak_password') return 'Passordet er for svakt. Velg et sterkere passord.';
+  if (code === 'session_not_found' || code === 'session_expired') {
+    return 'Denne tilbakestillingslenken er ugyldig eller har utløpt.';
+  }
   const m = message.toLowerCase();
   if (m.includes('at least') || m.includes('too short') || m.includes('minimum')) {
     return 'Passordet er for kort. Velg et lengre passord.';
@@ -74,6 +86,10 @@ const AdminResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  // Set when the account has a verified TOTP factor: Auth refuses a password
+  // change from the aal1 recovery session until the session is raised to aal2.
+  const [mfaFactorId, setMfaFactorId] = useState<string | null>(null);
+  const [mfaCode, setMfaCode] = useState('');
 
   useEffect(() => {
     let active = true;
@@ -115,6 +131,28 @@ const AdminResetPassword = () => {
     };
   }, []);
 
+  // Once the recovery session exists, find out whether the account needs a
+  // TOTP code too. Failing here only hides the code field; Auth still enforces
+  // aal2 on the password change and the error below says so.
+  useEffect(() => {
+    if (status !== 'valid') return;
+    let active = true;
+    (async () => {
+      try {
+        const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+        if (aal?.currentLevel !== 'aal1' || aal?.nextLevel !== 'aal2') return;
+        const { data: factors } = await supabase.auth.mfa.listFactors();
+        const state = resolveTotpState(factors?.all);
+        if (active && state.mode === 'challenge') setMfaFactorId(state.factorId);
+      } catch {
+        // See comment above.
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [status]);
+
   // Spends the one-time token. verifyOtp emits PASSWORD_RECOVERY on success,
   // and only a returned session unlocks the form.
   const continueWithToken = async () => {
@@ -143,11 +181,29 @@ const AdminResetPassword = () => {
       setError('Passordene er ikke like.');
       return;
     }
+    if (mfaFactorId && !/^\d{6}$/.test(mfaCode)) {
+      setError('Skriv inn den sekssifrede koden fra autentiseringsappen.');
+      return;
+    }
     setSaving(true);
+    if (mfaFactorId) {
+      const { error: mfaError } = await supabase.auth.mfa.challengeAndVerify({
+        factorId: mfaFactorId,
+        code: mfaCode,
+      });
+      if (mfaError) {
+        setSaving(false);
+        setMfaCode('');
+        setError('Koden fra autentiseringsappen stemmer ikke. Prøv igjen.');
+        return;
+      }
+      // The session is aal2 now; a retry after a password error needs no new code.
+      setMfaFactorId(null);
+    }
     const { error: updateError } = await supabase.auth.updateUser({ password });
     setSaving(false);
     if (updateError) {
-      setError(norwegianAuthError(updateError.message));
+      setError(norwegianAuthError(updateError.message, updateError.code));
       return;
     }
     // End the recovery session before returning to login. Without this, the
@@ -239,6 +295,23 @@ const AdminResetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
+        {mfaFactorId && (
+          <div>
+            <Label htmlFor="reset-mfa-code" className="mb-1.5 block text-sm">
+              Kode fra autentiseringsappen
+            </Label>
+            <Input
+              id="reset-mfa-code"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              pattern="[0-9]*"
+              maxLength={6}
+              required
+              value={mfaCode}
+              onChange={(e) => setMfaCode(e.target.value.replace(/\D/g, ''))}
+            />
+          </div>
+        )}
         {error && <p className="text-sm text-destructive">{error}</p>}
         <Button type="submit" disabled={saving} className="w-full">
           {saving ? 'Lagrer …' : 'Lagre nytt passord'}
