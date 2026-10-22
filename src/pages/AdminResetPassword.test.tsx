@@ -10,6 +10,11 @@ const { authMock, fromMock, navigateMock } = vi.hoisted(() => ({
     updateUser: vi.fn(),
     signOut: vi.fn(),
     verifyOtp: vi.fn(),
+    mfa: {
+      getAuthenticatorAssuranceLevel: vi.fn(),
+      listFactors: vi.fn(),
+      challengeAndVerify: vi.fn(),
+    },
   },
   fromMock: vi.fn(),
   navigateMock: vi.fn(),
@@ -54,6 +59,11 @@ beforeEach(() => {
     data: { subscription: { unsubscribe: vi.fn() } },
   });
   authMock.signOut.mockResolvedValue({ error: null });
+  // Default: account without MFA.
+  authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue({
+    data: { currentLevel: 'aal1', nextLevel: 'aal1' },
+    error: null,
+  });
 });
 
 afterEach(() => {
@@ -251,6 +261,111 @@ describe('scanner-safe token_hash link', () => {
 
     await waitFor(() => expect(screen.getByText(INVALID)).toBeInTheDocument());
     expect(screen.queryByText('Nytt passord')).toBeNull();
+  });
+});
+
+describe('accounts with TOTP (aal2 required to change password)', () => {
+  const CODE_LABEL = 'Kode fra autentiseringsappen';
+  let Page: ComponentType;
+
+  beforeEach(async () => {
+    authMock.getSession.mockResolvedValue(withSession);
+    authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue({
+      data: { currentLevel: 'aal1', nextLevel: 'aal2' },
+      error: null,
+    });
+    authMock.mfa.listFactors.mockResolvedValue({
+      data: { all: [{ id: 'f-1', factor_type: 'totp', status: 'verified' }] },
+      error: null,
+    });
+    Page = await loadPage(RECOVERY_HASH);
+  });
+
+  const fill = (pw: string, code: string) => {
+    const pws = document.querySelectorAll('input[type="password"]');
+    fireEvent.change(pws[0], { target: { value: pw } });
+    fireEvent.change(pws[1], { target: { value: pw } });
+    fireEvent.change(screen.getByLabelText(CODE_LABEL), { target: { value: code } });
+    fireEvent.click(screen.getByRole('button', { name: 'Lagre nytt passord' }));
+  };
+
+  it('asks for the authenticator code', async () => {
+    renderPage(Page);
+    expect(await screen.findByLabelText(CODE_LABEL)).toBeInTheDocument();
+  });
+
+  it('verifies the code before changing the password', async () => {
+    authMock.mfa.challengeAndVerify.mockResolvedValue({ data: {}, error: null });
+    authMock.updateUser.mockResolvedValue({ data: { user: {} }, error: null });
+    renderPage(Page);
+    await screen.findByLabelText(CODE_LABEL);
+    fill('correct-horse-battery', '123456');
+
+    await waitFor(() =>
+      expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
+    );
+    expect(authMock.mfa.challengeAndVerify).toHaveBeenCalledWith({ factorId: 'f-1', code: '123456' });
+    expect(authMock.mfa.challengeAndVerify.mock.invocationCallOrder[0]).toBeLessThan(
+      authMock.updateUser.mock.invocationCallOrder[0],
+    );
+  });
+
+  it('a wrong code does not change the password', async () => {
+    authMock.mfa.challengeAndVerify.mockResolvedValue({
+      data: null,
+      error: { message: 'Invalid TOTP code entered', code: 'mfa_verification_failed' },
+    });
+    renderPage(Page);
+    await screen.findByLabelText(CODE_LABEL);
+    fill('correct-horse-battery', '000000');
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Koden fra autentiseringsappen stemmer ikke. Prøv igjen.'),
+      ).toBeInTheDocument(),
+    );
+    expect(authMock.updateUser).not.toHaveBeenCalled();
+  });
+
+  it('requires a six-digit code before calling Auth', async () => {
+    renderPage(Page);
+    await screen.findByLabelText(CODE_LABEL);
+    fill('correct-horse-battery', '12');
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Skriv inn den sekssifrede koden fra autentiseringsappen.'),
+      ).toBeInTheDocument(),
+    );
+    expect(authMock.mfa.challengeAndVerify).not.toHaveBeenCalled();
+    expect(authMock.updateUser).not.toHaveBeenCalled();
+  });
+});
+
+describe('error mapping', () => {
+  it('insufficient_aal is not shown as an expired link', async () => {
+    authMock.getSession.mockResolvedValue(withSession);
+    authMock.updateUser.mockResolvedValue({
+      data: null,
+      error: {
+        message: 'AAL2 session is required to update email or password when MFA is enabled.',
+        code: 'insufficient_aal',
+      },
+    });
+    const Page = await loadPage(RECOVERY_HASH);
+    renderPage(Page);
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
+    const pws = document.querySelectorAll('input[type="password"]');
+    fireEvent.change(pws[0], { target: { value: 'correct-horse-battery' } });
+    fireEvent.change(pws[1], { target: { value: 'correct-horse-battery' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Lagre nytt passord' }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Skriv inn koden fra autentiseringsappen for å lagre det nye passordet.'),
+      ).toBeInTheDocument(),
+    );
+    expect(screen.queryByText(INVALID)).toBeNull();
   });
 });
 
