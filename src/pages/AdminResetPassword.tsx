@@ -173,9 +173,10 @@ const AdminResetPassword = () => {
   if (status === 'confirm' || status === 'verifying') {
     return card(
       <>
-        <h1 className="font-display text-2xl font-semibold mb-1 text-foreground">Velg nytt passord</h1>
+        <h1 className="font-display text-2xl font-semibold mb-1 text-foreground">Tilbakestill passord</h1>
         <p className="text-sm text-muted-foreground mt-4 mb-6">
-          Trykk på knappen for å gå videre og velge et nytt passord.
+          Du har bedt om å tilbakestille passordet ditt. Trykk Fortsett for å bekrefte lenken og
+          velge et nytt passord.
         </p>
         <Button className="w-full" disabled={status === 'verifying'} onClick={continueWithToken}>
           {status === 'verifying' ? 'Kontrollerer lenken …' : 'Fortsett'}
