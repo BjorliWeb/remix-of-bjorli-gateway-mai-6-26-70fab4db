@@ -9,6 +9,8 @@ import RelatedContentSection from './RelatedContentSection';
 import SEOPlaceholderBlock from './SEOPlaceholderBlock';
 import TranslationPendingNotice from '@/components/TranslationPendingNotice';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ZoomIn } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { ListingItem } from '@/components/ListingPage';
@@ -73,7 +75,49 @@ const ContentDetailTemplate = ({
 
   return (
     <article>
-      {/* Hero */}
+      {kind === 'event' ? (
+        <section className="pt-10 md:pt-14 px-4">
+          <div className="container mx-auto max-w-5xl">
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              {item.category && <CategoryLabel variant="solid">{item.category}</CategoryLabel>}
+              {showDate && item.date && <DateBadge date={item.date} locale={locale} />}
+              {statusLabel && (
+                <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border">
+                  {statusLabel}
+                </span>
+              )}
+            </div>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-foreground max-w-4xl leading-tight mb-8">
+              {item.title}
+            </h1>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  className="group relative block w-full rounded-2xl bg-muted overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  aria-label={`Vis bildet i større visning: ${item.title}`}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="mx-auto block w-auto max-w-full h-auto max-h-[80vh] object-contain"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                  <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground ring-1 ring-border">
+                    <ZoomIn className="h-4 w-4" aria-hidden /> Forstørr
+                  </span>
+                </button>
+              </DialogTrigger>
+              <DialogContent className="max-w-[96vw] w-auto p-2 sm:p-4 bg-background">
+                <DialogTitle className="sr-only">{item.title}</DialogTitle>
+                <img src={item.image} alt={item.title} className="block max-w-[92vw] max-h-[88vh] w-auto h-auto object-contain mx-auto" />
+              </DialogContent>
+            </Dialog>
+          </div>
+        </section>
+      ) : (
       <section className="hero-bleed relative h-[60svh] min-h-[460px] flex items-end overflow-hidden bg-deep-navy">
         <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
         <div className="absolute inset-0 hero-gradient" />
@@ -94,6 +138,7 @@ const ContentDetailTemplate = ({
           </motion.div>
         </div>
       </section>
+      )}
 
       <Breadcrumbs
         items={[
