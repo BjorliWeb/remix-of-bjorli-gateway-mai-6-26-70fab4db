@@ -1,10 +1,36 @@
-# Gjennomgang av PR #25 – ingen kodeendringer
+# Redigering av innsendte arrangementer på /admin/innsendinger
 
-PR #25 (commit 24e24f9, flettet i 94dfda5) endrer bare 5 filer: recoveryLink.ts, en test for den, main.tsx, AdminResetPassword.tsx og en test for den. 49 av 49 tester for innlogging og tilbakestilling består.
+## Funn
+- «Innsendte artikler» på /admin/innsendinger er arrangementer, ikke artikler. Siden har ingen egen artikkeleditor.
+- Redaktør og administrator har allerede lov til å endre innsendinger i databasen. I dag kan de bare endre notater, status, engelsk utkast og om e-posten vises.
+- En godkjent innsending *er* den publiserte siden. Det finnes ingen egen publisert kopi.
+- Det finnes ingen felt for bildetekst eller «endret av». Feltet `updated_at` oppdateres automatisk.
+- Bildene ligger i privat lagring. I dag kan bare skjemaet for offentlig innsending laste opp nye bilder.
 
-1. Tokenet brukes ikke før «Fortsett»: OK. verifyOtp kalles bare i continueWithToken. Når siden åpnes, sjekker den ingenting.
-2. token_hash fjernes før første GA4 page_view: OK. Tokenet fjernes med replaceState før render, og gtag har send_page_view: false.
-3. Gamle #access_token-lenker: OK i koden. Lenkene røres ikke og testes. Risiko fra før PR-en (ikke verifisert i nettleseren): siden lastes forsinket, så auth-js kan tømme adressefeltet først. Da avhenger flyten av PASSWORD_RECOVERY-hendelsen eller getSession.
-4. Rollesjekk og innlogging: uendret. AdminLogin, roles og mfa er ikke rørt.
+## Hva som bygges
+1. Knappen «Rediger» i detaljvisningen for hver innsending.
+2. Et skjema der dagens innhold er fylt ut på forhånd: tittel, ingress, beskrivelse, arrangør, start- og sluttdato, klokkeslett, sted, kartlenke, nettside og kategori. Kategorilisten er den samme som i innsendingsskjemaet. I tillegg kommer bilder: fjerne eksisterende og laste opp nye, høyst 5 bilder på maks 8 MB hver, samme grenser som i dag.
+3. Knappene «Lagre endringer» og «Avbryt». Avbryt forkaster endringene.
+4. Samme regler for lengde og påkrevde felt som i innsendingsskjemaet. Feilmeldingene står ved feltet og blir lest opp av skjermlesere.
+5. Bekreftelse når lagringen lykkes, en forståelig feilmelding når den feiler, og oversikten lastes på nytt med en gang.
+6. Advarsel før redaktøren forlater skjemaet med ulagrede endringer, både ved lukking, Avbryt og når fanen lukkes.
+7. **Godkjente arrangementer:** Over skjemaet står det at lagring endrer den publiserte siden. Etter lagring bestilles nytt bygg i den eksisterende byggkøen. Status endres aldri ved lagring.
+8. Godkjenning, avvisning, AI-hjelp og engelsk godkjenning fungerer som før. ID, innsender, kontaktinfo, innsendingsdato og status røres ikke.
 
-Anbefaling: ingen endringer. Valgfritt senere: test en ekte gammel lenke i previewen før e-postmalen byttes.
+## Tilgang og sikkerhet
+- **Database:** Én ny, smal regel sørger for at vanlig lagring ikke kan endre ID, innsendingsdato, opplastingsnøkkel, innsenders samtykker eller kontaktdata.
+- **Bilder:** En ny regel lar bare redaktør og administrator laste opp og slette filer, og bare i bildemappen for innsendinger. Andre roller får ingen ny tilgang.
+- Innlogging, totrinnsbekreftelse, passordtilbakestilling, offentlige sider og øvrige adminfunksjoner endres ikke. Ingen nye avhengigheter eller databasefelt.
+
+## Verifisering
+- Tester for skjemaregler og for at lagring aldri sender med status.
+- I nettleseren som redaktør: redigere, lagre, laste siden på nytt, sjekke Avbryt og sjekke at status er uendret.
+- Direkte lagringsforsøk som anonym og som innlogget bruker uten redaktørrolle skal avvises, både for innsendingen og for bildeopplasting.
+- Godkjenn og avvis fungerer fortsatt. Ingen publisering eller deploy.
+
+## Tekniske detaljer
+- Ny komponent `src/components/admin/EventSubmissionEditForm.tsx` med zod-skjema delt i `src/lib/events/submissionEditSchema.ts`, som speiler grensene i `submit-event`.
+- Lagringen gjør en eksplisitt `update` med en liste over tillatte felt, og oppdaterer så `load()`.
+- Migrasjonen legger til en BEFORE UPDATE-trigger på `event_submissions`. Den avviser endring av `id`, `created_at`, `upload_token`, `consent_*`, `email`, `contact_name` og `phone`, og setter `reviewed_by = auth.uid()` når redaktøren lagrer. Feltet finnes allerede.
+- Lagringsregler på `storage.objects` for bøtta `event-submissions` med `has_role` admin/moderator for INSERT og DELETE. Redaktørens opplastinger legges under `editor/<submission-id>/`.
+- Opplastinger sjekkes i klienten for filtype (bilde) og størrelse. Bilder som fjernes, slettes fra lagringen etter at lagringen har lyktes.
