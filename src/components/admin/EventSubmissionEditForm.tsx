@@ -113,7 +113,10 @@ export function EventSubmissionEditForm({
         .eq('id', item.id)
         .select('id');
       if (error || !data || data.length !== 1) {
-        throw new Error(error?.message === 'protected_field' || !data?.length
+        const denied = error
+          ? error.code === '42501' || error.message === 'protected_field'
+          : true; // no error but no row updated = blocked by access rules
+        throw new Error(denied
           ? 'Du har ikke tilgang til å lagre denne innsendingen.'
           : 'Endringene kunne ikke lagres. Prøv igjen.');
       }
