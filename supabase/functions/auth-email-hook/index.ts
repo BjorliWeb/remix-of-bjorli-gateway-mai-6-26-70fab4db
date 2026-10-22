@@ -120,6 +120,20 @@ async function handlePreview(req: Request): Promise<Response> {
   })
 }
 
+// Scanner-safe reset link: https://bjorli.no/admin/reset-password/#token_hash=…&type=recovery
+// The token in Auth's verify URL is the token hash ({{ .TokenHash }}). The page
+// only spends it when the user presses «Fortsett» (see src/lib/auth/recoveryLink.ts).
+// Falls back to the verify URL so a reset email is never left without a link.
+const recoveryLink = (verifyUrl: string): string => {
+  try {
+    const tokenHash = new URL(verifyUrl).searchParams.get('token')
+    if (!tokenHash) return verifyUrl
+    return `${SITE_URL}/admin/reset-password/#token_hash=${encodeURIComponent(tokenHash)}&type=recovery`
+  } catch {
+    return verifyUrl
+  }
+}
+
 // The SDK handler owns verification, dispatch, and retry semantics; this file
 // owns only the email decisions: subjects, templates, and per-type props.
 const handler = createAuthEmailHandler({
@@ -156,11 +170,11 @@ const handler = createAuthEmailHandler({
         }),
     },
     recovery: {
-      subject: 'Reset your password',
+      subject: 'Velg nytt passord for bjorli.no',
       render: (data) =>
         React.createElement(RecoveryEmail, {
           siteName: SITE_NAME,
-          confirmationUrl: data.url,
+          confirmationUrl: recoveryLink(data.url),
         }),
     },
     email_change: {
