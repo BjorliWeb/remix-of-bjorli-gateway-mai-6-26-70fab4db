@@ -59,19 +59,19 @@ export const EventCard = ({ item, to, index = 0 }: CardProps) => {
       }`}
     >
       <EventLink target={target} className="block h-full flex flex-col">
-        <div className="relative aspect-[5/4] overflow-hidden">
+        <div className="relative aspect-[5/4] overflow-hidden bg-muted">
           <img
             src={item.image}
             alt={item.title}
             loading="lazy"
-            className={`w-full h-full object-cover transition-transform duration-[1200ms] ${
-              clickable ? 'group-hover:scale-[1.04]' : ''
-            }`}
+            className="absolute inset-0 w-full h-full object-contain object-center"
           />
+        </div>
+        <div className="p-7 flex flex-col flex-1">
           {(item.category || item.date) && (
-            <div className="absolute top-4 left-4 flex gap-2">
+            <div className="flex flex-wrap gap-2 mb-3">
               {item.category && (
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-background/90 text-foreground backdrop-blur">
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-muted text-foreground">
                   {item.category}
                 </span>
               )}
@@ -82,8 +82,6 @@ export const EventCard = ({ item, to, index = 0 }: CardProps) => {
               )}
             </div>
           )}
-        </div>
-        <div className="p-7 flex flex-col flex-1">
           <h3
             className={`font-display text-xl font-bold text-foreground mb-3 leading-tight transition-colors ${
               clickable ? 'group-hover:text-secondary' : ''

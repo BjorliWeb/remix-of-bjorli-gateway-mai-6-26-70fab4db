@@ -483,20 +483,19 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         target={resolveEventTarget(featured, lp(`/arrangementer/${featured.slug}`))}
                         className={`${rest.length ? 'lg:col-span-8' : 'lg:col-span-12'} group block`}
                       >
-                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="relative overflow-hidden h-[420px] md:h-[520px] rounded-2xl">
-                          {featured.heroImage && (
-                            <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
-                          {featured.date && (
-                            <div className="absolute top-6 left-6 bg-background/90 backdrop-blur text-foreground px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.16em] uppercase">
-                              {featured.date}
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="flex flex-col overflow-hidden h-[420px] md:h-[520px] rounded-2xl border border-border bg-card">
+                          <div className="relative flex-1 min-h-0 bg-muted">
+                            {featured.heroImage && (
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
+                            )}
+                          </div>
+                          <div className="p-5 md:p-7">
+                            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-muted-foreground">
+                              {featured.date && <span>{featured.date}</span>}
+                              {featured.category && <span>{featured.category}</span>}
                             </div>
-                          )}
-                          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                            {featured.category && <div className="text-primary-foreground/75 text-[11px] font-medium tracking-[0.22em] uppercase mb-3">{featured.category}</div>}
-                            <h3 className="font-display font-bold text-primary-foreground text-3xl md:text-5xl leading-[1.05] tracking-tight mb-4 max-w-2xl">{featured.title}</h3>
-                            <p className="text-primary-foreground/85 text-base leading-relaxed max-w-xl line-clamp-2">{featured.intro}</p>
+                            <h3 className="font-display font-bold text-foreground text-2xl md:text-3xl leading-[1.1] tracking-tight mb-2 group-hover:text-secondary transition-colors">{featured.title}</h3>
+                            {featured.intro && <p className="text-muted-foreground text-base leading-relaxed max-w-xl line-clamp-2">{featured.intro}</p>}
                           </div>
                         </motion.article>
                       </EventLink>
@@ -509,18 +508,15 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
                           className="group block"
                         >
-                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="relative overflow-hidden h-[248px] rounded-2xl">
-                            {ev.heroImage && (
-                              <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.04]" loading="lazy" />
-                            )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
-                            {ev.date && (
-                              <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.16em] uppercase">
-                                {ev.date}
-                              </div>
-                            )}
-                            <div className="absolute bottom-0 left-0 right-0 p-5">
-                              <h3 className="font-display font-bold text-primary-foreground text-lg leading-tight tracking-tight">{ev.title}</h3>
+                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="flex flex-col overflow-hidden h-[248px] rounded-2xl border border-border bg-card">
+                            <div className="relative flex-1 min-h-0 bg-muted">
+                              {ev.heroImage && (
+                                <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
+                              )}
+                            </div>
+                            <div className="px-4 py-3">
+                              {ev.date && <div className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted-foreground mb-1">{ev.date}</div>}
+                              <h3 className="font-display font-bold text-foreground text-base leading-tight tracking-tight line-clamp-1 group-hover:text-secondary transition-colors">{ev.title}</h3>
                             </div>
                           </motion.article>
                         </EventLink>
@@ -542,28 +538,17 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                               whileInView={{ opacity: 1, y: 0 }}
                               viewport={REVEAL_VIEWPORT}
                               transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }}
-                              className="relative overflow-hidden h-[248px] rounded-2xl"
-                            >
+                              className="flex flex-col overflow-hidden h-[248px] rounded-2xl border border-border bg-card">
+                            <div className="relative flex-1 min-h-0 bg-muted">
                               {ev.heroImage && (
-                                <img
-                                  src={ev.heroImage.url}
-                                  alt={ev.heroImage.alt || ev.title}
-                                  loading="lazy"
-                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.04]"
-                                />
+                                <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
                               )}
-                              <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/20 to-transparent" />
-                              {ev.date && (
-                                <div className="absolute top-4 left-4 bg-background/90 backdrop-blur text-foreground px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.16em] uppercase">
-                                  {ev.date}
-                                </div>
-                              )}
-                              <div className="absolute bottom-0 left-0 right-0 p-5">
-                                <h3 className="font-display font-bold text-primary-foreground text-lg leading-tight tracking-tight">
-                                  {ev.title}
-                                </h3>
-                              </div>
-                            </motion.article>
+                            </div>
+                            <div className="px-4 py-3">
+                              {ev.date && <div className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted-foreground mb-1">{ev.date}</div>}
+                              <h3 className="font-display font-bold text-foreground text-base leading-tight tracking-tight line-clamp-1 group-hover:text-secondary transition-colors">{ev.title}</h3>
+                            </div>
+                          </motion.article>
                           </EventLink>
                         ))}
                       </div>

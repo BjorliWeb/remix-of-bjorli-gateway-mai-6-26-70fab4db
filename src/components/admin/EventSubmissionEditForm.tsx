@@ -231,7 +231,7 @@ export function EventSubmissionEditForm({
         <ul className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {keptImages.map((p, i) => (
             <li key={p} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-muted">
-              {signedUrls[p] && <img src={signedUrls[p]} alt={`Bilde ${i + 1}`} className="w-full h-full object-cover" />}
+              {signedUrls[p] && <img src={signedUrls[p]} alt={`Bilde ${i + 1}`} className="w-full h-full object-contain object-center" />}
               <Button type="button" size="sm" variant="destructive" className="absolute top-2 right-2"
                 disabled={saving} onClick={() => setKeptImages((k) => k.filter((x) => x !== p))}
                 aria-label={`Fjern bilde ${i + 1}`}>
@@ -241,7 +241,7 @@ export function EventSubmissionEditForm({
           ))}
           {newFiles.map((f, i) => (
             <li key={f.preview} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border bg-muted">
-              <img src={f.preview} alt={`Nytt bilde: ${f.file.name}`} className="w-full h-full object-cover" />
+              <img src={f.preview} alt={`Nytt bilde: ${f.file.name}`} className="w-full h-full object-contain object-center" />
               <Button type="button" size="sm" variant="destructive" className="absolute top-2 right-2"
                 disabled={saving} onClick={() => setNewFiles((n) => n.filter((_, j) => j !== i))}
                 aria-label={`Fjern nytt bilde ${f.file.name}`}>

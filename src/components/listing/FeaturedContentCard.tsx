@@ -28,20 +28,23 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
 
   const inner = (
     <>
-      <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px] overflow-hidden">
+      <div className={`relative aspect-[4/3] md:aspect-auto md:min-h-[320px] overflow-hidden ${eventMode ? 'bg-muted' : ''}`}>
         <img
           src={item.image}
           alt={item.title}
-          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
-            clickable ? 'group-hover:scale-105' : ''
+          className={`absolute inset-0 w-full h-full ${
+            eventMode ? 'object-contain object-center' : `object-cover transition-transform duration-700 ${clickable ? 'group-hover:scale-105' : ''}`
           }`}
         />
-        <div className="absolute top-4 left-4">
-          <CategoryLabel variant="solid">{featuredLabel}</CategoryLabel>
-        </div>
+        {!eventMode && (
+          <div className="absolute top-4 left-4">
+            <CategoryLabel variant="solid">{featuredLabel}</CategoryLabel>
+          </div>
+        )}
       </div>
       <div className="p-6 md:p-10 flex flex-col justify-center">
         <div className="flex flex-wrap items-center gap-2 mb-3">
+          {eventMode && <CategoryLabel variant="solid">{featuredLabel}</CategoryLabel>}
           {item.category && <CategoryLabel>{item.category}</CategoryLabel>}
           {item.date && <DateBadge date={item.date} />}
         </div>
