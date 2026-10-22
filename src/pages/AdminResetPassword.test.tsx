@@ -3,25 +3,21 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { ComponentType } from 'react';
 
-const { authMock, fromMock, navigateMock } = vi.hoisted(() => ({
+const { authMock, functionsMock, fromMock, navigateMock } = vi.hoisted(() => ({
   authMock: {
     getSession: vi.fn(),
     onAuthStateChange: vi.fn(),
     updateUser: vi.fn(),
     signOut: vi.fn(),
     verifyOtp: vi.fn(),
-    mfa: {
-      getAuthenticatorAssuranceLevel: vi.fn(),
-      listFactors: vi.fn(),
-      challengeAndVerify: vi.fn(),
-    },
   },
+  functionsMock: { invoke: vi.fn() },
   fromMock: vi.fn(),
   navigateMock: vi.fn(),
 }));
 
 vi.mock('@/integrations/supabase/client', () => ({
-  supabase: { auth: authMock, from: fromMock },
+  supabase: { auth: authMock, functions: functionsMock, from: fromMock },
 }));
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
@@ -59,11 +55,6 @@ beforeEach(() => {
     data: { subscription: { unsubscribe: vi.fn() } },
   });
   authMock.signOut.mockResolvedValue({ error: null });
-  // Default: account without MFA.
-  authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue({
-    data: { currentLevel: 'aal1', nextLevel: 'aal1' },
-    error: null,
-  });
 });
 
 afterEach(() => {
@@ -264,108 +255,93 @@ describe('scanner-safe token_hash link', () => {
   });
 });
 
-describe('accounts with TOTP (aal2 required to change password)', () => {
-  const CODE_LABEL = 'Kode fra autentiseringsappen';
-  let Page: ComponentType;
+describe('MFA accounts reset without an authenticator code', () => {
+  const AAL = {
+    data: null,
+    error: {
+      message: 'AAL2 session is required to update email or password when MFA is enabled.',
+      code: 'insufficient_aal',
+    },
+  };
+  const httpError = (status: number, body: unknown) => ({
+    data: null,
+    error: { context: new Response(JSON.stringify(body), { status }) },
+  });
 
+  let Page: ComponentType;
   beforeEach(async () => {
     authMock.getSession.mockResolvedValue(withSession);
-    authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue({
-      data: { currentLevel: 'aal1', nextLevel: 'aal2' },
-      error: null,
-    });
-    authMock.mfa.listFactors.mockResolvedValue({
-      data: { all: [{ id: 'f-1', factor_type: 'totp', status: 'verified' }] },
-      error: null,
-    });
+    authMock.updateUser.mockResolvedValue(AAL);
     Page = await loadPage(RECOVERY_HASH);
   });
 
-  const fill = (pw: string, code: string) => {
+  const fillAndSave = async (pw: string) => {
+    renderPage(Page);
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
     const pws = document.querySelectorAll('input[type="password"]');
     fireEvent.change(pws[0], { target: { value: pw } });
     fireEvent.change(pws[1], { target: { value: pw } });
-    fireEvent.change(screen.getByLabelText(CODE_LABEL), { target: { value: code } });
     fireEvent.click(screen.getByRole('button', { name: 'Lagre nytt passord' }));
   };
 
-  it('asks for the authenticator code', async () => {
+  it('never shows a code field', async () => {
     renderPage(Page);
-    expect(await screen.findByLabelText(CODE_LABEL)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
+    expect(screen.queryByText(/autentiseringsappen/i)).toBeNull();
   });
 
-  it('verifies the code before changing the password', async () => {
-    authMock.mfa.challengeAndVerify.mockResolvedValue({ data: {}, error: null });
-    authMock.updateUser.mockResolvedValue({ data: { user: {} }, error: null });
-    renderPage(Page);
-    await screen.findByLabelText(CODE_LABEL);
-    fill('correct-horse-battery', '123456');
+  it('insufficient_aal falls back to the reset-password function and succeeds', async () => {
+    functionsMock.invoke.mockResolvedValue({ data: { ok: true }, error: null });
+    await fillAndSave('correct-horse-battery');
 
     await waitFor(() =>
       expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
     );
-    expect(authMock.mfa.challengeAndVerify).toHaveBeenCalledWith({ factorId: 'f-1', code: '123456' });
-    expect(authMock.mfa.challengeAndVerify.mock.invocationCallOrder[0]).toBeLessThan(
-      authMock.updateUser.mock.invocationCallOrder[0],
-    );
-  });
-
-  it('a wrong code does not change the password', async () => {
-    authMock.mfa.challengeAndVerify.mockResolvedValue({
-      data: null,
-      error: { message: 'Invalid TOTP code entered', code: 'mfa_verification_failed' },
+    expect(functionsMock.invoke).toHaveBeenCalledWith('reset-password', {
+      body: { password: 'correct-horse-battery' },
     });
-    renderPage(Page);
-    await screen.findByLabelText(CODE_LABEL);
-    fill('correct-horse-battery', '000000');
-
-    await waitFor(() =>
-      expect(
-        screen.getByText('Koden fra autentiseringsappen stemmer ikke. Prøv igjen.'),
-      ).toBeInTheDocument(),
-    );
-    expect(authMock.updateUser).not.toHaveBeenCalled();
-  });
-
-  it('requires a six-digit code before calling Auth', async () => {
-    renderPage(Page);
-    await screen.findByLabelText(CODE_LABEL);
-    fill('correct-horse-battery', '12');
-
-    await waitFor(() =>
-      expect(
-        screen.getByText('Skriv inn den sekssifrede koden fra autentiseringsappen.'),
-      ).toBeInTheDocument(),
-    );
-    expect(authMock.mfa.challengeAndVerify).not.toHaveBeenCalled();
-    expect(authMock.updateUser).not.toHaveBeenCalled();
-  });
-});
-
-describe('error mapping', () => {
-  it('insufficient_aal is not shown as an expired link', async () => {
-    authMock.getSession.mockResolvedValue(withSession);
-    authMock.updateUser.mockResolvedValue({
-      data: null,
-      error: {
-        message: 'AAL2 session is required to update email or password when MFA is enabled.',
-        code: 'insufficient_aal',
-      },
-    });
-    const Page = await loadPage(RECOVERY_HASH);
-    renderPage(Page);
-    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
-    const pws = document.querySelectorAll('input[type="password"]');
-    fireEvent.change(pws[0], { target: { value: 'correct-horse-battery' } });
-    fireEvent.change(pws[1], { target: { value: 'correct-horse-battery' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Lagre nytt passord' }));
-
-    await waitFor(() =>
-      expect(
-        screen.getByText('Skriv inn koden fra autentiseringsappen for å lagre det nye passordet.'),
-      ).toBeInTheDocument(),
-    );
+    expect(authMock.signOut).toHaveBeenCalled();
+    expect(navigateMock).not.toHaveBeenCalled();
     expect(screen.queryByText(INVALID)).toBeNull();
+  });
+
+  it('a weak password from the function is shown as such', async () => {
+    functionsMock.invoke.mockResolvedValue(httpError(422, { error: 'weak_password' }));
+    await fillAndSave('weakweak');
+
+    await waitFor(() =>
+      expect(screen.getByText('Passordet er for svakt. Velg et sterkere passord.')).toBeInTheDocument(),
+    );
+    expect(authMock.signOut).not.toHaveBeenCalled();
+  });
+
+  it('a session that is not from a reset link is refused', async () => {
+    functionsMock.invoke.mockResolvedValue(httpError(403, { error: 'not_recovery_session' }));
+    await fillAndSave('correct-horse-battery');
+
+    await waitFor(() => expect(screen.getByText(INVALID)).toBeInTheDocument());
+    expect(authMock.signOut).not.toHaveBeenCalled();
+  });
+
+  it('an unreadable function error gives the generic message', async () => {
+    functionsMock.invoke.mockResolvedValue({ data: null, error: { message: 'Failed to fetch' } });
+    await fillAndSave('correct-horse-battery');
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Kunne ikke oppdatere passordet. Prøv igjen, eller be om en ny lenke.'),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('accounts without MFA never call the function', async () => {
+    authMock.updateUser.mockResolvedValue({ data: { user: {} }, error: null });
+    await fillAndSave('correct-horse-battery');
+
+    await waitFor(() =>
+      expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
+    );
+    expect(functionsMock.invoke).not.toHaveBeenCalled();
   });
 });
 
