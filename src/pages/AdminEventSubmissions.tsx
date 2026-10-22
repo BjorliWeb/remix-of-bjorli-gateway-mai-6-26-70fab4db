@@ -481,7 +481,7 @@ function DetailView({
               {item.image_urls.map((path) => (
                 <div key={path} className="aspect-[4/3] rounded-lg overflow-hidden border border-border bg-muted">
                   {signedUrls[path] ? (
-                    <img src={signedUrls[path]} alt="" className="w-full h-full object-cover" />
+                    <img src={signedUrls[path]} alt="" className="w-full h-full object-contain object-center" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                       <Loader2 className="h-5 w-5 animate-spin" />
