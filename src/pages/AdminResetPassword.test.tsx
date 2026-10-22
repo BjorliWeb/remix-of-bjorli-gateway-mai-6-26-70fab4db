@@ -9,6 +9,7 @@ const { authMock, fromMock, navigateMock } = vi.hoisted(() => ({
     onAuthStateChange: vi.fn(),
     updateUser: vi.fn(),
     signOut: vi.fn(),
+    verifyOtp: vi.fn(),
   },
   fromMock: vi.fn(),
   navigateMock: vi.fn(),
@@ -199,6 +200,57 @@ describe('password validation and update', () => {
     );
     expect(screen.queryByText(/Password should be at least/i)).toBeNull();
     expect(authMock.signOut).not.toHaveBeenCalled();
+  });
+});
+
+describe('scanner-safe token_hash link', () => {
+  // Mirrors main.tsx: capture runs before the page module renders.
+  const loadWithTokenLink = async (): Promise<ComponentType> => {
+    window.history.replaceState(null, '', '/admin/reset-password/#token_hash=th-123&type=recovery');
+    vi.resetModules();
+    (await import('@/lib/auth/recoveryLink')).captureRecoveryTokenHash();
+    const mod = await import('./AdminResetPassword');
+    return mod.default;
+  };
+
+  afterEach(() => {
+    window.history.replaceState(null, '', '/');
+  });
+
+  it('opening the link does not spend the token', async () => {
+    authMock.getSession.mockResolvedValue(noSession);
+    const Page = await loadWithTokenLink();
+    renderPage(Page);
+
+    expect(screen.getByRole('button', { name: 'Fortsett' })).toBeInTheDocument();
+    expect(authMock.verifyOtp).not.toHaveBeenCalled();
+    expect(screen.queryByText('Nytt passord')).toBeNull();
+    expect(window.location.href).not.toContain('th-123');
+  });
+
+  it('"Fortsett" verifies the token and unlocks the form', async () => {
+    authMock.verifyOtp.mockResolvedValue({ data: { session, user: session.user }, error: null });
+    const Page = await loadWithTokenLink();
+    renderPage(Page);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Fortsett' }));
+
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
+    expect(authMock.verifyOtp).toHaveBeenCalledWith({ token_hash: 'th-123', type: 'recovery' });
+  });
+
+  it('an expired or used token is INVALID', async () => {
+    authMock.verifyOtp.mockResolvedValue({
+      data: { session: null, user: null },
+      error: { message: 'Email link is invalid or has expired' },
+    });
+    const Page = await loadWithTokenLink();
+    renderPage(Page);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Fortsett' }));
+
+    await waitFor(() => expect(screen.getByText(INVALID)).toBeInTheDocument());
+    expect(screen.queryByText('Nytt passord')).toBeNull();
   });
 });
 

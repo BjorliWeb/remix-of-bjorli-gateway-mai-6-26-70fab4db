@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
+import { clearRecoveryTokenHash, getRecoveryTokenHash } from '@/lib/auth/recoveryLink';
 
 /**
  * Password recovery landing page for the editor login.
@@ -14,7 +15,9 @@ import { supabase } from '@/integrations/supabase/client';
  * sign-in through the unchanged gate in AdminLogin.
  */
 
-type Status = 'checking' | 'valid' | 'invalid' | 'saved';
+// 'confirm': arrived with a scanner-safe token_hash link (see recoveryLink.ts);
+// the token is only spent when the user presses "Fortsett".
+type Status = 'confirm' | 'verifying' | 'checking' | 'valid' | 'invalid' | 'saved';
 
 /**
  * Whether THIS page load was a password-recovery callback.
@@ -64,7 +67,9 @@ const norwegianAuthError = (message: string): string => {
 
 const AdminResetPassword = () => {
   const navigate = useNavigate();
-  const [status, setStatus] = useState<Status>('checking');
+  const [status, setStatus] = useState<Status>(() =>
+    getRecoveryTokenHash() ? 'confirm' : 'checking',
+  );
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -83,6 +88,8 @@ const AdminResetPassword = () => {
     });
 
     (async () => {
+      // token_hash link: nothing to check yet, the confirm step handles it.
+      if (getRecoveryTokenHash()) return;
       // A session on its own must NEVER unlock this form: someone already
       // signed in normally who opens this URL directly is not recovering a
       // password, and must not be able to change it without the old one.
@@ -107,6 +114,23 @@ const AdminResetPassword = () => {
       sub.subscription.unsubscribe();
     };
   }, []);
+
+  // Spends the one-time token. verifyOtp emits PASSWORD_RECOVERY on success,
+  // and only a returned session unlocks the form.
+  const continueWithToken = async () => {
+    const tokenHash = getRecoveryTokenHash();
+    if (!tokenHash) {
+      setStatus('invalid');
+      return;
+    }
+    setStatus('verifying');
+    clearRecoveryTokenHash();
+    const { data, error: verifyError } = await supabase.auth.verifyOtp({
+      token_hash: tokenHash,
+      type: 'recovery',
+    });
+    setStatus(!verifyError && data.session ? 'valid' : 'invalid');
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,6 +169,20 @@ const AdminResetPassword = () => {
       </div>
     </div>
   );
+
+  if (status === 'confirm' || status === 'verifying') {
+    return card(
+      <>
+        <h1 className="font-display text-2xl font-semibold mb-1 text-foreground">Velg nytt passord</h1>
+        <p className="text-sm text-muted-foreground mt-4 mb-6">
+          Trykk på knappen for å gå videre og velge et nytt passord.
+        </p>
+        <Button className="w-full" disabled={status === 'verifying'} onClick={continueWithToken}>
+          {status === 'verifying' ? 'Kontrollerer lenken …' : 'Fortsett'}
+        </Button>
+      </>,
+    );
+  }
 
   if (status === 'checking') {
     return card(<p className="text-sm text-muted-foreground">Kontrollerer lenken …</p>);
