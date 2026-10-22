@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
 import { canAccessEditor } from '@/lib/auth/roles';
 import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
+import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
 
 type Status = 'pending' | 'approved' | 'rejected';
 
@@ -86,6 +87,8 @@ const AdminEventSubmissions = () => {
   const [editorNotes, setEditorNotes] = useState('');
   const [aiBusy, setAiBusy] = useState(false);
   const [actionBusy, setActionBusy] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editDirty, setEditDirty] = useState(false);
 
   // Auth + editor-role gate (admin or moderator — see src/lib/auth/roles.ts)
   useEffect(() => {
@@ -343,7 +346,10 @@ const AdminEventSubmissions = () => {
           return (
             <button
               key={s}
-              onClick={() => { setFilter(s); setSelectedId(null); }}
+              onClick={() => {
+                if (editDirty && !window.confirm('Du har ulagrede endringer. Vil du forkaste dem?')) return;
+                setEditing(false); setFilter(s); setSelectedId(null);
+              }}
               className={[
                 'px-4 py-2 rounded-full text-sm border transition-colors',
                 filter === s
@@ -357,13 +363,23 @@ const AdminEventSubmissions = () => {
         })}
       </div>
 
-      {selected ? (
+      {selected && editing ? (
+        <EventSubmissionEditForm
+          key={selected.id}
+          item={selected}
+          signedUrls={signedUrls}
+          onCancel={() => setEditing(false)}
+          onSaved={async () => { setEditing(false); await load(); }}
+          onDirtyChange={setEditDirty}
+        />
+      ) : selected ? (
         <DetailView
           item={selected}
           signedUrls={signedUrls}
           editorNotes={editorNotes}
           setEditorNotes={setEditorNotes}
           onBack={() => setSelectedId(null)}
+          onEdit={() => setEditing(true)}
           onSaveNotes={saveNotes}
           onSetStatus={setStatus}
           onAi={runAi}
