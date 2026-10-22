@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Loader2, CheckCircle2, XCircle, Sparkles, Mail, Phone, Globe, MapPin,
-  Calendar, ImageOff, LogOut, Inbox, Languages,
+  Calendar, ImageOff, LogOut, Inbox, Languages, Pencil,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -432,7 +432,7 @@ const AdminEventSubmissions = () => {
 };
 
 function DetailView({
-  item, signedUrls, editorNotes, setEditorNotes, onBack, onSaveNotes, onSetStatus,
+  item, signedUrls, editorNotes, setEditorNotes, onBack, onEdit, onSaveNotes, onSetStatus,
   onAi, onSetEnglishApproval, onSetEmailVisibility, aiBusy, actionBusy,
 }: {
   item: Submission;
@@ -440,6 +440,7 @@ function DetailView({
   editorNotes: string;
   setEditorNotes: (v: string) => void;
   onBack: () => void;
+  onEdit: () => void;
   onSaveNotes: () => void;
   onSetStatus: (s: Status) => void;
   onAi: (m: AiMode) => void;
@@ -450,9 +451,14 @@ function DetailView({
 }) {
   return (
     <div className="bg-card border border-border rounded-xl p-6 md:p-8">
-      <button onClick={onBack} className="text-sm text-muted-foreground hover:text-foreground mb-6">
-        ← Tilbake til listen
-      </button>
+      <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
+        <button onClick={onBack} className="text-sm text-muted-foreground hover:text-foreground">
+          ← Tilbake til listen
+        </button>
+        <Button size="sm" variant="outline" onClick={onEdit} disabled={actionBusy || aiBusy}>
+          <Pencil className="h-4 w-4" /> Rediger
+        </Button>
+      </div>
 
       <div className="grid md:grid-cols-[1.6fr_1fr] gap-10">
         <div>
