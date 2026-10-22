@@ -369,6 +369,131 @@ describe('error mapping', () => {
   });
 });
 
+describe('recovery + MFA end to end', () => {
+  const CODE_LABEL = 'Kode fra autentiseringsappen';
+  const NEEDS_MFA = { data: { currentLevel: 'aal1', nextLevel: 'aal2' }, error: null };
+  const TOTP = {
+    data: { all: [{ id: 'f-1', factor_type: 'totp', status: 'verified' }] },
+    error: null,
+  };
+
+  const loadWithTokenLink = async (): Promise<ComponentType> => {
+    window.history.replaceState(null, '', '/admin/reset-password/#token_hash=th-9&type=recovery');
+    vi.resetModules();
+    (await import('@/lib/auth/recoveryLink')).captureRecoveryTokenHash();
+    return (await import('./AdminResetPassword')).default;
+  };
+
+  const fillPasswords = (pw: string) => {
+    const pws = document.querySelectorAll('input[type="password"]');
+    fireEvent.change(pws[0], { target: { value: pw } });
+    fireEvent.change(pws[1], { target: { value: pw } });
+  };
+  const save = () => fireEvent.click(screen.getByRole('button', { name: 'Lagre nytt passord' }));
+
+  afterEach(() => {
+    window.history.replaceState(null, '', '/');
+  });
+
+  it('Fortsett → code → password: recovery is verified once and never re-run', async () => {
+    authMock.verifyOtp.mockResolvedValue({ data: { session, user: session.user }, error: null });
+    authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue(NEEDS_MFA);
+    authMock.mfa.listFactors.mockResolvedValue(TOTP);
+    authMock.mfa.challengeAndVerify.mockResolvedValue({ data: {}, error: null });
+    authMock.updateUser.mockResolvedValue({ data: { user: {} }, error: null });
+    const Page = await loadWithTokenLink();
+    renderPage(Page);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Fortsett' }));
+    fireEvent.change(await screen.findByLabelText(CODE_LABEL), { target: { value: '654321' } });
+    fillPasswords('correct-horse-battery');
+    save();
+
+    await waitFor(() =>
+      expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
+    );
+    expect(authMock.verifyOtp).toHaveBeenCalledTimes(1);
+    expect(authMock.mfa.challengeAndVerify).toHaveBeenCalledWith({ factorId: 'f-1', code: '654321' });
+    expect(authMock.updateUser).toHaveBeenCalledWith({ password: 'correct-horse-battery' });
+    expect(authMock.signOut).toHaveBeenCalled();
+    // Stays in the recovery flow: no jump into the editor or the MFA page.
+    expect(navigateMock).not.toHaveBeenCalled();
+  });
+
+  it('a retry after a password error reuses the aal2 session (no second code)', async () => {
+    authMock.getSession.mockResolvedValue(withSession);
+    authMock.mfa.getAuthenticatorAssuranceLevel.mockResolvedValue(NEEDS_MFA);
+    authMock.mfa.listFactors.mockResolvedValue(TOTP);
+    authMock.mfa.challengeAndVerify.mockResolvedValue({ data: {}, error: null });
+    authMock.updateUser
+      .mockResolvedValueOnce({ data: null, error: { message: 'weak', code: 'weak_password' } })
+      .mockResolvedValueOnce({ data: { user: {} }, error: null });
+    const Page = await loadPage(RECOVERY_HASH);
+    renderPage(Page);
+
+    fireEvent.change(await screen.findByLabelText(CODE_LABEL), { target: { value: '111111' } });
+    fillPasswords('weakweak');
+    save();
+    await waitFor(() =>
+      expect(screen.getByText('Passordet er for svakt. Velg et sterkere passord.')).toBeInTheDocument(),
+    );
+    expect(screen.queryByLabelText(CODE_LABEL)).toBeNull();
+
+    fillPasswords('correct-horse-battery');
+    save();
+    await waitFor(() =>
+      expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
+    );
+    expect(authMock.mfa.challengeAndVerify).toHaveBeenCalledTimes(1);
+    expect(authMock.updateUser).toHaveBeenCalledTimes(2);
+  });
+
+  it('insufficient_aal without a code field reveals the field (fallback)', async () => {
+    authMock.getSession.mockResolvedValue(withSession);
+    // First lookup misses (e.g. raced); after Auth's refusal the lookup succeeds.
+    authMock.mfa.getAuthenticatorAssuranceLevel
+      .mockResolvedValueOnce({ data: { currentLevel: 'aal1', nextLevel: 'aal1' }, error: null })
+      .mockResolvedValue(NEEDS_MFA);
+    authMock.mfa.listFactors.mockResolvedValue(TOTP);
+    authMock.updateUser.mockResolvedValue({
+      data: null,
+      error: {
+        message: 'AAL2 session is required to update email or password when MFA is enabled.',
+        code: 'insufficient_aal',
+      },
+    });
+    const Page = await loadPage(RECOVERY_HASH);
+    renderPage(Page);
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
+
+    fillPasswords('correct-horse-battery');
+    save();
+
+    expect(await screen.findByLabelText(CODE_LABEL)).toBeInTheDocument();
+    expect(
+      screen.getByText('Skriv inn koden fra autentiseringsappen for å lagre det nye passordet.'),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(INVALID)).toBeNull();
+  });
+
+  it('an account without MFA saves without asking for a code', async () => {
+    authMock.getSession.mockResolvedValue(withSession);
+    authMock.updateUser.mockResolvedValue({ data: { user: {} }, error: null });
+    const Page = await loadPage(RECOVERY_HASH);
+    renderPage(Page);
+    await waitFor(() => expect(screen.getByText('Nytt passord')).toBeInTheDocument());
+
+    fillPasswords('correct-horse-battery');
+    save();
+
+    await waitFor(() =>
+      expect(screen.getByText('Passordet ditt er oppdatert.')).toBeInTheDocument(),
+    );
+    expect(screen.queryByLabelText(CODE_LABEL)).toBeNull();
+    expect(authMock.mfa.challengeAndVerify).not.toHaveBeenCalled();
+  });
+});
+
 describe('authorization isolation', () => {
   it('never reads or writes user_roles during recovery', async () => {
     authMock.getSession.mockResolvedValue(withSession);

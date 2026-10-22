@@ -77,6 +77,23 @@ const norwegianAuthError = (message: string, code?: string): string => {
   return 'Kunne ikke oppdatere passordet. Prøv igjen, eller be om en ny lenke.';
 };
 
+/**
+ * The verified TOTP factor to step up with, or null when the session needs no
+ * step-up (no MFA, or already aal2). Same factor rule as AdminMfa via
+ * resolveTotpState. Never enrols: recovery is not the place to set up MFA.
+ */
+const findTotpFactorForStepUp = async (): Promise<string | null> => {
+  try {
+    const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (aal?.currentLevel !== 'aal1' || aal?.nextLevel !== 'aal2') return null;
+    const { data: factors } = await supabase.auth.mfa.listFactors();
+    const state = resolveTotpState(factors?.all);
+    return state.mode === 'challenge' ? state.factorId : null;
+  } catch {
+    return null;
+  }
+};
+
 const AdminResetPassword = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState<Status>(() =>
@@ -133,20 +150,13 @@ const AdminResetPassword = () => {
 
   // Once the recovery session exists, find out whether the account needs a
   // TOTP code too. Failing here only hides the code field; Auth still enforces
-  // aal2 on the password change and the error below says so.
+  // aal2 on the password change, and an insufficient_aal reply retries this.
   useEffect(() => {
     if (status !== 'valid') return;
     let active = true;
     (async () => {
-      try {
-        const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
-        if (aal?.currentLevel !== 'aal1' || aal?.nextLevel !== 'aal2') return;
-        const { data: factors } = await supabase.auth.mfa.listFactors();
-        const state = resolveTotpState(factors?.all);
-        if (active && state.mode === 'challenge') setMfaFactorId(state.factorId);
-      } catch {
-        // See comment above.
-      }
+      const factorId = await findTotpFactorForStepUp();
+      if (active && factorId) setMfaFactorId(factorId);
     })();
     return () => {
       active = false;
@@ -204,6 +214,12 @@ const AdminResetPassword = () => {
     setSaving(false);
     if (updateError) {
       setError(norwegianAuthError(updateError.message, updateError.code));
+      // The code field may be missing if the lookup above failed or lost a
+      // race; Auth has now told us a code is required, so look again.
+      if (updateError.code === 'insufficient_aal') {
+        const factorId = await findTotpFactorForStepUp();
+        if (factorId) setMfaFactorId(factorId);
+      }
       return;
     }
     // End the recovery session before returning to login. Without this, the
