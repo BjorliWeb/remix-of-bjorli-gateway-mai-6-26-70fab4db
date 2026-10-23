@@ -2,21 +2,7 @@ import { Link } from 'react-router-dom';
 import { Clock, Mountain, Camera, Map } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
-
-type Key = 'hours' | 'conditions' | 'weather' | 'map';
-
-/** Labels per language. Shared with the prerender skeleton. */
-export const PRACTICAL_SHORTCUTS: { key: Key; href: string; labels: Record<string, string> }[] = [
-  { key: 'hours', href: '/apningstider', labels: { no: 'Åpningstider', en: 'Opening hours', de: 'Öffnungszeiten', nl: 'Openingstijden', da: 'Åbningstider', sv: 'Öppettider' } },
-  { key: 'conditions', href: '/live', labels: { no: 'Føre og heiser', en: 'Snow and lifts', de: 'Schnee und Lifte', nl: 'Sneeuw en liften', da: 'Føre og lifte', sv: 'Före och liftar' } },
-  { key: 'weather', href: '/vaer-og-webkamera', labels: { no: 'Vær og webkamera', en: 'Weather and webcams', de: 'Wetter und Webcams', nl: 'Weer en webcams', da: 'Vejr og webkamera', sv: 'Väder och webbkamera' } },
-  { key: 'map', href: '/loypekart', labels: { no: 'Løypekart', en: 'Trail map', de: 'Pistenplan', nl: 'Pistekaart', da: 'Løypekort', sv: 'Pistkarta' } },
-];
-
-export const PRACTICAL_SHORTCUTS_LABEL: Record<string, string> = {
-  no: 'Praktisk informasjon', en: 'Practical information', de: 'Praktische Informationen',
-  nl: 'Praktische informatie', da: 'Praktisk information', sv: 'Praktisk information',
-};
+import { PRACTICAL_SHORTCUTS, PRACTICAL_SHORTCUTS_LABEL } from '@/lib/practicalShortcuts';
 
 const ICONS = { hours: Clock, conditions: Mountain, weather: Camera, map: Map } as const;
 

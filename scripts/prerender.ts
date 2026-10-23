@@ -30,6 +30,7 @@
  * that snapshot: approved admin events are included (archived ones noindex) and
  * prerendered with the same status rule as the live listing.
  */
+import { PRACTICAL_SHORTCUTS, PRACTICAL_SHORTCUTS_LABEL } from '../src/lib/practicalShortcuts';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { APP_SHELL_ROUTES, appShellHtml, notFoundHtml, parseRedirectSources, findLinkProblems } from './lib/linkCheck';
 import { dirname, resolve } from 'node:path';
@@ -452,20 +453,27 @@ const homeBodySkeleton = (locale: Locale): string => {
   const heroPicture = heroImg
     ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover md:object-[48%_50%] md:scale-[1.12] md:origin-top-left" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
     : '';
-  const main = `    <section style="position:relative;height:100svh;min-height:640px;max-height:1080px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:hsl(var(--deep-navy));text-align:center;color:#fff">
-      ${heroPicture}
-      <div aria-hidden="true" class="hero-gradient" style="position:absolute;inset:0"></div>
-      <div class="relative z-10 text-center px-5 max-w-6xl mx-auto pt-16 lg:pt-24" style="position:relative;z-index:1">
-      <p class="text-[11px] md:text-xs mb-6 md:mb-8 text-on-image" style="font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.9)">${escapeHtml(data.hero.eyebrow)}</p>
-      <h1 class="font-display text-[clamp(2.6rem,7.4vw,7.25rem)] font-bold text-white mb-6 md:mb-8 leading-[0.95] tracking-[-0.02em] text-on-image" style="font-family:Jost,${SKELETON_FONT}">${escapeHtml(data.hero.title)}</h1>
-      <p class="text-white/90 text-base sm:text-lg md:text-xl mb-9 md:mb-11 max-w-2xl mx-auto leading-relaxed text-on-image">${escapeHtml(data.hero.subtitle)}</p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto" style="display:flex;gap:0.75rem;justify-content:center;margin:0 auto 1.5rem">
-        <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:hsl(var(--season-accent));color:hsl(var(--season-accent-foreground));font-weight:600;text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaLiftPass)}</a>
-        <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="w-full sm:w-auto" style="display:inline-flex;align-items:center;justify-content:center;min-height:3.25rem;padding:0 2rem;background:rgba(255,255,255,0.12);color:#fff;font-weight:600;border:1px solid rgba(255,255,255,0.3);text-decoration:none;border-radius:9999px">${escapeHtml(data.hero.ctaStay)}</a>
-      </div>
-      <p style="margin:0"><a href="${escapeHtml(localizeHref('/apningstider', locale))}" style="color:rgba(255,255,255,0.8);font-size:0.875rem">${escapeHtml(data.hero.ctaOpening)}</a></p>
+  const heroPictureSplit = heroImg
+    ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-center md:object-[48%_50%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
+    : '';
+  const shortcuts = PRACTICAL_SHORTCUTS.map(
+    (s) => `<li><a href="${escapeHtml(localizeHref(s.href, locale))}" class="flex min-h-[56px] items-center gap-3 rounded-xl bg-card px-4 py-3 text-sm md:text-base font-semibold text-primary ring-1 ring-border">${escapeHtml(s.labels[locale] ?? s.labels.no)}</a></li>`,
+  ).join('');
+  const main = `    <section class="bg-background">
+      <div class="mx-auto grid max-w-[1280px] lg:grid-cols-[45fr_55fr] lg:items-stretch lg:min-h-[560px]">
+        <div class="relative order-1 lg:order-2 h-[40svh] min-h-[220px] max-h-[380px] md:max-h-[440px] lg:h-auto lg:max-h-none overflow-hidden bg-muted">${heroPictureSplit}</div>
+        <div class="order-2 lg:order-1 flex flex-col justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 py-8 md:py-12 lg:py-16">
+          <p class="eyebrow mb-4">${escapeHtml(data.hero.eyebrow)}</p>
+          <h1 class="font-display text-[2.25rem] md:text-5xl lg:text-[3.5rem] font-bold text-primary mb-5 leading-[1.08]">${escapeHtml(data.hero.title)}</h1>
+          <p class="text-foreground text-base md:text-lg mb-7 max-w-xl leading-relaxed">${escapeHtml(data.hero.subtitle)}</p>
+          <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+            <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center h-12 px-7 rounded-full bg-cta text-cta-foreground font-semibold w-full sm:w-auto">${escapeHtml(data.hero.ctaLiftPass)}</a>
+            <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="inline-flex items-center justify-center h-12 px-7 rounded-full border-2 border-primary text-primary font-semibold w-full sm:w-auto">${escapeHtml(data.hero.ctaStay)}</a>
+          </div>
+        </div>
       </div>
     </section>
+    <nav aria-label="${escapeHtml(PRACTICAL_SHORTCUTS_LABEL[locale] ?? PRACTICAL_SHORTCUTS_LABEL.no)}" class="bg-muted"><ul class="mx-auto grid max-w-[1280px] grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 px-5 sm:px-6 md:px-10 py-4 md:py-5">${shortcuts}</ul></nav>
     <div style="max-width:960px;margin:0 auto;padding:0 1.25rem">
     <section style="margin:2.5rem 0">
       <h2 style="font-size:1.5rem;margin:0 0 0.25rem">${escapeHtml(data.intro.title)}</h2>
