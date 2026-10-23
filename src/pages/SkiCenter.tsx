@@ -76,9 +76,7 @@ const SkiCenter = () => {
                 {data.liftPass.cta} <ArrowUpRight className="h-5 w-5" />
               </a>
             </Button>
-            <div className="mt-3">
-              <SeasonPassGuideLink variant="skiCenter" />
-            </div>
+            <SeasonPassGuideLink variant="skiCenter" className="mt-3" />
           </div>
           <figure className="mt-16 space-y-3">
             <a
