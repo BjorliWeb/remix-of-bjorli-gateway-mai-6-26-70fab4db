@@ -116,6 +116,21 @@
 /comments/feed/          /nyheter/         301
 
 
+
+# Pumptrack was an event; now covered on the cycling page.
+/arrangementer/ny-asfaltert-pump-track-i-bjorli-aktivitetspark   /sykling/   301
+/arrangementer/ny-asfaltert-pump-track-i-bjorli-aktivitetspark/   /sykling/   301
+/en/events/new-paved-pump-track-at-bjorli-aktivitetspark   /en/cycling/   301
+/en/events/new-paved-pump-track-at-bjorli-aktivitetspark/   /en/cycling/   301
+/de/veranstaltungen/neuer-asphaltierter-pumptrack-im-bjorli-aktivitetspark   /de/radfahren/   301
+/de/veranstaltungen/neuer-asphaltierter-pumptrack-im-bjorli-aktivitetspark/   /de/radfahren/   301
+/nl/evenementen/nieuwe-asfalt-pumptrack-in-bjorli-aktivitetspark   /nl/fietsen/   301
+/nl/evenementen/nieuwe-asfalt-pumptrack-in-bjorli-aktivitetspark/   /nl/fietsen/   301
+/da/arrangementer/ny-asfalteret-pump-track-i-bjorli-aktivitetspark   /da/cykling/   301
+/da/arrangementer/ny-asfalteret-pump-track-i-bjorli-aktivitetspark/   /da/cykling/   301
+/sv/evenemang/ny-asfalterad-pumptrack-i-bjorli-aktivitetspark   /sv/cykling/   301
+/sv/evenemang/ny-asfalterad-pumptrack-i-bjorli-aktivitetspark/   /sv/cykling/   301
+
 # No SPA fallback rule. dist/404.html exists (written by scripts/prerender.ts),
 # so Cloudflare Pages answers unknown URLs with HTTP 404. Every public page
 # is prerendered and app-only routes (admin, reset password, MFA, submit
