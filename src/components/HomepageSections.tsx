@@ -214,32 +214,29 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               return (
                 <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
                   <div className="container mx-auto max-w-6xl">
-                    <div className="max-w-2xl mb-12 md:mb-14">
+                    <div className="max-w-2xl mb-8">
                       {section.eyebrow && (
                         <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={SECTION_H2}>{section.title}</h2>
                       {section.subtitle && (
-                        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
+                        <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
                       )}
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-2 border-t border-border/80">
+                    <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                       {section.items.map((item, i) => {
                         const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                         const rowClass =
-                          'group flex gap-4 items-start py-6 -mx-3 px-3 rounded-lg transition-colors duration-300 ease-out-expo hover:bg-background/70';
+                          'group flex h-full flex-col gap-3 rounded-xl border border-border bg-card p-4 md:p-5 transition-colors duration-300 hover:border-secondary/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
                         const body = (
                           <>
-                            <span className="h-10 w-10 shrink-0 rounded-full bg-season/15 ring-1 ring-inset ring-season-ink/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-season/25">
+                            <span aria-hidden className="h-10 w-10 shrink-0 rounded-full bg-season/15 flex items-center justify-center">
                               <Icon className="h-[18px] w-[18px] text-secondary" />
                             </span>
-                            <div className="flex-1 min-w-0 pt-0.5">
-                              <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
+                            <div className="min-w-0">
+                              <div className="font-sans text-base font-semibold text-foreground leading-snug underline-offset-4 group-hover:underline">{item.title}</div>
                               <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
                             </div>
-                            {item.href && (
-                              <ArrowRight className="h-4 w-4 text-secondary mt-2 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 transition-all duration-300 ease-out-expo" />
-                            )}
                           </>
                         );
                         return (
@@ -250,7 +247,6 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             whileInView="visible"
                             viewport={REVEAL_VIEWPORT}
                             variants={fadeUp}
-                            className="border-b border-border/80"
                           >
                             {item.href ? (
                               item.external ? (
