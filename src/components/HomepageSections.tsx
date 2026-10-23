@@ -76,6 +76,7 @@ const ButtonLink = ({
   children,
   size = 'lg',
   lp,
+  className = '',
 }: {
   href: string;
   external?: boolean;
@@ -84,6 +85,7 @@ const ButtonLink = ({
   children: React.ReactNode;
   size?: 'lg' | 'default';
   lp: (p: string) => string;
+  className?: string;
 }) => {
   const Icon = icon ? ICONS[icon] : undefined;
   const btnVariant: ButtonProps['variant'] = variant === 'primary' ? 'default' : variant;
@@ -115,7 +117,7 @@ const ButtonLink = ({
     </>
   );
   return (
-    <Button asChild variant={btnVariant} size={size} className="group/btn font-semibold">
+    <Button asChild variant={btnVariant} size={size} className={`group/btn font-semibold ${className}`}>
       {external ? (
         <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
           {content}
@@ -321,7 +323,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               // surface, image beside it on desktop and stacked on mobile.
               return (
                 <section key={section.id} className="px-4 py-24 md:py-36">
-                  <div className="surface-dark container mx-auto max-w-6xl overflow-hidden rounded-2xl bg-deep-navy text-primary-foreground">
+                  <div className="surface-dark mx-auto max-w-6xl overflow-hidden rounded-2xl bg-deep-navy text-primary-foreground">
                     <div className="grid lg:grid-cols-2">
                       {section.image?.url && (
                         <div className="relative h-64 sm:h-80 lg:order-2 lg:h-auto lg:min-h-[480px]">
@@ -344,7 +346,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         )}
                         <div className="flex flex-wrap gap-3">
                           {section.ctas.map((cta, i) => (
-                            <ButtonLink key={cta.label} {...cta} variant={i === 0 ? 'cta' : 'outline'} lp={lp}>
+                            <ButtonLink key={cta.label} {...cta} variant={i === 0 ? 'cta' : 'outline'} className={i === 0 ? '' : 'border-primary-foreground/60 text-primary-foreground hover:border-primary-foreground hover:bg-primary-foreground/10'} lp={lp}>
                               {cta.label}
                             </ButtonLink>
                           ))}
