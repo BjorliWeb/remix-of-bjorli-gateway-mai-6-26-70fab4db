@@ -625,7 +625,14 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             // mobile, 4 on desktop. Square crops keep the row even.
             return (
               <section key={section.id} className="px-4 pb-16 md:pb-24">
-                <div className={`container mx-auto max-w-6xl grid ${section.images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}>
+                {/* Mobile: one photo at a time, swipeable (scroll-snap).
+                    sm and up: the original grid. */}
+                <div
+                  tabIndex={0}
+                  role="region"
+                  aria-label={lang === 'no' ? 'Bilder fra Bjorli' : 'Photos from Bjorli'}
+                  className={`container mx-auto max-w-6xl flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-2xl ${section.images.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}
+                >
                   {section.images.map((image, i) => (
                     <motion.div
                       key={image.url}
@@ -634,7 +641,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       whileInView="visible"
                       viewport={REVEAL_VIEWPORT}
                       variants={fadeUp}
-                      className="relative aspect-square overflow-hidden rounded-2xl"
+                      className="relative aspect-square overflow-hidden rounded-2xl shrink-0 basis-full sm:basis-auto snap-center"
                     >
                       <img
                         src={image.url}
