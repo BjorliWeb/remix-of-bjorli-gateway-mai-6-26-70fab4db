@@ -630,7 +630,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div
                   tabIndex={0}
                   role="region"
-                  aria-label={lang === 'no' ? 'Bilder fra Bjorli' : 'Photos from Bjorli'}
+                  aria-label={({ no: 'Bilder fra Bjorli', en: 'Photos from Bjorli', de: 'Fotos aus Bjorli', nl: "Foto's van Bjorli", da: 'Billeder fra Bjorli', sv: 'Bilder från Bjorli' } as Record<string, string>)[locale] ?? 'Bjorli'}
                   className={`container mx-auto max-w-6xl flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-2xl ${section.images.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}
                 >
                   {section.images.map((image, i) => (
