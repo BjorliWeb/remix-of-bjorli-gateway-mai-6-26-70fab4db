@@ -11,4 +11,4 @@
 
 - [x] Redesign etappe 1: farger, skrift, meny, hero, snarveier, rekkefølge
 - [x] Redesign etappe 2: forsidens seksjoner
-- [ ] Redesign etappe 3: undersider og WCAG-kontroll
+- [ ] Redesign etappe 3: undersider og WCAG-kontroll (påbegynt: kontrast, mobilbredde, Escape i meny fikset; gjenstår manuell skjermleser, sommer/vinter-bilder, før/etter)
