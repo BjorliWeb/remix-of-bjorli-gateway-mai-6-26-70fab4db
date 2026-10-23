@@ -71,7 +71,7 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1440px] lg:w-[calc(100%-2rem)] bg-nav/85 backdrop-blur-xl border-b border-nav-foreground/10 lg:border lg:border-nav-foreground/15 lg:rounded-2xl lg:shadow-[0_18px_50px_-25px_hsl(var(--season-deep)/0.6)]">
+    <nav className="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1440px] lg:w-[calc(100%-2rem)] bg-nav border-b border-nav-foreground/10 lg:border lg:border-nav-foreground/15 lg:rounded-2xl lg:shadow-[0_18px_50px_-25px_hsl(var(--season-deep)/0.6)]">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
@@ -99,13 +99,13 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Language dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
                   aria-label={d.nav.language}
-                  className="h-9 text-nav-foreground/80 hover:text-nav-foreground px-3 rounded-full border border-nav-foreground/20 hover:border-nav-foreground/40 hover:bg-nav-foreground/[0.06] transition-colors flex items-center gap-1.5"
+                  className="h-11 text-nav-foreground/80 hover:text-nav-foreground px-3 rounded-full border border-nav-foreground/20 hover:border-nav-foreground/40 hover:bg-nav-foreground/[0.06] transition-colors flex items-center gap-1.5"
                 >
                   {/* Globe + code reads cleaner than an emoji flag (and a
                       language is not a country). Flags stay in the list. */}
@@ -138,7 +138,7 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
             {/* Seasonal CTA — winter: Kjøp heiskort · summer: Finn overnatting. */}
             {(() => {
               const ctaClass =
-                'hidden md:inline-flex items-center justify-center h-9 px-4 rounded-full text-sm font-semibold bg-season text-season-foreground shadow-[0_8px_22px_-8px_hsl(var(--season-accent)/0.7)] ring-1 ring-season/40 hover:brightness-110 transition';
+                'hidden md:inline-flex items-center justify-center h-11 px-5 rounded-full text-sm font-semibold bg-cta text-cta-foreground hover:bg-cta-hover ring-1 ring-inset ring-white/15 transition-colors';
               return ctaExternal ? (
                 <a href={ctaHref} target="_blank" rel="noopener noreferrer" className={ctaClass} onClick={trackCta}>
                   {ctaLabel}
@@ -153,10 +153,12 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
             {/* Mobile toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? d.nav.close : d.nav.menu}
-              className="xl:hidden text-nav-foreground p-2"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              className="xl:hidden inline-flex items-center gap-2 h-11 px-3 rounded-full border border-nav-foreground/20 text-nav-foreground text-sm font-semibold hover:bg-nav-foreground/[0.06]"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
+              <span>{isOpen ? d.nav.close : d.nav.menu}</span>
             </button>
           </div>
         </div>
@@ -169,7 +171,8 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-nav/95 backdrop-blur-xl border-t border-nav-foreground/10 overflow-hidden"
+            id="mobile-menu"
+            className="xl:hidden bg-nav border-t border-nav-foreground/10 overflow-hidden"
           >
             <div className="container mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link) => (
