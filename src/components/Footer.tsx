@@ -18,42 +18,7 @@ const Footer = () => {
   const address = footer?.address ?? d.footer.address;
 
   return (
-    <footer className="relative isolate overflow-hidden text-nav-foreground bg-season-deep">
-      {/* Subtle top divider (no test border) */}
-      <div
-        className="absolute inset-x-0 top-0 h-px -z-0"
-        aria-hidden="true"
-        style={{
-          background:
-            'linear-gradient(90deg, transparent 0%, hsl(var(--season-accent) / 0.45) 50%, transparent 100%)',
-        }}
-      />
-      {/* Layered seasonal background — deep gradient + understated radial glow */}
-      <div
-        className="absolute inset-0 -z-10 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background:
-            'linear-gradient(180deg, hsl(var(--nav-bg)) 0%, hsl(var(--nav-bg)) 30%, hsl(var(--season-deep)) 100%)',
-        }}
-      />
-      <div
-        className="absolute -top-32 left-1/2 -translate-x-1/2 h-[420px] w-[120%] -z-10 pointer-events-none opacity-50 blur-3xl"
-        aria-hidden="true"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, hsl(var(--season-accent) / 0.22), transparent 60%)',
-        }}
-      />
-      <div
-        className="absolute -bottom-40 right-0 h-[360px] w-[60%] -z-10 pointer-events-none opacity-40 blur-3xl"
-        aria-hidden="true"
-        style={{
-          background:
-            'radial-gradient(ellipse at center, hsl(var(--season-accent) / 0.18), transparent 65%)',
-        }}
-      />
-
+    <footer className="relative isolate overflow-hidden text-nav-foreground bg-nav">
       <div className="relative container mx-auto px-6 pt-14 pb-6 lg:pt-16 lg:pb-8">
         {/* Top section — 5 col layout: editorial brand panel + 3 link cols + contact */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr_1.3fr] gap-y-14 md:gap-x-10 lg:gap-x-16">
@@ -96,7 +61,7 @@ const Footer = () => {
                   <li key={link.href}>
                     <Link
                       to={lp(link.href)}
-                      className="inline-block hover:text-season transition-colors"
+                      className="inline-block underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -125,7 +90,7 @@ const Footer = () => {
                 </span>
                 <a
                   href="tel:+4748152200"
-                  className="hover:text-season transition-colors"
+                  className="underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
                   onClick={() => trackPhoneClick({ phone_label: 'main_phone' })}
                 >
                   +47 48 15 22 00
@@ -137,7 +102,7 @@ const Footer = () => {
                 </span>
                 <a
                   href="mailto:skisenter@bjorli.no"
-                  className="hover:text-season transition-colors"
+                  className="underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
                   onClick={() => trackEmailClick({ email_label: 'main_contact_email' })}
                 >
                   skisenter@bjorli.no
@@ -164,13 +129,13 @@ const Footer = () => {
             <div className="flex flex-wrap gap-x-7 gap-y-2 order-1 sm:order-2 uppercase tracking-[0.18em]">
               <Link
                 to={lp('/personvern')}
-                className="hover:text-season transition-colors"
+                className="underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
               >
                 {d.footer.privacy}
               </Link>
               <Link
                 to={lp('/salgsbetingelser')}
-                className="hover:text-season transition-colors"
+                className="underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
               >
                 {salesTerms.heading}
               </Link>
@@ -184,7 +149,7 @@ const Footer = () => {
                   e.preventDefault();
                   window.dispatchEvent(new CustomEvent('bjorli:open-consent'));
                 }}
-                className="hover:text-season transition-colors"
+                className="underline underline-offset-4 decoration-nav-foreground/40 hover:decoration-nav-foreground hover:text-nav-foreground transition-colors"
               >
                 {d.footer.cookies}
               </a>
