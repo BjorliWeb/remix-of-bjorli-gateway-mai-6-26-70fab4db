@@ -166,7 +166,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         </div>
                       </div>
                       <div className="lg:col-span-9">
-                        <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-foreground leading-[1.08] tracking-tight">
+                        <h2 className={`${SECTION_H2}`}>
                           {section.statement}
                         </h2>
                         {/* A blank line in supportingText starts a new paragraph. */}
@@ -197,7 +197,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-28 md:py-40 px-4">
                 <div className="container mx-auto max-w-3xl text-center">
                   {section.title && (
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-8`}>{section.title}</h2>
                   )}
                   <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">{section.body}</p>
                 </div>
@@ -280,7 +280,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.eyebrow && (
                         <div className="eyebrow mb-5">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6`}>{section.title}</h2>
                       {section.subtitle && (
                         <p className="text-muted-foreground text-lg leading-relaxed max-w-md">{section.subtitle}</p>
                       )}
@@ -371,7 +371,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.eyebrow && (
                         <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6`}>{section.title}</h2>
                       <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10 max-w-xl">{section.body}</p>
                       {section.subcards && section.subcards.length > 0 && (
                         <div className="grid sm:grid-cols-2 gap-4 mb-10">
@@ -410,7 +410,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       <div className="eyebrow mb-5">{section.eyebrow}</div>
                     )}
                     {section.title && (
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2}`}>{section.title}</h2>
                     )}
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -458,7 +458,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
@@ -572,7 +572,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-16 lg:mb-20">
                     <div className="lg:col-span-7">
                       <div className="eyebrow mb-5">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6 text-primary-foreground`}>{section.title}</h2>
                       <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-xl">{section.body}</p>
                     </div>
                     {section.images?.[0] && (
@@ -653,7 +653,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="max-w-2xl mb-14 md:mb-16">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-5`}>{section.title}</h2>
                     <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.body}</p>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-12 border-t border-border pt-12 mb-12">
@@ -724,24 +724,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
                       <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
-                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}>
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="md:grid md:grid-cols-2 md:gap-6 md:items-start">
                           {featured.heroImage && (
-                            <div className="aspect-[16/10] overflow-hidden mb-6 rounded-2xl ring-1 ring-border/40">
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
+                            <div className="aspect-[16/10] overflow-hidden mb-5 md:mb-0 rounded-2xl ring-1 ring-border/40">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover" loading="lazy" />
                             </div>
                           )}
+                          <div>
                           <div className="flex items-center gap-3 mb-3">
                             {featured.category && <span className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em]">{featured.category}</span>}
                             {featured.date && <span className="text-xs text-muted-foreground">{featured.date}</span>}
                           </div>
-                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
-                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
+                          <h3 className="font-display text-2xl font-bold text-foreground mb-3 leading-tight tracking-tight group-hover:underline underline-offset-4">{featured.title}</h3>
+                          <p className="text-muted-foreground text-base leading-relaxed max-w-xl line-clamp-3">{featured.intro}</p>
+                          </div>
                         </motion.article>
                       </Link>
                     )}
@@ -775,7 +777,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-3xl">
                   <div className="text-center mb-14">
                     <div className="eyebrow mb-3">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2}`}>{section.title}</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     {section.items.map((item, i) => (
@@ -795,7 +797,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <section className="py-24 md:py-32 px-4 bg-muted/30">
                   <div className="container mx-auto">
                     <div className="text-center mb-16 max-w-2xl mx-auto">
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
