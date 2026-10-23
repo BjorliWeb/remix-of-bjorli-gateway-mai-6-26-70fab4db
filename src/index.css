@@ -377,10 +377,14 @@
   /* The bottom divider belongs to the transition, not additional space. */
   padding-bottom: calc(var(--homepage-section-half-gap) - 1px);
 }
+.homepage-spacing > section > article.border-y .min-w-0 {
+  padding-bottom: 0;
+}
 .homepage-spacing .homepage-events-intro {
   margin-bottom: 32px;
 }
 .homepage-spacing .homepage-events-calendar {
+  display: flex;
   margin-top: 24px;
 }
 @media (min-width: 768px) {
