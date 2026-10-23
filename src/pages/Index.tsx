@@ -146,7 +146,11 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
       <HomepageCampaign />
 
       {home ? (
-        home.sections && <HomepageSections sections={home.sections} />
+        home.sections && (
+          <div className={page === 'home' ? 'homepage-spacing' : undefined}>
+            <HomepageSections sections={home.sections} />
+          </div>
+        )
       ) : (
         // Holds the space and hides the footer while the CMS loads.
         <ContentPlaceholder />

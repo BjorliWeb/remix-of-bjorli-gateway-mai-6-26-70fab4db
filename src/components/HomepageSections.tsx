@@ -470,9 +470,9 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             const extra = section.items.slice(3, 6);
             if (!featured) return null;
             return (
-              <section key={section.id} className="py-28 md:py-36 px-4">
+              <section key={section.id} data-homepage-section="events" className="py-28 md:py-36 px-4">
                 <div className="container mx-auto max-w-6xl">
-                  <div className="mb-16 max-w-2xl">
+                  <div className="homepage-events-intro mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
                     <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
@@ -554,7 +554,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       </div>
                     </div>
                   )}
-                  <div className="mt-10">
+                  <div className="homepage-events-calendar mt-10">
                     <Link to={lp(section.ctaHref)} className="group/more inline-flex items-center gap-2 text-secondary font-semibold text-sm underline-offset-4 hover:underline">
                       {section.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
                     </Link>

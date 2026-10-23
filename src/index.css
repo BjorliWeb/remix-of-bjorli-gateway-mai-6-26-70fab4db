@@ -353,6 +353,49 @@
 }
 
 /* ─── Summer page spacing polish ─────────────────────────────────── */
+/* Homepage only: each adjacent section owns half the total transition.
+   Nested grids, cards and full-bleed photography keep their own layout. */
+.homepage-spacing {
+  --homepage-section-half-gap: 24px;
+}
+.homepage-spacing > section,
+.homepage-spacing > div > section {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: var(--homepage-section-half-gap);
+  padding-bottom: var(--homepage-section-half-gap);
+}
+.homepage-spacing > section:first-child {
+  /* Preserve the intentional entrance below the hero/campaign. */
+  padding-top: 40px;
+}
+.homepage-spacing > section > article.border-y {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.homepage-spacing > section:has(> article.border-y) {
+  /* The bottom divider belongs to the transition, not additional space. */
+  padding-bottom: calc(var(--homepage-section-half-gap) - 1px);
+}
+.homepage-spacing > section > article.border-y .min-w-0 {
+  padding-bottom: 0;
+}
+.homepage-spacing .homepage-events-intro {
+  margin-bottom: 32px;
+}
+.homepage-spacing .homepage-events-calendar {
+  display: flex;
+  margin-top: 24px;
+}
+@media (min-width: 768px) {
+  .homepage-spacing { --homepage-section-half-gap: 32px; }
+  .homepage-spacing > section:first-child { padding-top: 56px; }
+  .homepage-spacing .homepage-events-intro { margin-bottom: 64px; }
+}
+@media (min-width: 1024px) {
+  .homepage-spacing { --homepage-section-half-gap: 40px; }
+}
+
 /* Reduce section padding by ~15–20% on /sommer while keeping /vinter
    untouched. Relies on [data-season="summer"] (set by Layout.tsx) and
    #opplev-sommer (the CMS sections wrapper in Sommer.tsx).            */
