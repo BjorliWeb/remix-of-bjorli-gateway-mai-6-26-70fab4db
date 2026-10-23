@@ -277,7 +277,12 @@ function htmlToText(html: string): string {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
+    .replace(/\r\n?/g, '\n')
     .replace(/[ \t]+\n/g, '\n')
+    // Source posts sometimes carry a stray paragraph break after the first
+    // letter of a sentence ("H\n\nøstfargene"). Rejoin a lone capital that
+    // is followed by a lowercase continuation; real paragraphs are kept.
+    .replace(/(^|[\s.!?])([A-ZÆØÅ])\n\s*([a-zæøå])/g, '$1$2$3')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 }

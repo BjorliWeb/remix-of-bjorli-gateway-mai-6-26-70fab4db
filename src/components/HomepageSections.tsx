@@ -32,6 +32,10 @@ import LiveStatusCards from '@/components/LiveStatusCards';
 import { track, type AnalyticsEventName } from '@/lib/analytics';
 import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
 import { revealUp, REVEAL_VIEWPORT, EASE_OUT_EXPO } from '@/lib/motion';
+import { formatEventCategory, formatEventDate } from '@/lib/events/displayFormat';
+
+/** Section heading scale from the 2026 redesign: 28–32 px mobile, 40 px desktop. */
+const SECTION_H2 = 'font-display text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-bold text-foreground leading-[1.12] tracking-tight';
 
 /**
  * Renders the composed homepage sections delivered by the CMS adapter.
@@ -72,14 +76,16 @@ const ButtonLink = ({
   children,
   size = 'lg',
   lp,
+  className = '',
 }: {
   href: string;
   external?: boolean;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'cta';
   icon?: string;
   children: React.ReactNode;
   size?: 'lg' | 'default';
   lp: (p: string) => string;
+  className?: string;
 }) => {
   const Icon = icon ? ICONS[icon] : undefined;
   const btnVariant: ButtonProps['variant'] = variant === 'primary' ? 'default' : variant;
@@ -111,7 +117,7 @@ const ButtonLink = ({
     </>
   );
   return (
-    <Button asChild variant={btnVariant} size={size} className="group/btn font-semibold">
+    <Button asChild variant={btnVariant} size={size} className={`group/btn font-semibold ${className}`}>
       {external ? (
         <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick}>
           {content}
@@ -127,7 +133,7 @@ const ButtonLink = ({
 
 export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] }) => {
   const lp = useLocalizedPath();
-  const { locale } = useLanguage();
+  const { locale, d } = useLanguage();
 
 
   return (
@@ -162,7 +168,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                         </div>
                       </div>
                       <div className="lg:col-span-9">
-                        <h2 className="font-display text-3xl md:text-5xl lg:text-[3.5rem] font-bold text-foreground leading-[1.08] tracking-tight">
+                        <h2 className={`${SECTION_H2}`}>
                           {section.statement}
                         </h2>
                         {/* A blank line in supportingText starts a new paragraph. */}
@@ -193,7 +199,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               <section key={section.id} className="py-28 md:py-40 px-4">
                 <div className="container mx-auto max-w-3xl text-center">
                   {section.title && (
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-[1.05] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-8`}>{section.title}</h2>
                   )}
                   <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">{section.body}</p>
                 </div>
@@ -210,32 +216,29 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
               return (
                 <section key={section.id} className="py-24 md:py-32 px-4 bg-muted/30">
                   <div className="container mx-auto max-w-6xl">
-                    <div className="max-w-2xl mb-12 md:mb-14">
+                    <div className="max-w-2xl mb-8">
                       {section.eyebrow && (
                         <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={SECTION_H2}>{section.title}</h2>
                       {section.subtitle && (
-                        <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
+                        <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
                       )}
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-2 border-t border-border/80">
+                    <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                       {section.items.map((item, i) => {
                         const Icon = (item.icon && ICONS[item.icon]) || Mountain;
                         const rowClass =
-                          'group flex gap-4 items-start py-6 -mx-3 px-3 rounded-lg transition-colors duration-300 ease-out-expo hover:bg-background/70';
+                          'group flex h-full flex-col gap-3 rounded-xl border border-border bg-card p-4 md:p-5 transition-colors duration-300 hover:border-secondary/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
                         const body = (
                           <>
-                            <span className="h-10 w-10 shrink-0 rounded-full bg-season/15 ring-1 ring-inset ring-season-ink/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-season/25">
+                            <span aria-hidden className="h-10 w-10 shrink-0 rounded-full bg-season/15 flex items-center justify-center">
                               <Icon className="h-[18px] w-[18px] text-secondary" />
                             </span>
-                            <div className="flex-1 min-w-0 pt-0.5">
-                              <div className="font-display text-base md:text-lg font-semibold text-foreground tracking-tight leading-snug">{item.title}</div>
+                            <div className="min-w-0">
+                              <div className="font-sans text-base font-semibold text-foreground leading-snug underline-offset-4 group-hover:underline">{item.title}</div>
                               <div className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</div>
                             </div>
-                            {item.href && (
-                              <ArrowRight className="h-4 w-4 text-secondary mt-2 shrink-0 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 transition-all duration-300 ease-out-expo" />
-                            )}
                           </>
                         );
                         return (
@@ -246,7 +249,6 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             whileInView="visible"
                             viewport={REVEAL_VIEWPORT}
                             variants={fadeUp}
-                            className="border-b border-border/80"
                           >
                             {item.href ? (
                               item.external ? (
@@ -280,7 +282,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.eyebrow && (
                         <div className="eyebrow mb-5">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6`}>{section.title}</h2>
                       {section.subtitle && (
                         <p className="text-muted-foreground text-lg leading-relaxed max-w-md">{section.subtitle}</p>
                       )}
@@ -316,6 +318,45 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'feature': {
+            if (section.id === 'accommodation') {
+              // Deliberate visual shift: mountain-blue panel, text on a solid
+              // surface, image beside it on desktop and stacked on mobile.
+              return (
+                <section key={section.id} className="px-4 py-24 md:py-36">
+                  <div className="surface-dark mx-auto max-w-6xl overflow-hidden rounded-2xl bg-deep-navy text-primary-foreground">
+                    <div className="grid lg:grid-cols-2">
+                      {section.image?.url && (
+                        <div className="relative h-64 sm:h-80 lg:order-2 lg:h-auto lg:min-h-[480px]">
+                          <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />
+                        </div>
+                      )}
+                      <div className="p-6 sm:p-8 lg:p-12 lg:order-1">
+                        {section.eyebrow && <div className="eyebrow mb-4">{section.eyebrow}</div>}
+                        <h2 className={`${SECTION_H2} text-primary-foreground`}>{section.title}</h2>
+                        <p className="mt-4 mb-8 text-base md:text-lg leading-relaxed text-primary-foreground/90 max-w-xl">{section.body}</p>
+                        {section.subcards && section.subcards.length > 0 && (
+                          <ul className="mb-8 grid gap-4 sm:grid-cols-2">
+                            {section.subcards.map((c) => (
+                              <li key={c.title} className="border-t border-primary-foreground/20 pt-4">
+                                <div className="font-semibold text-primary-foreground">{c.title}</div>
+                                {c.desc && <div className="mt-1 text-sm leading-relaxed text-primary-foreground/85">{c.desc}</div>}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        <div className="flex flex-wrap gap-3">
+                          {section.ctas.map((cta, i) => (
+                            <ButtonLink key={cta.label} {...cta} variant={i === 0 ? 'cta' : 'outline'} className={i === 0 ? '' : 'border-primary-foreground/60 text-primary-foreground hover:border-primary-foreground hover:bg-primary-foreground/10'} lp={lp}>
+                              {cta.label}
+                            </ButtonLink>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              );
+            }
             const imageLeft = section.imageSide !== 'right';
             const bg = !imageLeft ? 'bg-muted/30' : '';
             const hasImage = !!section.image?.url;
@@ -332,7 +373,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       {section.eyebrow && (
                         <div className="eyebrow mb-4">{section.eyebrow}</div>
                       )}
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6`}>{section.title}</h2>
                       <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10 max-w-xl">{section.body}</p>
                       {section.subcards && section.subcards.length > 0 && (
                         <div className="grid sm:grid-cols-2 gap-4 mb-10">
@@ -371,7 +412,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       <div className="eyebrow mb-5">{section.eyebrow}</div>
                     )}
                     {section.title && (
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2}`}>{section.title}</h2>
                     )}
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -419,7 +460,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
@@ -466,97 +507,56 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'events': {
-            const [featured, ...rest] = section.items.slice(0, 3);
-            const extra = section.items.slice(3, 6);
-            if (!featured) return null;
+            // Uniform cards: one column on mobile, two on tablet, three on
+            // desktop. The whole poster stays visible (object-contain), and
+            // date, category and title sit as plain text below the image.
+            const items = section.items.slice(0, 6);
+            if (!items.length) return null;
             return (
               <section key={section.id} data-homepage-section="events" className="py-28 md:py-36 px-4">
                 <div className="container mx-auto max-w-6xl">
                   <div className="homepage-events-intro mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
-                    <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
+                    <h2 className={SECTION_H2}>{section.title}</h2>
+                    <p className="mt-4 text-muted-foreground text-base md:text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
-                  <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
-                    {featured && (
-                      <EventLink
-                        target={resolveEventTarget(featured, lp(`/arrangementer/${featured.slug}`))}
-                        className={`${rest.length ? 'lg:col-span-8' : 'lg:col-span-12'} group block`}
-                      >
-                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="flex flex-col overflow-hidden h-[420px] md:h-[520px] rounded-2xl border border-border bg-card">
-                          <div className="relative flex-1 min-h-0 bg-muted">
-                            {featured.heroImage && (
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
-                            )}
-                          </div>
-                          <div className="p-5 md:p-7">
-                            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-muted-foreground">
-                              {featured.date && <span>{featured.date}</span>}
-                              {featured.category && <span>{featured.category}</span>}
-                            </div>
-                            <h3 className="font-display font-bold text-foreground text-2xl md:text-3xl leading-[1.1] tracking-tight mb-2 group-hover:text-secondary transition-colors">{featured.title}</h3>
-                            {featured.intro && <p className="text-muted-foreground text-base leading-relaxed max-w-xl line-clamp-2">{featured.intro}</p>}
-                          </div>
-                        </motion.article>
-                      </EventLink>
-                    )}
-                    {rest.length > 0 && (
-                    <div className="lg:col-span-4 flex flex-col gap-6">
-                      {rest.map((ev, i) => (
-                        <EventLink
-                          key={ev.id}
-                          target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
-                          className="group block"
-                        >
-                          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="flex flex-col overflow-hidden h-[248px] rounded-2xl border border-border bg-card">
-                            <div className="relative flex-1 min-h-0 bg-muted">
-                              {ev.heroImage && (
-                                <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
-                              )}
-                            </div>
-                            <div className="px-4 py-3">
-                              {ev.date && <div className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted-foreground mb-1">{ev.date}</div>}
-                              <h3 className="font-display font-bold text-foreground text-base leading-tight tracking-tight line-clamp-1 group-hover:text-secondary transition-colors">{ev.title}</h3>
-                            </div>
-                          </motion.article>
-                        </EventLink>
-                      ))}
-                    </div>
-                    )}
-                  </div>
-                  {extra.length > 0 && (
-                    <div className="mt-8 md:mt-10">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {extra.map((ev, i) => (
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {items.map((ev, i) => {
+                      const date = formatEventDate(ev.date, locale);
+                      const category = formatEventCategory(ev.category, locale);
+                      return (
+                        <li key={ev.id} className="h-full">
                           <EventLink
-                            key={ev.id}
                             target={resolveEventTarget(ev, lp(`/arrangementer/${ev.slug}`))}
-                            className="group block"
+                            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
                           >
-                            <motion.article
-                              initial={{ opacity: 0, y: 16 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={REVEAL_VIEWPORT}
-                              transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }}
-                              className="flex flex-col overflow-hidden h-[248px] rounded-2xl border border-border bg-card">
-                            <div className="relative flex-1 min-h-0 bg-muted">
-                              {ev.heroImage && (
-                                <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 w-full h-full object-contain object-center" loading="lazy" />
-                              )}
-                            </div>
-                            <div className="px-4 py-3">
-                              {ev.date && <div className="text-[10px] font-semibold tracking-[0.16em] uppercase text-muted-foreground mb-1">{ev.date}</div>}
-                              <h3 className="font-display font-bold text-foreground text-base leading-tight tracking-tight line-clamp-1 group-hover:text-secondary transition-colors">{ev.title}</h3>
-                            </div>
-                          </motion.article>
+                            <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="flex h-full flex-col">
+                              <div className="relative aspect-[4/3] max-h-[320px] w-full bg-muted">
+                                {ev.heroImage && (
+                                  <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 h-full w-full object-contain object-center" loading="lazy" decoding="async" />
+                                )}
+                              </div>
+                              <div className="flex flex-1 flex-col p-5">
+                                {(date || category) && (
+                                  <p className="mb-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                                    {date && <span>{date}</span>}
+                                    {category && <span className="font-semibold text-foreground/80">{category}</span>}
+                                  </p>
+                                )}
+                                <h3 className="font-display text-xl font-bold leading-snug tracking-tight text-foreground">{ev.title}</h3>
+                                <span className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-sm font-semibold text-secondary underline underline-offset-4 decoration-secondary/40 group-hover:decoration-secondary">
+                                  {d.common.readMore} <ArrowRight aria-hidden className="h-4 w-4" />
+                                </span>
+                              </div>
+                            </motion.article>
                           </EventLink>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                   <div className="homepage-events-calendar mt-10">
-                    <Link to={lp(section.ctaHref)} className="group/more inline-flex items-center gap-2 text-secondary font-semibold text-sm underline-offset-4 hover:underline">
-                      {section.ctaLabel} <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
+                    <Link to={lp(section.ctaHref)} className="group/more inline-flex min-h-11 items-center gap-2 text-secondary font-semibold text-sm underline underline-offset-4">
+                      {section.ctaLabel} <ArrowRight aria-hidden className="h-4 w-4 transition-transform duration-300 ease-out-expo group-hover/more:translate-x-1" />
                     </Link>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-16 lg:mb-20">
                     <div className="lg:col-span-7">
                       <div className="eyebrow mb-5">{section.eyebrow}</div>
-                      <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.02] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-6 text-primary-foreground`}>{section.title}</h2>
                       <p className="text-primary-foreground/80 text-lg md:text-xl leading-relaxed max-w-xl">{section.body}</p>
                     </div>
                     {section.images?.[0] && (
@@ -655,7 +655,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="max-w-2xl mb-14 md:mb-16">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-5`}>{section.title}</h2>
                     <p className="text-muted-foreground text-base md:text-lg leading-relaxed">{section.body}</p>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-12 border-t border-border pt-12 mb-12">
@@ -726,24 +726,26 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-6xl">
                   <div className="mb-16 max-w-2xl">
                     <div className="eyebrow mb-4">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-[1.02] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                     <p className="text-muted-foreground text-lg leading-relaxed">{section.subtitle}</p>
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
                       <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
-                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}>
+                        <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="md:grid md:grid-cols-2 md:gap-6 md:items-start">
                           {featured.heroImage && (
-                            <div className="aspect-[16/10] overflow-hidden mb-6 rounded-2xl ring-1 ring-border/40">
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover transition-transform duration-[1400ms] ease-out-expo group-hover:scale-[1.03]" loading="lazy" />
+                            <div className="aspect-[16/10] overflow-hidden mb-5 md:mb-0 rounded-2xl ring-1 ring-border/40">
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover" loading="lazy" />
                             </div>
                           )}
+                          <div>
                           <div className="flex items-center gap-3 mb-3">
                             {featured.category && <span className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em]">{featured.category}</span>}
                             {featured.date && <span className="text-xs text-muted-foreground">{featured.date}</span>}
                           </div>
-                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
-                          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
+                          <h3 className="font-display text-2xl font-bold text-foreground mb-3 leading-tight tracking-tight group-hover:underline underline-offset-4">{featured.title}</h3>
+                          <p className="text-muted-foreground text-base leading-relaxed max-w-xl line-clamp-3">{featured.intro}</p>
+                          </div>
                         </motion.article>
                       </Link>
                     )}
@@ -777,7 +779,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <div className="container mx-auto max-w-3xl">
                   <div className="text-center mb-14">
                     <div className="eyebrow mb-3">{section.eyebrow}</div>
-                    <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground leading-[1.05] tracking-tight">{section.title}</h2>
+                    <h2 className={`${SECTION_H2}`}>{section.title}</h2>
                   </div>
                   <Accordion type="single" collapsible className="w-full">
                     {section.items.map((item, i) => (
@@ -797,7 +799,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                 <section className="py-24 md:py-32 px-4 bg-muted/30">
                   <div className="container mx-auto">
                     <div className="text-center mb-16 max-w-2xl mx-auto">
-                      <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight">{section.title}</h2>
+                      <h2 className={`${SECTION_H2} mb-4`}>{section.title}</h2>
                       <p className="text-muted-foreground text-lg">{section.subtitle}</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6 max-w-6xl mx-auto">
