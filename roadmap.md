@@ -12,3 +12,6 @@
 - [x] Redesign etappe 1: farger, skrift, meny, hero, snarveier, rekkefølge
 - [x] Redesign etappe 2: forsidens seksjoner
 - [ ] Redesign etappe 3: undersider og WCAG-kontroll (påbegynt: kontrast, mobilbredde, Escape i meny fikset; gjenstår manuell skjermleser, sommer/vinter-bilder, før/etter)
+
+- [x] Kjøpsveiledning for sesongkort: inngang, dialog og karusell (skjult, flagg false)
+- [ ] Aktiver sesongkortveiledningen (venter på godkjente steg, bilder, lyd/video med undertekster)

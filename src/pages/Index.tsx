@@ -15,6 +15,7 @@ import HomepageCampaign from '@/components/HomepageCampaign';
 import { trackSkiPassClick } from '@/lib/analytics';
 import { EASE_OUT_EXPO } from '@/lib/motion';
 import ContentPlaceholder from '@/components/ContentPlaceholder';
+import SeasonPassGuideLink from '@/components/SeasonPassGuide';
 import desktopHero from '@/assets/photos/01_winter_ski_resort/bjorli-vinter-skisenter-toppstasjon-oversikt-mars.jpg';
 
 /**
@@ -119,6 +120,7 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
                 </Link>
               </Button>
             </motion.div>
+            <SeasonPassGuideLink variant="home" className="mt-3 self-start text-primary" />
           </div>
         </div>
       </section>

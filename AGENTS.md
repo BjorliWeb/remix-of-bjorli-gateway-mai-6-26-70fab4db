@@ -8,3 +8,5 @@
 - Homepage transition spacing is scoped through the home-only `homepage-spacing` wrapper; adjacent sections share a single gap budget without changing reused seasonal pages or nested card layouts.
 
 - Homepage practical shortcuts live in Node-safe `src/lib/practicalShortcuts.ts`, shared by React and prerender — first HTML must match the hydrated hero.
+
+- Season pass guide (`src/lib/seasonPassGuide.ts`) is shown only when locale is no, GUIDE_ENABLED is true and every step validates — content alone must never publish it.
