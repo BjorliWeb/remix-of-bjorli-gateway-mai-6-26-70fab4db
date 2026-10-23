@@ -674,8 +674,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                     ))}
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    {section.ctas.map((cta) => (
-                      <ButtonLink key={cta.label} {...cta} variant="outline" lp={lp}>
+                    {section.ctas.map((cta, i) => (
+                      <ButtonLink key={cta.label} {...cta} variant={i === 0 ? 'cta' : 'outline'} lp={lp}>
                         {cta.label}
                       </ButtonLink>
                     ))}
@@ -777,14 +777,14 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             return (
               <section key={section.id} className="py-24 md:py-32 px-4">
                 <div className="container mx-auto max-w-3xl">
-                  <div className="text-center mb-14">
+                  <div className="mb-8 md:mb-10">
                     <div className="eyebrow mb-3">{section.eyebrow}</div>
                     <h2 className={`${SECTION_H2}`}>{section.title}</h2>
                   </div>
-                  <Accordion type="single" collapsible className="w-full">
+                  <Accordion type="single" collapsible className="w-full border-t border-border">
                     {section.items.map((item, i) => (
                       <AccordionItem key={i} value={`item-${i}`} className="border-border">
-                        <AccordionTrigger className="text-left font-display font-semibold text-base md:text-lg hover:no-underline">{item.q}</AccordionTrigger>
+                        <AccordionTrigger className="min-h-[44px] text-left font-display font-semibold text-base md:text-lg hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm">{item.q}</AccordionTrigger>
                         <AccordionContent className="text-muted-foreground text-base leading-relaxed">{item.a}</AccordionContent>
                       </AccordionItem>
                     ))}
