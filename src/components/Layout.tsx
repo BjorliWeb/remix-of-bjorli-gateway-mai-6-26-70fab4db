@@ -14,6 +14,15 @@ import { PendingContentContext } from '@/lib/pendingContent';
  * design tokens (defined in src/index.css) cascade everywhere — winter
  * is the default, summer activates on summer routes.
  */
+const SKIP_LABEL: Record<string, string> = {
+  no: 'Hopp til hovedinnhold',
+  en: 'Skip to main content',
+  de: 'Zum Hauptinhalt springen',
+  nl: 'Naar hoofdinhoud',
+  da: 'Spring til hovedindhold',
+  sv: 'Hoppa till huvudinnehåll',
+};
+
 const Layout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation();
   const { locale } = useLanguage();
@@ -51,9 +60,10 @@ const Layout = ({ children }: { children: ReactNode }) => {
           'radial-gradient(ellipse 80% 50% at 50% 0%, hsl(var(--season-surface) / 0.55), transparent 65%), linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--season-surface) / 0.35) 100%)',
       }}
     >
+      <a href="#hovedinnhold" className="skip-link">{SKIP_LABEL[locale] ?? SKIP_LABEL.no}</a>
       <Navbar season={season} />
       <div className="flex-1 flex flex-col lg:max-w-[1440px] lg:w-[calc(100%-2rem)] lg:mx-auto lg:my-4 lg:rounded-[28px] lg:overflow-hidden lg:shadow-[0_30px_80px_-40px_hsl(var(--season-deep)/0.45)] lg:ring-1 lg:ring-nav-foreground/10 bg-background">
-        <main className="flex-1 pt-16 lg:pt-24">{children}</main>
+        <main id="hovedinnhold" tabIndex={-1} className="flex-1 pt-16 lg:pt-24 focus:outline-none">{children}</main>
         <div className={pending > 0 ? 'hidden' : 'contents'}>
           <Footer />
         </div>

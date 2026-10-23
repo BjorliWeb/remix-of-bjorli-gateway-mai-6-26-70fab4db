@@ -1080,21 +1080,6 @@ export const mockAdapter: CmsAdapter = {
         },
       ],
     },
-      // Editorial role split (per spec):
-      //   "Siste nytt fra Bjorli Skisenter" — official Skisenter
-      //   updates (season opening, snow, lift pass, campaigns, slope &
-      //   park, ski school, rental, operational + relevant company
-      //   news). Sourced from the existing `news` collection.
-      {
-        id: 'news',
-        type: 'news',
-        eyebrow: d.news.eyebrow,
-        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
-        subtitle: d.news.subtitle,
-        ctaLabel: d.news.cta,
-        ctaHref: '/nyheter',
-        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
-      },
       {
         id: 'accommodation',
         type: 'feature',
@@ -1120,6 +1105,21 @@ export const mockAdapter: CmsAdapter = {
         ctaLabel: d.tips.cta,
         ctaHref: '/tips',
         items: tips,
+      },
+      // Editorial role split (per spec):
+      //   "Siste nytt fra Bjorli Skisenter" — official Skisenter
+      //   updates (season opening, snow, lift pass, campaigns, slope &
+      //   park, ski school, rental, operational + relevant company
+      //   news). Sourced from the existing `news` collection.
+      {
+        id: 'news',
+        type: 'news',
+        eyebrow: d.news.eyebrow,
+        title: SKISENTER_NEWS_TITLE[language] ?? SKISENTER_NEWS_TITLE.no,
+        subtitle: d.news.subtitle,
+        ctaLabel: d.news.cta,
+        ctaHref: '/nyheter',
+        items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
       },
       {
         id: 'beyond',

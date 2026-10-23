@@ -21,6 +21,10 @@ const buttonVariants = cva(
         // surfaces (hero, campaign). Same fill as the header CTA.
         season:
           "bg-season text-season-foreground font-semibold shadow-[0_10px_30px_-10px_hsl(var(--season-accent)/0.75)] ring-1 ring-inset ring-white/20 hover:brightness-[1.06] hover:shadow-[0_14px_36px_-10px_hsl(var(--season-accent)/0.85)]",
+        // Primary call to action (winter: warm red, summer: deep green).
+        cta: "bg-cta text-cta-foreground font-semibold hover:bg-cta-hover shadow-[0_1px_2px_hsl(var(--foreground)/0.15)]",
+        // Clear secondary action on light surfaces.
+        "outline-strong": "border-2 border-primary bg-transparent text-primary font-semibold hover:bg-primary hover:text-primary-foreground",
         // Quiet secondary action over photography.
         glass:
           "border border-white/40 bg-[hsl(var(--hero-overlay)/0.28)] text-white backdrop-blur-md hover:bg-[hsl(var(--hero-overlay)/0.42)] hover:border-white/60",

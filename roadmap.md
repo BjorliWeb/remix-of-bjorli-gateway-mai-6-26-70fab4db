@@ -8,3 +8,7 @@
 - [x] Redaktører kan redigere innsendte arrangementer på /admin/innsendinger (med justeringer: reviewed_by urørt, trigger kontrollert, bildehåndtering, publisering/engelsk)
 - [x] Nettlesertest som innlogget redaktør (kjørt i delt database med merkede testdata, ryddet)
 - [x] Arrangementsbilder vises uten beskjæring (contain) overalt + forstørret visning på detaljside
+
+- [x] Redesign etappe 1: farger, skrift, meny, hero, snarveier, rekkefølge
+- [ ] Redesign etappe 2: forsidens seksjoner (venter på din kontroll av etappe 1)
+- [ ] Redesign etappe 3: undersider og WCAG-kontroll
