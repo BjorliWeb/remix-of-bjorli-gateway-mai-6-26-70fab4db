@@ -7,7 +7,7 @@
 import type { Locale } from '@/i18n/locales/types';
 
 /** Explicit activation flag. Keep false until content is delivered and approved. */
-export const GUIDE_ENABLED = true;
+export const GUIDE_ENABLED = false;
 
 export const SEASON_PASS_URL =
   'https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4966';
@@ -25,7 +25,7 @@ export interface GuideStep {
 }
 
 /** Approved steps. Empty until delivered content is approved by the owner. */
-export const GUIDE_STEPS: GuideStep[] = [{title:"PRØVE 1",text:"Prøvetekst 1",image:{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1400'%3E%3Crect width='800' height='1400' fill='%23ccc'/%3E%3C/svg%3E",alt:"Prøvebilde"},audio:{src:"/sample.wav"}},{title:"PRØVE 2",text:"Prøvetekst 2",image:{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1400'%3E%3Crect width='800' height='1400' fill='%23ccc'/%3E%3C/svg%3E",alt:"Prøvebilde 2"}}];
+export const GUIDE_STEPS: GuideStep[] = [];
 
 export const GUIDE_COPY = {
   title: 'Slik kjøper du sesongkort',
