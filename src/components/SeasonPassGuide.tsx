@@ -1,3 +1,4 @@
+import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { PlayCircle, X } from 'lucide-react';
@@ -92,10 +93,11 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
 }
 
 export function SeasonPassGuideDialog({
-  open, onOpenChange, steps = GUIDE_STEPS,
-}: { open: boolean; onOpenChange: (o: boolean) => void; steps?: GuideStep[] }) {
+  open, onOpenChange, steps = GUIDE_STEPS, trigger,
+}: { open: boolean; onOpenChange: (o: boolean) => void; steps?: GuideStep[]; trigger: React.ReactNode }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
       <DialogPortal>
         <DialogOverlay className="animate-none data-[state=open]:animate-none data-[state=closed]:animate-none" />
         <DialogPrimitive.Content
@@ -134,16 +136,17 @@ export default function SeasonPassGuideLink({
   const [open, setOpen] = useState(false);
   if (!forceVisible && !isGuideVisible(locale)) return null;
   return (
-    <>
-      <button
+    <SeasonPassGuideDialog
+      open={open}
+      onOpenChange={setOpen}
+      steps={steps}
+      trigger={<button
         type="button"
-        onClick={() => setOpen(true)}
         className={`inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline underline-offset-4 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${className}`}
       >
         {variant === 'home' && <PlayCircle className="h-4 w-4" aria-hidden />}
         {variant === 'home' ? C.homeLink : C.skiCenterLink}
-      </button>
-      <SeasonPassGuideDialog open={open} onOpenChange={setOpen} steps={steps} />
-    </>
+      </button>}
+    />
   );
 }
