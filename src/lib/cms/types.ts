@@ -346,6 +346,8 @@ export interface CmsIntroSection extends CmsSectionBase {
   supportingText?: string;
   /** Optional proof-points rendered as a quiet horizontal row. */
   proofPoints?: string[];
+  /** Optional large image shown beside the statement. */
+  image?: CmsImage;
 }
 
 export interface CmsCardGridSection extends CmsSectionBase {

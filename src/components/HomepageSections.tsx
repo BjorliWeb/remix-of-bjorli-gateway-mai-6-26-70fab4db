@@ -167,7 +167,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           {section.eyebrow ?? section.title}
                         </div>
                       </div>
-                      <div className="lg:col-span-9">
+                      <div className={section.image ? 'lg:col-span-5' : 'lg:col-span-9'}>
                         <h2 className={`${SECTION_H2}`}>
                           {section.statement}
                         </h2>
@@ -178,6 +178,11 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                           </p>
                         ))}
                       </div>
+                      {section.image && (
+                        <div className="lg:col-span-4 relative aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-2xl">
+                          <img src={section.image.url} alt={section.image.alt || ''} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+                        </div>
+                      )}
                     </div>
                     {section.proofPoints && section.proofPoints.length > 0 && (
                       <ul className="mt-14 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-10 border-t border-border/70 pt-10">
@@ -620,7 +625,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             // mobile, 4 on desktop. Square crops keep the row even.
             return (
               <section key={section.id} className="px-4 pb-16 md:pb-24">
-                <div className="container mx-auto max-w-6xl grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+                <div className={`container mx-auto max-w-6xl grid ${section.images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}>
                   {section.images.map((image, i) => (
                     <motion.div
                       key={image.url}
