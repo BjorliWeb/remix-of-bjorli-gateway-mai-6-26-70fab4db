@@ -51,8 +51,8 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm font-semibold text-muted-foreground" aria-live="polite">{C.step(i + 1, steps.length)}</p>
-      <h3 className="font-display text-xl font-bold text-primary">{step.title}</h3>
+      {steps.length > 1 && <p className="text-sm font-semibold text-muted-foreground" aria-live="polite">{C.step(i + 1, steps.length)}</p>}
+      {steps.length > 1 && <h3 className="font-display text-xl font-bold text-primary">{step.title}</h3>}
       <div className="rounded-lg border border-border bg-muted">
         {step.video && !showStatic ? (
           <video
@@ -65,7 +65,7 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
             preload="metadata"
             className="w-full h-auto max-h-[55vh] object-contain"
           >
-            <track kind="captions" srcLang="no" label="Norsk" src={step.video.captionsSrc} default />
+            {step.video.captionsSrc && <track kind="captions" srcLang="no" label="Norsk" src={step.video.captionsSrc} default />}
           </video>
         ) : (
           (() => {
@@ -84,10 +84,12 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
           <Button type="button" variant="ghost" onClick={replay}>{C.replay}</Button>
         </div>
       )}
+      {steps.length > 1 && (
       <div className="sticky bottom-0 -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 flex items-center justify-between gap-2 border-t border-border bg-background px-4 sm:px-5 py-3">
         <Button type="button" variant="outline" onClick={() => setI(i - 1)} disabled={i === 0}>{C.prev}</Button>
         <Button type="button" variant="outline" onClick={() => setI(i + 1)} disabled={i === steps.length - 1}>{C.next}</Button>
       </div>
+      )}
     </div>
   );
 }
