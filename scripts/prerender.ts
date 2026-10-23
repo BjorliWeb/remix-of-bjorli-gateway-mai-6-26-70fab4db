@@ -385,7 +385,7 @@ const skeletonShell = (opts: {
   // links for crawlers and no-JS visitors, nothing loud above the fold.
   return `<div id="root"><div data-prerender="pr2" data-canonical="${escapeHtml(canonical)}" data-locale="${escapeHtml(locale)}" style="${SKELETON_PAGE_STYLE}">
   <header class="fixed top-0 left-0 right-0 z-50 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:max-w-[1440px] lg:w-[calc(100%-2rem)] bg-nav/85 backdrop-blur-xl lg:rounded-2xl h-14 lg:h-16" style="${SKELETON_HEADER_STYLE}">
-    <a class="lg:ml-2" href="${escapeHtml(homeHref)}" style="font-family:Jost,${SKELETON_FONT};font-weight:700;font-size:1.375rem;letter-spacing:-0.01em;text-decoration:none;color:#fff">${wordmarkSvg('Bjorli') ?? 'Bjorli'}</a>
+    <a class="lg:ml-2" href="${escapeHtml(homeHref)}" style="font-family:'Source Serif 4',Georgia,${SKELETON_FONT};font-weight:700;font-size:1.375rem;letter-spacing:-0.01em;text-decoration:none;color:#fff">${wordmarkSvg('Bjorli') ?? 'Bjorli'}</a>
   </header>
   <main style="${canonical === 'home' ? '' : 'max-width:960px;margin:0 auto;padding:6rem 1.25rem 2rem'}">
 ${main}
@@ -450,9 +450,6 @@ const homeBodySkeleton = (locale: Locale): string => {
     ? `\n      <ul style="margin:0.75rem 0 0;padding-left:1.25rem;line-height:1.7">${data.intro.proofPoints.map((p) => `<li>${escapeHtml(p)}</li>`).join('')}</ul>`
     : '';
   const heroImg = homeHeroAssets();
-  const heroPicture = heroImg
-    ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover md:object-[48%_50%] md:scale-[1.12] md:origin-top-left" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
-    : '';
   const heroPictureSplit = heroImg
     ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-center md:object-[48%_50%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
     : '';
