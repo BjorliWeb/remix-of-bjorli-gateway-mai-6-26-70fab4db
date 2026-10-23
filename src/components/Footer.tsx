@@ -52,7 +52,7 @@ const Footer = () => {
           {/* 2–4 — CMS-driven link columns (winter / summer / plan) */}
           {columns.map((col) => (
             <div key={col.title} className="lg:pt-2">
-              <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-season mb-6 whitespace-nowrap flex items-center gap-2">
+              <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-season [[data-season=summer]_&]:text-primary-foreground/85 mb-6 whitespace-nowrap flex items-center gap-2">
                 <span className="inline-block h-px w-5 bg-season/60" aria-hidden="true" />
                 {col.title}
               </h4>
@@ -73,7 +73,7 @@ const Footer = () => {
 
           {/* 5 — Contact column (far right) */}
           <div className="md:col-span-2 lg:col-span-1 lg:pt-2">
-            <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-season mb-6 whitespace-nowrap flex items-center gap-2">
+            <h4 className="font-display text-[11px] font-semibold uppercase tracking-[0.2em] text-season [[data-season=summer]_&]:text-primary-foreground/85 mb-6 whitespace-nowrap flex items-center gap-2">
               <span className="inline-block h-px w-5 bg-season/60" aria-hidden="true" />
               {d.footer.contactTitle}
             </h4>
