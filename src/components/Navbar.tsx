@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -20,6 +20,16 @@ interface NavbarProps {
 
 const Navbar = ({ season = 'winter' }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  // Escape closes the mobile menu and returns focus to the toggle (WCAG).
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setIsOpen(false); toggleRef.current?.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen]);
   const { locale, setLocale, d } = useLanguage();
   const location = useLocation();
   const lp = useLocalizedPath();
@@ -152,6 +162,7 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
 
             {/* Mobile toggle */}
             <button
+              ref={toggleRef}
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
