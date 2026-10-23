@@ -470,7 +470,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
-                      <Link to={lp(`/tips/${featured.slug}`)} className="lg:col-span-7 group block">
+                      <Link to={lp(`/tips/${featured.slug}`)} className="lg:col-span-7 group block min-w-0">
                         <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}>
                           {featured.heroImage && (
                             <div className="aspect-[16/10] overflow-hidden mb-6 rounded-2xl ring-1 ring-border/40">
@@ -478,7 +478,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             </div>
                           )}
                           {featured.category && <div className="text-[11px] font-semibold text-secondary uppercase tracking-[0.2em] mb-3">{featured.category}</div>}
-                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight group-hover:text-secondary transition-colors">{featured.title}</h3>
+                          <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4 leading-[1.05] tracking-tight break-words hyphens-auto group-hover:text-secondary transition-colors">{featured.title}</h3>
                           <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">{featured.intro}</p>
                         </motion.article>
                       </Link>
@@ -625,7 +625,14 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
             // mobile, 4 on desktop. Square crops keep the row even.
             return (
               <section key={section.id} className="px-4 pb-16 md:pb-24">
-                <div className={`container mx-auto max-w-6xl grid ${section.images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}>
+                {/* Mobile: one photo at a time, swipeable (scroll-snap).
+                    sm and up: the original grid. */}
+                <div
+                  tabIndex={0}
+                  role="region"
+                  aria-label={({ no: 'Bilder fra Bjorli', en: 'Photos from Bjorli', de: 'Fotos aus Bjorli', nl: "Foto's van Bjorli", da: 'Billeder fra Bjorli', sv: 'Bilder från Bjorli' } as Record<string, string>)[locale] ?? 'Bjorli'}
+                  className={`container mx-auto max-w-6xl flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-2xl ${section.images.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4'} gap-3 md:gap-5`}
+                >
                   {section.images.map((image, i) => (
                     <motion.div
                       key={image.url}
@@ -634,7 +641,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       whileInView="visible"
                       viewport={REVEAL_VIEWPORT}
                       variants={fadeUp}
-                      className="relative aspect-square overflow-hidden rounded-2xl"
+                      className="relative aspect-square overflow-hidden rounded-2xl shrink-0 basis-full sm:basis-auto snap-center"
                     >
                       <img
                         src={image.url}
@@ -736,7 +743,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   </div>
                   <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {featured && (
-                      <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block">
+                      <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block min-w-0">
                         <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="md:grid md:grid-cols-2 md:gap-6 md:items-start">
                           {featured.heroImage && (
                             <div className="aspect-[16/10] overflow-hidden mb-5 md:mb-0 rounded-2xl ring-1 ring-border/40">
