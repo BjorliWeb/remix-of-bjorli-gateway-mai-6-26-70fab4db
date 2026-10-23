@@ -1095,19 +1095,6 @@ export const mockAdapter: CmsAdapter = {
         ctaHref: '/nyheter',
         items: news.map((n, i) => ({ ...n, date: d.news.items[i]?.date ?? '' })),
       },
-      // "Hva skjer på Bjorli" — destination-wide events and local
-      // happenings (concerts, festivals, food & drink, family,
-      // guided trips, farms, cycling, hiking, partner activities).
-      {
-        id: 'events',
-        type: 'events',
-        eyebrow: d.events.eyebrow,
-        title: d.events.title,
-        subtitle: d.events.subtitle,
-        ctaLabel: d.events.cta,
-        ctaHref: '/arrangementer',
-        items: events.map((e) => ({ ...e, date: e.startsAt ?? '' })),
-      },
       {
         id: 'accommodation',
         type: 'feature',
