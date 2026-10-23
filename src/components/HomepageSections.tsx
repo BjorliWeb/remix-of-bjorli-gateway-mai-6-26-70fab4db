@@ -79,7 +79,7 @@ const ButtonLink = ({
 }: {
   href: string;
   external?: boolean;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'cta';
   icon?: string;
   children: React.ReactNode;
   size?: 'lg' | 'default';
@@ -316,6 +316,45 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
           }
 
           case 'feature': {
+            if (section.id === 'accommodation') {
+              // Deliberate visual shift: mountain-blue panel, text on a solid
+              // surface, image beside it on desktop and stacked on mobile.
+              return (
+                <section key={section.id} className="px-4 py-24 md:py-36">
+                  <div className="surface-dark container mx-auto max-w-6xl overflow-hidden rounded-2xl bg-deep-navy text-primary-foreground">
+                    <div className="grid lg:grid-cols-2">
+                      {section.image?.url && (
+                        <div className="relative h-64 sm:h-80 lg:order-2 lg:h-auto lg:min-h-[480px]">
+                          <img src={section.image.url} alt={section.image.alt || section.title} className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />
+                        </div>
+                      )}
+                      <div className="p-6 sm:p-8 lg:p-12 lg:order-1">
+                        {section.eyebrow && <div className="eyebrow mb-4">{section.eyebrow}</div>}
+                        <h2 className={`${SECTION_H2} text-primary-foreground`}>{section.title}</h2>
+                        <p className="mt-4 mb-8 text-base md:text-lg leading-relaxed text-primary-foreground/90 max-w-xl">{section.body}</p>
+                        {section.subcards && section.subcards.length > 0 && (
+                          <ul className="mb-8 grid gap-4 sm:grid-cols-2">
+                            {section.subcards.map((c) => (
+                              <li key={c.title} className="border-t border-primary-foreground/20 pt-4">
+                                <div className="font-semibold text-primary-foreground">{c.title}</div>
+                                {c.desc && <div className="mt-1 text-sm leading-relaxed text-primary-foreground/85">{c.desc}</div>}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                        <div className="flex flex-wrap gap-3">
+                          {section.ctas.map((cta, i) => (
+                            <ButtonLink key={cta.label} {...cta} variant={i === 0 ? 'cta' : 'outline'} lp={lp}>
+                              {cta.label}
+                            </ButtonLink>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              );
+            }
             const imageLeft = section.imageSide !== 'right';
             const bg = !imageLeft ? 'bg-muted/30' : '';
             const hasImage = !!section.image?.url;
