@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         // Headlines: Futura-style geometric sans (Jost is the safe web fallback).
-        display: ['"Jost"', '"Futura"', '"Trebuchet MS"', 'sans-serif'],
+        display: ['"Source Serif 4"', 'Georgia', '"Times New Roman"', 'serif'],
         // Body: Brandon Grotesque-style humanist grotesque (Mulish is the safe web fallback).
         sans: ['"Mulish"', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
       },
