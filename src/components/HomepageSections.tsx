@@ -32,6 +32,10 @@ import LiveStatusCards from '@/components/LiveStatusCards';
 import { track, type AnalyticsEventName } from '@/lib/analytics';
 import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
 import { revealUp, REVEAL_VIEWPORT, EASE_OUT_EXPO } from '@/lib/motion';
+import { formatEventCategory, formatEventDate } from '@/lib/events/displayFormat';
+
+/** Section heading scale from the 2026 redesign: 28–32 px mobile, 40 px desktop. */
+const SECTION_H2 = 'font-display text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-bold text-foreground leading-[1.12] tracking-tight';
 
 /**
  * Renders the composed homepage sections delivered by the CMS adapter.
@@ -127,7 +131,7 @@ const ButtonLink = ({
 
 export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] }) => {
   const lp = useLocalizedPath();
-  const { locale } = useLanguage();
+  const { locale, d } = useLanguage();
 
 
   return (
