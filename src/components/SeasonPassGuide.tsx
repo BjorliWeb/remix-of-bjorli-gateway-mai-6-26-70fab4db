@@ -83,7 +83,7 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
           <Button type="button" variant="ghost" onClick={replay}>{C.replay}</Button>
         </div>
       )}
-      <div className="flex items-center justify-between gap-2">
+      <div className="sticky bottom-0 -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 flex items-center justify-between gap-2 border-t border-border bg-background px-4 sm:px-5 py-3">
         <Button type="button" variant="outline" onClick={() => setI(i - 1)} disabled={i === 0}>{C.prev}</Button>
         <Button type="button" variant="outline" onClick={() => setI(i + 1)} disabled={i === steps.length - 1}>{C.next}</Button>
       </div>
@@ -99,7 +99,7 @@ export function SeasonPassGuideDialog({
       <DialogPortal>
         <DialogOverlay className="animate-none data-[state=open]:animate-none data-[state=closed]:animate-none" />
         <DialogPrimitive.Content
-          className="fixed z-50 inset-2 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[calc(100%-2rem)] sm:max-w-[720px] sm:max-h-[90vh] flex flex-col rounded-xl border border-border bg-background shadow-lg"
+          className="fixed z-50 inset-2 max-h-[calc(100dvh-1rem)] sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-[calc(100%-2rem)] sm:max-w-[720px] sm:max-h-[90vh] flex flex-col rounded-xl border border-border bg-background shadow-lg"
         >
           <div className="flex items-start justify-between gap-3 border-b border-border p-4 sm:p-5">
             <div>
