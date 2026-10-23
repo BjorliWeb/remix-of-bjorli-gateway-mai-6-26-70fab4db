@@ -1,36 +1,36 @@
-# Redigering av innsendte arrangementer på /admin/innsendinger
+# Ny design for Bjorli.no – etappevis
 
-## Funn
-- «Innsendte artikler» på /admin/innsendinger er arrangementer, ikke artikler. Siden har ingen egen artikkeleditor.
-- Redaktør og administrator har allerede lov til å endre innsendinger i databasen. I dag kan de bare endre notater, status, engelsk utkast og om e-posten vises.
-- En godkjent innsending *er* den publiserte siden. Det finnes ingen egen publisert kopi.
-- Det finnes ingen felt for bildetekst eller «endret av». Feltet `updated_at` oppdateres automatisk.
-- Bildene ligger i privat lagring. I dag kan bare skjemaet for offentlig innsending laste opp nye bilder.
+Avklart: Den nye paletten gjelder bare vinter. Sommer beholder dagens turkis og grønt, men får ny typografi, layout og knappestil. Overskrifter settes i Source Serif 4, som lastes fra egen server med OFL-lisens. Brødtekst beholder Mulish. Arbeidet leveres i etapper, og du kontrollerer resultatet etter hver etappe. Ingenting deployes eller publiseres.
 
-## Hva som bygges
-1. Knappen «Rediger» i detaljvisningen for hver innsending.
-2. Et skjema der dagens innhold er fylt ut på forhånd: tittel, ingress, beskrivelse, arrangør, start- og sluttdato, klokkeslett, sted, kartlenke, nettside og kategori. Kategorilisten er den samme som i innsendingsskjemaet. I tillegg kommer bilder: fjerne eksisterende og laste opp nye, høyst 5 bilder på maks 8 MB hver, samme grenser som i dag.
-3. Knappene «Lagre endringer» og «Avbryt». Avbryt forkaster endringene.
-4. Samme regler for lengde og påkrevde felt som i innsendingsskjemaet. Feilmeldingene står ved feltet og blir lest opp av skjermlesere.
-5. Bekreftelse når lagringen lykkes, en forståelig feilmelding når den feiler, og oversikten lastes på nytt med en gang.
-6. Advarsel før redaktøren forlater skjemaet med ulagrede endringer, både ved lukking, Avbryt og når fanen lukkes.
-7. **Godkjente arrangementer:** Over skjemaet står det at lagring endrer den publiserte siden. Etter lagring bestilles nytt bygg i den eksisterende byggkøen. Status endres aldri ved lagring.
-8. Godkjenning, avvisning, AI-hjelp og engelsk godkjenning fungerer som før. ID, innsender, kontaktinfo, innsendingsdato og status røres ikke.
+## Etappe 1 – Grunnmur, meny, hero og rekkefølge
+1. **Vinterfarger** som felles designvariabler: fjellblå #172D45, snøhvit #FAFBFC, steingrå #EDF0F3, koksgrå #202833, rød #B73730 og hvit. Kontrasten måles, og nyansene justeres til AA hvis det trengs. Sommer får tilsvarende knappe- og lenkeregler i sine egne farger.
+2. **Typografi:** Overskrifter i Source Serif 4, brødtekst i Mulish. Størrelsene følger spesifikasjonen: 34–40 og 28–32 px på mobil, 48–64 og 32–40 px på desktop, og 16–18 px brødtekst med 1,55 i linjehøyde.
+3. **Felles knapper og lenker:** Rød primærknapp og tydelig sekundærknapp. Sekundære tekstlenker er understreket. Trykkflatene er minst 44 px.
+4. **Toppmeny:** Fjellblå meny med hvit logo og rød «Kjøp heiskort» på desktop. Mobilmenyen viser ikon og teksten «Meny». Siden får en «Hopp til hovedinnhold»-lenke, og ankerlenker får avstand under den faste menyen.
+5. **Hero:** På desktop deles den omtrent 45/55 mellom tekst og bilde. På mobil kommer bildet først, med begrenset høyde. Godkjent budskap og logikken for sommer og vinter beholdes.
+6. **Praktisk informasjon:** En stripe rett under hero med Åpningstider, Føre og heiser, Vær og webkamera og Løypekart. Den vises som 2 × 2 på mobil, med eksisterende status og oppdateringstid.
+7. **Seksjonsrekkefølge** endres i kilden, slik at prerender og React følger samme rekkefølge.
 
-## Tilgang og sikkerhet
-- **Database:** Én ny, smal regel sørger for at vanlig lagring ikke kan endre ID, innsendingsdato, opplastingsnøkkel, innsenders samtykker eller kontaktdata.
-- **Bilder:** En ny regel lar bare redaktør og administrator laste opp og slette filer, og bare i bildemappen for innsendinger. Andre roller får ingen ny tilgang.
-- Innlogging, totrinnsbekreftelse, passordtilbakestilling, offentlige sider og øvrige adminfunksjoner endres ikke. Ingen nye avhengigheter eller databasefelt.
+## Etappe 2 – Forsidens seksjoner
+- **Siste nytt:** Kompakt visning med bilde og tekst side om side, og lenke til hele meldingen. Årsaken til at «Høstfargene» deles midt i ordet blir undersøkt og rettet.
+- **Arrangementskort:** Naturlige datoer på valgt språk og lesbare kategorinavn i stedet for interne verdier. Bildevisningen med hele bildet beholdes, og høyden begrenses på mobil.
+- **Pumptrack «Juni 2026»:** Jeg kommer først med en anbefaling og endrer ingenting før du har svart.
+- **Destinasjon:** Tekst og stort bilde. Praktiske tjenester vises i kompakte grupper, fire kolonner på desktop og to på mobil.
+- **Overnatting:** Fjellblå flate med rød knapp og bilde ved siden av teksten.
+- **Tips, opplevelser og reise:** Variert layout. Hver seksjon får én hovedhandling.
+- **FAQ og footer:** Tilgjengelig trekkspill og fjellblå footer med understrekede lenker.
 
-## Verifisering
-- Tester for skjemaregler og for at lagring aldri sender med status.
-- I nettleseren som redaktør: redigere, lagre, laste siden på nytt, sjekke Avbryt og sjekke at status er uendret.
-- Direkte lagringsforsøk som anonym og som innlogget bruker uten redaktørrolle skal avvises, både for innsendingen og for bildeopplasting.
-- Godkjenn og avvis fungerer fortsatt. Ingen publisering eller deploy.
+## Etappe 3 – Undersider og WCAG-kontroll
+- Offentlige undersider får nye farger, skrift, knapper og lenker gjennom de delte komponentene. Innholdsstrukturen beholdes. Admin og innlogging berøres ikke.
+- Kontroll ved 320, 390, 768 og 1440 px: sommer og vinter, alle seks språk, brede, stående og kvadratiske bilder, tastatur, 200 % tekstforstørrelse og kontrastmålinger.
+- Du får før- og etterbilder av forsiden på mobil og desktop. Automatiske tester regnes ikke alene som bevis for WCAG-samsvar.
+
+## Rammer
+Ruter, metadata, strukturerte data, språk, datakilder, GA4, database og Cloudflare endres ikke. Det legges ikke til nye avhengigheter. Forslag til ny ordlyd leveres separat.
 
 ## Tekniske detaljer
-- Ny komponent `src/components/admin/EventSubmissionEditForm.tsx` med zod-skjema delt i `src/lib/events/submissionEditSchema.ts`, som speiler grensene i `submit-event`.
-- Lagringen gjør en eksplisitt `update` med en liste over tillatte felt, og oppdaterer så `load()`.
-- Migrasjonen legger til en BEFORE UPDATE-trigger på `event_submissions`. Den avviser endring av `id`, `created_at`, `upload_token`, `consent_*`, `email`, `contact_name` og `phone`, og setter `reviewed_by = auth.uid()` når redaktøren lagrer. Feltet finnes allerede.
-- Lagringsregler på `storage.objects` for bøtta `event-submissions` med `has_role` admin/moderator for INSERT og DELETE. Redaktørens opplastinger legges under `editor/<submission-id>/`.
-- Opplastinger sjekkes i klienten for filtype (bilde) og størrelse. Bilder som fjernes, slettes fra lagringen etter at lagringen har lyktes.
+- Fargene legges inn i `:root` i `src/index.css`. `[data-season='summer']` beholder sommerverdiene. Nye variabler: `--cta`, `--cta-foreground` og `--link`.
+- Skriftfilene for Source Serif 4 (woff2, latin og latin-ext, vekt 600 og 700) legges i `public/fonts/` med OFL-lisensfil og preload av hovedvekten. Overskriftsfonten byttes i `tailwind.config.ts` og i base-reglene for h1–h6.
+- Dette erstatter tidligere minne om Jost og den offisielle vinterpaletten, og minnet oppdateres.
+- Filer som berøres: `Navbar.tsx`, `Footer.tsx`, `Layout.tsx`, `PageHero.tsx`, `HomepageSections.tsx`, `HomepageCampaign.tsx`, `LiveStatusCards.tsx`, `mockAdapter.ts`, `ui/button.tsx`, `cards.tsx` og `FaqBlock.tsx`.
+- Avstandsreglene i `homepage-spacing` (48/64/80) beholdes.
