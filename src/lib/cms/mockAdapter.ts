@@ -985,9 +985,10 @@ export const mockAdapter: CmsAdapter = {
     // ─── WINTER HOMEPAGE ─────────────────────────────────────────────
     // Section order matches the official Bjorli winter homepage spec:
     //   1 Header (Layout) · 2 Hero (Index.tsx)
-    //   3 Status · 4 Alert · 5 Intro · 6 Planning cards · 7 Skisenter
-    //   8 Bo godt · 9 Tips · 10 Hva skjer · 11 Mer enn alpint
-    //   12 Reisen hit · 13 Sommer-teaser · 14 Siste nytt · 15 FAQ
+    //   3 Status · 4 Siste nytt (alert) · 5 Hva skjer · 6 Intro
+    //   7 Planning cards · 8 Skisenter · 9 Bo godt · 10 Tips
+    //   11 Mer enn alpint · 12 Hvorfor Bjorli · 13 Reisen hit
+    //   14 Siste nytt (Skisenter) · 15 FAQ
     //   16 Footer (Layout)
     // Status / Alert / Tips / Events / News are placeholders here and
     // will later be served by WordPress + a small ops backend.
