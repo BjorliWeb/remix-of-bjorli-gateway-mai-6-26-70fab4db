@@ -1020,6 +1020,21 @@ export const mockAdapter: CmsAdapter = {
       ctaLabel: d.alert.sampleCta,
       ctaHref: '/apningstider',
     },
+    // "Hva skjer på Bjorli" — destination-wide events and local
+    // happenings (concerts, festivals, food & drink, family,
+    // guided trips, farms, cycling, hiking, partner activities).
+    // Placed directly under "Siste nytt" (alert) so upcoming events
+    // surface before the intro copy.
+    {
+      id: 'events',
+      type: 'events',
+      eyebrow: d.events.eyebrow,
+      title: d.events.title,
+      subtitle: d.events.subtitle,
+      ctaLabel: d.events.cta,
+      ctaHref: '/arrangementer',
+      items: events.map((e) => ({ ...e, date: e.startsAt ?? '' })),
+    },
     { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
     {
       // People on the slopes right under the intro, so the page doesn't
