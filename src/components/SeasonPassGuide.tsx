@@ -95,6 +95,15 @@ function GuideCarousel({ steps }: { steps: GuideStep[] }) {
 export function SeasonPassGuideDialog({
   open, onOpenChange, steps = GUIDE_STEPS, trigger,
 }: { open: boolean; onOpenChange: (o: boolean) => void; steps?: GuideStep[]; trigger: React.ReactNode }) {
+  // Radix leaves #root exposed here, so make the page behind the dialog
+  // explicitly inert (no keyboard, pointer or screen reader access).
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (!root || !open) return;
+    root.setAttribute('inert', '');
+    root.setAttribute('aria-hidden', 'true');
+    return () => { root.removeAttribute('inert'); root.removeAttribute('aria-hidden'); };
+  }, [open]);
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
