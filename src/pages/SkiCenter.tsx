@@ -14,6 +14,7 @@ import {
 import { trackSkiPassClick } from '@/lib/analytics';
 import { getSkiCenterData } from '@/lib/cms/skiCenterData';
 import { SalesTermsBody } from './salesTermsContent';
+import SeasonPassGuideLink from '@/components/SeasonPassGuide';
 
 const SkiCenter = () => {
   const { locale } = useLanguage();
@@ -75,6 +76,9 @@ const SkiCenter = () => {
                 {data.liftPass.cta} <ArrowUpRight className="h-5 w-5" />
               </a>
             </Button>
+            <div className="mt-3">
+              <SeasonPassGuideLink variant="skiCenter" />
+            </div>
           </div>
           <figure className="mt-16 space-y-3">
             <a
