@@ -14,13 +14,19 @@ export default {
     },
     extend: {
       fontFamily: {
-        // Headlines: Futura-style geometric sans (Jost is the safe web fallback).
+        // Headlines: Source Serif 4 (self-hosted, OFL).
         display: ['"Source Serif 4"', 'Georgia', '"Times New Roman"', 'serif'],
         // Body: Brandon Grotesque-style humanist grotesque (Mulish is the safe web fallback).
         sans: ['"Mulish"', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
+        cta: {
+          DEFAULT: "hsl(var(--cta))",
+          hover: "hsl(var(--cta-hover))",
+          foreground: "hsl(var(--cta-foreground))",
+        },
+        link: "hsl(var(--link))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
