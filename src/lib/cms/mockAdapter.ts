@@ -1035,7 +1035,12 @@ export const mockAdapter: CmsAdapter = {
       ctaHref: '/arrangementer',
       items: events.map((e) => ({ ...e, date: e.startsAt ?? '' })),
     },
-    { id: 'intro', type: 'intro', ...buildWinterIntro(language, d) },
+    {
+      id: 'intro',
+      type: 'intro',
+      ...buildWinterIntro(language, d),
+      image: { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees in Bjorli.' },
+    },
     {
       // People on the slopes right under the intro, so the page doesn't
       // open with text only. Alt text: Norwegian on NO, English elsewhere.
@@ -1044,7 +1049,6 @@ export const mockAdapter: CmsAdapter = {
       images: [
         { url: images.happyKid.src, alt: language === 'no' ? images.happyKid.alt : 'A happy girl on skis with her arms in the air in Bjorli.' },
         { url: images.kidSlalom.src, alt: language === 'no' ? images.kidSlalom.alt : 'A skier riding through an arch on the slope in Bjorli.' },
-        { url: images.powderSkier.src, alt: language === 'no' ? images.powderSkier.alt : 'A skier in deep powder between snowy trees in Bjorli.' },
         { url: images.eveningLift.src, alt: language === 'no' ? 'Skiløpere i stolheisen med utsikt over dalen på Bjorli.' : 'Skiers on the chairlift above the valley in Bjorli.' },
       ],
     },
