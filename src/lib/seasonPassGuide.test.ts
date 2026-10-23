@@ -4,7 +4,7 @@ import { GUIDE_ENABLED, SEASON_PASS_URL, isGuideVisible, type GuideStep } from '
 const step: GuideStep = { title: 'Velg sesongkort', text: 'Tekst', image: { src: '/a.png', alt: 'Skjermbilde' } };
 
 describe('season pass guide activation', () => {
-  it('activation flag stays false', () => expect(GUIDE_ENABLED).toBe(false));
+  it('guide is switched on with approved video', () => { expect(GUIDE_ENABLED).toBe(true); expect(isGuideVisible('no')).toBe(true); expect(isGuideVisible('en')).toBe(false); });
   it('valid steps alone never make the guide visible', () =>
     expect(isGuideVisible('no', false, [step])).toBe(false));
   it('visible only for Norwegian when enabled and valid', () => {
