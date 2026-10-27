@@ -158,7 +158,7 @@ const Sommer = () => {
   const heroEyebrow = d.summer.eyebrow ?? d.summer.badge;
 
   return (
-    <div>
+    <div className="home-alpine">
       {/* Hero */}
       <section className="hero-bleed relative min-h-[640px] h-[92svh] max-h-[980px] flex items-center justify-center overflow-hidden bg-deep-navy">
         {heroImage && (

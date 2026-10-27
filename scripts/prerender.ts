@@ -344,8 +344,8 @@ const homeHeroPreloads = (): string => {
   const hero = homeHeroAssets();
   if (!hero) return '';
   return [
-    `<link rel="preload" as="image" href="${hero.mobile}" media="(max-width: 767px)" fetchpriority="high" />`,
-    `<link rel="preload" as="image" href="${hero.desktop}" media="(min-width: 768px)" fetchpriority="high" />`,
+    `<link rel="preload" href="/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />`,
+    `<link rel="preload" as="image" href="${hero.desktop}" fetchpriority="high" />`,
   ].join('\n    ');
 };
 
@@ -451,21 +451,22 @@ const homeBodySkeleton = (locale: Locale): string => {
     : '';
   const heroImg = homeHeroAssets();
   const heroPictureSplit = heroImg
-    ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-center md:object-[48%_50%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
+    ? `<picture><img src="${heroImg.desktop}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-[44%_50%] md:object-[60%_45%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
     : '';
   const shortcuts = PRACTICAL_SHORTCUTS.map(
     (s) => `<li><a href="${escapeHtml(localizeHref(s.href, locale))}" class="flex min-h-[56px] items-center gap-3 rounded-xl bg-card px-4 py-3 text-sm md:text-base font-semibold text-primary ring-1 ring-border">${escapeHtml(s.labels[locale] ?? s.labels.no)}</a></li>`,
   ).join('');
-  const main = `    <section class="bg-background">
-      <div class="mx-auto grid max-w-[1280px] lg:grid-cols-[45fr_55fr] lg:items-stretch lg:min-h-[560px]">
-        <div class="relative order-1 lg:order-2 h-[40svh] min-h-[220px] max-h-[380px] md:max-h-[440px] lg:h-auto lg:max-h-none overflow-hidden bg-muted">${heroPictureSplit}</div>
-        <div class="order-2 lg:order-1 flex flex-col justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 py-8 md:py-12 lg:py-16">
-          <p class="eyebrow mb-4">${escapeHtml(data.hero.eyebrow)}</p>
-          <h1 class="font-display text-[2.25rem] md:text-5xl lg:text-[3.5rem] font-bold text-primary mb-5 leading-[1.08]">${escapeHtml(data.hero.title)}</h1>
-          <p class="text-foreground text-base md:text-lg mb-7 max-w-xl leading-relaxed">${escapeHtml(data.hero.subtitle)}</p>
+  const main = `    <div class="home-alpine">
+    <section class="hero-bleed relative overflow-hidden bg-deep-navy min-h-[620px] h-[88svh] max-h-[820px] lg:min-h-[640px] lg:h-[80svh]">${heroPictureSplit}
+      <div aria-hidden="true" class="absolute inset-0 home-hero-scrim"></div>
+      <div class="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
+        <div class="max-w-xl lg:max-w-[560px]">
+          <p class="eyebrow eyebrow-on-image mb-4">${escapeHtml(data.hero.eyebrow)}</p>
+          <h1 class="font-display text-[clamp(2.375rem,9vw,2.875rem)] md:text-[3.25rem] lg:text-[clamp(3.5rem,4.6vw,4.5rem)] font-bold text-snow mb-4 md:mb-5 leading-[1.04] text-on-image">${escapeHtml(data.hero.title)}</h1>
+          <p class="text-snow text-base md:text-lg mb-6 md:mb-7 leading-relaxed text-on-image">${escapeHtml(data.hero.subtitle)}</p>
           <div class="flex flex-col sm:flex-row flex-wrap gap-3">
             <a href="${escapeHtml(data.hero.liftPassUrl)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center h-12 px-7 rounded-full bg-cta text-cta-foreground font-semibold w-full sm:w-auto">${escapeHtml(data.hero.ctaLiftPass)}</a>
-            <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="inline-flex items-center justify-center h-12 px-7 rounded-full border-2 border-primary text-primary font-semibold w-full sm:w-auto">${escapeHtml(data.hero.ctaStay)}</a>
+            <a href="${escapeHtml(localizeHref('/overnatting', locale))}" class="inline-flex items-center justify-center h-12 px-7 rounded-full border border-snow/40 text-snow font-semibold w-full sm:w-auto">${escapeHtml(data.hero.ctaStay)}</a>
           </div>
         </div>
       </div>
@@ -496,6 +497,7 @@ const homeBodySkeleton = (locale: Locale): string => {
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.accommodation.body)}</p>
       <a href="${escapeHtml(localizeHref(data.accommodation.href, locale))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
     </section>${campaignBlock(locale)}
+    </div>
     </div>`;
   return skeletonShell({ locale, canonical: 'home', main });
 };

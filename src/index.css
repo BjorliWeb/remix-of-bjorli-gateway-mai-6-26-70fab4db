@@ -461,3 +461,42 @@
     padding-bottom: 7rem;
   }
 }
+
+/* ─── Homepage alpine trial (home only: Index + Sommer via .home-alpine) ── */
+@font-face { font-family: 'Fraunces'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/fraunces-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-display: swap; font-weight: 600; src: url('/fonts/fraunces-latin-600-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/fraunces-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-display: swap; font-weight: 700; src: url('/fonts/fraunces-latin-700-normal.woff2') format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+/* Large editorial headings only; card titles (h3+), nav, buttons stay Mulish/existing. */
+.home-alpine h1,
+.home-alpine h2 {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.home-alpine h3 {
+  font-family: 'Mulish', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0;
+}
+/* Full-bleed winter hero scrim: mobile darkens the lower half where text
+   sits; desktop darkens the left column only, so the peaks stay clear. */
+.home-hero-scrim {
+  background: linear-gradient(180deg,
+    hsl(var(--hero-overlay) / 0.45) 0%, transparent 18%, transparent 34%,
+    hsl(var(--hero-overlay) / 0.62) 58%, hsl(var(--hero-overlay) / 0.86) 100%);
+}
+@media (min-width: 1024px) {
+  .home-hero-scrim {
+    background:
+      linear-gradient(180deg, hsl(var(--hero-overlay) / 0.4) 0%, transparent 20%),
+      linear-gradient(90deg, hsl(var(--hero-overlay) / 0.78) 0%, hsl(var(--hero-overlay) / 0.5) 38%, transparent 64%);
+  }
+}
+/* Summer hero: same idea on the existing centred layout (CSS-only). */
+.home-alpine .hero-gradient {
+  background:
+    linear-gradient(180deg, hsl(var(--hero-overlay) / 0.45) 0%, transparent 22%),
+    radial-gradient(ellipse 70% 46% at 50% 56%, hsl(var(--hero-overlay) / 0.5) 0%, transparent 100%),
+    linear-gradient(0deg, hsl(var(--hero-overlay) / 0.55) 0%, transparent 30%);
+}
+.eyebrow-on-image { color: hsl(var(--snow)); }
