@@ -10,3 +10,4 @@
 - Homepage practical shortcuts live in Node-safe `src/lib/practicalShortcuts.ts`, shared by React and prerender — first HTML must match the hydrated hero.
 
 - Season pass guide (`src/lib/seasonPassGuide.ts`) is shown only when locale is no, GUIDE_ENABLED is true and every step validates — content alone must never publish it.
+- Homepage design trials are scoped under the `.home-alpine` wrapper (Index + Sommer, mirrored in prerender) — subpages keep the shared design until the trial is approved.
