@@ -1,41 +1,25 @@
-# Kjøpsveiledning for sesongkort
+# Premium alpint design – først på forsiden
 
-## Mål
-Ha klar en hjelpelenke og et dialogvindu med en steg-for-steg-karusell. Veiledningen skal være skjult for besøkende til innholdet er levert og godkjent.
+Avklart: Det nye designet prøves bare på forsiden (`/` og `/vinter`), for både sommer og vinter. Forsiden får et stort bilde over hele bredden med teksten oppå. Resten av nettstedet beholder dagens design til du har godkjent forsiden. Ingenting publiseres.
 
-## Plassering
-- **Forsiden (vinter-hero):** En diskret lenke med et lite avspillingsikon rett under «Kjøp heiskort»: «Slik kjøper du sesongkort». Kjøpsknappen går fortsatt rett til nettbutikken.
-- **Skisentersiden:** I den eksisterende heiskort-boksen, rett under kjøpsknappen: «Trenger du hjelp? Se hvordan du kjøper sesongkort.» Det blir ingen ny seksjon.
-- Lenkene vises bare på norsk, og bare når veiledningen er slått på.
-
-## Dialogvindu
-- Tittel: «Slik kjøper du sesongkort». Introduksjon: «Følg kjøpet steg for steg i Bjorlis nettbutikk.»
-- Et område for karusellen, en tydelig lukkeknapp og knappen «Kjøp sesongkort» nederst. Knappen går til `https://bjorli.skiperformance.com/no/shopp#/no/buy?skugroup_id=4966`.
-- På mobil fyller dialogen nesten hele skjermen, med rulling inni og navigasjonen alltid synlig. På desktop får den en maksimal bredde på omtrent 720 px.
-
-## Karusell
-- Hvert steg har tittel, forklaringstekst og et bilde eller en video. Bildet vises helt, uten beskjæring.
-- Hvert steg kan ha egen lyd. Den spiller bare når kunden trykker «Spill av forklaring», og kan pauses og spilles på nytt.
-- Navigasjon med «Forrige», «Neste» og «Steg X av Y».
-- Lyd og video stopper når kunden bytter steg eller lukker dialogen.
-- Uten animasjoner. Ved redusert bevegelse er det ingen overganger.
-
-## Innhold og aktivering
-- Stegene ligger i én innholdsfil, som er tom nå. Lenkene vises først når det finnes godkjente steg.
-- **Videoen du lastet opp (Facebook-reel med stemme):** Jeg kan ikke se eller høre videoen, så jeg bruker den ikke som ferdig innhold. Den kan legges inn som video i et steg når du har bekreftet tre ting: at den viser riktig kjøp av sesongkort, at den er godkjent, og at den har en undertekstfil (.vtt) med teksten til stemmen.
-
-## Tilgjengelighet (WCAG 2.0 AA)
-Dialogen bygger på nettstedets eksisterende dialogkomponent. Den gir fokus inn i dialogen ved åpning, holder fokus i dialogen, lukker med Escape, sender fokus tilbake til lenken og gjør bakgrunnen inaktiv. Den har også et tilgjengelig navn og synlig fokus. Kontrasten blir minst 4,5:1, og lyden har alltid tekst ved siden av.
+## Hva som endres på forsiden
+1. **Farger:** Fjellkoks #1F2937 brukes på overskrifter og fjellblå #0F3D7A på knapper og lenker. Isblå #E6EEF5 og sand #F6F2ED gir enkelte rolige flater, og kobber #B07D57 brukes bare som små detaljer. Hvit er hovedbakgrunnen. Den røde knappen erstattes av fjellblå på forsiden. Kontrasten måles og skal holde AA.
+2. **Skrift:** Jeg sammenligner Fraunces og Playfair Display med æ, ø og å, lesbarhet og filstørrelse. Den du velger, lastes fra vår egen server (OFL-lisens). Brødtekst, knapper og menyen beholder Mulish. Størrelsene settes etter beskrivelsen: hero 38–46 px på mobil og 56–72 px på desktop.
+3. **Hero:** Godkjent bilde over hele bredden, med eyebrow, tittel, ingress, «Kjøp heiskort» og «Finn overnatting» oppå bildet. Teksten får en svak toning bare der den står, slik at fjellet fortsatt synes. Mobilbildet beskjæres med kontroll av hva som synes. Teksten, kjøpslenkene og lenken til sesongkortveiledningen beholdes.
+4. **Snarveier:** De fire snarveiene legges i en lys stripe nederst i heroen, som i skissen. Innholdet er det samme som i dag.
+5. **Seksjonene:** Kortene får rene kanter, lite skygge, faste bildeforhold og runde pilknapper. Plakater med tekst vises fortsatt hele. Overnatting og «Reisen hit» får en stor bildeflate med fjellblå toning og flere knapper på rad, som «Planlegg ditt opphold» i skissen.
+6. **Uendret:** Rekkefølgen på seksjonene, avstandene (48/64/80 px), all tekst og alle språk, alle bilder, lenker, arrangementsreglene og menyen. Toppmeny og footer endres ikke i denne runden, fordi de deles med alle undersider.
 
 ## Kontroll
-- Tester for to regler: at lenkene er skjult uten godkjente steg, og at kjøpsknappen går til riktig adresse.
-- Midlertidig test med prøvesteg på mobil og desktop: tastatur, Escape, fokusretur, mediestopp ved steg-bytte og lukking, og kjøpslenken.
-- Bygg og typesjekk. Ingen endringer i innlogging, backend, Cloudflare eller GA4. Ingen publisering.
+Ved 320, 390, 768, 1024, 1280 og 1440 px, sommer og vinter, norsk og engelsk. Jeg sjekker tastatur, kontrast og sideveis rulling, og du får før- og etterbilder. Testene kjøres på nytt.
 
-## Teknisk
-- Nye filer: `src/lib/seasonPassGuide.ts` (Node-safe stegdata og `isGuideEnabled(locale)`), `src/components/SeasonPassGuide.tsx` (Dialog fra shadcn + karusell), `seasonPassGuide.test.ts`.
-- Hjelpelenkene legges inn i `src/pages/Index.tsx` (hero) og `src/pages/SkiCenter.tsx` (liftPass-boksen). Prerender endres ikke, fordi lenkene er skjult.
-- Lyd og video håndteres med refs. `pause()` og `currentTime = 0` kjøres ved steg-bytte og når dialogen lukkes.
+## Spørsmål underveis
+- Skissen viser «Utforsk Bjorli» og «Se film». Jeg beholder de eksisterende knappene med mindre du sier noe annet.
+- Ny tekst fra skissen, som «Store opplevelser i alle årstider», brukes ikke uten din godkjenning.
 
-## Det som trengs for å aktivere
-For hvert steg: tittel, forklaringstekst, et skjermbilde med alt-tekst (eller video med .vtt-undertekster), eventuelt en lydfil (mp3) og en godkjenning fra eier.
+## Tekniske detaljer
+- Forsidefargene legges som HSL-variabler under `.home-alpine` i `src/index.css`, med varianter for `[data-season]`. Wrapperen settes i `Index.tsx`, så undersidene ikke påvirkes.
+- Hero-markupen i `Index.tsx` og `scripts/prerender.ts` holdes identisk, slik at første HTML og React-versjonen er like.
+- Ny skriftfil kommer i `public/fonts/` med lisens og preload. Den brukes bare på forsiden via `.home-alpine h1, h2`.
+- Berørte filer: `Index.tsx`, `PracticalShortcuts.tsx`, `HomepageSections.tsx`, `index.css`, `prerender.ts` og `index.html` (preload).
+- Ingen endringer i ruter, metadata, database, analyse eller avhengigheter. Minnet oppdateres når forsiden er godkjent.
