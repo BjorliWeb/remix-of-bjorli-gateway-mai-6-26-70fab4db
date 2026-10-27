@@ -344,6 +344,7 @@ const homeHeroPreloads = (): string => {
   const hero = homeHeroAssets();
   if (!hero) return '';
   return [
+    `<link rel="preload" href="/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />`,
     `<link rel="preload" as="image" href="${hero.mobile}" media="(max-width: 767px)" fetchpriority="high" />`,
     `<link rel="preload" as="image" href="${hero.desktop}" media="(min-width: 768px)" fetchpriority="high" />`,
   ].join('\n    ');
@@ -497,6 +498,7 @@ const homeBodySkeleton = (locale: Locale): string => {
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.accommodation.body)}</p>
       <a href="${escapeHtml(localizeHref(data.accommodation.href, locale))}" style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(data.accommodation.cta)}</a>
     </section>${campaignBlock(locale)}
+    </div>
     </div>`;
   return skeletonShell({ locale, canonical: 'home', main });
 };
