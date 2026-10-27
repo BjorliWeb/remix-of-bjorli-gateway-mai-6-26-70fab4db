@@ -485,7 +485,7 @@
      (WCAG 1.4.3 measured against the brightest pixels behind the text). */
   background: linear-gradient(180deg,
     hsl(var(--hero-overlay) / 0.5) 0%, hsl(var(--hero-overlay) / 0.08) 16%,
-    hsl(var(--hero-overlay) / 0.3) 20%, hsl(var(--hero-overlay) / 0.76) 28%,
+    hsl(var(--hero-overlay) / 0.3) 10%, hsl(var(--hero-overlay) / 0.78) 20%,
     hsl(var(--hero-overlay) / 0.8) 60%, hsl(var(--hero-overlay) / 0.88) 100%);
 }
 @media (min-width: 1024px) {
