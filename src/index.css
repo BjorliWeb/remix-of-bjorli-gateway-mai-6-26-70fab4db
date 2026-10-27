@@ -508,3 +508,5 @@
 .home-alpine h1, .home-alpine h2 { overflow-wrap: break-word; hyphens: auto; }
 .home-alpine a, .home-alpine button { white-space: normal; overflow-wrap: anywhere; }
 .home-alpine a.inline-flex, .home-alpine button.inline-flex { height: auto; min-height: 2.75rem; text-align: center; }
+.home-alpine .grid > *, .home-alpine .flex > * { min-width: 0; }
+.home-alpine .flex > svg { min-width: auto; flex-shrink: 0; }
