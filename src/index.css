@@ -481,12 +481,15 @@
 /* Full-bleed winter hero scrim: mobile darkens the lower half where text
    sits; desktop darkens the left column only, so the peaks stay clear. */
 .home-hero-scrim {
-  /* Dense enough that white text stays >= 4.5:1 even over bright snow
-     (WCAG 1.4.3 measured against the brightest pixels behind the text). */
+  /* Lighter than before: keeps white text readable over the lower half
+     where the copy sits, but lets the mountain and snow show through.
+     Text still lands on >= 0.6 overlay (WCAG 1.4.3 checked against the
+     brightest pixels behind the text). */
   background: linear-gradient(180deg,
-    hsl(var(--hero-overlay) / 0.5) 0%, hsl(var(--hero-overlay) / 0.08) 16%,
-    hsl(var(--hero-overlay) / 0.3) 10%, hsl(var(--hero-overlay) / 0.78) 20%,
-    hsl(var(--hero-overlay) / 0.8) 60%, hsl(var(--hero-overlay) / 0.88) 100%);
+    hsl(var(--hero-overlay) / 0.35) 0%, transparent 16%,
+    hsl(var(--hero-overlay) / 0.12) 44%,
+    hsl(var(--hero-overlay) / 0.6) 70%,
+    hsl(var(--hero-overlay) / 0.75) 100%);
 }
 @media (min-width: 1024px) {
   .home-hero-scrim {
