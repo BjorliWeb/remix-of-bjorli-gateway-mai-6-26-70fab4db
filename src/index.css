@@ -481,22 +481,32 @@
 /* Full-bleed winter hero scrim: mobile darkens the lower half where text
    sits; desktop darkens the left column only, so the peaks stay clear. */
 .home-hero-scrim {
+  /* Dense enough that white text stays >= 4.5:1 even over bright snow
+     (WCAG 1.4.3 measured against the brightest pixels behind the text). */
   background: linear-gradient(180deg,
-    hsl(var(--hero-overlay) / 0.45) 0%, transparent 18%, transparent 34%,
-    hsl(var(--hero-overlay) / 0.62) 58%, hsl(var(--hero-overlay) / 0.86) 100%);
+    hsl(var(--hero-overlay) / 0.5) 0%, hsl(var(--hero-overlay) / 0.08) 16%,
+    hsl(var(--hero-overlay) / 0.3) 10%, hsl(var(--hero-overlay) / 0.78) 20%,
+    hsl(var(--hero-overlay) / 0.8) 60%, hsl(var(--hero-overlay) / 0.88) 100%);
 }
 @media (min-width: 1024px) {
   .home-hero-scrim {
     background:
       linear-gradient(180deg, hsl(var(--hero-overlay) / 0.4) 0%, transparent 20%),
-      linear-gradient(90deg, hsl(var(--hero-overlay) / 0.78) 0%, hsl(var(--hero-overlay) / 0.5) 38%, transparent 64%);
+      linear-gradient(90deg, hsl(var(--hero-overlay) / 0.82) 0%, hsl(var(--hero-overlay) / 0.78) 48%, hsl(var(--hero-overlay) / 0.3) 64%, transparent 78%);
   }
 }
-/* Summer hero: same idea on the existing centred layout (CSS-only). */
+/* Summer hero: centred text over a bright landscape; same contrast rule. */
 .home-alpine .hero-gradient {
   background:
-    linear-gradient(180deg, hsl(var(--hero-overlay) / 0.45) 0%, transparent 22%),
-    radial-gradient(ellipse 70% 46% at 50% 56%, hsl(var(--hero-overlay) / 0.5) 0%, transparent 100%),
-    linear-gradient(0deg, hsl(var(--hero-overlay) / 0.55) 0%, transparent 30%);
+    linear-gradient(180deg, hsl(var(--hero-overlay) / 0.45) 0%, transparent 20%),
+    radial-gradient(ellipse 72% 52% at 50% 52%, hsl(var(--hero-overlay) / 0.6) 0%, hsl(var(--hero-overlay) / 0.45) 70%, transparent 100%),
+    linear-gradient(0deg, hsl(var(--hero-overlay) / 0.4), hsl(var(--hero-overlay) / 0.4));
 }
 .eyebrow-on-image { color: hsl(var(--snow)); }
+/* WCAG 1.4.4 / 1.4.10: at 200 % text on narrow screens, long words and
+   button labels wrap instead of forcing sideways scrolling. */
+.home-alpine h1, .home-alpine h2 { overflow-wrap: break-word; hyphens: auto; }
+.home-alpine a, .home-alpine button { white-space: normal; overflow-wrap: anywhere; }
+.home-alpine a.inline-flex, .home-alpine button.inline-flex { height: auto; min-height: 2.75rem; text-align: center; }
+.home-alpine .grid > *, .home-alpine .flex > * { min-width: 0; }
+.home-alpine .flex > svg { min-width: auto; flex-shrink: 0; }

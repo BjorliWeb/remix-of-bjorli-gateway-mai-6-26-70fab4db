@@ -16,3 +16,4 @@
 - [x] Kjøpsveiledning for sesongkort: inngang, dialog og karusell (skjult, flagg false)
 - [ ] Aktiver sesongkortveiledningen (venter på godkjente steg, bilder, lyd/video med undertekster)
 - [x] Forsideprøve: Fraunces, full hero (sommer/vinter), sammenligning rød/fjellblå knapp, før/etter-bilder (venter på godkjenning)
+- [ ] WCAG 2.1 AA for alle designendringer: forsiden verifisert automatisk; navbar ved 200 % tekst på mobil og manuell skjermleser gjenstår

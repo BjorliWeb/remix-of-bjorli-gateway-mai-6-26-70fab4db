@@ -47,7 +47,7 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
     <div className="home-alpine">
       {/* HERO — full-bleed photograph with text on a scrim (bottom on
           mobile, left column on desktop). Markup mirrored in prerender. */}
-      <section className="hero-bleed relative overflow-hidden bg-deep-navy min-h-[620px] h-[88svh] max-h-[820px] lg:min-h-[640px] lg:h-[80svh]">
+      <section className="hero-bleed relative overflow-hidden bg-deep-navy flex flex-col min-h-[min(88svh,820px)] lg:min-h-[max(640px,min(80svh,820px))]">
         <picture>
           <img
             src={desktopHero}
@@ -59,7 +59,7 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
           />
         </picture>
         <div aria-hidden className="absolute inset-0 home-hero-scrim" />
-        <div className="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
+        <div className="relative z-10 mx-auto flex w-full flex-1 max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
           <div className="max-w-xl lg:max-w-[560px]">
             <motion.p
               initial={skipIntro ? false : { opacity: 0, y: 12 }}
