@@ -481,17 +481,20 @@
 /* Full-bleed winter hero scrim: mobile darkens the lower half where text
    sits; desktop darkens the left column only, so the peaks stay clear. */
 .home-hero-scrim {
-  /* Mobile: the photograph stays clear through the top ~35% and the wash
-     behind the copy sits at the lightest level that still clears WCAG
-     1.4.3. Stops follow the measured text bands (kicker 47-50%, h1
-     52-62%, ingress 64-71%, season-pass link 90-96% of the hero); with
-     pure-white copy 0.66 over the brightest snow pixel gives 5.2:1 for
-     the kicker and ingress and far more for the headline. */
+  /* Mobile: the photograph stays clear all the way down to the copy, and
+     the wash is held at the lightest level that still clears WCAG 1.4.3.
+     The ramp is deliberately short (40% -> 46% of the hero) because the
+     kicker's box starts at 47% and needs 0.66 over the brightest snow
+     pixel; every stop above it is kept near zero so more of the mountain
+     shows. With pure-white copy this measures 5.2:1 for the kicker and
+     ingress and far more for the headline. */
   background: linear-gradient(180deg,
     hsl(var(--hero-overlay) / 0.22) 0%, transparent 10%,
     hsl(var(--hero-overlay) / 0.04) 32%,
-    hsl(var(--hero-overlay) / 0.30) 38%,
-    hsl(var(--hero-overlay) / 0.66) 45%,
+    hsl(var(--hero-overlay) / 0.06) 40%,
+    hsl(var(--hero-overlay) / 0.20) 42.5%,
+    hsl(var(--hero-overlay) / 0.45) 44.5%,
+    hsl(var(--hero-overlay) / 0.66) 46%,
     hsl(var(--hero-overlay) / 0.68) 62%,
     hsl(var(--hero-overlay) / 0.70) 100%);
 }
