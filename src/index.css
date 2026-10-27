@@ -503,3 +503,8 @@
     linear-gradient(0deg, hsl(var(--hero-overlay) / 0.4), hsl(var(--hero-overlay) / 0.4));
 }
 .eyebrow-on-image { color: hsl(var(--snow)); }
+/* WCAG 1.4.4 / 1.4.10: at 200 % text on narrow screens, long words and
+   button labels wrap instead of forcing sideways scrolling. */
+.home-alpine h1, .home-alpine h2 { overflow-wrap: break-word; hyphens: auto; }
+.home-alpine a, .home-alpine button { white-space: normal; overflow-wrap: anywhere; }
+.home-alpine a.inline-flex, .home-alpine button.inline-flex { height: auto; min-height: 2.75rem; text-align: center; }
