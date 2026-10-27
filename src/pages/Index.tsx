@@ -44,31 +44,29 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
   const heroImage = home?.heroImage ?? { url: images.heroWinter.src, alt: '' };
 
   return (
-    <div>
-      {/* HERO — split layout: text on a solid snow surface, photograph
-          beside it on desktop and above it on mobile/tablet. */}
-      <section className="bg-background">
-        <div className="mx-auto grid max-w-[1280px] lg:grid-cols-[45fr_55fr] lg:items-stretch lg:min-h-[560px]">
-          {/* One <picture>: the browser downloads only the matching source. */}
-          <div className="relative order-1 lg:order-2 h-[40svh] min-h-[220px] max-h-[380px] md:max-h-[440px] lg:h-auto lg:max-h-none overflow-hidden bg-muted">
-            <picture>
-              <source media="(min-width: 768px)" srcSet={desktopHero} />
-              <img
-                src={heroImage.url}
-                alt={heroImage.alt || hero.hero.title}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-center md:object-[48%_50%]"
-              />
-            </picture>
-          </div>
-          <div className="order-2 lg:order-1 flex flex-col justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 py-8 md:py-12 lg:py-16">
+    <div className="home-alpine">
+      {/* HERO — full-bleed photograph with text on a scrim (bottom on
+          mobile, left column on desktop). Markup mirrored in prerender. */}
+      <section className="hero-bleed relative overflow-hidden bg-deep-navy min-h-[620px] h-[88svh] max-h-[820px] lg:min-h-[640px] lg:h-[80svh]">
+        <picture>
+          <source media="(min-width: 768px)" srcSet={desktopHero} />
+          <img
+            src={heroImage.url}
+            alt={heroImage.alt || hero.hero.title}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-[50%_28%] md:object-[60%_45%]"
+          />
+        </picture>
+        <div aria-hidden className="absolute inset-0 home-hero-scrim" />
+        <div className="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
+          <div className="max-w-xl lg:max-w-[560px]">
             <motion.p
               initial={skipIntro ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
-              className="eyebrow mb-4"
+              className="eyebrow eyebrow-on-image mb-4"
             >
               {hero.hero.eyebrow}
             </motion.p>
@@ -76,7 +74,7 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
               initial={skipIntro ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.1, ease: EASE_OUT_EXPO }}
-              className="font-display text-[2.25rem] md:text-5xl lg:text-[3.5rem] font-bold text-primary mb-5 leading-[1.08]"
+              className="font-display text-[clamp(2.375rem,9vw,2.875rem)] md:text-[3.25rem] lg:text-[clamp(3.5rem,4.6vw,4.5rem)] font-bold text-snow mb-4 md:mb-5 leading-[1.04] text-on-image"
             >
               {hero.hero.title}
             </motion.h1>
@@ -85,7 +83,7 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
                 initial={skipIntro ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.22, ease: EASE_OUT_EXPO }}
-                className="text-foreground text-base md:text-lg mb-7 max-w-xl leading-relaxed"
+                className="text-snow text-base md:text-lg mb-6 md:mb-7 leading-relaxed text-on-image"
               >
                 {hero.hero.subtitle}
               </motion.p>
@@ -113,14 +111,14 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
                   {hero.hero.ctaLiftPass}
                 </a>
               </Button>
-              <Button asChild variant="outline-strong" size="xl" className="w-full sm:w-auto">
+              <Button asChild variant="glass" size="xl" className="w-full sm:w-auto">
                 <Link to={lp('/overnatting')}>
                   <HomeIcon className="h-5 w-5" aria-hidden />
                   {hero.hero.ctaStay}
                 </Link>
               </Button>
             </motion.div>
-            <SeasonPassGuideLink variant="home" className="mt-3 self-start text-primary" />
+            <SeasonPassGuideLink variant="home" className="mt-3 self-start text-snow" />
           </div>
         </div>
       </section>
