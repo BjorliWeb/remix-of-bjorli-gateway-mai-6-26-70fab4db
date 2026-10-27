@@ -481,18 +481,22 @@
 /* Full-bleed winter hero scrim: mobile darkens the lower half where text
    sits; desktop darkens the left column only, so the peaks stay clear. */
 .home-hero-scrim {
-  /* Much lighter than the old full-dark lower half: the mountain and
-     snow stay visible through the top ~50%. The gradient steepens only
-     where text sits (h1 from ~50%, ingress from ~64% of the hero), so
-     white copy still clears WCAG 1.4.3 against the brightest snow
-     pixels (measured 3.2:1 for the 38px/600 headline >= 3:1 large text,
-     >= 4.8:1 for the 16px ingress). */
+  /* Mobile: the photograph stays clear all the way down to the copy, and
+     the wash is held at the lightest level that still clears WCAG 1.4.3.
+     The ramp is deliberately short (40% -> 46% of the hero) because the
+     kicker's box starts at 47% and needs 0.66 over the brightest snow
+     pixel; every stop above it is kept near zero so more of the mountain
+     shows. With pure-white copy this measures 5.2:1 for the kicker and
+     ingress and far more for the headline. */
   background: linear-gradient(180deg,
-    hsl(var(--hero-overlay) / 0.35) 0%, transparent 16%,
-    hsl(var(--hero-overlay) / 0.15) 38%,
-    hsl(var(--hero-overlay) / 0.55) 48%,
-    hsl(var(--hero-overlay) / 0.72) 60%,
-    hsl(var(--hero-overlay) / 0.8) 100%);
+    hsl(var(--hero-overlay) / 0.22) 0%, transparent 10%,
+    hsl(var(--hero-overlay) / 0.04) 32%,
+    hsl(var(--hero-overlay) / 0.06) 40%,
+    hsl(var(--hero-overlay) / 0.20) 42.5%,
+    hsl(var(--hero-overlay) / 0.45) 44.5%,
+    hsl(var(--hero-overlay) / 0.66) 46%,
+    hsl(var(--hero-overlay) / 0.68) 62%,
+    hsl(var(--hero-overlay) / 0.70) 100%);
 }
 @media (min-width: 1024px) {
   .home-hero-scrim {
@@ -508,7 +512,11 @@
     radial-gradient(ellipse 72% 52% at 50% 52%, hsl(var(--hero-overlay) / 0.6) 0%, hsl(var(--hero-overlay) / 0.45) 70%, transparent 100%),
     linear-gradient(0deg, hsl(var(--hero-overlay) / 0.4), hsl(var(--hero-overlay) / 0.4));
 }
-.eyebrow-on-image { color: hsl(var(--snow)); }
+/* Hero copy sits on a photograph: pure white (instead of the slightly
+   blue snow tint) buys contrast, so the wash behind it can stay lighter.
+   Scoped to the home heroes' own section so subpages keep their colours. */
+.home-alpine .hero-bleed .text-snow,
+.eyebrow-on-image { color: #fff; }
 /* WCAG 1.4.4 / 1.4.10: at 200 % text on narrow screens, long words and
    button labels wrap instead of forcing sideways scrolling. */
 .home-alpine h1, .home-alpine h2 { overflow-wrap: break-word; hyphens: auto; }
