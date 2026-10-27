@@ -160,7 +160,7 @@ const Sommer = () => {
   return (
     <div className="home-alpine">
       {/* Hero */}
-      <section className="hero-bleed relative min-h-[640px] h-[92svh] max-h-[980px] flex items-center justify-center overflow-hidden bg-deep-navy">
+      <section className="hero-bleed relative min-h-[max(640px,min(92svh,980px))] flex items-center justify-center overflow-hidden bg-deep-navy">
         {heroImage && (
           <img
             src={heroImage.url}

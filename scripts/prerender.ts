@@ -457,9 +457,9 @@ const homeBodySkeleton = (locale: Locale): string => {
     (s) => `<li><a href="${escapeHtml(localizeHref(s.href, locale))}" class="flex min-h-[56px] items-center gap-3 rounded-xl bg-card px-4 py-3 text-sm md:text-base font-semibold text-primary ring-1 ring-border">${escapeHtml(s.labels[locale] ?? s.labels.no)}</a></li>`,
   ).join('');
   const main = `    <div class="home-alpine">
-    <section class="hero-bleed relative overflow-hidden bg-deep-navy min-h-[620px] h-[88svh] max-h-[820px] lg:min-h-[640px] lg:h-[80svh]">${heroPictureSplit}
+    <section class="hero-bleed relative overflow-hidden bg-deep-navy flex flex-col min-h-[min(88svh,820px)] lg:min-h-[max(640px,min(80svh,820px))]">${heroPictureSplit}
       <div aria-hidden="true" class="absolute inset-0 home-hero-scrim"></div>
-      <div class="relative z-10 mx-auto flex h-full max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
+      <div class="relative z-10 mx-auto flex w-full flex-1 max-w-[1280px] flex-col justify-end lg:justify-center px-5 sm:px-6 md:px-10 lg:px-12 xl:px-14 pt-24 pb-8 md:pb-12 lg:pt-32 lg:pb-16">
         <div class="max-w-xl lg:max-w-[560px]">
           <p class="eyebrow eyebrow-on-image mb-4">${escapeHtml(data.hero.eyebrow)}</p>
           <h1 class="font-display text-[clamp(2.375rem,9vw,2.875rem)] md:text-[3.25rem] lg:text-[clamp(3.5rem,4.6vw,4.5rem)] font-bold text-snow mb-4 md:mb-5 leading-[1.04] text-on-image">${escapeHtml(data.hero.title)}</h1>
