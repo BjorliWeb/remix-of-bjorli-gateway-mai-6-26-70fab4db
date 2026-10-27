@@ -345,8 +345,7 @@ const homeHeroPreloads = (): string => {
   if (!hero) return '';
   return [
     `<link rel="preload" href="/fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />`,
-    `<link rel="preload" as="image" href="${hero.mobile}" media="(max-width: 767px)" fetchpriority="high" />`,
-    `<link rel="preload" as="image" href="${hero.desktop}" media="(min-width: 768px)" fetchpriority="high" />`,
+    `<link rel="preload" as="image" href="${hero.desktop}" fetchpriority="high" />`,
   ].join('\n    ');
 };
 
@@ -452,7 +451,7 @@ const homeBodySkeleton = (locale: Locale): string => {
     : '';
   const heroImg = homeHeroAssets();
   const heroPictureSplit = heroImg
-    ? `<picture><source media="(min-width: 768px)" srcset="${heroImg.desktop}" /><img src="${heroImg.mobile}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-[50%_28%] md:object-[60%_45%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
+    ? `<picture><img src="${heroImg.desktop}" alt="" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover object-[44%_50%] md:object-[60%_45%]" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" /></picture>`
     : '';
   const shortcuts = PRACTICAL_SHORTCUTS.map(
     (s) => `<li><a href="${escapeHtml(localizeHref(s.href, locale))}" class="flex min-h-[56px] items-center gap-3 rounded-xl bg-card px-4 py-3 text-sm md:text-base font-semibold text-primary ring-1 ring-border">${escapeHtml(s.labels[locale] ?? s.labels.no)}</a></li>`,

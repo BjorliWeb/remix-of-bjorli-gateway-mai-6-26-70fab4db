@@ -49,14 +49,13 @@ const Index = ({ page = 'home' }: { page?: 'home' | 'winter' }) => {
           mobile, left column on desktop). Markup mirrored in prerender. */}
       <section className="hero-bleed relative overflow-hidden bg-deep-navy min-h-[620px] h-[88svh] max-h-[820px] lg:min-h-[640px] lg:h-[80svh]">
         <picture>
-          <source media="(min-width: 768px)" srcSet={desktopHero} />
           <img
-            src={heroImage.url}
+            src={desktopHero}
             alt={heroImage.alt || hero.hero.title}
             loading="eager"
             fetchPriority="high"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-[50%_28%] md:object-[60%_45%]"
+            className="absolute inset-0 w-full h-full object-cover object-[44%_50%] md:object-[60%_45%]"
           />
         </picture>
         <div aria-hidden className="absolute inset-0 home-hero-scrim" />
