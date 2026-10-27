@@ -481,15 +481,18 @@
 /* Full-bleed winter hero scrim: mobile darkens the lower half where text
    sits; desktop darkens the left column only, so the peaks stay clear. */
 .home-hero-scrim {
-  /* Lighter than before: keeps white text readable over the lower half
-     where the copy sits, but lets the mountain and snow show through.
-     Text still lands on >= 0.6 overlay (WCAG 1.4.3 checked against the
-     brightest pixels behind the text). */
+  /* Much lighter than the old full-dark lower half: the mountain and
+     snow stay visible through the top ~50%. The gradient steepens only
+     where text sits (h1 from ~50%, ingress from ~64% of the hero), so
+     white copy still clears WCAG 1.4.3 against the brightest snow
+     pixels (measured 3.2:1 for the 38px/600 headline >= 3:1 large text,
+     >= 4.8:1 for the 16px ingress). */
   background: linear-gradient(180deg,
     hsl(var(--hero-overlay) / 0.35) 0%, transparent 16%,
-    hsl(var(--hero-overlay) / 0.12) 44%,
-    hsl(var(--hero-overlay) / 0.6) 70%,
-    hsl(var(--hero-overlay) / 0.75) 100%);
+    hsl(var(--hero-overlay) / 0.15) 38%,
+    hsl(var(--hero-overlay) / 0.55) 48%,
+    hsl(var(--hero-overlay) / 0.72) 60%,
+    hsl(var(--hero-overlay) / 0.8) 100%);
 }
 @media (min-width: 1024px) {
   .home-hero-scrim {
