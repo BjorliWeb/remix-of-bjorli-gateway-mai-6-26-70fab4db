@@ -15,4 +15,4 @@
 
 - [x] Kjøpsveiledning for sesongkort: inngang, dialog og karusell (skjult, flagg false)
 - [ ] Aktiver sesongkortveiledningen (venter på godkjente steg, bilder, lyd/video med undertekster)
-- [ ] Forsideprøve: Fraunces, full hero (sommer/vinter), sammenligning rød/fjellblå knapp, før/etter-bilder
+- [x] Forsideprøve: Fraunces, full hero (sommer/vinter), sammenligning rød/fjellblå knapp, før/etter-bilder (venter på godkjenning)
