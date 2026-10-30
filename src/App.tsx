@@ -81,8 +81,11 @@ const Live = lazyPage(() => import("./pages/Live"));
 const Loypekart = lazyPage(() => import("./pages/Loypekart"));
 const WeatherWebcams = lazyPage(() => import("./pages/WeatherWebcams"));
 const SkiHolidayNorway = lazyPage(() => import("./pages/SkiHolidayNorway"));
-const ImageInventory = lazyPage(() => import("./pages/ImageInventory"));
-const HeroCompare = lazyPage(() => import("./pages/HeroCompare"));
+// Internal review-only tools: dev server only. In production builds
+// import.meta.env.DEV is a constant false, so these imports are dropped and
+// neither page (nor ImageInventory's glob of every image) reaches dist.
+const ImageInventory = import.meta.env.DEV ? lazyPage(() => import("./pages/ImageInventory")) : null;
+const HeroCompare = import.meta.env.DEV ? lazyPage(() => import("./pages/HeroCompare")) : null;
 const SubmitEvent = lazyPage(() => import("./pages/SubmitEvent"));
 const AdminLogin = lazyPage(() => import("./pages/AdminLogin"));
 const AdminResetPassword = lazyPage(() => import("./pages/AdminResetPassword"));
@@ -244,10 +247,10 @@ const AppRoutes = () => (
     {SKI_HOLIDAY_LOCALES.map((l) => (
       <Route key={`ski-holiday-${l}`} path={`/${SKI_HOLIDAY_PAGES[l].slug}`} element={<SkiHolidayNorway />} />
     ))}
-    {/* Internal review-only page. Not linked from navigation, not in sitemap. */}
-    <Route path="/image-inventory" element={<ImageInventory />} />
-    {/* Internal hero image comparison. Not linked, not in sitemap, not in SEO. */}
-    <Route path="/hero-compare" element={<HeroCompare />} />
+    {/* Internal review-only page (dev server only). Not linked, not in sitemap. */}
+    {ImageInventory && <Route path="/image-inventory" element={<ImageInventory />} />}
+    {/* Internal hero image comparison (dev server only). Not linked, not in sitemap, not in SEO. */}
+    {HeroCompare && <Route path="/hero-compare" element={<HeroCompare />} />}
     {/* Public submit-event flow — v1 scope: Norwegian + English only.
         Do NOT register DE/NL/DA/SV submit routes for v1.
         Both routes write into the same event_submissions table; the

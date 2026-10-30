@@ -8,10 +8,12 @@ import { normalizeInternalPath, CANONICAL_ORIGIN } from '../../src/lib/url/norma
 /**
  * Application routes that must stay directly reachable even though they
  * are not prerendered or listed in the sitemap (editor login, password
- * reset, MFA, admin, public submit forms, internal review pages). Each
+ * reset, MFA, admin, public submit forms). Each
  * gets a noindex app-shell index.html so Cloudflare Pages serves it with
  * HTTP 200 while every other unknown URL falls through to 404.html.
- * Keep in sync with the non-public <Route>s in src/App.tsx.
+ * Keep in sync with the non-public <Route>s in src/App.tsx. The internal
+ * review tools (/image-inventory, /hero-compare) are dev-server only and
+ * must never get a shell here.
  */
 export const APP_SHELL_ROUTES: readonly string[] = [
   '/admin/login/',
@@ -20,8 +22,6 @@ export const APP_SHELL_ROUTES: readonly string[] = [
   '/admin/innsendinger/',
   '/meld-inn-arrangement/',
   '/en/submit-event/',
-  '/image-inventory/',
-  '/hero-compare/',
 ];
 
 /** Parse public/_redirects into exact sources + wildcard prefixes. */
