@@ -8,8 +8,6 @@ Allow: /
 Disallow: /wp-admin/
 Disallow: /wp-login.php
 Disallow: /wp-json/
-Disallow: /wp-content/
-Disallow: /wp-includes/
 Disallow: /author/
 Disallow: /feed/
 Disallow: /preview/
