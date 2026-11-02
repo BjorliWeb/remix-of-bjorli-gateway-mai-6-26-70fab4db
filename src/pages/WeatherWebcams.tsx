@@ -483,7 +483,7 @@ const WeatherWebcams = () => {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="https://www.loyper.net/no/sted/bjorli"
+              href="https://www.loyper.net/location/bjorli"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
@@ -491,7 +491,7 @@ const WeatherWebcams = () => {
               onClick={() =>
                 trackWeatherWebcamClick({
                   feature_type: 'cross_country_status',
-                  link_url: 'https://www.loyper.net/no/sted/bjorli',
+                  link_url: 'https://www.loyper.net/location/bjorli',
                   link_text: copy.langrennStatusCta,
                 })
               }
@@ -501,7 +501,7 @@ const WeatherWebcams = () => {
               <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
             </a>
             <a
-              href="https://www.loyper.net/no/sted/bjorli/kart"
+              href="https://www.loyper.net/location/bjorli"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
@@ -509,7 +509,7 @@ const WeatherWebcams = () => {
               onClick={() =>
                 trackWeatherWebcamClick({
                   feature_type: 'external_map',
-                  link_url: 'https://www.loyper.net/no/sted/bjorli/kart',
+                  link_url: 'https://www.loyper.net/location/bjorli',
                   link_text: copy.langrennMapCta,
                 })
               }
