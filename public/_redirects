@@ -135,3 +135,11 @@
 # so Cloudflare Pages answers unknown URLs with HTTP 404. Every public page
 # is prerendered and app-only routes (admin, reset password, MFA, submit
 # forms) get noindex shells — see APP_SHELL_ROUTES in scripts/lib/linkCheck.ts.
+
+# Confirmed legacy ticket URL and conventional browser icon lookups.
+# Cloudflare 404 investigation, 19 October 2026. Keep unknown URLs as 404.
+/nb/heiskort       /heiskort/              301
+/nb/heiskort/      /heiskort/              301
+/favicon.ico      /favicon.jpeg           301
+/apple-touch-icon.png  /apple-touch-icon.jpeg  301
+/apple-touch-icon-precomposed.png  /apple-touch-icon.jpeg  301
