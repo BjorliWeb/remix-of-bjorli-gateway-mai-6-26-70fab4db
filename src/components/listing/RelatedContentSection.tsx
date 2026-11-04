@@ -1,6 +1,8 @@
 import ContentCard from '@/components/ContentCard';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { ListingItem } from '@/components/ListingPage';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { formatEventCategory, formatEventDate } from '@/lib/events/displayFormat';
 
 interface Props {
   title: string;
@@ -10,6 +12,7 @@ interface Props {
 
 const RelatedContentSection = ({ title, items, basePath }: Props) => {
   const lp = useLocalizedPath();
+  const { locale } = useLanguage();
   if (!items.length) return null;
   return (
     <section className="py-12 md:py-16 px-4 bg-muted/40">
@@ -21,8 +24,8 @@ const RelatedContentSection = ({ title, items, basePath }: Props) => {
               key={r.slug}
               to={lp(`${basePath}/${r.slug}`)}
               image={r.image}
-              category={r.category}
-              date={r.date}
+              category={formatEventCategory(r.category, locale)}
+              date={formatEventDate(r.date, locale)}
               title={r.title}
               intro={r.intro}
               index={i}
