@@ -37,7 +37,7 @@ interface SommerCopy {
 
 const COPY: Record<Locale, SommerCopy> = {
   no: {
-    heroTitle: 'Fjell, fjord og friske sommerdager',
+    heroTitle: 'Fjell, fjord og friske sommerdager på Bjorli',
     heroSubtitle:
       'Basecamp mellom fjell og fjord: fjellturer, sykkel, Lesjaskogsvatnet, Mardøla, Romsdalen, Dovrefjell og dagsturer vestover.',
     primaryCta: 'Se sommeraktiviteter',

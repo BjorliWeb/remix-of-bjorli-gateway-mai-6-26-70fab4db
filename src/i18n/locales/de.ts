@@ -28,7 +28,7 @@ const de: Dictionary = {
   },
   hero: {
     eyebrow: 'Destination Bjorli – Winter',
-    title: 'Schneesichere Skitage für die ganze Familie',
+    title: 'Bjorli – schneesichere Skitage für die ganze Familie',
     subtitle: 'Alpinski, Langlauf, Hütten und unkomplizierte Bergtage auf Bjorli – zwischen Berg und Fjord.',
     intro: 'Destination Bjorli – Winter',
     ctaSkiCenter: 'Bjorli Skisenter ansehen',

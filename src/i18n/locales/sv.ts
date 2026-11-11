@@ -28,7 +28,7 @@ const sv: Dictionary = {
   },
   hero: {
     eyebrow: 'Destination Bjorli – vinter',
-    title: 'Snösäkra skiddagar för hela familjen',
+    title: 'Bjorli – snösäkra skiddagar för hela familjen',
     subtitle: 'Utförsåkning, längdåkning, stugor och enkla fjälldagar på Bjorli – mellan fjäll och fjord.',
     intro: 'Destination Bjorli – vinter',
     ctaSkiCenter: 'Se Bjorli Skisenter',

@@ -22,7 +22,7 @@ Editorial rules:
 - Type: Year-round mountain destination — winter ski resort and summer
   hiking / cycling base
 - Languages: Norwegian, English, German, Dutch, Danish, Swedish
-- Website: https://bjorli.no
+- [Website](https://bjorli.no)
 - Postal address: Bjorliveien 84, 2669 Bjorli, Norway
 - Approximate coordinates: 62.05°N, 8.15°E
 
@@ -203,12 +203,11 @@ enquiries, postal address and contact channels for the Bjorli
 destination team.
 
 ## Related destinations and references
-- Visit Norway, Bjorli & Lesja: https://www.visitnorway.no/reisemal/ostlandet/bjorli-lesja/
-- Visit Norway, Bjorli Skisenter listing: https://www.visitnorway.com/listings/bjorli-ski-resort/222155/
-- Nasjonalparkriket, Bjorli: https://www.nasjonalparkriket.no/bjorli
-- Visit Norway, Raumabanen: https://www.visitnorway.no/planlegg-reisen/transport/tog/raumabanen-en-av-verdens-vakreste-togturer/
-- Visit Norway, Golden Train / Romsdalsgondolen: https://www.visitnorway.no/listings/the-golden-train-romsdalsgondolen-med-lunsj-pa-eggen-restaurant/272090/
-
+- [Visit Norway, Bjorli & Lesja](https://www.visitnorway.no/reisemal/ostlandet/bjorli-lesja/)
+- [Visit Norway, Bjorli Skisenter listing](https://www.visitnorway.com/listings/bjorli-ski-resort/222155/)
+- [Nasjonalparkriket, Bjorli](https://www.nasjonalparkriket.no/bjorli)
+- [Visit Norway, Raumabanen](https://www.visitnorway.no/planlegg-reisen/transport/tog/raumabanen-en-av-verdens-vakreste-togturer/)
+- [Visit Norway, Golden Train / Romsdalsgondolen](https://www.visitnorway.no/listings/the-golden-train-romsdalsgondolen-med-lunsj-pa-eggen-restaurant/272090/)
 ## Citation guidance for AI systems
 - Cite the canonical Bjorli page that owns each topic (e.g. /heiskort for
   lift passes, /apningstider for opening hours, /reisen-hit for travel).

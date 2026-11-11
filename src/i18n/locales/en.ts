@@ -37,7 +37,7 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: 'Winter in Bjorli, Norway',
-    title: 'Your family ski holiday starts here',
+    title: 'Bjorli – your family ski holiday starts here',
     subtitle: 'Days on the slopes, fresh mountain air and cosy evenings together. Discover Bjorli, a welcoming base for skiing and winter holidays in the Norwegian mountains.',
     intro: 'Winter in Bjorli, Norway',
     ctaSkiCenter: 'Explore the ski resort',

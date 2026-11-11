@@ -68,7 +68,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'no',
     hero: {
       eyebrow: 'Destinasjon Bjorli – vinter',
-      title: 'Snøsikre skidager for hele familien',
+      title: 'Bjorli – snøsikre skidager for hele familien',
       subtitle: 'Alpint, langrenn, hytter og enkle fjelldager på Bjorli – mellom fjell og fjord.',
       ctaLiftPass: 'Kjøp heiskort',
       ctaStay: 'Finn overnatting',
@@ -116,7 +116,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'en',
     hero: {
       eyebrow: 'Winter in Bjorli, Norway',
-      title: 'Your family ski holiday starts here',
+      title: 'Bjorli – your family ski holiday starts here',
       subtitle: 'Days on the slopes, fresh mountain air and cosy evenings together. Discover Bjorli, a welcoming base for skiing and winter holidays in the Norwegian mountains.',
       ctaLiftPass: 'Buy lift passes',
       ctaStay: 'Find your accommodation',
@@ -170,7 +170,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'de',
     hero: {
       eyebrow: 'Destination Bjorli – Winter',
-      title: 'Schneesichere Skitage für die ganze Familie',
+      title: 'Bjorli – schneesichere Skitage für die ganze Familie',
       subtitle: 'Alpinski, Langlauf, Hütten und unkomplizierte Bergtage auf Bjorli – zwischen Berg und Fjord.',
       ctaLiftPass: 'Skipass kaufen',
       ctaStay: 'Unterkunft finden',
@@ -218,7 +218,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'nl',
     hero: {
       eyebrow: 'Bestemming Bjorli – winter',
-      title: 'Sneeuwzekere skidagen voor het hele gezin',
+      title: 'Bjorli – sneeuwzekere skidagen voor het hele gezin',
       subtitle: 'Alpineskiën, langlaufen, hutten en eenvoudige bergdagen op Bjorli – tussen berg en fjord.',
       ctaLiftPass: 'Skipas kopen',
       ctaStay: 'Verblijf vinden',
@@ -266,7 +266,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'da',
     hero: {
       eyebrow: 'Destination Bjorli – vinter',
-      title: 'Snesikre skidage for hele familien',
+      title: 'Bjorli – snesikre skidage for hele familien',
       subtitle: 'Alpinski, langrend, hytter og enkle fjelddage på Bjorli – mellem fjeld og fjord.',
       ctaLiftPass: 'Køb liftkort',
       ctaStay: 'Find overnatning',
@@ -314,7 +314,7 @@ const PAGE_COPY: Record<Language, HomepageData> = {
     language: 'sv',
     hero: {
       eyebrow: 'Destination Bjorli – vinter',
-      title: 'Snösäkra skiddagar för hela familjen',
+      title: 'Bjorli – snösäkra skiddagar för hela familjen',
       subtitle: 'Utförsåkning, längdåkning, stugor och enkla fjälldagar på Bjorli – mellan fjäll och fjord.',
       ctaLiftPass: 'Köp liftkort',
       ctaStay: 'Hitta boende',

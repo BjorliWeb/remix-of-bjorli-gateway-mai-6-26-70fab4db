@@ -28,7 +28,7 @@ const nl: Dictionary = {
   },
   hero: {
     eyebrow: 'Bestemming Bjorli – winter',
-    title: 'Sneeuwzekere skidagen voor het hele gezin',
+    title: 'Bjorli – sneeuwzekere skidagen voor het hele gezin',
     subtitle: 'Alpineskiën, langlaufen, hutten en eenvoudige bergdagen op Bjorli – tussen berg en fjord.',
     intro: 'Bestemming Bjorli – winter',
     ctaSkiCenter: 'Bekijk Bjorli Skisenter',
