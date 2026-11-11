@@ -40,4 +40,20 @@ describe('submission edit', () => {
   it('puts editor uploads in the submission folder', () => {
     expect(editorUploadPath('abc', 'Foto.JPG', 'r1')).toBe('editor/abc/r1.jpg');
   });
+
+  it('keeps every chosen category and mirrors the first into category', () => {
+    const values = submissionEditSchema.parse({ ...base, categories: ['konsert', 'after-ski'] });
+    const update = buildEditUpdate(values, []);
+    expect(update.categories).toEqual(['konsert', 'after-ski']);
+    expect(update.category).toBe('konsert');
+  });
+
+  it('requires at least one category', () => {
+    expect(submissionEditSchema.safeParse({ ...base, categories: [] }).success).toBe(false);
+  });
+
+  it('removes duplicate categories', () => {
+    const values = submissionEditSchema.parse({ ...base, categories: ['quiz', 'quiz'] });
+    expect(values.categories).toEqual(['quiz']);
+  });
 });
