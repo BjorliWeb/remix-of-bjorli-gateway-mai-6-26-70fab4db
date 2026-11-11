@@ -11,6 +11,9 @@ export type EventCategoryKey =
   | 'mat-drikke'
   | 'kurs'
   | 'arrangement'
+  | 'quiz'
+  | 'konsert'
+  | 'after-ski'
   | 'barn'
   | 'klatring'
   | 'fiske'
@@ -26,6 +29,9 @@ export const EVENT_CATEGORY_KEYS: EventCategoryKey[] = [
   'mat-drikke',
   'kurs',
   'arrangement',
+  'quiz',
+  'konsert',
+  'after-ski',
   'barn',
   'klatring',
   'fiske',
@@ -43,6 +49,9 @@ export const CATEGORY_LABELS: Record<'no' | 'en', Record<EventCategoryKey, strin
     'mat-drikke': 'Mat & drikke',
     kurs: 'Kurs',
     arrangement: 'Arrangement',
+    quiz: 'Quiz',
+    konsert: 'Konsert',
+    'after-ski': 'After-ski',
     barn: 'Barn',
     klatring: 'Klatring',
     fiske: 'Fiske',
@@ -58,6 +67,9 @@ export const CATEGORY_LABELS: Record<'no' | 'en', Record<EventCategoryKey, strin
     'mat-drikke': 'Food & drink',
     kurs: 'Courses',
     arrangement: 'Event',
+    quiz: 'Quiz',
+    konsert: 'Concert',
+    'after-ski': 'After-ski',
     barn: 'Children',
     klatring: 'Climbing',
     fiske: 'Fishing',
@@ -66,3 +78,23 @@ export const CATEGORY_LABELS: Record<'no' | 'en', Record<EventCategoryKey, strin
     annet: 'Other',
   },
 };
+/** Most categories one event may carry (mirrored by the database trigger). */
+export const MAX_EVENT_CATEGORIES = 6;
+
+/**
+ * Normalises any stored category shape into an ordered, de-duplicated list.
+ * Reads the new `categories` list first and falls back to the single legacy
+ * `category` field, so old rows show up as one selected category.
+ */
+export function normalizeCategories(
+  categories: readonly (string | null | undefined)[] | null | undefined,
+  legacy?: string | null,
+): string[] {
+  const src = categories && categories.length ? categories : [legacy];
+  const out: string[] = [];
+  for (const c of src) {
+    const v = (c ?? '').trim();
+    if (v && !out.includes(v)) out.push(v);
+  }
+  return out;
+}
