@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { EventLink, resolveEventTarget } from './eventLink';
 import { itemCategories } from './listingHelpers';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { formatEventCategory } from '@/lib/events/displayFormat';
 
 /**
@@ -45,6 +46,7 @@ export const NewsCard = ({ item, to, index }: CardProps) => (
 );
 
 export const EventCard = ({ item, to, index = 0 }: CardProps) => {
+  const { locale } = useLanguage();
   const target = resolveEventTarget(
     { id: item.id, slug: item.slug, ctaHref: item.ctaHref, bookingUrl: item.bookingUrl },
     to,
@@ -74,7 +76,7 @@ export const EventCard = ({ item, to, index = 0 }: CardProps) => {
             <div className="flex flex-wrap gap-2 mb-3">
               {itemCategories(item).map((c) => (
                 <span key={c} className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-muted text-foreground">
-                  {formatEventCategory(c, 'no')}
+                  {formatEventCategory(c, locale)}
                 </span>
               ))}
               {item.date && (

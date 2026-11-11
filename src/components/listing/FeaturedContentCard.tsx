@@ -6,6 +6,7 @@ import DateBadge from './DateBadge';
 import type { ListingItem } from '@/components/ListingPage';
 import { resolveEventTarget, type EventLinkTarget } from './eventLink';
 import { itemCategories } from './listingHelpers';
+import { useLanguage } from '@/i18n/LanguageContext';
 import { formatEventCategory } from '@/lib/events/displayFormat';
 
 interface Props {
@@ -28,6 +29,7 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
   const clickable = target.kind !== 'none';
   const external = target.kind === 'external';
   const contain = eventMode || item.imageFit === 'contain';
+  const { locale } = useLanguage();
 
   const inner = (
     <>
@@ -49,7 +51,7 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
         <div className="flex flex-wrap items-center gap-2 mb-3">
           {eventMode && <CategoryLabel variant="solid">{featuredLabel}</CategoryLabel>}
           {(eventMode ? itemCategories(item) : item.category ? [item.category] : []).map((c) => (
-            <CategoryLabel key={c}>{eventMode ? formatEventCategory(c, 'no') : c}</CategoryLabel>
+            <CategoryLabel key={c}>{eventMode ? formatEventCategory(c, locale) : c}</CategoryLabel>
           ))}
           {item.date && <DateBadge date={item.date} />}
         </div>
