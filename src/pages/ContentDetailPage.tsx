@@ -101,6 +101,7 @@ const ContentDetailPage = ({ kind }: Props) => {
       ctaHref={submissionEvent ? undefined : eventCta?.ctaHref}
       extraContent={submissionEvent ? <EventOrganizerBlock event={submissionEvent} /> : undefined}
       statusLabel={isArchived ? (d.listing.eventEndedLabel ?? 'Avsluttet') : undefined}
+      bodyImages={fullEntry?.bodyImages}
     />
   );
 };

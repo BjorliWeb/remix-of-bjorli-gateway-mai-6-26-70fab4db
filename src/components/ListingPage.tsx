@@ -8,6 +8,10 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 export interface ListingItem {
   slug: string;
   category?: string;
+  /** Every category (events can have several). Falls back to `category`. */
+  categories?: string[];
+  /** `contain` keeps posters and logos whole instead of cropping them. */
+  imageFit?: 'contain';
   date?: string;
   title: string;
   intro?: string;

@@ -22,6 +22,10 @@ export interface SnapshotEntry {
   intro?: string;
   body?: string;
   category?: string;
+  /** All categories (events may have several); `category` is the first. */
+  categories?: string[];
+  /** Built image URLs for `![alt](key)` blocks in the body. */
+  bodyImages?: Record<string, { url: string; alt?: string; width?: number; height?: number }>;
   publishedAt?: string;
   updatedAt?: string;
   startsAt?: string;

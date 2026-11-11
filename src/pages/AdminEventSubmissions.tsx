@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { CATEGORY_LABELS, type EventCategoryKey } from '@/lib/eventCategories';
+import { CATEGORY_LABELS, type EventCategoryKey, normalizeCategories } from '@/lib/eventCategories';
 import { canAccessEditor } from '@/lib/auth/roles';
 import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
 import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
@@ -50,6 +50,7 @@ interface Submission {
   location: string;
   maps_url: string | null;
   category: string;
+  categories: string[] | null;
   image_urls: string[];
   language: string;
   status: Status;
@@ -415,7 +416,7 @@ const AdminEventSubmissions = () => {
                   <div className="text-xs text-muted-foreground text-right">
                     <div>{new Date(i.created_at).toLocaleDateString('nb-NO')}</div>
                     <div className="mt-1 inline-block px-2 py-0.5 rounded-full bg-muted text-foreground/70">
-                      {CATEGORY_LABELS.no[i.category as EventCategoryKey] ?? i.category}
+                      {normalizeCategories(i.categories, i.category).map((c) => CATEGORY_LABELS.no[c as EventCategoryKey] ?? c).join(', ')}
                     </div>
                     <div className="mt-1 inline-block px-2 py-0.5 rounded-full bg-season/15 text-season uppercase tracking-wider">
                       {(i.language || 'no').toUpperCase()}
@@ -469,7 +470,7 @@ function DetailView({
           </div>
           <h2 className="font-display text-2xl font-semibold text-foreground mb-2">{item.title}</h2>
           <p className="text-sm text-muted-foreground mb-6">
-            {item.organizer} · {CATEGORY_LABELS.no[item.category as EventCategoryKey] ?? item.category}
+            {item.organizer} · {normalizeCategories(item.categories, item.category).map((c) => CATEGORY_LABELS.no[c as EventCategoryKey] ?? c).join(', ')}
           </p>
 
           {item.summary && <p className="text-foreground leading-relaxed mb-4 italic">{item.summary}</p>}

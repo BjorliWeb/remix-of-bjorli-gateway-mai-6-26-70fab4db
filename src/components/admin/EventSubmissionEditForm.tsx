@@ -6,7 +6,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { CATEGORY_LABELS, EVENT_CATEGORY_KEYS } from '@/lib/eventCategories';
+import { normalizeCategories } from '@/lib/eventCategories';
+import { EventCategoryPicker } from '@/components/events/EventCategoryPicker';
 import {
   MAX_IMAGES, buildEditUpdate, editorUploadPath, removablePaths, submissionEditSchema,
   validateImageFile, type SubmissionEditInput,
@@ -18,7 +19,7 @@ export interface EditableSubmission {
   title: string; summary: string | null; description: string; organizer: string;
   start_date: string; end_date: string | null; time_text: string | null;
   location: string; maps_url: string | null; website: string | null;
-  category: string; image_urls: string[]; english_approved: boolean;
+  category: string; categories?: string[] | null; image_urls: string[]; english_approved: boolean;
 }
 
 type FieldKey = keyof SubmissionEditInput;
@@ -26,7 +27,8 @@ type FieldKey = keyof SubmissionEditInput;
 const toInput = (s: EditableSubmission): SubmissionEditInput => ({
   title: s.title, summary: s.summary ?? '', description: s.description, organizer: s.organizer,
   start_date: s.start_date, end_date: s.end_date ?? '', time_text: s.time_text ?? '',
-  location: s.location, maps_url: s.maps_url ?? '', website: s.website ?? '', category: s.category,
+  location: s.location, maps_url: s.maps_url ?? '', website: s.website ?? '',
+  categories: normalizeCategories(s.categories, s.category),
 });
 
 export function EventSubmissionEditForm({
@@ -208,17 +210,16 @@ export function EventSubmissionEditForm({
         {field('description', 'Beskrivelse', { required: true, textarea: 8 })}
         <div className="grid sm:grid-cols-2 gap-5">
           {field('organizer', 'Arrangør', { required: true })}
-          <div className="space-y-1.5">
-            <Label htmlFor="edit-category">Kategori *</Label>
-            <select
-              id="edit-category" value={values.category} onChange={set('category')} disabled={saving}
-              aria-invalid={!!errors.category}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              {!EVENT_CATEGORY_KEYS.includes(values.category as never) && <option value="">Velg kategori</option>}
-              {EVENT_CATEGORY_KEYS.map((k) => <option key={k} value={k}>{CATEGORY_LABELS.no[k]}</option>)}
-            </select>
-            {errors.category && <p className="text-sm text-destructive">{errors.category}</p>}
+          <div className="sm:col-span-2">
+            <EventCategoryPicker
+              id="edit-categories"
+              legend="Kategorier"
+              required
+              value={values.categories as string[]}
+              onChange={(next) => setValues((v) => ({ ...v, categories: next }))}
+              error={errors.categories}
+              disabled={saving}
+            />
           </div>
           {field('start_date', 'Startdato', { required: true, type: 'date' })}
           {field('end_date', 'Sluttdato', { type: 'date' })}

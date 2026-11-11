@@ -129,7 +129,7 @@ import p_pisteMap     from '@/assets/photos/05_practical_facilities/bjorli-prakt
 import e_goldenTrain  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-large-goldentrain3-6dd14cfc26.jpg';
 import e_summerTrail  from '@/assets/photos/06_events_atmosphere/bjorli-destinasjon-stemning-dsc-8636-2-min-7debf59814-scaled.jpg';
 
-// T-Kroken / Heiskroa collage (large 3×3 grid, never crop).
+// Bjorli Fjellkafe / Heiskroa collage (large 3×3 grid, never crop). File name keeps the old name (stable path).
 import tkrokenCollage from '@/assets/photos/bank/04-servering/bjorli-tkroken-heiskroa-collage-vinterstemning.png';
 import hillsImg from '@/assets/photos/bank/04-servering/bjorli-hills-serveringssted-fjellandskap.jpg';
 import avdemsbueImg from '@/assets/photos/bank/04-servering/bjorli-avdemsbue-gardsmiljo-gudbrandsdalen.avif';
@@ -205,7 +205,7 @@ export const images = {
   restaurantInterior: { src: s_restaurantInterior, alt: 'Interiør med bord og lykter — servering og møteplass på Bjorli.', wpField: 'restaurant_interior_image', placeholder: false },
   tkrokenCollage: {
     src: tkrokenCollage,
-    alt: 'Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
+    alt: 'Stemningsbilder fra Bjorli Fjellkafe og Heiskroa i Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
     wpField: 'tkroken_collage_image',
     placeholder: false,
   },

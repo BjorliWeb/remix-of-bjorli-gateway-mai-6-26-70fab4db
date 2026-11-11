@@ -33,6 +33,7 @@ import { track, type AnalyticsEventName } from '@/lib/analytics';
 import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
 import { revealUp, REVEAL_VIEWPORT, EASE_OUT_EXPO } from '@/lib/motion';
 import { formatEventCategory, formatEventDate } from '@/lib/events/displayFormat';
+import { normalizeCategories } from '@/lib/eventCategories';
 
 /** Section heading scale from the 2026 redesign: 28–32 px mobile, 40 px desktop. */
 const SECTION_H2 = 'font-display text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-bold text-foreground leading-[1.12] tracking-tight';
@@ -528,7 +529,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                   <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {items.map((ev, i) => {
                       const date = formatEventDate(ev.date, locale);
-                      const category = formatEventCategory(ev.category, locale);
+                      const category = normalizeCategories(ev.categories, ev.category).map((c) => formatEventCategory(c, locale)).join(' · ');
                       return (
                         <li key={ev.id} className="h-full">
                           <EventLink
@@ -746,8 +747,8 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                       <Link to={lp(`/nyheter/${featured.slug}`)} className="lg:col-span-7 group block min-w-0">
                         <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, ease: EASE_OUT_EXPO }} className="md:grid md:grid-cols-2 md:gap-6 md:items-start">
                           {featured.heroImage && (
-                            <div className="aspect-[16/10] overflow-hidden mb-5 md:mb-0 rounded-2xl ring-1 ring-border/40">
-                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className="w-full h-full object-cover" loading="lazy" />
+                            <div className={`aspect-[16/10] overflow-hidden mb-5 md:mb-0 rounded-2xl ring-1 ring-border/40 ${featured.heroImage.fit === 'contain' ? 'bg-muted' : ''}`}>
+                              <img src={featured.heroImage.url} alt={featured.heroImage.alt || featured.title} className={`w-full h-full ${featured.heroImage.fit === 'contain' ? 'object-contain' : 'object-cover'}`} loading="lazy" />
                             </div>
                           )}
                           <div>

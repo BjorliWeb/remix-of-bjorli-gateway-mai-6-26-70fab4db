@@ -1,4 +1,6 @@
 import { TIP_ARTICLES_NO } from './tipArticles';
+import { buildWinterProgramEvents, buildWinterProgramNews } from './winterProgram2026';
+import { normalizeCategories } from '@/lib/eventCategories';
 import type { CmsAdapter } from './adapter';
 import type {
   CmsActivity,
@@ -746,8 +748,10 @@ const buildNews = (lang: Language): CmsNews[] => {
           ? { ctaLabel: n.ctaLabel, ctaHref: n.ctaHref }
           : {}),
         status: n.status ?? 'published',
-      };
+      } as CmsNews & { status: string };
     })
+    // Norwegian-only story; hidden until the combined winter release.
+    .concat(lang === 'no' ? [buildWinterProgramNews() as CmsNews & { status: string }] : [])
     .filter((n) => n.status === 'published');
 };
 
@@ -781,7 +785,10 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     seoTitle: e.title,
     seoDescription: e.intro,
     status: e.status ?? 'published',
-  })).filter((ev) => ev.status !== 'unpublished');
+  }) as CmsEvent)
+    // Norwegian-only calendar entries; hidden until the combined winter release.
+    .concat(lang === 'no' ? buildWinterProgramEvents() : [])
+    .filter((ev) => ev.status !== 'unpublished');
 };
 
 /**
@@ -830,6 +837,7 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
       description: string | null;
       organizer: string | null;
       category: string | null;
+      categories?: string[] | null;
       language: string;
       start_date: string;
       end_date: string | null;
@@ -857,6 +865,7 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
         body: r.description ?? r.summary ?? '',
         heroImage: heroUrl ? { url: heroUrl, alt: r.title } : fallback,
         category: r.category ?? undefined,
+        categories: normalizeCategories(r.categories, r.category),
         season: 'all' as const,
         publishedAt: r.start_date,
         updatedAt: r.start_date,

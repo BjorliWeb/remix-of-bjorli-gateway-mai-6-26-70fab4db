@@ -50,7 +50,8 @@ import { SKI_HOLIDAY_LOCALES, SKI_HOLIDAY_PAGES } from '../src/lib/seo/skiHolida
 import { absoluteUrl, normalizeInternalPath, CANONICAL_ORIGIN } from '../src/lib/url/normalizeInternalPath';
 import { EVENTS_ARCHIVE_SEO, eventsArchivePath } from '../src/lib/events/archive';
 import { localizeHref } from '../src/i18n/localizeHref';
-import { hasRichMarkup, parseRichText } from '../src/lib/content/richText';
+import { hasRichMarkup, isExternalHref, parseRichText } from '../src/lib/content/richText';
+import { formatEventCategory } from '../src/lib/events/displayFormat';
 import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
@@ -928,7 +929,8 @@ const detailBodySkeleton = (opts: {
     .join(' · ');
 
   const metaBits: string[] = [];
-  if (entry.category) metaBits.push(entry.category);
+  const cats = entry.categories?.length ? entry.categories : entry.category ? [entry.category] : [];
+  if (cats.length) metaBits.push(kind === 'events' ? cats.map((c) => formatEventCategory(c, locale)).join(', ') : cats.join(', '));
   const dateLabel = entry.startsAt ?? entry.publishedAt;
   if ((kind === 'news' || kind === 'events') && dateLabel) metaBits.push(dateLabel);
   if (entry.archived) metaBits.push(ENDED_LABEL[locale]);
@@ -949,8 +951,18 @@ const detailBodySkeleton = (opts: {
   const bodyHtml = rawBody && rawBody !== intro && hasRichMarkup(rawBody)
     ? parseRichText(rawBody)
         .map((b) => {
+          if (b.type === 'img') {
+            const img = entry.bodyImages?.[b.key];
+            if (!img) return '';
+            const dims = img.width && img.height ? ` width="${img.width}" height="${img.height}"` : '';
+            return `\n      <figure style="margin:1.5rem 0"><img src="${escapeHtml(builtAssetUrl(img.url))}" alt="${escapeHtml(b.alt || img.alt || '')}"${dims} style="display:block;max-width:100%;height:auto;max-height:85vh;object-fit:contain;margin:0 auto;border-radius:0.375rem" loading="lazy" /></figure>`;
+          }
           const inner = b.inlines
-            .map((i) => (i.href ? `<a href="${escapeHtml(localizeHref(i.href, locale))}">${escapeHtml(i.text)}</a>` : escapeHtml(i.text)))
+            .map((i) => (i.href
+              ? isExternalHref(i.href)
+                ? `<a href="${escapeHtml(i.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(i.text)}</a>`
+                : `<a href="${escapeHtml(localizeHref(i.href, locale))}">${escapeHtml(i.text)}</a>`
+              : escapeHtml(i.text)))
             .join('');
           return b.type === 'h2'
             ? `\n      <h2 style="font-size:1.35rem;margin:1.75rem 0 0.75rem">${inner}</h2>`

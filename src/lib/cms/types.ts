@@ -21,6 +21,11 @@ export interface CmsImage {
   height?: number;
   /** Optional editorial caption rendered under image figures. */
   caption?: string;
+  /**
+   * `contain` for posters and logos: the whole image must stay visible, so
+   * cards and heroes scale it instead of cropping it.
+   */
+  fit?: 'contain';
   /** Optional photo credit. */
   credit?: string;
   /** WordPress media field key — kept on the entry so a future WP adapter
@@ -104,6 +109,16 @@ export interface CmsEntryBase extends CmsSeo {
   body?: string;
   heroImage?: CmsImage;
   category?: string;
+  /**
+   * All categories, in editorial order. `category` stays the first one for
+   * code that only knows a single category.
+   */
+  categories?: string[];
+  /**
+   * Images referenced from the rich-text body as `![alt](key)`. Kept on the
+   * entry so React and prerender resolve the same built file.
+   */
+  bodyImages?: Record<string, CmsImage>;
   season?: Season;
   publishedAt?: string; // ISO 8601
   updatedAt?: string;   // ISO 8601

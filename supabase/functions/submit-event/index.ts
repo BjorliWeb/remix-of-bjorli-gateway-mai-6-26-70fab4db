@@ -19,6 +19,8 @@ const BodySchema = z.object({
   location: z.string().trim().min(2).max(240),
   maps: z.string().trim().max(500).optional().nullable(),
   category: z.string().min(1).max(80),
+  // Optional multi-select (new clients). Older clients send only `category`.
+  categories: z.array(z.string().trim().min(1).max(80)).min(1).max(6).optional(),
   imagePaths: z.array(z.string().max(300)).max(5).default([]),
   // R-05b: client-declared metadata for each planned upload. Must align 1:1
   // with imagePaths. The storage bucket (R-05a) is the ultimate enforcer,
@@ -131,7 +133,10 @@ Deno.serve(async (req) => {
     time_text: parsed.data.time || null,
     location: parsed.data.location,
     maps_url: parsed.data.maps || null,
-    category: parsed.data.category,
+    // `category` stays the compatibility field (first choice); the database
+    // trigger keeps it in sync with `categories`.
+    category: parsed.data.categories?.[0] ?? parsed.data.category,
+    categories: parsed.data.categories ?? [parsed.data.category],
     image_urls: parsed.data.imagePaths,
     upload_token: parsed.data.uploadToken,
     language: parsed.data.language,

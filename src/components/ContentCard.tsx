@@ -10,13 +10,15 @@ export interface ContentCardProps {
   title: string;
   intro?: string;
   index?: number;
+  /** `contain` keeps posters whole (no cropping, no zoom). */
+  imageFit?: 'contain';
 }
 
 /**
  * Reusable card for listing pages (tips, news, events, activities).
  * Uses the design system tokens — no raw colors.
  */
-const ContentCard = ({ to, image, category, date, title, intro, index = 0 }: ContentCardProps) => {
+const ContentCard = ({ to, image, category, date, title, intro, index = 0, imageFit }: ContentCardProps) => {
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -26,12 +28,12 @@ const ContentCard = ({ to, image, category, date, title, intro, index = 0 }: Con
       className="group bg-card rounded-2xl overflow-hidden border border-border/70 hover:border-secondary/40 transition-colors flex flex-col"
     >
       <Link to={to} className="block">
-        <div className="relative aspect-[5/4] overflow-hidden">
+        <div className={`relative aspect-[5/4] overflow-hidden ${imageFit === 'contain' ? 'bg-muted' : ''}`}>
           <img
             src={image}
             alt={title}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
+            className={imageFit === 'contain' ? 'w-full h-full object-contain object-center' : 'w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]'}
           />
           {(category || date) && (
             <div className="absolute top-4 left-4 flex gap-2">

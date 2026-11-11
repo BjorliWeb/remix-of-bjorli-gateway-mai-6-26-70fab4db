@@ -41,7 +41,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Større innkjøp', body: 'Trenger du et større utvalg butikker, ligger både Dombås og Åndalsnes omtrent 50 km unna med bil. Der finner du flere butikker og tjenester for de større innkjøpene.' },
     practicalTitle: 'Praktisk informasjon',
     practicalItems: ['Åpningstider og tilbud kan variere gjennom året med sesong, helligdager og lokal drift.', 'Sjekk alltid butikkens egne kanaler for oppdatert informasjon før du planlegger besøket.', 'Enkelte tjenester følger skisesongen eller lokal etterspørsel.'],
-    foodTeaser: { title: 'Mat og drikke på Bjorli', body: 'Ser du etter kafé, lunsj, lounge eller afterski? Se oversikten over mat og drikke på Bjorli, inkludert Heiskroa, T-Kroken og andre spisesteder i området.', linkLabel: 'Se mat og drikke' },
+    foodTeaser: { title: 'Mat og drikke på Bjorli', body: 'Ser du etter kafé, lunsj, lounge eller afterski? Se oversikten over mat og drikke på Bjorli, inkludert Bjorli Fjellkafe, Heiskroa og andre spisesteder i området.', linkLabel: 'Se mat og drikke' },
     faqTitle: 'Ofte stilte spørsmål',
     faq: [
       { q: 'Hvor kan jeg kjøpe sportsutstyr på Bjorli?', a: 'Intersport Bjorli ligger i velkomstsenteret ved skisenteret og drives av Intersport Ålesund. Her finner du sportsutstyr og kjente merker rett ved bakken.' },
@@ -63,7 +63,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Bigger shopping trips', body: 'For a wider choice of shops, both Dombås and Åndalsnes are around 50 km away by car, with more shops and services.' },
     practicalTitle: 'Practical information',
     practicalItems: ['Opening times and offers vary through the year with the season, holidays and local demand.', 'Always check the shop’s own website or social media for the latest information before you go.', 'Some services follow the ski season or local demand.'],
-    foodTeaser: { title: 'Food & drink in Bjorli', body: 'Looking for a café, lunch, a lounge or après-ski? See the overview of food and drink in Bjorli, including Heiskroa, T-Kroken and other places to eat in the area.', linkLabel: 'See food & drink' },
+    foodTeaser: { title: 'Food & drink in Bjorli', body: 'Looking for a café, lunch, a lounge or après-ski? See the overview of food and drink in Bjorli, including Bjorli Fjellkafe, Heiskroa and other places to eat in the area.', linkLabel: 'See food & drink' },
     faqTitle: 'Frequently asked questions',
     faq: [
       { q: 'Where can I buy sports equipment in Bjorli?', a: 'Intersport Bjorli is in the welcome centre at the ski resort and is run by Intersport Ålesund. You’ll find sports equipment and well-known brands right next to the slopes.' },
@@ -85,7 +85,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Größere Einkäufe', body: 'Brauchen Sie eine größere Auswahl an Geschäften, liegen Dombås und Åndalsnes jeweils rund 50 km entfernt mit dem Auto. Dort finden Sie weitere Geschäfte und Dienstleistungen für größere Einkäufe.' },
     practicalTitle: 'Praktische Informationen',
     practicalItems: ['Öffnungszeiten und Angebote können sich je nach Saison, Feiertagen und lokalem Betrieb ändern.', 'Aktuelle Informationen am besten in den Kanälen des jeweiligen Geschäfts prüfen.', 'Einige Dienste richten sich nach der Skisaison oder der lokalen Nachfrage.'],
-    foodTeaser: { title: 'Essen und Trinken in Bjorli', body: 'Auf der Suche nach Café, Mittagessen, Lounge oder Après-Ski? Hier finden Sie eine Übersicht über Essen und Trinken in Bjorli, darunter Heiskroa, T-Kroken und weitere Lokale in der Umgebung.', linkLabel: 'Essen und Trinken ansehen' },
+    foodTeaser: { title: 'Essen und Trinken in Bjorli', body: 'Auf der Suche nach Café, Mittagessen, Lounge oder Après-Ski? Hier finden Sie eine Übersicht über Essen und Trinken in Bjorli, darunter Bjorli Fjellkafe, Heiskroa und weitere Lokale in der Umgebung.', linkLabel: 'Essen und Trinken ansehen' },
     faqTitle: 'Häufige Fragen',
     faq: [
       { q: 'Wo kann ich in Bjorli Sportausrüstung kaufen?', a: 'Intersport Bjorli befindet sich im Welcome Center am Skigebiet und wird von Intersport Ålesund betrieben. Sie finden Sportausrüstung und bekannte Marken direkt an der Piste.' },
@@ -107,7 +107,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Groter winkelen', body: 'Heb je een groter winkelaanbod nodig, dan liggen Dombås en Åndalsnes elk op ongeveer 50 km rijden. Daar vind je meer winkels en diensten voor de grotere boodschappen.' },
     practicalTitle: 'Praktische informatie',
     practicalItems: ['Openingstijden en aanbod kunnen variëren door het jaar — seizoen, feestdagen en lokale werking.', 'Controleer altijd de eigen kanalen van de winkel voor de actuele informatie voordat je gaat.', 'Sommige diensten volgen het skiseizoen of de lokale vraag.'],
-    foodTeaser: { title: 'Eten en drinken in Bjorli', body: 'Op zoek naar een café, lunch, lounge of après-ski? Bekijk het overzicht van eten en drinken in Bjorli, met Heiskroa, T-Kroken en andere plekken in de omgeving.', linkLabel: 'Bekijk eten en drinken' },
+    foodTeaser: { title: 'Eten en drinken in Bjorli', body: 'Op zoek naar een café, lunch, lounge of après-ski? Bekijk het overzicht van eten en drinken in Bjorli, met Bjorli Fjellkafe, Heiskroa en andere plekken in de omgeving.', linkLabel: 'Bekijk eten en drinken' },
     faqTitle: 'Veelgestelde vragen',
     faq: [
       { q: 'Waar kan ik sportuitrusting kopen in Bjorli?', a: 'Intersport Bjorli zit in het welkomstcentrum bij het skigebied en wordt gerund door Intersport Ålesund. Je vindt er sportartikelen en bekende merken vlak naast de piste.' },
@@ -129,7 +129,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Større indkøb', body: 'Har du brug for et større udvalg af butikker, ligger både Dombås og Åndalsnes omkring 50 km væk i bil. Her er flere butikker og tjenester til de større indkøb.' },
     practicalTitle: 'Praktisk information',
     practicalItems: ['Åbningstider og tilbud kan variere gennem året med sæson, helligdage og lokal drift.', 'Tjek altid butikkens egne kanaler for aktuel information, før du planlægger besøget.', 'Nogle tjenester følger skisæsonen eller den lokale efterspørgsel.'],
-    foodTeaser: { title: 'Mad og drikke på Bjorli', body: 'Leder du efter café, frokost, lounge eller afterski? Se oversigten over mad og drikke på Bjorli, inkl. Heiskroa, T-Kroken og andre spisesteder i området.', linkLabel: 'Se mad og drikke' },
+    foodTeaser: { title: 'Mad og drikke på Bjorli', body: 'Leder du efter café, frokost, lounge eller afterski? Se oversigten over mad og drikke på Bjorli, inkl. Bjorli Fjellkafe, Heiskroa og andre spisesteder i området.', linkLabel: 'Se mad og drikke' },
     faqTitle: 'Ofte stillede spørgsmål',
     faq: [
       { q: 'Hvor kan jeg købe sportsudstyr på Bjorli?', a: 'Intersport Bjorli ligger i velkomstcentret ved skicentret og drives af Intersport Ålesund. Her finder du sportsudstyr og kendte mærker lige ved pisten.' },
@@ -151,7 +151,7 @@ const COPY: Record<Locale, Copy> = {
     larger: { title: 'Större inköp', body: 'Behöver du ett bredare utbud av butiker ligger både Dombås och Åndalsnes ungefär 50 km bort med bil. Där hittar du fler butiker och tjänster för de större inköpen.' },
     practicalTitle: 'Praktisk information',
     practicalItems: ['Öppettider och utbud kan variera över året med säsong, helger och lokal drift.', 'Kontrollera alltid butikens egna kanaler för aktuell information innan besöket.', 'Vissa tjänster följer skidsäsongen eller den lokala efterfrågan.'],
-    foodTeaser: { title: 'Mat och dryck på Bjorli', body: 'Letar du efter kafé, lunch, lounge eller afterski? Se översikten över mat och dryck på Bjorli, inklusive Heiskroa, T-Kroken och andra ställen i området.', linkLabel: 'Se mat och dryck' },
+    foodTeaser: { title: 'Mat och dryck på Bjorli', body: 'Letar du efter kafé, lunch, lounge eller afterski? Se översikten över mat och dryck på Bjorli, inklusive Bjorli Fjellkafe, Heiskroa och andra ställen i området.', linkLabel: 'Se mat och dryck' },
     faqTitle: 'Vanliga frågor',
     faq: [
       { q: 'Var kan jag köpa sportutrustning på Bjorli?', a: 'Intersport Bjorli ligger i välkomstcentret vid skidanläggningen och drivs av Intersport Ålesund. Du hittar sportutrustning och kända märken alldeles intill backen.' },

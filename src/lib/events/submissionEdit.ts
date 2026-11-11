@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EVENT_CATEGORY_KEYS } from '@/lib/eventCategories';
+import { MAX_EVENT_CATEGORIES, normalizeCategories } from '@/lib/eventCategories';
 
 /** Limits mirror supabase/functions/submit-event so an edit can never store
  *  what the public form would reject. */
@@ -25,9 +25,11 @@ export const submissionEditSchema = z
     location: z.string().trim().min(2, 'Minst 2 tegn').max(240, 'Maks 240 tegn'),
     maps_url: optionalText(500),
     website: optionalText(500),
-    category: z.enum(EVENT_CATEGORY_KEYS as [string, ...string[]], {
-      errorMap: () => ({ message: 'Velg kategori' }),
-    }),
+    categories: z
+      .array(z.string().trim().min(1).max(80))
+      .transform((v) => normalizeCategories(v))
+      .refine((v) => v.length >= 1, 'Velg minst én kategori')
+      .refine((v) => v.length <= MAX_EVENT_CATEGORIES, `Velg høyst ${MAX_EVENT_CATEGORIES} kategorier`),
   })
   .refine((v) => !v.end_date || v.end_date >= v.start_date, {
     path: ['end_date'],
@@ -41,11 +43,16 @@ export type SubmissionEditValues = z.output<typeof submissionEditSchema>;
  *  submitter data and consent are deliberately absent. */
 export const EDITABLE_COLUMNS = [
   'title', 'summary', 'description', 'organizer', 'start_date', 'end_date',
-  'time_text', 'location', 'maps_url', 'website', 'category', 'image_urls',
+  'time_text', 'location', 'maps_url', 'website', 'category', 'categories', 'image_urls',
 ] as const;
 
 export function buildEditUpdate(values: SubmissionEditValues, imageUrls: string[]) {
-  const update: Record<string, unknown> = { ...values, image_urls: imageUrls };
+  // `category` is the compatibility field and always mirrors the first choice.
+  const update: Record<string, unknown> = {
+    ...values,
+    category: values.categories[0],
+    image_urls: imageUrls,
+  };
   for (const key of Object.keys(update)) {
     if (!(EDITABLE_COLUMNS as readonly string[]).includes(key)) delete update[key];
   }

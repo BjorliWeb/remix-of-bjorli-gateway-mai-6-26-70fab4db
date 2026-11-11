@@ -6,7 +6,7 @@ import {
 const base = {
   title: 'Pumptrack-dag', summary: '', description: 'En lang nok beskrivelse her.',
   organizer: 'Bjorli', start_date: '2026-11-01', end_date: '', time_text: '',
-  location: 'Bjorli', maps_url: '', website: '', category: 'sykkel',
+  location: 'Bjorli', maps_url: '', website: '', categories: ['sykkel'],
 };
 
 describe('submission edit', () => {
@@ -39,5 +39,21 @@ describe('submission edit', () => {
 
   it('puts editor uploads in the submission folder', () => {
     expect(editorUploadPath('abc', 'Foto.JPG', 'r1')).toBe('editor/abc/r1.jpg');
+  });
+
+  it('keeps every chosen category and mirrors the first into category', () => {
+    const values = submissionEditSchema.parse({ ...base, categories: ['konsert', 'after-ski'] });
+    const update = buildEditUpdate(values, []);
+    expect(update.categories).toEqual(['konsert', 'after-ski']);
+    expect(update.category).toBe('konsert');
+  });
+
+  it('requires at least one category', () => {
+    expect(submissionEditSchema.safeParse({ ...base, categories: [] }).success).toBe(false);
+  });
+
+  it('removes duplicate categories', () => {
+    const values = submissionEditSchema.parse({ ...base, categories: ['quiz', 'quiz'] });
+    expect(values.categories).toEqual(['quiz']);
   });
 });
