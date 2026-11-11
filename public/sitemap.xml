@@ -2488,6 +2488,14 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/summer/tafjordfjella/"/>
   </url>
   <url>
+    <loc>https://bjorli.no/nyheter/dette-skjer-i-vinter-hos-bjorli-spisestedene-2026-2027/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/nyheter/dette-skjer-i-vinter-hos-bjorli-spisestedene-2026-2027/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/nyheter/dette-skjer-i-vinter-hos-bjorli-spisestedene-2026-2027/"/>
+  </url>
+  <url>
     <loc>https://bjorli.no/tips/slik-planlegger-du-en-vinterhelg-pa-bjorli/</loc>
     <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -2814,6 +2822,94 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quiz-pa-bjorli-fjellkafe-dd06d16d/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/quiz-pa-bjorli-fjellkafe-dd06d16d/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/quiz-med-ronny-haug-2026-12-11/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quiz-med-ronny-haug-2026-12-11/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/quiz-med-ronny-haug-2026-12-11/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/akustisk-konsert-med-lene-herskedal-og-tommy-hattrem-2026-12-12/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/akustisk-konsert-med-lene-herskedal-og-tommy-hattrem-2026-12-12/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/akustisk-konsert-med-lene-herskedal-og-tommy-hattrem-2026-12-12/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/nyttarsaften-med-treretters-middag-og-afterski-med-dj-snorre-2026-12-31/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/nyttarsaften-med-treretters-middag-og-afterski-med-dj-snorre-2026-12-31/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/nyttarsaften-med-treretters-middag-og-afterski-med-dj-snorre-2026-12-31/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-01-23/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-01-23/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-01-23/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/quiz-med-ronny-haug-2027-01-29/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quiz-med-ronny-haug-2027-01-29/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/quiz-med-ronny-haug-2027-01-29/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/love-og-peace-afterski-med-dj-siggy-2027-02-13/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/love-og-peace-afterski-med-dj-siggy-2027-02-13/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/love-og-peace-afterski-med-dj-siggy-2027-02-13/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-02-27/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-02-27/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-02-27/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-13/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-13/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-13/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-27/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-27/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-03-27/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-04-03/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-04-03/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/afterski-med-dj-siggy-2027-04-03/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/sesongavslutning-med-afterski-og-dj-siggy-2027-04-18/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/sesongavslutning-med-afterski-og-dj-siggy-2027-04-18/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/sesongavslutning-med-afterski-og-dj-siggy-2027-04-18/"/>
   </url>
   <url>
     <loc>https://bjorli.no/aktiviteter/langrenn/</loc>
