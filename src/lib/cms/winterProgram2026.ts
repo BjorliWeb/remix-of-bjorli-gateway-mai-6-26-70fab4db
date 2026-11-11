@@ -21,6 +21,8 @@ import spisestedeneLogo from '@/assets/logos/bjorli-mat-og-drikke-spisestedene-l
 
 /** Single switch for the combined release. Keep false until approved. */
 export const WINTER_PROGRAM_PUBLISHED = false;
+/** Set only after the editor approves the existing submission; never bypass moderation. */
+export const PRAY_FOR_SNOW_APPROVED = false;
 
 export const SPISESTEDENE_INSTAGRAM_URL = 'https://www.instagram.com/bjorli_spisestedene/';
 export const SPISESTEDENE_INSTAGRAM_HANDLE = '@bjorli_spisestedene';
@@ -115,10 +117,10 @@ export const programEventSlug = (it: ProgramItem): string =>
 
 const instagramLine = `Følg [${SPISESTEDENE_INSTAGRAM_HANDLE}](${SPISESTEDENE_INSTAGRAM_URL}) på Instagram for de siste nyhetene om mat, drikke og arrangementer i Bjorli Skisenter.`;
 
-const status = (): 'published' | 'unpublished' => (WINTER_PROGRAM_PUBLISHED ? 'published' : 'unpublished');
+const status = (published: boolean): 'published' | 'unpublished' => (published ? 'published' : 'unpublished');
 
 /** Editorial calendar entries for the programme items not yet in the calendar. */
-export const buildWinterProgramEvents = (): CmsEvent[] =>
+export const buildWinterProgramEvents = (published = WINTER_PROGRAM_PUBLISHED): CmsEvent[] =>
   PROGRAM_ALL.filter((it) => !it.existingSlug).map((it) => {
     const poster = it.date < '2027-01-01' ? POSTER_NOV_DEC : POSTER_JAN_APR;
     return {
@@ -145,7 +147,7 @@ export const buildWinterProgramEvents = (): CmsEvent[] =>
       timeText: 'Tidspunkt kommer',
       seoTitle: `${it.title} – Bjorli Skisenter`,
       seoDescription: `${it.intro} Dato: ${formatNo(it.date)}. Tidspunkt kommer.`,
-      status: status(),
+      status: status(published),
     };
   });
 
@@ -169,11 +171,14 @@ export const WINTER_NEWS_PUBLISHED_AT = '2026-11-11';
 
 const programLine = (it: ProgramItem, today: string): string => {
   const past = it.date < today ? ' – Tidligere i sesongen' : '';
+  if (it.date === '2026-11-28' && !PRAY_FOR_SNOW_APPROVED) {
+    return `${capitalize(formatNo(it.date))}: ${it.title}${past}`;
+  }
   return `${capitalize(formatNo(it.date))}: [${it.title}](/arrangementer/${programEventSlug(it)}/)${past}`;
 };
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unpublished' } => {
+export const buildWinterProgramNews = (published = WINTER_PROGRAM_PUBLISHED): CmsNews & { status: 'published' | 'unpublished' } => {
   const today = WINTER_NEWS_PUBLISHED_AT;
   return {
     id: 'news-no-spisestedene-vinter-2026-2027',
@@ -183,7 +188,7 @@ export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unp
     intro: 'Quiz, akustisk konsert, temafester og afterski. Bjorli Spisestedene har satt sammen et variert program for vinteren 2026/27 i Bjorli Skisenter.',
     body: [
       'Vinterprogrammet byr på flere anledninger til å møtes før og etter en dag på ski. Her finner du oversikten over arrangementene fra november til april.',
-      'Tidspunkt for hvert arrangement kommer. Følg med i [kalenderen](/arrangementer/) og på Instagram.',
+      'Se [kalenderen](/arrangementer/) for tidspunkter og øvrige opplysninger som allerede er bekreftet. Tidspunkt for de nye oppføringene kommer. Følg også med på Instagram.',
       '## November og desember 2026',
       '![Programplakat for november og desember 2026](poster-nov-des)',
       ...PROGRAM_NOV_DEC.map((it) => programLine(it, today)),
@@ -196,12 +201,13 @@ export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unp
     ].join('\n\n'),
     bodyImages: { 'poster-nov-des': POSTER_NOV_DEC, 'poster-jan-apr': POSTER_JAN_APR },
     heroImage: POSTER_SEASON,
+    ogImage: { url: 'https://bjorli.no/og/spisestedene-vinter-2026-2027.jpg', width: 1200, height: 630, alt: POSTER_SEASON.alt },
     category: 'Arrangementer',
     season: 'winter',
     publishedAt: WINTER_NEWS_PUBLISHED_AT,
     updatedAt: WINTER_NEWS_PUBLISHED_AT,
     seoTitle: 'Dette skjer i vinter hos Bjorli Spisestedene 2026/27',
     seoDescription: 'Quiz, konsert, temafester og afterski i Bjorli Skisenter vinteren 2026/27. Se hele programmet fra Bjorli Spisestedene.',
-    status: status(),
+    status: status(published),
   };
 };

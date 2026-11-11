@@ -233,7 +233,7 @@ const de: Dictionary = {
       { q: 'Wann öffnet das Bjorli Skisenter?', a: 'Bjorli ist häufig eines der ersten Skigebiete Norwegens, das jede Saison öffnet. Der Saisonstart ist meist im November, je nach Schnee- und Temperaturlage.' },
       { q: 'Wo kann ich einen Skipass kaufen?', a: 'Skipässe können Sie online vor der Anreise oder am Ticketschalter im Skigebiet kaufen. Online geht es am schnellsten.' },
       { q: 'Wie komme ich mit dem Zug nach Bjorli?', a: 'Bjorli liegt an der Rauma-Bahn zwischen Dombås und Åndalsnes. Vom Bahnhof Bjorli sind es nur wenige Minuten zum Skigebiet und den Unterkünften. Auf www.entur.no finden Sie Fahrpläne und können Tickets für Zug und Bus buchen.' },
-      { q: 'Gibt es Skiverleih und Skischule?', a: 'Ja, im Skigebiet können Sie Ski, Snowboards und Ausrüstung mieten und Kurse in der Bjorli Skischule buchen.' },
+      { q: 'Gibt es Skiverleih und Skischule?', a: 'Bjorli Skisenter bietet im Laufe der Saison einzelne Clinics und Drop-in-Kurse an. Fragen Sie unter skisenter@bjorli.no nach aktuellen Kursen und Möglichkeiten.' },
       { q: 'Wo kann ich in Bjorli übernachten?', a: 'Sie haben die Wahl zwischen Hütten, Apartments und Hotels. Viele Unterkünfte liegen in Gehweite zum Berg und zu den Loipen.' },
       { q: 'Was kann ich in Bjorli im Sommer machen?', a: 'Sommer in Bjorli bedeutet Wandern, Radfahren, Familienaktivitäten und Naturerlebnisse im Romsdalen – mit Trollveggen, Trollstigen, Geirangerfjord, Ålesund und Dovrefjell in greifbarer Nähe.' },
     ],

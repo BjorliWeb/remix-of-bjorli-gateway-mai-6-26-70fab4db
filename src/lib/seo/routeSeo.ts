@@ -201,12 +201,12 @@ export const ROUTE_SEO: RouteSeoMap = {
   },
 
   skiskole: {
-    no: { title: 'Skiskole på Bjorli – kurs for alle nivåer', description: 'Skiskole på Bjorli med kurs for barn, voksne og nybegynnere. Lær alpint eller telemark med erfarne instruktører.' },
-    en: { title: 'Ski school in Bjorli, Norway | Ski lessons', description: 'Bjorli Ski School offers lessons for children, adults and beginners. Learn downhill skiing or telemark with experienced instructors.' },
-    de: { title: 'Skischule in Bjorli – Kurse für alle Niveaus', description: 'Skischule Bjorli mit Kursen für Kinder, Erwachsene und Anfänger. Alpin oder Telemark mit erfahrenen Lehrern.' },
-    nl: { title: 'Skischool in Bjorli – lessen voor elk niveau', description: 'Skischool Bjorli met lessen voor kinderen, volwassenen en beginners. Alpine of telemark met ervaren instructeurs.' },
-    da: { title: 'Skiskole på Bjorli – kurser for alle niveauer', description: 'Skiskole på Bjorli med kurser for børn, voksne og begyndere. Lær alpint eller telemark med erfarne instruktører.' },
-    sv: { title: 'Skidskola på Bjorli – kurser för alla nivåer', description: 'Skidskola på Bjorli med kurser för barn, vuxna och nybörjare. Lär dig alpint eller telemark med erfarna instruktörer.' },
+    no: { title: 'Enkelte clinics og drop-in-kurs på Bjorli', description: 'Bjorli Skisenter tilbyr enkelte clinics og drop-in-kurs gjennom sesongen. Ta kontakt på skisenter@bjorli.no for å høre om aktuelle kurs og muligheter.' },
+    en: { title: 'Selected clinics and drop-in sessions in Bjorli', description: 'Bjorli Ski Resort offers selected clinics and drop-in sessions during the season. Email skisenter@bjorli.no to ask about current sessions and options.' },
+    de: { title: 'Einzelne Clinics und Drop-in-Kurse in Bjorli', description: 'Bjorli Skisenter bietet im Laufe der Saison einzelne Clinics und Drop-in-Kurse an. Fragen Sie unter skisenter@bjorli.no nach aktuellen Kursen und Möglichkeiten.' },
+    nl: { title: 'Enkele clinics en drop-in-cursussen in Bjorli', description: 'Bjorli Skisenter biedt enkele clinics en drop-in-cursussen tijdens het seizoen. Mail skisenter@bjorli.no voor de actuele mogelijkheden.' },
+    da: { title: 'Enkelte clinics og drop-in-kurser på Bjorli', description: 'Bjorli Skisenter tilbyder enkelte clinics og drop-in-kurser i løbet af sæsonen. Kontakt skisenter@bjorli.no for at høre om aktuelle kurser og muligheder.' },
+    sv: { title: 'Enstaka clinics och drop-in-kurser på Bjorli', description: 'Bjorli Skisenter erbjuder enstaka clinics och drop-in-kurser under säsongen. Kontakta skisenter@bjorli.no om aktuella kurser och möjligheter.' },
   },
 
   skiutleie: {

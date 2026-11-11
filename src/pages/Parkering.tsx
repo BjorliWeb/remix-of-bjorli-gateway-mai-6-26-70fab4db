@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
 import { trackExternalPartnerClick } from '@/lib/analytics';
+import { PARKING_RULES } from '@/lib/cms/practicalRules';
 
 /**
  * Dedicated parking page for Bjorli Skisenter.
@@ -51,18 +52,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'Det finnes to områder å velge mellom: ',
     intro2P1: 'P1 / Hovedparkering',
     intro2And: ' og ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Kart over parkering ved Bjorli Skisenter med P1, P2 og betalingsautomat merket BA.',
     mapCaption:
-      'Oversikt over parkeringen. P1 er hovedparkeringen, P2 ligger ved Bjorli Fjellkafe, og BA viser hvor betalingsautomaten står.',
+      'Oversikt over parkeringen. P1 er hovedparkeringen, P2 ligger ved Fjellkafe, og BA viser hvor betalingsautomaten står.',
     p1Name: 'P1 – Hovedparkering',
-    p1Desc: '30 minutters gjennomkjøring, deretter kr 95 per parkering.',
-    p2Name: 'P2 – Bjorli Fjellkafe',
+    p1Desc: '30 minutters gjennomkjøring, deretter kr 95 per parkering. Gratis parkering etter kl. 16.00 på både P1 og P2.',
+    p2Name: 'P2 – Fjellkafe',
     p2Desc:
-      '30 minutters gjennomkjøring, deretter kr 115 per parkeringsopphold mellom kl. 08:00–16:00. Spiser du i Bjorli Fjellkafe, parkerer du gratis inntil 2 timer mot registrering i restauranten.',
+      '30 minutters gjennomkjøring, deretter kr 115 per parkeringsopphold mellom kl. Gratis parkering etter kl. 16.00 på både P1 og P2.',
     paymentTitle: 'Betaling',
     paymentItems: [
+      'Du kan også betale med EasyPark.',
       'Du betaler via Parkly — i app, på nett eller på betalingsautomaten på området.',
       'Servicetillegg og fakturagebyr kan tilkomme.',
       'Årskort parkering koster kr 900 per plass.',
@@ -88,18 +90,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'There are two car parks to choose from: ',
     intro2P1: 'P1 / Main car park',
     intro2And: ' and ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Map of parking at Bjorli Ski Resort, showing P1, P2 and the payment machine marked BA.',
     mapCaption:
-      'Parking overview. P1 is the main car park, P2 is by Bjorli Fjellkafe, and BA marks the payment machine.',
+      'Parking overview. P1 is the main car park, P2 is by Fjellkafe, and BA marks the payment machine.',
     p1Name: 'P1: main car park',
-    p1Desc: '30 minutes to drive through, then NOK 95 per stay.',
-    p2Name: 'P2: Bjorli Fjellkafe',
+    p1Desc: '30 minutes to drive through, then NOK 95 per stay. Parking is free after 16:00 at both P1 and P2.',
+    p2Name: 'P2: Fjellkafe',
     p2Desc:
-      '30 minutes to drive through, then NOK 115 per stay between 08:00 and 16:00. Guests eating at Bjorli Fjellkafe park free for up to 2 hours when they register in the restaurant.',
+      '30 minutes to drive through, then NOK 115 per stay between 08:00 and 16:00. Parking is free after 16:00 at both P1 and P2.',
     paymentTitle: 'Payment',
     paymentItems: [
+      'You can also pay with EasyPark.',
       'You pay through Parkly: in the app, online or at the payment machine on site.',
       'Service and invoice charges may apply.',
       'An annual parking pass costs NOK 900 per space.',
@@ -125,18 +128,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'Es gibt zwei Bereiche zur Auswahl: ',
     intro2P1: 'P1 / Hauptparkplatz',
     intro2And: ' und ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Karte der Parkflächen am Bjorli Skisenter mit P1, P2 und Bezahlautomat (BA).',
     mapCaption:
-      'Übersicht der Parkflächen. P1 ist der Hauptparkplatz, P2 liegt an der Bjorli Fjellkafe, BA zeigt den Bezahlautomaten.',
+      'Übersicht der Parkflächen. P1 ist der Hauptparkplatz, P2 liegt an der Fjellkafe, BA zeigt den Bezahlautomaten.',
     p1Name: 'P1 – Hauptparkplatz',
-    p1Desc: '30 Minuten Durchfahrt, danach 95 NOK pro Parkvorgang.',
-    p2Name: 'P2 – Bjorli Fjellkafe',
+    p1Desc: '30 Minuten Durchfahrt, danach 95 NOK pro Parkvorgang. Ab 16:00 Uhr ist das Parken auf P1 und P2 kostenlos.',
+    p2Name: 'P2 – Fjellkafe',
     p2Desc:
-      '30 Minuten Durchfahrt, danach 115 NOK pro Aufenthalt zwischen 08:00 und 16:00 Uhr. Gäste, die in der Bjorli Fjellkafe essen, parken bis zu 2 Stunden kostenlos — Registrierung erfolgt im Restaurant.',
+      '30 Minuten Durchfahrt, danach 115 NOK pro Aufenthalt zwischen 08:00 und 16:00 Uhr. Ab 16:00 Uhr ist das Parken auf P1 und P2 kostenlos.',
     paymentTitle: 'Bezahlung',
     paymentItems: [
+      'Sie können auch mit EasyPark bezahlen.',
       'Bezahlt wird über Parkly — in der App, online oder am Bezahlautomaten vor Ort.',
       'Servicegebühren und Rechnungszuschläge können hinzukommen.',
       'Eine Jahres-Parkkarte kostet 900 NOK pro Stellplatz.',
@@ -162,18 +166,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'Er zijn twee zones om uit te kiezen: ',
     intro2P1: 'P1 / Hoofdparking',
     intro2And: ' en ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Kaart van de parkeerplaatsen bij Bjorli Skisenter met P1, P2 en de betaalautomaat (BA).',
     mapCaption:
-      'Overzicht van de parkeerplaatsen. P1 is de hoofdparking, P2 ligt bij Bjorli Fjellkafe en BA geeft de betaalautomaat aan.',
+      'Overzicht van de parkeerplaatsen. P1 is de hoofdparking, P2 ligt bij Fjellkafe en BA geeft de betaalautomaat aan.',
     p1Name: 'P1 – Hoofdparking',
-    p1Desc: '30 minuten doorrijden, daarna NOK 95 per parkeerbeurt.',
-    p2Name: 'P2 – Bjorli Fjellkafe',
+    p1Desc: '30 minuten doorrijden, daarna NOK 95 per parkeerbeurt. Na 16:00 uur is parkeren op zowel P1 als P2 gratis.',
+    p2Name: 'P2 – Fjellkafe',
     p2Desc:
-      '30 minuten doorrijden, daarna NOK 115 per parkeerbeurt tussen 08:00 en 16:00 uur. Eet je in Bjorli Fjellkafe, dan parkeer je tot 2 uur gratis na registratie in het restaurant.',
+      '30 minuten doorrijden, daarna NOK 115 per parkeerbeurt tussen 08:00 en 16:00 uur. Na 16:00 uur is parkeren op zowel P1 als P2 gratis.',
     paymentTitle: 'Betalen',
     paymentItems: [
+      'Je kunt ook betalen met EasyPark.',
       'Betalen doe je via Parkly — in de app, online of bij de betaalautomaat ter plaatse.',
       'Servicekosten en factuurkosten kunnen bijkomen.',
       'Een jaarkaart voor parkeren kost NOK 900 per plaats.',
@@ -199,18 +204,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'Der er to områder at vælge mellem: ',
     intro2P1: 'P1 / Hovedparkering',
     intro2And: ' og ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Kort over parkering ved Bjorli Skisenter med P1, P2 og betalingsautomat (BA).',
     mapCaption:
-      'Oversigt over parkeringen. P1 er hovedparkeringen, P2 ligger ved Bjorli Fjellkafe, og BA viser betalingsautomaten.',
+      'Oversigt over parkeringen. P1 er hovedparkeringen, P2 ligger ved Fjellkafe, og BA viser betalingsautomaten.',
     p1Name: 'P1 – Hovedparkering',
-    p1Desc: '30 minutters gennemkørsel, derefter 95 NOK pr. parkering.',
-    p2Name: 'P2 – Bjorli Fjellkafe',
+    p1Desc: '30 minutters gennemkørsel, derefter 95 NOK pr. parkering. Gratis parkering efter kl. 16.00 på både P1 og P2.',
+    p2Name: 'P2 – Fjellkafe',
     p2Desc:
-      '30 minutters gennemkørsel, derefter 115 NOK pr. ophold mellem kl. 08:00 og 16:00. Spiser du i Bjorli Fjellkafe, parkerer du gratis i op til 2 timer mod registrering i restauranten.',
+      '30 minutters gennemkørsel, derefter 115 NOK pr. Gratis parkering efter kl. 16.00 på både P1 og P2.',
     paymentTitle: 'Betaling',
     paymentItems: [
+      'Du kan også betale med EasyPark.',
       'Du betaler via Parkly — i appen, online eller ved betalingsautomaten på området.',
       'Servicegebyrer og fakturagebyrer kan tilkomme.',
       'Et årskort til parkering koster 900 NOK pr. plads.',
@@ -236,18 +242,19 @@ const COPY: Record<Locale, Copy> = {
     intro2Before: 'Det finns två områden att välja mellan: ',
     intro2P1: 'P1 / Huvudparkering',
     intro2And: ' och ',
-    intro2P2: 'P2 / Bjorli Fjellkafe',
+    intro2P2: 'P2 / Fjellkafe',
     intro2After: '.',
     mapAlt: 'Karta över parkeringen vid Bjorli Skisenter med P1, P2 och betalautomaten (BA).',
     mapCaption:
-      'Översikt över parkeringen. P1 är huvudparkeringen, P2 ligger vid Bjorli Fjellkafe och BA visar betalautomaten.',
+      'Översikt över parkeringen. P1 är huvudparkeringen, P2 ligger vid Fjellkafe och BA visar betalautomaten.',
     p1Name: 'P1 – Huvudparkering',
-    p1Desc: '30 minuters genomkörning, sedan 95 NOK per parkering.',
-    p2Name: 'P2 – Bjorli Fjellkafe',
+    p1Desc: '30 minuters genomkörning, sedan 95 NOK per parkering. Gratis parkering efter kl. 16.00 på både P1 och P2.',
+    p2Name: 'P2 – Fjellkafe',
     p2Desc:
-      '30 minuters genomkörning, sedan 115 NOK per parkering mellan kl. 08:00 och 16:00. Äter du i Bjorli Fjellkafe parkerar du gratis i upp till 2 timmar mot registrering i restaurangen.',
+      '30 minuters genomkörning, sedan 115 NOK per parkering mellan kl. Gratis parkering efter kl. 16.00 på både P1 och P2.',
     paymentTitle: 'Betalning',
     paymentItems: [
+      'Du kan även betala med EasyPark.',
       'Du betalar via Parkly — i appen, på webben eller vid betalautomaten på plats.',
       'Serviceavgifter och fakturaavgifter kan tillkomma.',
       'Ett årskort för parkering kostar 900 NOK per plats.',
@@ -269,9 +276,12 @@ const COPY: Record<Locale, Copy> = {
 
 const Parkering = () => {
   const t = usePageCopy(COPY);
+  const withRates = (text: string) => text.replace(/\b95\b/g, String(PARKING_RULES.p1PriceNok))
+    .replace(/\b115\b/g, String(PARKING_RULES.p2PriceNok))
+    .replace(/\b900\b/g, String(PARKING_RULES.annualPriceNok));
   const areas = [
-    { name: t.p1Name, desc: t.p1Desc },
-    { name: t.p2Name, desc: t.p2Desc },
+    { name: t.p1Name, desc: withRates(t.p1Desc) },
+    { name: t.p2Name, desc: withRates(t.p2Desc) },
   ];
 
   return (
@@ -322,7 +332,7 @@ const Parkering = () => {
             </div>
             <ul className="space-y-2 text-foreground/85 leading-relaxed list-disc pl-5">
               {t.paymentItems.map((it) => (
-                <li key={it}>{it}</li>
+                <li key={it}>{withRates(it)}</li>
               ))}
             </ul>
             <a

@@ -43,6 +43,7 @@ export interface ExportedEntry {
   endsAt?: string;
   location?: string;
   image?: string;
+  ogImage?: string;
   seoTitle?: string;
   seoDescription?: string;
   /** Editorial CTA label for detail pages (e.g. Early Bird purchase). */
@@ -78,6 +79,7 @@ const pick = (e: Record<string, unknown>): ExportedEntry => ({
   endsAt: (e.endsAt as string) || undefined,
   location: (e.location as string) || undefined,
   image: ((e.heroImage as { url?: string } | undefined)?.url) || undefined,
+  ogImage: ((e.ogImage as { url?: string } | undefined)?.url) || undefined,
   seoTitle: (e.seoTitle as string) || undefined,
   seoDescription: (e.seoDescription as string) || undefined,
   ctaLabel: (e.ctaLabel as string) || undefined,

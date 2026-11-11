@@ -245,7 +245,7 @@ const en: Dictionary = {
       { q: 'When does Bjorli Ski Resort open?', a: 'Opening dates depend on snow and temperatures, so they vary from year to year. Check the opening times and the latest conditions before you travel.' },
       { q: 'Where do I buy a lift pass?', a: 'You can buy lift passes online before you arrive, or at the ticket office at the resort.' },
       { q: 'How do I get to Bjorli by train?', a: 'Bjorli is on the Rauma Line, between Dombås and Åndalsnes, and has its own station. Check www.entur.no for train and bus timetables and tickets.' },
-      { q: 'Can I hire skis and book lessons?', a: 'Yes. You can hire skis, snowboards and equipment at the resort, and book lessons with Bjorli Ski School.' },
+      { q: 'Can I hire skis and book lessons?', a: 'Bjorli Ski Resort offers selected clinics and drop-in sessions during the season. Email skisenter@bjorli.no to ask about current sessions and options.' },
       { q: 'Where can I stay in Bjorli?', a: 'You can choose between cabins, apartments and hotels. See the accommodation page for places to stay.' },
       { q: 'What can I do in Bjorli in summer?', a: 'Summer in Bjorli means hiking, cycling and family days out in Gudbrandsdalen and Romsdalen. Trollveggen, Trollstigen, the Geirangerfjord, Ålesund and Dovrefjell are all within reach.' },
       { q: 'Can I fly to Bjorli from Amsterdam or Copenhagen?', a: 'The nearest relevant airport is Ålesund Airport Vigra. There are direct flights from Amsterdam and Copenhagen in some periods, and the drive from Vigra to Bjorli takes around 2½ hours. Always check the airlines’ current timetables before you book.' },

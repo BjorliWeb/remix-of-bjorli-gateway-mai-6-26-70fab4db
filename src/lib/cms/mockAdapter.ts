@@ -196,7 +196,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Family-friendly skiing',
         body:
-          'Beginner slopes, a ski school and ski hire make Bjorli straightforward with children, so you don’t need to bring all your own kit. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
+          'Beginner slopes, selected clinics and drop-in sessions and ski hire make Bjorli straightforward with children, so you don’t need to bring all your own kit. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
         image: img('skiSchool', 'Children at ski school on the beginner slope in Bjorli'),
       },
       {
@@ -226,7 +226,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'Is Bjorli good for a family ski holiday?',
-        a: 'Yes. Bjorli has beginner slopes, a ski school and ski hire, and you can stay in cabins, apartments or a hotel. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
+        a: 'Yes. Bjorli has beginner slopes, selected clinics and drop-in sessions and ski hire, and you can stay in cabins, apartments or a hotel. Children aged 0 to 6 ski for free and don’t need their own Keycard (lift pass).',
       },
       {
         q: 'How do I get to Bjorli from the UK?',
@@ -305,7 +305,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Skifahren mit Kindern',
         body:
-          'Anfängerpisten, eine Skischule und ein Skiverleih machen Bjorli mit Kindern unkompliziert – Sie müssen nicht die ganze Ausrüstung selbst mitbringen. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
+          'Anfängerpisten, einzelne Clinics und Drop-in-Kurse und ein Skiverleih machen Bjorli mit Kindern unkompliziert – Sie müssen nicht die ganze Ausrüstung selbst mitbringen. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
         image: img('skiSchool', 'Kinder in der Skischule am Anfängerhang in Bjorli'),
       },
       {
@@ -335,7 +335,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'Eignet sich Bjorli für einen Skiurlaub mit der Familie?',
-        a: 'Ja. Bjorli hat Anfängerpisten, eine Skischule und einen Skiverleih, und Sie können in Hütten, Ferienwohnungen oder einem Hotel übernachten. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
+        a: 'Ja. Bjorli hat Anfängerpisten, einzelne Clinics und Drop-in-Kurse und einen Skiverleih, und Sie können in Hütten, Ferienwohnungen oder einem Hotel übernachten. Kinder von 0 bis einschließlich 6 Jahren fahren kostenlos und brauchen keine eigene Keycard (Liftkarte).',
       },
       {
         q: 'Wie komme ich aus dem Ausland nach Bjorli?',
@@ -410,7 +410,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Skidåkning för hela familjen',
         body:
-          'Nybörjarbackar, skidskola och skiduthyrning gör Bjorli enkelt med barn – du behöver inte ta med all utrustning själv. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
+          'Nybörjarbackar, enstaka clinics, drop-in-kurser och skiduthyrning gör Bjorli enkelt med barn – du behöver inte ta med all utrustning själv. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
         image: img('skiSchool', 'Barn i skidskolan i nybörjarbacken i Bjorli'),
       },
       {
@@ -440,7 +440,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'Passar Bjorli för en skidsemester med familjen?',
-        a: 'Ja. Bjorli har nybörjarbackar, skidskola och skiduthyrning, och du kan bo i stuga, lägenhet eller på hotell. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
+        a: 'Ja. Bjorli har nybörjarbackar, enstaka clinics, drop-in-kurser och skiduthyrning, och du kan bo i stuga, lägenhet eller på hotell. Barn från 0 till och med 6 år åker gratis och behöver inget eget Keycard (liftkort).',
       },
       {
         q: 'Hur tar jag mig till Bjorli från utlandet?',
@@ -515,7 +515,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Skiløb for hele familien',
         body:
-          'Begynderpister, skiskole og skiudlejning gør Bjorli nemt med børn – du behøver ikke at tage alt udstyret med selv. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
+          'Begynderpister, enkelte clinics, drop-in-kurser og skiudlejning gør Bjorli nemt med børn – du behøver ikke at tage alt udstyret med selv. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
         image: img('skiSchool', 'Børn på skiskole i begynderbakken i Bjorli'),
       },
       {
@@ -545,7 +545,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'Er Bjorli godt til en skiferie med familien?',
-        a: 'Ja. Bjorli har begynderpister, skiskole og skiudlejning, og du kan bo i hytte, lejlighed eller på hotel. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
+        a: 'Ja. Bjorli har begynderpister, enkelte clinics, drop-in-kurser og skiudlejning, og du kan bo i hytte, lejlighed eller på hotel. Børn fra 0 til og med 6 år står gratis på ski og behøver ikke deres eget Keycard (liftkort).',
       },
       {
         q: 'Hvordan kommer jeg til Bjorli fra udlandet?',
@@ -620,7 +620,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
         type: 'rich_text',
         heading: 'Skiën met kinderen',
         body:
-          'Beginnerspistes, een skischool en skiverhuur maken Bjorli makkelijk met kinderen – je hoeft niet al je eigen spullen mee te nemen. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
+          'Beginnerspistes, een enkele clinics, drop-in-cursussen en skiverhuur maken Bjorli makkelijk met kinderen – je hoeft niet al je eigen spullen mee te nemen. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
         image: img('skiSchool', 'Kinderen op skischool op de beginnerspiste in Bjorli'),
       },
       {
@@ -650,7 +650,7 @@ const SEO_LANDING_FIXTURES: Record<string, SeoLandingEntry> = {
       },
       {
         q: 'Is Bjorli geschikt voor wintersport met het gezin?',
-        a: 'Ja. Bjorli heeft beginnerspistes, een skischool en skiverhuur, en je kunt overnachten in een vakantiehuis, appartement of hotel. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
+        a: 'Ja. Bjorli heeft beginnerspistes, een enkele clinics, drop-in-cursussen en skiverhuur, en je kunt overnachten in een vakantiehuis, appartement of hotel. Kinderen van 0 tot en met 6 jaar skiën gratis en hebben geen eigen Keycard (skipas) nodig.',
       },
       {
         q: 'Hoe kom ik vanuit het buitenland in Bjorli?',

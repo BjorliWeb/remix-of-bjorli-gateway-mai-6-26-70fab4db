@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId, cloneElement, type ReactElement } from 'react';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
 import { Upload, X, Calendar, MapPin, Tag, ImagePlus, CheckCircle2 } from 'lucide-react';
@@ -290,7 +290,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       const map: Record<string, string> = {};
       parsed.error.issues.forEach((i) => {
         const key = i.path[0] as string;
-        map[key] = key === 'categories' ? c.f.category : i.message;
+        map[key] = key === 'categories' ? c.f.category
+          : key === 'email' ? (lang === 'no' ? 'Skriv inn en gyldig e-postadresse.' : 'Enter a valid email address.')
+          : i.code === 'too_small' ? (lang === 'no' ? `Fyll ut feltet med minst ${'minimum' in i ? i.minimum : 1} tegn.` : `Enter at least ${'minimum' in i ? i.minimum : 1} characters.`)
+          : (lang === 'no' ? 'Kontroller innholdet i feltet.' : 'Check this field.');
       });
       setErrors(map);
       return;
@@ -611,8 +614,17 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   if (e.dataTransfer.files) addFiles(e.dataTransfer.files);
                 }}
                 onClick={() => fileInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
+                aria-label={c.f.imagesDrop}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    fileInputRef.current?.click();
+                  }
+                }}
                 className={[
-                  'cursor-pointer border-2 border-dashed rounded-xl px-6 py-10 text-center transition-colors',
+                  'cursor-pointer border-2 border-dashed rounded-xl px-6 py-10 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                   dragOver ? 'border-season bg-season/5' : 'border-border hover:border-season/60',
                 ].join(' ')}
               >
@@ -624,6 +636,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   type="file"
                   multiple
                   accept={ALLOWED_TYPES.join(',')}
+                  aria-label={c.f.imagesDrop}
                   className="hidden"
                   onChange={(e) => e.target.files && addFiles(e.target.files)}
                 />
@@ -634,14 +647,16 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   {previews.map((src, i) => (
                     <div key={src} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border">
                       <img src={src} alt="" className="w-full h-full object-cover" />
-                      <button
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         type="button"
                         onClick={() => removeImage(i)}
                         className="absolute top-1.5 right-1.5 h-7 w-7 rounded-full bg-background/90 border border-border flex items-center justify-center hover:bg-destructive hover:text-destructive-foreground transition-colors"
                         aria-label="Remove"
                       >
                         <X className="h-3.5 w-3.5" />
-                      </button>
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -730,14 +745,16 @@ function Field({
   label: string;
   hint?: string;
   error?: string;
-  children: React.ReactNode;
+  children: ReactElement<{ id?: string; 'aria-describedby'?: string; 'aria-invalid'?: boolean }>;
 }) {
+  const id = useId();
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
     <div>
-      <Label className="mb-1.5 block text-sm font-medium text-foreground">{label}</Label>
-      {children}
-      {hint && !error && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
-      {error && <p className="mt-1 text-xs text-destructive">{error}</p>}
+      <Label htmlFor={id} className="mb-1.5 block text-sm font-medium text-foreground">{label}</Label>
+      {cloneElement(children, { id, 'aria-describedby': describedBy, 'aria-invalid': !!error || undefined })}
+      {hint && !error && <p id={`${id}-hint`} className="mt-1 text-xs text-muted-foreground">{hint}</p>}
+      {error && <p id={`${id}-error`} role="alert" className="mt-1 text-xs text-destructive">{error}</p>}
     </div>
   );
 }
