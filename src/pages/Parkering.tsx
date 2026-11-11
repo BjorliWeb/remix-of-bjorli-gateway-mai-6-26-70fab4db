@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
 import { trackExternalPartnerClick } from '@/lib/analytics';
+import { PARKING_RULES } from '@/lib/cms/practicalRules';
 
 /**
  * Dedicated parking page for Bjorli Skisenter.
@@ -275,9 +276,12 @@ const COPY: Record<Locale, Copy> = {
 
 const Parkering = () => {
   const t = usePageCopy(COPY);
+  const withRates = (text: string) => text.replace(/\b95\b/g, String(PARKING_RULES.p1PriceNok))
+    .replace(/\b115\b/g, String(PARKING_RULES.p2PriceNok))
+    .replace(/\b900\b/g, String(PARKING_RULES.annualPriceNok));
   const areas = [
-    { name: t.p1Name, desc: t.p1Desc },
-    { name: t.p2Name, desc: t.p2Desc },
+    { name: t.p1Name, desc: withRates(t.p1Desc) },
+    { name: t.p2Name, desc: withRates(t.p2Desc) },
   ];
 
   return (
@@ -328,7 +332,7 @@ const Parkering = () => {
             </div>
             <ul className="space-y-2 text-foreground/85 leading-relaxed list-disc pl-5">
               {t.paymentItems.map((it) => (
-                <li key={it}>{it}</li>
+                <li key={it}>{withRates(it)}</li>
               ))}
             </ul>
             <a

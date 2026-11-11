@@ -32,6 +32,7 @@ export interface SnapshotEntry {
   endsAt?: string;
   location?: string;
   image?: string;
+  ogImage?: string;
   seoTitle?: string;
   seoDescription?: string;
   /** Editorial CTA label for detail pages (e.g. Early Bird purchase). */
