@@ -20,7 +20,7 @@ import posterJanApr from '@/assets/photos/arrangementer/bjorli-vinter-arrangemen
 import spisestedeneLogo from '@/assets/logos/bjorli-mat-og-drikke-spisestedene-logo.jpg';
 
 /** Single switch for the combined release. Keep false until approved. */
-export const WINTER_PROGRAM_PUBLISHED = false;
+export const WINTER_PROGRAM_PUBLISHED = true;
 
 export const SPISESTEDENE_INSTAGRAM_URL = 'https://www.instagram.com/bjorli_spisestedene/';
 export const SPISESTEDENE_INSTAGRAM_HANDLE = '@bjorli_spisestedene';
