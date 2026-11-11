@@ -14,7 +14,10 @@ import { ZoomIn } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import type { ListingItem } from '@/components/ListingPage';
-import { hasRichMarkup, parseRichText } from '@/lib/content/richText';
+import { hasRichMarkup, isExternalHref, parseRichText } from '@/lib/content/richText';
+import type { CmsImage } from '@/lib/cms';
+import { itemCategories } from './listingHelpers';
+import { formatEventCategory } from '@/lib/events/displayFormat';
 
 export type DetailKind = 'news' | 'event' | 'tip' | 'activity';
 
@@ -41,6 +44,8 @@ interface Props {
   translatedBody?: boolean;
   /** Discreet status chip, e.g. "Avsluttet" on an archived event. */
   statusLabel?: string;
+  /** Images referenced from the body as `![alt](key)`. */
+  bodyImages?: Record<string, CmsImage>;
 }
 
 const ContentDetailTemplate = ({
@@ -56,6 +61,7 @@ const ContentDetailTemplate = ({
   extraContent,
   translatedBody,
   statusLabel,
+  bodyImages,
 }: Props) => {
   const { d, locale } = useLanguage();
   const lp = useLocalizedPath();
@@ -72,14 +78,20 @@ const ContentDetailTemplate = ({
   }
 
   const showDate = kind === 'news' || kind === 'event';
+  // Events list every category; other kinds keep their single label.
+  const chips = kind === 'event'
+    ? itemCategories(item).map((c) => formatEventCategory(c, locale))
+    : item.category ? [item.category] : [];
+  // Posters and logos are shown whole: use the contained (event) hero layout.
+  const containedHero = kind === 'event' || item.imageFit === 'contain';
 
   return (
     <article>
-      {kind === 'event' ? (
+      {containedHero ? (
         <section className="pt-10 md:pt-14 px-4">
           <div className="container mx-auto max-w-5xl">
             <div className="flex flex-wrap items-center gap-2 mb-4">
-              {item.category && <CategoryLabel variant="solid">{item.category}</CategoryLabel>}
+              {chips.map((c) => <CategoryLabel key={c} variant="solid">{c}</CategoryLabel>)}
               {showDate && item.date && <DateBadge date={item.date} locale={locale} />}
               {statusLabel && (
                 <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border">
@@ -124,7 +136,7 @@ const ContentDetailTemplate = ({
         <div className="relative z-10 container mx-auto px-4 pb-12">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="flex flex-wrap items-center gap-2 mb-4">
-              {item.category && <CategoryLabel variant="solid">{item.category}</CategoryLabel>}
+              {chips.map((c) => <CategoryLabel key={c} variant="solid">{c}</CategoryLabel>)}
               {showDate && item.date && <DateBadge date={item.date} locale={locale} />}
               {statusLabel && (
                 <span className="rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-muted-foreground ring-1 ring-border">
@@ -157,8 +169,27 @@ const ContentDetailTemplate = ({
             hasRichMarkup(body) ? (
               <div className="text-muted-foreground text-lg leading-relaxed">
                 {parseRichText(body).map((b, bi) => {
+                  if (b.type === 'img') {
+                    const img = bodyImages?.[b.key];
+                    if (!img) return null;
+                    return (
+                      <figure key={bi} className="my-8">
+                        <img
+                          src={img.url}
+                          alt={b.alt || img.alt || ''}
+                          width={img.width}
+                          height={img.height}
+                          loading="lazy"
+                          decoding="async"
+                          className="mx-auto block h-auto w-auto max-w-full max-h-[85vh] rounded-xl object-contain"
+                        />
+                      </figure>
+                    );
+                  }
                   const kids = b.inlines.map((i, ii) =>
-                    i.href ? (
+                    i.href && isExternalHref(i.href) ? (
+                      <a key={ii} href={i.href} target="_blank" rel="noopener noreferrer" className="text-secondary underline underline-offset-2 hover:no-underline">{i.text}</a>
+                    ) : i.href ? (
                       <Link key={ii} to={lp(i.href)} className="text-secondary underline underline-offset-2 hover:no-underline">{i.text}</Link>
                     ) : (
                       <span key={ii}>{i.text}</span>
