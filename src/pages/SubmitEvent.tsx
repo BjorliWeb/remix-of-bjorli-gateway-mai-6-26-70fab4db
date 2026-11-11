@@ -290,7 +290,10 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       const map: Record<string, string> = {};
       parsed.error.issues.forEach((i) => {
         const key = i.path[0] as string;
-        map[key] = key === 'categories' ? c.f.category : i.message;
+        map[key] = key === 'categories' ? c.f.category
+          : key === 'email' ? (lang === 'no' ? 'Skriv inn en gyldig e-postadresse.' : 'Enter a valid email address.')
+          : i.code === 'too_small' ? (lang === 'no' ? `Fyll ut feltet med minst ${'minimum' in i ? i.minimum : 1} tegn.` : `Enter at least ${'minimum' in i ? i.minimum : 1} characters.`)
+          : (lang === 'no' ? 'Kontroller innholdet i feltet.' : 'Check this field.');
       });
       setErrors(map);
       return;
@@ -644,14 +647,16 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   {previews.map((src, i) => (
                     <div key={src} className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border">
                       <img src={src} alt="" className="w-full h-full object-cover" />
-                      <button
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         type="button"
                         onClick={() => removeImage(i)}
                         className="absolute top-1.5 right-1.5 h-7 w-7 rounded-full bg-background/90 border border-border flex items-center justify-center hover:bg-destructive hover:text-destructive-foreground transition-colors"
                         aria-label="Remove"
                       >
                         <X className="h-3.5 w-3.5" />
-                      </button>
+                      </Button>
                     </div>
                   ))}
                 </div>

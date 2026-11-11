@@ -51,9 +51,20 @@ describe('Bjorli Spisestedene winter programme 2026/27', () => {
 
   it('links every programme item and the Instagram account from the news story', () => {
     const body = buildWinterProgramNews().body ?? '';
-    for (const p of PROGRAM_ALL) expect(body).toContain(`(/arrangementer/${programEventSlug(p)}/)`);
+    for (const p of PROGRAM_ALL.filter((p) => p.date !== '2026-11-28')) expect(body).toContain(`(/arrangementer/${programEventSlug(p)}/)`);
     expect(body).toContain(`(${SPISESTEDENE_INSTAGRAM_URL})`);
     expect(body).toContain('(/mat-og-drikke/)');
+  });
+
+  it('does not link to the pending 28 November submission, even in an active test programme', () => {
+    expect(buildWinterProgramNews(true).body).not.toContain(`(/arrangementer/${programEventSlug(PROGRAM_ALL[3])}/)`);
+    expect(buildWinterProgramNews(true).body).toContain('Pray for Snow-fest med bål og DJ Preben');
+  });
+
+  it('activates all eleven new entries and the article only in an explicitly requested test', () => {
+    expect(buildWinterProgramEvents(true).filter((e) => e.status === 'published')).toHaveLength(11);
+    expect(buildWinterProgramNews(true).status).toBe('published');
+    expect(buildWinterProgramNews().status).toBe('unpublished');
   });
 
   it('formats calendar dates without shifting them', () => {
