@@ -4,6 +4,8 @@ import type { Season } from '@/lib/cms';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { EventLink, resolveEventTarget } from './eventLink';
+import { itemCategories } from './listingHelpers';
+import { formatEventCategory } from '@/lib/events/displayFormat';
 
 /**
  * Type-specific cards. They share the visual ContentCard but exist as
@@ -39,7 +41,7 @@ export interface CmsCardProps {
 }
 
 export const NewsCard = ({ item, to, index }: CardProps) => (
-  <ContentCard to={to} image={item.image} category={item.category} date={item.date} title={item.title} intro={item.intro} index={index} />
+  <ContentCard to={to} image={item.image} imageFit={item.imageFit} category={item.category} date={item.date} title={item.title} intro={item.intro} index={index} />
 );
 
 export const EventCard = ({ item, to, index = 0 }: CardProps) => {
@@ -70,11 +72,11 @@ export const EventCard = ({ item, to, index = 0 }: CardProps) => {
         <div className="p-7 flex flex-col flex-1">
           {(item.category || item.date) && (
             <div className="flex flex-wrap gap-2 mb-3">
-              {item.category && (
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-muted text-foreground">
-                  {item.category}
+              {itemCategories(item).map((c) => (
+                <span key={c} className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-muted text-foreground">
+                  {formatEventCategory(c, 'no')}
                 </span>
-              )}
+              ))}
               {item.date && (
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-medium uppercase tracking-[0.15em] bg-secondary/90 text-secondary-foreground">
                   {item.date}

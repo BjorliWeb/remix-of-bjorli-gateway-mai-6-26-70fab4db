@@ -6,9 +6,11 @@ export interface CategoryFilterProps {
   active: string | null;
   onChange: (cat: string | null) => void;
   allLabel: string;
+  /** Display label for a stored category value (the value itself stays the filter key). */
+  formatLabel?: (cat: string) => string;
 }
 
-const CategoryFilter = ({ label, categories, active, onChange, allLabel }: CategoryFilterProps) => {
+const CategoryFilter = ({ label, categories, active, onChange, allLabel, formatLabel }: CategoryFilterProps) => {
   if (!categories.length) return null;
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -37,7 +39,7 @@ const CategoryFilter = ({ label, categories, active, onChange, allLabel }: Categ
               : 'bg-background text-foreground border-border hover:border-secondary hover:text-secondary',
           )}
         >
-          {c}
+          {formatLabel ? formatLabel(c) : c}
         </button>
       ))}
     </div>

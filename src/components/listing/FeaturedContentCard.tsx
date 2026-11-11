@@ -5,6 +5,8 @@ import CategoryLabel from './CategoryLabel';
 import DateBadge from './DateBadge';
 import type { ListingItem } from '@/components/ListingPage';
 import { resolveEventTarget, type EventLinkTarget } from './eventLink';
+import { itemCategories } from './listingHelpers';
+import { formatEventCategory } from '@/lib/events/displayFormat';
 
 interface Props {
   item: ListingItem;
@@ -25,15 +27,16 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
     : { kind: 'internal', to };
   const clickable = target.kind !== 'none';
   const external = target.kind === 'external';
+  const contain = eventMode || item.imageFit === 'contain';
 
   const inner = (
     <>
-      <div className={`relative aspect-[4/3] md:aspect-auto md:min-h-[320px] overflow-hidden ${eventMode ? 'bg-muted' : ''}`}>
+      <div className={`relative aspect-[4/3] md:aspect-auto md:min-h-[320px] overflow-hidden ${contain ? 'bg-muted' : ''}`}>
         <img
           src={item.image}
           alt={item.title}
           className={`absolute inset-0 w-full h-full ${
-            eventMode ? 'object-contain object-center' : `object-cover transition-transform duration-700 ${clickable ? 'group-hover:scale-105' : ''}`
+            contain ? 'object-contain object-center' : `object-cover transition-transform duration-700 ${clickable ? 'group-hover:scale-105' : ''}`
           }`}
         />
         {!eventMode && (
@@ -45,7 +48,9 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
       <div className="p-6 md:p-10 flex flex-col justify-center">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           {eventMode && <CategoryLabel variant="solid">{featuredLabel}</CategoryLabel>}
-          {item.category && <CategoryLabel>{item.category}</CategoryLabel>}
+          {(eventMode ? itemCategories(item) : item.category ? [item.category] : []).map((c) => (
+            <CategoryLabel key={c}>{eventMode ? formatEventCategory(c, 'no') : c}</CategoryLabel>
+          ))}
           {item.date && <DateBadge date={item.date} />}
         </div>
         <h2

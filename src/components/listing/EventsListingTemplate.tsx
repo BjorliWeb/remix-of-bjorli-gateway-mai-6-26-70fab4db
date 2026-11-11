@@ -15,7 +15,8 @@ import CategoryLabel from './CategoryLabel';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { EventLink, resolveEventTarget } from './eventLink';
-import { PAGE_SIZE, filterByCategory, filterByDate, uniqueCategories } from './listingHelpers';
+import { PAGE_SIZE, filterByCategory, filterByDate, uniqueCategories, itemCategories } from './listingHelpers';
+import { formatEventCategory } from '@/lib/events/displayFormat';
 import type { ListingItem } from '@/components/ListingPage';
 
 export interface EventsListingTemplateProps {
@@ -62,6 +63,7 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items, archi
             active={category}
             onChange={(c) => { setCategory(c); setVisible(PAGE_SIZE); }}
             allLabel={d.listing.filterAll ?? 'Alle'}
+            formatLabel={(c) => formatEventCategory(c, locale)}
           />
         </div>
         <CalendarListToggle
@@ -114,8 +116,8 @@ const EventsListingTemplate = ({ title, intro, heroImage, basePath, items, archi
                       <DateBadge date={item.date} locale={locale} />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        {item.category && <CategoryLabel>{item.category}</CategoryLabel>}
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        {itemCategories(item).map((c) => <CategoryLabel key={c}>{formatEventCategory(c, locale)}</CategoryLabel>)}
                       </div>
                       <h3 className="font-display text-lg font-semibold text-foreground">{item.title}</h3>
                       {item.intro && <p className="text-sm text-muted-foreground line-clamp-2">{item.intro}</p>}
