@@ -174,6 +174,7 @@ export type Database = {
           ai_quality_notes: string | null
           ai_seo_meta: string | null
           ai_seo_title: string | null
+          categories: string[]
           category: string
           consent_editing: boolean
           consent_rights: boolean
@@ -213,6 +214,7 @@ export type Database = {
           ai_quality_notes?: string | null
           ai_seo_meta?: string | null
           ai_seo_title?: string | null
+          categories?: string[]
           category: string
           consent_editing?: boolean
           consent_rights?: boolean
@@ -252,6 +254,7 @@ export type Database = {
           ai_quality_notes?: string | null
           ai_seo_meta?: string | null
           ai_seo_title?: string | null
+          categories?: string[]
           category?: string
           consent_editing?: boolean
           consent_rights?: boolean
