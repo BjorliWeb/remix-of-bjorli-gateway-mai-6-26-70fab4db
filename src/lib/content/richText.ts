@@ -1,11 +1,20 @@
 /**
  * Minimal, Node-safe editorial body markup shared by React and prerender:
- * blank-line separated paragraphs, `## ` headings (H2) and `[text](/path/)`
- * internal links. Both renderers consume the same parse, so first HTML and
+ * blank-line separated paragraphs, `## ` headings (H2), `[text](/path/)`
+ * links (internal, or external when the href starts with https://) and
+ * `![alt](key)` image blocks, where `key` names an entry in the entry's
+ * `bodyImages` map. Both renderers consume the same parse, so first HTML and
  * the hydrated view show identical content.
  */
 export type Inline = { text: string; href?: string };
-export type Block = { type: 'h2' | 'p'; inlines: Inline[] };
+export type Block =
+  | { type: 'h2' | 'p'; inlines: Inline[] }
+  | { type: 'img'; key: string; alt: string; inlines: Inline[] };
+
+const IMAGE_BLOCK = /^!\[([^\]]*)\]\(([a-z0-9-]+)\)$/;
+
+/** External link: rendered as a normal <a>, never routed through the SPA. */
+export const isExternalHref = (href: string): boolean => /^https?:\/\//i.test(href);
 
 const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
 
@@ -28,11 +37,13 @@ export const parseRichText = (body: string): Block[] =>
     .split(/\n{2,}/)
     .map((c) => c.trim())
     .filter(Boolean)
-    .map((c) =>
-      c.startsWith('## ')
-        ? { type: 'h2' as const, inlines: parseInlines(c.slice(3).trim()) }
-        : { type: 'p' as const, inlines: parseInlines(c.replace(/\s*\n\s*/g, ' ')) },
-    );
+    .map((c): Block => {
+      const img = IMAGE_BLOCK.exec(c);
+      if (img) return { type: 'img', key: img[2], alt: img[1], inlines: [] };
+      return c.startsWith('## ')
+        ? { type: 'h2', inlines: parseInlines(c.slice(3).trim()) }
+        : { type: 'p', inlines: parseInlines(c.replace(/\s*\n\s*/g, ' ')) };
+    });
 
 /** Plain text (links flattened) — for word counts and tests. */
 export const richTextPlain = (body: string): string =>
