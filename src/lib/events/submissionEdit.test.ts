@@ -6,7 +6,7 @@ import {
 const base = {
   title: 'Pumptrack-dag', summary: '', description: 'En lang nok beskrivelse her.',
   organizer: 'Bjorli', start_date: '2026-11-01', end_date: '', time_text: '',
-  location: 'Bjorli', maps_url: '', website: '', category: 'sykkel',
+  location: 'Bjorli', maps_url: '', website: '', categories: ['sykkel'],
 };
 
 describe('submission edit', () => {
