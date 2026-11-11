@@ -748,10 +748,10 @@ const buildNews = (lang: Language): CmsNews[] => {
           ? { ctaLabel: n.ctaLabel, ctaHref: n.ctaHref }
           : {}),
         status: n.status ?? 'published',
-      };
+      } as CmsNews & { status: string };
     })
     // Norwegian-only story; hidden until the combined winter release.
-    .concat(lang === 'no' ? [buildWinterProgramNews()] : [])
+    .concat(lang === 'no' ? [buildWinterProgramNews() as CmsNews & { status: string }] : [])
     .filter((n) => n.status === 'published');
 };
 
