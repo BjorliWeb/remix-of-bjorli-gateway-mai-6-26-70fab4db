@@ -116,13 +116,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mat & Drikke',
       subtitle: 'Nyt maten på fjellet',
-      intro: 'I skisenteret finner du både Heiskroa og T-Kroken. Sammen gir de gjestene et godt tilbud gjennom skidagen, enten du vil ha en rask pause, varm drikke, lunsj, loungefølelse eller afterski etter siste tur.\n\nBegge serveringsstedene drives samlet, med vekt på god service, lun stemning og mat laget med omtanke. Der det er mulig brukes kortreiste og lokale råvarer.',
-      venuesSectionTitle: 'Heiskroa og T-Kroken',
-      imageAlt: 'Stemningsbilder fra T-Kroken og Heiskroa på Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
+      intro: 'I Bjorli Skisenter finner du Bjorli Fjellkafe og Heiskroa. Ved Fjellheisen ligger også Fjellbua – Bjorli, som åpner når forholdene tilsier det. Her finner du steder for en rask pause, varm drikke, lunsj og hyggelige stunder gjennom skidagen.\n\nBjorli Spisestedene er fellesbetegnelsen for serveringstilbudene i Bjorli Skisenter. Serveringsstedene drives samlet, med vekt på god service, lun stemning og mat laget med omtanke. Der det er mulig, brukes kortreiste og lokale råvarer.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa og Fjellbua',
+      imageAlt: 'Stemningsbilder fra Bjorli Fjellkafe og Heiskroa i Bjorli Skisenter med kafé, lounge, peis, bakst og vinterstemning.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Kafé, lounge, mat og afterski',
-        desc: 'T-Kroken er stedet for deg som vil sette deg ned for mat, drikke og en mer komplett serveringsopplevelse. Her gjelder spiseplikt i serveringsområdet.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen og Loftet',
+        desc: 'Bjorli Fjellkafe er navnet på hovedbygget og serveringskonseptene der. Kafeen er kaféområdet med mat og drikke, mens Loungen er loungeområdet. Det er spiseplikt i serveringsområdet i Bjorli Fjellkafe.',
       },
       heiskroa: {
         name: 'Heiskroa',
@@ -278,13 +278,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Food & drink in Bjorli',
       subtitle: 'Food on the mountain',
-      intro: 'At the ski resort you’ll find both Heiskroa and T-Kroken. Between them, you can stop for a quick break, a warm drink, lunch, a relaxed lounge or après-ski after the last run.\n\nBoth are run together, with a focus on good service, a warm atmosphere and food made with care. Local ingredients are used where possible.',
-      venuesSectionTitle: 'Heiskroa and T-Kroken',
-      imageAlt: 'T-Kroken and Heiskroa at Bjorli Ski Resort, with the café, lounge, fireplace and baking on a winter’s day.',
+      intro: 'At Bjorli Skisenter you’ll find Bjorli Fjellkafe and Heiskroa. Up by Fjellheisen there’s also Fjellbua – Bjorli, which opens when conditions allow. Together they cover a quick break, a hot drink, lunch and a good time through the ski day.\n\nBjorli Spisestedene is the shared name for the places to eat and drink at Bjorli Skisenter. They’re run together, with a focus on good service, a warm atmosphere and food made with care. Local ingredients are used wherever possible.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa and Fjellbua',
+      imageAlt: 'Bjorli Fjellkafe and Heiskroa at Bjorli Ski Resort, with the café, lounge, fireplace and baking on a winter’s day.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Café, lounge, food and après-ski',
-        desc: 'T-Kroken is the place to sit down for a proper meal and a drink. Please note that the seating area is reserved for guests who are eating.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen and Loftet',
+        desc: 'Bjorli Fjellkafe is the name of the main building and the food and drink concepts inside it. Kafeen is the café area with food and drink, and Loungen is the lounge area. Food must be ordered in the dining area at Bjorli Fjellkafe.',
       },
       heiskroa: {
         name: 'Heiskroa',
@@ -440,13 +440,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mad & Drikke',
       subtitle: 'Nyd maden på fjeldet',
-      intro: 'I skianlægget finder du både Heiskroa og T-Kroken. Sammen giver de gæsterne et godt tilbud gennem skidagen, uanset om du vil have en hurtig pause, varm drik, frokost, loungestemning eller afterski efter sidste tur.\n\nBegge serveringssteder drives samlet, med vægt på god service, lun stemning og mad lavet med omtanke. Hvor det er muligt, bruges kortrejste og lokale råvarer.',
-      venuesSectionTitle: 'Heiskroa og T-Kroken',
-      imageAlt: 'Stemningsbilleder fra T-Kroken og Heiskroa på Bjorli Skisenter med café, lounge, pejs, bagværk og vinterstemning.',
+      intro: 'I Bjorli Skisenter finder du Bjorli Fjellkafe og Heiskroa. Ved Fjellheisen ligger også Fjellbua – Bjorli, som åbner, når forholdene tillader det. Her er der steder til en hurtig pause, en varm drik, frokost og hyggelige stunder gennem skidagen.\n\nBjorli Spisestedene er fællesbetegnelsen for serveringsstederne i Bjorli Skisenter. Stederne drives samlet, med vægt på god service, hyggelig stemning og mad lavet med omtanke. Hvor det er muligt, bruges lokale råvarer.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa og Fjellbua',
+      imageAlt: 'Stemningsbilleder fra Bjorli Fjellkafe og Heiskroa i Bjorli Skisenter med café, lounge, pejs, bagværk og vinterstemning.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Café, lounge, mad og afterski',
-        desc: 'T-Kroken er stedet for dig, der vil sætte dig ned til mad, drikke og en mere komplet serveringsoplevelse. Her gælder spisepligt i serveringsområdet.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen og Loftet',
+        desc: 'Bjorli Fjellkafe er navnet på hovedbygningen og serveringskoncepterne der. Kafeen er caféområdet med mad og drikke, mens Loungen er loungeområdet. Der er spisepligt i serveringsområdet i Bjorli Fjellkafe.',
       },
       heiskroa: {
         name: 'Heiskroa',
@@ -602,13 +602,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Eten & Drinken',
       subtitle: 'Geniet van de bergkeuken',
-      intro: 'In het skigebied vind je zowel Heiskroa als T-Kroken. Samen bieden ze gasten een goed aanbod gedurende de skildag, of je nu een korte pauze, warme drank, lunch, loungegevoel of après-ski na de laatste afdaling wilt.\n\nBeide horecagelegenheden worden samen gerund, met nadruk op goede service, een warme sfeer en eten bereid met zorg. Waar mogelijk worden kortgetelde en lokale ingrediënten gebruikt.',
-      venuesSectionTitle: 'Heiskroa en T-Kroken',
-      imageAlt: 'Sfeerbeelden van T-Kroken en Heiskroa bij Bjorli Skisenter met café, lounge, open haard, gebak en winterse sfeer.',
+      intro: 'In Bjorli Skisenter vind je Bjorli Fjellkafe en Heiskroa. Bij Fjellheisen ligt ook Fjellbua – Bjorli, dat opengaat wanneer de omstandigheden het toelaten. Hier kun je terecht voor een snelle pauze, een warm drankje, lunch en gezellige momenten tijdens de skidag.\n\nBjorli Spisestedene is de gezamenlijke naam voor de horeca in Bjorli Skisenter. De zaken worden samen gerund, met aandacht voor goede service, een warme sfeer en eten dat met zorg is bereid. Waar het kan, worden lokale producten gebruikt.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa en Fjellbua',
+      imageAlt: 'Sfeerbeelden van Bjorli Fjellkafe en Heiskroa bij Bjorli Skisenter met café, lounge, open haard, gebak en winterse sfeer.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Café, lounge, eten en après-ski',
-        desc: 'T-Kroken is de plek voor wie wil neerzitten voor eten, drinken en een completere horeca-ervaring. Houd er rekening mee dat het zitgedeelte is gereserveerd voor gasten die een maaltijd nuttigen.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen en Loftet',
+        desc: 'Bjorli Fjellkafe is de naam van het hoofdgebouw en de horecaconcepten daarin. Kafeen is het cafégedeelte met eten en drinken, Loungen het loungegedeelte. In het serveergedeelte van Bjorli Fjellkafe geldt een eetverplichting.',
       },
       heiskroa: {
         name: 'Heiskroa',
@@ -764,13 +764,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Essen & Trinken',
       subtitle: 'Bergküche genießen',
-      intro: 'Im Skigebiet finden Sie sowohl Heiskroa als auch T-Kroken. Gemeinsam bieten sie den Gästen den ganzen Tag über eine gute Auswahl – ob schnelle Pause, warmer Drink, Mittagessen, Lounge-Atmosphäre oder Après-Ski nach der letzten Abfahrt.\n\nBeide Lokale werden gemeinsam geführt, mit Schwerpunkt auf gutem Service, warmer Atmosphäre und mit Bedacht zubereiteter Speisen. Wo möglich, werden kurze Lieferwege und lokale Zutaten verwendet.',
-      venuesSectionTitle: 'Heiskroa und T-Kroken',
-      imageAlt: 'Stimmungsbilder von T-Kroken und Heiskroa im Bjorli Skisenter mit Café, Lounge, Kamin, Gebäck und Winterstimmung.',
+      intro: 'Im Bjorli Skisenter gibt es Bjorli Fjellkafe und Heiskroa. Am Fjellheisen liegt außerdem Fjellbua – Bjorli, die öffnet, wenn die Bedingungen es zulassen. Hier finden Sie Orte für eine kurze Pause, ein warmes Getränk, Mittagessen und gemütliche Momente über den Skitag.\n\nBjorli Spisestedene ist der gemeinsame Name für die Gastronomie im Bjorli Skisenter. Die Lokale werden gemeinsam betrieben – mit gutem Service, gemütlicher Stimmung und sorgfältig zubereitetem Essen. Wo möglich, kommen regionale Zutaten auf den Tisch.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa und Fjellbua',
+      imageAlt: 'Stimmungsbilder von Bjorli Fjellkafe und Heiskroa im Bjorli Skisenter mit Café, Lounge, Kamin, Gebäck und Winterstimmung.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Café, Lounge, Essen und Après-Ski',
-        desc: 'T-Kroken ist der Ort für alle, die sich zum Essen, Trinken und einem vollständigeren gastronomischen Erlebnis hinsetzen möchten. Im Servierbereich gilt Tischplatz für Speisende.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen und Loftet',
+        desc: 'Bjorli Fjellkafe ist der Name des Hauptgebäudes und der Gastronomiekonzepte darin. Kafeen ist der Cafébereich mit Essen und Getränken, Loungen der Loungebereich. Im Servicebereich der Bjorli Fjellkafe besteht Verzehrpflicht.',
       },
       heiskroa: {
         name: 'Heiskroa',
@@ -926,13 +926,13 @@ export const translations = {
     foodDrinkPage: {
       title: 'Mat & Dryck',
       subtitle: 'Njut av fjällmaten',
-      intro: 'I skidanläggningen hittar du både Heiskroa och T-Kroken. Tillsammans ger de gästerna ett bra utbud genom skidagen, oavsett om du vill ha en kort paus, varm dryck, lunch, loungekänsla eller afterski efter sista åket.\n\nBåda serveringsställena drivs gemensamt, med fokus på god service, varm stämning och mat lagad med omtanke. Där det är möjligt används kortresta och lokala råvaror.',
-      venuesSectionTitle: 'Heiskroa och T-Kroken',
-      imageAlt: 'Stämningsbilder från T-Kroken och Heiskroa på Bjorli Skisenter med kafé, lounge, öppen spis, bakverk och vinterstämning.',
+      intro: 'I Bjorli Skisenter hittar du Bjorli Fjellkafe och Heiskroa. Vid Fjellheisen ligger också Fjellbua – Bjorli, som öppnar när förhållandena tillåter. Här finns ställen för en snabb paus, varm dryck, lunch och trevliga stunder under skiddagen.\n\nBjorli Spisestedene är det gemensamma namnet på serveringarna i Bjorli Skisenter. Ställena drivs tillsammans, med fokus på god service, mysig stämning och mat lagad med omtanke. Där det går används lokala råvaror.',
+      venuesSectionTitle: 'Bjorli Fjellkafe, Heiskroa och Fjellbua',
+      imageAlt: 'Stämningsbilder från Bjorli Fjellkafe och Heiskroa på Bjorli Skisenter med kafé, lounge, öppen spis, bakverk och vinterstämning.',
       tkroken: {
-        name: 'T-Kroken',
-        tag: 'Kafé, lounge, mat och afterski',
-        desc: 'T-Kroken är stället för dig som vill sätta dig ner för mat, dryck och en mer komplett serveringsupplevelse. Här gäller spisplikt i serveringsområdet.',
+        name: 'Bjorli Fjellkafe',
+        tag: 'Kafeen, Loungen och Loftet',
+        desc: 'Bjorli Fjellkafe är namnet på huvudbyggnaden och serveringskoncepten där. Kafeen är kaféområdet med mat och dryck, medan Loungen är loungeområdet. Det är matplikt i serveringsområdet i Bjorli Fjellkafe.',
       },
       heiskroa: {
         name: 'Heiskroa',
