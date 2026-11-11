@@ -13,11 +13,8 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
 import { trackEventSubmissionSubmit } from '@/lib/analytics';
-import {
-  EVENT_CATEGORY_KEYS,
-  CATEGORY_LABELS,
-  type EventCategoryKey,
-} from '@/lib/eventCategories';
+import { MAX_EVENT_CATEGORIES } from '@/lib/eventCategories';
+import { EventCategoryPicker } from '@/components/events/EventCategoryPicker';
 
 type Lang = 'no' | 'en';
 
@@ -201,7 +198,6 @@ interface Props {
 
 const SubmitEvent = ({ lang = 'no' }: Props) => {
   const c = COPY[lang];
-  const cats = CATEGORY_LABELS[lang];
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -239,7 +235,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     mountedAt.current = Date.now();
   }, []);
 
-  const update = (k: keyof typeof form, v: string) => setForm((p) => ({ ...p, [k]: v }));
+  const update = (k: Exclude<keyof typeof form, 'categories'>, v: string) => setForm((p) => ({ ...p, [k]: v }));
 
   const addFiles = (files: FileList | File[]) => {
     const incoming = Array.from(files);
@@ -293,7 +289,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     if (!parsed.success) {
       const map: Record<string, string> = {};
       parsed.error.issues.forEach((i) => {
-        map[i.path[0] as string] = i.message;
+        const key = i.path[0] as string;
+        map[key] = key === 'categories' ? c.f.category : i.message;
       });
       setErrors(map);
       return;
@@ -458,7 +455,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 setForm({
                   title: '', summary: '', description: '', organizer: '', contactName: '',
                   email: '', phone: '', website: '', startDate: '', endDate: '', time: '',
-                  location: '', maps: '', category: '',
+                  location: '', maps: '', categories: [],
                 });
                 setImages([]); setPreviews([]); setConsentRights(false); setConsentEditing(false); setShowEmailPublic(false);
               }}
