@@ -1,52 +1,54 @@
-# Søket «bjorli»: forsiden skal være hovedresultatet
+# Bjorli Spisestedene: navn, vinterprogram og flere kategorier
 
-## Hva som er dokumentert så langt (lest 11.11.2026)
-**Semrush, norsk database, nåværende øyeblikksbilde.** Semrush oppgir ingen eksakt måledato. Tallene er anslag, ikke målt trafikk, og ikke et sikkert bilde av Googles resultat i dag.
-- «bjorli» (anslagsvis 4 400 søk/mnd): **posisjon 1 = /personvern/** og **posisjon 8 = /kontakt/**. Forsiden står ikke oppført for dette søket.
-- Forsiden er nr. 1 på «bjorli ski» og «bjorli skisenter». Flere adresser fra oss rangerer altså samtidig.
-- Semrush skiller ikke mellom hovedresultat og underlenker under hovedresultatet. En mulig forklaring er at personvernsiden er registrert som en underlenke. Det er en **hypotese**.
+Plan for oppgaven i den opplastede teksten, med de fire bildene. Arbeidet deles i fire avgrensede etapper som kan godkjennes hver for seg. Ingenting publiseres.
 
-**Produksjon, første HTML fra bjorli.no:**
-| Adresse | Status | Tittel | Canonical | Robots | H1 |
-|---|---|---|---|---|---|
-| / | 200 | «Bjorli – snøsikkert skisenter og fjellferie hele året» | https://bjorli.no/ | ingen (indekserbar) | «Snøsikre skidager for hele familien» |
-| /personvern/ | 200 | «Personvern \| Bjorli» | egen adresse | ingen | «Personvern \| Bjorli» |
-| /kontakt/ | 200 | «Kontakt – Destinasjon Bjorli» | egen adresse | ingen | «Kontakt Destinasjon Bjorli» |
+## Funnet ved gjennomgang
+- «T-Kroken» finnes i seks kildefiler. De fleste treffene er i «Mat og drikke» (ca. 50), de gamle oversettelsene (ca. 36) og parkeringssiden (ca. 24). Noen få treff er i handel, tipsartikler og bildeoversikten.
+- Et arrangement kan i dag bare ha én kategori, både i innsendingsskjemaet og i databasen. Flervalg krever derfor en databaseendring.
+- Arrangementene har dato uten klokkeslett og et eget fritekstfelt for tid. «Tidspunkt kommer» kan derfor vises uten å sette «Hele dagen».
 
-- Ingen X-Robots-Tag noe sted. www og http sender videre med 301.
-- Alle tre sidene har 7 hreflang-lenker og eget innhold i første HTML (forsiden 302 ord).
-- **Ingen verifisert teknisk feil er funnet ennå.** Funn som er verdt å se nærmere på:
-  - Forsidens H1 inneholder ikke ordet «Bjorli».
-  - Personvernsidens H1 er lik tittelen («Personvern | Bjorli»).
+## Etappe A – Mat og drikke og navnestruktur
+1. Serveringen i skisenteret flyttes øverst på «Mat og drikke». Den får overlinje, overskrift, introduksjon og brødtekst nøyaktig som oppgitt, med lenke til «Hva skjer».
+2. Logoen for Bjorli Spisestedene legges inn i serveringsdelen. Hovedlogoen til Bjorli endres ikke.
+3. Instagram-oppfordringen legges inn med en vanlig lenke til @bjorli_spisestedene.
+4. «T-Kroken» byttes til «Bjorli Fjellkafe» i alt synlig innhold på alle seks språk. Det gjelder tekst, titler, metabeskrivelser, alt-tekster og strukturerte data. Setningene skrives om så de blir naturlige.
+5. Adresser, ID-er, e-postadresser og eksterne lenker endres ikke. Treff i slike rapporteres, for eksempel parkeringssider med gammelt navn i adressen.
+6. Bilder med «T-Kroken» brent inn rapporteres. De skjules ikke.
+7. Heiskroa beskrives som varmestue. Fjellbua omtales med åpning etter forholdene. Spiseplikten knyttes til serveringsområdet i Bjorli Fjellkafe.
 
-## Undersøkelser som gjenstår (steg 1)
-1. **Ferdig rendret side** i nettleser for de tre adressene. Jeg ser etter om tittel, canonical, robots eller hreflang endres etter lasting. Jeg sjekker også om logo og «Hjem» peker til https://bjorli.no/.
-2. **Sesongbytte:** Jeg sammenligner sommer- og vinterversjonen av forsiden, både i prerender og etter lasting, for ulike titler, beskrivelser, H1 eller canonical.
-3. **Fallback:** Jeg kontrollerer at 404-siden og sidene som kun er app-skall ikke bruker forsidens metadata eller canonical.
-4. **Sitemap:** Jeg kontrollerer at /, /personvern/ og /kontakt/ står med kanonisk adresse og riktige hreflang-alternativer.
-5. **Search Console:** Lovable har ikke tilgang i dag, fordi prosjektet ikke er koblet og Lovable-versjonen ikke er publisert. Det betyr ikke at data mangler i Google. Jeg kan tilby å koble til Search Console:
-   - Jeg filtrerer på det eksakte søket «bjorli» og sammenligner siste 28 dager med perioden før: klikk, visninger, CTR og posisjon per landingsside.
-   - Jeg ser på indekseringsstatus og Googles valgte canonical for forsiden.
-   - Uten tilgang trekker jeg ingen konklusjon om Googles canonical.
+## Etappe B – Bilder og nyhetsartikkel
+1. De fire bildene får de oppgitte filnavnene og riktig format. De optimaliseres etter mønsteret prosjektet allerede bruker, uten oppskalering.
+2. Ny norsk nyhet med slug som inneholder «dette-skjer-i-vinter» og «2026-2027».
+   - «Dette skjer i vinter» er hovedbilde.
+   - Hver programplakat vises ved sin periode, i hel størrelse.
+   - Alle 15 arrangementene står som vanlig tekst.
+   - 7. november merkes «Tidligere i sesongen».
+   - Hvert arrangement lenker til sin oppføring i kalenderen.
+   - Artikkelen avsluttes med Instagram-oppfordringen og lenke til «Mat og drikke».
+3. Artikkelen følger det vanlige mønsteret for nyheter: tittel, beskrivelse, canonical, delingsbilde, sitemap og ferdig første versjon av siden.
 
-## Rettelser (steg 2, bare ved dokumentert behov)
-- Hvis det blir funnet en feil i metadata, rendering, canonical, robots eller hjemlenker, rettes den der den oppstår, i prerender eller React.
-- **Forslag, vises før endring:**
-  - Forsidens H1 bør nevne Bjorli tydelig, for eksempel «Bjorli – snøsikre skidager for hele familien». Sommerversjonen får tilsvarende. Teksten ellers og designet beholdes, på alle seks språk.
-  - Personvernsiden får H1 «Personvern» i stedet for å gjenta tittelen.
-- **Ikke:**
-  - canonical eller omdirigering fra kontakt eller personvern til forsiden
-  - noindex på kontakt
-  - noindex på personvern som automatisk løsning (det er et eget valg du tar)
+## Etappe C – Flere kategorier per arrangement
+1. Kategoriene «Quiz», «Konsert» og «After-ski» legges til. Først sjekkes det om de finnes under andre skrivemåter, så det ikke blir dubletter.
+2. Ett arrangement skal kunne ha flere kategorier. Databasen utvides, og alle eksisterende arrangementer og innsendte forslag beholder kategorien de har i dag. Det gamle feltet beholdes inntil videre.
+3. Innsendingsskjemaet og redaktørskjemaet får avkrysningsbokser. Begge skjemaene og den offentlige visningen henter kategoriene fra samme liste. Valgte kategorier vises tydelig, og alt kan styres med tastatur.
+4. Hele flyten skal virke: innsending, godkjenning, redigering, kort, detaljsider og filter. Et arrangement vises bare én gang i resultatlisten.
+5. Reglene som bestemmer hva en redigering kan endre, holdes som før. Tilgangsreglene endres ikke.
+6. Tester legges til for overføring fra én til flere kategorier og for filtrering uten dubletter.
 
-## Verifisering
-- Tester og produksjonsbygg kjøres. Jeg kontrollerer første HTML og ferdig rendret side etter endringen.
-- Leveres: dokumentert årsak (eller at den ikke kan fastslås), endringer som er gjort, gjenværende hypoteser og kontroller etter publisering:
-  - URL-inspeksjon av forsiden i Search Console
-  - ny Semrush-måling om 2–4 uker
-- Ingen publisering, og ingen endring i design eller annet innhold.
+## Etappe D – 15 kalenderoppføringer
+1. Kalenderen sjekkes for dubletter. Treff oppdateres i stedet for å lage nye.
+2. Hvert arrangement får sin egen oppføring med dato i norsk tid og kategoriene som er oppgitt. Arrangøren er Bjorli Spisestedene. Hver oppføring får en kort beskrivelse, lenke til nyheten og Instagram-lenke.
+3. Det legges ikke inn klokkeslett, priser eller lokaler. Mangler et felt som må fylles ut for å publisere, lagres oppføringen som utkast og rapporteres.
+4. 7. november skal havne blant tidligere arrangementer av seg selv.
+5. Nyttårsaften får i tillegg en matkategori, hvis en slik finnes.
 
-## Den tidligere SEO-gjennomgangen (beholdes)
-- llms.txt får lenker i riktig format.
-- Fem tyske og nederlandske titler forkortes til høyst 60 tegn.
-- Feilmeldingen fra skanningen om at sitemapen er ute av takt avvises: sitemapen er riktig, og /skisenter, /privacy og lignende er bare gamle adresser som sender videre.
+## Kontroll og levering
+- Tester og produksjonsbygg kjøres.
+- Nettleseren kontrolleres på 390 og 1280 px: plakater og logo skal vises hele, uten beskjæring.
+- WCAG 2.1 AA kontrolleres i de berørte delene, både med automatisk test og manuelt.
+- Rapporten følger punkt 10 i oppgaven, inkludert gjenværende treff på «T-Kroken» og eventuelle utkast.
+
+## Teknisk
+- Berørte filer: `src/pages/FoodDrink.tsx`, `src/i18n/legacyTranslations.ts`, `src/pages/Parkering.tsx`, `src/pages/Handel.tsx`, `src/lib/cms/tipArticles.ts`, `src/lib/images.ts`, `src/lib/cms/mockAdapter.ts`, `src/lib/cms/types.ts`, `src/pages/SubmitEvent.tsx`, `src/pages/AdminEventSubmissions.tsx`, `src/pages/Events.tsx`, `src/lib/events/*`, `scripts/prerender.ts`.
+- Databaseendringen i `event_submissions`: en ny tekstliste `categories`, fylt fra `category`. Triggeren `event_submissions_guard_edit` oppdateres om nødvendig.
+- Etappene leveres i rekkefølgen A, B, C, D. D bygger på C, og nyheten lenker til D. Lenkene legges derfor inn når D er klar.
