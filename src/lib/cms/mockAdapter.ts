@@ -1,4 +1,6 @@
 import { TIP_ARTICLES_NO } from './tipArticles';
+import { buildWinterProgramEvents, buildWinterProgramNews } from './winterProgram2026';
+import { normalizeCategories } from '@/lib/eventCategories';
 import type { CmsAdapter } from './adapter';
 import type {
   CmsActivity,
@@ -748,6 +750,8 @@ const buildNews = (lang: Language): CmsNews[] => {
         status: n.status ?? 'published',
       };
     })
+    // Norwegian-only story; hidden until the combined winter release.
+    .concat(lang === 'no' ? [buildWinterProgramNews()] : [])
     .filter((n) => n.status === 'published');
 };
 
@@ -781,7 +785,10 @@ const buildEvents = (lang: Language): CmsEvent[] => {
     seoTitle: e.title,
     seoDescription: e.intro,
     status: e.status ?? 'published',
-  })).filter((ev) => ev.status !== 'unpublished');
+  }) as CmsEvent)
+    // Norwegian-only calendar entries; hidden until the combined winter release.
+    .concat(lang === 'no' ? buildWinterProgramEvents() : [])
+    .filter((ev) => ev.status !== 'unpublished');
 };
 
 /**

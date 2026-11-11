@@ -159,18 +159,22 @@ export const formatNo = (iso: string): string => {
   return `${WEEKDAYS_NO[wd]} ${d}. ${MONTHS_NO[m - 1]}`;
 };
 
-/** Oslo calendar date of "now" – used for the "earlier this season" marker. */
-const osloToday = (): string =>
-  new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+/**
+ * Items dated before the article's publication date carry the "Tidligere i
+ * sesongen" marker. Fixed to the publication date (not "now") so the first
+ * HTML and the hydrated page always render the same text; the calendar
+ * itself moves finished events to the archive on its own.
+ */
+export const WINTER_NEWS_PUBLISHED_AT = '2026-11-11';
 
 const programLine = (it: ProgramItem, today: string): string => {
-  const past = it.date < today ? ' (tidligere i sesongen)' : '';
+  const past = it.date < today ? ' – Tidligere i sesongen' : '';
   return `${capitalize(formatNo(it.date))}: [${it.title}](/arrangementer/${programEventSlug(it)}/)${past}`;
 };
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unpublished' } => {
-  const today = osloToday();
+  const today = WINTER_NEWS_PUBLISHED_AT;
   return {
     id: 'news-no-spisestedene-vinter-2026-2027',
     slug: WINTER_NEWS_SLUG,
@@ -194,8 +198,8 @@ export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unp
     heroImage: POSTER_SEASON,
     category: 'Arrangementer',
     season: 'winter',
-    publishedAt: '2026-11-11',
-    updatedAt: '2026-11-11',
+    publishedAt: WINTER_NEWS_PUBLISHED_AT,
+    updatedAt: WINTER_NEWS_PUBLISHED_AT,
     seoTitle: 'Dette skjer i vinter hos Bjorli Spisestedene 2026/27',
     seoDescription: 'Quiz, konsert, temafester og afterski i Bjorli Skisenter vinteren 2026/27. Se hele programmet fra Bjorli Spisestedene.',
     status: status(),
