@@ -77,7 +77,7 @@ export const ROUTE_SEO: RouteSeoMap = {
         'Plan your holiday in Bjorli, Norway. Explore skiing, cross-country trails, cosy cabins and mountain activities, with practical information for your stay.',
     },
     de: {
-      title: 'Bjorli – schneesicheres Skigebiet und Bergurlaub das ganze Jahr',
+      title: 'Bjorli – schneesicheres Skigebiet, Bergurlaub ganzjährig',
       description:
         'Bjorli liegt im oberen Gudbrandsdalen, direkt an der Grenze zum Romsdalen. Alpinski, Langlauf, Skipässe, Öffnungszeiten, Wetter, Webcams und Unterkünfte.',
     },
@@ -303,8 +303,8 @@ export const ROUTE_SEO: RouteSeoMap = {
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>).gardsbesok = {
   no: { title: 'Gårdsbesøk i Lesja – dyr, kortreist mat og fjellgårder', description: 'Besøk en levende fjellgård i Lesja. Møt dyrene, smak lokal mat og lær hvordan landbruket fungerer høyt til fjells.' },
   en: { title: 'Farm visits near Bjorli | Farms and animals in Lesja', description: 'Farm visits around Bjorli and Lesja: Brendjordsbyen, Bjøkne/Ljosbakken gard and Kolstad Gård, with farm life, places to stay and local food.' },
-  de: { title: 'Bauernhofbesuche bei Bjorli – Tiere, regionale Küche, Bergbauernhöfe', description: 'Besuchen Sie einen lebendigen Bergbauernhof in Lesja. Tiere erleben, regionale Produkte probieren und Landwirtschaft auf 700 Metern verstehen.' },
-  nl: { title: 'Boerderijbezoek bij Bjorli – dieren, streekproducten, bergboerderijen', description: 'Bezoek een werkende bergboerderij in Lesja. Ontmoet de dieren, proef streekproducten en zie hoe landbouw in het hoogland werkt.' },
+  de: { title: 'Bauernhofbesuche bei Bjorli – Tiere und regionale Küche', description: 'Besuchen Sie einen lebendigen Bergbauernhof in Lesja. Tiere erleben, regionale Produkte probieren und Landwirtschaft auf 700 Metern verstehen.' },
+  nl: { title: 'Boerderijbezoek bij Bjorli – dieren en streekproducten', description: 'Bezoek een werkende bergboerderij in Lesja. Ontmoet de dieren, proef streekproducten en zie hoe landbouw in het hoogland werkt.' },
   da: { title: 'Gårdsbesøg ved Bjorli – dyr, lokal mad og fjeldgårde', description: 'Besøg en levende fjeldgård i Lesja. Mød dyrene, smag lokal mad og se, hvordan landbruget fungerer højt i fjeldet.' },
   sv: { title: 'Gårdsbesök vid Bjorli – djur, närodlat och fjällgårdar', description: 'Besök en levande fjällgård i Lesja. Möt djuren, smaka närproducerat och se hur jordbruket fungerar uppe i fjällen.' },
 };
@@ -312,8 +312,8 @@ export const ROUTE_SEO: RouteSeoMap = {
 (ROUTE_SEO as Record<string, Record<Locale, RouteSeoEntry>>)['golden-train'] = {
   no: { title: 'Golden Train – togtur over Dovrefjell og Raumabanen', description: 'Reis fra Oslo til Åndalsnes via Bjorli med Dovrebanen og Raumabanen. Vid utsikt, fjelltunneler og en av Europas mest dramatiske togstrekninger.' },
   en: { title: 'The Golden Train | Guided trip on the Rauma Line', description: 'The Golden Train is a guided return trip on the Rauma Line from Åndalsnes, past Trollveggen, Kyllingbrua and Vermafossen, with a short stop at Bjorli.' },
-  de: { title: 'Golden Train – mit der Bahn von Oslo nach Åndalsnes über Bjorli', description: 'Mit der Dovrebahn und der Raumabahn von Oslo nach Åndalsnes, mit Halt in Bjorli. Eine der spektakulärsten Bahnstrecken Europas.' },
-  nl: { title: 'Golden Train – met de trein van Oslo naar Åndalsnes via Bjorli', description: 'Reis met de Dovrebanen en Raumabanen van Oslo naar Åndalsnes, met stop in Bjorli. Een van de mooiste treinroutes van Europa.' },
+  de: { title: 'Golden Train – mit der Bahn von Oslo über Bjorli', description: 'Mit der Dovrebahn und der Raumabahn von Oslo nach Åndalsnes, mit Halt in Bjorli. Eine der spektakulärsten Bahnstrecken Europas.' },
+  nl: { title: 'Golden Train – per trein van Oslo naar Åndalsnes', description: 'Reis met de Dovrebanen en Raumabanen van Oslo naar Åndalsnes, met stop in Bjorli. Een van de mooiste treinroutes van Europa.' },
   da: { title: 'Golden Train – med toget fra Oslo til Åndalsnes via Bjorli', description: 'Rejs med Dovrebanen og Raumabanen fra Oslo til Åndalsnes med stop på Bjorli. En af Europas mest dramatiske togture.' },
   sv: { title: 'Golden Train – med tåget från Oslo till Åndalsnes via Bjorli', description: 'Res med Dovrebanan och Raumabanan från Oslo till Åndalsnes med stopp på Bjorli. En av Europas mest dramatiska tågsträckor.' },
 };
