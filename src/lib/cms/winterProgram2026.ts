@@ -196,6 +196,7 @@ export const buildWinterProgramNews = (): CmsNews & { status: 'published' | 'unp
     ].join('\n\n'),
     bodyImages: { 'poster-nov-des': POSTER_NOV_DEC, 'poster-jan-apr': POSTER_JAN_APR },
     heroImage: POSTER_SEASON,
+    ogImage: { url: 'https://bjorli.no/og/spisestedene-vinter-2026-2027.jpg', width: 1200, height: 630, alt: POSTER_SEASON.alt },
     category: 'Arrangementer',
     season: 'winter',
     publishedAt: WINTER_NEWS_PUBLISHED_AT,

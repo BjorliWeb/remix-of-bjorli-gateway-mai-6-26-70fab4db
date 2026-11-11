@@ -1094,9 +1094,8 @@ const renderDetail = (opts: {
     hreflangTags,
     ogLocale: LOCALE_LABELS[locale].ogLocale,
     ogAlternates,
-    // CMS hero images are bundled app assets with no stable public URL at
-    // build time, so the section OG image is used — always a valid URL.
-    ogImage: ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
+    // Preserve explicit stable CMS sharing images; bundled heroes keep the section fallback.
+    ogImage: entry.ogImage ?? ORIGIN + ogImageForCanonicalPath('/' + hubRoute),
     jsonLdTags: (() => {
       const routeLd = detailJsonLd(kind, entry, locale, href);
       const tags = [jsonLdScript(routeLd, SCHEMA_IDS.webPage)];

@@ -11,3 +11,4 @@
 
 - Season pass guide (`src/lib/seasonPassGuide.ts`) is shown only when locale is no, GUIDE_ENABLED is true and every step validates — content alone must never publish it.
 - Homepage design trials are scoped under the `.home-alpine` wrapper (Index + Sommer, mirrored in prerender) — subpages keep the shared design until the trial is approved.
+- Explicit stable CMS Open Graph images pass through the build snapshot and prerender; bundled heroes retain the section fallback so first HTML and hydrated metadata agree.
