@@ -33,6 +33,10 @@ export interface ExportedEntry {
   intro?: string;
   body?: string;
   category?: string;
+  /** All categories (events may have several); `category` is the first. */
+  categories?: string[];
+  /** Built image URLs for `![alt](key)` blocks in the body. */
+  bodyImages?: Record<string, { url: string; alt?: string; width?: number; height?: number }>;
   publishedAt?: string;
   updatedAt?: string;
   startsAt?: string;
@@ -61,6 +65,13 @@ const pick = (e: Record<string, unknown>): ExportedEntry => ({
   intro: (e.intro as string) || undefined,
   body: (e.body as string) || undefined,
   category: (e.category as string) || undefined,
+  categories: Array.isArray(e.categories) && e.categories.length ? (e.categories as string[]) : undefined,
+  bodyImages: e.bodyImages && typeof e.bodyImages === 'object'
+    ? Object.fromEntries(
+        Object.entries(e.bodyImages as Record<string, { url: string; alt?: string; width?: number; height?: number }>)
+          .map(([k, v]) => [k, { url: v.url, alt: v.alt, width: v.width, height: v.height }]),
+      )
+    : undefined,
   publishedAt: (e.publishedAt as string) || undefined,
   updatedAt: (e.updatedAt as string) || undefined,
   startsAt: (e.startsAt as string) || undefined,
