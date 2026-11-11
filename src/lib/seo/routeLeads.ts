@@ -80,7 +80,7 @@ export const ROUTE_LEADS: RouteLeadMap = {
 
   sommer: {
     no: {
-      h1: 'Sommer på Bjorli',
+      h1: 'Fjell, fjord og friske sommerdager på Bjorli',
       lead: 'Sommeren på Bjorli handler om det som ligger rett utenfor døra: stier inn i Reinheimen, grusveier for sykkel, fiskevann i Lesja og badekulper i Sagelva. Lesjaskogsvatnet og Rauma gir noen av de fineste fiskemulighetene i dalen.',
       supporting: 'Bjorli er også et praktisk utgangspunkt for dagsturer – Romsdalsgondolen, Trollveggen og Dovrefjell ligger alle innen rekkevidde.',
     },
@@ -100,7 +100,7 @@ export const ROUTE_LEADS: RouteLeadMap = {
       supporting: 'Bjorli is bovendien een handige uitvalsbasis voor dagtochten – de Romsdalsgondolen, Trollveggen en Dovrefjell liggen allemaal binnen bereik.',
     },
     da: {
-      h1: 'Sommer på Bjorli',
+      h1: 'Fjell, fjord og friske sommerdager på Bjorli',
       lead: 'Sommeren på Bjorli handler om det, der ligger lige uden for døren: stier ind i Reinheimen, grusveje til cykling, fiskevande i Lesja og badehullerne i Sagelva. Lesjaskogsvatnet og Rauma byder på noget af dalens bedste fiskeri.',
       supporting: 'Bjorli er også et praktisk udgangspunkt for dagsture – Romsdalsgondolen, Trollveggen og Dovrefjell ligger alle inden for rækkevidde.',
     },
@@ -538,7 +538,12 @@ export const ROUTE_LEADS: RouteLeadMap = {
     en: { h1: 'Parking at Bjorli Ski Resort', lead: 'Parking at the ski resort is run by Parkly using number-plate recognition, so there’s no ticket to collect. Follow the signs and the payment instructions when you arrive.' },
   },
   personvern: {
+    no: { h1: 'Personvern', lead: 'Slik behandler Bjorli Skisenter AS personopplysninger, informasjonskapsler og henvendelser via bjorli.no.' },
     en: { h1: 'Privacy', lead: 'How Bjorli Skisenter AS handles personal data, cookies and enquiries on bjorli.no.' },
+    de: { h1: 'Datenschutz', lead: 'Wie die Bjorli Skisenter AS personenbezogene Daten, Cookies und Anfragen über bjorli.no verarbeitet.' },
+    nl: { h1: 'Privacy', lead: 'Hoe Bjorli Skisenter AS persoonsgegevens, cookies en aanvragen via bjorli.no verwerkt.' },
+    da: { h1: 'Privatliv', lead: 'Sådan behandler Bjorli Skisenter AS personoplysninger, cookies og henvendelser via bjorli.no.' },
+    sv: { h1: 'Integritet', lead: 'Så behandlar Bjorli Skisenter AS personuppgifter, cookies och förfrågningar via bjorli.no.' },
   },
   romsdalsgondolen: {
     en: { h1: 'Romsdalsgondolen', lead: 'A day trip from Bjorli to Åndalsnes, then up by gondola for wide views over Romsdalen, the Rauma river and peaks such as Romsdalshorn and Vengetindene.' },
