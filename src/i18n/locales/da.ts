@@ -233,7 +233,7 @@ const da: Dictionary = {
       { q: 'Hvornår åbner Bjorli Skisenter?', a: 'Bjorli er ofte et af de første skiområder i Norge, der åbner hver sæson. Sæsonstart er som regel i november, afhængigt af sne og temperatur.' },
       { q: 'Hvor køber jeg liftkort?', a: 'Liftkort kan købes online før du kommer eller i billetlugen i skicentret. Online-køb giver dig hurtigst vej til liften.' },
       { q: 'Hvordan kommer jeg til Bjorli med tog?', a: 'Bjorli ligger på Raumabanen mellem Dombås og Åndalsnes. Bjorli station ligger kort vej fra skicentret og overnatningsstederne. Tjek www.entur.no for køreplaner og billetbestilling til tog og bus.' },
-      { q: 'Findes der skiudlejning og skiskole?', a: 'Ja, du kan leje ski, snowboard og andet udstyr ved skicentret og melde dig til kurser i Bjorli Skiskole.' },
+      { q: 'Findes der skiudlejning og skiskole?', a: 'Bjorli Skisenter tilbyder enkelte clinics og drop-in-kurser i løbet af sæsonen. Kontakt skisenter@bjorli.no for at høre om aktuelle kurser og muligheder.' },
       { q: 'Hvor kan jeg bo på Bjorli?', a: 'Du kan vælge mellem hytter, lejligheder og hoteller. Mange overnatningssteder ligger i gåafstand fra fjeldet og pisterne.' },
       { q: 'Hvad kan jeg lave på Bjorli om sommeren?', a: 'Sommer på Bjorli betyder vandreture, cykling, familieaktiviteter og naturoplevelser i Gudbrandsdalen og Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund og Dovrefjell inden for kort rækkevidde.' },
       { q: 'Kan man flyve fra København til Bjorli?', a: 'I relevante perioder kan man flyve direkte fra København til Ålesund Lufthavn Vigra. Fra Vigra tager køreturen til Bjorli cirka 2,5 timer. Tjek altid aktuelle flytider hos flyselskabet.' },

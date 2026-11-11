@@ -227,7 +227,7 @@ const sv: Dictionary = {
       { q: 'När öppnar Bjorli Skisenter?', a: 'Bjorli är ofta en av de första skidanläggningarna i Norge som öppnar varje säsong. Säsongsstart sker vanligtvis i november, beroende på snö och temperatur.' },
       { q: 'Var köper jag liftkort?', a: 'Liftkort kan köpas online innan du åker eller i biljettluckan i anläggningen. Onlineköp ger dig snabbast väg till liften.' },
       { q: 'Hur tar jag mig till Bjorli med tåg?', a: 'Bjorli ligger på Raumabanan, mellan Dombås och Åndalsnes. Bjorli station ligger nära anläggningen och boendena. Kolla www.entur.no för tidtabeller och biljettbokning för tåg och buss.' },
-      { q: 'Finns skiduthyrning och skidskola?', a: 'Ja, du kan hyra skidor, snowboard och utrustning vid anläggningen och boka kurser hos Bjorli Skidskola.' },
+      { q: 'Finns skiduthyrning och skidskola?', a: 'Bjorli Skisenter erbjuder enstaka clinics och drop-in-kurser under säsongen. Kontakta skisenter@bjorli.no om aktuella kurser och möjligheter.' },
       { q: 'Var kan jag bo på Bjorli?', a: 'Du kan välja mellan stugor, lägenheter och hotell. Många boenden ligger inom gångavstånd från fjället och spåren.' },
       { q: 'Vad kan jag göra på Bjorli på sommaren?', a: 'Sommar på Bjorli innebär vandring, cykling, familjeaktiviteter och naturupplevelser i Gudbrandsdalen och Romsdalen – med Trollveggen, Trollstigen, Geirangerfjorden, Ålesund och Dovrefjell inom räckhåll.' },
     ],
