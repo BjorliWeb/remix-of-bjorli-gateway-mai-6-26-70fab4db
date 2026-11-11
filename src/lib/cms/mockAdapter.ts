@@ -830,6 +830,7 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
       description: string | null;
       organizer: string | null;
       category: string | null;
+      categories?: string[] | null;
       language: string;
       start_date: string;
       end_date: string | null;
@@ -857,6 +858,7 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
         body: r.description ?? r.summary ?? '',
         heroImage: heroUrl ? { url: heroUrl, alt: r.title } : fallback,
         category: r.category ?? undefined,
+        categories: normalizeCategories(r.categories, r.category),
         season: 'all' as const,
         publishedAt: r.start_date,
         updatedAt: r.start_date,
