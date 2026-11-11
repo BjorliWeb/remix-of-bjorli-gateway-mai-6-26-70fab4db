@@ -21,4 +21,7 @@
 - [x] Fjern logo fra vinterhero (cache-sikkert, full kvalitet, før/etter desktop+mobil, ikke publiser)
 - [x] Søket «bjorli»: undersøk rendret side/sesong/fallback/sitemap, H1 forside (vinter/sommer) + personvern på 6 språk, llms.txt-format, 5 lange titler, test+bygg
 - [x] Spisestedene A–D samlet: Mat og drikke, T-Kroken→Bjorli Fjellkafe, bilder, nyhet (utkast), 15 kalenderoppføringer (utkast), flere kategorier gjennom hele flyten. Ingen publisering.
-- [ ] Oppfølging før publisering: aktivert prøveprogram, fire eksisterende oppføringer, plakater/delingsbilde, skjemaetiketter, parkering, skiskole og produksjonskompatibilitet. Ingen publisering.
+- [x] Oppfølging: fire eksisterende oppføringer dokumentert, plakater/delingsbilde, skjemaetiketter, parkering og skiskole rettet; 175 tester og 45 axe-visninger bestått. Ingen publisering.
+- [ ] Fullt produksjonsbygg med aktivert program: venter på full isolert byggkontroll; automatisk preview-bygg alene dokumenterer ikke prebuild/postbuild.
+- [ ] Kart: eier må bekrefte P2/Fjellkafe versus «Bjorli Toppen» før kartnavn/vilkår oppdateres.
+- [ ] Innlogget kompatibilitetsrunde: venter på isolert backend-test uten produksjonsendringer og vanlig moderering av Pray for Snow.

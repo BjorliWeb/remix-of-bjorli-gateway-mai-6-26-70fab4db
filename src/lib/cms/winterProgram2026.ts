@@ -188,7 +188,7 @@ export const buildWinterProgramNews = (published = WINTER_PROGRAM_PUBLISHED): Cm
     intro: 'Quiz, akustisk konsert, temafester og afterski. Bjorli Spisestedene har satt sammen et variert program for vinteren 2026/27 i Bjorli Skisenter.',
     body: [
       'Vinterprogrammet byr på flere anledninger til å møtes før og etter en dag på ski. Her finner du oversikten over arrangementene fra november til april.',
-      'Tidspunkt for hvert arrangement kommer. Følg med i [kalenderen](/arrangementer/) og på Instagram.',
+      'Se [kalenderen](/arrangementer/) for tidspunkter og øvrige opplysninger som allerede er bekreftet. Tidspunkt for de nye oppføringene kommer. Følg også med på Instagram.',
       '## November og desember 2026',
       '![Programplakat for november og desember 2026](poster-nov-des)',
       ...PROGRAM_NOV_DEC.map((it) => programLine(it, today)),
