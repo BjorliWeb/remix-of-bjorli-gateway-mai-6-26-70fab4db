@@ -20,3 +20,4 @@
 
 - [x] Fjern logo fra vinterhero (cache-sikkert, full kvalitet, før/etter desktop+mobil, ikke publiser)
 - [x] Søket «bjorli»: undersøk rendret side/sesong/fallback/sitemap, H1 forside (vinter/sommer) + personvern på 6 språk, llms.txt-format, 5 lange titler, test+bygg
+- [ ] Spisestedene A–D samlet: Mat og drikke, T-Kroken→Bjorli Fjellkafe, bilder, nyhet (utkast), 15 kalenderoppføringer (utkast), flere kategorier gjennom hele flyten. Ingen publisering.
