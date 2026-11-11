@@ -21,6 +21,11 @@ export interface CmsImage {
   height?: number;
   /** Optional editorial caption rendered under image figures. */
   caption?: string;
+  /**
+   * `contain` for posters and logos: the whole image must stay visible, so
+   * cards and heroes scale it instead of cropping it.
+   */
+  fit?: 'contain';
   /** Optional photo credit. */
   credit?: string;
   /** WordPress media field key — kept on the entry so a future WP adapter
