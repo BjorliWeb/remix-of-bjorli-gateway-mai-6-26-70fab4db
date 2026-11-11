@@ -192,7 +192,7 @@ const schema = z.object({
   time: z.string().trim().max(120).optional().or(z.literal('')),
   location: z.string().trim().min(2).max(240),
   maps: z.string().trim().max(500).optional().or(z.literal('')),
-  category: z.string().min(1),
+  categories: z.array(z.string().min(1)).min(1).max(MAX_EVENT_CATEGORIES),
 });
 
 interface Props {
@@ -219,7 +219,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     time: '',
     location: '',
     maps: '',
-    category: '' as EventCategoryKey | '',
+    categories: [] as string[],
   });
   const [images, setImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -368,7 +368,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
             time: parsed.data.time || null,
             location: parsed.data.location,
             maps: normalizedMaps || null,
-            category: parsed.data.category,
+            category: parsed.data.categories[0],
+            categories: parsed.data.categories,
             imagePaths: plannedPaths,
             imageMeta,
             uploadToken,
@@ -587,31 +588,15 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
 
             {/* Section 3 */}
             <SectionHeader title={c.s3} icon={<Tag className="h-4 w-4" />} />
-            <div>
-              <Label className="mb-3 block text-sm font-medium text-foreground">{c.f.category}</Label>
-              <div className="flex flex-wrap gap-2">
-                {EVENT_CATEGORY_KEYS.map((k) => {
-                  const active = form.category === k;
-                  return (
-                    <button
-                      key={k}
-                      type="button"
-                      onClick={() => update('category', k)}
-                      className={[
-                        'px-4 py-2 rounded-full text-sm border transition-colors min-h-[40px]',
-                        active
-                          ? 'bg-season text-season-foreground border-season'
-                          : 'bg-card text-foreground border-border hover:border-season/60',
-                      ].join(' ')}
-                      aria-pressed={active}
-                    >
-                      {cats[k]}
-                    </button>
-                  );
-                })}
-              </div>
-              {errors.category && <p className="mt-2 text-sm text-destructive">{errors.category}</p>}
-            </div>
+            <EventCategoryPicker
+              id="submit-categories"
+              legend={c.f.category}
+              lang={lang}
+              required
+              value={form.categories}
+              onChange={(next) => { setForm((f) => ({ ...f, categories: next })); setErrors((e) => { const { categories: _drop, ...rest } = e; return rest; }); }}
+              error={errors.categories}
+            />
 
             {/* Section 4 */}
             <SectionHeader title={c.s4} icon={<ImagePlus className="h-4 w-4" />} />
