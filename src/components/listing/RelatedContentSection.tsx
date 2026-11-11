@@ -24,6 +24,7 @@ const RelatedContentSection = ({ title, items, basePath }: Props) => {
               key={r.slug}
               to={lp(`${basePath}/${r.slug}`)}
               image={r.image}
+              imageFit={basePath === '/arrangementer' ? 'contain' : r.imageFit}
               category={formatEventCategory(r.category, locale)}
               date={formatEventDate(r.date, locale)}
               title={r.title}
