@@ -19,4 +19,4 @@
 - [ ] WCAG 2.1 AA for alle designendringer: forsiden verifisert automatisk; navbar ved 200 % tekst på mobil og manuell skjermleser gjenstår
 
 - [x] Fjern logo fra vinterhero (cache-sikkert, full kvalitet, før/etter desktop+mobil, ikke publiser)
-- [ ] Søket «bjorli»: undersøk rendret side/sesong/fallback/sitemap, H1 forside (vinter/sommer) + personvern på 6 språk, llms.txt-format, 5 lange titler, test+bygg
+- [x] Søket «bjorli»: undersøk rendret side/sesong/fallback/sitemap, H1 forside (vinter/sommer) + personvern på 6 språk, llms.txt-format, 5 lange titler, test+bygg
