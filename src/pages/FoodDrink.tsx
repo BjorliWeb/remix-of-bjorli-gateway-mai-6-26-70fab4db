@@ -1,7 +1,9 @@
 import { useLanguage } from '@/i18n/LanguageContext';
 import PageHero from '@/components/PageHero';
 import { images } from '@/lib/images';
-import { Coffee, Flame, ExternalLink, MapPin, Fuel, Utensils, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Coffee, Flame, ExternalLink, MapPin, Fuel, Utensils, ShoppingBag, ArrowRight, Instagram, Mountain } from 'lucide-react';
+import spisestedeneLogo from '@/assets/logos/bjorli-mat-og-drikke-spisestedene-logo.jpg';
+import { SPISESTEDENE_INSTAGRAM_HANDLE, SPISESTEDENE_INSTAGRAM_URL } from '@/lib/cms/winterProgram2026';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import FaqBlock from '@/components/seo/FaqBlock';
@@ -422,6 +424,92 @@ const FoodDrink = () => {
         </div>
       </section>
 
+      {/* Ski centre food & drink (Bjorli Spisestedene) — first after the intro */}
+      <section aria-labelledby="skisenter-servering" className="py-16 md:py-24 px-4 bg-muted/30 border-t border-border">
+        <div className="container mx-auto max-w-4xl">
+          <div className="mb-10">
+            <p className="text-secondary text-xs font-semibold tracking-[0.22em] uppercase mb-3">{c.eyebrow}</p>
+            <h2 id="skisenter-servering" className="font-display text-3xl md:text-4xl font-bold mb-4">{c.skiTitle}</h2>
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed mb-6">{c.skiIntro}</p>
+            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+              <img
+                src={spisestedeneLogo}
+                alt={c.logoAlt}
+                width={1254}
+                height={1254}
+                className="h-28 w-28 sm:h-32 sm:w-32 shrink-0 rounded-full object-contain bg-card ring-1 ring-border"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
+                {c.skiBody.map((p, i) => <p key={i}>{p}</p>)}
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-10">
+            <img
+              src={images.tkrokenCollage.src}
+              alt={c.collageAlt}
+              className="w-full h-auto rounded-2xl shadow-md border border-border"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="h-full bg-card/60 backdrop-blur border-border/60 md:col-span-2">
+              <CardContent className="p-8">
+                <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                  <Coffee className="h-6 w-6" aria-hidden />
+                </div>
+                <h3 className="font-display text-2xl font-bold mb-3">Bjorli Fjellkafe</h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">{c.fjellkafeText}</p>
+                <h4 className="font-display text-xl font-bold mb-2">{c.loftetTitle}</h4>
+                <p className="text-muted-foreground leading-relaxed">
+                  {c.loftetBefore}
+                  <Link to={lp('/arrangementer')} className="font-medium text-secondary underline underline-offset-2 hover:no-underline">{c.loftetLink}</Link>
+                  {c.loftetAfter}
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="h-full bg-card/60 backdrop-blur border-border/60">
+              <CardContent className="p-8">
+                <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                  <Flame className="h-6 w-6" aria-hidden />
+                </div>
+                <h3 className="font-display text-2xl font-bold mb-3">Heiskroa</h3>
+                <p className="text-muted-foreground leading-relaxed">{c.heiskroaText}</p>
+              </CardContent>
+            </Card>
+            <Card className="h-full bg-card/60 backdrop-blur border-border/60">
+              <CardContent className="p-8">
+                <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
+                  <Mountain className="h-6 w-6" aria-hidden />
+                </div>
+                <h3 className="font-display text-2xl font-bold mb-3">Fjellbua – Bjorli</h3>
+                <p className="text-muted-foreground leading-relaxed">{c.fjellbuaText}</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <p className="mt-8 flex items-start gap-3 text-base md:text-lg text-foreground leading-relaxed">
+            <Instagram className="h-6 w-6 shrink-0 text-secondary mt-0.5" aria-hidden />
+            <span>
+              {c.instaBefore}
+              <a
+                href={SPISESTEDENE_INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-secondary underline underline-offset-2 hover:no-underline"
+              >
+                {SPISESTEDENE_INSTAGRAM_HANDLE}
+              </a>
+              {c.instaAfter}
+            </span>
+          </p>
+        </div>
+      </section>
+
       {/* Other places */}
       <section className="py-16 md:py-24 px-4 border-t border-border">
         <div className="container mx-auto max-w-5xl">
@@ -555,88 +643,6 @@ const FoodDrink = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured: Heiskroa & T-Kroken — only in ski season */}
-      <section className="py-16 md:py-24 px-4 bg-muted/30 border-t border-border">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-10"
-          >
-            <p className="text-secondary text-xs font-semibold tracking-[0.22em] uppercase mb-3">{c.eyebrow}</p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">{c.heiskroaTKrokenTitle}</h2>
-            <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
-              {c.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mb-10"
-          >
-            <img
-              src={images.tkrokenCollage.src}
-              alt={s.imageAlt}
-              className="w-full h-auto rounded-2xl shadow-md border border-border"
-              loading="lazy"
-            />
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
-                <CardContent className="p-8">
-                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
-                    <Flame className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-2">Heiskroa</h3>
-                  <p className="text-secondary font-medium mb-4">{s.heiskroa.tag}</p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    {s.heiskroa.desc}
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li><span className="font-semibold text-foreground">{c.passesForLabel}</span><span className="text-muted-foreground">{c.heiskroaPassesFor}</span></li>
-                    <li><span className="font-semibold text-foreground">{c.practicalLabel}</span><span className="text-muted-foreground">{c.heiskroaPractical}</span></li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Card className="h-full bg-card/60 backdrop-blur border-border/60">
-                <CardContent className="p-8">
-                  <div className="h-12 w-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-5">
-                    <Coffee className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-2">T-Kroken</h3>
-                  <p className="text-secondary font-medium mb-4">{s.tkroken.tag}</p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    {s.tkroken.desc}
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li><span className="font-semibold text-foreground">{c.passesForLabel}</span><span className="text-muted-foreground">{c.tkrokenPassesFor}</span></li>
-                    <li><span className="font-semibold text-foreground">{c.practicalLabel}</span><span className="text-muted-foreground">{c.tkrokenPractical}</span></li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
           </div>
         </div>
       </section>
