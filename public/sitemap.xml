@@ -2800,28 +2800,61 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/tips/bjorli-in-summer/"/>
   </url>
   <url>
-    <loc>https://bjorli.no/arrangementer/skredkveld-bjorli-skisenter-7239f108/</loc>
+    <loc>https://bjorli.no/arrangementer/quizkveld-pa-fjellkafeen-aaaaaaaa/</loc>
     <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/skredkveld-bjorli-skisenter-7239f108/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/skredkveld-bjorli-skisenter-7239f108/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/events/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/events/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
   </url>
   <url>
-    <loc>https://bjorli.no/arrangementer/quiz-pa-bjorli-fjellkafe-dd06d16d/</loc>
+    <loc>https://bjorli.no/en/events/quizkveld-pa-fjellkafeen-aaaaaaaa/</loc>
     <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quiz-pa-bjorli-fjellkafe-dd06d16d/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/quiz-pa-bjorli-fjellkafe-dd06d16d/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/events/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/events/quizkveld-pa-fjellkafeen-aaaaaaaa/"/>
   </url>
   <url>
-    <loc>https://bjorli.no/arrangementer/pray-for-snow-party-med-dj-preben-m-304b7f91/</loc>
+    <loc>https://bjorli.no/arrangementer/konsert-i-heiskroa-bbbbbbbb/</loc>
     <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/pray-for-snow-party-med-dj-preben-m-304b7f91/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/pray-for-snow-party-med-dj-preben-m-304b7f91/"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/konsert-i-heiskroa-bbbbbbbb/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/konsert-i-heiskroa-bbbbbbbb/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/arrangementer/skredkveld-cccccccc/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="no" href="https://bjorli.no/arrangementer/skredkveld-cccccccc/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/arrangementer/skredkveld-cccccccc/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/en/events/original-english-event-dddddddd/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/events/original-english-event-dddddddd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/events/original-english-event-dddddddd/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/en/events/unapproved-edit-english-event-eeeeeeee/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bjorli.no/en/events/unapproved-edit-english-event-eeeeeeee/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bjorli.no/en/events/unapproved-edit-english-event-eeeeeeee/"/>
+  </url>
+  <url>
+    <loc>https://bjorli.no/de/veranstaltungen/deutsches-event-ffffffff/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://bjorli.no/de/veranstaltungen/deutsches-event-ffffffff/"/>
   </url>
   <url>
     <loc>https://bjorli.no/aktiviteter/langrenn/</loc>
