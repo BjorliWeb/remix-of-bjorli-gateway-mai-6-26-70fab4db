@@ -277,6 +277,7 @@ const AdminEventSubmissions = () => {
       title: 'Engelsk tekst lagret',
       description: 'Teksten må godkjennes før den brukes offentlig.',
     });
+    if (selected.status === 'approved' && selected.english_approved) requestRebuild('update');
     await load();
     return true;
   };
@@ -418,6 +419,25 @@ const AdminEventSubmissions = () => {
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
+      )}
+      <AlertDialog open={confirmMode !== null} onOpenChange={(o) => { if (!o) setConfirmMode(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Erstatte den engelske teksten?</AlertDialogTitle>
+            <AlertDialogDescription>
+              AI lager ny engelsk tekst og erstatter det som står i feltene nå, også endringer som ikke er lagret.
+              Godkjenningen trekkes tilbake. Avbryt beholder teksten slik den er.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Avbryt</AlertDialogCancel>
+            <AlertDialogAction onClick={() => { const m = confirmMode; setConfirmMode(null); if (m) runAi(m); }}>
+              Erstatt med AI-tekst
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      {false && (
       ) : loading ? (
         <div className="py-16 flex justify-center">
           <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
