@@ -402,24 +402,7 @@ const AdminEventSubmissions = () => {
           onDirtyChange={setEditDirty}
         />
       ) : selected ? (
-        <DetailView
-          item={selected}
-          signedUrls={signedUrls}
-          editorNotes={editorNotes}
-          setEditorNotes={setEditorNotes}
-          onBack={() => setSelectedId(null)}
-          onEdit={() => setEditing(true)}
-          onSaveNotes={saveNotes}
-          onSetStatus={setStatus}
-          onAi={requestAi}
-          onSetEnglishApproval={setEnglishApproval}
-          onSaveEnglish={saveEnglish}
-          onEnglishDirtyChange={setEnglishDirty}
-          onSetEmailVisibility={setEmailVisibility}
-          aiBusy={aiBusy}
-          actionBusy={actionBusy}
-        />
-      )}
+        <>
       <AlertDialog open={confirmMode !== null} onOpenChange={(o) => { if (!o) setConfirmMode(null); }}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -437,7 +420,24 @@ const AdminEventSubmissions = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      {false && (
+        <DetailView
+          item={selected}
+          signedUrls={signedUrls}
+          editorNotes={editorNotes}
+          setEditorNotes={setEditorNotes}
+          onBack={() => setSelectedId(null)}
+          onEdit={() => setEditing(true)}
+          onSaveNotes={saveNotes}
+          onSetStatus={setStatus}
+          onAi={requestAi}
+          onSetEnglishApproval={setEnglishApproval}
+          onSaveEnglish={saveEnglish}
+          onEnglishDirtyChange={setEnglishDirty}
+          onSetEmailVisibility={setEmailVisibility}
+          aiBusy={aiBusy}
+          actionBusy={actionBusy}
+        />
+        </>
       ) : loading ? (
         <div className="py-16 flex justify-center">
           <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
