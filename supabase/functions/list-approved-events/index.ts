@@ -15,6 +15,7 @@
 //   so throttling MUST live here.
 
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { includeForLanguage, publicEventText } from '../_shared/publicEventText.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -43,6 +44,11 @@ const PUBLIC_COLUMNS = [
   // whether email appears in the JSON response. Never spread the row.
   'email',
   'show_email_public',
+  // English version: only used when english_approved (see publicEventText).
+  'english_draft_title',
+  'english_draft_summary',
+  'english_draft_description',
+  'english_approved',
 ] as const;
 
 type Row = Record<string, unknown> & {
@@ -183,7 +189,8 @@ Deno.serve(async (req) => {
     .from('event_submissions')
     .select(PUBLIC_COLUMNS.join(','))
     .eq('status', 'approved')
-    .eq('language', lang);
+    // English also lists Norwegian events that have an approved English text.
+    .in('language', lang === 'en' ? ['en', 'no'] : [lang]);
   if (scope === 'current') {
     // Visible through end_date; when end_date null, visible through start_date.
     query = query.or(`end_date.gte.${today},and(end_date.is.null,start_date.gte.${today})`);
@@ -204,7 +211,9 @@ Deno.serve(async (req) => {
     );
   }
 
-  const rows = (data ?? []) as unknown as Row[];
+  const rows = ((data ?? []) as unknown as Row[]).filter((r) =>
+    includeForLanguage(r as never, lang),
+  );
 
   // Mapper is the ONLY exit path for row data. It never spreads the row and
   // only sets `email` when show_email_public===true.
@@ -219,17 +228,19 @@ Deno.serve(async (req) => {
           .map((x) => x.signedUrl)
           .filter((u): u is string => Boolean(u));
       }
+      const text = publicEventText(r as never, lang);
       // Explicit whitelist of what leaves this function.
       const out: Record<string, unknown> = {
         id: r.id,
         slug: `${slugify(String(r.title))}-${String(r.id).slice(0, 8)}`,
-        title: r.title,
-        summary: (r as Row).summary ?? null,
-        description: (r as Row).description ?? null,
+        title: text.title,
+        summary: text.summary,
+        description: text.description,
         organizer: (r as Row).organizer ?? null,
         category: (r as Row).category ?? null,
         categories: Array.isArray((r as Row).categories) ? (r as Row).categories : [],
-        language: r.language,
+        // Public language of this entry (an approved English version is 'en').
+        language: lang,
         start_date: r.start_date,
         end_date: r.end_date,
         time_text: (r as Row).time_text ?? null,
