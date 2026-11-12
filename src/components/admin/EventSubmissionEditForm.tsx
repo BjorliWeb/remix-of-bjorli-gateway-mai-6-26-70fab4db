@@ -20,6 +20,7 @@ export interface EditableSubmission {
   start_date: string; end_date: string | null; time_text: string | null;
   location: string; maps_url: string | null; website: string | null;
   category: string; categories?: string[] | null; image_urls: string[]; english_approved: boolean;
+  english_draft_title?: string | null; english_draft_description?: string | null;
 }
 
 type FieldKey = keyof SubmissionEditInput;
@@ -88,6 +89,10 @@ export function EventSubmissionEditForm({
     setNewFiles(next);
   };
 
+  const hasEnglish = !!(item.english_draft_title?.trim() || item.english_draft_description?.trim());
+  const sourceEdited = values.title !== item.title || (values.summary ?? '') !== (item.summary ?? '') ||
+    values.description !== item.description;
+
   const save = async () => {
     setFormError(null);
     const parsed = submissionEditSchema.safeParse(values);
@@ -137,11 +142,12 @@ export function EventSubmissionEditForm({
         if (del.length) await supabase.storage.from('event-submissions').remove(del);
       }
 
-      const englishNote = item.english_approved &&
-        (parsed.data.title !== item.title || parsed.data.summary !== item.summary ||
-         parsed.data.description !== item.description)
-        ? ' Den engelske godkjenningen er trukket tilbake fordi norsk tekst er endret.'
-        : '';
+      const sourceChanged = parsed.data.title !== item.title || parsed.data.summary !== item.summary ||
+        parsed.data.description !== item.description;
+      const englishNote = !sourceChanged || !hasEnglish ? ''
+        : item.english_approved
+          ? ' Den engelske godkjenningen er trukket tilbake fordi originalteksten er endret. Den engelske teksten er beholdt – gå gjennom den.'
+          : ' Den engelske teksten er beholdt – gå gjennom den.';
 
       if (item.status === 'approved') {
         const { error: rbErr } = await supabase.functions.invoke('trigger-site-rebuild', { body: { reason: 'update' } });
@@ -198,9 +204,10 @@ export function EventSubmissionEditForm({
           <p>Dette arrangementet er publisert. Når du lagrer, oppdateres den offentlige siden etter neste vellykkede bygg. Status endres ikke.</p>
         </div>
       )}
-      {item.english_approved && (
-        <p className="text-sm text-muted-foreground">
-          Engelsk utkast er godkjent. Endrer du tittel, ingress eller beskrivelse, trekkes godkjenningen tilbake og må gjøres på nytt.
+      {hasEnglish && sourceEdited && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Originalteksten er endret. Den engelske teksten oppdateres ikke automatisk – gå gjennom den etter lagring.
+          {item.english_approved && ' Den engelske godkjenningen trekkes tilbake når du lagrer.'}
         </p>
       )}
 

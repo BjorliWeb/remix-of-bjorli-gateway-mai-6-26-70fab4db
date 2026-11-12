@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Loader2, CheckCircle2, XCircle, Sparkles, Mail, Phone, Globe, MapPin,
@@ -14,6 +14,14 @@ import { CATEGORY_LABELS, type EventCategoryKey, normalizeCategories } from '@/l
 import { canAccessEditor } from '@/lib/auth/roles';
 import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
 import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
+import { EnglishTextEditor } from '@/components/admin/EnglishTextEditor';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
+  AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
+  buildAiUpdate, buildEnglishSaveUpdate, isEnglishAiMode, needsRegenerateConfirm, type EnglishFields,
+} from '@/lib/events/englishText';
 
 type Status = 'pending' | 'approved' | 'rejected';
 
@@ -90,6 +98,9 @@ const AdminEventSubmissions = () => {
   const [actionBusy, setActionBusy] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editDirty, setEditDirty] = useState(false);
+  const [englishDirtyRaw, setEnglishDirtyRaw] = useState(false);
+  const setEnglishDirty = useCallback((d: boolean) => setEnglishDirtyRaw(d), []);
+  const [confirmMode, setConfirmMode] = useState<AiMode | null>(null);
 
   // Auth + editor-role gate (admin or moderator — see src/lib/auth/roles.ts)
   useEffect(() => {
@@ -228,20 +239,7 @@ const AdminEventSubmissions = () => {
         },
       });
       if (error) throw error;
-      const update: Record<string, string | boolean | null> = {};
-      if (data?.summary) update.ai_polished_summary = data.summary;
-      if (data?.description) update.ai_polished_description = data.description;
-      if (data?.seoTitle) update.ai_seo_title = data.seoTitle;
-      if (data?.seoMeta) update.ai_seo_meta = data.seoMeta;
-      if (data?.qualityFlag) update.ai_quality_notes = data.qualityFlag;
-      if (data?.englishTitle || data?.englishSummary || data?.englishDescription) {
-        update.english_draft_title = data.englishTitle ?? null;
-        update.english_draft_summary = data.englishSummary ?? null;
-        update.english_draft_description = data.englishDescription ?? null;
-        // Any regeneration resets approval — editor must re-approve.
-        update.english_approved = false;
-        update.english_approved_at = null;
-      }
+      const update = buildAiUpdate(mode, data);
       if (Object.keys(update).length > 0) {
         await supabase.from('event_submissions').update(update).eq('id', selected.id);
         await load();
@@ -255,6 +253,35 @@ const AdminEventSubmissions = () => {
     }
   };
 
+  /** English-producing AI runs ask first when they would replace text, saved or not. */
+  const requestAi = (mode: AiMode) => {
+    if (!selected) return;
+    if (isEnglishAiMode(mode) && needsRegenerateConfirm(selected, englishDirtyRaw)) {
+      setConfirmMode(mode);
+      return;
+    }
+    runAi(mode);
+  };
+
+  const saveEnglish = async (f: EnglishFields): Promise<boolean> => {
+    if (!selected) return false;
+    setActionBusy(true);
+    const { error } = await supabase.from('event_submissions')
+      .update(buildEnglishSaveUpdate(f)).eq('id', selected.id);
+    setActionBusy(false);
+    if (error) {
+      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
+      return false;
+    }
+    toast({
+      title: 'Engelsk tekst lagret',
+      description: 'Teksten må godkjennes før den brukes offentlig.',
+    });
+    if (selected.status === 'approved' && selected.english_approved) requestRebuild('update');
+    await load();
+    return true;
+  };
+
   const setEnglishApproval = async (approved: boolean) => {
     if (!selected) return;
     setActionBusy(true);
@@ -266,6 +293,7 @@ const AdminEventSubmissions = () => {
       })
       .eq('id', selected.id);
     setActionBusy(false);
+    if (!error && selected.status === 'approved') requestRebuild('update');
     if (error) {
       toast({ title: 'Feil', description: error.message, variant: 'destructive' });
       return;
@@ -374,6 +402,24 @@ const AdminEventSubmissions = () => {
           onDirtyChange={setEditDirty}
         />
       ) : selected ? (
+        <>
+      <AlertDialog open={confirmMode !== null} onOpenChange={(o) => { if (!o) setConfirmMode(null); }}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Erstatte den engelske teksten?</AlertDialogTitle>
+            <AlertDialogDescription>
+              AI lager ny engelsk tekst og erstatter det som står i feltene nå, også endringer som ikke er lagret.
+              Godkjenningen trekkes tilbake. Avbryt beholder teksten slik den er.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Avbryt</AlertDialogCancel>
+            <AlertDialogAction onClick={() => { const m = confirmMode; setConfirmMode(null); if (m) runAi(m); }}>
+              Erstatt med AI-tekst
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
         <DetailView
           item={selected}
           signedUrls={signedUrls}
@@ -383,12 +429,15 @@ const AdminEventSubmissions = () => {
           onEdit={() => setEditing(true)}
           onSaveNotes={saveNotes}
           onSetStatus={setStatus}
-          onAi={runAi}
+          onAi={requestAi}
           onSetEnglishApproval={setEnglishApproval}
+          onSaveEnglish={saveEnglish}
+          onEnglishDirtyChange={setEnglishDirty}
           onSetEmailVisibility={setEmailVisibility}
           aiBusy={aiBusy}
           actionBusy={actionBusy}
         />
+        </>
       ) : loading ? (
         <div className="py-16 flex justify-center">
           <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -434,7 +483,7 @@ const AdminEventSubmissions = () => {
 
 function DetailView({
   item, signedUrls, editorNotes, setEditorNotes, onBack, onEdit, onSaveNotes, onSetStatus,
-  onAi, onSetEnglishApproval, onSetEmailVisibility, aiBusy, actionBusy,
+  onAi, onSetEnglishApproval, onSaveEnglish, onEnglishDirtyChange, onSetEmailVisibility, aiBusy, actionBusy,
 }: {
   item: Submission;
   signedUrls: Record<string, string>;
@@ -446,6 +495,8 @@ function DetailView({
   onSetStatus: (s: Status) => void;
   onAi: (m: AiMode) => void;
   onSetEnglishApproval: (approved: boolean) => void;
+  onSaveEnglish: (f: EnglishFields) => Promise<boolean>;
+  onEnglishDirtyChange: (dirty: boolean) => void;
   onSetEmailVisibility: (show: boolean) => void;
   aiBusy: boolean;
   actionBusy: boolean;
@@ -571,96 +622,16 @@ function DetailView({
             )}
           </div>
 
-          {/* English draft — must be reviewed and approved.
-              Shown when source is Norwegian (translate) OR when source is English
-              and AI cleanup has produced a revised draft of the original. */}
-          {item.language !== 'en' && (
-          <div className="border-t border-border pt-6 mt-6">
-            <div className="flex items-center gap-2 mb-1">
-              <Languages className="h-4 w-4 text-season" />
-              <h3 className="font-medium text-foreground">Engelsk utkast</h3>
-              {item.english_approved ? (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600">
-                  Godkjent
-                </span>
-              ) : (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                  Avventer godkjenning
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-muted-foreground mb-3">
-              Engelsk versjon må alltid leses gjennom og godkjennes manuelt. Den norske originalen
-              overskrives aldri.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              <Button size="sm" variant="outline" disabled={aiBusy} onClick={() => onAi('translate_en')}>
-                {item.english_draft_description ? 'Generer engelsk utkast på nytt' : 'Lag engelsk utkast'}
-              </Button>
-              {item.english_draft_description && !item.english_approved && (
-                <Button
-                  size="sm"
-                  disabled={actionBusy}
-                  onClick={() => onSetEnglishApproval(true)}
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Godkjenn engelsk utkast
-                </Button>
-              )}
-              {item.english_approved && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  disabled={actionBusy}
-                  onClick={() => onSetEnglishApproval(false)}
-                >
-                  Trekk tilbake godkjenning
-                </Button>
-              )}
-            </div>
-            {item.english_draft_title && (
-              <AiBlock label="English title" text={item.english_draft_title} />
-            )}
-            {item.english_draft_summary && (
-              <AiBlock label="English intro" text={item.english_draft_summary} />
-            )}
-            {item.english_draft_description && (
-              <AiBlock label="English description" text={item.english_draft_description} />
-            )}
-          </div>
-          )}
-
-          {item.language === 'en' && (item.english_draft_summary || item.english_draft_description) && (
-            <div className="border-t border-border pt-6 mt-6">
-              <div className="flex items-center gap-2 mb-1">
-                <Languages className="h-4 w-4 text-season" />
-                <h3 className="font-medium text-foreground">English cleanup draft</h3>
-                {item.english_approved ? (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600">Approved</span>
-                ) : (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">Awaiting approval</span>
-                )}
-              </div>
-              <p className="text-xs text-muted-foreground mb-3">
-                Preview the AI-revised English text. The original submission stays untouched until you approve.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {!item.english_approved && (
-                  <Button size="sm" disabled={actionBusy} onClick={() => onSetEnglishApproval(true)}>
-                    <CheckCircle2 className="h-4 w-4" />
-                    Approve English cleanup
-                  </Button>
-                )}
-                {item.english_approved && (
-                  <Button size="sm" variant="ghost" disabled={actionBusy} onClick={() => onSetEnglishApproval(false)}>
-                    Withdraw approval
-                  </Button>
-                )}
-              </div>
-              {item.english_draft_summary && <AiBlock label="English intro" text={item.english_draft_summary} />}
-              {item.english_draft_description && <AiBlock label="English description" text={item.english_draft_description} />}
-            </div>
-          )}
+          <EnglishTextEditor
+            key={`${item.id}|${item.english_draft_title}|${item.english_draft_summary}|${item.english_draft_description}|${item.title}|${item.summary}|${item.description}`}
+            item={item}
+            busy={actionBusy}
+            aiBusy={aiBusy}
+            onSave={onSaveEnglish}
+            onSetApproval={onSetEnglishApproval}
+            onRegenerate={() => onAi('translate_en')}
+            onDirtyChange={onEnglishDirtyChange}
+          />
         </div>
 
         {/* Side panel */}

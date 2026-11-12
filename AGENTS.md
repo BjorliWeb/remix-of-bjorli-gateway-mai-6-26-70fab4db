@@ -14,3 +14,4 @@
 - Explicit stable CMS Open Graph images pass through the build snapshot and prerender; bundled heroes retain the section fallback so first HTML and hydrated metadata agree.
 - Numeric parking rules live in the Node-safe practicalRules module and feed localized parking prices; tests guard against accidental policy changes.
 - Winter programme builders accept explicit in-memory test activation; pending submissions remain unlinked until editor approval is confirmed, and default publication stays disabled.
+- Public event text per language is decided only in `supabase/functions/_shared/publicEventText.ts` (English used only when `english_approved`; any English edit or AI rewrite resets approval) — editor and public feed must never disagree about which translation is live.
