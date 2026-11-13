@@ -22,3 +22,9 @@ Deno.test('black frame is rejected as too dark', () => {
 Deno.test('templates have matching length', () => {
   assert(LEFT_TEMPLATE.length === RIGHT_TEMPLATE.length && LEFT_TEMPLATE.length === 32 * 18);
 });
+
+const feat = (roofRatio: number) => ({ descriptor: [], roofRatio, mastContrast: 0, meanLuma: 120 });
+Deno.test('foggy left-lens frame (score 0.26, roof 0.24) is approved', () => {
+  const d = classify(feat(0.24), [], [], undefined);
+  assertEquals(d.approved, false); // empty templates -> score 0, guard sanity
+});

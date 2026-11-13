@@ -25,7 +25,11 @@ export interface LensDecision {
 export const THRESHOLDS = {
   // Tuned on labelled archive frames (see README in this folder). Strict: the
   // closest right-lens frame scored margin -0.255 / roof ratio 0.689.
+  // Fog/flat light flattens structure, so a weaker left score is allowed only
+  // when the dark roof is unmistakable (right lens never shows it).
   minScoreLeft: 0.5,
+  minScoreLeftFog: 0.2,
+  maxRoofRatioFog: 0.45,
   minMargin: 0.2,
   maxRoofRatio: 0.66,
   minMeanLuma: 25, // too dark = no reliable structure
@@ -125,7 +129,8 @@ export function classify(
   const scoreRight = dot(feat.descriptor, rightTemplate);
   const base = { scoreLeft, scoreRight, roofRatio: feat.roofRatio, mastContrast: feat.mastContrast };
   if (feat.meanLuma < th.minMeanLuma) return { approved: false, reason: 'too_dark', ...base };
-  if (scoreLeft < th.minScoreLeft) return { approved: false, reason: 'low_left_score', ...base };
+  const fogOk = scoreLeft >= th.minScoreLeftFog && feat.roofRatio <= th.maxRoofRatioFog;
+  if (scoreLeft < th.minScoreLeft && !fogOk) return { approved: false, reason: 'low_left_score', ...base };
   if (scoreLeft - scoreRight < th.minMargin) return { approved: false, reason: 'low_margin', ...base };
   if (feat.roofRatio > th.maxRoofRatio) return { approved: false, reason: 'roof_not_found', ...base };
   return { approved: true, reason: 'left_lens', ...base };
