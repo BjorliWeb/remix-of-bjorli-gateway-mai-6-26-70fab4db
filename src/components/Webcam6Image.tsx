@@ -7,6 +7,17 @@ import { Camera } from 'lucide-react';
  */
 const META_URL = `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/functions/v1/webcam6-image`;
 const POLL_MS = 5 * 60_000;
+const STALE_MS = 30 * 60_000;
+
+const staleLabel = (iso?: string | null) => {
+  if (!iso) return null;
+  const t = new Date(iso);
+  if (Number.isNaN(t.getTime()) || Date.now() - t.getTime() < STALE_MS) return null;
+  const time = t.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Oslo' });
+  const sameDay = t.toDateString() === new Date().toDateString();
+  const date = sameDay ? '' : ` ${t.toLocaleDateString('nb-NO', { day: 'numeric', month: 'short', timeZone: 'Europe/Oslo' })}`;
+  return `Bildet er fra kl. ${time}${date}`;
+};
 
 interface Meta {
   imageUrl: string | null;
@@ -56,6 +67,7 @@ const Webcam6Image = ({ title, unavailableLabel, onInteract }: Webcam6ImageProps
   };
 
   const showImage = !!meta?.imageUrl && !failed;
+  const stale = showImage ? staleLabel(meta?.capturedAt) : null;
 
   return (
     <article
@@ -93,6 +105,7 @@ const Webcam6Image = ({ title, unavailableLabel, onInteract }: Webcam6ImageProps
       </div>
       <div className="min-h-14 px-4 py-2 flex items-center justify-between gap-3">
         <h3 className="font-display text-base font-semibold leading-5 text-foreground">{title}</h3>
+        {stale ? <p className="text-xs text-muted-foreground">{stale}</p> : null}
       </div>
     </article>
   );
