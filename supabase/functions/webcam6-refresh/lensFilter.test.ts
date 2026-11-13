@@ -23,8 +23,19 @@ Deno.test('templates have matching length', () => {
   assert(LEFT_TEMPLATE.length === RIGHT_TEMPLATE.length && LEFT_TEMPLATE.length === 32 * 18);
 });
 
-const feat = (roofRatio: number) => ({ descriptor: [], roofRatio, mastContrast: 0, meanLuma: 120 });
-Deno.test('foggy left-lens frame (score 0.26, roof 0.24) is approved', () => {
-  const d = classify(feat(0.24), [], [], undefined);
-  assertEquals(d.approved, false); // empty templates -> score 0, guard sanity
+// 2-D stand-in: scoreLeft = descriptor[0], scoreRight = descriptor[1].
+const run = (left: number, right: number, roofRatio: number) =>
+  classify({ descriptor: [left, right], roofRatio, mastContrast: 0, meanLuma: 120 }, [1, 0], [0, 1]);
+
+Deno.test('foggy left frame with clear roof is approved (11:40 case)', () => {
+  assertEquals(run(0.26, -0.03, 0.24).approved, true);
+});
+Deno.test('weak score without a clear roof stays rejected', () => {
+  assertEquals(run(0.26, -0.03, 0.55).reason, 'low_left_score');
+});
+Deno.test('score below fog minimum stays rejected', () => {
+  assertEquals(run(0.15, -0.1, 0.2).reason, 'low_left_score');
+});
+Deno.test('right-lens-like margin is still rejected', () => {
+  assertEquals(run(0.3, 0.2, 0.24).reason, 'low_margin');
 });
