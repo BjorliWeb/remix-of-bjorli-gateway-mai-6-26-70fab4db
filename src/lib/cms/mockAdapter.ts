@@ -820,9 +820,17 @@ const fetchApprovedSubmissions = (lang: Language): Promise<CmsEvent[]> => {
 const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEvent[]> => {
   try {
     const supabase = await loadSupabase();
-    const { data, error } = await supabase.functions.invoke('list-approved-events', {
-      body: { language: lang, scope: 'all' },
-    });
+    let data: any = null;
+    let error: any = null;
+    // Retry briefly on rate limiting (429) so a burst of restarts doesn't drop events.
+    for (let attempt = 0; attempt < 3; attempt++) {
+      ({ data, error } = await supabase.functions.invoke('list-approved-events', {
+        body: { language: lang, scope: 'all' },
+      }));
+      const status = (error as { context?: { status?: number } } | null)?.context?.status;
+      if (!error || status !== 429 || attempt === 2) break;
+      await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+    }
     if (error) {
       submissionFetchStatus.errors += 1;
       submissionCache.delete(lang);

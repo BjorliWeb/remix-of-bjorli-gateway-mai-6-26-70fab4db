@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "tsx scripts/export-cms-content.ts && tsx scripts/build-sitemap.ts && tsx scripts/build-deploy-headers.ts",
+    "predev": "ALLOW_MISSING_EVENTS=1 tsx scripts/export-cms-content.ts && tsx scripts/build-sitemap.ts && tsx scripts/build-deploy-headers.ts",
     "dev": "vite",
     "prebuild": "tsx scripts/export-cms-content.ts && tsx scripts/build-sitemap.ts && tsx scripts/build-deploy-headers.ts",
     "build": "vite build",
