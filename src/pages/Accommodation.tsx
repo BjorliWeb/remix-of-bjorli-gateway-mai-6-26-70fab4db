@@ -12,6 +12,7 @@ import { trackAccommodationLinkClick } from '@/lib/analytics';
 import imgNovasol from '@/assets/photos/accommodation/overnatting-novasol-bjorli-hytte.jpg';
 import imgBjorliheimen from '@/assets/photos/accommodation/overnatting-bjorliheimen-fjellhotell.jpg';
 import imgMountainLodge from '@/assets/photos/accommodation/overnatting-bjorli-mountain-lodge.jpg';
+import imgMorki from '@/assets/photos/accommodation/overnatting-morki-lodge.jpg';
 import imgVintercamping from '@/assets/photos/accommodation/overnatting-bjorli-vintercamping.jpg';
 import imgAirbnb from '@/assets/photos/accommodation/overnatting-airbnb-bjorli.jpg';
 import imgFinn from '@/assets/photos/accommodation/overnatting-finn-bjorli.jpg';
@@ -31,6 +32,7 @@ const PROVIDER_IMAGES: Record<ProviderKey, string> = {
   novasol: imgNovasol,
   bjorliheimen: imgBjorliheimen,
   mountainLodge: imgMountainLodge,
+  morki: imgMorki,
   vintercamping: imgVintercamping,
   airbnb: imgAirbnb,
   finn: imgFinn,
@@ -52,6 +54,7 @@ type ProviderKey =
   | 'bjorliheimen'
   | 'mountainLodge'
   | 'vintercamping'
+  | 'morki'
   | 'airbnb'
   | 'finn'
   | 'booking'
@@ -67,6 +70,7 @@ const providers: ProviderBase[] = [
   { key: 'novasol', name: 'Novasol', href: 'https://www.novasol.com/search?adult=2&child=0&pets=0&range=3&nights=3&accommodationType=novasol_cottages&regionName=Bjorli&placesId=62001&destinationCategory=578%7Coppland%7Clesja%7Cbjorli&page=1&sort=recommended&salesMarket=999&displayMode=LIST' },
   { key: 'bjorliheimen', name: 'Bjorliheimen Fjellhotel', href: 'https://www.bjorliheimen.no' },
   { key: 'mountainLodge', name: 'Bjorli Mountain Lodge', href: 'https://bjorlimountainlodge.no' },
+  { key: 'morki', name: 'Morki Lodge', href: 'https://morkilodge.no' },
   { key: 'vintercamping', name: 'Bjorli Vintercamping', href: 'https://www.bjorli-vintercamping.no' },
   { key: 'airbnb', name: 'Airbnb', href: 'https://www.airbnb.com/bjorli-norway/stays' },
   { key: 'finn', name: 'Finn.no', href: 'https://www.finn.no/reise/feriehus-hytteutleie/resultat/?lat_sw=62.095259&lng_sw=7.900766&lat_ne=62.456655&lng_ne=8.522246&nrFUSAds=2&country=Norge&city=Bjorli&no_of_bedrooms_from=0&no_of_beds_from=0' },
@@ -78,6 +82,7 @@ const PROVIDER_CATEGORY: Record<ProviderKey, string> = {
   novasol: 'agency',
   bjorliheimen: 'hotel',
   mountainLodge: 'apartment',
+  morki: 'lodge',
   vintercamping: 'camping',
   airbnb: 'agency',
   finn: 'agency',
@@ -134,6 +139,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Private utleieenheter', desc: 'Utleie av private hytter og leiligheter på Bjorli og i Lesja gjennom Novasol.', ctaLabel: 'Søk hos Novasol' },
       bjorliheimen: { category: 'Hotell og hytter', desc: 'Hotell- og hytteovernatting midt på Bjorli.', ctaLabel: 'Søk hos Bjorliheimen' },
       mountainLodge: { category: 'Leiligheter', desc: 'Leiligheter på Bjorli for kortere og lengre opphold.', ctaLabel: 'Søk hos Bjorli Mountain Lodge' },
+      morki: { category: 'Privat lodge', desc: 'Privat lodge på Søre Morken gård med plass til 12, seks soverom og langrennsløype rett utenfor døren.', ctaLabel: 'Send forespørsel hos Morki Lodge' },
       vintercamping: { category: 'Hytter, camping, telt og bobil', desc: 'Overnatting for hytter, camping, telt og bobil.', ctaLabel: 'Søk hos Bjorli Vintercamping' },
       airbnb: { category: 'Leiligheter og hytter', desc: 'Private leiligheter og hytter på Bjorli lagt ut på Airbnb.', ctaLabel: 'Søk på Airbnb' },
       finn: { category: 'Leiligheter og hytter', desc: 'Private leiligheter og hytter på Bjorli lagt ut på Finn.no.', ctaLabel: 'Søk på Finn.no' },
@@ -171,6 +177,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Private rentals', desc: 'Private cabins and apartments in Bjorli and Lesja, rented through Novasol.', ctaLabel: 'Search Novasol' },
       bjorliheimen: { category: 'Hotel & cabins', desc: 'Hotel rooms and cabins in Bjorli.', ctaLabel: 'Search Bjorliheimen' },
       mountainLodge: { category: 'Apartments', desc: 'Apartments in Bjorli for short and longer stays.', ctaLabel: 'Search Bjorli Mountain Lodge' },
+      morki: { category: 'Private lodge', desc: 'A private lodge on the Søre Morken farm with room for 12, six bedrooms and a cross-country trail right outside the door.', ctaLabel: 'Send an enquiry to Morki Lodge' },
       vintercamping: { category: 'Cabins, camping, tents and motorhomes', desc: 'Cabins, pitches for tents and motorhomes, and simple stays.', ctaLabel: 'Search Bjorli Vintercamping' },
       airbnb: { category: 'Apartments & cabins', desc: 'Private apartments and cabins in Bjorli listed on Airbnb.', ctaLabel: 'Search on Airbnb' },
       finn: { category: 'Apartments & cabins', desc: 'Private apartments and cabins in Bjorli listed on Finn.no.', ctaLabel: 'Search on Finn.no' },
@@ -208,6 +215,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Private Vermietung', desc: 'Private Hütten und Apartments in Bjorli und Lesja, vermietet über Novasol.', ctaLabel: 'Bei Novasol suchen' },
       bjorliheimen: { category: 'Hotel & Hütten', desc: 'Hotelzimmer und Hütten mitten in Bjorli.', ctaLabel: 'Bei Bjorliheimen suchen' },
       mountainLodge: { category: 'Apartments', desc: 'Apartments in Bjorli für kurze und längere Aufenthalte.', ctaLabel: 'Bei Bjorli Mountain Lodge suchen' },
+      morki: { category: 'Private Lodge', desc: 'Private Lodge auf dem Hof Søre Morken mit Platz für 12, sechs Schlafzimmern und Langlaufloipe direkt vor der Tür.', ctaLabel: 'Anfrage an Morki Lodge senden' },
       vintercamping: { category: 'Hütten, Camping, Zelt & Wohnmobil', desc: 'Hütten, Stellplätze für Zelt und Wohnmobil sowie einfache Übernachtung.', ctaLabel: 'Bei Bjorli Vintercamping suchen' },
       airbnb: { category: 'Apartments & Hütten', desc: 'Private Apartments und Hütten in Bjorli auf Airbnb.', ctaLabel: 'Auf Airbnb suchen' },
       finn: { category: 'Apartments & Hütten', desc: 'Private Apartments und Hütten in Bjorli auf Finn.no.', ctaLabel: 'Auf Finn.no suchen' },
@@ -245,6 +253,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Privéverhuur', desc: 'Privé-hutten en appartementen in Bjorli en Lesja, verhuurd via Novasol.', ctaLabel: 'Zoek bij Novasol' },
       bjorliheimen: { category: 'Hotel & hutten', desc: 'Hotelkamers en hutten midden in Bjorli.', ctaLabel: 'Zoek bij Bjorliheimen' },
       mountainLodge: { category: 'Appartementen', desc: 'Appartementen in Bjorli voor korte en langere verblijven.', ctaLabel: 'Zoek bij Bjorli Mountain Lodge' },
+      morki: { category: 'Privélodge', desc: 'Privélodge op de boerderij Søre Morken met plaats voor 12, zes slaapkamers en een langlaufloipe voor de deur.', ctaLabel: 'Stuur een aanvraag naar Morki Lodge' },
       vintercamping: { category: 'Hutten, camping, tent en camper', desc: 'Hutten, plekken voor tent en camper en eenvoudige overnachting.', ctaLabel: 'Zoek bij Bjorli Vintercamping' },
       airbnb: { category: 'Appartementen & hutten', desc: 'Privé-appartementen en -hutten in Bjorli op Airbnb.', ctaLabel: 'Zoek op Airbnb' },
       finn: { category: 'Appartementen & hutten', desc: 'Privé-appartementen en -hutten in Bjorli op Finn.no.', ctaLabel: 'Zoek op Finn.no' },
@@ -282,6 +291,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Privat udlejning', desc: 'Private hytter og lejligheder på Bjorli og i Lesja, udlejet via Novasol.', ctaLabel: 'Søg hos Novasol' },
       bjorliheimen: { category: 'Hotel & hytter', desc: 'Hotelværelser og hytter midt på Bjorli.', ctaLabel: 'Søg hos Bjorliheimen' },
       mountainLodge: { category: 'Lejligheder', desc: 'Lejligheder på Bjorli til korte og længere ophold.', ctaLabel: 'Søg hos Bjorli Mountain Lodge' },
+      morki: { category: 'Privat lodge', desc: 'Privat lodge på gården Søre Morken med plads til 12, seks soveværelser og langrendsspor lige uden for døren.', ctaLabel: 'Send forespørgsel til Morki Lodge' },
       vintercamping: { category: 'Hytter, camping, telt og autocamper', desc: 'Hytter, pladser til telt og autocamper samt enkel overnatning.', ctaLabel: 'Søg hos Bjorli Vintercamping' },
       airbnb: { category: 'Lejligheder & hytter', desc: 'Private lejligheder og hytter på Bjorli annonceret på Airbnb.', ctaLabel: 'Søg på Airbnb' },
       finn: { category: 'Lejligheder & hytter', desc: 'Private lejligheder og hytter på Bjorli annonceret på Finn.no.', ctaLabel: 'Søg på Finn.no' },
@@ -319,6 +329,7 @@ const COPY: Record<Locale, Copy> = {
       novasol: { category: 'Privat uthyrning', desc: 'Privata stugor och lägenheter på Bjorli och i Lesja, uthyrda via Novasol.', ctaLabel: 'Sök hos Novasol' },
       bjorliheimen: { category: 'Hotell & stugor', desc: 'Hotellrum och stugor mitt på Bjorli.', ctaLabel: 'Sök hos Bjorliheimen' },
       mountainLodge: { category: 'Lägenheter', desc: 'Lägenheter på Bjorli för kortare och längre vistelser.', ctaLabel: 'Sök hos Bjorli Mountain Lodge' },
+      morki: { category: 'Privat lodge', desc: 'Privat lodge på gården Søre Morken med plats för 12, sex sovrum och längdskidspår precis utanför dörren.', ctaLabel: 'Skicka förfrågan till Morki Lodge' },
       vintercamping: { category: 'Stugor, camping, tält och husbil', desc: 'Stugor, platser för tält och husbil samt enklare boende.', ctaLabel: 'Sök hos Bjorli Vintercamping' },
       airbnb: { category: 'Lägenheter & stugor', desc: 'Privata lägenheter och stugor på Bjorli på Airbnb.', ctaLabel: 'Sök på Airbnb' },
       finn: { category: 'Lägenheter & stugor', desc: 'Privata lägenheter och stugor på Bjorli på Finn.no.', ctaLabel: 'Sök på Finn.no' },

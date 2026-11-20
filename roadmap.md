@@ -25,3 +25,5 @@
 - [ ] Fullt produksjonsbygg med aktivert program: venter på full isolert byggkontroll; automatisk preview-bygg alene dokumenterer ikke prebuild/postbuild.
 - [ ] Kart: eier må bekrefte P2/Fjellkafe versus «Bjorli Toppen» før kartnavn/vilkår oppdateres.
 - [ ] Innlogget kompatibilitetsrunde: venter på isolert backend-test uten produksjonsendringer og vanlig moderering av Pray for Snow.
+
+- [x] Morki Lodge på overnattingssiden (alle språk, eget bilde, GA4-klikk)
