@@ -89,6 +89,16 @@
 
     --radius: 0.75rem;
 
+    /* Owner-supplied trail markers; decorative, never the sole route label. */
+    --trail-bakke: 27 84% 57%;
+    --trail-brost: 0 88% 68%;
+    --trail-einbu: 47 81% 61%;
+    --trail-fjell: 25 19% 56%;
+    --trail-lys: 174 59% 56%;
+    --trail-morken: 143 55% 62%;
+    --trail-nystugu: 260 73% 70%;
+    --trail-rana: 205 79% 66%;
+
     /* Primary call to action: warm red #B73730, white label = 6.4:1 (AA). */
     --cta: 3 58% 45%;
     --cta-hover: 3 60% 38%;
@@ -524,3 +534,25 @@
 .home-alpine a.inline-flex, .home-alpine button.inline-flex { height: auto; min-height: 2.75rem; text-align: center; }
 .home-alpine .grid > *, .home-alpine .flex > * { min-width: 0; }
 .home-alpine .flex > svg { min-width: auto; flex-shrink: 0; }
+
+/* Locally scoped cross-country overview. */
+.bjorli-trails .trail-dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; flex-shrink: 0; border: 1px solid hsl(var(--foreground) / 0.5); }
+.trail-dot-0 { background: hsl(var(--trail-bakke)); }
+.trail-dot-1 { background: hsl(var(--trail-brost)); }
+.trail-dot-2 { background: hsl(var(--trail-einbu)); }
+.trail-dot-3 { background: hsl(var(--trail-fjell)); }
+.trail-dot-4 { background: hsl(var(--trail-lys)); }
+.trail-dot-5 { background: hsl(var(--trail-morken)); }
+.trail-dot-6 { background: hsl(var(--trail-nystugu)); }
+.trail-dot-7 { background: hsl(var(--trail-rana)); }
+.bjorli-trails .trail-range { accent-color: hsl(var(--primary)); }
+.bjorli-trails .trail-range:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+.bjorli-trails h3, .bjorli-trails p { overflow-wrap: anywhere; }
+.bjorli-trails button { font-family: 'Mulish', system-ui, sans-serif; letter-spacing: 0; }
+.bjorli-trails button:focus, .bjorli-trails input:focus { outline: 2px solid hsl(var(--ring)); outline-offset: 3px; }
+@media (max-width: 560px) {
+  .bjorli-trails { margin-inline: -2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bjorli-trails *, .bjorli-trails *::before, .bjorli-trails *::after { animation: none; transition: none; }
+}

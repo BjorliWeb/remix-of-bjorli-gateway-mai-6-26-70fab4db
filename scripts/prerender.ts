@@ -31,6 +31,7 @@
  * prerendered with the same status rule as the live listing.
  */
 import { PRACTICAL_SHORTCUTS, PRACTICAL_SHORTCUTS_LABEL } from '../src/lib/practicalShortcuts';
+import { TRAILS, TRAIL_COPY, trailId, trailSummary } from '../src/lib/trails/trails';
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { APP_SHELL_ROUTES, appShellHtml, notFoundHtml, parseRedirectSources, findLinkProblems } from './lib/linkCheck';
 import { dirname, resolve } from 'node:path';
@@ -604,7 +605,9 @@ const bodySkeleton = (opts: {
   return skeletonShell({
     locale,
     canonical,
-    main: fallbackBodySkeleton({ locale, title, description, canonical, lead }),
+    main: fallbackBodySkeleton({ locale, title, description, canonical, lead }) + (canonical === 'vaer-og-webkamera'
+      ? `<section data-trail-list class="bjorli-trails mt-10 text-left text-foreground"><h2 class="font-display text-2xl font-bold mb-4">${escapeHtml(TRAIL_COPY[locale].title)}</h2><ul class="space-y-3">${TRAILS.map(t => `<li id="${trailId(t.name)}" class="rounded-lg border border-border bg-card p-4 scroll-mt-32"><h3 class="font-body text-lg font-semibold">${escapeHtml(t.name)}</h3><p class="text-sm text-muted-foreground">${escapeHtml(trailSummary(t, locale))}</p></li>`).join('')}</ul><p class="mt-4 text-sm text-muted-foreground">${escapeHtml(TRAIL_COPY[locale].source)}</p></section>`
+      : ''),
   });
 };
 

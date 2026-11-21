@@ -15,3 +15,4 @@
 - Numeric parking rules live in the Node-safe practicalRules module and feed localized parking prices; tests guard against accidental policy changes.
 - Winter programme builders accept explicit in-memory test activation; pending submissions remain unlinked until editor approval is confirmed, and default publication stays disabled.
 - Public event text per language is decided only in `supabase/functions/_shared/publicEventText.ts` (English used only when `english_approved`; any English edit or AI rewrite resets approval) — editor and public feed must never disagree about which translation is live.
+- Cross-country route data and profile/GPX rules live in Node-safe `src/lib/trails/trails.ts`, shared by React and prerender; preserve source segment breaks in both directions so missing geometry is never invented.

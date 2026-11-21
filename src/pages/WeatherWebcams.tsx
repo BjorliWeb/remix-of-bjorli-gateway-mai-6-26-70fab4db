@@ -11,6 +11,7 @@ import LiveAlertBanner from '@/components/LiveAlertBanner';
 import WebcamEmbed from '@/components/WebcamEmbed';
 import Webcam6Image from '@/components/Webcam6Image';
 import WeatherForecast from '@/components/WeatherForecast';
+import BjorliTrails from '@/components/BjorliTrails';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analytics';
@@ -530,6 +531,7 @@ const WeatherWebcams = () => {
               <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
             </a>
           </div>
+          <BjorliTrails locale={locale} />
         </div>
       </section>
 
