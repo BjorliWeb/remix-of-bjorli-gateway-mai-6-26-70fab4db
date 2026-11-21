@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Eierbekreftede skisenter-/langrennsfakta på seks språk: plan og godkjenning, felles fakta, skisenter/langrenn/løypekart/vær og relevante korte omtaler, Skiappen, prerender og kontroller. Ingen publisering.
+
 - [x] Reduser forsideavstander og kontroller mobil, nettbrett og desktop.
 
 - [x] Gjennomgå PR #25 (tilbakestilling av passord)
