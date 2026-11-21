@@ -1,10 +1,11 @@
 /**
  * Locale-keyed copy for /langrenn.
- * Proper names left untranslated: Bjorli, løyper.net.
+ * Proper names left untranslated: Bjorli, Skiappen.
  * Translations were rewritten to sound human — natural variation,
  * conversational flow, no AI boilerplate.
  */
 import type { Locale } from '@/i18n/locales/types';
+import { FACTS_COPY } from '@/lib/resortFacts';
 
 export interface LangrennCard {
   title: string;
@@ -32,28 +33,24 @@ export interface LangrennCopy {
 
 export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
   no: {
-    heroTitle: 'Langrenn på Bjorli',
-    heroSubtitle: 'Drøyt 80 km preparerte langrennsløyper – fra lysløype i bygda til åpne fjelløyper.',
-    intro:
-      'Bjorli har litt over <strong>80 km med oppkjørte langrennsløyper</strong>. Nettet strekker seg fra skogsterreng nede i bygda og opp på snaufjellet, og inkluderer en opplyst <strong>lysløype</strong> for kveldsøkter. Forholdene er stabile gjennom hele sesongen, og du kan velge alt fra korte runder til lange dagsturer på fjellet.',
+    heroTitle: FACTS_COPY.no.nordicTitle,
+    heroSubtitle: FACTS_COPY.no.nordicIntro,
+    intro: FACTS_COPY.no.nordicIntro,
     loypestatusTitle: 'Løypestatus akkurat nå',
-    loypestatusBody:
-      'Se hvilke løyper som er nylig preparert og hvilke som ikke er kjørt opp ennå. Oppdateres av løypelaget på Bjorli.',
-    loypestatusCta: 'Se løypestatus på løyper.net',
+    loypestatusBody: FACTS_COPY.no.nordicShort,
+    loypestatusCta: FACTS_COPY.no.mapCta,
     lysloypeBadge: 'Lysløype',
     lysloypeAlt:
       'Langrennsløper i Bjorli lysløype en mørk vinterkveld, med lyktestolper langs den preparerte løypa.',
     lysloypeTitle: 'Gå på ski etter mørkets frembrudd',
-    lysloypeBody1:
-      'Lysløypa på Bjorli gjør det mulig å trene og kose seg på ski lenge etter at sola har gått ned. En fin rundløype som passer like godt til en rolig kveldstur som til intervaller, og som ofte er det første som blir preparert tidlig i sesongen.',
-    lysloypeBody2:
-      'Sjekk gjeldende åpningstider og status før du drar – lyset styres lokalt og kan variere gjennom sesongen.',
+    lysloypeBody1: FACTS_COPY.no.floodlit,
+    lysloypeBody2: FACTS_COPY.no.nordicShort,
     praktiskBadge: 'Praktisk info',
     praktiskTitle: 'Før du går ut i løypa',
     cardCheck: {
       title: 'Sjekk forholdene',
       bodyBefore: 'Se ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' for hva som er nylig preparert, og sjekk værmelding før du legger ut.',
     },
     cardWeather: {
@@ -66,28 +63,24 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
   },
   en: {
-    heroTitle: 'Cross-country skiing in Bjorli',
-    heroSubtitle: 'Just over 80 km of groomed trails, from a floodlit loop in the village to open mountain tracks.',
-    intro:
-      'Bjorli has just over <strong>80 km of groomed cross-country ski trails</strong>. The network runs from the forest down in the village all the way up onto the open mountain, and includes a floodlit trail (<strong>lysløype</strong>) for evening skiing. Choose anything from a short loop to a whole day out on the mountain.',
+    heroTitle: FACTS_COPY.en.nordicTitle,
+    heroSubtitle: FACTS_COPY.en.nordicIntro,
+    intro: FACTS_COPY.en.nordicIntro,
     loypestatusTitle: 'Trail status now',
-    loypestatusBody:
-      'See which trails have just been groomed and which haven’t been done yet. Updated by the local trail team in Bjorli.',
-    loypestatusCta: 'Check the trail status on løyper.net',
+    loypestatusBody: FACTS_COPY.en.nordicShort,
+    loypestatusCta: FACTS_COPY.en.mapCta,
     lysloypeBadge: 'Floodlit trail',
     lysloypeAlt:
       'A skier on the floodlit trail in Bjorli on a dark winter evening, with lamp posts along the groomed track.',
     lysloypeTitle: 'Ski after the sun goes down',
-    lysloypeBody1:
-      'The floodlit loop in Bjorli lets you keep skiing after sunset, whether you’d like a relaxed evening on skis or a proper training session.',
-    lysloypeBody2:
-      'Check the opening times and status before you head out. The lighting is run locally and varies through the season.',
+    lysloypeBody1: FACTS_COPY.en.floodlit,
+    lysloypeBody2: FACTS_COPY.en.nordicShort,
     praktiskBadge: 'Practical information',
     praktiskTitle: 'Before you head out',
     cardCheck: {
       title: 'Check the conditions',
       bodyBefore: 'Have a look at ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' to see what’s freshly groomed, and check the forecast before you set off.',
     },
     cardWeather: {
@@ -100,28 +93,24 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
   },
   de: {
-    heroTitle: 'Langlauf in Bjorli',
-    heroSubtitle: 'Gut 80 km gespurte Loipen – von der beleuchteten Runde im Ort bis hinauf aufs offene Fjell.',
-    intro:
-      'Bjorli hat etwas mehr als <strong>80 km gespurte Langlaufloipen</strong>. Das Netz reicht vom Waldgelände im Ort bis hinauf aufs Fjell und schließt eine beleuchtete <strong>Lysløype</strong> für den Abend ein. Die Bedingungen halten die ganze Saison über – von der kurzen Runde bis zur langen Tagestour ist alles drin.',
+    heroTitle: FACTS_COPY.de.nordicTitle,
+    heroSubtitle: FACTS_COPY.de.nordicIntro,
+    intro: FACTS_COPY.de.nordicIntro,
     loypestatusTitle: 'Aktueller Loipenstatus',
-    loypestatusBody:
-      'Sieh nach, welche Loipen frisch präpariert sind und welche noch nicht gespurt wurden. Wird vom lokalen Loipenteam in Bjorli gepflegt.',
-    loypestatusCta: 'Loipenstatus auf løyper.net ansehen',
+    loypestatusBody: FACTS_COPY.de.nordicShort,
+    loypestatusCta: FACTS_COPY.de.mapCta,
     lysloypeBadge: 'Beleuchtete Loipe',
     lysloypeAlt:
       'Langläufer auf der beleuchteten Loipe in Bjorli an einem dunklen Winterabend, mit Lichtmasten entlang der präparierten Spur.',
     lysloypeTitle: 'Langlauf nach Einbruch der Dunkelheit',
-    lysloypeBody1:
-      'Die beleuchtete Loipe in Bjorli lässt dich noch lange nach Sonnenuntergang Ski laufen – ob gemütliche Abendrunde oder zügiges Intervalltraining. Sie wird in der Regel auch als Erste am Saisonbeginn präpariert.',
-    lysloypeBody2:
-      'Schau vor dem Aufbruch nach aktuellen Öffnungszeiten und Status – das Licht wird lokal gesteuert und ändert sich über die Saison.',
+    lysloypeBody1: FACTS_COPY.de.floodlit,
+    lysloypeBody2: FACTS_COPY.de.nordicShort,
     praktiskBadge: 'Praktische Infos',
     praktiskTitle: 'Bevor du loslegst',
     cardCheck: {
       title: 'Bedingungen prüfen',
       bodyBefore: 'Schau bei ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' nach, was frisch gespurt ist, und prüfe vorher die Wettervorhersage.',
     },
     cardWeather: {
@@ -134,28 +123,24 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
   },
   nl: {
-    heroTitle: 'Langlaufen in Bjorli',
-    heroSubtitle: 'Ruim 80 km geprepareerde loipes – van een verlichte ronde in het dorp tot open bergloipes.',
-    intro:
-      'Bjorli heeft iets meer dan <strong>80 km geprepareerde langlaufloipes</strong>. Het netwerk loopt van bosachtig terrein in het dorp helemaal omhoog naar het open fjell en omvat een verlichte <strong>lysløype</strong> voor avondsessies. De condities blijven het hele seizoen door goed, dus je kunt kiezen tussen een korte ronde of een lange dagtocht het fjell op.',
+    heroTitle: FACTS_COPY.nl.nordicTitle,
+    heroSubtitle: FACTS_COPY.nl.nordicIntro,
+    intro: FACTS_COPY.nl.nordicIntro,
     loypestatusTitle: 'Loipenstatus nu',
-    loypestatusBody:
-      'Bekijk welke loipes net geprepareerd zijn en welke nog niet. Bijgehouden door het lokale loipenteam in Bjorli.',
-    loypestatusCta: 'Bekijk de loipenstatus op løyper.net',
+    loypestatusBody: FACTS_COPY.nl.nordicShort,
+    loypestatusCta: FACTS_COPY.nl.mapCta,
     lysloypeBadge: 'Verlichte loipe',
     lysloypeAlt:
       'Langlaufer op de verlichte loipe van Bjorli op een donkere winteravond, met lichtmasten langs het geprepareerde spoor.',
     lysloypeTitle: 'Langlaufen na zonsondergang',
-    lysloypeBody1:
-      'Op de verlichte ronde in Bjorli kun je nog ver na zonsondergang doorgaan – of het nu een rustige avondtocht is of intervaltraining. Vaak is het ook de eerste loipe die aan het begin van het seizoen wordt geprepareerd.',
-    lysloypeBody2:
-      'Check vooraf de actuele openingstijden en status – de verlichting wordt lokaal geregeld en kan per seizoen verschillen.',
+    lysloypeBody1: FACTS_COPY.nl.floodlit,
+    lysloypeBody2: FACTS_COPY.nl.nordicShort,
     praktiskBadge: 'Praktische info',
     praktiskTitle: 'Voordat je vertrekt',
     cardCheck: {
       title: 'Check de condities',
       bodyBefore: 'Kijk op ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' voor wat net is geprepareerd en bekijk de weersverwachting voor je vertrekt.',
     },
     cardWeather: {
@@ -168,28 +153,24 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
   },
   da: {
-    heroTitle: 'Langrend på Bjorli',
-    heroSubtitle: 'Godt 80 km præparerede langrendsspor – fra oplyst rute i bygden til åbne fjeldspor.',
-    intro:
-      'Bjorli har lidt over <strong>80 km præparerede langrendsspor</strong>. Sporene strækker sig fra skovterræn nede i bygden og op på fjeldet og indeholder en oplyst <strong>lysløype</strong> til aftensessioner. Forholdene er stabile hele sæsonen, og du kan vælge alt fra en kort runde til lange dagsture på fjeldet.',
+    heroTitle: FACTS_COPY.da.nordicTitle,
+    heroSubtitle: FACTS_COPY.da.nordicIntro,
+    intro: FACTS_COPY.da.nordicIntro,
     loypestatusTitle: 'Sporstatus lige nu',
-    loypestatusBody:
-      'Se hvilke spor der lige er præpareret og hvilke der endnu ikke er kørt op. Opdateres af det lokale spor-team på Bjorli.',
-    loypestatusCta: 'Se sporstatus på løyper.net',
+    loypestatusBody: FACTS_COPY.da.nordicShort,
+    loypestatusCta: FACTS_COPY.da.mapCta,
     lysloypeBadge: 'Oplyst spor',
     lysloypeAlt:
       'Langrendsløber på Bjorlis oplyste spor en mørk vinteraften, med lygtepæle langs det præparerede spor.',
     lysloypeTitle: 'Stå på ski efter mørkets frembrud',
-    lysloypeBody1:
-      'Den oplyste rute på Bjorli gør det muligt at fortsætte længe efter solnedgang – enten en rolig aftentur eller et ordentligt intervalpas. Det er ofte også det første spor, der præpareres tidligt i sæsonen.',
-    lysloypeBody2:
-      'Tjek aktuelle åbningstider og status før afgang – lyset styres lokalt og varierer hen over sæsonen.',
+    lysloypeBody1: FACTS_COPY.da.floodlit,
+    lysloypeBody2: FACTS_COPY.da.nordicShort,
     praktiskBadge: 'Praktisk info',
     praktiskTitle: 'Inden du tager af sted',
     cardCheck: {
       title: 'Tjek forholdene',
       bodyBefore: 'Kig på ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' for hvad der lige er præpareret, og tjek vejrudsigten før du tager af sted.',
     },
     cardWeather: {
@@ -202,28 +183,24 @@ export const LANGRENN_COPY: Record<Locale, LangrennCopy> = {
     },
   },
   sv: {
-    heroTitle: 'Längdåkning på Bjorli',
-    heroSubtitle: 'Drygt 80 km preparerade spår – från elljusspår i byn till öppna fjällspår.',
-    intro:
-      'Bjorli har lite drygt <strong>80 km preparerade längdspår</strong>. Spårnätet sträcker sig från skogsterräng nere i byn ända upp på kalfjället och inkluderar ett <strong>elljusspår</strong> för kvällsåkning. Förhållandena håller hela säsongen, så du kan välja allt från en kort runda till en lång dag på fjället.',
+    heroTitle: FACTS_COPY.sv.nordicTitle,
+    heroSubtitle: FACTS_COPY.sv.nordicIntro,
+    intro: FACTS_COPY.sv.nordicIntro,
     loypestatusTitle: 'Spårstatus just nu',
-    loypestatusBody:
-      'Se vilka spår som nyss preparerats och vilka som inte är körda än. Uppdateras av det lokala spårlaget i Bjorli.',
-    loypestatusCta: 'Se spårstatus på løyper.net',
+    loypestatusBody: FACTS_COPY.sv.nordicShort,
+    loypestatusCta: FACTS_COPY.sv.mapCta,
     lysloypeBadge: 'Elljusspår',
     lysloypeAlt:
       'Längdåkare på Bjorlis elljusspår en mörk vinterkväll, med lyktstolpar längs det preparerade spåret.',
     lysloypeTitle: 'Åk skidor långt efter solnedgång',
-    lysloypeBody1:
-      'Elljusspåret på Bjorli gör att du kan fortsätta åka långt efter solnedgång – från en lugn kvällsrunda till hårda intervaller. Det är dessutom oftast första spåret som prepareras tidigt på säsongen.',
-    lysloypeBody2:
-      'Kolla aktuella öppettider och status innan du ger dig ut – belysningen sköts lokalt och varierar över säsongen.',
+    lysloypeBody1: FACTS_COPY.sv.floodlit,
+    lysloypeBody2: FACTS_COPY.sv.nordicShort,
     praktiskBadge: 'Praktisk info',
     praktiskTitle: 'Innan du ger dig ut',
     cardCheck: {
       title: 'Kolla förhållandena',
       bodyBefore: 'Titta in på ',
-      linkText: 'løyper.net',
+      linkText: 'Skiappen',
       bodyAfter: ' för vad som nyss har preparerats, och kolla väderprognosen innan du åker.',
     },
     cardWeather: {

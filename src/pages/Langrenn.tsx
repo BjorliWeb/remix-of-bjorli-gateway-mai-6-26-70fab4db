@@ -1,4 +1,4 @@
-import { Activity, ExternalLink, Lightbulb, Info } from 'lucide-react';
+import { Lightbulb, Info } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import { Card, CardContent } from '@/components/ui/card';
 import { trackExternalPartnerClick } from '@/lib/analytics';
@@ -6,12 +6,16 @@ import fjelloypeAsset from '@/assets/fjelloype-bjorli.jpg.asset.json';
 import lysloypeAsset from '@/assets/lysloype-bjorli.jpg.asset.json';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { LANGRENN_COPY } from './langrennCopy';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { FACTS_COPY, SKIAPPEN_AREA_URL } from '@/lib/resortFacts';
+import SkiappenMap from '@/components/SkiappenMap';
+import { NordicSupport } from '@/components/ResortFactsSections';
 
-const TRAIL_STATUS_URL = 'https://www.loyper.net/location/bjorli';
+const TRAIL_STATUS_URL = SKIAPPEN_AREA_URL;
 
 const trackLoyperClick = (linkText: string) =>
   trackExternalPartnerClick({
-    partner_name: 'Loyper.net',
+    partner_name: 'Skiappen',
     partner_category: 'trail_map',
     link_url: TRAIL_STATUS_URL,
     link_text: linkText,
@@ -19,6 +23,8 @@ const trackLoyperClick = (linkText: string) =>
 
 const Langrenn = () => {
   const t = usePageCopy(LANGRENN_COPY);
+  const { locale } = useLanguage();
+  const facts = FACTS_COPY[locale];
   return (
     <div>
       <PageHero
@@ -30,44 +36,17 @@ const Langrenn = () => {
       {/* Intro */}
       <section className="py-12 md:py-16 px-4">
         <div className="container mx-auto max-w-3xl">
-          <p
-            className="text-lg md:text-xl text-foreground/85 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: t.intro }}
-          />
+          <p className="text-lg md:text-xl text-foreground/85 leading-relaxed">{t.intro}</p>
+          <p className="mt-6 text-foreground leading-relaxed">{facts.nordicBody}</p>
         </div>
       </section>
 
-      {/* Trail status card */}
+      {/* Shared trail map, with an always-available external link. */}
       <section className="pb-12 md:pb-16 px-4" aria-labelledby="loypestatus-heading">
         <div className="container mx-auto max-w-3xl">
-          <Card className="bg-card/70 backdrop-blur border-border/60">
-            <CardContent className="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5">
-              <div className="h-12 w-12 shrink-0 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center">
-                <Activity className="h-6 w-6" aria-hidden="true" />
-              </div>
-              <div className="flex-1">
-                <h2
-                  id="loypestatus-heading"
-                  className="font-display text-xl md:text-2xl font-semibold mb-1"
-                >
-                  {t.loypestatusTitle}
-                </h2>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                  {t.loypestatusBody}
-                </p>
-              </div>
-              <a
-                href={TRAIL_STATUS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackLoyperClick(t.loypestatusCta)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-3 text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap"
-              >
-                {t.loypestatusCta}
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </CardContent>
-          </Card>
+          <h2 id="loypestatus-heading" className="font-display text-xl md:text-2xl font-semibold mb-3">{t.loypestatusTitle}</h2>
+          <p className="text-muted-foreground leading-relaxed mb-6">{t.loypestatusBody}</p>
+          <SkiappenMap locale={locale} onOpen={() => trackLoyperClick(t.loypestatusCta)} />
         </div>
       </section>
 
@@ -128,7 +107,7 @@ const Langrenn = () => {
                     href={TRAIL_STATUS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackLoyperClick('løyper.net (praktisk info)')}
+                    onClick={() => trackLoyperClick(t.cardCheck.linkText)}
                     className="text-secondary hover:underline"
                   >
                     {t.cardCheck.linkText}
@@ -156,6 +135,7 @@ const Langrenn = () => {
           </div>
         </div>
       </section>
+      <NordicSupport locale={locale} />
     </div>
   );
 };

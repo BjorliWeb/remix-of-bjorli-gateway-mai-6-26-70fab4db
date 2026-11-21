@@ -12,6 +12,8 @@ import WebcamEmbed from '@/components/WebcamEmbed';
 import Webcam6Image from '@/components/Webcam6Image';
 import WeatherForecast from '@/components/WeatherForecast';
 import BjorliTrails from '@/components/BjorliTrails';
+import SkiappenMap from '@/components/SkiappenMap';
+import { FACTS_COPY, SKIAPPEN_AREA_URL } from '@/lib/resortFacts';
 import heroImage from '@/assets/hero-winter.jpg';
 import loypekartImage from '@/assets/bjorli-skisenter-loypekart-vinter.jpg';
 import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analytics';
@@ -44,7 +46,7 @@ interface WebcamDef {
   needsLabelConfirmation?: boolean;
 }
 /** Skiappen area link (from Skiappen's own share function) — overview of Bjorli, no trail preselected. */
-const SKIAPPEN_AREA_URL = 'https://skiappen.no/?lat=62.25418&lng=8.25897&zoom=11';
+
 
 const WEBCAMS: WebcamDef[] = [
   { alias: '61b467311f905', titleKey: 'base' },
@@ -119,8 +121,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Hentet kl.',
     webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stolheis toppstasjon' },
     langrennTitle: 'Langrenn og løypekart',
-    langrennBody:
-      'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se løypene i kartet og sjekk når de sist ble preparert.',
+    langrennBody: FACTS_COPY.no.nordicShort,
     langrennMapTitle: 'Langrennsløyper og prepareringsstatus på Bjorli fra Skiappen',
     langrennAttribution: 'Kart og prepareringsstatus leveres av Skiappen. Fargene viser tid siden siste registrerte preparering.',
     langrennOpenCta: 'Åpne stort kart i Skiappen',
@@ -154,8 +155,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Updated at',
     webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6: chairlift top station' },
     langrennTitle: 'Cross-country skiing and piste map',
-    langrennBody:
-      'Bjorli has cross-country trails through varied high-mountain and forest terrain. See the trails on the map and check when they were last groomed.',
+    langrennBody: FACTS_COPY.en.nordicShort,
     langrennMapTitle: 'Cross-country trails and grooming status in Bjorli from Skiappen',
     langrennAttribution: 'Map and grooming status are provided by Skiappen. The colours show the time since the last recorded grooming.',
     langrennOpenCta: 'Open the full map in Skiappen',
@@ -189,8 +189,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Abgerufen um',
     webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation Sessellift' },
     langrennTitle: 'Langlauf und Loipenkarte',
-    langrennBody:
-      'Bjorli hat Langlaufloipen in abwechslungsreichem Hochgebirgs- und Waldgelände. Sehen Sie die Loipen auf der Karte und prüfen Sie, wann sie zuletzt gespurt wurden.',
+    langrennBody: FACTS_COPY.de.nordicShort,
     langrennMapTitle: 'Langlaufloipen und Präparierungsstatus in Bjorli von Skiappen',
     langrennAttribution: 'Karte und Präparierungsstatus stammen von Skiappen. Die Farben zeigen die Zeit seit der letzten registrierten Präparierung.',
     langrennOpenCta: 'Große Karte in Skiappen öffnen',
@@ -224,8 +223,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Opgehaald om',
     webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation stoeltjeslift' },
     langrennTitle: 'Langlaufen en loipekaart',
-    langrennBody:
-      'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de loipes op de kaart en zie wanneer ze voor het laatst zijn geprepareerd.',
+    langrennBody: FACTS_COPY.nl.nordicShort,
     langrennMapTitle: 'Langlaufloipes en preparatiestatus in Bjorli van Skiappen',
     langrennAttribution: 'Kaart en preparatiestatus worden geleverd door Skiappen. De kleuren tonen de tijd sinds de laatst geregistreerde preparatie.',
     langrennOpenCta: 'Open de grote kaart in Skiappen',
@@ -259,8 +257,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Hentet kl.',
     webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stoleliftens topstation' },
     langrennTitle: 'Langrend og løjpekort',
-    langrennBody:
-      'Bjorli har langrendsspor i varieret højfjelds- og skovterræn. Se sporene på kortet, og tjek hvornår de sidst blev præpareret.',
+    langrennBody: FACTS_COPY.da.nordicShort,
     langrennMapTitle: 'Langrendsspor og præpareringsstatus på Bjorli fra Skiappen',
     langrennAttribution: 'Kort og præpareringsstatus leveres af Skiappen. Farverne viser tiden siden sidste registrerede præparering.',
     langrennOpenCta: 'Åbn stort kort i Skiappen',
@@ -294,8 +291,7 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     cam6FetchedLabel: 'Hämtad kl.',
     webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5', cam6: 'Webbkamera 6 Stolliftens toppstation' },
     langrennTitle: 'Längdskidor och spårkarta',
-    langrennBody:
-      'Bjorli har längdspår i varierad högfjälls- och skogsterräng. Se spåren på kartan och kolla när de senast preparerades.',
+    langrennBody: FACTS_COPY.sv.nordicShort,
     langrennMapTitle: 'Längdspår och prepareringsstatus i Bjorli från Skiappen',
     langrennAttribution: 'Karta och prepareringsstatus levereras av Skiappen. Färgerna visar tid sedan senast registrerade preparering.',
     langrennOpenCta: 'Öppna stor karta i Skiappen',
@@ -499,38 +495,10 @@ const WeatherWebcams = () => {
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             {copy.langrennBody}
           </p>
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <iframe
-              src={SKIAPPEN_AREA_URL}
-              title={copy.langrennMapTitle}
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allow="geolocation 'none'; fullscreen"
-              className="block w-full h-[480px] md:h-[600px] border-0"
-            />
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{copy.langrennAttribution}</p>
-          <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{copy.langrennHelp}</p>
-          <div className="mt-6 flex justify-center">
-            <a
-              href={SKIAPPEN_AREA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
-              onClick={() =>
-                trackWeatherWebcamClick({
-                  feature_type: 'external_map',
-                  link_url: SKIAPPEN_AREA_URL,
-                  link_text: copy.langrennOpenCta,
-                })
-              }
-            >
-              <Map className="h-4 w-4 text-secondary" aria-hidden="true" />
-              {copy.langrennOpenCta}
-              <span className="sr-only"> ({copy.externalNewTab})</span>
-              <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-            </a>
-          </div>
+          <p className="mb-6"><Link to={lp('/langrenn')} className="text-primary underline underline-offset-4">{FACTS_COPY[locale].nordicMore}</Link></p>
+          <SkiappenMap locale={locale} onOpen={() => trackWeatherWebcamClick({
+            feature_type: 'external_map', link_url: SKIAPPEN_AREA_URL, link_text: copy.langrennOpenCta,
+          })} />
           <BjorliTrails locale={locale} />
         </div>
       </section>

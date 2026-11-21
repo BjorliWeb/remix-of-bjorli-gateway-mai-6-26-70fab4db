@@ -344,7 +344,7 @@ const no: Dictionary = {
       }
     ],
     winterTeaserTitle: 'Bjorli om vinteren',
-    winterTeaserBody: 'Snøsikre fjelldager med alpint, langrenn og hytteliv – fra november til mai.',
+    winterTeaserBody: 'Snøsikre fjelldager med alpint, langrenn og hytteliv.',
     winterTeaserCta: 'Se vinter på Bjorli',
     winterTeaserEyebrow: 'Året rundt',
     foodDrink: {

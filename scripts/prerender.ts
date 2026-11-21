@@ -55,6 +55,7 @@ import { hasRichMarkup, isExternalHref, parseRichText } from '../src/lib/content
 import { formatEventCategory } from '../src/lib/events/displayFormat';
 import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
+import { alpineFactsHtml, nordicPageHtml, trailMapPageHtml, weatherNordicHtml } from './lib/resortFactsHtml';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
 import { getSkiSchoolData } from '../src/lib/cms/skiSchoolData';
 import { getSubPageData, isSubPageSlug } from '../src/lib/cms/subpageData';
@@ -506,14 +507,10 @@ const homeBodySkeleton = (locale: Locale): string => {
 
 const skiCenterBodySkeleton = (locale: Locale): string => {
   const data = getSkiCenterData(locale);
-  const stats = data.stats
-    .map((s) => `      <li style="margin:0 0 0.5rem"><strong>${escapeHtml(s.value)}</strong> — ${escapeHtml(s.label)}</li>`)
-    .join('\n');
   const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
     <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1.5rem">${escapeHtml(data.description)}</p>
-    <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${stats}
-    </ul>
+    ${alpineFactsHtml(locale)}
     <section style="margin:0 0 2rem">
       <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.liftPass.heading)}</h2>
       <p style="line-height:1.6;max-width:65ch;color:#334;margin:0 0 1rem">${escapeHtml(data.liftPass.support)}</p>
@@ -602,11 +599,13 @@ const bodySkeleton = (opts: {
   if (canonical === 'heiskort') return subPageBodySkeleton('heiskort', locale);
   if (canonical === 'apningstider') return openingHoursBodySkeleton(locale);
   if (canonical === 'skiskole') return skiSchoolBodySkeleton(locale);
+  if (canonical === 'langrenn') return skeletonShell({ locale, canonical, main: nordicPageHtml(locale) });
+  if (canonical === 'loypekart') return skeletonShell({ locale, canonical, main: trailMapPageHtml(locale, builtAssetUrl('/src/assets/bjorli-skisenter-loypekart-vinter.jpg')) });
   return skeletonShell({
     locale,
     canonical,
     main: fallbackBodySkeleton({ locale, title, description, canonical, lead }) + (canonical === 'vaer-og-webkamera'
-      ? `<section data-trail-list class="bjorli-trails mt-10 text-left text-foreground"><h2 class="font-display text-2xl font-bold mb-4">${escapeHtml(TRAIL_COPY[locale].title)}</h2><ul class="space-y-3">${TRAILS.map(t => `<li id="${trailId(t.name)}" class="rounded-lg border border-border bg-card p-4 scroll-mt-32"><h3 class="font-body text-lg font-semibold">${escapeHtml(t.name)}</h3><p class="text-sm text-muted-foreground">${escapeHtml(trailSummary(t, locale))}</p></li>`).join('')}</ul><p class="mt-4 text-sm text-muted-foreground">${escapeHtml(TRAIL_COPY[locale].source)}</p></section>`
+      ? weatherNordicHtml(locale) + `<section data-trail-list class="bjorli-trails mt-10 text-left text-foreground"><h2 class="font-display text-2xl font-bold mb-4">${escapeHtml(TRAIL_COPY[locale].title)}</h2><ul class="space-y-3">${TRAILS.map(t => `<li id="${trailId(t.name)}" class="rounded-lg border border-border bg-card p-4 scroll-mt-32"><h3 class="font-body text-lg font-semibold">${escapeHtml(t.name)}</h3><p class="text-sm text-muted-foreground">${escapeHtml(trailSummary(t, locale))}</p></li>`).join('')}</ul><p class="mt-4 text-sm text-muted-foreground">${escapeHtml(TRAIL_COPY[locale].source)}</p></section>`
       : ''),
   });
 };

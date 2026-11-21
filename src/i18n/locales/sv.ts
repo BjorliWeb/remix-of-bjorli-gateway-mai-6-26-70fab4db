@@ -332,7 +332,7 @@ const sv: Dictionary = {
       { title: 'Natur', desc: 'Tre nationalparker nära – Reinheimen, Dovrefjell och Romsdalsalpene.' },
     ],
     winterTeaserTitle: 'Bjorli på vintern',
-    winterTeaserBody: 'Snösäkra fjälldagar med alpint, längdåkning och stugliv – från november till maj.',
+    winterTeaserBody: 'Snösäkra fjälldagar med alpint, längdåkning och stugliv.',
     winterTeaserCta: 'Se vinter på Bjorli',
     winterTeaserEyebrow: 'Året runt',
     foodDrink: {

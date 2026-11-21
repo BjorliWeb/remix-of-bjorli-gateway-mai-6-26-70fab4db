@@ -1,6 +1,7 @@
 # Roadmap
 
-- [ ] Eierbekreftede skisenter-/langrennsfakta på seks språk: plan og godkjenning, felles fakta, skisenter/langrenn/løypekart/vær og relevante korte omtaler, Skiappen, prerender og kontroller. Ingen publisering.
+- [x] Eierbekreftede skisenter-/langrennsfakta på seks språk: felles fakta, skisenter/langrenn/løypekart/vær, sesongpresiseringer, delt Skiappen-kart og prerenderseksjoner. 208 tester bestått; 192 nettleserkombinasjoner kontrollert. Ingen publisering, push eller grenbytte.
+- [ ] Faktaupdate – full produksjonseksport og ekte skjermleser: ikke tilgjengelig i dette miljøet; første HTML-seksjoner testet lokalt, men ferdige produksjonsfiler gjenstår.
 
 - [x] Reduser forsideavstander og kontroller mobil, nettbrett og desktop.
 

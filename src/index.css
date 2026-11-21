@@ -99,6 +99,12 @@
     --trail-nystugu: 260 73% 70%;
     --trail-rana: 205 79% 66%;
 
+    /* Alpine grades also appear as readable text labels/percentages. */
+    --alpine-green: 143 58% 33%;
+    --alpine-blue: 211 70% 40%;
+    --alpine-red: 3 58% 45%;
+    --alpine-black: 215 23% 16%;
+
     /* Primary call to action: warm red #B73730, white label = 6.4:1 (AA). */
     --cta: 3 58% 45%;
     --cta-hover: 3 60% 38%;
@@ -556,3 +562,10 @@
 @media (prefers-reduced-motion: reduce) {
   .bjorli-trails *, .bjorli-trails *::before, .bjorli-trails *::after { animation: none; transition: none; }
 }
+
+/* Local alpine facts distribution; labels carry the same data without colour. */
+.alpine-difficulty-green { background: hsl(var(--alpine-green)); }
+.alpine-difficulty-blue { background: hsl(var(--alpine-blue)); }
+.alpine-difficulty-red { background: hsl(var(--alpine-red)); }
+.alpine-difficulty-black { background: hsl(var(--alpine-black)); }
+.alpine-difficulty-marker { width: 0.75rem; height: 0.75rem; border-radius: 50%; flex-shrink: 0; }

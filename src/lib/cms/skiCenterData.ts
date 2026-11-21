@@ -8,6 +8,7 @@
 import type { Locale } from '@/i18n/locales/types';
 import { translations } from '@/i18n/legacyTranslations';
 import { SALES_TERMS_COPY, type TermsCopy } from '@/pages/salesTermsContent';
+import { alpineStats, FACTS_COPY } from '@/lib/resortFacts';
 
 export interface SkiCenterPageData {
   language: Locale;
@@ -201,13 +202,8 @@ export const getSkiCenterData = (language: Locale): SkiCenterPageData => {
     language: locale,
     title: t.title,
     subtitle: t.subtitle,
-    description: t.desc,
-    stats: [
-      { label: copy.liftsLabel, value: '6' },
-      { label: copy.slopesLabel, value: '11' },
-      { label: copy.altitudeLabel, value: '575–1225m' },
-      { label: copy.seasonLabel, value: locale === 'en' ? 'Nov–May' : 'Nov–Mai' },
-    ],
+    description: FACTS_COPY[locale].description,
+    stats: alpineStats(locale),
     liftPass: copy.liftPass,
     trailMap: copy.trailMap,
     salesTerms: copy.salesTerms,

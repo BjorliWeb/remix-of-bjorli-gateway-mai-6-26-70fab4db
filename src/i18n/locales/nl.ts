@@ -339,7 +339,7 @@ const nl: Dictionary = {
       { title: 'Natuur', desc: 'Drie nationale parken vlakbij – Reinheimen, Dovrefjell en Romsdalsalpene.' },
     ],
     winterTeaserTitle: 'Bjorli in de winter',
-    winterTeaserBody: 'Sneeuwzekere bergdagen met alpineskiën, langlaufen en huttenleven – van november tot mei.',
+    winterTeaserBody: 'Sneeuwzekere bergdagen met alpineskiën, langlaufen en huttenleven.',
     winterTeaserCta: 'Bekijk winter in Bjorli',
     winterTeaserEyebrow: 'Het hele jaar door',
     foodDrink: {

@@ -1,3 +1,5 @@
+import { FACTS_COPY } from '@/lib/resortFacts';
+
 export const translations = {
   no: {
     nav: {
@@ -64,7 +66,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Skisenter',
       subtitle: 'Landets mest snøsikre vintersportssted',
-      desc: 'Bjorli Skisenter ligger 575 moh, med skiheiser som tar deg helt opp til høyfjellet 1225 meter over havet. Et godt tilrettelagt familieanlegg med lang sesong og lange tradisjoner.',
+      desc: FACTS_COPY.no.description,
       lifts: 'Heiser',
       slopes: 'Nedfarter',
       altitude: 'Høyde',
@@ -226,7 +228,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Ski Resort',
       subtitle: 'Skiing at the top of Gudbrandsdalen',
-      desc: 'Bjorli Ski Resort starts at 575 metres above sea level, and the lifts take you up to 1,225 metres. It’s a family ski resort with a long history.',
+      desc: FACTS_COPY.en.description,
       lifts: 'Lifts',
       slopes: 'Slopes',
       altitude: 'Altitude',
@@ -388,7 +390,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Skisenter',
       subtitle: 'Norges mest snøsikre vintersportssted',
-      desc: 'Bjorli Skisenter ligger 575 moh, med skiheise der tager dig helt op til højfjeldet 1225 meter over havet. Et veltilrettelagt familieanlæg med lang sæson og lange traditioner.',
+      desc: FACTS_COPY.da.description,
       lifts: 'Lifte',
       slopes: 'Pister',
       altitude: 'Højde',
@@ -550,7 +552,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Skisenter',
       subtitle: 'Het meest sneeuwzekere wintersportbestemming van Noorwegen',
-      desc: 'Bjorli Skisenter ligt op 575m hoogte, met liften die je tot 1.225 meter boven zeeniveau brengen. Een goed uitgerust familieoord met een lang seizoen en rijke tradities.',
+      desc: FACTS_COPY.nl.description,
       lifts: 'Liften',
       slopes: 'Pistes',
       altitude: 'Hoogte',
@@ -712,7 +714,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Skisenter',
       subtitle: 'Das schneesicherste Wintersportziel Norwegens',
-      desc: 'Das Bjorli Skisenter liegt auf 575 m, die Lifte bringen Sie bis auf 1.225 m. Ein gut ausgestattetes Familiengebiet mit langer Saison und langer Tradition.',
+      desc: FACTS_COPY.de.description,
       lifts: 'Lifte',
       slopes: 'Pisten',
       altitude: 'Höhe',
@@ -874,7 +876,7 @@ export const translations = {
     skiCenter: {
       title: 'Bjorli Skisenter',
       subtitle: 'Norges mest snösäkra vintersportort',
-      desc: 'Bjorli Skisenter ligger på 575 m. Liftarna tar dig upp till 1 225 m. En välutrustad familjeanläggning med lång säsong och lång tradition.',
+      desc: FACTS_COPY.sv.description,
       lifts: 'Liftar',
       slopes: 'Nedfarter',
       altitude: 'Höjd',

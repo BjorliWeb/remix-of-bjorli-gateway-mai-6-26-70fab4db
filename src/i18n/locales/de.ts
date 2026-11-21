@@ -338,7 +338,7 @@ const de: Dictionary = {
       { title: 'Natur', desc: 'Drei Nationalparks in der Nähe – Reinheimen, Dovrefjell und Romsdalsalpene.' },
     ],
     winterTeaserTitle: 'Bjorli im Winter',
-    winterTeaserBody: 'Schneesichere Bergtage mit Alpin, Langlauf und Hüttenleben – von November bis Mai.',
+    winterTeaserBody: 'Schneesichere Bergtage mit Alpin, Langlauf und Hüttenleben.',
     winterTeaserCta: 'Winter in Bjorli ansehen',
     winterTeaserEyebrow: 'Das ganze Jahr',
     foodDrink: {
