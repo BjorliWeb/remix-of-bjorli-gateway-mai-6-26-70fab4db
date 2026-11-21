@@ -4,7 +4,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Map, Activity, ExternalLink } from 'lucide-react';
+import { Map, ExternalLink } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import LiveFnuggStatus from '@/components/LiveFnuggStatus';
 import LiveAlertBanner from '@/components/LiveAlertBanner';
@@ -25,7 +25,7 @@ import { trackWeatherWebcamClick, trackLegacyRedirectVisit } from '@/lib/analyti
  *   - Status akkurat nå       → Fnugg resort 177 (via LiveFnuggStatus block)
  *   - Dagens driftsmelding    → latest Bjorli Fnugg post (via LiveAlertBanner)
  *   - Webkamera               → IPCamLive aliases preserved from bjorli.no/livecams
- *   - Langrenn / løypekart    → external loyper.net (same as legacy page)
+ *   - Langrenn / løypekart    → embedded Skiappen area map + always-visible link
  */
 
 /**
@@ -42,6 +42,9 @@ interface WebcamDef {
   titleKey: 'base' | 'cam2' | 'cam3' | 'cam4' | 'cam5';
   needsLabelConfirmation?: boolean;
 }
+/** Skiappen area link (from Skiappen's own share function) — overview of Bjorli, no trail preselected. */
+const SKIAPPEN_AREA_URL = 'https://skiappen.no/?lat=62.25418&lng=8.25897&zoom=11';
+
 const WEBCAMS: WebcamDef[] = [
   { alias: '61b467311f905', titleKey: 'base' },
   { alias: '61c4bf99a3979', titleKey: 'cam2', needsLabelConfirmation: true },
@@ -77,9 +80,11 @@ interface WeatherWebcamsCopy {
   webcamTitles: { base: string; cam2: string; cam3: string; cam4: string; cam5: string; cam6: string };
   langrennTitle: string;
   langrennBody: string;
-  langrennStatusCta: string;
-  langrennMapCta: string;
+  langrennMapTitle: string;
+  langrennAttribution: string;
+  langrennOpenCta: string;
   externalNewTab: string;
+  langrennHelp: string;
   trailMapSrLabel: string;
   trailMapAriaOpen: string;
   trailMapAlt: string;
@@ -114,10 +119,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Baseområde', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stolheis toppstasjon' },
     langrennTitle: 'Langrenn og løypekart',
     langrennBody:
-      'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se live løypestatus og interaktivt løypekart for oppdatert informasjon.',
-    langrennStatusCta: 'Se løypestatus',
-    langrennMapCta: 'Se løypekart',
-    externalNewTab: 'loyper.net, åpnes i ny fane',
+      'Bjorli har langrennsløyper i variert høyfjells- og skogsterreng. Se løypene i kartet og sjekk når de sist ble preparert.',
+    langrennMapTitle: 'Langrennsløyper og prepareringsstatus på Bjorli fra Skiappen',
+    langrennAttribution: 'Kart og prepareringsstatus leveres av Skiappen. Fargene viser tid siden siste registrerte preparering.',
+    langrennOpenCta: 'Åpne stort kart i Skiappen',
+    externalNewTab: 'åpnes i ny fane',
+    langrennHelp: 'Vises ikke kartet? Bruk knappen under for å åpne det i Skiappen.',
     trailMapSrLabel: 'Løypekart',
     trailMapAriaOpen: 'Åpne løypekart i full størrelse',
     trailMapAlt: 'Løypekart for Bjorli Skisenter med alpinløyper, heiser, langrennsløyper og symbolforklaring.',
@@ -147,10 +154,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Base area', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6: chairlift top station' },
     langrennTitle: 'Cross-country skiing and piste map',
     langrennBody:
-      'Bjorli has cross-country ski trails through varied mountain and forest landscapes. Check the latest trail status and the interactive trail map before you head out.',
-    langrennStatusCta: 'See trail status',
-    langrennMapCta: 'See the trail map',
-    externalNewTab: 'loyper.net, opens in a new tab',
+      'Bjorli has cross-country trails through varied high-mountain and forest terrain. See the trails on the map and check when they were last groomed.',
+    langrennMapTitle: 'Cross-country trails and grooming status in Bjorli from Skiappen',
+    langrennAttribution: 'Map and grooming status are provided by Skiappen. The colours show the time since the last recorded grooming.',
+    langrennOpenCta: 'Open the full map in Skiappen',
+    externalNewTab: 'opens in a new tab',
+    langrennHelp: 'Map not showing? Use the button below to open it in Skiappen.',
     trailMapSrLabel: 'Piste map',
     trailMapAriaOpen: 'Open the full-size piste map',
     trailMapAlt: 'Piste map for Bjorli Ski Resort, showing the runs, lifts, cross-country ski trails and the map key.',
@@ -180,10 +189,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Talstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation Sessellift' },
     langrennTitle: 'Langlauf und Loipenkarte',
     langrennBody:
-      'Bjorli bietet Langlaufloipen durch abwechslungsreiches Hochgebirgs- und Waldgelände. Sehen Sie den Live-Loipenstatus und die interaktive Loipenkarte für aktuelle Informationen.',
-    langrennStatusCta: 'Loipenstatus ansehen',
-    langrennMapCta: 'Loipenkarte ansehen',
-    externalNewTab: 'loyper.net, wird in einem neuen Tab geöffnet',
+      'Bjorli hat Langlaufloipen in abwechslungsreichem Hochgebirgs- und Waldgelände. Sehen Sie die Loipen auf der Karte und prüfen Sie, wann sie zuletzt gespurt wurden.',
+    langrennMapTitle: 'Langlaufloipen und Präparierungsstatus in Bjorli von Skiappen',
+    langrennAttribution: 'Karte und Präparierungsstatus stammen von Skiappen. Die Farben zeigen die Zeit seit der letzten registrierten Präparierung.',
+    langrennOpenCta: 'Große Karte in Skiappen öffnen',
+    externalNewTab: 'wird in einem neuen Tab geöffnet',
+    langrennHelp: 'Wird die Karte nicht angezeigt? Öffnen Sie sie über die Schaltfläche unten in Skiappen.',
     trailMapSrLabel: 'Loipenkarte',
     trailMapAriaOpen: 'Loipenkarte in voller Größe öffnen',
     trailMapAlt: 'Loipenkarte des Bjorli Skisenter mit Alpinabfahrten, Liften, Loipen und Zeichenerklärung.',
@@ -213,10 +224,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Dalstation', cam2: 'Webcam 2', cam3: 'Webcam 3', cam4: 'Webcam 4', cam5: 'Webcam 5', cam6: 'Webcam 6 Bergstation stoeltjeslift' },
     langrennTitle: 'Langlaufen en loipekaart',
     langrennBody:
-      'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de live loipestatus en de interactieve loipekaart voor actuele informatie.',
-    langrennStatusCta: 'Bekijk loipestatus',
-    langrennMapCta: 'Bekijk loipekaart',
-    externalNewTab: 'loyper.net, opent in een nieuw tabblad',
+      'Bjorli heeft langlaufloipes door afwisselend hooggebergte- en bosterrein. Bekijk de loipes op de kaart en zie wanneer ze voor het laatst zijn geprepareerd.',
+    langrennMapTitle: 'Langlaufloipes en preparatiestatus in Bjorli van Skiappen',
+    langrennAttribution: 'Kaart en preparatiestatus worden geleverd door Skiappen. De kleuren tonen de tijd sinds de laatst geregistreerde preparatie.',
+    langrennOpenCta: 'Open de grote kaart in Skiappen',
+    externalNewTab: 'opent in een nieuw tabblad',
+    langrennHelp: 'Wordt de kaart niet getoond? Open hem met de knop hieronder in Skiappen.',
     trailMapSrLabel: 'Loipekaart',
     trailMapAriaOpen: 'Loipekaart op volledig formaat openen',
     trailMapAlt: 'Loipekaart van Bjorli Skisenter met afdalingen, liften, langlaufloipes en legenda.',
@@ -246,10 +259,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Bundstation', cam2: 'Webkamera 2', cam3: 'Webkamera 3', cam4: 'Webkamera 4', cam5: 'Webkamera 5', cam6: 'Webkamera 6 Stoleliftens topstation' },
     langrennTitle: 'Langrend og løjpekort',
     langrennBody:
-      'Bjorli har langrendsspor gennem varieret højfjelds- og skovterræn. Se live løjpestatus og det interaktive løjpekort for opdateret information.',
-    langrennStatusCta: 'Se løjpestatus',
-    langrennMapCta: 'Se løjpekort',
-    externalNewTab: 'loyper.net, åbnes i en ny fane',
+      'Bjorli har langrendsspor i varieret højfjelds- og skovterræn. Se sporene på kortet, og tjek hvornår de sidst blev præpareret.',
+    langrennMapTitle: 'Langrendsspor og præpareringsstatus på Bjorli fra Skiappen',
+    langrennAttribution: 'Kort og præpareringsstatus leveres af Skiappen. Farverne viser tiden siden sidste registrerede præparering.',
+    langrennOpenCta: 'Åbn stort kort i Skiappen',
+    externalNewTab: 'åbnes i en ny fane',
+    langrennHelp: 'Vises kortet ikke? Brug knappen nedenfor til at åbne det i Skiappen.',
     trailMapSrLabel: 'Løjpekort',
     trailMapAriaOpen: 'Åbn løjpekort i fuld størrelse',
     trailMapAlt: 'Løjpekort for Bjorli Skisenter med alpinløjper, lifter, langrendsspor og symbolforklaring.',
@@ -279,10 +294,12 @@ const COPY: Record<'no' | 'en' | 'de' | 'nl' | 'da' | 'sv', WeatherWebcamsCopy> 
     webcamTitles: { base: 'Nedre station', cam2: 'Webbkamera 2', cam3: 'Webbkamera 3', cam4: 'Webbkamera 4', cam5: 'Webbkamera 5', cam6: 'Webbkamera 6 Stolliftens toppstation' },
     langrennTitle: 'Längdskidor och spårkarta',
     langrennBody:
-      'Bjorli har längdspår genom varierande högfjälls- och skogsterräng. Se live spårstatus och den interaktiva spårkartan för aktuell information.',
-    langrennStatusCta: 'Se spårstatus',
-    langrennMapCta: 'Se spårkarta',
-    externalNewTab: 'loyper.net, öppnas i en ny flik',
+      'Bjorli har längdspår i varierad högfjälls- och skogsterräng. Se spåren på kartan och kolla när de senast preparerades.',
+    langrennMapTitle: 'Längdspår och prepareringsstatus i Bjorli från Skiappen',
+    langrennAttribution: 'Karta och prepareringsstatus levereras av Skiappen. Färgerna visar tid sedan senast registrerade preparering.',
+    langrennOpenCta: 'Öppna stor karta i Skiappen',
+    externalNewTab: 'öppnas i en ny flik',
+    langrennHelp: 'Visas inte kartan? Använd knappen nedan för att öppna den i Skiappen.',
     trailMapSrLabel: 'Spårkarta',
     trailMapAriaOpen: 'Öppna spårkartan i full storlek',
     trailMapAlt: 'Spårkarta för Bjorli Skisenter med alpinbackar, liftar, längdspår och teckenförklaring.',
@@ -481,41 +498,35 @@ const WeatherWebcams = () => {
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             {copy.langrennBody}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <iframe
+              src={SKIAPPEN_AREA_URL}
+              title={copy.langrennMapTitle}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="geolocation 'none'; fullscreen"
+              className="block w-full h-[480px] md:h-[600px] border-0"
+            />
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{copy.langrennAttribution}</p>
+          <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{copy.langrennHelp}</p>
+          <div className="mt-6 flex justify-center">
             <a
-              href="https://www.loyper.net/location/bjorli"
+              href={SKIAPPEN_AREA_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
-              aria-label={`${copy.langrennStatusCta} (${copy.externalNewTab})`}
-              onClick={() =>
-                trackWeatherWebcamClick({
-                  feature_type: 'cross_country_status',
-                  link_url: 'https://www.loyper.net/location/bjorli',
-                  link_text: copy.langrennStatusCta,
-                })
-              }
-            >
-              <Activity className="h-4 w-4 text-secondary" aria-hidden="true" />
-              {copy.langrennStatusCta}
-              <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-            </a>
-            <a
-              href="https://www.loyper.net/location/bjorli"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-sm font-medium text-foreground hover:border-secondary/40 transition-colors"
-              aria-label={`${copy.langrennMapCta} (${copy.externalNewTab})`}
               onClick={() =>
                 trackWeatherWebcamClick({
                   feature_type: 'external_map',
-                  link_url: 'https://www.loyper.net/location/bjorli',
-                  link_text: copy.langrennMapCta,
+                  link_url: SKIAPPEN_AREA_URL,
+                  link_text: copy.langrennOpenCta,
                 })
               }
             >
               <Map className="h-4 w-4 text-secondary" aria-hidden="true" />
-              {copy.langrennMapCta}
+              {copy.langrennOpenCta}
+              <span className="sr-only"> ({copy.externalNewTab})</span>
               <ExternalLink className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
             </a>
           </div>

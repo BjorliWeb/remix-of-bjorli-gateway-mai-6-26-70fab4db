@@ -48,7 +48,7 @@ const CSP = [
   "font-src 'self'",
   `connect-src 'self' https://${SUPABASE_HOST} wss://${SUPABASE_HOST} https://api.fnugg.no https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://analytics.ahrefs.com https://challenges.cloudflare.com https://webcam.io https://*.webcam.io`,
   "media-src 'self' blob: https://webcam.io https://*.webcam.io",
-  "frame-src https://challenges.cloudflare.com https://*.ipcamlive.com https://www.google.com https://webcam.io https://*.webcam.io",
+  "frame-src https://challenges.cloudflare.com https://*.ipcamlive.com https://www.google.com https://webcam.io https://*.webcam.io https://skiappen.no https://www.skiappen.no",
   "worker-src 'self'",
   "manifest-src 'self'",
   "object-src 'none'",

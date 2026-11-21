@@ -27,3 +27,5 @@
 - [ ] Innlogget kompatibilitetsrunde: venter på isolert backend-test uten produksjonsendringer og vanlig moderering av Pray for Snow.
 
 - [x] Morki Lodge på overnattingssiden (alle språk, eget bilde, GA4-klikk)
+
+- [x] Skiappen-kart i «Langrenn og løypekart» (alle språk)
