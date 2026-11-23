@@ -34,3 +34,5 @@
 - [x] Skiappen-kart i «Langrenn og løypekart» (alle språk)
 - [x] Løypeoversikt under Skiappen: åtte løyper, seks språk, profil/GPX, klargjort første HTML, 189 tester og 48 axe-visninger. Ingen publisering.
 - [ ] Løypeoversikt – ferdig produksjons-HTML og ekte skjermleser: venter på full automatisk eksport/prerender i byggmiljø og VoiceOver/NVDA-kontroll.
+
+- [x] Fnugg driftsstatus: felles resolveOperationalState (sesong, heistall, ferskhet, API-feil), seks språk, tester og nettleserkontroll. Ingen publisering.

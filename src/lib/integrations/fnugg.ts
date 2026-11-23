@@ -108,6 +108,8 @@ export interface FnuggSource {
   conditions?: FnuggConditions;
   last_updated?: string;
   resort_open?: boolean | number | string;
+  resort_opening_date?: string;
+  resort_closing_date?: string;
   opening_hours?: FnuggOpeningHours;
 }
 
@@ -124,8 +126,14 @@ export interface BjorliFnuggStatus {
   slopesTotal: number | null;
   snowDepthCm: number | null;
   temperatureC: number | null;
+  /** Fnugg `resort_open` — SEASON flag, never proof that lifts run now. */
   resortOpen: boolean | null;
   lastUpdated: string | null;
+  /** Inclusive season calendar dates (YYYY-MM-DD) from Fnugg. */
+  seasonStart: string | null;
+  seasonEnd: string | null;
+  /** Ordinary weekly hours keyed by English weekday (monday…sunday). */
+  openingHours: Record<string, { from: string; to: string; closed: boolean }> | null;
 }
 
 export const EMPTY_FNUGG_STATUS: BjorliFnuggStatus = {
@@ -137,6 +145,9 @@ export const EMPTY_FNUGG_STATUS: BjorliFnuggStatus = {
   temperatureC: null,
   resortOpen: null,
   lastUpdated: null,
+  seasonStart: null,
+  seasonEnd: null,
+  openingHours: null,
 };
 
 const toNumber = (v: unknown): number | null => {
@@ -182,7 +193,126 @@ export function normalizeFnuggStatus(raw: FnuggResortResponse | null | undefined
     temperatureC: tempC,
     resortOpen: toBool(src.resort_open),
     lastUpdated: typeof src.last_updated === 'string' ? src.last_updated : null,
+    seasonStart: toCalendarDate(src.resort_opening_date),
+    seasonEnd: toCalendarDate(src.resort_closing_date),
+    openingHours: toOpeningHours(src.opening_hours),
   };
+}
+
+const toCalendarDate = (v: unknown): string | null =>
+  typeof v === 'string' && /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : null;
+
+const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const HHMM = /^\d{2}:\d{2}$/;
+
+function toOpeningHours(raw: unknown): BjorliFnuggStatus['openingHours'] {
+  if (!raw || typeof raw !== 'object') return null;
+  const out: NonNullable<BjorliFnuggStatus['openingHours']> = {};
+  for (const day of WEEKDAYS) {
+    const d = (raw as Record<string, unknown>)[day] as Record<string, unknown> | undefined;
+    if (d && typeof d.from === 'string' && typeof d.to === 'string' && HHMM.test(d.from) && HHMM.test(d.to)) {
+      out[day] = { from: d.from, to: d.to, closed: d.closed === true };
+    }
+  }
+  return Object.keys(out).length ? out : null;
+}
+
+// ============================================================
+// Operational state — single shared rule (React-free, testable)
+// ============================================================
+
+export type OperationalState = 'open' | 'closed' | 'seasonClosed' | 'unavailable';
+/** fresh ≤30 min · reported 30–120 min (or valid off-hours) · stale = not confirmed */
+export type DataFreshness = 'fresh' | 'reported' | 'stale';
+
+const OSLO = 'Europe/Oslo';
+
+/** Calendar parts of `now` in Europe/Oslo. */
+export function osloParts(now: Date): { date: string; weekday: string; minutes: number } {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: OSLO, year: 'numeric', month: '2-digit', day: '2-digit',
+    weekday: 'long', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(now);
+  const g = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  return {
+    date: `${g('year')}-${g('month')}-${g('day')}`,
+    weekday: g('weekday').toLowerCase(),
+    minutes: Number(g('hour')) * 60 + Number(g('minute')),
+  };
+}
+
+const isCount = (n: number | null): n is number => n !== null && Number.isInteger(n) && n >= 0;
+const toMin = (hhmm: string) => Number(hhmm.slice(0, 2)) * 60 + Number(hhmm.slice(3, 5));
+
+/**
+ * Decide what the site may claim right now. Ordinary opening hours can
+ * never make the resort "open" on their own; only valid lift counts can.
+ */
+export function resolveOperationalState(
+  status: BjorliFnuggStatus | null | undefined,
+  now: Date,
+): OperationalState {
+  if (!status || !status.lastUpdated || Number.isNaN(Date.parse(status.lastUpdated))) return 'unavailable';
+  const today = osloParts(now);
+  if (status.resortOpen === false) return 'seasonClosed';
+  if (!status.seasonStart || !status.seasonEnd) return 'unavailable';
+  if (today.date < status.seasonStart || today.date > status.seasonEnd) return 'seasonClosed';
+
+  const { liftsOpen, liftsTotal } = status;
+  if (!isCount(liftsOpen) || !isCount(liftsTotal) || liftsTotal === 0 || liftsOpen > liftsTotal) {
+    return 'unavailable';
+  }
+  const scheduled = status.openingHours?.[today.weekday];
+  if (liftsOpen > 0) {
+    if (scheduled?.closed) {
+      console.warn('[fnugg] conflict: lifts open on a scheduled closed day; lift counts win', {
+        date: today.date, liftsOpen, liftsTotal,
+      });
+    }
+    return 'open';
+  }
+  return 'closed';
+}
+
+/** End (epoch ms) of the most recent scheduled operating period ending ≤ now, looking back 7 days. */
+function lastScheduledEnd(status: BjorliFnuggStatus, now: Date): number | null {
+  if (!status.openingHours) return null;
+  for (let back = 0; back < 8; back++) {
+    const probe = new Date(now.getTime() - back * 86_400_000);
+    const p = osloParts(probe);
+    const day = status.openingHours[p.weekday];
+    if (!day || day.closed) continue;
+    const endMin = toMin(day.to);
+    if (back === 0 && p.minutes < endMin) continue; // today's period not finished
+    // Translate Oslo wall-clock end back to an instant: probe minus (probe minutes − end minutes).
+    return probe.getTime() - (p.minutes - endMin) * 60_000 - (probe.getTime() % 60_000);
+  }
+  return null;
+}
+
+function inScheduledHours(status: BjorliFnuggStatus, now: Date): boolean {
+  const p = osloParts(now);
+  const day = status.openingHours?.[p.weekday];
+  return !!day && !day.closed && p.minutes >= toMin(day.from) && p.minutes < toMin(day.to);
+}
+
+/**
+ * How trustworthy Fnugg's `last_updated` is right now. During (or with no
+ * known) operating hours: ≤30 min fresh, ≤120 min reported, else stale.
+ * Outside scheduled hours, data written after the last scheduled period
+ * ended is still valid but shown as "reported", never as live.
+ */
+export function resolveFreshness(status: BjorliFnuggStatus | null | undefined, now: Date): DataFreshness {
+  const t = status?.lastUpdated ? Date.parse(status.lastUpdated) : NaN;
+  if (!status || Number.isNaN(t)) return 'stale';
+  const ageMin = (now.getTime() - t) / 60_000;
+  if (ageMin <= 30) return 'fresh';
+  if (ageMin <= 120) return 'reported';
+  if (status.openingHours && !inScheduledHours(status, now)) {
+    const end = lastScheduledEnd(status, now);
+    if (end !== null && t >= end - 60 * 60_000) return 'reported';
+  }
+  return 'stale';
 }
 
 /**

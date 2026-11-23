@@ -1,5 +1,11 @@
+import { useEffect, useState } from 'react';
 import { useBjorliStatus } from '@/hooks/useBjorliStatus';
-import type { BjorliFnuggStatus } from '@/lib/integrations/fnugg';
+import {
+  resolveFreshness,
+  resolveOperationalState,
+  type BjorliFnuggStatus,
+  type DataFreshness,
+} from '@/lib/integrations/fnugg';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { LOCALE_LABELS, type Locale } from '@/i18n/translations';
 import type { Dictionary } from '@/i18n/locales/types';
@@ -35,10 +41,21 @@ function formatLastUpdated(iso: string | null, locale: string): string | null {
   }
 }
 
-function todayState(s: BjorliFnuggStatus, live: Dictionary['live']): string {
-  if (s.resortOpen === true) return live.open;
-  if (s.resortOpen === false) return live.closed;
-  return live.unavailable;
+/**
+ * Label for "today". Uses the shared resolveOperationalState rule; Fnugg's
+ * season flag (`resort_open`) never makes the resort "open" by itself.
+ */
+export function todayLabel(
+  s: BjorliFnuggStatus,
+  freshness: DataFreshness,
+  now: Date,
+  live: Dictionary['live'],
+): string {
+  const op = resolveOperationalState(s, now);
+  if (op === 'unavailable') return live.unavailable;
+  if (op === 'seasonClosed') return live.seasonClosed;
+  if (freshness === 'stale') return live.unconfirmed;
+  return op === 'open' ? live.open : live.closed;
 }
 
 interface Props {
@@ -50,9 +67,19 @@ interface Props {
 }
 
 const LiveFnuggStatus = ({ variant = 'compact', title = 'Status akkurat nå', locale = 'no' }: Props) => {
-  const { status, hasLiveData } = useBjorliStatus();
+  const { status, hasLiveData, state: fetchState } = useBjorliStatus();
   const live = useLanguage().d.live;
-  const state = todayState(status, live);
+  // Re-evaluate freshness every minute between polls.
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+  let freshness = resolveFreshness(status, now);
+  // A failed refresh means the current value could not be re-confirmed.
+  if (fetchState === 'error' && freshness === 'fresh') freshness = 'reported';
+  const state = todayLabel(status, freshness, now, live);
+  const updatedLabel = freshness === 'fresh' ? live.lastUpdated : live.lastReported;
   const todayAria = fill(live.ariaToday, { state: state.toLowerCase() });
   const updated = formatLastUpdated(status.lastUpdated, locale);
   const liftsRatio =
@@ -74,7 +101,7 @@ const LiveFnuggStatus = ({ variant = 'compact', title = 'Status akkurat nå', lo
         {updated && (
           <>
             <span className="mx-2 opacity-60">·</span>
-            <span>{live.lastUpdated}: {updated}</span>
+            <span>{updatedLabel}: {updated}</span>
           </>
         )}
         {!hasLiveData && (
@@ -96,7 +123,7 @@ const LiveFnuggStatus = ({ variant = 'compact', title = 'Status akkurat nå', lo
       <header className="flex items-baseline justify-between gap-3 mb-4">
         <h2 className="font-display text-lg md:text-xl font-semibold text-foreground">{title}</h2>
         {updated && (
-          <span className="text-xs text-muted-foreground">{live.lastUpdated}: {updated}</span>
+          <span className="text-xs text-muted-foreground">{updatedLabel}: {updated}</span>
         )}
       </header>
       <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">

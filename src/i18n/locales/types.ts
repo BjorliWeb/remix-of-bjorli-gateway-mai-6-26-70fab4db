@@ -97,6 +97,9 @@ export interface Dictionary {
     open: string;
     closed: string;
     unavailable: string;
+    seasonClosed: string;
+    unconfirmed: string;
+    lastReported: string;
     ariaToday: string;
     lastUpdated: string;
     liveSource: string;
