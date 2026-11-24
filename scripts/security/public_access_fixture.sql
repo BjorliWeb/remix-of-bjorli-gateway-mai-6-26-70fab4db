@@ -61,4 +61,10 @@ INSERT INTO public.weather_snapshot(kind, payload, last_error, locked_at)
 INSERT INTO public.seo_meta(page_slug, title) VALUES ('test-public', 'Published metadata');
 INSERT INTO public.services(name, slug, is_active) VALUES
   ('Published test service', 'test-active', true),
-  ('INACTIVE_TEST_ONLY', 'test-inactive', false);
+  ('INACTIVE_TEST_ONLY', 'test-inactive', false);-- Stand-in for Fase 4 public.is_editor (role part only). MFA behaviour of the
+-- real function is covered by test_editor_mfa.py; here admins count as verified.
+CREATE FUNCTION public.is_editor(_role public.app_role) RETURNS boolean
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS
+  $$ SELECT public.has_role(auth.uid(), _role) $$;
+REVOKE ALL ON FUNCTION public.is_editor(public.app_role) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.is_editor(public.app_role) TO authenticated, service_role;

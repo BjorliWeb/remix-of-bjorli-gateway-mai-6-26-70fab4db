@@ -155,6 +155,10 @@ class HasRoleTests(unittest.TestCase):
                      "CREATE POLICY \"Anyone can read active services\" ON public.services FOR SELECT TO public USING (true);"
                      "CREATE POLICY \"Anyone can read SEO meta\" ON public.seo_meta FOR SELECT TO public USING (true);"
                      "DROP POLICY t_read ON public.seo_meta;")
+            # Stand-in for Fase 4 is_editor (role only; MFA covered by test_editor_mfa.py).
+            self.sql("CREATE FUNCTION public.is_editor(_role public.app_role) RETURNS boolean LANGUAGE sql STABLE "
+                     "SECURITY DEFINER SET search_path = public AS $$ SELECT public.has_role(auth.uid(), _role) $$;"
+                     "GRANT EXECUTE ON FUNCTION public.is_editor(public.app_role) TO authenticated")
             self.sql(PUBLIC_UP.read_text())
             self.assertEqual(self.sql('SELECT count(*) FROM services WHERE NOT is_active', 'admin').stdout.strip(), '1')
             self.assertEqual(self.sql('SELECT count(*) FROM services WHERE NOT is_active', 'user').stdout.strip(), '0')

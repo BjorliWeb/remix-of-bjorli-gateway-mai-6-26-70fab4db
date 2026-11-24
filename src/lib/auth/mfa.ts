@@ -65,3 +65,26 @@ export async function hasCurrentEditorMfa(): Promise<boolean> {
   if (error) return false;
   return data === true;
 }
+
+/** Error code the editor backend functions return (HTTP 403) when MFA is stale. */
+export const MFA_REQUIRED = 'mfa_required';
+
+/**
+ * True when a `functions.invoke` error is the backend's MFA refusal. Reads the
+ * JSON body of the HTTP error; anything unreadable is treated as "not MFA" so
+ * the caller falls back to its normal error message.
+ */
+export async function isMfaRequiredError(error: unknown): Promise<boolean> {
+  const ctx = (error as { context?: unknown } | null)?.context;
+  if (!(ctx instanceof Response) || ctx.status !== 403) return false;
+  try {
+    const body = await ctx.clone().json();
+    return body?.error === MFA_REQUIRED;
+  } catch {
+    return false;
+  }
+}
+
+/** Shown when the server refuses because two-step login must be renewed. */
+export const MFA_EXPIRED_MESSAGE =
+  'To-trinns innloggingen må fornyes. Ingenting er lagret eller sendt. Det du har skrevet, står fortsatt her. Logg inn på nytt i en ny fane og prøv igjen.';

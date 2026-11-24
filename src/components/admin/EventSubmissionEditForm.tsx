@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
 import { normalizeCategories } from '@/lib/eventCategories';
 import { EventCategoryPicker } from '@/components/events/EventCategoryPicker';
 import {
@@ -123,6 +124,7 @@ export function EventSubmissionEditForm({
         const denied = error
           ? error.code === '42501' || error.message === 'protected_field'
           : true; // no error but no row updated = blocked by access rules
+        if (denied && !(await hasCurrentEditorMfa())) throw new Error(MFA_EXPIRED_MESSAGE);
         throw new Error(denied
           ? 'Du har ikke tilgang til å lagre denne innsendingen.'
           : 'Endringene kunne ikke lagres. Prøv igjen.');
@@ -151,7 +153,13 @@ export function EventSubmissionEditForm({
 
       if (item.status === 'approved') {
         const { error: rbErr } = await supabase.functions.invoke('trigger-site-rebuild', { body: { reason: 'update' } });
-        if (rbErr) {
+        if (rbErr && await isMfaRequiredError(rbErr)) {
+          toast({
+            title: 'Endringer lagret – publisering venter',
+            description: 'Den offentlige siden er ikke oppdatert fordi to-trinns innloggingen må fornyes. Logg inn på nytt og lagre igjen for å publisere.' + englishNote,
+            variant: 'destructive',
+          });
+        } else if (rbErr) {
           toast({
             title: 'Endringer lagret – publisering feilet',
             description: 'Den offentlige siden er ikke oppdatert ennå. Bygget prøves på nytt ved neste endring.' + englishNote,

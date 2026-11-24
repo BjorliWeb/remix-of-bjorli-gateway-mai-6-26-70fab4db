@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey, normalizeCategories } from '@/lib/eventCategories';
 import { canAccessEditor } from '@/lib/auth/roles';
-import { hasCurrentEditorMfa } from '@/lib/auth/mfa';
+import { hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
 import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
 import { EnglishTextEditor } from '@/components/admin/EnglishTextEditor';
 import {
@@ -238,7 +238,13 @@ const AdminEventSubmissions = () => {
           category: selected.category,
         },
       });
-      if (error) throw error;
+      if (error) {
+        if (await isMfaRequiredError(error)) {
+          toast({ title: 'Ny to-trinns innlogging kreves', description: MFA_EXPIRED_MESSAGE, variant: 'destructive' });
+          return;
+        }
+        throw error;
+      }
       const update = buildAiUpdate(mode, data);
       if (Object.keys(update).length > 0) {
         await supabase.from('event_submissions').update(update).eq('id', selected.id);

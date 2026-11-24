@@ -30,7 +30,7 @@ DROP POLICY "Anyone can read the stored forecast" ON public.weather_snapshot;
 ALTER POLICY "Anyone can read active services" ON public.services USING (is_active = true);
 CREATE POLICY "Admins can read all services" ON public.services
   FOR SELECT TO authenticated
-  USING (public.has_role(auth.uid(), 'admin'::public.app_role));
+  USING ((SELECT public.is_editor('admin'::public.app_role)));  -- Fase 4: MFA required; apply after 20261124_editor_mfa_up.sql
 
 COMMENT ON TABLE public.seo_meta IS
   'Intended Public Access: this table contains only public, published SEO metadata. Never store drafts, secrets, internal notes or private image URLs. Administrator INSERT/UPDATE remains role-validated.';

@@ -71,3 +71,21 @@ describe('hasCurrentEditorMfa', () => {
     }
   });
 });
+
+describe('isMfaRequiredError (Fase 4)', () => {
+  it('recognises the backend 403 mfa_required refusal', async () => {
+    const { isMfaRequiredError } = await import('./mfa');
+    const err = { context: new Response(JSON.stringify({ error: 'mfa_required' }), { status: 403 }) };
+    expect(await isMfaRequiredError(err)).toBe(true);
+  });
+  it('does not treat a plain role refusal as MFA', async () => {
+    const { isMfaRequiredError } = await import('./mfa');
+    const err = { context: new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403 }) };
+    expect(await isMfaRequiredError(err)).toBe(false);
+  });
+  it('fails safe on unreadable or non-HTTP errors', async () => {
+    const { isMfaRequiredError } = await import('./mfa');
+    expect(await isMfaRequiredError(new Error('network'))).toBe(false);
+    expect(await isMfaRequiredError({ context: new Response('x', { status: 403 }) })).toBe(false);
+  });
+});
