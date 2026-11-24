@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Sikkerhet: reversible SQL-forslag for weather_snapshot/seo_meta/services, 12 lokale PostgreSQL-testgrupper, 250 eksisterende tester, 396 nettleseråpninger og separat analyse av 13 linterfunn. Ingen produksjonsendring.
+- [ ] Sikkerhet – produksjonssetting og full etterkontroll: venter på eiers godkjenning av testresultater; isolert deployet vær/auth/publisering og ferdig produksjons-HTML ikke verifisert. Separat MFA-servergap krever egen godkjenning.
+
 - [x] Eierbekreftede skisenter-/langrennsfakta på seks språk: felles fakta, skisenter/langrenn/løypekart/vær, sesongpresiseringer, delt Skiappen-kart og prerenderseksjoner. 208 tester bestått; 192 nettleserkombinasjoner kontrollert. Ingen publisering, push eller grenbytte.
 - [ ] Faktaupdate – full produksjonseksport og ekte skjermleser: ikke tilgjengelig i dette miljøet; første HTML-seksjoner testet lokalt, men ferdige produksjonsfiler gjenstår.
 

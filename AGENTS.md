@@ -18,3 +18,4 @@
 - Cross-country route data and profile/GPX rules live in Node-safe `src/lib/trails/trails.ts`, shared by React and prerender; preserve source segment breaks in both directions so missing geometry is never invented.
 - Static resort specifications and localized factual copy come from Node-safe `resortFacts`; React and prerender reuse the same facts sections and Skiappen map, keeping operational Fnugg data independent.
 - Fnugg 'open now' is decided only by `resolveOperationalState`/`resolveFreshness` in `src/lib/integrations/fnugg.ts` (season dates + valid lift counts, Europe/Oslo) — Fnugg's `resort_open` is a season flag and must never mean open now.
+- Security changes awaiting production approval stay as SQL proposals under docs/security/pending, outside migration discovery; validate their RLS and rollback using the disposable local PostgreSQL harness before applying identical SQL through the migration tool.
