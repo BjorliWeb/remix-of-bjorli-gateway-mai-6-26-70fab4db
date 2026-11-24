@@ -1,0 +1,12 @@
+--- a/supabase/functions/list-approved-events/index.ts	2026-11-24 10:21:13.366889387 +0000
++++ b/supabase/functions/list-approved-events/index.ts	2026-11-24 10:21:13.406609492 +0000
+@@ -223,7 +223,8 @@
+       if (paths.length > 0) {
+         const { data: s } = await supabase.storage
+           .from('event-submissions')
+-          .createSignedUrls(paths, 3600);
++          // 10 min: limits reuse of public links after an event is withdrawn.
++          .createSignedUrls(paths, 600);
+         signed = (s ?? [])
+           .map((x) => x.signedUrl)
+           .filter((u): u is string => Boolean(u));

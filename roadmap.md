@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Fase 2 sikkerhet (5 funn) klargjort og testet isolert: has_role kun egen rolle, bildelenker 600 s, weather/services/seo_meta/privilegier. Rapport i docs/security/fase2-sikkerhetsutbedring-2026-11-24.md.
+- [ ] Fase 2 – produksjonssetting (migrasjoner, funksjonsdeploy, ny skanning): venter på eiers godkjenning.
+
 - [x] Sikkerhet: reversible SQL-forslag for weather_snapshot/seo_meta/services, 12 lokale PostgreSQL-testgrupper, 250 eksisterende tester, 396 nettleseråpninger og separat analyse av 13 linterfunn. Ingen produksjonsendring.
 - [ ] Sikkerhet – produksjonssetting og full etterkontroll: venter på eiers godkjenning av testresultater; isolert deployet vær/auth/publisering og ferdig produksjons-HTML ikke verifisert. Separat MFA-servergap krever egen godkjenning.
 
