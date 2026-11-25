@@ -1,7 +1,7 @@
 # Roadmap
 
 - [x] Fase 5 trinn 3–4: MFA håndheves i databasen (is_editor, 19 policyer, siste-admin-trigger) og i Edge-funksjonene (ai-event-assist, trigger-site-rebuild). Eier bekreftet /admin med to-trinns kode. Rapporter: fase5-trinn3/trinn4.
-- [ ] Fase 3 migrasjon 2 (public access) og fase 2 resterende (bildelenker 600 s, weather/seo_meta/services): venter på eiers godkjenning.
+- [x] Fase 6: public access i produksjon (4db9023). [ ] Bildelenker 600 s: venter på godkjenning av forslag. [ ] To manuelle MFA-tester hos eier.
 - [x] Fase 2 sikkerhet (5 funn) klargjort og testet isolert: has_role kun egen rolle, bildelenker 600 s, weather/services/seo_meta/privilegier. Rapport i docs/security/fase2-sikkerhetsutbedring-2026-11-24.md.
 - [ ] Fase 2 – produksjonssetting (migrasjoner, funksjonsdeploy, ny skanning): venter på eiers godkjenning.
 
