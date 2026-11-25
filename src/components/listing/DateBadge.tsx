@@ -10,7 +10,9 @@ const DateBadge = ({ date, locale = 'no' }: { date?: string; locale?: string }) 
   let display = date;
   const parsed = new Date(date);
   if (!isNaN(parsed.getTime())) {
-    display = parsed.toLocaleDateString(locale, { day: '2-digit', month: 'short', year: 'numeric' });
+    display = parsed.toLocaleDateString(locale, {
+      day: '2-digit', month: 'short', year: 'numeric', timeZone: 'Europe/Oslo',
+    });
   }
   return (
     <time
