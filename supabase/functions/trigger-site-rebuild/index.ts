@@ -49,6 +49,10 @@ Deno.serve(async (req) => {
     .in('role', ['admin', 'moderator'])
     .limit(1);
   if (roleErr || !roleRows || roleRows.length === 0) return json({ error: 'Forbidden' }, 403);
+  // Fase 4: current-session MFA, checked with the caller's own JWT (never the
+  // service client) before anything is queued. Fails closed.
+  const { data: mfaOk, error: mfaErr } = await userClient.rpc('has_current_editor_mfa');
+  if (mfaErr || mfaOk !== true) return json({ error: 'mfa_required' }, 403);
 
   let reason = 'update';
   try {

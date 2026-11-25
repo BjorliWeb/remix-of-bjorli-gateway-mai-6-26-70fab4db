@@ -47,6 +47,15 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+    // Fase 4: current-session MFA, checked with the caller's own JWT (never the
+    // service client) before any AI call. Fails closed.
+    const { data: mfaOk, error: mfaErr } = await supabase.rpc('has_current_editor_mfa');
+    if (mfaErr || mfaOk !== true) {
+      return new Response(JSON.stringify({ error: 'mfa_required' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
     // ----------------------------------------------------------------------
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
