@@ -614,6 +614,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_editor: {
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
+        Returns: boolean
+      }
       issue_editor_email_code_for_delivery: {
         Args: { _session_id: string; _user_id: string }
         Returns: Json
