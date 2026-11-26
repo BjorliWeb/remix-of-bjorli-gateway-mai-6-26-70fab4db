@@ -57,6 +57,8 @@ import { getHomepageData } from '../src/lib/cms/homepageData';
 import { getSkiCenterData } from '../src/lib/cms/skiCenterData';
 import { alpineFactsHtml, nordicPageHtml, trailMapPageHtml, weatherNordicHtml } from './lib/resortFactsHtml';
 import { getOpeningHoursData } from '../src/lib/cms/openingHoursData';
+import { fjellkafeNovemberActive, fjellkafeNovemberRows, openingHoursCopy } from '../src/lib/openingHours/seasonView';
+import { osloToday } from '../src/lib/openingHours/season';
 import { getSkiSchoolData } from '../src/lib/cms/skiSchoolData';
 import { getSubPageData, isSubPageSlug } from '../src/lib/cms/subpageData';
 import { getActiveHomepageCampaign, isCampaignCtaActive } from '../src/lib/cms/campaignData';
@@ -558,16 +560,40 @@ const subPageBodySkeleton = (slug: 'heiskort', locale: Locale): string => {
 
 const openingHoursBodySkeleton = (locale: Locale): string => {
   const data = getOpeningHoursData(locale);
+  const pastLabel = openingHoursCopy(locale).past;
+  const link = (l: { label: string; href: string }) => l.href.startsWith('/')
+    ? `<a href="${escapeHtml(localizeHref(l.href, locale))}">${escapeHtml(l.label)}</a>`
+    : `<a href="${escapeHtml(l.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(l.label)}</a>`;
+  const sectionHtml = (sec: (typeof data.sections)[number]) => `    <section data-opening-section="${sec.id}" style="margin:0 0 1.5rem">
+      <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(sec.title)}${sec.past ? ` <small>(${escapeHtml(pastLabel)})</small>` : ''}</h2>
+      <ul style="margin:0 0 0.5rem;padding-left:1.25rem;line-height:1.7">
+${sec.rows.map((r) => `        <li>${r.label ? `<strong>${escapeHtml(r.label)}:</strong> ` : ''}${escapeHtml(r.text)}</li>`).join('\n')}
+      </ul>${sec.notes.map((n) => `\n      <p style="margin:0 0 0.5rem;color:#334">${escapeHtml(n)}</p>`).join('')}${sec.links?.length ? `\n      <p style="margin:0">${sec.links.map(link).join(' · ')}</p>` : ''}
+    </section>`;
   const hours = data.hours
     .map((h) => `      <li style="margin:0 0 0.5rem">${escapeHtml(h)}</li>`)
     .join('\n');
   const main = `    <h1 style="font-size:clamp(1.75rem,4vw,2.75rem);line-height:1.1;margin:0 0 1rem">${escapeHtml(data.title)}</h1>
     <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.statusNow)}</p>
+${data.sections.filter((x) => x.id !== 'disclaimer').map(sectionHtml).join('\n')}
     <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${hours}
     </ul>
-    <p style="line-height:1.6;max-width:65ch;color:#334;margin:0">${escapeHtml(data.note)}</p>`;
+${data.sections.filter((x) => x.id === 'disclaimer').map(sectionHtml).join('\n')}`;
   return skeletonShell({ locale, canonical: 'apningstider', main });
+};
+
+/** Crawler-visible Bjorli Fjellkafe opening info for /mat-og-drikke (same source as the page). */
+const fjellkafeHoursHtml = (locale: Locale): string => {
+  const oh = openingHoursCopy(locale);
+  const nov = fjellkafeNovemberActive(osloToday())
+    ? `\n      <h3 style="font-size:1.1rem;margin:1rem 0 0.5rem">${escapeHtml(oh.fjellkafeNovemberTitle)}</h3>
+      <ul style="margin:0;padding-left:1.25rem;line-height:1.7">${fjellkafeNovemberRows(locale).map((r) => `<li><strong>${escapeHtml(r.label ?? '')}:</strong> ${escapeHtml(r.text)}</li>`).join('')}</ul>`
+    : '';
+  return `\n    <section data-fjellkafe-hours style="margin:2rem 0 0">
+      <h2 style="font-size:1.35rem;margin:0 0 0.5rem">Bjorli Fjellkafe</h2>
+      <p style="line-height:1.6;max-width:65ch;margin:0">${escapeHtml(`${oh.fjellkafe} ${oh.loungen}`)}</p>${nov}
+    </section>`;
 };
 
 const skiSchoolBodySkeleton = (locale: Locale): string => {
@@ -606,7 +632,7 @@ const bodySkeleton = (opts: {
     canonical,
     main: fallbackBodySkeleton({ locale, title, description, canonical, lead }) + (canonical === 'vaer-og-webkamera'
       ? weatherNordicHtml(locale) + `<section data-trail-list class="bjorli-trails mt-10 text-left text-foreground"><h2 class="font-display text-2xl font-bold mb-4">${escapeHtml(TRAIL_COPY[locale].title)}</h2><ul class="space-y-3">${TRAILS.map(t => `<li id="${trailId(t.name)}" class="rounded-lg border border-border bg-card p-4 scroll-mt-32"><h3 class="font-body text-lg font-semibold">${escapeHtml(t.name)}</h3><p class="text-sm text-muted-foreground">${escapeHtml(trailSummary(t, locale))}</p></li>`).join('')}</ul><p class="mt-4 text-sm text-muted-foreground">${escapeHtml(TRAIL_COPY[locale].source)}</p></section>`
-      : ''),
+      : canonical === 'mat-og-drikke' ? fjellkafeHoursHtml(locale) : ''),
   });
 };
 
