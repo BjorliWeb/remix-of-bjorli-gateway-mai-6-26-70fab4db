@@ -138,7 +138,7 @@ Deno.serve(async (req) => {
     { auth: { persistSession: false } },
   );
 
-  const { error } = await supabase.from('event_submissions').insert({
+  const row: Record<string, unknown> = {
     title: parsed.data.title,
     summary: parsed.data.summary || null,
     description: parsed.data.description,
@@ -167,7 +167,17 @@ Deno.serve(async (req) => {
     consent_editing: parsed.data.consentEditing,
     show_email_public: parsed.data.showEmailPublic,
     status: 'pending',
-  });
+  };
+
+  let { error } = await supabase.from('event_submissions').insert(row);
+  if (error && (error.code === 'PGRST204' || error.code === '42703') && ('ticket_url' in row || 'registration_url' in row)) {
+    // Database without migration 0005: keep the submission, drop only the
+    // optional action links (an editor can add them later).
+    console.error('[submit-event] action link columns missing, saving without them');
+    delete row.ticket_url;
+    delete row.registration_url;
+    ({ error } = await supabase.from('event_submissions').insert(row));
+  }
 
   if (error) {
     console.error('[submit-event] insert error', error.message);

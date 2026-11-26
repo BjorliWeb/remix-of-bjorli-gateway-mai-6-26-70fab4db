@@ -1002,7 +1002,7 @@ const detailBodySkeleton = (opts: {
   // the primary button. Hrefs were validated as http(s) during export.
   const actionsHtml = entry.actions?.length
     ? `\n    <p style="margin:1.25rem 0 0;display:flex;flex-wrap:wrap;gap:0.5rem">${entry.actions
-        .filter((a) => /^https?:\/\//i.test(a.href))
+        .filter((a) => /^https?:\/\//i.test(a.href) && a.kind in ACTION_LABELS)
         .map((a, i) => `<a href="${escapeHtml(a.href)}" target="_blank" rel="noopener noreferrer nofollow" data-event-action="${a.kind}" style="display:inline-block;padding:0.65rem 1rem;text-decoration:none;border-radius:9999px;${i === 0 ? 'background:#003b4b;color:#fff' : 'border:1px solid #003b4b;color:#003b4b'}">${escapeHtml(ACTION_LABELS[a.kind][locale])}</a>`)
         .join('')}</p>`
     : '';

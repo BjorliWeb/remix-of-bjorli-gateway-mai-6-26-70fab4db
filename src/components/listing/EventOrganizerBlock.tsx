@@ -142,7 +142,7 @@ const EventOrganizerBlock = ({ event }: Props) => {
             className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2 text-sm font-medium text-foreground hover:border-foreground/40 transition-colors"
           >
             <Globe className="h-4 w-4" />
-            {c.website}
+            {d.listing.eventVisitWebsite}
           </a>
         )}
         {mailto && emailText && (

@@ -24,6 +24,10 @@ describe('isHttpUrl', () => {
     'https://localhost/x',
     'https://example',
     'https://exa mple.no',
+    'https://a.no/x\u2003y', // em space (pasted from Word/PDF): the DB constraint rejects it too
+    'https://a.no/x\u00a0y', // no-break space
+    'https://a.no/x\u3000y',
+    'https://a.no/x\u2028y',
     ' https://example.no',
     'https://example.no/\u0000',
     'https://user:pass@example.no',

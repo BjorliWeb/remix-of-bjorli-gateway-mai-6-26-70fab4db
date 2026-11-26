@@ -6,8 +6,18 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const inserts: Array<Record<string, unknown>> = [];
+let withoutLinkColumns = false;
 (globalThis as Record<string, unknown>).__fakeClient = () => ({
-  from: () => ({ insert: async (row: Record<string, unknown>) => { inserts.push(row); return { error: null }; } }),
+  from: () => ({
+    insert: async (row: Record<string, unknown>) => {
+      if (withoutLinkColumns && ('ticket_url' in row || 'registration_url' in row)) {
+        // PostgREST before migration 0005.
+        return { error: { code: 'PGRST204', message: "Could not find the 'ticket_url' column" } };
+      }
+      inserts.push(row);
+      return { error: null };
+    },
+  }),
 });
 let handler: (req: Request) => Promise<Response>;
 (globalThis as Record<string, unknown>).Deno = {
@@ -33,7 +43,7 @@ const submit = async (extra: Record<string, unknown>) => {
   return { status: res.status, json: await res.json() as Record<string, unknown> };
 };
 
-beforeEach(() => { inserts.length = 0; });
+beforeEach(() => { inserts.length = 0; withoutLinkColumns = false; });
 
 describe('submit-event: optional action links', () => {
   it('submission without any links works and stores no link columns', async () => {
@@ -77,5 +87,21 @@ describe('submit-event: optional action links', () => {
     const r = await submit({ ticketUrl: 'https://billett.example.no/', status: 'approved' });
     expect(r.status).toBe(200);
     expect(inserts[0].status).toBe('pending');
+  });
+
+  it('deployed before migration 0005: the submission is kept, only the links are dropped', async () => {
+    withoutLinkColumns = true;
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const r = await submit({ ticketUrl: 'https://billett.example.no/' });
+    expect(r).toEqual({ status: 200, json: { ok: true } });
+    expect(inserts).toHaveLength(1);
+    expect(inserts[0]).toMatchObject({ title: 'Konsert på Bjorli', status: 'pending' });
+    expect('ticket_url' in inserts[0]).toBe(false);
+  });
+
+  it('rejects a link with a Unicode space (would fail the database constraint)', async () => {
+    const r = await submit({ ticketUrl: 'https://a.example.no/x\u2003y' });
+    expect(r.status).toBe(400);
+    expect(inserts).toHaveLength(0);
   });
 });

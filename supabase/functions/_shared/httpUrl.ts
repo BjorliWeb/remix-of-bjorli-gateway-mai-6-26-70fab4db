@@ -16,6 +16,9 @@ export function isHttpUrl(value: unknown): value is string {
     const c = value.charCodeAt(i);
     if (c <= 0x20 || c === 0x7f) return false; // whitespace / control characters
   }
+  // Any Unicode whitespace (U+00A0, U+2003, U+3000, U+2028 …): the database
+  // constraint rejects these too, so they must never pass here.
+  if (/\s/u.test(value)) return false;
   if (!/^https?:\/\//i.test(value)) return false;
   let u: URL;
   try {
