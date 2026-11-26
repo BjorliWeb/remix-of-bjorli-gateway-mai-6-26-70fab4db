@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { MAX_EVENT_CATEGORIES, normalizeCategories } from '@/lib/eventCategories';
+import { isHttpUrl, MAX_LINK_LENGTH, normalizeHttpUrl } from '@/lib/events/httpUrl';
 
 /** Limits mirror supabase/functions/submit-event so an edit can never store
  *  what the public form would reject. */
@@ -9,6 +10,26 @@ export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'] as 
 
 const optionalText = (max: number) =>
   z.string().trim().max(max).transform((v) => (v === '' ? null : v));
+
+/** Optional link: '' → null; otherwise a normalised http(s) URL (www.x.no
+ *  becomes https://www.x.no/). javascript:, data: etc. are rejected. */
+export const LINK_ERROR = 'Bruk en gyldig lenke som starter med http:// eller https://';
+const optionalLink = z
+  .string()
+  .trim()
+  .max(MAX_LINK_LENGTH, `Maks ${MAX_LINK_LENGTH} tegn`)
+  .optional()
+  .transform((v, ctx) => {
+    // A link that is already valid is stored exactly as typed (existing
+    // values are never rewritten); bare hosts get https:// added.
+    if (v && isHttpUrl(v)) return v;
+    const n = normalizeHttpUrl(v ?? '');
+    if (n === null) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: LINK_ERROR });
+      return z.NEVER;
+    }
+    return n === '' ? null : n;
+  });
 
 export const submissionEditSchema = z
   .object({
@@ -23,8 +44,10 @@ export const submissionEditSchema = z
       .transform((v) => (v === '' ? null : v)),
     time_text: optionalText(120),
     location: z.string().trim().min(2, 'Minst 2 tegn').max(240, 'Maks 240 tegn'),
-    maps_url: optionalText(500),
-    website: optionalText(500),
+    maps_url: optionalLink,
+    website: optionalLink,
+    ticket_url: optionalLink,
+    registration_url: optionalLink,
     categories: z
       .array(z.string().trim().min(1).max(80))
       .transform((v) => normalizeCategories(v))
@@ -43,10 +66,18 @@ export type SubmissionEditValues = z.output<typeof submissionEditSchema>;
  *  submitter data and consent are deliberately absent. */
 export const EDITABLE_COLUMNS = [
   'title', 'summary', 'description', 'organizer', 'start_date', 'end_date',
-  'time_text', 'location', 'maps_url', 'website', 'category', 'categories', 'image_urls',
+  'time_text', 'location', 'maps_url', 'website', 'ticket_url', 'registration_url',
+  'category', 'categories', 'image_urls',
 ] as const;
 
-export function buildEditUpdate(values: SubmissionEditValues, imageUrls: string[]) {
+/** Optional action-link columns (migration 0005). */
+const ACTION_LINK_COLUMNS = ['ticket_url', 'registration_url'] as const;
+
+export function buildEditUpdate(
+  values: SubmissionEditValues,
+  imageUrls: string[],
+  before?: Partial<Record<(typeof ACTION_LINK_COLUMNS)[number], string | null>>,
+) {
   // `category` is the compatibility field and always mirrors the first choice.
   const update: Record<string, unknown> = {
     ...values,
@@ -55,6 +86,13 @@ export function buildEditUpdate(values: SubmissionEditValues, imageUrls: string[
   };
   for (const key of Object.keys(update)) {
     if (!(EDITABLE_COLUMNS as readonly string[]).includes(key)) delete update[key];
+  }
+  // Action links are written only when they change, so ordinary edits keep
+  // working on a database that does not have the columns yet.
+  if (before) {
+    for (const key of ACTION_LINK_COLUMNS) {
+      if ((update[key] ?? null) === (before[key] ?? null)) delete update[key];
+    }
   }
   return update;
 }

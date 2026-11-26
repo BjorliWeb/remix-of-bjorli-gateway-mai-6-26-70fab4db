@@ -196,6 +196,7 @@ export type Database = {
           maps_url: string | null
           organizer: string
           phone: string | null
+          registration_url: string | null
           reviewed_at: string | null
           reviewed_by: string | null
           show_email_public: boolean
@@ -203,6 +204,7 @@ export type Database = {
           status: Database["public"]["Enums"]["event_submission_status"]
           summary: string | null
           time_text: string | null
+          ticket_url: string | null
           title: string
           updated_at: string
           upload_token: string
@@ -236,6 +238,7 @@ export type Database = {
           maps_url?: string | null
           organizer: string
           phone?: string | null
+          registration_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           show_email_public?: boolean
@@ -243,6 +246,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["event_submission_status"]
           summary?: string | null
           time_text?: string | null
+          ticket_url?: string | null
           title: string
           updated_at?: string
           upload_token?: string
@@ -276,6 +280,7 @@ export type Database = {
           maps_url?: string | null
           organizer?: string
           phone?: string | null
+          registration_url?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           show_email_public?: boolean
@@ -283,6 +288,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["event_submission_status"]
           summary?: string | null
           time_text?: string | null
+          ticket_url?: string | null
           title?: string
           updated_at?: string
           upload_token?: string

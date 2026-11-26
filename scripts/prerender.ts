@@ -914,6 +914,13 @@ const ENDED_LABEL: Record<Locale, string> = {
   no: 'Avsluttet', en: 'Ended', de: 'Beendet', nl: 'Afgelopen', da: 'Afsluttet', sv: 'Avslutat',
 };
 
+/** Labels for submitted-event action links (same texts as the app). */
+const ACTION_LABELS: Record<'ticket' | 'registration' | 'website', Record<Locale, string>> = {
+  ticket: { no: 'Kjøp billett', en: 'Buy tickets', de: 'Tickets kaufen', nl: 'Tickets kopen', da: 'Køb billet', sv: 'Köp biljett' },
+  registration: { no: 'Påmelding', en: 'Register', de: 'Anmeldung', nl: 'Aanmelden', da: 'Tilmelding', sv: 'Anmälan' },
+  website: { no: 'Besøk nettsted', en: 'Visit website', de: 'Website besuchen', nl: 'Website bezoeken', da: 'Besøg hjemmeside', sv: 'Besök webbplats' },
+};
+
 /** Crawler-visible body for a detail page: H1, meta line, full safe body. */
 const detailBodySkeleton = (opts: {
   locale: Locale;
@@ -991,6 +998,15 @@ const detailBodySkeleton = (opts: {
     ? `\n    <p style="margin:1.25rem 0 0"><a href="${escapeHtml(entry.ctaHref)}"${entry.ctaHref.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''} style="display:inline-block;padding:0.65rem 1rem;background:#003b4b;color:#fff;text-decoration:none;border-radius:0.375rem">${escapeHtml(entry.ctaLabel)}</a></p>`
     : '';
 
+  // Submitted events: action links in priority order; the first is styled as
+  // the primary button. Hrefs were validated as http(s) during export.
+  const actionsHtml = entry.actions?.length
+    ? `\n    <p style="margin:1.25rem 0 0;display:flex;flex-wrap:wrap;gap:0.5rem">${entry.actions
+        .filter((a) => /^https?:\/\//i.test(a.href) && a.kind in ACTION_LABELS)
+        .map((a, i) => `<a href="${escapeHtml(a.href)}" target="_blank" rel="noopener noreferrer nofollow" data-event-action="${a.kind}" style="display:inline-block;padding:0.65rem 1rem;text-decoration:none;border-radius:9999px;${i === 0 ? 'background:#003b4b;color:#fff' : 'border:1px solid #003b4b;color:#003b4b'}">${escapeHtml(ACTION_LABELS[a.kind][locale])}</a>`)
+        .join('')}</p>`
+    : '';
+
   const imageHtml = entry.image
     ? `\n    <figure style="margin:1.5rem 0 0"><img src="${escapeHtml(builtAssetUrl(entry.image))}" alt="${escapeHtml(entry.title)}" style="max-width:100%;height:auto;border-radius:0.375rem" loading="lazy" /></figure>`
     : '';
@@ -1003,7 +1019,7 @@ const detailBodySkeleton = (opts: {
   <main style="max-width:960px;margin:0 auto">
     <nav aria-label="Breadcrumb" style="font-size:0.9rem;color:#567;margin:0 0 1rem"><a href="${escapeHtml(homeHref)}">Bjorli</a> › <a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></nav>
     <article>
-      <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(entry.title)}</h1>${metaHtml}${introHtml}${bodyHtml}${ctaHtml}${imageHtml}
+      <h1 style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin:0 0 0.75rem">${escapeHtml(entry.title)}</h1>${metaHtml}${introHtml}${bodyHtml}${ctaHtml}${actionsHtml}${imageHtml}
     </article>${siblingsHtml}
     <p style="margin:1.5rem 0 0"><a href="${escapeHtml(hubHref)}">${escapeHtml(hubLabel)}</a></p>
   </main>

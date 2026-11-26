@@ -36,6 +36,13 @@
       "when": 1795610753407,
       "tag": "0004_public_access",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795700000000,
+      "tag": "0005_event_submissions_action_urls",
+      "breakpoints": true
     }
   ]
 }

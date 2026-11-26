@@ -184,6 +184,10 @@ export interface CmsEvent extends CmsEntryBase {
   mapsUrl?: string;
   /** Public organiser website (external). */
   website?: string;
+  /** Submitted "Kjøp billett" link (external, http(s) only). */
+  ticketUrl?: string;
+  /** Submitted "Påmelding" link (external, http(s) only). */
+  registrationUrl?: string;
   /**
    * Public contact email — ONLY populated when the submitter opted in
    * via `show_email_public`. Never set from mock content.

@@ -7,10 +7,10 @@
  * The real function file is executed unchanged: `Deno.serve` is shimmed below
  * and `npm:@supabase/supabase-js@2` is aliased to ./fakeSupabase.ts.
  */
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 
 type Row = Record<string, unknown> & { id: string; status: string; image_urls: string[] | null };
-const db: { rows: Row[]; selects: number; signCalls: Array<{ paths: string[]; ttl: number }>; objects: Set<string> } = {
+const db: { rows: Row[]; selects: number; signCalls: Array<{ paths: string[]; ttl: number }>; objects: Set<string>; missingLinkColumns?: boolean } = {
   rows: [],
   selects: 0,
   signCalls: [],
@@ -29,6 +29,11 @@ class Query {
   then(res: (v: unknown) => void) {
     db.selects += 1;
     const keep = this.cols.split(',');
+    if (db.missingLinkColumns && keep.some((k) => k === 'ticket_url' || k === 'registration_url')) {
+      // Database without migration 0005: PostgREST reports an undefined column.
+      res({ data: null, error: { code: '42703', message: 'column event_submissions.ticket_url does not exist' } });
+      return;
+    }
     const data = db.rows
       .filter((r) => this.filters.every((f) => f(r)))
       .map((r) => Object.fromEntries(keep.filter((k) => k in r).map((k) => [k, structuredClone(r[k])])));
@@ -84,6 +89,7 @@ const reset = () => {
     'uploads/tp/p0.jpg', 'private/secret.pdf']);
   db.selects = 0;
   db.signCalls = [];
+  db.missingLinkColumns = false;
 };
 
 let ipSeq = 0;
@@ -218,4 +224,35 @@ test('anonymous access: no auth header needed for listing or refresh (public dat
   assert((await refresh([{ id: A, index: 0 }])).status === 200, 'refresh');
 });
 
+
+  test('action links: returned for approved events, unsafe stored values become null', async () => {
+    db.rows.find((r) => r.id === A)!.ticket_url = 'https://billett.example.no/';
+    db.rows.find((r) => r.id === A)!.registration_url = 'https://meld.example.no/';
+    db.rows.find((r) => r.id === B)!.ticket_url = 'javascript:alert(1)';
+    // scope=current = cache keys not used by earlier tests (60 s listing cache).
+    const a = (await call({ language: 'no', scope: 'current', slug: 'konsert-a-aaaaaaaa' })).json.event;
+    expect(a.ticket_url).toBe('https://billett.example.no/');
+    expect(a.registration_url).toBe('https://meld.example.no/');
+    const b = (await call({ language: 'no', scope: 'current', slug: 'marked-b-bbbbbbbb' })).json.event;
+    expect(b.ticket_url).toBeNull();
+    expect(b.registration_url).toBeNull();
+  });
+
+  test('action links of unpublished or rejected events are never exposed', async () => {
+    for (const r of db.rows) { r.ticket_url = `https://t.example.no/${r.id}`; }
+    const body = JSON.stringify((await call({ language: 'no', scope: 'all', slug: 'venter-p-dddddddd' })).json)
+      + JSON.stringify((await call({ language: 'no', scope: 'all', slug: 'avvist-r-cccccccc' })).json);
+    expect(body).not.toContain('t.example.no');
+  });
+
+  test('deployed before migration 0005: listings keep working without the links', async () => {
+    db.missingLinkColumns = true;
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const r = await call({ language: 'en', scope: 'all', slug: 'konsert-a-aaaaaaaa' });
+    expect(r.status === 200 || r.status === 404).toBe(true);
+    const list = await call({ language: 'no', scope: 'current' });
+    expect(list.status).toBe(200);
+    expect(list.json.events.length).toBeGreaterThan(0);
+    expect(list.json.events[0].ticket_url).toBeNull();
+  });
 });

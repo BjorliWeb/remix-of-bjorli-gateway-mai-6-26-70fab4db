@@ -39,6 +39,8 @@ export interface SnapshotEntry {
   ctaLabel?: string;
   /** Editorial CTA href — may be internal or external. */
   ctaHref?: string;
+  /** Submitted event action links (Kjøp billett, Påmelding, Nettside), validated http(s). */
+  actions?: Array<{ kind: 'ticket' | 'registration' | 'website'; href: string }>;
   /** Finished event: prerendered with `noindex, follow`, excluded from the sitemap. */
   archived?: boolean;
 }

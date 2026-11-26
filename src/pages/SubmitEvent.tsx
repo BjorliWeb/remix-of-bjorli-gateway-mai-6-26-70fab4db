@@ -15,6 +15,7 @@ import Turnstile, { type TurnstileHandle } from '@/components/Turnstile';
 import { trackEventSubmissionSubmit } from '@/lib/analytics';
 import { MAX_EVENT_CATEGORIES } from '@/lib/eventCategories';
 import { EventCategoryPicker } from '@/components/events/EventCategoryPicker';
+import { normalizeHttpUrl } from '@/lib/events/httpUrl';
 
 type Lang = 'no' | 'en';
 
@@ -50,6 +51,11 @@ const COPY = {
       email: 'E-post',
       phone: 'Telefon',
       website: 'Nettside / bookinglenke',
+      websiteHelp: 'Lenke til nettside med mer informasjon.',
+      ticketUrl: 'Kjøp billett',
+      ticketUrlHelp: 'Lenke direkte til billettkjøp.',
+      registrationUrl: 'Påmelding',
+      registrationUrlHelp: 'Lenke direkte til påmeldingsskjema eller registrering.',
       startDate: 'Startdato',
       endDate: 'Sluttdato',
       time: 'Tidspunkt',
@@ -112,6 +118,11 @@ const COPY = {
       email: 'Email',
       phone: 'Phone',
       website: 'Website / booking link',
+      websiteHelp: 'Link to a website with more information.',
+      ticketUrl: 'Buy tickets',
+      ticketUrlHelp: 'Direct link to ticket purchase.',
+      registrationUrl: 'Registration',
+      registrationUrlHelp: 'Direct link to a sign-up or registration form.',
       startDate: 'Start date',
       endDate: 'End date',
       time: 'Time',
@@ -162,17 +173,9 @@ const DEDUPE_WINDOW_MS = 10 * 60 * 1000;
  * possible, an empty string for empty input, or null when the value is not
  * a plausible URL/domain.
  */
+/** '' when empty, null when invalid; only http(s) links (shared rule). */
 function normalizeUrl(raw: string): string | null {
-  const v = raw.trim();
-  if (!v) return '';
-  const withProto = /^https?:\/\//i.test(v) ? v : `https://${v}`;
-  try {
-    const u = new URL(withProto);
-    if (!u.hostname || !u.hostname.includes('.')) return null;
-    return u.toString();
-  } catch {
-    return null;
-  }
+  return normalizeHttpUrl(raw);
 }
 
 const schema = z.object({
@@ -184,6 +187,8 @@ const schema = z.object({
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(40).optional().or(z.literal('')),
   website: z.string().trim().max(500).optional().or(z.literal('')),
+  ticketUrl: z.string().trim().max(500).optional().or(z.literal('')),
+  registrationUrl: z.string().trim().max(500).optional().or(z.literal('')),
   startDate: z.string().min(1),
   endDate: z.string().optional().or(z.literal('')),
   time: z.string().trim().max(120).optional().or(z.literal('')),
@@ -210,6 +215,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
     email: '',
     phone: '',
     website: '',
+    ticketUrl: '',
+    registrationUrl: '',
     startDate: '',
     endDate: '',
     time: '',
@@ -310,6 +317,16 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
       setErrors((p) => ({ ...p, maps: c.errors.badUrl }));
       return;
     }
+    const normalizedTicket = normalizeUrl(parsed.data.ticketUrl || '');
+    const normalizedRegistration = normalizeUrl(parsed.data.registrationUrl || '');
+    if (normalizedTicket === null) {
+      setErrors((p) => ({ ...p, ticketUrl: c.errors.badUrl }));
+      return;
+    }
+    if (normalizedRegistration === null) {
+      setErrors((p) => ({ ...p, registrationUrl: c.errors.badUrl }));
+      return;
+    }
 
     // Turnstile must have produced a token before we hit the server.
     if (!turnstileToken) {
@@ -363,6 +380,8 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
             email: parsed.data.email,
             phone: parsed.data.phone || null,
             website: normalizedWebsite || null,
+            ticketUrl: normalizedTicket || null,
+            registrationUrl: normalizedRegistration || null,
             startDate: parsed.data.startDate,
             endDate: parsed.data.endDate || null,
             time: parsed.data.time || null,
@@ -457,7 +476,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                 setDone(false);
                 setForm({
                   title: '', summary: '', description: '', organizer: '', contactName: '',
-                  email: '', phone: '', website: '', startDate: '', endDate: '', time: '',
+                  email: '', phone: '', website: '', ticketUrl: '', registrationUrl: '', startDate: '', endDate: '', time: '',
                   location: '', maps: '', categories: [],
                 });
                 setImages([]); setPreviews([]); setConsentRights(false); setConsentEditing(false); setShowEmailPublic(false);
@@ -546,7 +565,7 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   <Input type="tel" value={form.phone} onChange={(e) => update('phone', e.target.value)} />
                 </Field>
               </div>
-              <Field label={`${c.f.website} ${c.f.optional}`} error={errors.website}>
+              <Field label={`${c.f.website} ${c.f.optional}`} hint={c.f.websiteHelp} error={errors.website}>
                 <Input
                   type="text"
                   inputMode="url"
@@ -554,6 +573,24 @@ const SubmitEvent = ({ lang = 'no' }: Props) => {
                   placeholder="www.eksempel.no"
                   value={form.website}
                   onChange={(e) => update('website', e.target.value)}
+                />
+              </Field>
+              <Field label={`${c.f.ticketUrl} ${c.f.optional}`} hint={c.f.ticketUrlHelp} error={errors.ticketUrl}>
+                <Input
+                  type="text"
+                  inputMode="url"
+                  placeholder="https://…"
+                  value={form.ticketUrl}
+                  onChange={(e) => update('ticketUrl', e.target.value)}
+                />
+              </Field>
+              <Field label={`${c.f.registrationUrl} ${c.f.optional}`} hint={c.f.registrationUrlHelp} error={errors.registrationUrl}>
+                <Input
+                  type="text"
+                  inputMode="url"
+                  placeholder="https://…"
+                  value={form.registrationUrl}
+                  onChange={(e) => update('registrationUrl', e.target.value)}
                 />
               </Field>
             </div>

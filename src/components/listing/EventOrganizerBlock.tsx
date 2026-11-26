@@ -1,6 +1,10 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Globe, Mail, MapPin, Clock } from 'lucide-react';
 import type { CmsEvent } from '@/lib/cms';
+import { useLanguage } from '@/i18n/LanguageContext';
+import EventActionButtons from './EventActionButtons';
+import { buildEventActions, hasNewActionLinks } from '@/lib/events/eventActions';
+import { safeHttpUrl } from '@/lib/events/httpUrl';
 
 const COPY = {
   no: {
@@ -24,7 +28,8 @@ type Lang = keyof typeof COPY;
 interface Props {
   event: Pick<
     CmsEvent,
-    'organizer' | 'website' | 'contactEmail' | 'location' | 'timeText' | 'mapsUrl' | 'language'
+    | 'organizer' | 'website' | 'contactEmail' | 'location' | 'timeText' | 'mapsUrl' | 'language'
+    | 'ticketUrl' | 'registrationUrl'
   >;
 }
 
@@ -41,6 +46,20 @@ interface Props {
 const EventOrganizerBlock = ({ event }: Props) => {
   const lang: Lang = event.language === 'en' ? 'en' : 'no';
   const c = COPY[lang];
+  const { d } = useLanguage();
+  // New action links (Kjøp billett / Påmelding): when present, all link
+  // buttons are shown in priority order with the first as primary. Without
+  // them the website link renders exactly as before.
+  const withActions = hasNewActionLinks(event);
+  // Submitted links are rendered as hrefs: only http(s) is ever linked.
+  const websiteHref = safeHttpUrl(event.website);
+  const actions = withActions
+    ? buildEventActions(event, {
+        ticket: d.listing.eventBuyTickets,
+        registration: d.listing.eventRegister,
+        website: d.listing.eventVisitWebsite,
+      })
+    : [];
 
   // Client-side email assembly — avoids putting the address in the
   // initial HTML text. Bots that execute JS can still read it; the goal
@@ -59,8 +78,11 @@ const EventOrganizerBlock = ({ event }: Props) => {
   }, [event.contactEmail]);
 
   const hasAny = useMemo(
-    () => Boolean(event.organizer || event.website || event.contactEmail || event.location || event.timeText),
-    [event],
+    () => Boolean(
+      event.organizer || event.website || event.contactEmail || event.location || event.timeText
+      || withActions,
+    ),
+    [event, withActions],
   );
   if (!hasAny) return null;
 
@@ -82,9 +104,9 @@ const EventOrganizerBlock = ({ event }: Props) => {
             <div>
               <dt className="text-muted-foreground">{c.location}</dt>
               <dd className="text-foreground">
-                {event.mapsUrl ? (
+                {safeHttpUrl(event.mapsUrl) ? (
                   <a
-                    href={event.mapsUrl}
+                    href={safeHttpUrl(event.mapsUrl)}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     className="underline hover:text-secondary"
@@ -111,15 +133,16 @@ const EventOrganizerBlock = ({ event }: Props) => {
       </dl>
 
       <div className="mt-5 flex flex-wrap gap-3">
-        {event.website && (
+        {withActions && <EventActionButtons actions={actions} className="contents" />}
+        {!withActions && websiteHref && (
           <a
-            href={event.website}
+            href={websiteHref}
             target="_blank"
             rel="noopener noreferrer nofollow"
             className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background px-4 py-2 text-sm font-medium text-foreground hover:border-foreground/40 transition-colors"
           >
             <Globe className="h-4 w-4" />
-            {c.website}
+            {d.listing.eventVisitWebsite}
           </a>
         )}
         {mailto && emailText && (
