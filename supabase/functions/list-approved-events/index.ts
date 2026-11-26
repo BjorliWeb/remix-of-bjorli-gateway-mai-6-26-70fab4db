@@ -13,9 +13,20 @@
 //   a per-IP token bucket (10 req / 60s). This function is reachable
 //   directly at *.functions.supabase.co, bypassing any Cloudflare rules,
 //   so throttling MUST live here.
+// - Public image links live 600 s (editors keep 3 600 s in the admin UI).
+//   When a link has expired in an open page, the browser asks once for a new
+//   one via POST { refresh_images: [{ id, index }] }. That path is never
+//   cached, re-reads the row, and signs only images of events that are still
+//   approved (see _shared/eventImageRefresh.ts). It has its own per-IP bucket.
 
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { includeForLanguage, publicEventText } from '../_shared/publicEventText.ts';
+import {
+  alignSignedUrls,
+  parseRefreshRequest,
+  PUBLIC_IMAGE_TTL_S,
+  resolveRefreshTargets,
+} from '../_shared/eventImageRefresh.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -70,12 +81,15 @@ const cache = new Map<string, CacheEntry>();
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 10;
 const buckets = new Map<string, { count: number; windowStart: number }>();
+// Image renewals: separate bucket so a long-open page cannot starve listings.
+// The client batches up to 12 images per request, so 20/min is generous.
+const REFRESH_RATE_MAX = 20;
 
-function rateLimited(ip: string): boolean {
+function rateLimited(key: string, max = RATE_MAX): boolean {
   const now = Date.now();
-  const b = buckets.get(ip);
+  const b = buckets.get(key);
   if (!b || now - b.windowStart > RATE_WINDOW_MS) {
-    buckets.set(ip, { count: 1, windowStart: now });
+    buckets.set(key, { count: 1, windowStart: now });
     if (buckets.size > 5000) {
       // Bound memory in the isolate.
       for (const [k, v] of buckets) {
@@ -85,7 +99,7 @@ function rateLimited(ip: string): boolean {
     return false;
   }
   b.count += 1;
-  return b.count > RATE_MAX;
+  return b.count > max;
 }
 
 function slugify(s: string): string {
@@ -120,9 +134,13 @@ Deno.serve(async (req) => {
   // scope=all also returns finished (archived) approved events so archive
   // pages keep resolving; default stays current-only for old clients.
   let scope = url.searchParams.get('scope') === 'all' ? 'all' : 'current';
+  let refreshRaw: unknown = undefined;
   if (req.method === 'POST') {
     try {
       const j = await req.json();
+      if (j && typeof j === 'object' && 'refresh_images' in j) {
+        refreshRaw = (j as { refresh_images: unknown }).refresh_images;
+      }
       if (!lang && j && typeof j.language === 'string') lang = j.language;
       if (j && (j as { scope?: unknown }).scope === 'all') scope = 'all';
       if (j && typeof (j as { slug?: unknown }).slug === 'string') {
@@ -132,6 +150,15 @@ Deno.serve(async (req) => {
       /* ignore */
     }
   }
+  const ip =
+    req.headers.get('cf-connecting-ip') ??
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown';
+
+  if (refreshRaw !== undefined) {
+    return await refreshImages(refreshRaw, ip);
+  }
+
   if (!lang) lang = 'no';
   if (!/^[a-z]{2}$/.test(lang)) {
     return new Response(JSON.stringify({ error: 'invalid language' }), {
@@ -148,10 +175,6 @@ Deno.serve(async (req) => {
     });
   }
 
-  const ip =
-    req.headers.get('cf-connecting-ip') ??
-    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    'unknown';
   if (rateLimited(ip)) {
     return new Response(JSON.stringify({ error: 'rate limited' }), {
       status: 429,
@@ -178,11 +201,7 @@ Deno.serve(async (req) => {
     });
   }
 
-  const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
-  const SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-  const supabase = createClient(SUPABASE_URL, SERVICE_KEY, {
-    auth: { persistSession: false },
-  });
+  const supabase = serviceClient();
 
   const today = todayIso();
   let query = supabase
@@ -220,13 +239,13 @@ Deno.serve(async (req) => {
   const toPublicEvent = async (r: Row) => {
       const paths = Array.isArray(r.image_urls) ? r.image_urls : [];
       let signed: string[] = [];
+      let signedIdx: number[] = [];
       if (paths.length > 0) {
         const { data: s } = await supabase.storage
           .from('event-submissions')
-          .createSignedUrls(paths, 3600);
-        signed = (s ?? [])
-          .map((x) => x.signedUrl)
-          .filter((u): u is string => Boolean(u));
+          // 10 min: limits reuse of public links after an event is withdrawn.
+          .createSignedUrls(paths, PUBLIC_IMAGE_TTL_S);
+        ({ urls: signed, indexes: signedIdx } = alignSignedUrls(s ?? []));
       }
       const text = publicEventText(r as never, lang);
       // Explicit whitelist of what leaves this function.
@@ -248,6 +267,9 @@ Deno.serve(async (req) => {
         maps_url: (r as Row).maps_url ?? null,
         website: (r as Row).website ?? null,
         image_signed_urls: signed,
+        // Position of each signed URL in the event's image list, so an
+        // expired link can be renewed by (id, index) without a storage path.
+        image_indexes: signedIdx,
       };
       // Email gate — enforced in code, not just in the UI.
       if (r.show_email_public === true && typeof r.email === 'string' && r.email.length > 0) {
@@ -292,3 +314,63 @@ Deno.serve(async (req) => {
     },
   });
 });
+function serviceClient() {
+  const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
+  const SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  return createClient(SUPABASE_URL, SERVICE_KEY, {
+    auth: { persistSession: false },
+  });
+}
+
+/**
+ * Renew expired public image links. Never cached: publication status is read
+ * from the database on every call, so stale client data cannot revive an
+ * unpublished event's images. Unknown, unpublished and rejected events are
+ * indistinguishable in the response (the item is simply missing).
+ */
+async function refreshImages(raw: unknown, ip: string): Promise<Response> {
+  const json = (body: unknown, status: number, extra: Record<string, string> = {}) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+        ...extra,
+      },
+    });
+
+  if (rateLimited(`refresh|${ip}`, REFRESH_RATE_MAX)) {
+    return json({ error: 'rate limited' }, 429, { 'Retry-After': '60' });
+  }
+  const items = parseRefreshRequest(raw);
+  if (!items) return json({ error: 'invalid refresh request' }, 400);
+
+  const supabase = serviceClient();
+  const ids = [...new Set(items.map((i) => i.id))];
+  const { data, error } = await supabase
+    .from('event_submissions')
+    .select('id,status,image_urls')
+    .in('id', ids)
+    .eq('status', 'approved');
+  if (error) {
+    console.error('list-approved-events refresh select failed', error.message);
+    return json({ error: 'query failed' }, 500);
+  }
+
+  const targets = resolveRefreshTargets(items, (data ?? []) as never);
+  if (targets.length === 0) return json({ images: [] }, 200);
+
+  const { data: s, error: signErr } = await supabase.storage
+    .from('event-submissions')
+    .createSignedUrls(targets.map((t) => t.path), PUBLIC_IMAGE_TTL_S);
+  if (signErr) {
+    console.error('list-approved-events refresh sign failed', signErr.message);
+    return json({ error: 'sign failed' }, 500);
+  }
+  const images = targets.flatMap((t, i) => {
+    const signedUrl = s?.[i]?.signedUrl;
+    return signedUrl ? [{ id: t.id, index: t.index, url: signedUrl }] : [];
+  });
+  return json({ images }, 200);
+}
