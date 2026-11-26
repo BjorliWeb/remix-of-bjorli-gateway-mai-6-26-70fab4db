@@ -34,6 +34,7 @@ import { EventLink, resolveEventTarget } from '@/components/listing/eventLink';
 import { revealUp, REVEAL_VIEWPORT, EASE_OUT_EXPO } from '@/lib/motion';
 import { formatEventCategory, formatEventDate } from '@/lib/events/displayFormat';
 import { normalizeCategories } from '@/lib/eventCategories';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 /** Section heading scale from the 2026 redesign: 28–32 px mobile, 40 px desktop. */
 const SECTION_H2 = 'font-display text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-bold text-foreground leading-[1.12] tracking-tight';
@@ -539,7 +540,7 @@ export const HomepageSections = ({ sections }: { sections: CmsHomepageSection[] 
                             <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={REVEAL_VIEWPORT} transition={{ duration: 0.9, delay: i * 0.07, ease: EASE_OUT_EXPO }} className="flex h-full flex-col">
                               <div className="relative aspect-[4/3] max-h-[320px] w-full bg-muted">
                                 {ev.heroImage && (
-                                  <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} className="absolute inset-0 h-full w-full object-contain object-center" loading="lazy" decoding="async" />
+                                  <img src={ev.heroImage.url} alt={ev.heroImage.alt || ev.title} onError={handleEventImageError} className="absolute inset-0 h-full w-full object-contain object-center" loading="lazy" decoding="async" />
                                 )}
                               </div>
                               <div className="flex flex-1 flex-col p-5">

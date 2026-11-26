@@ -8,6 +8,7 @@ import { resolveEventTarget, type EventLinkTarget } from './eventLink';
 import { itemCategories } from './listingHelpers';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { formatEventCategory } from '@/lib/events/displayFormat';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 interface Props {
   item: ListingItem;
@@ -37,6 +38,7 @@ const FeaturedContentCard = ({ item, to, featuredLabel, ctaLabel, eventMode }: P
         <img
           src={item.image}
           alt={item.title}
+          onError={handleEventImageError}
           className={`absolute inset-0 w-full h-full ${
             contain ? 'object-contain object-center' : `object-cover transition-transform duration-700 ${clickable ? 'group-hover:scale-105' : ''}`
           }`}

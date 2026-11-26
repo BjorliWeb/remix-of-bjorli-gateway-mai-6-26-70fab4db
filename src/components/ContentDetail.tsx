@@ -5,6 +5,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import ContentCard from './ContentCard';
 import type { ListingItem } from './ListingPage';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 interface ContentDetailProps {
   item: ListingItem | null;
@@ -37,7 +38,7 @@ const ContentDetail = ({ item, basePath, listingTitle, related = [], body }: Con
     <article>
       {/* Hero */}
       <section className="hero-bleed relative h-[60svh] min-h-[460px] flex items-end overflow-hidden bg-deep-navy">
-        <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+        <img src={item.image} alt={item.title} onError={handleEventImageError} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
         <div className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 container mx-auto px-4 pb-12">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

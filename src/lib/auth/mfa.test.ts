@@ -89,3 +89,24 @@ describe('isMfaRequiredError (Fase 4)', () => {
     expect(await isMfaRequiredError({ context: new Response('x', { status: 403 }) })).toBe(false);
   });
 });
+
+describe('classifyEditorWrite', () => {
+  it('is ok only when exactly the one row was updated', async () => {
+    const { classifyEditorWrite } = await import('./mfa');
+    expect(classifyEditorWrite(null, [{ id: 'x' }])).toBe('ok');
+  });
+
+  it('treats "no error, no rows" as a refusal — never as a successful save', async () => {
+    const { classifyEditorWrite } = await import('./mfa');
+    // RLS (including the server-side MFA check) refuses updates by matching nothing.
+    expect(classifyEditorWrite(null, [])).toBe('denied');
+    expect(classifyEditorWrite(null, null)).toBe('denied');
+  });
+
+  it('treats permission errors as refusals and other errors as failures', async () => {
+    const { classifyEditorWrite } = await import('./mfa');
+    expect(classifyEditorWrite({ code: '42501', message: 'permission denied' }, null)).toBe('denied');
+    expect(classifyEditorWrite({ message: 'protected_field' }, null)).toBe('denied');
+    expect(classifyEditorWrite({ code: '08006', message: 'connection failure' }, null)).toBe('failed');
+  });
+});

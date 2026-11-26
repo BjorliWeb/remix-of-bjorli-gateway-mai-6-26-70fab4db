@@ -88,3 +88,23 @@ export async function isMfaRequiredError(error: unknown): Promise<boolean> {
 /** Shown when the server refuses because two-step login must be renewed. */
 export const MFA_EXPIRED_MESSAGE =
   'To-trinns innloggingen må fornyes. Ingenting er lagret eller sendt. Det du har skrevet, står fortsatt her. Logg inn på nytt i en ny fane og prøv igjen.';
+
+/** Result of an editor write that reads back the rows it touched. */
+export type EditorWriteOutcome = 'ok' | 'denied' | 'failed';
+
+/**
+ * Classify `update(...).select('id')` on a single row. Access rules (RLS,
+ * including the server-side MFA check) refuse an update by matching zero rows
+ * rather than by raising an error, so "no error, no rows" is a refusal and
+ * must never be reported as a successful save. 42501 and the protected-field
+ * trigger are refusals too; anything else is an ordinary failure.
+ */
+export function classifyEditorWrite(
+  error: { code?: string; message?: string } | null | undefined,
+  rows: readonly unknown[] | null | undefined,
+): EditorWriteOutcome {
+  if (error) {
+    return error.code === '42501' || error.message === 'protected_field' ? 'denied' : 'failed';
+  }
+  return rows && rows.length === 1 ? 'ok' : 'denied';
+}

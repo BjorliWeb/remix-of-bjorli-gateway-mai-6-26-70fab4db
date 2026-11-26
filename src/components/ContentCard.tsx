@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 export interface ContentCardProps {
   to: string;
@@ -33,6 +34,7 @@ const ContentCard = ({ to, image, category, date, title, intro, index = 0, image
             src={image}
             alt={title}
             loading="lazy"
+            onError={handleEventImageError}
             className={imageFit === 'contain' ? 'w-full h-full object-contain object-center' : 'w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]'}
           />
           {(category || date) && (
