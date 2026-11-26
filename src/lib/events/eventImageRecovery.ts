@@ -154,7 +154,10 @@ export function handleEventImageError(e: SyntheticEvent<HTMLImageElement>): void
   });
 }
 
-/** Test-only: reset module state. */
+/**
+ * Test-only: reset module state. Per-element retry marks live in a WeakMap
+ * and cannot be cleared; tests must use fresh <img> elements.
+ */
 export function __resetEventImageRecovery(): void {
   registry.clear();
   fresh.clear();

@@ -229,7 +229,9 @@ const AdminEventSubmissions = () => {
         if (error && await isMfaRequiredError(error)) {
           toast({
             title: 'Lagret – publisering venter',
-            description: 'Endringen er lagret, men den offentlige siden er ikke bygget på nytt fordi to-trinns innloggingen må fornyes. Logg inn på nytt og lagre igjen for å publisere.',
+            description: reason === 'unpublish'
+              ? 'Arrangementet er avpublisert i databasen, men de offentlige sidene er ikke bygget på nytt fordi to-trinns innloggingen må fornyes. Det kan fortsatt vises der til neste vellykkede bygg. Logg inn på nytt og gjør en endring for å bygge sidene på nytt.'
+              : 'Endringen er lagret, men den offentlige siden er ikke bygget på nytt fordi to-trinns innloggingen må fornyes. Logg inn på nytt og lagre igjen for å publisere.',
             variant: 'destructive',
           });
         }
