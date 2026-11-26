@@ -26,6 +26,7 @@ import { slugify } from '@/lib/slug';
 import { loadSupabase } from '@/integrations/supabase/lazy';
 import { compareArchivedEvents, isEventArchived } from '@/lib/events/archive';
 import { registerEventImage } from '@/lib/events/eventImageRecovery';
+import { safeHttpUrl } from '@/lib/events/httpUrl';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
 import { getHomepageData } from './homepageData';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
@@ -854,6 +855,9 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
       location: string | null;
       maps_url: string | null;
       website: string | null;
+      /** Optional action links (newer functions only). */
+      ticket_url?: string | null;
+      registration_url?: string | null;
       image_signed_urls: string[];
       /** Position of each signed URL in the event's image list (newer functions only). */
       image_indexes?: number[];
@@ -895,6 +899,8 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
         timeText: r.time_text ?? undefined,
         mapsUrl: r.maps_url ?? undefined,
         website: r.website ?? undefined,
+        ticketUrl: safeHttpUrl(r.ticket_url),
+        registrationUrl: safeHttpUrl(r.registration_url),
         contactEmail: r.email,
         isSubmission: true,
         seoTitle: r.title,

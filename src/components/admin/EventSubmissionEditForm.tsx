@@ -9,6 +9,8 @@ import { useToast } from '@/hooks/use-toast';
 import { hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
 import { normalizeCategories } from '@/lib/eventCategories';
 import { EventCategoryPicker } from '@/components/events/EventCategoryPicker';
+import EventOrganizerBlock from '@/components/listing/EventOrganizerBlock';
+import { normalizeHttpUrl } from '@/lib/events/httpUrl';
 import {
   MAX_IMAGES, buildEditUpdate, editorUploadPath, removablePaths, submissionEditSchema,
   validateImageFile, type SubmissionEditInput,
@@ -20,6 +22,7 @@ export interface EditableSubmission {
   title: string; summary: string | null; description: string; organizer: string;
   start_date: string; end_date: string | null; time_text: string | null;
   location: string; maps_url: string | null; website: string | null;
+  ticket_url?: string | null; registration_url?: string | null;
   category: string; categories?: string[] | null; image_urls: string[]; english_approved: boolean;
   english_draft_title?: string | null; english_draft_description?: string | null;
 }
@@ -30,6 +33,7 @@ const toInput = (s: EditableSubmission): SubmissionEditInput => ({
   title: s.title, summary: s.summary ?? '', description: s.description, organizer: s.organizer,
   start_date: s.start_date, end_date: s.end_date ?? '', time_text: s.time_text ?? '',
   location: s.location, maps_url: s.maps_url ?? '', website: s.website ?? '',
+  ticket_url: s.ticket_url ?? '', registration_url: s.registration_url ?? '',
   categories: normalizeCategories(s.categories, s.category),
 });
 
@@ -117,7 +121,7 @@ export function EventSubmissionEditForm({
       }
       const imageUrls = [...keptImages, ...uploaded];
       const { data, error } = await supabase.from('event_submissions')
-        .update(buildEditUpdate(parsed.data, imageUrls) as never)
+        .update(buildEditUpdate(parsed.data, imageUrls, item) as never)
         .eq('id', item.id)
         .select('id');
       if (error || !data || data.length !== 1) {
@@ -181,20 +185,39 @@ export function EventSubmissionEditForm({
     }
   };
 
-  const field = (k: FieldKey, label: string, opts: { required?: boolean; type?: string; textarea?: number } = {}) => {
+  const field = (
+    k: FieldKey,
+    label: string,
+    opts: { required?: boolean; type?: string; textarea?: number; hint?: string } = {},
+  ) => {
     const id = `edit-${k}`;
     const err = errors[k];
+    const describedBy = [opts.hint && `${id}-hint`, err && `${id}-err`].filter(Boolean).join(' ') || undefined;
     const common = {
       id, value: values[k] as string, onChange: set(k), disabled: saving,
-      'aria-invalid': !!err, 'aria-describedby': err ? `${id}-err` : undefined, required: opts.required,
+      'aria-invalid': !!err, 'aria-describedby': describedBy, required: opts.required,
     };
     return (
       <div className="space-y-1.5">
         <Label htmlFor={id}>{label}{opts.required && ' *'}</Label>
         {opts.textarea ? <Textarea rows={opts.textarea} {...common} /> : <Input type={opts.type ?? 'text'} {...common} />}
+        {opts.hint && <p id={`${id}-hint`} className="text-xs text-muted-foreground">{opts.hint}</p>}
         {err && <p id={`${id}-err`} className="text-sm text-destructive">{err}</p>}
       </div>
     );
+  };
+
+  // Live preview of the public buttons, built from what is typed now (only
+  // links that would pass validation are shown, exactly as on the site).
+  const preview = {
+    organizer: values.organizer,
+    location: values.location,
+    timeText: values.time_text || undefined,
+    mapsUrl: normalizeHttpUrl(values.maps_url as string) || undefined,
+    website: normalizeHttpUrl(values.website as string) || undefined,
+    ticketUrl: normalizeHttpUrl(values.ticket_url as string) || undefined,
+    registrationUrl: normalizeHttpUrl(values.registration_url as string) || undefined,
+    language: 'no' as const,
   };
 
   return (
@@ -241,9 +264,23 @@ export function EventSubmissionEditForm({
           {field('time_text', 'Tidspunkt')}
           {field('location', 'Sted', { required: true })}
           {field('maps_url', 'Kartlenke', { type: 'url' })}
-          {field('website', 'Nettside', { type: 'url' })}
+          {field('website', 'Nettside (valgfritt)', { type: 'url', hint: 'Lenke til nettside med mer informasjon.' })}
+          {field('ticket_url', 'Kjøp billett (valgfritt)', { type: 'url', hint: 'Lenke direkte til billettkjøp.' })}
+          {field('registration_url', 'Påmelding (valgfritt)', { type: 'url', hint: 'Lenke direkte til påmeldingsskjema eller registrering.' })}
         </div>
       </div>
+
+      <section aria-labelledby="edit-actions-preview" className="space-y-2">
+        <h3 id="edit-actions-preview" className="text-sm font-medium text-foreground">
+          Forhåndsvisning av knapper på arrangementssiden
+        </h3>
+        <p className="text-xs text-muted-foreground">
+          Rekkefølge: Kjøp billett, Påmelding, Nettside. Tomme eller ugyldige lenker vises ikke. Lenkene åpnes i ny fane.
+        </p>
+        <div aria-live="polite">
+          <EventOrganizerBlock event={preview} />
+        </div>
+      </section>
 
       <fieldset className="space-y-3">
         <legend className="font-medium text-foreground">Bilder ({keptImages.length + newFiles.length}/{MAX_IMAGES})</legend>

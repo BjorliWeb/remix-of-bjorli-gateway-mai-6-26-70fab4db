@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Loader2, CheckCircle2, XCircle, Sparkles, Mail, Phone, Globe, MapPin,
-  Calendar, ImageOff, LogOut, Inbox, Languages, Pencil,
+  Calendar, ImageOff, LogOut, Inbox, Languages, Pencil, Ticket, ClipboardList,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,6 +14,8 @@ import { CATEGORY_LABELS, type EventCategoryKey, normalizeCategories } from '@/l
 import { canAccessEditor } from '@/lib/auth/roles';
 import { classifyEditorWrite, hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
 import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
+import EventOrganizerBlock from '@/components/listing/EventOrganizerBlock';
+import { safeHttpUrl } from '@/lib/events/httpUrl';
 import { EnglishTextEditor } from '@/components/admin/EnglishTextEditor';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription,
@@ -52,6 +54,9 @@ interface Submission {
   email: string;
   phone: string | null;
   website: string | null;
+  /** Optional action links (migration 0005); absent on older databases. */
+  ticket_url?: string | null;
+  registration_url?: string | null;
   start_date: string;
   end_date: string | null;
   time_text: string | null;
@@ -703,6 +708,33 @@ function DetailView({
             <InfoRow icon={<Globe />} label="Nettside">
               <a href={item.website} target="_blank" rel="noreferrer" className="underline break-all">{item.website}</a>
             </InfoRow>
+          )}
+          {item.ticket_url && (
+            <InfoRow icon={<Ticket />} label="Kjøp billett">
+              <a href={safeHttpUrl(item.ticket_url)} target="_blank" rel="noopener noreferrer" className="underline break-all">{item.ticket_url}</a>
+            </InfoRow>
+          )}
+          {item.registration_url && (
+            <InfoRow icon={<ClipboardList />} label="Påmelding">
+              <a href={safeHttpUrl(item.registration_url)} target="_blank" rel="noopener noreferrer" className="underline break-all">{item.registration_url}</a>
+            </InfoRow>
+          )}
+          {(item.website || item.ticket_url || item.registration_url) && (
+            <section aria-label="Forhåndsvisning av knapper på arrangementssiden">
+              <p className="text-xs text-muted-foreground">Slik vises lenkene på arrangementssiden:</p>
+              <EventOrganizerBlock
+                event={{
+                  organizer: item.organizer,
+                  location: item.location,
+                  timeText: item.time_text ?? undefined,
+                  mapsUrl: item.maps_url ?? undefined,
+                  website: item.website ?? undefined,
+                  ticketUrl: item.ticket_url ?? undefined,
+                  registrationUrl: item.registration_url ?? undefined,
+                  language: 'no',
+                }}
+              />
+            </section>
           )}
 
           <div>

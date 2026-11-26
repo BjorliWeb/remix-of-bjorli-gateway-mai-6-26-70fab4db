@@ -22,6 +22,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { createServer } from 'vite';
+import { safeHttpUrl } from '../supabase/functions/_shared/httpUrl';
 
 const LOCALES = ['no', 'en', 'de', 'nl', 'da', 'sv'] as const;
 type Loc = (typeof LOCALES)[number];
@@ -50,6 +51,12 @@ export interface ExportedEntry {
   ctaLabel?: string;
   /** Editorial CTA href — may be internal or external. */
   ctaHref?: string;
+  /**
+   * Submitted event action links in display order (Kjøp billett, Påmelding,
+   * Nettside). Only set when a ticket or registration link exists, matching
+   * the app: without them the page is exported exactly as before.
+   */
+  actions?: Array<{ kind: 'ticket' | 'registration' | 'website'; href: string }>;
   /** Finished event: prerendered and linked, but never sitemapped. */
   archived?: boolean;
 }
@@ -84,7 +91,21 @@ const pick = (e: Record<string, unknown>): ExportedEntry => ({
   seoDescription: (e.seoDescription as string) || undefined,
   ctaLabel: (e.ctaLabel as string) || undefined,
   ctaHref: (e.ctaHref as string) || undefined,
+  actions: submissionActions(e),
 });
+
+function submissionActions(e: Record<string, unknown>): ExportedEntry['actions'] {
+  if (!String(e.id ?? '').startsWith('submission-')) return undefined;
+  const ticket = safeHttpUrl(e.ticketUrl);
+  const registration = safeHttpUrl(e.registrationUrl);
+  if (!ticket && !registration) return undefined;
+  const list: NonNullable<ExportedEntry['actions']> = [];
+  if (ticket) list.push({ kind: 'ticket', href: ticket });
+  if (registration) list.push({ kind: 'registration', href: registration });
+  const website = safeHttpUrl(e.website);
+  if (website) list.push({ kind: 'website', href: website });
+  return list;
+}
 
 /** Any entry with a slug; signed (expiring) submission images are dropped. */
 const isEditorial = (e: ExportedEntry): boolean => !!e.slug;

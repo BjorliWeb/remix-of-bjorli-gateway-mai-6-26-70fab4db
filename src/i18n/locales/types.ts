@@ -293,6 +293,10 @@ export interface Dictionary {
     eventsArchiveIntro?: string;
     eventsArchiveLink?: string;
     eventEndedLabel?: string;
+    /* Submitted event action buttons (labels follow the page language). */
+    eventBuyTickets: string;
+    eventRegister: string;
+    eventVisitWebsite: string;
     eventsArchiveEmpty?: string;
     pageNewsTitle: string;
     pageNewsIntro: string;
