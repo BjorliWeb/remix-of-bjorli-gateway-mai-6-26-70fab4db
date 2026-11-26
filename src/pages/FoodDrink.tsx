@@ -67,7 +67,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", og dagligvarer får du på Bunnpris Lesjaskog og Coop Marked Lesjaverk om du heller vil lage maten selv på hytta. I skisesongen, når heisene går, finner du Bjorli Fjellkafe og Heiskroa inne på selve skisenteret.",
+    introEnd: ", og dagligvarer får du på Bunnpris Bjorli, Bunnpris Lesjaskog og Nærbutikken Lesjaverk om du heller vil lage maten selv på hytta. I skisesongen, når heisene går, finner du Bjorli Fjellkafe og Heiskroa inne på selve skisenteret.",
     venuesTitle: 'Spisesteder og møteplasser på Bjorli',
     venuesIntro: 'Bjorli har flere spisesteder og møteplasser utenfor selve skisenteret — åpne gjennom året. Utvalg og åpningstider kan variere, så sjekk alltid stedets egne kanaler før du planlegger besøket.',
     avdemsbueDesc: 'Avdemsbue ligger omtrent 35 km fra Bjorli og er et godt valg om du vil kombinere turen med lokalmat, gårdsmiljø og en matopplevelse i Gudbrandsdalen.',
@@ -122,7 +122,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", with groceries at Bunnpris Lesjaskog and Coop Marked Lesjaverk if you’d rather cook at the cabin. During the ski season, when the lifts are running, you’ll also find Bjorli Fjellkafe and Heiskroa at the ski resort itself.",
+    introEnd: ", with groceries at Bunnpris Bjorli, Bunnpris Lesjaskog and Nærbutikken Lesjaverk if you’d rather cook at the cabin. During the ski season, when the lifts are running, you’ll also find Bjorli Fjellkafe and Heiskroa at the ski resort itself.",
     venuesTitle: 'Places to eat and meet in Bjorli',
     venuesIntro: 'There are several places to eat and meet outside the ski resort. What’s on offer and the opening times can vary, so check each place’s own website or social media before you visit.',
     avdemsbueDesc: 'Avdemsbue is about 35 km from Bjorli and a good choice if you want to combine the trip with local food, a farm setting and a meal in Gudbrandsdalen.',
@@ -177,7 +177,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", und Lebensmittel gibt es bei Bunnpris Lesjaskog und Coop Marked Lesjaverk, wenn Sie lieber in der Hütte selbst kochen. Während der Skisaison, wenn die Lifte laufen, finden Sie außerdem Bjorli Fjellkafe und Heiskroa direkt im Skigebiet.",
+    introEnd: ", und Lebensmittel gibt es bei Bunnpris Bjorli, Bunnpris Lesjaskog und Nærbutikken Lesjaverk, wenn Sie lieber in der Hütte selbst kochen. Während der Skisaison, wenn die Lifte laufen, finden Sie außerdem Bjorli Fjellkafe und Heiskroa direkt im Skigebiet.",
     venuesTitle: 'Lokale und Treffpunkte in Bjorli',
     venuesIntro: 'Bjorli hat mehrere Lokale und Treffpunkte außerhalb des Skigebiets — ganzjährig geöffnet. Angebot und Öffnungszeiten variieren, prüfen Sie vor dem Besuch die jeweiligen Kanäle.',
     avdemsbueDesc: 'Avdemsbue liegt etwa 35 km von Bjorli entfernt und ist eine gute Wahl, wenn Sie den Ausflug mit lokalem Essen, Hofatmosphäre und einer Mahlzeit im Gudbrandsdalen verbinden möchten.',
@@ -232,7 +232,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", en boodschappen haal je bij Bunnpris Lesjaskog en Coop Marked Lesjaverk als je liever zelf in de hut kookt. Tijdens het skiseizoen, wanneer de liften draaien, vind je ook Bjorli Fjellkafe en Heiskroa in het skigebied zelf.",
+    introEnd: ", en boodschappen haal je bij Bunnpris Bjorli, Bunnpris Lesjaskog en Nærbutikken Lesjaverk als je liever zelf in de hut kookt. Tijdens het skiseizoen, wanneer de liften draaien, vind je ook Bjorli Fjellkafe en Heiskroa in het skigebied zelf.",
     venuesTitle: 'Eet- en ontmoetingsplekken in Bjorli',
     venuesIntro: 'Bjorli heeft meerdere eet- en ontmoetingsplekken buiten het skigebied — het hele jaar door open. Aanbod en openingstijden kunnen wisselen, dus check vooraf altijd de eigen kanalen van de plek.',
     avdemsbueDesc: 'Avdemsbue ligt op ongeveer 35 km van Bjorli en is een mooie keuze als je het bezoek wilt combineren met lokale producten, boerderijsfeer en een maaltijd in Gudbrandsdalen.',
@@ -287,7 +287,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", og dagligvarer får du på Bunnpris Lesjaskog og Coop Marked Lesjaverk, hvis du hellere vil lave maden selv i hytten. I skisæsonen, når liftene kører, finder du desuden Bjorli Fjellkafe og Heiskroa inde på selve skicentret.",
+    introEnd: ", og dagligvarer får du på Bunnpris Bjorli, Bunnpris Lesjaskog og Nærbutikken Lesjaverk, hvis du hellere vil lave maden selv i hytten. I skisæsonen, når liftene kører, finder du desuden Bjorli Fjellkafe og Heiskroa inde på selve skicentret.",
     venuesTitle: 'Spisesteder og mødesteder på Bjorli',
     venuesIntro: 'Bjorli har flere spisesteder og mødesteder uden for selve skicentret — åbne hele året. Udvalg og åbningstider kan variere, så tjek altid stedets egne kanaler før besøget.',
     avdemsbueDesc: 'Avdemsbue ligger omkring 35 km fra Bjorli og er et godt valg, hvis du vil kombinere turen med lokal mad, gårdsmiljø og en madoplevelse i Gudbrandsdalen.',
@@ -342,7 +342,7 @@ const COPY: Record<Locale, Copy> = {
     introMid2: 'HILLS Bjorli',
     introMid3: 'YX Bjorli',
     introMid4: 'Bunnpris Lesjaskog',
-    introEnd: ", och livsmedel handlar du på Bunnpris Lesjaskog och Coop Marked Lesjaverk om du hellre lagar maten i stugan. Under skidsäsongen, när liftarna går, hittar du dessutom Bjorli Fjellkafe och Heiskroa inne på själva skidanläggningen.",
+    introEnd: ", och livsmedel handlar du på Bunnpris Bjorli, Bunnpris Lesjaskog och Nærbutikken Lesjaverk om du hellre lagar maten i stugan. Under skidsäsongen, när liftarna går, hittar du dessutom Bjorli Fjellkafe och Heiskroa inne på själva skidanläggningen.",
     venuesTitle: 'Mat- och mötesplatser på Bjorli',
     venuesIntro: 'Bjorli har flera mat- och mötesplatser utanför skidanläggningen — öppna året runt. Utbud och öppettider kan variera, så kontrollera alltid platsens egna kanaler innan besöket.',
     avdemsbueDesc: 'Avdemsbue ligger omkring 35 km från Bjorli och är ett bra val om du vill kombinera turen med lokala råvaror, gårdsmiljö och en måltid i Gudbrandsdalen.',
@@ -420,7 +420,7 @@ const FoodDrink = () => {
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
               {c.introBefore}
               <strong className="text-foreground font-medium">{c.introMid1}</strong>,{' '}
-              <strong className="text-foreground font-medium">{c.introMid2}</strong>{' og '}
+              <strong className="text-foreground font-medium">{c.introMid2}</strong>{c.localFoodBetween}
               <strong className="text-foreground font-medium">{c.introMid3}</strong>
               {c.introEnd}
             </p>
@@ -654,9 +654,10 @@ const FoodDrink = () => {
                 <h3 className="font-display text-xl md:text-2xl font-bold mb-2">{c.localFoodTitle}</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {c.localFoodBeforeBunnpris}
+                  <strong className="text-foreground font-medium">Bunnpris Bjorli</strong>,{' '}
                   <strong className="text-foreground font-medium">Bunnpris Lesjaskog</strong>
                   {c.localFoodBetween}
-                  <strong className="text-foreground font-medium">Coop Marked Lesjaverk</strong>
+                  <strong className="text-foreground font-medium">Nærbutikken Lesjaverk</strong>
                   {c.localFoodAfter}
                 </p>
               </div>
