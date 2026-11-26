@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { CATEGORY_LABELS, type EventCategoryKey, normalizeCategories } from '@/lib/eventCategories';
 import { canAccessEditor } from '@/lib/auth/roles';
-import { hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
+import { classifyEditorWrite, hasCurrentEditorMfa, isMfaRequiredError, MFA_EXPIRED_MESSAGE } from '@/lib/auth/mfa';
 import { EventSubmissionEditForm } from '@/components/admin/EventSubmissionEditForm';
 import { EnglishTextEditor } from '@/components/admin/EnglishTextEditor';
 import {
@@ -180,12 +180,37 @@ const AdminEventSubmissions = () => {
     navigate('/admin/login', { replace: true });
   };
 
+  /**
+   * Update one submission and report whether the database accepted it.
+   * Access rules refuse a write by matching zero rows, not with an error, so
+   * the touched rows are read back: an empty result must never look like a
+   * successful save. Explains an expired second factor when that is the cause.
+   */
+  const updateSubmission = async (id: string, patch: Record<string, unknown>): Promise<boolean> => {
+    const { data, error } = await supabase
+      .from('event_submissions')
+      .update(patch as never)
+      .eq('id', id)
+      .select('id');
+    const outcome = classifyEditorWrite(error, data);
+    if (outcome === 'ok') return true;
+    if (outcome === 'denied' && !(await hasCurrentEditorMfa())) {
+      toast({ title: 'Ny to-trinns innlogging kreves', description: MFA_EXPIRED_MESSAGE, variant: 'destructive' });
+    } else {
+      toast({
+        title: 'Feil',
+        description: outcome === 'denied'
+          ? 'Du har ikke tilgang til å lagre denne endringen.'
+          : error?.message ?? 'Endringen kunne ikke lagres. Prøv igjen.',
+        variant: 'destructive',
+      });
+    }
+    return false;
+  };
+
   const saveNotes = async () => {
     if (!selected) return;
-    await supabase
-      .from('event_submissions')
-      .update({ editor_notes: editorNotes })
-      .eq('id', selected.id);
+    if (!(await updateSubmission(selected.id, { editor_notes: editorNotes }))) return;
     toast({ title: 'Notater lagret' });
     load();
   };
@@ -198,6 +223,17 @@ const AdminEventSubmissions = () => {
   const requestRebuild = (reason: 'publish' | 'update' | 'unpublish') => {
     supabase.functions
       .invoke('trigger-site-rebuild', { body: { reason } })
+      .then(async ({ error }) => {
+        // Other failures stay silent (hook may be inactive), but an MFA refusal
+        // means the public pages will not update, so the editor must know.
+        if (error && await isMfaRequiredError(error)) {
+          toast({
+            title: 'Lagret – publisering venter',
+            description: 'Endringen er lagret, men den offentlige siden er ikke bygget på nytt fordi to-trinns innloggingen må fornyes. Logg inn på nytt og lagre igjen for å publisere.',
+            variant: 'destructive',
+          });
+        }
+      })
       .catch(() => undefined);
   };
 
@@ -205,19 +241,13 @@ const AdminEventSubmissions = () => {
     if (!selected) return;
     const wasApproved = selected.status === 'approved';
     setActionBusy(true);
-    const { error } = await supabase
-      .from('event_submissions')
-      .update({
-        status,
-        reviewed_at: new Date().toISOString(),
-        editor_notes: editorNotes,
-      })
-      .eq('id', selected.id);
+    const ok = await updateSubmission(selected.id, {
+      status,
+      reviewed_at: new Date().toISOString(),
+      editor_notes: editorNotes,
+    });
     setActionBusy(false);
-    if (error) {
-      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
-      return;
-    }
+    if (!ok) return;
     toast({ title: `Status: ${STATUS_LABEL[status]}` });
     if (status === 'approved') requestRebuild(wasApproved ? 'update' : 'publish');
     else if (wasApproved) requestRebuild('unpublish');
@@ -247,7 +277,7 @@ const AdminEventSubmissions = () => {
       }
       const update = buildAiUpdate(mode, data);
       if (Object.keys(update).length > 0) {
-        await supabase.from('event_submissions').update(update).eq('id', selected.id);
+        if (!(await updateSubmission(selected.id, update))) return;
         await load();
       }
       toast({ title: 'AI-forslag oppdatert' });
@@ -272,13 +302,9 @@ const AdminEventSubmissions = () => {
   const saveEnglish = async (f: EnglishFields): Promise<boolean> => {
     if (!selected) return false;
     setActionBusy(true);
-    const { error } = await supabase.from('event_submissions')
-      .update(buildEnglishSaveUpdate(f)).eq('id', selected.id);
+    const ok = await updateSubmission(selected.id, buildEnglishSaveUpdate(f));
     setActionBusy(false);
-    if (error) {
-      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
-      return false;
-    }
+    if (!ok) return false;
     toast({
       title: 'Engelsk tekst lagret',
       description: 'Teksten må godkjennes før den brukes offentlig.',
@@ -291,19 +317,13 @@ const AdminEventSubmissions = () => {
   const setEnglishApproval = async (approved: boolean) => {
     if (!selected) return;
     setActionBusy(true);
-    const { error } = await supabase
-      .from('event_submissions')
-      .update({
-        english_approved: approved,
-        english_approved_at: approved ? new Date().toISOString() : null,
-      })
-      .eq('id', selected.id);
+    const ok = await updateSubmission(selected.id, {
+      english_approved: approved,
+      english_approved_at: approved ? new Date().toISOString() : null,
+    });
     setActionBusy(false);
-    if (!error && selected.status === 'approved') requestRebuild('update');
-    if (error) {
-      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
-      return;
-    }
+    if (!ok) return;
+    if (selected.status === 'approved') requestRebuild('update');
     toast({ title: approved ? 'Engelsk utkast godkjent' : 'Godkjenning trukket tilbake' });
     load();
   };
@@ -319,15 +339,9 @@ const AdminEventSubmissions = () => {
   const setEmailVisibility = async (show: boolean) => {
     if (!selected) return;
     setActionBusy(true);
-    const { error } = await supabase
-      .from('event_submissions')
-      .update({ show_email_public: show })
-      .eq('id', selected.id);
+    const ok = await updateSubmission(selected.id, { show_email_public: show });
     setActionBusy(false);
-    if (error) {
-      toast({ title: 'Feil', description: error.message, variant: 'destructive' });
-      return;
-    }
+    if (!ok) return;
     if (selected.status === 'approved') requestRebuild('update');
     toast({
       title: show
