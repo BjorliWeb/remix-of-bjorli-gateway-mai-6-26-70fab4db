@@ -1,6 +1,6 @@
 # Roadmap
 
-- [x] Fase 7 (Claude Code, gren claude/keen-dijkstra-o5madg): bildelenker 600 s med serverkontrollert fornyelse ved bildefeil, avviste redaktørlagringer vises ikke som vellykket. Ikke deployet. Rapport: docs/security/fase7-claude-code-sluttrapport.md. [ ] Eiers manuelle MFA-tester. [ ] Avklar konto fra 07.07. [ ] Kontroller Cloudflare-bygg (låsefil).
+- [x] Fase 7 (Claude Code, gren claude/keen-dijkstra-o5madg): bildelenker 600 s med serverkontrollert fornyelse ved bildefeil, avviste redaktørlagringer vises ikke som vellykket. Ikke deployet. Rapport: docs/security/fase7-claude-code-sluttrapport.md. [ ] Eiers manuelle MFA-tester. [ ] Avklar konto fra 07.07.
 - [x] Fase 5 trinn 3–4: MFA håndheves i databasen (is_editor, 19 policyer, siste-admin-trigger) og i Edge-funksjonene (ai-event-assist, trigger-site-rebuild). Eier bekreftet /admin med to-trinns kode. Rapporter: fase5-trinn3/trinn4.
 - [x] Fase 6: public access i produksjon (4db9023). [ ] Bildelenker 600 s: venter på godkjenning av forslag. [ ] To manuelle MFA-tester hos eier.
 - [x] Fase 2 sikkerhet (5 funn) klargjort og testet isolert: has_role kun egen rolle, bildelenker 600 s, weather/services/seo_meta/privilegier. Rapport i docs/security/fase2-sikkerhetsutbedring-2026-11-24.md.

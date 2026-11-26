@@ -1,6 +1,6 @@
 # Fase 7 – sluttrapport fra Claude Code (26.11.2026)
 
-**Anbefaling:** Betinget GO for merge. Betinget GO for produksjonssetting når vilkårene i §14 er oppfylt.
+**Anbefaling:** Betinget GO for merge. Betinget GO for produksjonssetting når vilkårene i §15 er oppfylt.
 Ingen produksjonsendring er gjort i denne fasen: ingen migrasjon, ingen Edge Function-deploy, ingen publisering, ingen konto- eller rolleendring.
 
 Merking i rapporten: **[Verifisert]** = kjørt/observert i denne fasen. **[Rapportert]** = fra tidligere Lovable-rapporter, ikke kontrollert på nytt mot produksjon. **[Estimat]** / **[Antakelse]** = vurdering uten måling.
@@ -22,16 +22,18 @@ Merking i rapporten: **[Verifisert]** = kjørt/observert i denne fasen. **[Rappo
 | MFA i RLS/Storage, rolletilbakekalling, siste-admin-vern | Migrasjon 0003; harness `test_editor_mfa.py` OK **[Verifisert lokalt]** |
 | MFA i `ai-event-assist` og `trigger-site-rebuild` | Kode sjekker `has_current_editor_mfa` etter rollesjekk og før arbeid (`a3e0537`) **[Verifisert i kode]** |
 | Public access (weather/services/seo_meta) | Migrasjon 0004; harness OK unntatt PG-versjonsavvik (§9) **[Verifisert lokalt]** |
-| Klientmeldinger ved utløpt MFA | Finnes i `main`; mangler i publisert frontend (§3) |
+| Klientmeldinger ved utløpt MFA | Finnes i `main` og i publisert frontend (§3) |
 
 ## 3. Verifisert produksjonsstatus (kun offentlig lesing)
-- **Produksjon og staging kjører samme frontendpakke** (`/assets/index-Cw0b_Tyn.js`, `AdminEventSubmissions-KuMFnlLs.js`). Pakken inneholder verken `has_current_editor_mfa` eller `mfa_required`. **[Verifisert 26.11]**
-  → MFA-klientkoden fra fase 4 (`b38f558`, 24.11) er **ikke publisert**. `main` ≠ produksjon. Push til `main` har altså ikke publisert frontend automatisk de siste dagene.
-- **Mulig årsak (ikke bekreftet):** `package-lock.json` er ute av synk med `package.json` (`npm ci` feiler lokalt: mangler bl.a. `drizzle-kit`, `drizzle-orm`, `postgres`, `@lovable.dev/*`). `DEPLOYMENT.md` oppgir `npm ci` som installasjonskommando på Cloudflare Pages. Hvis det stemmer, feiler Cloudflare-bygg. `bun install --frozen-lockfile` fungerer. **Må kontrolleres i Cloudflare-dashbordet** (byggelogg + produksjonsgren).
-- Databasen, Edge Functions og innloggede økter er ikke kontrollert (ingen tilgang, og skal ikke kontrolleres av agent).
+- **Produksjon og staging kjører samme frontendpakke** (`/assets/index-Cw0b_Tyn.js`). Den delte chunken `mfa-L8hJQLn2.js` inneholder `has_current_editor_mfa`, `mfa_required` og `MFA_EXPIRED_MESSAGE`, og admin-chunken inneholder «Endringer lagret – publisering venter». **[Verifisert 26.11]**
+  → Klientkoden for MFA fra fase 4/5 **er publisert**. Hvilken `main`-commit som er publisert, er ikke fastslått. Det må leses av i Cloudflare.
+  *Rettelse:* Et tidligere utkast av denne rapporten sa at MFA-koden manglet i produksjon. Det var feil, fordi bare admin-chunken var undersøkt og ikke den delte `mfa`-chunken.
+- **Cloudflare Pages bygger grenen uten feil.** PR #33 ga en vellykket forhåndsvisning (`claude-keen-dijkstra-o5madg.bjorli-staging.pages.dev`) med `x-robots-tag: noindex, nofollow`. Den inneholder fornyelseskoden (`refresh_images`). **[Verifisert]**
+- `package-lock.json` er ute av synk med `package.json` (`npm ci` feiler lokalt), og `DEPLOYMENT.md` oppgir `npm ci`. Cloudflare-bygget lykkes likevel, så Cloudflare bruker trolig `bun.lockb`/`bun install`. **Ikke blokkerende.** Låsefilen eller dokumentasjonen bør ryddes i en egen PR.
+- Databasen, Edge Functions og innloggede økter er ikke kontrollert. Agenten har ikke tilgang og skal heller ikke kontrollere dem.
 
 ## 4. Avvik fra tidligere Lovable-rapporter
-1. Fase 6 omtaler frontend-MFA som «implementert, følger med neste publisering». Det stemmer, men produksjon er eldre enn fase 4 (§3). Neste publisering tar med mer enn bare MFA-meldingene (§12).
+1. Fase 6 omtaler frontend-MFA som «implementert, følger med neste publisering». Den finnes nå i produksjon (§3), så den er publisert etter fase 6-rapporten.
 2. `test_public_access.py` feiler 6 deltester lokalt fordi privilegiet `MAINTAIN` først finnes i PostgreSQL 17 (lokalt: 16). Det er et miljøavvik og ingen regresjon. Lovable kjørte trolig PG 17. Testen er ikke endret.
 3. Fase 6 punkt 3 («ubrukt konto fra 07.07, ingen roller – vurder sperring») stemmer ikke med fase 4, der testkontoen fra 07.07 allerede var sperret. Se §11.
 4. Fase 6 sier 281 sitemap-URL-er. Det kunne ikke reproduseres lokalt uten tilgang til ekte arrangementsdata (lokalt: 276 uten innsendinger, 288 med 2 testinnsendinger). Avviket kommer av datagrunnlaget, ikke av kode.
@@ -106,6 +108,7 @@ Desktop 1366×900 og iPhone 13, alle seks språk (no/en/de/nl/da/sv), 44 sjekker
 | `test_editor_mfa.py` | OK |
 | `test_public_access.py` | 6/12 deltester feiler kun på `MAINTAIN` (PG16-miljø, §4); øvrige OK |
 | Produksjonsbygg (`npm run build`, `ALLOW_MISSING_EVENTS=1`) | OK. 312 HTML-filer, alle indekserbare ruter prerendret, alle sitemap-URL-er løses, interne lenker OK |
+| CI på PR #33 (Cloudflare Pages, eneste kontroll; ingen GitHub Actions) | ✅ Bygg og forhåndsvisning OK for `facee97` |
 | Produksjonsbygg med testinnsendinger | OK. 324 HTML-filer (2 innsendinger) / 366 (9 innsendinger) |
 
 **Ikke testet:** Ekte Supabase Storage og Edge-runtime (ingen deploy), ekte innloggede økter og MFA, Kjøp billett/Påmelding, vær, webkamera, Fnugg, heiskort, skiperformance, langrenn og kart, Cloudflare-caching. Ingen av disse er endret i koden. De berørte komponentene får bare en `onError`-handler som ikke gjør noe for bilder som ikke er registrert.
@@ -154,13 +157,11 @@ Ikke del passord, TOTP-koder eller tokener med noen. Lag ingen nye privilegerte 
 - **Fremtidige forbedringer (ikke nå):** reserveadministrator, ferskere MFA (f.eks. ≤ 12 t) ved rolleendringer, og bedre tilbakekalling av økter ved passordbytte.
 
 ## 12b. Hva neste frontend-publisering inneholder
-Publisert pakke mangler minst fase 4-koden fra 24.11 (§3). Neste publisering fra `main` + denne PR-en tar derfor med alle frontend-commits siden den faktisk publiserte versjonen. Det er sannsynligvis minst disse (endrer `src`/`public`/`scripts`), men nøyaktig hvilken commit som er publisert, må leses av i Cloudflare:
-`3c8df73` datomerker i andre tidssoner · `5f426ce`/`b38f558` MFA-klient · `a185091` sitemap lastmod · `73452ac`/`dd60f4a`/`a77d790`/`d87f1c3` sikkerhetsforberedelser · `ded0dc8` Fnugg-status · `53f09c1`/`3e88b65` skisenter- og langrennsfakta, langrennsløyper · `42d284b` språkknapper · `cb09c11` Skiappen-kart · `d9cfd47` Morki Lodge · `fc7002c`/`29ca51c` «Changes» (innhold ukjent) · pluss de tre commitene i denne fasen.
-→ Anbefaler å teste hele publiseringen på staging før produksjon, ikke bare MFA- og bildeendringene.
+Produksjon har MFA-klientkoden (§3). Den nøyaktige publiserte commiten er likevel ikke kjent. Neste publisering etter merge inneholder de fire fase 7-commitene, pluss eventuelle `main`-commits som ennå ikke er publisert. Hvilke det er, kan leses av i Cloudflare (publisert commit) og sammenlignes med `git log <publisert>..main`. Kandidater fra den siste uken er blant annet `3c8df73` (datomerker i andre tidssoner) og `6643fa9`/`4db9023` (kun dokumentasjon).
 
 ## 13. Deploy-rekkefølge
 1. Eier godkjenner PR-en. Merge til `main` kun etter godkjenning.
-2. **Kontroller Cloudflare Pages:** produksjonsgren, installasjonskommando (`npm ci` mot låsefil ute av synk, §3) og siste vellykkede bygg.
+2. **Kontroller Cloudflare Pages:** hvilken gren som publiseres til produksjon, og om merge til `main` publiserer automatisk. Bestem tidspunktet ut fra det.
 3. **Deploy Edge Function `list-approved-events`** (Lovable Cloud/Supabase). Funksjonen er bakoverkompatibel med dagens frontend, men gamle klienter får 600 s-lenker uten fornyelse. Sider som har stått åpne lenge, kan derfor vise ødelagte bilder til steg 4 er gjort. Gjør steg 3 og 4 rett etter hverandre.
 4. Publiser frontend (staging først, så produksjon).
 5. Kjør de manuelle testene i §10.
@@ -173,5 +174,5 @@ Ingen databasemigrasjon inngår.
 
 ## 15. Konklusjon
 - **Merge: Betinget GO.** Vilkår: eier har gjennomgått PR-en, og publisering skjer ikke automatisk ved merge før §13.2 er avklart.
-- **Produksjonssetting: Betinget GO.** Vilkår: (a) Cloudflare-bygget er bekreftet fungerende (låsefil), (b) funksjon og frontend deployes i rekkefølgen i §13, (c) hele frontend-publiseringen (§12b) er godkjent på staging, (d) eier kjører de manuelle testene i §10.
+- **Produksjonssetting: Betinget GO.** Vilkår: (a) funksjon og frontend deployes i rekkefølgen i §13, (b) forhåndsvisningen er kontrollert (Cloudflare-bygget er grønt), (c) eier kjører de manuelle testene i §10.
 - **Ikke blokkerende, men åpent:** avklaring av kontoen fra 07.07 (§11), reserveadministrator (§12).
