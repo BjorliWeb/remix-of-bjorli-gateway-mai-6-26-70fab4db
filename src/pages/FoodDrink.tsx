@@ -12,6 +12,8 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import type { Locale } from '@/i18n/locales/types';
 import { trackExternalPartnerClick } from '@/lib/analytics';
+import { fjellkafeNovemberActive, fjellkafeNovemberRows, openingHoursCopy } from '@/lib/openingHours/seasonView';
+import { osloToday } from '@/lib/openingHours/season';
 
 type Copy = {
   introBefore: string;
@@ -394,9 +396,11 @@ const COPY: Record<Locale, Copy> = {
 const foodDrinkImg = images.restaurantInterior.src;
 
 const FoodDrink = () => {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const s = t.foodDrinkPage;
   const lp = useLocalizedPath();
+  const oh = openingHoursCopy(locale);
+  const today = osloToday();
   const c = usePageCopy(COPY);
   const faqItems = c.faq;
 
@@ -463,7 +467,21 @@ const FoodDrink = () => {
                   <Coffee className="h-6 w-6" aria-hidden />
                 </div>
                 <h3 className="font-display text-2xl font-bold mb-3">Bjorli Fjellkafe</h3>
-                <p className="text-muted-foreground leading-relaxed mb-6">{c.fjellkafeText}</p>
+                <p className="text-muted-foreground leading-relaxed mb-4">{c.fjellkafeText}</p>
+                {/* Owner-confirmed opening info (src/lib/openingHours). */}
+                <p className="text-foreground leading-relaxed mb-4" data-fjellkafe-hours>
+                  {oh.fjellkafe} {oh.loungen}
+                </p>
+                {fjellkafeNovemberActive(today) && (
+                  <div className="mb-6 rounded-lg bg-secondary/10 p-4" data-fjellkafe-november>
+                    <h4 className="font-display text-lg font-bold mb-2">{oh.fjellkafeNovemberTitle}</h4>
+                    <ul className="space-y-1 text-foreground">
+                      {fjellkafeNovemberRows(locale).map((r) => (
+                        <li key={r.label}><span className="font-semibold">{r.label}:</span> {r.text}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <h4 className="font-display text-xl font-bold mb-2">{c.loftetTitle}</h4>
                 <p className="text-muted-foreground leading-relaxed">
                   {c.loftetBefore}
