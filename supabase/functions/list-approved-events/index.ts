@@ -27,6 +27,7 @@ import {
   PUBLIC_IMAGE_TTL_S,
   resolveRefreshTargets,
 } from '../_shared/eventImageRefresh.ts';
+import { safeHttpUrl } from '../_shared/httpUrl.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -50,6 +51,9 @@ const PUBLIC_COLUMNS = [
   'location',
   'maps_url',
   'website',
+  // Optional action links (requires migration 0005).
+  'ticket_url',
+  'registration_url',
   'image_urls',
   // Email gating: read email + flag from DB, then decide in the mapper
   // whether email appears in the JSON response. Never spread the row.
@@ -204,19 +208,30 @@ Deno.serve(async (req) => {
   const supabase = serviceClient();
 
   const today = todayIso();
-  let query = supabase
-    .from('event_submissions')
-    .select(PUBLIC_COLUMNS.join(','))
-    .eq('status', 'approved')
-    // English also lists Norwegian events that have an approved English text.
-    .in('language', lang === 'en' ? ['en', 'no'] : [lang]);
-  if (scope === 'current') {
-    // Visible through end_date; when end_date null, visible through start_date.
-    query = query.or(`end_date.gte.${today},and(end_date.is.null,start_date.gte.${today})`);
+  const runSelect = (columns: readonly string[]) => {
+    let query = supabase
+      .from('event_submissions')
+      .select(columns.join(','))
+      .eq('status', 'approved')
+      // English also lists Norwegian events that have an approved English text.
+      .in('language', lang === 'en' ? ['en', 'no'] : [lang]);
+    if (scope === 'current') {
+      // Visible through end_date; when end_date null, visible through start_date.
+      query = query.or(`end_date.gte.${today},and(end_date.is.null,start_date.gte.${today})`);
+    }
+    return query
+      .order('start_date', { ascending: true })
+      .limit(scope === 'all' ? 300 : 100);
+  };
+  let { data, error } = await runSelect(PUBLIC_COLUMNS);
+  if (error?.code === '42703') {
+    // Undefined column: this function was deployed before migration 0005.
+    // Keep listings working without the optional action links.
+    console.error('list-approved-events: action link columns missing, serving without them');
+    ({ data, error } = await runSelect(
+      PUBLIC_COLUMNS.filter((c) => c !== 'ticket_url' && c !== 'registration_url'),
+    ));
   }
-  const { data, error } = await query
-    .order('start_date', { ascending: true })
-    .limit(scope === 'all' ? 300 : 100);
 
   if (error) {
     // Log the error object only (no row data — rows contain email).
@@ -266,6 +281,9 @@ Deno.serve(async (req) => {
         location: (r as Row).location ?? null,
         maps_url: (r as Row).maps_url ?? null,
         website: (r as Row).website ?? null,
+        // Only safe http(s) links leave the function; anything else is null.
+        ticket_url: safeHttpUrl((r as Row).ticket_url) ?? null,
+        registration_url: safeHttpUrl((r as Row).registration_url) ?? null,
         image_signed_urls: signed,
         // Position of each signed URL in the event's image list, so an
         // expired link can be renewed by (id, index) without a storage path.

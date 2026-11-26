@@ -11,7 +11,9 @@ export default defineConfig({
   },
   resolve: {
     alias: [
+      { find: /^npm:@supabase\/supabase-js@2\/cors$/, replacement: path.resolve(__dirname, 'fakeCors.ts') },
       { find: /^npm:@supabase\/supabase-js@2$/, replacement: path.resolve(__dirname, 'fakeSupabase.ts') },
+      { find: /^npm:zod@3$/, replacement: 'zod' },
     ],
   },
 });

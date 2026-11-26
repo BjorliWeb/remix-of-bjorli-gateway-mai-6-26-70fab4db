@@ -1,6 +1,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { z } from 'npm:zod@3';
+import { isHttpUrl } from '../_shared/httpUrl.ts';
 
 const SITEVERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
@@ -13,6 +14,10 @@ const BodySchema = z.object({
   email: z.string().trim().email().max(255),
   phone: z.string().trim().max(40).optional().nullable(),
   website: z.string().trim().max(500).optional().nullable(),
+  // Optional action links (button "Kjøp billett" / "Påmelding"). Older
+  // clients do not send them.
+  ticketUrl: z.string().trim().max(500).optional().nullable(),
+  registrationUrl: z.string().trim().max(500).optional().nullable(),
   startDate: z.string().min(1).max(40),
   endDate: z.string().max(40).optional().nullable(),
   time: z.string().trim().max(120).optional().nullable(),
@@ -86,6 +91,20 @@ Deno.serve(async (req) => {
     return jsonResponse({ ok: false, error: 'validation', issues: parsed.error.flatten() }, 400);
   }
 
+  // Links are stored and later rendered as hrefs: only absolute http(s) URLs.
+  // The form normalises "www.x.no" to https:// before sending, so a valid
+  // client never hits this; it blocks javascript:/data: sent to the API.
+  for (const [field, value] of [
+    ['website', parsed.data.website],
+    ['maps', parsed.data.maps],
+    ['ticketUrl', parsed.data.ticketUrl],
+    ['registrationUrl', parsed.data.registrationUrl],
+  ] as const) {
+    if (value && !isHttpUrl(value)) {
+      return jsonResponse({ ok: false, error: 'invalid-url', field }, 400);
+    }
+  }
+
   // Every image path must live inside uploads/<uploadToken>/ to match storage RLS.
   const tokenPrefix = `uploads/${parsed.data.uploadToken}/`;
   for (const p of parsed.data.imagePaths) {
@@ -128,6 +147,10 @@ Deno.serve(async (req) => {
     email: parsed.data.email,
     phone: parsed.data.phone || null,
     website: parsed.data.website || null,
+    // Only sent when filled in, so submissions without action links keep
+    // working even if this function is deployed before migration 0005.
+    ...(parsed.data.ticketUrl ? { ticket_url: parsed.data.ticketUrl } : {}),
+    ...(parsed.data.registrationUrl ? { registration_url: parsed.data.registrationUrl } : {}),
     start_date: parsed.data.startDate,
     end_date: parsed.data.endDate || null,
     time_text: parsed.data.time || null,
