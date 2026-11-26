@@ -25,6 +25,7 @@ import type { Dictionary } from '@/i18n/locales/types';
 import { slugify } from '@/lib/slug';
 import { loadSupabase } from '@/integrations/supabase/lazy';
 import { compareArchivedEvents, isEventArchived } from '@/lib/events/archive';
+import { registerEventImage } from '@/lib/events/eventImageRecovery';
 import { SUMMER_HOMEPAGE_COPY } from './summerHomepageCopy';
 import { getHomepageData } from './homepageData';
 import klatringHeroImg from '@/assets/klatring/klatring-hero-romsdalen-granitt.jpg';
@@ -854,6 +855,8 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
       maps_url: string | null;
       website: string | null;
       image_signed_urls: string[];
+      /** Position of each signed URL in the event's image list (newer functions only). */
+      image_indexes?: number[];
       /** Present only when submitter opted in via show_email_public. */
       email?: string;
     }> = (data as { events?: unknown[] })?.events as never ?? [];
@@ -864,6 +867,9 @@ const fetchApprovedSubmissionsUncached = async (lang: Language): Promise<CmsEven
     };
     return rows.map((r) => {
       const heroUrl = r.image_signed_urls?.[0];
+      // Signed links expire after 10 min; register so an <img> that fails
+      // later can ask for one fresh link (see eventImageRecovery).
+      if (heroUrl) registerEventImage(heroUrl, r.id, r.image_indexes?.[0] ?? 0, fallback.url);
       return {
         id: `submission-${r.id}`,
         slug: r.slug,

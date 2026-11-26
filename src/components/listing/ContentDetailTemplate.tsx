@@ -18,6 +18,7 @@ import { hasRichMarkup, isExternalHref, parseRichText } from '@/lib/content/rich
 import type { CmsImage } from '@/lib/cms';
 import { itemCategories } from './listingHelpers';
 import { formatEventCategory } from '@/lib/events/displayFormat';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 export type DetailKind = 'news' | 'event' | 'tip' | 'activity';
 
@@ -112,6 +113,7 @@ const ContentDetailTemplate = ({
                   <img
                     src={item.image}
                     alt={item.title}
+                    onError={handleEventImageError}
                     className="mx-auto block w-auto max-w-full h-auto max-h-[80vh] object-contain"
                     loading="eager"
                     fetchPriority="high"
@@ -124,14 +126,14 @@ const ContentDetailTemplate = ({
               </DialogTrigger>
               <DialogContent className="max-w-[96vw] w-auto p-2 sm:p-4 bg-background">
                 <DialogTitle className="sr-only">{item.title}</DialogTitle>
-                <img src={item.image} alt={item.title} className="block max-w-[92vw] max-h-[88vh] w-auto h-auto object-contain mx-auto" />
+                <img src={item.image} alt={item.title} onError={handleEventImageError} className="block max-w-[92vw] max-h-[88vh] w-auto h-auto object-contain mx-auto" />
               </DialogContent>
             </Dialog>
           </div>
         </section>
       ) : (
       <section className="hero-bleed relative h-[60svh] min-h-[460px] flex items-end overflow-hidden bg-deep-navy">
-        <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+        <img src={item.image} alt={item.title} onError={handleEventImageError} className="absolute inset-0 w-full h-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
         <div className="absolute inset-0 hero-gradient" />
         <div className="relative z-10 container mx-auto px-4 pb-12">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>

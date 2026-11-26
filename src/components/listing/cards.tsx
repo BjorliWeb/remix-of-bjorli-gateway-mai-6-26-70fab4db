@@ -7,6 +7,7 @@ import { EventLink, resolveEventTarget } from './eventLink';
 import { itemCategories } from './listingHelpers';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { formatEventCategory } from '@/lib/events/displayFormat';
+import { handleEventImageError } from '@/lib/events/eventImageRecovery';
 
 /**
  * Type-specific cards. They share the visual ContentCard but exist as
@@ -68,6 +69,7 @@ export const EventCard = ({ item, to, index = 0 }: CardProps) => {
             src={item.image}
             alt={item.title}
             loading="lazy"
+            onError={handleEventImageError}
             className="absolute inset-0 w-full h-full object-contain object-center"
           />
         </div>
