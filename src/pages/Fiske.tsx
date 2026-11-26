@@ -118,7 +118,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Ofte stilte spørsmål',
     faqs: [
-      { q: 'Hvor kjøper jeg fiskekort på Bjorli?', a: 'Fiskekort kan kjøpes lokalt i Lesja og Bjorli på følgende steder: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog, og Bjorli Bensin/YX. Barn opp til og med fylte 16 år fisker gratis med stang. Samt via iNatur-lenkene på denne siden.' },
+      { q: 'Hvor kjøper jeg fiskekort på Bjorli?', a: 'Fiskekort kan kjøpes lokalt i Lesja og Bjorli på følgende steder: Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog, og Bjorli Bensin/YX. Barn opp til og med fylte 16 år fisker gratis med stang. Samt via iNatur-lenkene på denne siden.' },
       { q: 'Kan jeg fiske i Lesjaskogsvatnet?', a: 'Ja, utenbygdsboende kan fiske med stang på Lesjaskogsvatnet, Fremre Bøvervatn og Bøvertjønnene. Oter krever fiskekort som inkluderer dette.' },
       { q: 'Finnes det fluefiske på Bjorli?', a: 'Ja, i Gudbrandsdalslågen i Lesja finnes to fluefiskesoner med totalt ca. 6 km.' },
     ],
@@ -182,7 +182,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Frequently asked questions',
     faqs: [
-      { q: 'Where can I buy a fishing licence in Bjorli?', a: 'You can buy fishing licences locally in Lesja and Bjorli at Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog and Bjorli Bensin/YX. Children fish for free with a rod up to and including the year they turn 16. Licences are also available through the iNatur links on this page.' },
+      { q: 'Where can I buy a fishing licence in Bjorli?', a: 'You can buy fishing licences locally in Lesja and Bjorli at Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog and Bjorli Bensin/YX. Children fish for free with a rod up to and including the year they turn 16. Licences are also available through the iNatur links on this page.' },
       { q: 'Can I fish on Lesjaskogsvatnet?', a: 'Yes. Visitors may fish with a rod on Lesjaskogsvatnet, Fremre Bøvervatn and Bøvertjønnene. Otter-board fishing needs a licence that includes it.' },
       { q: 'Is there fly fishing in Bjorli?', a: 'Yes. On the Gudbrandsdalslågen in Lesja there are two fly-fishing zones totalling about 6 km.' },
     ],
@@ -246,7 +246,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Häufig gestellte Fragen',
     faqs: [
-      { q: 'Wo kaufe ich in Bjorli eine Angelkarte?', a: 'Angelkarten gibt es vor Ort in Lesja und Bjorli bei: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog und Bjorli Bensin/YX. Kinder bis einschließlich dem Jahr, in dem sie 16 werden, fischen kostenlos mit der Rute. Sie sind auch über die iNatur-Links auf dieser Seite erhältlich.' },
+      { q: 'Wo kaufe ich in Bjorli eine Angelkarte?', a: 'Angelkarten gibt es vor Ort in Lesja und Bjorli bei: Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog und Bjorli Bensin/YX. Kinder bis einschließlich dem Jahr, in dem sie 16 werden, fischen kostenlos mit der Rute. Sie sind auch über die iNatur-Links auf dieser Seite erhältlich.' },
       { q: 'Darf ich im Lesjaskogsvatnet fischen?', a: 'Ja, Auswärtige dürfen mit der Rute im Lesjaskogsvatnet, Fremre Bøvervatn und in den Bøvertjønnene fischen. Otterfischen erfordert eine entsprechende Angelkarte.' },
       { q: 'Gibt es Fliegenfischen in Bjorli?', a: 'Ja, in der Gudbrandsdalslågen in Lesja gibt es zwei Fliegenfischzonen mit insgesamt ca. 6 km.' },
     ],
@@ -310,7 +310,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Veelgestelde vragen',
     faqs: [
-      { q: 'Waar koop ik een visvergunning op Bjorli?', a: 'Visvergunningen zijn lokaal verkrijgbaar in Lesja en Bjorli bij: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog en Bjorli Bensin/YX. Kinderen tot en met het jaar waarin ze 16 worden, vissen gratis met de hengel. Ook via de iNatur-links op deze pagina.' },
+      { q: 'Waar koop ik een visvergunning op Bjorli?', a: 'Visvergunningen zijn lokaal verkrijgbaar in Lesja en Bjorli bij: Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog en Bjorli Bensin/YX. Kinderen tot en met het jaar waarin ze 16 worden, vissen gratis met de hengel. Ook via de iNatur-links op deze pagina.' },
       { q: 'Mag ik in Lesjaskogsvatnet vissen?', a: 'Ja, niet-inwoners mogen met de hengel vissen in Lesjaskogsvatnet, Fremre Bøvervatn en de Bøvertjønnene. Ottersvissen vereist een vergunning die dit omvat.' },
       { q: 'Is er vliegvissen op Bjorli?', a: 'Ja, in de Gudbrandsdalslågen in Lesja zijn twee vliegviszones van samen ongeveer 6 km.' },
     ],
@@ -374,7 +374,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Ofte stillede spørgsmål',
     faqs: [
-      { q: 'Hvor køber jeg fiskekort på Bjorli?', a: 'Fiskekort kan købes lokalt i Lesja og Bjorli hos: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog og Bjorli Bensin/YX. Børn til og med det år, de fylder 16, fisker gratis med stang. Også via iNatur-linkene på denne side.' },
+      { q: 'Hvor køber jeg fiskekort på Bjorli?', a: 'Fiskekort kan købes lokalt i Lesja og Bjorli hos: Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog og Bjorli Bensin/YX. Børn til og med det år, de fylder 16, fisker gratis med stang. Også via iNatur-linkene på denne side.' },
       { q: 'Må jeg fiske i Lesjaskogsvatnet?', a: 'Ja, udenbysboende må fiske med stang i Lesjaskogsvatnet, Fremre Bøvervatn og Bøvertjønnene. Oter kræver fiskekort, der omfatter det.' },
       { q: 'Findes der fluefiskeri på Bjorli?', a: 'Ja, i Gudbrandsdalslågen i Lesja findes to fluefiskezoner på i alt ca. 6 km.' },
     ],
@@ -438,7 +438,7 @@ const COPY: Record<Locale, Copy> = {
     ],
     faqTitle: 'Vanliga frågor',
     faqs: [
-      { q: 'Var köper jag fiskekort på Bjorli?', a: 'Fiskekort kan köpas lokalt i Lesja och Bjorli hos: Coop Marked Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog och Bjorli Bensin/YX. Barn till och med det år de fyller 16 fiskar gratis med spö. Även via iNatur-länkarna på den här sidan.' },
+      { q: 'Var köper jag fiskekort på Bjorli?', a: 'Fiskekort kan köpas lokalt i Lesja och Bjorli hos: Nærbutikken Lesjaverk, Aaheim Camping, Lesjaskogvatnet Camping, Bunnpris Lesjaskog och Bjorli Bensin/YX. Barn till och med det år de fyller 16 fiskar gratis med spö. Även via iNatur-länkarna på den här sidan.' },
       { q: 'Får jag fiska i Lesjaskogsvatnet?', a: 'Ja, utombys får fiska med spö i Lesjaskogsvatnet, Fremre Bøvervatn och Bøvertjønnene. Otter kräver fiskekort som omfattar det.' },
       { q: 'Finns det flugfiske på Bjorli?', a: 'Ja, i Gudbrandsdalslågen i Lesja finns två flugfiskezoner på sammanlagt ca 6 km.' },
     ],
