@@ -62,6 +62,13 @@ export interface EveningSkiing {
   separateTicket: true;
 }
 
+/**
+ * Mini-maNeuver slope: open every Saturday and Sunday, following the resort's
+ * opening hours (owner-confirmed 27.11.2026). MINI_OPENING below is the
+ * opening weekend and is kept for the day-by-day plan.
+ */
+export const MINI_SLOPE = { openDays: [6, 7] as IsoWeekday[], followsResortHours: true } as const;
+
 export const MINI_OPENING: DatedPeriod = {
   id: 'miniOpening', kind: 'early', start: '2026-11-21', end: '2026-11-22', hours: { open: '10:00', close: '16:00' },
 };

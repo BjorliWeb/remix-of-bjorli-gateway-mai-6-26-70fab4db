@@ -87,7 +87,30 @@ const OpeningHours = () => {
               <SeasonSection key={s.id} s={s} i={i} pastLabel={copy.past} />
             ))}
 
-            {/* Other existing opening hours (shop, Heiskroa) — unchanged. */}
+            {/* Bjorli Fjellkafe (replaces the former Heiskroa line). */}
+            <section data-fjellkafe-opening className="bg-card rounded-xl p-6 shadow-md border border-border" aria-labelledby="oh-fjellkafe">
+              <div className="flex items-start gap-3 mb-3">
+                <Clock className="h-6 w-6 text-secondary shrink-0 mt-0.5" aria-hidden />
+                <h2 id="oh-fjellkafe" className="font-display text-xl font-bold text-foreground leading-tight">
+                  {data.fjellkafe.title}
+                  {data.fjellkafe.subtitle && (
+                    <span className="block text-base font-semibold text-muted-foreground mt-1">{data.fjellkafe.subtitle}</span>
+                  )}
+                </h2>
+              </div>
+              {data.fjellkafe.rows.length > 0 && (
+                <ul className="space-y-2">
+                  {data.fjellkafe.rows.map((r) => (
+                    <li key={r.label} className="text-foreground leading-relaxed">
+                      <span className="font-semibold">{r.label}:</span> {r.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {data.fjellkafe.text && <p className="text-foreground leading-relaxed">{data.fjellkafe.text}</p>}
+            </section>
+
+            {/* Other existing opening hours (shop) — unchanged. */}
             {data.hours.map((h, i) => (
               <div key={i} className="bg-card rounded-xl p-6 shadow-md border border-border flex items-center gap-4">
                 <Clock className="h-6 w-6 text-secondary shrink-0" aria-hidden />
