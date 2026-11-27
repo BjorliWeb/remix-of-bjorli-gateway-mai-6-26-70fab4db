@@ -5,6 +5,7 @@ import { useLocalizedPath } from '@/i18n/useLocalizedPath';
 import { getFooter, useCms } from '@/lib/cms';
 import { trackPhoneClick, trackEmailClick } from '@/lib/analytics';
 import BjorliWordmark from '@/components/BjorliWordmark';
+import TikTokIcon from '@/components/icons/TikTokIcon';
 import { usePageCopy } from '@/i18n/usePageCopy';
 import { SALES_TERMS_COPY } from '@/pages/salesTermsContent';
 
@@ -34,6 +35,7 @@ const Footer = () => {
               {[
                 { Icon: Facebook, href: 'https://www.facebook.com/bjorliskisenter', label: 'Facebook' },
                 { Icon: Instagram, href: 'https://www.instagram.com/bjorliskisenter/?hl=en', label: 'Instagram' },
+                { Icon: TikTokIcon, href: 'https://www.tiktok.com/@bjorliskisenter', label: 'TikTok' },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
