@@ -7,18 +7,20 @@
  */
 import type { Locale } from '@/i18n/locales/types';
 import {
-  CHRISTMAS, CLOSING_WEEKEND, EASTER, EVENING, EXCEPTIONS, FJELLKAFE, LIFT1_EARLY, MINI_OPENING,
+  CHRISTMAS, CLOSING_WEEKEND, EASTER, EVENING, EXCEPTIONS, FJELLKAFE, LIFT1_EARLY,
   REGULAR, SEASON_EVENTS, WINTER_BREAK, closesAfterMidnight, eveningOn, type IsoWeekday, type TimeRange,
 } from './season';
 
 /** Verified official channels already used on the site (Footer / schema.org). */
 export const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://www.instagram.com/bjorliskisenter/' },
+  // TikTok: owner-confirmed 27.11.2026. Same order as the text (Instagram, TikTok, Facebook).
+  { label: 'TikTok', href: 'https://www.tiktok.com/@bjorliskisenter' },
   { label: 'Facebook', href: 'https://www.facebook.com/bjorliskisenter' },
 ] as const;
 export const STATUS_LINKS = [
   { label: 'bjorli.no', href: 'https://bjorli.no' },
-  { label: 'fnugg.no', href: 'https://fnugg.no' },
+  { label: 'fnugg.no', href: 'https://fnugg.no/bjorli/' },
 ] as const;
 
 const INTL: Record<Locale, string> = { no: 'nb-NO', en: 'en-GB', de: 'de-DE', nl: 'nl-NL', da: 'da-DK', sv: 'sv-SE' };
@@ -73,7 +75,7 @@ interface Copy {
     closing: string; evening: string; mini: string; disclaimer: string;
   };
   past: string;
-  miniOpened: (days: string, range: string) => string;
+  miniWeekends: string;
   lift1: (span: string, range: string) => string;
   jibben: (day: string) => string;
   social: string;
@@ -115,7 +117,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver-bakken', disclaimer: 'Forbehold om endringer',
     },
     past: 'Avsluttet',
-    miniOpened: (days, range) => `Mini-maNeuver-bakken åpnet ${days}, ${range}.`,
+    miniWeekends: 'Mini-maNeuver-bakken er åpen hver lørdag og søndag og følger senterets åpningstider.',
     lift1: (span, range) => `Heis 1 (T-kroken) er åpen hver dag fra ${span}, ${range}.`,
     jibben: (day) => `${cap(day)} er Bjorli vertskap for Jibben Lever Tour.`,
     social: 'Følg oss på Instagram, TikTok og Facebook for siste nytt om snøforhold, åpning og aktiviteter.',
@@ -154,7 +156,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver slope', disclaimer: 'Subject to change',
     },
     past: 'Ended',
-    miniOpened: (days, range) => `The Mini-maNeuver slope opened on ${days}, ${range}.`,
+    miniWeekends: 'The Mini-maNeuver slope is open every Saturday and Sunday and follows the resort’s opening hours.',
     lift1: (span, range) => `Lift 1 (T-kroken) is open every day from ${span}, ${range}.`,
     jibben: (day) => `On ${day}, Bjorli hosts the Jibben Lever Tour.`,
     social: 'Follow us on Instagram, TikTok and Facebook for the latest on snow, openings and activities.',
@@ -193,7 +195,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver-Hang', disclaimer: 'Änderungen vorbehalten',
     },
     past: 'Beendet',
-    miniOpened: (days, range) => `Der Mini-maNeuver-Hang hat am ${days} geöffnet, ${range}.`,
+    miniWeekends: 'Der Mini-maNeuver-Hang ist jeden Samstag und Sonntag zu den Öffnungszeiten des Skigebiets geöffnet.',
     lift1: (span, range) => `Lift 1 (T-kroken) ist vom ${span} täglich geöffnet, ${range}.`,
     jibben: (day) => `Am ${day} ist Bjorli Gastgeber der Jibben Lever Tour.`,
     social: 'Folgen Sie uns auf Instagram, TikTok und Facebook – dort gibt es das Neueste zu Schnee, Öffnung und Aktivitäten.',
@@ -232,7 +234,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver-helling', disclaimer: 'Wijzigingen voorbehouden',
     },
     past: 'Afgelopen',
-    miniOpened: (days, range) => `De Mini-maNeuver-helling ging open op ${days}, ${range}.`,
+    miniWeekends: 'De Mini-maNeuver-helling is elke zaterdag en zondag open en volgt de openingstijden van het skigebied.',
     lift1: (span, range) => `Lift 1 (T-kroken) is elke dag open van ${span}, ${range}.`,
     jibben: (day) => `Op ${day} is Bjorli gastheer van de Jibben Lever Tour.`,
     social: 'Volg ons op Instagram, TikTok en Facebook voor het laatste nieuws over sneeuw, opening en activiteiten.',
@@ -271,7 +273,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver-bakken', disclaimer: 'Forbehold for ændringer',
     },
     past: 'Afsluttet',
-    miniOpened: (days, range) => `Mini-maNeuver-bakken åbnede ${days}, ${range}.`,
+    miniWeekends: 'Mini-maNeuver-bakken har åbent hver lørdag og søndag og følger skicentrets åbningstider.',
     lift1: (span, range) => `Lift 1 (T-kroken) har åbent hver dag fra ${span}, ${range}.`,
     jibben: (day) => `${cap(day)} er Bjorli vært for Jibben Lever Tour.`,
     social: 'Følg os på Instagram, TikTok og Facebook for det seneste om sne, åbning og aktiviteter.',
@@ -310,7 +312,7 @@ const C: Record<Locale, Copy> = {
       mini: 'Mini-maNeuver-backen', disclaimer: 'Förbehåll för ändringar',
     },
     past: 'Avslutad',
-    miniOpened: (days, range) => `Mini-maNeuver-backen öppnade ${days}, ${range}.`,
+    miniWeekends: 'Mini-maNeuver-backen har öppet varje lördag och söndag och följer anläggningens öppettider.',
     lift1: (span, range) => `Lift 1 (T-kroken) har öppet varje dag från ${span}, ${range}.`,
     jibben: (day) => `${cap(day)} är Bjorli värd för Jibben Lever Tour.`,
     social: 'Följ oss på Instagram, TikTok och Facebook för det senaste om snö, öppning och aktiviteter.',
@@ -379,7 +381,6 @@ export const buildSections = (locale: Locale, today: string): Section[] => {
   const range = (r: TimeRange) => fmtRange(locale, r);
   const sec = (s: Omit<Section, 'past'>): Section => ({ ...s, past: s.end ? today > s.end : false });
 
-  const miniDays = `${fmtWeekdayDay(locale, MINI_OPENING.start)} ${c.and} ${fmtWeekdayDay(locale, MINI_OPENING.end, true)}`;
   const xmasExceptions = EXCEPTIONS.filter((e) => e.date >= CHRISTMAS.start && e.date <= CHRISTMAS.end);
   // Fridays inside the Christmas holidays: evening skiing comes from EVENING, not a copy.
   const xmasEvenings = EXCEPTIONS.map((e) => e.date)
@@ -393,7 +394,7 @@ export const buildSections = (locale: Locale, today: string): Section[] => {
     sec({
       id: 'early', title: c.sections.early, end: LIFT1_EARLY.end,
       rows: [
-        { text: c.miniOpened(miniDays, range(MINI_OPENING.hours!)) },
+        { text: c.miniWeekends },
         { text: c.lift1(fmtSpan(locale, LIFT1_EARLY.start, LIFT1_EARLY.end, true), range(LIFT1_EARLY.hours!)), highlight: true },
         ...SEASON_EVENTS.map((e) => ({ text: c.jibben(fmtWeekdayDay(locale, e.date, true)) })),
       ],

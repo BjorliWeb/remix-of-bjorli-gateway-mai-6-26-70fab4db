@@ -577,6 +577,11 @@ ${sec.rows.map((r) => `        <li>${r.label ? `<strong>${escapeHtml(r.label)}:<
     <p style="font-size:1.125rem;line-height:1.55;max-width:65ch;margin:0 0 1.5rem;color:#334">${escapeHtml(data.subtitle)}</p>
     <p style="line-height:1.6;max-width:65ch;color:#223;margin:0 0 1rem">${escapeHtml(data.statusNow)}</p>
 ${data.sections.filter((x) => x.id !== 'disclaimer').map(sectionHtml).join('\n')}
+    <section data-fjellkafe-opening style="margin:0 0 1.5rem">
+      <h2 style="font-size:1.25rem;margin:0 0 0.5rem">${escapeHtml(data.fjellkafe.title)}${data.fjellkafe.subtitle ? ` – ${escapeHtml(data.fjellkafe.subtitle)}` : ''}</h2>${data.fjellkafe.rows.length ? `
+      <ul style="margin:0 0 0.5rem;padding-left:1.25rem;line-height:1.7">${data.fjellkafe.rows.map((r) => `<li><strong>${escapeHtml(r.label ?? '')}:</strong> ${escapeHtml(r.text)}</li>`).join('')}</ul>` : ''}${data.fjellkafe.text ? `
+      <p style="margin:0">${escapeHtml(data.fjellkafe.text)}</p>` : ''}
+    </section>
     <ul style="margin:0 0 1.5rem;padding-left:1.25rem;line-height:1.7">\n${hours}
     </ul>
 ${data.sections.filter((x) => x.id === 'disclaimer').map(sectionHtml).join('\n')}`;

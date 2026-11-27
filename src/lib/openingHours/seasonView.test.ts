@@ -27,7 +27,7 @@ describe('six languages, one set of facts', () => {
 
   it('Norwegian wording uses the confirmed facts', () => {
     const t = text('no');
-    expect(t).toContain('Mini-maNeuver-bakken åpnet lørdag 21. november og søndag 22. november 2026, kl. 10.00–16.00.');
+    expect(t).toContain('Mini-maNeuver-bakken er åpen hver lørdag og søndag og følger senterets åpningstider.');
     expect(t).toContain('Heis 1 (T-kroken) er åpen hver dag fra torsdag 26. november til og med søndag 13. desember 2026, kl. 10.00–16.00.');
     expect(t).toContain('Søndag 6. desember 2026 er Bjorli vertskap for Jibben Lever Tour.');
     expect(t).toContain('Åpent hver dag fra 16. desember 2026 til og med 3. januar 2027, kl. 10.00–16.00.');
@@ -64,19 +64,21 @@ describe('six languages, one set of facts', () => {
     for (const l of LOCALES) expect(text(l)).not.toMatch(/(?<!\p{L})kr(?!\p{L})|NOK|€|\d+\s?,-/u);
   });
 
-  it('only already verified social links; no TikTok URL is invented', () => {
+  it('only verified social links, in the same order as the text (Instagram, TikTok, Facebook)', () => {
     expect(SOCIAL_LINKS.map((s) => s.href)).toEqual([
       'https://www.instagram.com/bjorliskisenter/',
+      'https://www.tiktok.com/@bjorliskisenter', // owner-confirmed 27.11.2026
       'https://www.facebook.com/bjorliskisenter',
     ]);
     for (const l of LOCALES) {
-      for (const s of all(l)) for (const link of s.links ?? []) expect(link.href).not.toMatch(/tiktok/i);
+      const early = all(l).find((s) => s.id === 'early')!;
+      expect(early.links?.map((x) => x.label)).toEqual(['Instagram', 'TikTok', 'Facebook']);
     }
   });
 
   it('disclaimer links to bjorli.no and fnugg.no', () => {
     const d = all('no').find((s) => s.id === 'disclaimer')!;
-    expect(d.links?.map((x) => x.href)).toEqual(['https://bjorli.no', 'https://fnugg.no']);
+    expect(d.links?.map((x) => x.href)).toEqual(['https://bjorli.no', 'https://fnugg.no/bjorli/']);
   });
 });
 

@@ -9,7 +9,7 @@ Sist oppdatert: sesongen 2026/2027 (26.11.2026).
 |---|---|---|
 | Datoer, klokkeslett, perioder, unntak, kveldskjøring, Fjellkafe og Loungen | `src/lib/openingHours/season.ts` | **Eneste autoritative kilde** for fakta |
 | Tekster på seks språk og formatering av datoer og tider | `src/lib/openingHours/seasonView.ts` | Ordlyd. Ingen datoer eller klokkeslett skal skrives her. |
-| Sidedata for `/apningstider/` | `src/lib/cms/openingHoursData.ts` | Setter sammen seksjonene og de eksisterende linjene for butikk og Heiskroa |
+| Sidedata for `/apningstider/` | `src/lib/cms/openingHoursData.ts` | Setter sammen seksjonene, boksen for Bjorli Fjellkafe og linjen for butikken |
 | Visning | `src/pages/OpeningHours.tsx`, `src/pages/FoodDrink.tsx` | React |
 | HTML for søkemotorer og besøkende uten JavaScript | `scripts/prerender.ts` (`openingHoursBodySkeleton`, `fjellkafeHoursHtml`) | Leser de samme modulene |
 | Tester | `src/lib/openingHours/season.test.ts`, `seasonView.test.ts` | Kontrollerer datoer, ukedager, prioritet og språk |
@@ -18,7 +18,9 @@ Sist oppdatert: sesongen 2026/2027 (26.11.2026).
 
 **Live driftsstatus** («går heisene nå?») kommer fra Fnugg (`src/lib/integrations/fnugg.ts` og `LiveFnuggStatus`) og er helt adskilt fra de planlagte tidene. Den skal ikke endres ved oppdatering av åpningstider.
 
-Linjene for Intersport og Heiskroa på åpningstidssiden kommer fortsatt fra `openingHoursPage.shop` og `openingHoursPage.restaurant` i `src/i18n/legacyTranslations.ts`.
+Linjen for Intersport på åpningstidssiden kommer fortsatt fra `openingHoursPage.shop` i `src/i18n/legacyTranslations.ts`. Heiskroa-linjen ble 27.11.2026 erstattet av en boks for Bjorli Fjellkafe. Boksen viser novembertidene til og med 30. november, og deretter teksten om at kafeen er åpen i hele heisens åpningstid.
+
+Mini-maNeuver-bakken er åpen hver lørdag og søndag og følger senterets åpningstider (`MINI_SLOPE`). Fnugg-lenken i forbeholdet går til https://fnugg.no/bjorli/.
 
 ## 2. Slik endrer du datoer og klokkeslett
 
@@ -121,4 +123,4 @@ Følgende er mulige konflikter eller uklarheter, og vises slik eieren har oppgit
 - **Etter 18. april 2027:** ikke omtalt. Det antas ikke at anlegget er stengt eller åpent.
 - **Bjorli Fjellkafe i november:** tidene gjelder fredag til søndag, men kafeen skal også ha åpent «i hele heisens åpningstid». Heis 1 går hver dag fra 26. november, så ukedagene er uavklart.
 - **Varmestue:** Bjorli Fjellkafe har varmestue i andre etasje (der Loftet også ligger), og Heiskroa beskrives fortsatt som varmestue. Begge opplysningene beholdes.
-- **TikTok:** nettstedet har ingen verifisert TikTok-adresse. TikTok nevnes i teksten, men det lenkes bare til Instagram og Facebook.
+- **TikTok:** avklart 27.11.2026. Lenken https://www.tiktok.com/@bjorliskisenter ligger i `SOCIAL_LINKS` i `seasonView.ts`.
