@@ -43,7 +43,7 @@ const ContentDetailPage = ({ kind }: Props) => {
   const { slug } = useParams();
   const cfg = KIND_CONFIG[kind];
 
-  const entries = useCms<CmsEntryBase[]>(() => {
+  const loadedEntries = useCms<CmsEntryBase[]>(() => {
     const q = { language: locale };
     if (kind === 'tips') return getTips(q);
     if (kind === 'events') {
@@ -55,7 +55,8 @@ const ContentDetailPage = ({ kind }: Props) => {
     }
     if (kind === 'news') return getNews(q);
     return getActivities(q);
-  }, [locale, kind]) ?? [];
+  }, [locale, kind]);
+  const entries = loadedEntries ?? [];
 
   const items = entries.map((e) => toListingItem(e, heroImg));
   const item = items.find((it) => it.slug === slug) ?? null;
@@ -87,6 +88,16 @@ const ContentDetailPage = ({ kind }: Props) => {
     kind === 'events' && (fullEntry as CmsEvent | undefined)?.isSubmission
       ? (fullEntry as CmsEvent)
       : null;
+
+  // An unresolved CMS request is not evidence that the requested page is missing.
+  if (loadedEntries === undefined) {
+    return (
+      <div className="container mx-auto px-4 py-24 text-center" aria-busy="true">
+        <h1 className="font-display text-3xl font-bold mb-4">{listingTitle}</h1>
+        <div className="mx-auto h-4 w-48 rounded bg-muted motion-safe:animate-pulse" aria-hidden="true" />
+      </div>
+    );
+  }
 
   return (
     <ContentDetailTemplate
