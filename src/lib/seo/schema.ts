@@ -49,6 +49,7 @@ export const buildOrganization = (siteUrl: string) =>
     sameAs: [
       'https://www.facebook.com/bjorliskisenter',
       'https://www.instagram.com/bjorliskisenter/',
+      'https://www.tiktok.com/@bjorliskisenter',
     ],
   });
 
