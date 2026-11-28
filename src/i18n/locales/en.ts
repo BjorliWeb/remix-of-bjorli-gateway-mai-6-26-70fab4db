@@ -22,6 +22,7 @@ const en: Dictionary = {
     skiCenter: 'Bjorli Ski Resort',
     // Short labels: the desktop menu only just fits at 1280 px (measured).
     accommodation: 'Stay',
+    foodDrink: 'Food & drink',
     activities: 'Things to do',
     whatsOn: 'What’s on',
     tips: 'Inspiration',
