@@ -17,7 +17,7 @@ const da: Dictionary = {
     activities: 'Aktiviteter',
     whatsOn: 'Hvad sker der',
     tips: 'Inspiration',
-    gettingHere: 'Sådan kommer du hertil',
+    gettingHere: 'Rejsen hertil',
     weatherWebcams: 'Vejr og webcams',
     practicalInfo: 'Praktisk info',
     buyLiftPass: 'Køb liftkort',
