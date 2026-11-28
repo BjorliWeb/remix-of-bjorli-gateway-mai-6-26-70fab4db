@@ -1424,9 +1424,11 @@ export const mockAdapter: CmsAdapter = {
         // "Vær og webkamera" — combined live status + webcams (replaces Livecams).
         { label: d.nav.weatherWebcams, href: '/vaer-og-webkamera' },
         { label: d.nav.accommodation, href: '/overnatting' },
+        { label: d.nav.foodDrink, href: '/mat-og-drikke' },
         { label: d.nav.activities, href: '/aktiviteter' },
         { label: d.nav.whatsOn, href: '/arrangementer' },
-        { label: d.nav.tips, href: '/tips' },
+        // Tips is left out of the top menu to make room for Mat og drikke
+        // (owner, 28.11.2026); still linked from the homepage, footer and sitemap.
         { label: d.nav.gettingHere, href: '/reisen-hit' },
       ],
     };

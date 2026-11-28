@@ -13,6 +13,7 @@ const de: Dictionary = {
     summer: 'Sommer',
     skiCenter: 'Bjorli Skisenter',
     accommodation: 'Unterkunft',
+    foodDrink: 'Essen und Trinken',
     activities: 'Aktivitäten',
     whatsOn: 'Veranstaltungen',
     tips: 'Inspiration',

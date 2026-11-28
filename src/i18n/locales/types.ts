@@ -43,6 +43,7 @@ export interface Dictionary {
     summer: string;
     skiCenter: string;
     accommodation: string;
+    foodDrink: string;
     activities: string;
     whatsOn: string;
     tips: string;

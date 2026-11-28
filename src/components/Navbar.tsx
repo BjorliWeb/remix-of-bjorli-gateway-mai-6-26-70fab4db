@@ -92,12 +92,14 @@ const Navbar = ({ season = 'winter' }: NavbarProps) => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden xl:flex items-center gap-2">
+          {/* 1280–1535 px: slightly tighter spacing so the longest locales (de/da)
+              stay on one line with Mat og drikke in the menu (measured). */}
+          <div className="hidden xl:flex items-center gap-0 2xl:gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={lp(link.to)}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-season after:transition-transform after:origin-left ${
+                className={`relative whitespace-nowrap px-2 2xl:px-3 py-2 text-sm font-medium transition-colors after:absolute after:left-2 after:right-2 2xl:after:left-3 2xl:after:right-3 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-season after:transition-transform after:origin-left ${
                   isActive(link.to)
                     ? 'text-nav-foreground after:scale-x-100'
                     : 'text-nav-foreground/75 hover:text-nav-foreground after:scale-x-0 hover:after:scale-x-100'
